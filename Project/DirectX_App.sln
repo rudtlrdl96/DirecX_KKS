@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX_App", "DirectX_App\DirectX_App.vcxproj", "{175C4523-A33C-414E-B362-BA9C75F859EE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngineBase", "..\GameEngineBase\GameEngineBase.vcxproj", "{A6E9BFEE-96EC-4FC9-9219-12202F5126CC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngineBase", "GameEngineBase\GameEngineBase.vcxproj", "{A6E9BFEE-96EC-4FC9-9219-12202F5126CC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEnginePlatform", "..\GameEnginePlatform\GameEnginePlatform.vcxproj", "{012509BD-0610-46F2-BCEF-076C0828D24F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEnginePlatform", "GameEnginePlatform\GameEnginePlatform.vcxproj", "{012509BD-0610-46F2-BCEF-076C0828D24F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
