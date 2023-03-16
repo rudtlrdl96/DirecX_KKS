@@ -145,48 +145,26 @@ void GameEngineWindow::DoubleBufferRender()
     BackBufferImage->BitCopy(DoubleBufferImage, WindowSize.half(), WindowSize);
 }
 
-int GameEngineWindow::WindowLoop(void(*_Start)(), void(*_Loop)(), void(*_End)())
+int GameEngineWindow::WindowLoop(
+    std::function<void()> _Start,
+    std::function<void()> _Loop,
+    std::function<void()> _End
+)
 {
-    // 단축키인데. 안써도 문제가 되지는 않는다.
-    // HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINDOWSPROJECT1));
-
     if (nullptr != _Start)
     {
         _Start();
     }
-    
 
-    MSG msg;
+    MSG msg = {};
 
-    // 동기 함수가 종료될때까지 프로그램이 멈춘다.
-
-    // 기본 메시지 루프입니다:
-    // GetMessage는 내 윈도우에 무슨일이 생기는지 체크해줘.
-    // GetMessage는 윈도우의 특별한 일이 생길대까지 멈추는 함수인겁니다.
     while (IsWindowUpdate)
     {
-        //if (!TranslateAccelerator(msg.hwnd, nullptr, &msg))
-        //{
-        //}
-
-        // 윈도우 메세지를 처리한다.
-        // GetMessage는 동기함수이기 때문에 애초에 게임을 만들수 있는 메세지 방식이 아니다
-        // => 게임은 쉴새없이 돌아야 하는데
-        // GetMessage라는 함수는 => 윈도우에 무슨일이 생기면 리턴되는 함수
-        // 윈도우에 무슨일이 생기게 만들어야 한다.
-
-        // if (GetMessage(&msg, nullptr, 0, 0))
-        // 동기 메세지 있어? 없어? 있을때까지 기다릴께.
-
-        // 메세지가 있든 없든 리턴됩니다.
-        // 쌓여있는 메세지를 삭제하라는 명령입니다.
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-        // 동기 메세지 있어? 없어 난 갈께.
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
 
-            // 메세지가 있을때도 게임을 실행합니다.
             if (nullptr != _Loop)
             {
                 _Loop();
