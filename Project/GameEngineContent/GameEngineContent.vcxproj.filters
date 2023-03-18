@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Level">
+      <UniqueIdentifier>{7e79c74e-1d6e-4820-970e-972b46adda15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{9c47de49-c4d8-48d4-aca8-9b8faff8dafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{87681d83-7a26-43b9-bb69-16856c0a5f87}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ContentCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ContentCore.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
