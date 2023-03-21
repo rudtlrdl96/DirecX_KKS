@@ -18,6 +18,12 @@
     <ClInclude Include="LogoLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="VertexActor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="ChildActor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -25,6 +31,12 @@
     </ClCompile>
     <ClCompile Include="LogoLevel.cpp">
       <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexActor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ChildActor.cpp">
+      <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -14,10 +14,7 @@ public:
 
 protected:
 
-	void Loading() override
-	{
-	
-	}
+	void Loading() override;
 
 private:
 
