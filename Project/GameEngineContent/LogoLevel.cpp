@@ -26,4 +26,6 @@ void LogoLevel::Loading()
 
 	GameEngineInput::CreateKey("ChildAnlgeUp", 'q');
 	GameEngineInput::CreateKey("ChildAnlgeDown", 'e');
+	GameEngineInput::CreateKey("ChildScaleUp", 'z');
+	GameEngineInput::CreateKey("ChildScaleDown", 'c');
 }

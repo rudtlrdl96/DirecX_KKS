@@ -19,6 +19,14 @@ void ChildActor::Start()
 
 void ChildActor::Update(float _DeltaTime)
 {
+	if (true == GameEngineInput::IsPress("ChildScaleUp"))
+	{
+		Scale += _DeltaTime;
+	}
+	if (true == GameEngineInput::IsPress("ChildScaleDown"))
+	{
+		Scale -= _DeltaTime;
+	}
 	if (true == GameEngineInput::IsPress("ChildAnlgeUp"))
 	{
 		Angle += _DeltaTime * 45.0f;
