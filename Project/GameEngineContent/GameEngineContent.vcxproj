@@ -19,10 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChildActor.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="ContentCore.h">
       <SubType>
       </SubType>
@@ -31,25 +27,13 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="VertexActor.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ChildActor.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="ContentCore.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="LogoLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="VertexActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>

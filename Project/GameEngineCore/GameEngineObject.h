@@ -53,11 +53,6 @@ public:
 		Name = _Name;
 	}
 
-	std::string GetName()
-	{
-		return Name;
-	}
-
 	void SetParent(GameEngineObject* _Parent)
 	{
 		Parent = _Parent;
@@ -89,16 +84,6 @@ public:
 	float4 GetPos() 
 	{
 		return Pos;
-	}
-
-	void SetPos(const float4& _Pos)
-	{
-		Pos = _Pos;
-	}
-
-	void SetMove(const float4& _Move)
-	{
-		Pos += _Move;
 	}
 
 private:
