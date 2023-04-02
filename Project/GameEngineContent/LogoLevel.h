@@ -1,6 +1,8 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
+#include <memory>
 
+class VertexActor;
 class LogoLevel : public GameEngineLevel
 {
 public:
@@ -14,11 +16,16 @@ public:
 
 protected:
 
-	void Loading() override
-	{
-	
-	}
-
+	void Loading() override;
+	void Update(float _DeltaTime);
 private:
+	std::shared_ptr<VertexActor> Parent = nullptr;
+
+	std::shared_ptr<VertexActor> Child0 = nullptr;
+	std::shared_ptr<VertexActor> Child1 = nullptr;
+	std::shared_ptr<VertexActor> Child2 = nullptr;
+	std::shared_ptr<VertexActor> Child3 = nullptr;
+	std::shared_ptr<VertexActor> Child4 = nullptr;
+	std::shared_ptr<VertexActor> Child5 = nullptr;
 
 };
