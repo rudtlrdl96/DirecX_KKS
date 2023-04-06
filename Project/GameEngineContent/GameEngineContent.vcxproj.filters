@@ -21,6 +21,9 @@
     <ClInclude Include="LogoLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="BaseContentActor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -28,6 +31,9 @@
     </ClCompile>
     <ClCompile Include="LogoLevel.cpp">
       <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseContentActor.cpp">
+      <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

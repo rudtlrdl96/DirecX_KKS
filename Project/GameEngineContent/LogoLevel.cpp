@@ -2,6 +2,9 @@
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineCamera.h>
+#include "BaseContentActor.h"
 
 LogoLevel::LogoLevel()
 {
@@ -11,11 +14,19 @@ LogoLevel::~LogoLevel()
 {
 }
 
-void LogoLevel::Loading()
+void LogoLevel::Start()
 {
-	GameEngineInput::CreateKey("1", '1');
-	GameEngineInput::CreateKey("2", '2');
-	GameEngineInput::CreateKey("3", '3');
+	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+
+	GameEngineInput::CreateKey("ActorRotX+", 'W');
+	GameEngineInput::CreateKey("ActorRotY-", 'A');
+	GameEngineInput::CreateKey("ActorRotX-", 'S');
+	GameEngineInput::CreateKey("ActorRotY+", 'D');
+	GameEngineInput::CreateKey("ActorRotZ-", 'Q');
+	GameEngineInput::CreateKey("ActorRotZ+", 'E');
+	
+	std::shared_ptr<BaseContentActor> NewActorPtr = CreateActor<BaseContentActor>();
+	NewActorPtr->GetTransform()->SetWorldPosition(float4::Zero);
 
 	//float4 veca = float4::Left;
 	//float4 vecb = float4::Left;
@@ -211,11 +222,9 @@ void LogoLevel::Loading()
 	//
 	// 위 3가지 행렬을 곱해 하나의 행렬로 합칠 수 있다 
 	// 위치 벡터와 합쳐진 행렬을 한번에 곱해 연산을 줄일 수 있다
-	// 
-	//
-	//
 }
 
 void LogoLevel::Update(float _DeltaTime)
 {
+	GameEngineLevel::Update(_DeltaTime);
 }

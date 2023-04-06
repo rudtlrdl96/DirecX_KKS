@@ -62,7 +62,22 @@ public:
 			LocalRotation = WorldRotation;
 		}
 		else
-		{                             
+		{   
+			// 현재 월드오일러각도 기준 쿼터니언 구하기
+			float4 WorldQuaternion = WorldRotation.EulerDegToQuaternion();
+
+			// 부모의 월드 쿼터니언 값이 계산되고있지 않기 때문에 부모의 월드 오일러값으로 쿼터니언 계산
+			float4 ParentQuaternion = Parent->WorldRotation.EulerDegToQuaternion(); 
+
+			// 쿼터니언의 역쿼터니언 구하기
+			float4 ParentInverse = DirectX::XMQuaternionInverse(ParentQuaternion);
+
+			// 쿼터니언곱
+			float4 Result = DirectX::XMQuaternionMultiply(WorldQuaternion, ParentInverse);
+
+			// 쿼터니언을 다시 오일러값으로 변환
+			LocalRotation = Result.QuaternionToEulerDeg();
+
 			//float4 Quaternion = WorldRotation.EulerDegToQuaternion();
 			//float4x4 WorldRotationMatrix = WorldRotation.QuaternionToRotationMatrix();
 
@@ -73,8 +88,8 @@ public:
 
 			//LocalRotation = LocalQuaternion.QuaternionToEulerDeg();
 
-			float4 Rot = Parent->GetWorldRotation();
-			LocalRotation = WorldRotation - Parent->GetWorldRotation();
+			//float4 Rot = Parent->GetWorldRotation();
+			//LocalRotation = WorldRotation - Parent->GetWorldRotation();
 		}
 
 		TransformUpdate();
