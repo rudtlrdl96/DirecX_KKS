@@ -24,7 +24,7 @@ public:
 	GameEngineObject& operator=(const GameEngineObject& _Other) = delete;
 	GameEngineObject& operator=(GameEngineObject&& _Other) noexcept = delete;
 
-	GameEngineTransform* GetTransform()
+	GameEngineTransform* GetTransform() const
 	{
 		return &Transform;
 	}

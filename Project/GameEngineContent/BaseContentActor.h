@@ -2,7 +2,6 @@
 #include <memory>
 #include <GameEngineCore/GameEngineActor.h>
 
-
 class GameEngineRenderer;
 class BaseContentActor : public GameEngineActor
 {

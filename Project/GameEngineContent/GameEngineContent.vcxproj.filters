@@ -19,6 +19,9 @@
     <Filter Include="Actor\Player\Arm">
       <UniqueIdentifier>{faad6084-f888-4136-93e5-ba5eb63101cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{1b08e87b-7a8b-488a-a753-40e39d041074}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -39,6 +42,9 @@
     <ClInclude Include="ArmRopeChain.h">
       <Filter>Actor\Player\Arm</Filter>
     </ClInclude>
+    <ClInclude Include="ContentConst.h">
+      <Filter>Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -58,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="ArmRopeChain.cpp">
       <Filter>Actor\Player\Arm</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentConst.cpp">
+      <Filter>Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
