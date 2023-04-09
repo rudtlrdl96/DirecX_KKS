@@ -12,13 +12,13 @@ BaseContentActor::~BaseContentActor()
 
 void BaseContentActor::Start()
 {
-	RenderA = CreateComponent<GameEngineRenderer>();
+	//RenderA = CreateComponent<GameEngineRenderer>();
 	RenderB = CreateComponent<GameEngineRenderer>();
-	RenderC = CreateComponent<GameEngineRenderer>();
+	//RenderC = CreateComponent<GameEngineRenderer>();
 
-	RenderA->GetTransform()->SetLocalPosition(float4(-200, 0, 0));
+	//RenderA->GetTransform()->SetLocalPosition(float4(-200, 0, 0));
 	RenderB->GetTransform()->SetLocalPosition(float4::Zero);
-	RenderC->GetTransform()->SetLocalPosition(float4(200, 0, 0));
+	//RenderC->GetTransform()->SetLocalPosition(float4(200, 0, 0));
 
 	RenderB->GetTransform()->DebugOn();
 }

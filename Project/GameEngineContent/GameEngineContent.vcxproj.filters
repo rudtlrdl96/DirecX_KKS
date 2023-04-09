@@ -13,6 +13,12 @@
     <Filter Include="Class">
       <UniqueIdentifier>{579b2537-2b10-46ad-b525-e7f4274ea025}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Player">
+      <UniqueIdentifier>{0c947200-f57c-41dd-9c82-89e632516c8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Arm">
+      <UniqueIdentifier>{faad6084-f888-4136-93e5-ba5eb63101cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -24,6 +30,15 @@
     <ClInclude Include="BaseContentActor.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="ArmRopeShooter.h">
+      <Filter>Actor\Player\Arm</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmRopeHook.h">
+      <Filter>Actor\Player\Arm</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmRopeChain.h">
+      <Filter>Actor\Player\Arm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -34,6 +49,15 @@
     </ClCompile>
     <ClCompile Include="BaseContentActor.cpp">
       <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmRopeShooter.cpp">
+      <Filter>Actor\Player\Arm</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmRopeHook.cpp">
+      <Filter>Actor\Player\Arm</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmRopeChain.cpp">
+      <Filter>Actor\Player\Arm</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

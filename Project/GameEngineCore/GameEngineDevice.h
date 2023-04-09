@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
@@ -17,6 +18,20 @@ public:
 	static void CreateSwapChain();
 
 	static void Release();
+
+	static void RenderStart();
+
+	static void RenderEnd();
+
+	static ID3D11Device* GetDevice()
+	{
+		return Device;
+	}
+
+	static ID3D11DeviceContext* GetContext()
+	{
+		return Context;
+	}
 
 	// HWND
 protected:
@@ -39,6 +54,14 @@ private:
 	static IDXGISwapChain* SwapChain;
 
 	static IDXGIAdapter* GetHighPerformanceAdapter();
+
+	static std::shared_ptr<class GameEngineRenderTarget> BackBufferTarget;
+
+	// HBITMAP
+	// static ID3D11Texture2D* BackBufferTexture;
+
+	// HDC
+	// static ID3D11RenderTargetView* RenderTarget;
 
 	// constrcuter destructer
 	GameEngineDevice();

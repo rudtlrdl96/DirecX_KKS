@@ -19,6 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArmRopeChain.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ArmRopeHook.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ArmRopeShooter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BaseContentActor.h">
       <SubType>
       </SubType>
@@ -33,6 +45,18 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ArmRopeChain.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ArmRopeHook.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ArmRopeShooter.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BaseContentActor.cpp">
       <SubType>
       </SubType>

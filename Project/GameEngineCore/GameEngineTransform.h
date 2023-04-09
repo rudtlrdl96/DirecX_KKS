@@ -140,8 +140,12 @@ public:
 		}
 		else
 		{
+			float4 LocalQuaternion = LocalRotation.EulerDegToQuaternion();
+			float4 ParentQuaternion = Parent->WorldRotation.EulerDegToQuaternion();
+
 			//  180         90, 0,           90, 0, 0
-			WorldRotation = LocalRotation + Parent->GetWorldRotation();
+			WorldRotation = DirectX::XMQuaternionMultiply(ParentQuaternion, LocalQuaternion);
+			WorldRotation = WorldRotation.QuaternionToEulerDeg();
 		}
 
 		TransformUpdate();

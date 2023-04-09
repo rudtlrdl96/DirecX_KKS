@@ -26,7 +26,12 @@ void LogoLevel::Start()
 	GameEngineInput::CreateKey("ActorRotZ+", 'E');
 	
 	std::shared_ptr<BaseContentActor> NewActorPtr = CreateActor<BaseContentActor>();
-	NewActorPtr->GetTransform()->SetWorldPosition(float4::Zero);
+	NewActorPtr->GetTransform()->SetWorldPosition(float4(-400, 0, 0));
+
+	std::shared_ptr<BaseContentActor> NewActorPtrB = CreateActor<BaseContentActor>();
+	NewActorPtrB->GetTransform()->SetWorldPosition(float4(400, 0, 0));
+
+	NewActorPtrB->GetTransform()->SetParent(NewActorPtr->GetTransform());
 
 	//float4 veca = float4::Left;
 	//float4 vecb = float4::Left;
