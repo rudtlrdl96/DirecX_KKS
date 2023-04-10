@@ -1,3 +1,4 @@
+#include "PrecompileHeader.h"
 #include "GameEngineDevice.h"
 #include <GameEngineBase/GameEngineDebug.h>
 #include "GameEngineRenderTarget.h"
@@ -16,11 +17,11 @@ std::shared_ptr<GameEngineRenderTarget> GameEngineDevice::BackBufferTarget = nul
 //ID3D11RenderTargetView* GameEngineDevice::RenderTarget = nullptr;
 
 
-GameEngineDevice::GameEngineDevice()
+GameEngineDevice::GameEngineDevice() 
 {
 }
 
-GameEngineDevice::~GameEngineDevice()
+GameEngineDevice::~GameEngineDevice() 
 {
 }
 
@@ -83,7 +84,7 @@ void GameEngineDevice::CreateSwapChain()
 {
 	float4 ScreenSize = GameEngineWindow::GetScreenSize();
 
-	DXGI_SWAP_CHAIN_DESC SwapChainDesc = { 0, };
+	DXGI_SWAP_CHAIN_DESC SwapChainDesc = {0,};
 
 	// 기본정보
 	SwapChainDesc.BufferCount = 2;
@@ -122,7 +123,7 @@ void GameEngineDevice::CreateSwapChain()
 	// false면 전체화면 입니다.
 	SwapChainDesc.Windowed = true;
 
-	IDXGIDevice* SwapDevice = nullptr;
+	IDXGIDevice*  SwapDevice = nullptr;
 	IDXGIAdapter* SwapAdapter = nullptr;
 	IDXGIFactory* SwapFactory = nullptr;
 
@@ -171,16 +172,16 @@ void GameEngineDevice::CreateSwapChain()
 	std::shared_ptr<GameEngineTexture> BackBufferTexture = std::make_shared<GameEngineTexture>();
 	BackBufferTexture->Create(SwapBackBufferTexture);
 
-	BackBufferTarget = GameEngineRenderTarget::Create("MainBackBufferTarget", BackBufferTexture, { 0.0f, 0.0f, 1.0f, 1.0f });
+	BackBufferTarget = GameEngineRenderTarget::Create("MainBackBufferTarget", BackBufferTexture, {0.0f, 0.0f, 1.0f, 1.0f});
 
 }
 
-void GameEngineDevice::RenderStart()
+void GameEngineDevice::RenderStart() 
 {
 	BackBufferTarget->Clear();
 }
 
-void GameEngineDevice::RenderEnd()
+void GameEngineDevice::RenderEnd() 
 {
 	HRESULT Result = SwapChain->Present(0, 0);
 	if (Result == DXGI_ERROR_DEVICE_REMOVED || Result == DXGI_ERROR_DEVICE_RESET)
@@ -189,17 +190,17 @@ void GameEngineDevice::RenderEnd()
 		MsgAssert("랜더타겟 생성에 실패했습니다.");
 		return;
 	}
-
+	
 }
 
-void GameEngineDevice::Initialize()
+void GameEngineDevice::Initialize() 
 {
 	// Com객체라고 해요.
 	// 9때는 
 	// Device->TextureLoad();
 	// Device->DrawMesh();
 
-	if (nullptr == GameEngineWindow::GetHWnd())
+	if (nullptr ==  GameEngineWindow::GetHWnd())
 	{
 		MsgAssert("윈도우가 만들어지지 않았는데 디바이스를 초가화 할수는 없습니다.");
 		return;
@@ -236,12 +237,12 @@ void GameEngineDevice::Initialize()
 	// D3D11_SDK_VERSION 그냥 이 윈도우에서 지원하는 sdk 버전이 define
 
 	HRESULT Result = D3D11CreateDevice(
-		Adapter,
-		D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_UNKNOWN,
+		Adapter, 
+		D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_UNKNOWN, 
 		nullptr,
 		iFlag,
 		nullptr,
-		0,
+		0, 
 		D3D11_SDK_VERSION,
 		&Device,
 		&Level,

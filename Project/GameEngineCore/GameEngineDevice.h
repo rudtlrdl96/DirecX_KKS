@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 

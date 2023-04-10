@@ -13,12 +13,6 @@
     <Filter Include="Class">
       <UniqueIdentifier>{579b2537-2b10-46ad-b525-e7f4274ea025}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player">
-      <UniqueIdentifier>{0c947200-f57c-41dd-9c82-89e632516c8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor\Player\Arm">
-      <UniqueIdentifier>{faad6084-f888-4136-93e5-ba5eb63101cd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Base">
       <UniqueIdentifier>{1b08e87b-7a8b-488a-a753-40e39d041074}</UniqueIdentifier>
     </Filter>
@@ -33,22 +27,13 @@
     <ClInclude Include="BaseContentActor.h">
       <Filter>Actor</Filter>
     </ClInclude>
-    <ClInclude Include="ArmRopeShooter.h">
-      <Filter>Actor\Player\Arm</Filter>
-    </ClInclude>
-    <ClInclude Include="ArmRopeHook.h">
-      <Filter>Actor\Player\Arm</Filter>
-    </ClInclude>
-    <ClInclude Include="ArmRopeChain.h">
-      <Filter>Actor\Player\Arm</Filter>
-    </ClInclude>
     <ClInclude Include="ContentConst.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="ArmRopeBase.h">
-      <Filter>Actor\Player\Arm</Filter>
-    </ClInclude>
     <ClInclude Include="ContentInput.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="PrecompileHeader.h">
       <Filter>Base</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,22 +47,13 @@
     <ClCompile Include="BaseContentActor.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
-    <ClCompile Include="ArmRopeShooter.cpp">
-      <Filter>Actor\Player\Arm</Filter>
-    </ClCompile>
-    <ClCompile Include="ArmRopeHook.cpp">
-      <Filter>Actor\Player\Arm</Filter>
-    </ClCompile>
-    <ClCompile Include="ArmRopeChain.cpp">
-      <Filter>Actor\Player\Arm</Filter>
-    </ClCompile>
     <ClCompile Include="ContentConst.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="ArmRopeBase.cpp">
-      <Filter>Actor\Player\Arm</Filter>
-    </ClCompile>
     <ClCompile Include="ContentInput.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PrecompileHeader.cpp">
       <Filter>Base</Filter>
     </ClCompile>
   </ItemGroup>

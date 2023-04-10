@@ -23,7 +23,7 @@ public:
 		std::shared_ptr<GameEngineTexture> NewTexture = GameEngineResource::Create(_Name);
 	}
 
-	ID3D11RenderTargetView* GetRTV()
+	ID3D11RenderTargetView* GetRTV() 
 	{
 		return RenderTarget;
 	}

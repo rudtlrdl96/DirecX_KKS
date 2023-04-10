@@ -1,15 +1,16 @@
+#include "PrecompileHeader.h"
 #include "GameEngineRenderTarget.h"
 
-GameEngineRenderTarget::GameEngineRenderTarget()
+GameEngineRenderTarget::GameEngineRenderTarget() 
 {
 }
 
-GameEngineRenderTarget::~GameEngineRenderTarget()
+GameEngineRenderTarget::~GameEngineRenderTarget() 
 {
 }
 
 
-void GameEngineRenderTarget::Create(std::shared_ptr<GameEngineTexture> _Texture, float4 _Color)
+void GameEngineRenderTarget::Create(std::shared_ptr<GameEngineTexture> _Texture, float4 _Color) 
 {
 	Color = _Color;
 	Texture = _Texture;
