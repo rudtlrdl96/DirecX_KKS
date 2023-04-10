@@ -55,9 +55,9 @@ void GameEngineCore::EngineUpdate()
 	MainLevel->TimeEvent.Update(TimeDeltaTime);
 	MainLevel->Update(TimeDeltaTime);
 
-	GameEngineDevice::RenderStart();
+	//GameEngineDevice::RenderStart();
 	MainLevel->Render(TimeDeltaTime);
-	GameEngineDevice::RenderEnd();
+	//GameEngineDevice::RenderEnd();
 }
 
 void GameEngineCore::EngineEnd(std::function<void()> _ContentsEnd)

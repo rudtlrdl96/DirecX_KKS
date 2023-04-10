@@ -184,6 +184,11 @@ public:
 		SetLocalPosition(LocalPosition + _Value);
 	}
 
+	void AddWorldPosition(const float4& _Value)
+	{
+		SetWorldPosition(WorldPosition + _Value);
+	}
+
 	float4 GetWorldForwardVector()
 	{
 		return WorldMatrix.ArrVector[2].NormalizeReturn();

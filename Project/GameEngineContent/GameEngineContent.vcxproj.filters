@@ -45,6 +45,12 @@
     <ClInclude Include="ContentConst.h">
       <Filter>Base</Filter>
     </ClInclude>
+    <ClInclude Include="ArmRopeBase.h">
+      <Filter>Actor\Player\Arm</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentInput.h">
+      <Filter>Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -66,6 +72,12 @@
       <Filter>Actor\Player\Arm</Filter>
     </ClCompile>
     <ClCompile Include="ContentConst.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmRopeBase.cpp">
+      <Filter>Actor\Player\Arm</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentInput.cpp">
       <Filter>Base</Filter>
     </ClCompile>
   </ItemGroup>

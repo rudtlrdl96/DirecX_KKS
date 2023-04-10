@@ -1,9 +1,12 @@
 #pragma once
-
+#include <GameEngineBase/GameEngineMath.h>
 
 class ContentConst
 {
 public:
+	//Physics
+	static const float4 Gravity;
+
 	// Player Const
 	// ¤¤ Arm
 	static const float ArmChainInterval;
