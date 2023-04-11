@@ -1,3 +1,4 @@
+#include "PrecompileHeader.h"
 #include "ContentInput.h"
 
 float4 ContentInput::GetMousePos(GameEngineCamera* _MainCam)
