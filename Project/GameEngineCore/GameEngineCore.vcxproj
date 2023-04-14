@@ -192,6 +192,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineIndexBuffer.h" />
+    <ClInclude Include="GameEngineInputLayOut.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameEngineLevel.h">
       <SubType>
       </SubType>
@@ -294,6 +298,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineIndexBuffer.cpp" />
+    <ClCompile Include="GameEngineInputLayOut.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GameEngineLevel.cpp">
       <SubType>
       </SubType>

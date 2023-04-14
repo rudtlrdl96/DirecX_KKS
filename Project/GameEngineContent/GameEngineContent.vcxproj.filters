@@ -16,6 +16,9 @@
     <Filter Include="Base">
       <UniqueIdentifier>{1b08e87b-7a8b-488a-a753-40e39d041074}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\StudyActor">
+      <UniqueIdentifier>{9d69905e-78cf-419e-98d2-9a47fe5c99cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -36,6 +39,9 @@
     <ClInclude Include="PrecompileHeader.h">
       <Filter>Base</Filter>
     </ClInclude>
+    <ClInclude Include="StudyActor.h">
+      <Filter>Actor\StudyActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -55,6 +61,9 @@
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp">
       <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="StudyActor.cpp">
+      <Filter>Actor\StudyActor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include "ContentInput.h"
+#include "StudyActor.h"
 
 LogoLevel::LogoLevel()
 {
@@ -17,6 +18,7 @@ LogoLevel::~LogoLevel()
 
 void LogoLevel::Start()
 {
+	CreateActor<StudyActor>();
 }
 
 void LogoLevel::Update(float _DeltaTime)
