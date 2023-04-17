@@ -31,10 +31,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="ContentInput.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="LogoLevel.h">
       <SubType>
       </SubType>
@@ -58,10 +54,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentCore.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="ContentInput.cpp">
       <SubType>
       </SubType>
     </ClCompile>

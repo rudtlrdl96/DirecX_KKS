@@ -33,9 +33,6 @@
     <ClInclude Include="ContentConst.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="ContentInput.h">
-      <Filter>Base</Filter>
-    </ClInclude>
     <ClInclude Include="PrecompileHeader.h">
       <Filter>Base</Filter>
     </ClInclude>
@@ -54,9 +51,6 @@
       <Filter>Actor</Filter>
     </ClCompile>
     <ClCompile Include="ContentConst.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ContentInput.cpp">
       <Filter>Base</Filter>
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp">
