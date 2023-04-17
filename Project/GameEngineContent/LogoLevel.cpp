@@ -5,7 +5,6 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
-#include "ContentInput.h"
 #include "StudyActor.h"
 
 LogoLevel::LogoLevel()
