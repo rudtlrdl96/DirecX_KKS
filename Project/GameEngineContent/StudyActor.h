@@ -14,9 +14,14 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _DeltaTime) override;
+
+	void IdleUpdate(float _DeltaTime);
+	void MoveUpdate(float _DeltaTime);
+	void AttackUpdate(float _DeltaTime);
 
 private:
-
+	ClassFSM<StudyActor> PlayerFSM;
 
 };
 

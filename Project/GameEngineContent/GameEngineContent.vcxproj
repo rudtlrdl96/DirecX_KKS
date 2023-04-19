@@ -23,6 +23,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ClassFSM.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentConst.h">
       <SubType>
       </SubType>
@@ -46,6 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseContentActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ClassFSM.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -73,6 +81,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="StudyActor_State.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

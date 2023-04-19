@@ -39,6 +39,9 @@
     <ClInclude Include="StudyActor.h">
       <Filter>Actor\StudyActor</Filter>
     </ClInclude>
+    <ClInclude Include="ClassFSM.h">
+      <Filter>Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -57,6 +60,12 @@
       <Filter>Base</Filter>
     </ClCompile>
     <ClCompile Include="StudyActor.cpp">
+      <Filter>Actor\StudyActor</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassFSM.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="StudyActor_State.cpp">
       <Filter>Actor\StudyActor</Filter>
     </ClCompile>
   </ItemGroup>
