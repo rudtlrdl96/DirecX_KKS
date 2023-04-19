@@ -50,7 +50,11 @@ struct OutPixelData
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
     OutPixelData PixelData = (OutPixelData)0;
-    PixelData.OutColor = _Value.Color;
+    PixelData.OutColor = (float4)0;
+    
+    PixelData.OutColor.x = abs(sin(_Value.Pos.x * 0.1f));
+    PixelData.OutColor.y = abs(cos(_Value.Pos.y * 0.1f));
+    //PixelData.OutColor.z = abs(cos(_Value.Pos.x * 0.1f));
     
     return PixelData.OutColor;
 }

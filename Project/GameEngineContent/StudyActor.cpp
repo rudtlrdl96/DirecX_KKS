@@ -14,7 +14,7 @@ void StudyActor::Start()
 {
 	std::shared_ptr<GameEngineRenderer> RenderPtr = CreateComponent<GameEngineRenderer>();
 	RenderPtr->SetPipeLine("2DTexture");
-	RenderPtr->GetTransform()->SetWorldScale(float4(100.0f, 100.0f, 100.0f, 1.0f));
+	RenderPtr->GetTransform()->SetWorldScale(float4(300.0f, 300.0f, 300.0f, 1.0f));
 
 	PlayerFSM.Init(this);
 
