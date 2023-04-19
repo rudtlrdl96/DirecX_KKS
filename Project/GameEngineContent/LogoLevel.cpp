@@ -17,6 +17,8 @@ LogoLevel::~LogoLevel()
 
 void LogoLevel::Start()
 {
+	GetMainCamera()->GetTransform()->SetWorldPosition(float4(0, 0, -1000));
+	GetMainCamera()->SetProjectionType(CameraType::Perspective);
 	CreateActor<StudyActor>();
 }
 

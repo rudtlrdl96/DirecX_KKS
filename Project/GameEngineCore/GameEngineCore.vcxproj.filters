@@ -54,7 +54,7 @@
     <ClInclude Include="GameEnginePixelShader.h">
       <Filter>Resources\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="EngineEnum.h" />
+    <ClInclude Include="GameEngineEnum.h" />
     <ClInclude Include="GameEngineDirectBuffer.h">
       <Filter>Resources\Buffer</Filter>
     </ClInclude>
@@ -87,6 +87,9 @@
     </ClInclude>
     <ClInclude Include="GameEngineShaderResHelper.h">
       <Filter>Object\Rendering\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h">
+      <Filter>ThirdParty\DirectXTex\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -217,5 +220,27 @@
     <Filter Include="Resources\RenderingSetting">
       <UniqueIdentifier>{a8bf701a-f489-444e-b5dd-208bf9fa554c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{62388acb-3a2b-4860-bb86-2f306dbd2b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex">
+      <UniqueIdentifier>{499d1ceb-48c3-48cf-89d6-0e062d91007a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\bin">
+      <UniqueIdentifier>{50e6f3a7-94f1-4576-9bff-4e714bb6179d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\Header">
+      <UniqueIdentifier>{409840f9-8d27-4b2c-beda-631d45461368}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ThirdParty\DirectXTex\lib\x64\DirectXTex.lib">
+      <Filter>ThirdParty\DirectXTex\bin</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl">
+      <Filter>ThirdParty\DirectXTex\Header</Filter>
+    </None>
   </ItemGroup>
 </Project>
