@@ -22,13 +22,13 @@ cbuffer TransformData : register(b0)
 struct Input
 {
     float4 Pos : POSITION;
-    float4 Color : COLOR;
+    float4 UV : TEXCOORD;
 };
 
 struct OutPut
 {
     float4 Pos : SV_Position;
-    float4 Color : COLOR;
+    float4 UV : TEXCOORD;
 };
 
 OutPut Texture_VS(Input _Value)
@@ -37,24 +37,33 @@ OutPut Texture_VS(Input _Value)
 	
     _Value.Pos.w = 1.0f;
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
-    OutPutValue.Color = _Value.Color;
-	
+    OutPutValue.UV = _Value.UV;
+    	
     return OutPutValue;
 }
 
-struct OutPixelData
-{
-    float4 OutColor;
-};
+Texture2D DiffuseTex : register(t0);
+SamplerState CLAMPSAMPLER : register(s0);
 
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
-    OutPixelData PixelData = (OutPixelData)0;
-    PixelData.OutColor = (float4)0;
+    float4 PixelData = DiffuseTex.Sample(CLAMPSAMPLER, _Value.UV.xy);
     
-    PixelData.OutColor.x = abs(sin(_Value.Pos.x * 0.1f));
-    PixelData.OutColor.y = abs(cos(_Value.Pos.y * 0.1f));
-    //PixelData.OutColor.z = abs(cos(_Value.Pos.x * 0.1f));
+    float2 CenterUv = _Value.UV.xy;
     
-    return PixelData.OutColor;
+    CenterUv.x -= 0.5f;
+    CenterUv.y -= 0.5f;
+    CenterUv *= 2.0f;
+        
+    float CenterDis = 1.0f - sqrt(CenterUv.x * CenterUv.x + CenterUv.y * CenterUv.y);
+    float TestLight = CenterDis;
+    
+    if (TestLight <= 0.0f)
+    {
+        clip(-1);
+    }
+    
+    PixelData *= TestLight;
+    
+    return PixelData;
 }
