@@ -19,7 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseCommonData.h" />
     <ClInclude Include="BaseContentActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="BaseDebugLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -35,6 +40,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentDatabase.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ContentEnum.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemData.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="LogoLevel.h">
       <SubType>
       </SubType>
@@ -43,13 +60,18 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="StudyActor.h">
+    <ClInclude Include="SkullData.h">
       <SubType>
       </SubType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseCommonData.cpp" />
     <ClCompile Include="BaseContentActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BaseDebugLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -65,6 +87,18 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentDatabase.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentEnum.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemData.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LogoLevel.cpp">
       <SubType>
       </SubType>
@@ -77,11 +111,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="StudyActor.cpp">
+    <ClCompile Include="SkullData.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="StudyActor_State.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

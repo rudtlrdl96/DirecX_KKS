@@ -16,57 +16,120 @@
     <Filter Include="Base">
       <UniqueIdentifier>{1b08e87b-7a8b-488a-a753-40e39d041074}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\StudyActor">
-      <UniqueIdentifier>{9d69905e-78cf-419e-98d2-9a47fe5c99cf}</UniqueIdentifier>
+    <Filter Include="Base\FSM">
+      <UniqueIdentifier>{de9f7019-9d28-451d-80d0-67b5619e7686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Common">
+      <UniqueIdentifier>{9f2040e1-30f8-4d52-b8e0-11eed909de89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\PCH">
+      <UniqueIdentifier>{868ce0c2-a748-42ee-b9b6-5206a05e0839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\DebugLevel">
+      <UniqueIdentifier>{86cc7c59-2073-4fd6-8252-5d08f1166dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameLevel">
+      <UniqueIdentifier>{c40299fa-bf45-4b05-9b09-e48a1cd0660a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Inventory">
+      <UniqueIdentifier>{004feef5-1412-40a9-8e9f-5f76481cd837}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player">
+      <UniqueIdentifier>{2d4faacb-1cc4-477e-9f4e-f278ba362eec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull">
+      <UniqueIdentifier>{dcd1f1df-9dae-4799-b806-2f64eea7ba32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Data">
+      <UniqueIdentifier>{54c8fbd0-2ee5-4eb9-a7a6-d9133363eeac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Data\Item">
+      <UniqueIdentifier>{3949bbe4-b1d5-4adb-b814-50e7171e28be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Data\Skull">
+      <UniqueIdentifier>{bef6db0e-3e52-4a83-9bb9-2e7707f31099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\DebugLevel\Player">
+      <UniqueIdentifier>{9be16c7d-fa76-4cd7-81b1-cd038bf14c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\DebugLevel\Animation">
+      <UniqueIdentifier>{fa872e57-dff1-464a-8cf2-0a264bbc178d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="LogoLevel.h">
-      <Filter>Level</Filter>
-    </ClInclude>
     <ClInclude Include="BaseContentActor.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="ClassFSM.h">
+      <Filter>Base\FSM</Filter>
+    </ClInclude>
     <ClInclude Include="ContentConst.h">
-      <Filter>Base</Filter>
+      <Filter>Base\Common</Filter>
     </ClInclude>
     <ClInclude Include="PrecompileHeader.h">
-      <Filter>Base</Filter>
+      <Filter>Base\PCH</Filter>
     </ClInclude>
-    <ClInclude Include="StudyActor.h">
-      <Filter>Actor\StudyActor</Filter>
+    <ClInclude Include="LogoLevel.h">
+      <Filter>Level\GameLevel</Filter>
     </ClInclude>
-    <ClInclude Include="ClassFSM.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="ContentDatabase.h">
+      <Filter>Base\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="SkullData.h">
+      <Filter>Base\Data\Skull</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemData.h">
+      <Filter>Base\Data\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentEnum.h">
+      <Filter>Base\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCommonData.h">
+      <Filter>Base\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDebugLevel.h">
+      <Filter>Level\DebugLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="LogoLevel.cpp">
-      <Filter>Level</Filter>
-    </ClCompile>
     <ClCompile Include="BaseContentActor.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="ClassFSM.cpp">
+      <Filter>Base\FSM</Filter>
+    </ClCompile>
     <ClCompile Include="ContentConst.cpp">
-      <Filter>Base</Filter>
+      <Filter>Base\Common</Filter>
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp">
-      <Filter>Base</Filter>
+      <Filter>Base\PCH</Filter>
     </ClCompile>
-    <ClCompile Include="StudyActor.cpp">
-      <Filter>Actor\StudyActor</Filter>
+    <ClCompile Include="LogoLevel.cpp">
+      <Filter>Level\GameLevel</Filter>
     </ClCompile>
-    <ClCompile Include="ClassFSM.cpp">
-      <Filter>Base</Filter>
+    <ClCompile Include="ContentDatabase.cpp">
+      <Filter>Base\Data</Filter>
     </ClCompile>
-    <ClCompile Include="StudyActor_State.cpp">
-      <Filter>Actor\StudyActor</Filter>
+    <ClCompile Include="SkullData.cpp">
+      <Filter>Base\Data\Skull</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemData.cpp">
+      <Filter>Base\Data\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentEnum.cpp">
+      <Filter>Base\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCommonData.cpp">
+      <Filter>Base\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDebugLevel.cpp">
+      <Filter>Level\DebugLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
