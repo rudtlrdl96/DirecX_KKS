@@ -28,7 +28,7 @@ public:
 protected:
 
 private:
-	ID3D11SamplerState* State = nullptr;
+	ID3D11SamplerState* State;
 	D3D11_SAMPLER_DESC Desc;
 
 	void ResCreate(const D3D11_SAMPLER_DESC& _Desc);
