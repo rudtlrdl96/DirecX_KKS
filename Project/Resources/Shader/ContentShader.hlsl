@@ -23,20 +23,24 @@ struct Input
 {
     float4 Pos : POSITION;
     float4 UV : TEXCOORD;
+    float4 Normal : NORMAL;
 };
 
 struct OutPut
 {
     float4 Pos : SV_Position;
     float4 UV : TEXCOORD;
+    float4 Normal : NORMAL;    
 };
 
 OutPut Texture_VS(Input _Value)
 {
     OutPut OutPutValue = (OutPut) 0;
-	
+    
     _Value.Pos.w = 1.0f;
+    
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
+    OutPutValue.Normal = normalize(mul(_Value.Normal, WorldMatrix));
     OutPutValue.UV = _Value.UV;
     	
     return OutPutValue;
@@ -47,23 +51,11 @@ SamplerState CLAMPSAMPLER : register(s0);
 
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
-    float4 PixelData = DiffuseTex.Sample(CLAMPSAMPLER, _Value.UV.xy);
+    float4 Ambient = { 0.1f, 0.0f, 0.0f, 1.0f };
+    float4 LightColor = { 1.0f, 0.0f, 0.0f, 1.0f };
+    float4 LightDir = normalize(float4(1.0f, 1.0f, 0.0f, 0.0f));
+    //float4 PixelData = DiffuseTex.Sample(CLAMPSAMPLER, _Value.UV.xy);
     
-    float2 CenterUv = _Value.UV.xy;
-    
-    CenterUv.x -= 0.5f;
-    CenterUv.y -= 0.5f;
-    CenterUv *= 2.0f;
-        
-    float CenterDis = 1.0f - sqrt(CenterUv.x * CenterUv.x + CenterUv.y * CenterUv.y);
-    float TestLight = CenterDis;
-    
-    if (TestLight <= 0.0f)
-    {
-        clip(-1);
-    }
-    
-    PixelData *= TestLight;
-    
+    float4 PixelData = Ambient + LightColor * saturate(dot(LightDir, _Value.Normal));
     return PixelData;
 }

@@ -55,6 +55,15 @@
     <Filter Include="Level\DebugLevel\Animation">
       <UniqueIdentifier>{fa872e57-dff1-464a-8cf2-0a264bbc178d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Debug">
+      <UniqueIdentifier>{4a454154-fa79-4c3c-931f-5b6b9d12f46f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\DebugLevel\Shader">
+      <UniqueIdentifier>{7cb2c9ef-5890-48c1-b03b-067809aa1cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentVertex">
+      <UniqueIdentifier>{a71937fe-bac1-4671-8cc9-7c6cbefef509}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -93,6 +102,15 @@
     <ClInclude Include="BaseDebugLevel.h">
       <Filter>Level\DebugLevel</Filter>
     </ClInclude>
+    <ClInclude Include="DebugBoxActor.h">
+      <Filter>Actor\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderDebugLevel.h">
+      <Filter>Level\DebugLevel\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentVertex.h">
+      <Filter>ContentVertex</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -130,6 +148,15 @@
     </ClCompile>
     <ClCompile Include="BaseDebugLevel.cpp">
       <Filter>Level\DebugLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugBoxActor.cpp">
+      <Filter>Actor\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderDebugLevel.cpp">
+      <Filter>Level\DebugLevel\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentVertex.cpp">
+      <Filter>ContentVertex</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

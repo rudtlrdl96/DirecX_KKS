@@ -226,7 +226,7 @@ void GameEngineCore::CoreResourcesInit()
 	{
 		{
 			std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture");
-
+			 
 			Pipe->SetVertexBuffer("Rect");
 			Pipe->SetIndexBuffer("Rect");
 			Pipe->SetVertexShader("TextureShader.hlsl");

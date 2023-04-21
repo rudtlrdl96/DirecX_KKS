@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCamera.h>
 
 class BaseDebugLevel : public GameEngineLevel
 {
@@ -13,7 +14,8 @@ public:
 	BaseDebugLevel& operator=(BaseDebugLevel&& _Other) noexcept = delete;
 
 protected:
-	
+	void Update(float _DeltaTime) override;
+
 private:
 
 
