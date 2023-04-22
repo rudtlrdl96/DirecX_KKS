@@ -3,6 +3,13 @@
 
 class ShaderDebugLevel : public BaseDebugLevel
 {
+private:
+	enum class TargetRotType
+	{
+		X,
+		Y,
+		Z,
+	};
 public:
 	ShaderDebugLevel();
 	~ShaderDebugLevel();
@@ -17,7 +24,16 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	std::shared_ptr<GameEngineCamera> MainCam = nullptr;
+	std::shared_ptr<GameEngineActor> ShaderTestActor = nullptr;
 
+	float4 RotVector = float4::Zero;
 
+	bool IsCameraRot = false;
+	bool IsTargetRot = false;
+
+	TargetRotType TargetRotState = TargetRotType::X;
+
+	TransformData OldTrans;
 };
 
