@@ -1,11 +1,13 @@
 #pragma once
 
-
+//template<typename DataClass, typename GradeEnum>
 class ContentDatabase
 {
 public:
 	// Skull Data
 	// AllSkullDatas 기준 함수
+	static void InsertSkullData(const class SkullData& _Data);
+
 	static class SkullData GetSkullData(size_t _Index);
 	static class SkullData GetSkullData(const std::string_view& _Name);
 	static size_t GetAllSkullIndex(const std::string_view& _Name);
@@ -19,6 +21,8 @@ public:
 	
 	// Item Data
 	// AllItemDatas 기준 함수
+	static void InsertItemData(const class ItemData& _Data);
+
 	static class ItemData GetItemData(size_t _Index);
 	static class ItemData GetItemData(const std::string_view& _Name);
 	static size_t GetAllItemIndex(const std::string_view& _Name);

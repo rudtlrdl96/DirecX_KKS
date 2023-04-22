@@ -49,9 +49,6 @@
     <Filter Include="Base\Data\Skull">
       <UniqueIdentifier>{bef6db0e-3e52-4a83-9bb9-2e7707f31099}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\DebugLevel\Player">
-      <UniqueIdentifier>{9be16c7d-fa76-4cd7-81b1-cd038bf14c64}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\DebugLevel\Animation">
       <UniqueIdentifier>{fa872e57-dff1-464a-8cf2-0a264bbc178d}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,12 @@
     </Filter>
     <Filter Include="ContentVertex">
       <UniqueIdentifier>{a71937fe-bac1-4671-8cc9-7c6cbefef509}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\DebugLevel\Battle">
+      <UniqueIdentifier>{9be16c7d-fa76-4cd7-81b1-cd038bf14c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Data\Battle">
+      <UniqueIdentifier>{4f916763-5a54-4b02-888d-dfcaf48219c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +114,9 @@
     <ClInclude Include="ContentVertex.h">
       <Filter>ContentVertex</Filter>
     </ClInclude>
+    <ClInclude Include="AbilityCommonData.h">
+      <Filter>Base\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -157,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="ContentVertex.cpp">
       <Filter>ContentVertex</Filter>
+    </ClCompile>
+    <ClCompile Include="AbilityCommonData.cpp">
+      <Filter>Base\Data</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

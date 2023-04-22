@@ -8,6 +8,10 @@ std::vector<SkullData> ContentDatabase::AllSkullDatas;
 std::map<SkullGrade, std::vector<SkullData>> ContentDatabase::GradeSkullDatas;
 std::map<std::string, size_t> ContentDatabase::AllSkullDatasIndex;
 
+void ContentDatabase::InsertSkullData(const SkullData& _Data)
+{
+}
+
 SkullData ContentDatabase::GetSkullData(size_t _Index)
 {
 	if (_Index >= AllSkullDatas.size())
@@ -80,6 +84,10 @@ size_t ContentDatabase::GetGradeSkullCount(SkullGrade _SkullGrade)
 std::vector<ItemData> ContentDatabase::AllItemDatas;
 std::map<ItemGrade, std::vector<ItemData>> ContentDatabase::GradeItemDatas;
 std::map<std::string, size_t> ContentDatabase::AllItemDatasIndex;
+
+void ContentDatabase::InsertItemData(const ItemData& _Data)
+{
+}
 
 ItemData ContentDatabase::GetItemData(size_t _Index)
 {

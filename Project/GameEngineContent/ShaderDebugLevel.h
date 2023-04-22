@@ -35,5 +35,7 @@ private:
 	TargetRotType TargetRotState = TargetRotType::X;
 
 	TransformData OldTrans;
+
+	void LookAtTarget(GameEngineTransform& _Transform, const float4& _TargetWorldPos);
 };
 

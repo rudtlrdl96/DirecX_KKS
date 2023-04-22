@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "ShaderDebugLevel.h"
+#include <cmath>
 
 #include <GameEnginePlatform/GameEngineInput.h>
 
@@ -133,12 +134,48 @@ void ShaderDebugLevel::Update(float _DeltaTime)
 
 	if (true == IsCameraRot)
 	{
+		RotVector.RotaitonXDeg(_DeltaTime * 30.0f);
 		RotVector.RotaitonYDeg(_DeltaTime * 100.0f);
+		RotVector.RotaitonZDeg(_DeltaTime * 50.0f);
 
 		float4 TargetPos = ShaderTestActor->GetTransform()->GetWorldPosition();
 
-		MainCam->GetTransform()->AddLocalRotation(float4(0, _DeltaTime * 100.0f, 0));
+		LookAtTarget(*MainCam->GetTransform(), TargetPos);
+		//MainCam->GetTransform()->AddLocalRotation(float4(0, _DeltaTime * 100.0f, 0));
 		MainCam->GetTransform()->SetWorldPosition(TargetPos + RotVector);
 
+	}
+}
+
+void ShaderDebugLevel::LookAtTarget(GameEngineTransform& _Transform, const float4& _TargetWorldPos)
+{
+	float4 TransLook = _Transform.GetLocalForwardVector();
+	float4 LookDir = (_TargetWorldPos - _Transform.GetWorldPosition()).NormalizeReturn();
+	
+	// 회전 차이
+	float RotCos = acosf(float4::DotProduct3D(TransLook, LookDir));
+
+	// 두 벡터를 외적해 임의의 축 생성
+	float4 CrossVec = float4::Cross3DReturnNormal(TransLook, LookDir);
+	float CrossSize = CrossVec.Size();
+
+	if (0.0f == CrossSize)
+	{
+		return;
+	}
+
+	if(0 != isnan(CrossSize))
+	{
+		return;
+	}
+
+	float4 LocalQua = DirectX::XMQuaternionRotationRollPitchYawFromVector(_Transform.GetLocalRotation() * GameEngineMath::DegToRad);
+	float4 RotQua = DirectX::XMQuaternionRotationAxis(CrossVec, RotCos);
+
+	LocalQua = DirectX::XMQuaternionMultiply(LocalQua, RotQua);
+
+	if (false == DirectX::XMQuaternionIsNaN(LocalQua))
+	{
+		_Transform.SetLocalRotation(LocalQua.QuaternionToEulerDeg());
 	}
 }
