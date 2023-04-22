@@ -32,32 +32,55 @@ void ContentCore::CoreLoading()
 
 	{
 		std::vector<ContentVertex> ArrVertex;
-		ArrVertex.resize(8);
+		ArrVertex.resize(24);
+
+		float UV1Div3 = 1.0f / 3.0f;
+		float UV2Div3 = 2.0f / 3.0f;
 
 		// ¾Õ¸é
-		// 0   1
-		// 3   2
-
+		ArrVertex[0] = ContentVertex(float4{-0.5f, 0.5f, -0.5f  }, { UV1Div3, UV1Div3 }, float4{-0.5f, 0.5f, -0.5f  }.NormalizeReturn());
+		ArrVertex[1] = ContentVertex(float4{ 0.5f, 0.5f, -0.5f  }, { UV2Div3, UV1Div3 }, float4{ 0.5f, 0.5f, -0.5f  }.NormalizeReturn());
+		ArrVertex[2] = ContentVertex(float4{ 0.5f, -0.5f, -0.5f }, { UV2Div3, UV2Div3 }, float4{ 0.5f, -0.5f, -0.5f }.NormalizeReturn());
+		ArrVertex[3] = ContentVertex(float4{ -0.5f, -0.5f, -0.5f}, { UV1Div3, UV2Div3 }, float4{ -0.5f, -0.5f, -0.5f}.NormalizeReturn());
+		
 		// µÞ¸é
-		// 4   5
-		// 7   6
+		ArrVertex[4] = ContentVertex(float4{ -0.5f, -0.5f, 0.5f }, { UV2Div3, UV2Div3 }, float4{ -0.5f, -0.5f, 0.5f }.NormalizeReturn());
+		ArrVertex[5] = ContentVertex(float4{ 0.5f, -0.5f , 0.5f }, { 1.0f, UV2Div3 }, float4{ 0.5f, -0.5f , 0.5f }.NormalizeReturn());
+		ArrVertex[6] = ContentVertex(float4{ 0.5f, 0.5f  , 0.5f }, { 1.0f, 1.0f}, float4{ 0.5f, 0.5f  , 0.5f }.NormalizeReturn());
+		ArrVertex[7] = ContentVertex(float4{ -0.5f, 0.5f, 0.5f  }, { UV2Div3, 1.0f}, float4{ -0.5f, 0.5f, 0.5f  }.NormalizeReturn());
 
-		ArrVertex[0] = ContentVertex(float4{-0.5f, 0.5f, -0.5f  }, {0.0f, 1.0f}, float4{-0.5f, 0.5f, -0.5f  }.NormalizeReturn());
-		ArrVertex[1] = ContentVertex(float4{ 0.5f, 0.5f, -0.5f  }, {0.0f, 1.0f}, float4{ 0.5f, 0.5f, -0.5f  }.NormalizeReturn());
-		ArrVertex[2] = ContentVertex(float4{ 0.5f, -0.5f, -0.5f }, {0.0f, 1.0f}, float4{ 0.5f, -0.5f, -0.5f }.NormalizeReturn());
-		ArrVertex[3] = ContentVertex(float4{ -0.5f, -0.5f, -0.5f}, {0.0f, 1.0f}, float4{ -0.5f, -0.5f, -0.5f}.NormalizeReturn());
-		ArrVertex[4] = ContentVertex(float4{ -0.5f, 0.5f , 0.5f }, {0.0f, 1.0f}, float4{ -0.5f, 0.5f , 0.5f }.NormalizeReturn());
-		ArrVertex[5] = ContentVertex(float4{ 0.5f , 0.5f , 0.5f }, {0.0f, 1.0f}, float4{ 0.5f , 0.5f , 0.5f }.NormalizeReturn());
-		ArrVertex[6] = ContentVertex(float4{ 0.5f , -0.5f, 0.5f }, {0.0f, 1.0f}, float4{ 0.5f , -0.5f, 0.5f }.NormalizeReturn());
-		ArrVertex[7] = ContentVertex(float4{ -0.5f, -0.5f, 0.5f }, {0.0f, 1.0f}, float4{ -0.5f, -0.5f, 0.5f }.NormalizeReturn());
+		// À­¸é
+		ArrVertex[8] = ContentVertex(float4{ -0.5f , 0.5f , 0.5f }, { UV1Div3, 0.0f }, float4{ -0.5f , 0.5f , 0.5f }.NormalizeReturn());
+		ArrVertex[9] = ContentVertex(float4{ 0.5f, 0.5f , 0.5f },   { UV2Div3, 0.0f }, float4{ 0.5f, 0.5f , 0.5f }.NormalizeReturn());
+		ArrVertex[10] = ContentVertex(float4{ 0.5f, 0.5f, -0.5f },  { UV2Div3, UV1Div3 }, float4{ 0.5f, 0.5f, -0.5f }.NormalizeReturn());
+		ArrVertex[11] = ContentVertex(float4{ -0.5f, 0.5f, -0.5f }, { UV1Div3, UV1Div3 }, float4{ -0.5f, 0.5f, -0.5f }.NormalizeReturn());
+		
+		// ¾Æ·§¸é
+		ArrVertex[12] = ContentVertex(float4{ -0.5f, -0.5f, -0.5f },{ UV1Div3, UV2Div3 }, float4{ -0.5f, -0.5f, -0.5f }.NormalizeReturn());
+		ArrVertex[13] = ContentVertex(float4{ 0.5f, -0.5f, -0.5f }, { UV2Div3, UV2Div3 }, float4{ 0.5f, -0.5f, -0.5f }.NormalizeReturn());
+		ArrVertex[14] = ContentVertex(float4{ 0.5f, -0.5f, 0.5f },  { UV2Div3, 1.0f }, float4{ 0.5f, -0.5f, 0.5f }.NormalizeReturn());
+		ArrVertex[15] = ContentVertex(float4{ -0.5f , -0.5f, 0.5f },{ UV1Div3, 1.0f }, float4{ -0.5f , -0.5f, 0.5f }.NormalizeReturn());
+		
+		// ¿ÞÂÊ¸é
+		ArrVertex[16] = ContentVertex(float4{ -0.5f, 0.5f, 0.5f },  { 0.0f, UV1Div3 }, float4{ -0.5f, 0.5f, 0.5f }.NormalizeReturn());
+		ArrVertex[17] = ContentVertex(float4{ -0.5f, 0.5f, -0.5f }, { UV1Div3, UV1Div3 }, float4{ -0.5f, 0.5f, -0.5f }.NormalizeReturn());
+		ArrVertex[18] = ContentVertex(float4{ -0.5f, -0.5f, -0.5f },{ UV1Div3, UV2Div3 }, float4{ -0.5f, -0.5f, -0.5f }.NormalizeReturn());
+		ArrVertex[19] = ContentVertex(float4{ -0.5f, -0.5f , 0.5f },{ 0.0f, UV2Div3 }, float4{ -0.5f, -0.5f , 0.5f }.NormalizeReturn());
+		
+		// ¿À¸¥ÂÊ¸é
+		ArrVertex[20] = ContentVertex(float4{ 0.5f, 0.5f, -0.5f },  { UV2Div3, UV1Div3 }, float4{ 0.5f, 0.5f, -0.5f }.NormalizeReturn());
+		ArrVertex[21] = ContentVertex(float4{ 0.5f , 0.5f, 0.5f },  { 1.0f, UV1Div3 }, float4{ 0.5f , 0.5f, 0.5f }.NormalizeReturn());
+		ArrVertex[22] = ContentVertex(float4{ 0.5f , -0.5f , 0.5f },{ 1.0f, UV2Div3}, float4{ 0.5f , -0.5f , 0.5f }.NormalizeReturn());
+		ArrVertex[23] = ContentVertex(float4{ 0.5f, -0.5f, -0.5f }, { UV2Div3, UV2Div3}, float4{ 0.5f, -0.5f, -0.5f }.NormalizeReturn());
+
 
 		std::vector<UINT> ArrIndex = {
 			 0, 1, 2, 0, 2, 3, // ¾Õ¸é
-			 5, 4, 7, 5, 7, 6, // µÞ¸é
-			 4, 0, 3, 4, 3, 7, // ¿ÞÂÊ
-			 1, 5, 6, 1, 6, 2, // ¿À¸¥ÂÊ
-			 4, 5, 1, 4, 1, 0, // À§
-			 3, 2, 6, 3, 6, 7 // ¾Æ·¡
+			 4, 5, 6, 4, 6, 7, // µÞ¸é
+			 8, 9, 10, 8, 10, 11, // À§
+			 12, 13, 14, 12, 14, 15, // ¾Æ·¡
+			 16, 17, 18, 16, 18, 19, // ¿ÞÂÊ
+			 20, 21, 22, 20, 22, 23 // ¿À¸¥ÂÊ
 		};
 
 		GameEngineVertexBuffer::Create("ContentBox", ArrVertex);
