@@ -15,6 +15,11 @@ public:
 	static void CoreLoading();
 	static void CoreEnd();
 
+	static void ItemDataLoad();
+	static void SkullDataLoad();
+	static void QuintessenceDataLoad();
+	static void MonsterDataLoad();
+
 protected:
 
 private:

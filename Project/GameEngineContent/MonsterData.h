@@ -1,20 +1,10 @@
 #pragma once
 
-enum class SkullGrade
-{
-	Normal,
-	Rare,
-	Unique,
-	Legendary
-};
-
-class SkullData
+class MonsterData
 {
 public:
 	std::string Name = "";
 	size_t Index = 0;
-
-	SkullGrade Grade;
 
 	float HP = 0;
 	float DamageReduction = 0.0f;

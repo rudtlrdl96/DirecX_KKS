@@ -44,6 +44,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentDebug.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentEnum.h">
       <SubType>
       </SubType>
@@ -58,6 +62,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="LogoLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MonsterData.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -100,7 +108,18 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentCore_ItemData.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentCore_MonsterData.cpp" />
+    <ClCompile Include="ContentCore_QuintessenceData.cpp" />
+    <ClCompile Include="ContentCore_SkullData.cpp" />
     <ClCompile Include="ContentDatabase.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentDebug.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -118,6 +137,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="LogoLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MonsterData.cpp">
       <SubType>
       </SubType>
     </ClCompile>

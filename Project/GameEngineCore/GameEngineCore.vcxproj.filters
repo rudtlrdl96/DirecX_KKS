@@ -249,11 +249,13 @@
     <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl">
       <Filter>ThirdParty\DirectXTex\Header</Filter>
     </None>
-    <None Include="ThirdParty\DirectXTex\lib\x64\Debug\DirectXTex.lib">
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="ThirdParty\DirectXTex\lib\x64\Debug\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\bin\Debug</Filter>
-    </None>
-    <None Include="ThirdParty\DirectXTex\lib\x64\Release\DirectXTex.lib">
+    </Library>
+    <Library Include="ThirdParty\DirectXTex\lib\x64\Release\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\bin\Release</Filter>
-    </None>
+    </Library>
   </ItemGroup>
 </Project>

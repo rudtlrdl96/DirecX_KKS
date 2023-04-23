@@ -67,6 +67,12 @@
     <Filter Include="Base\Data\Battle">
       <UniqueIdentifier>{4f916763-5a54-4b02-888d-dfcaf48219c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Base\Debug">
+      <UniqueIdentifier>{df8e5d72-6eee-44f8-a646-94ef8724ed4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Data\Monster">
+      <UniqueIdentifier>{60e7fe7a-3522-4e92-b8ba-6f1eb6f6afd7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -117,6 +123,12 @@
     <ClInclude Include="AbilityCommonData.h">
       <Filter>Base\Data</Filter>
     </ClInclude>
+    <ClInclude Include="ContentDebug.h">
+      <Filter>Base\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterData.h">
+      <Filter>Base\Data\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -166,6 +178,24 @@
     </ClCompile>
     <ClCompile Include="AbilityCommonData.cpp">
       <Filter>Base\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentDebug.cpp">
+      <Filter>Base\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_ItemData.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_SkullData.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_QuintessenceData.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_MonsterData.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterData.cpp">
+      <Filter>Base\Data\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

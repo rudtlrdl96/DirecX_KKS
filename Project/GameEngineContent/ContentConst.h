@@ -7,12 +7,6 @@ public:
 	//Physics
 	static const float4 Gravity;
 
-	// Player Const
-	// ¤¤ Arm
-	static const float ArmChainInterval;
-	static const float ArmShotSpeed;
-	static const int ArmChainCount;
-
 private:
 	ContentConst();
 	~ContentConst();

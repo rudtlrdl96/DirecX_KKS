@@ -1,11 +1,11 @@
 #pragma once
-class BaseCommonData
+class BaseCommonData sealed
 {
 public:
+	std::string Name = "";
 	size_t Index = 0;
-	std::string Name;
 
-	BaseCommonData();
-	~BaseCommonData();
+private:
+	BaseCommonData() {}
+	~BaseCommonData() {}
 };
-

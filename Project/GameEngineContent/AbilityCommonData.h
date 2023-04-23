@@ -1,7 +1,6 @@
 #pragma once
 
-
-class AbilityCommonData
+class AbilityCommonData sealed
 {
 public:
 	float HP = 0;
@@ -20,5 +19,11 @@ public:
 
 	float CriticalPercent = 0.0f;
 	float CriticalDamage = 0.0f;
+
+	float GoldPercent = 0.0f;
+
+private:
+	AbilityCommonData() {}
+	~AbilityCommonData() {}
 };
 
