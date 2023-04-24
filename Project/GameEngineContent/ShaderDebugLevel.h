@@ -24,7 +24,6 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<GameEngineCamera> MainCam = nullptr;
 	std::shared_ptr<GameEngineActor> ShaderTestActor = nullptr;
 
 	float4 RotVector = float4::Zero;

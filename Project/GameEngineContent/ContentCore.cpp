@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "ContentCore.h"
+#include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineVertexShader.h>
 #include <GameEngineCore/GameEnginePixelShader.h>
@@ -15,6 +16,7 @@
 
 // Debug Level
 #include "ShaderDebugLevel.h"
+#include "BattleDebugLevel.h"
 
 ContentCore::ContentCore()
 {
@@ -110,7 +112,14 @@ void ContentCore::CoreLoading()
 
 	GameEngineCore::CreateLevel<LogoLevel>("Logo");
 	GameEngineCore::CreateLevel<ShaderDebugLevel>("ShaderDebug");
-	GameEngineCore::ChangeLevel("ShaderDebug");
+	GameEngineCore::CreateLevel<BattleDebugLevel>("BattleDebug");
+	GameEngineCore::ChangeLevel("BattleDebug");
+
+	if (false == GameEngineInput::IsKey("LevelMove_ShaderDebug"))
+	{
+		GameEngineInput::CreateKey("LevelMove_ShaderDebug", VK_NUMPAD7);
+		GameEngineInput::CreateKey("LevelMove_BattleDebug", VK_NUMPAD8);
+	}
 }
 
 void ContentCore::CoreEnd()

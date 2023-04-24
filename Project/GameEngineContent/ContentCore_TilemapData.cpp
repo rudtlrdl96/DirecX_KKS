@@ -18,6 +18,19 @@ void ContentCore::TimeDataLoad()
 	Path.Move("Tile");
 
 	{
+		Path.Move("Debug");
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			std::string Name = Tex->GetNameToString();
+			TileLoad({ .Name = Name, .Index = i, .Grade = TileArea::Castle });
+		}
+	}
+
+	{
+		Path.MoveParent();
 		Path.Move("Castle");
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -25,7 +38,7 @@ void ContentCore::TimeDataLoad()
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
-			TileLoad({ .Name = Name, .Index = i, .Grade = TileArea::Castle});
+			TileLoad({ .Name = Name, .Index = 1000 + i, .Grade = TileArea::Castle});
 		}
 	}
 	{
@@ -37,7 +50,7 @@ void ContentCore::TimeDataLoad()
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
-			TileLoad({ .Name = Name, .Index = 1000 + i, .Grade = TileArea::ForestOfHamory });
+			TileLoad({ .Name = Name, .Index = 2000 + i, .Grade = TileArea::ForestOfHamory });
 		}
 	}
 	{
@@ -49,7 +62,7 @@ void ContentCore::TimeDataLoad()
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
-			TileLoad({ .Name = Name, .Index = 2000 + i, .Grade = TileArea::GrandHall });
+			TileLoad({ .Name = Name, .Index = 3000 + i, .Grade = TileArea::GrandHall });
 		}
 	}
 	{
@@ -61,7 +74,7 @@ void ContentCore::TimeDataLoad()
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
-			TileLoad({ .Name = Name, .Index = 3000 + i, .Grade = TileArea::SacredGrounds });
+			TileLoad({ .Name = Name, .Index = 4000 + i, .Grade = TileArea::SacredGrounds });
 		}
 	}
 

@@ -24,8 +24,9 @@ protected:
 	void Start() override;
 
 private:
+	int2 TileIndex = int2::Zero;
 	TilemapData Data = TilemapData();
-	std::shared_ptr<GameEngineRenderer> DrawRender = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> DrawRender = nullptr;
 
 };
 

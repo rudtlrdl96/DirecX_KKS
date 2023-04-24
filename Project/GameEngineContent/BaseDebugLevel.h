@@ -14,8 +14,10 @@ public:
 	BaseDebugLevel& operator=(BaseDebugLevel&& _Other) noexcept = delete;
 
 protected:
+	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	std::shared_ptr<GameEngineCamera> MainCam = nullptr;
 private:
 
 

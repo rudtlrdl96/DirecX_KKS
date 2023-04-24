@@ -17,6 +17,8 @@ ShaderDebugLevel::~ShaderDebugLevel()
 
 void ShaderDebugLevel::Start()
 {
+	BaseDebugLevel::Start();
+
 	if (false == GameEngineInput::IsKey("CameraRot"))
 	{
 		GameEngineInput::CreateKey("CameraRot", '0');
@@ -39,10 +41,6 @@ void ShaderDebugLevel::Start()
 			GameEngineTexture::Load(File[i].GetFullPath());
 		}
 	}
-
-	MainCam = GetMainCamera();
-	MainCam->SetProjectionType(CameraType::Perspective);
-	MainCam->GetTransform()->SetWorldPosition(float4(0, 0, -1000, 1));
 
 	ShaderTestActor = CreateActor<DebugBoxActor>();
 }

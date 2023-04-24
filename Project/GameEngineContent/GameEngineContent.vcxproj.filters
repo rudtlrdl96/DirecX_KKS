@@ -91,6 +91,9 @@
     <Filter Include="Class\Base\Debug">
       <UniqueIdentifier>{df8e5d72-6eee-44f8-a646-94ef8724ed4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Base\Math">
+      <UniqueIdentifier>{1ed430eb-2b35-4b99-99c1-e142416ff8b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -167,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="Tilemap.h">
       <Filter>Actor\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="int2.h">
+      <Filter>Class\Base\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="Tilemap.cpp">
       <Filter>Actor\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="int2.cpp">
+      <Filter>Class\Base\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
