@@ -59,5 +59,6 @@ float4 Texture_PS(OutPut _Value) : SV_Target0
     float LightDiff = 0.5 + saturate(dot(LightDir, _Value.Normal));
     
     float4 PixelData = TextureColor * LightDiff;
+    PixelData.a = 1.0f;
     return PixelData;
 }

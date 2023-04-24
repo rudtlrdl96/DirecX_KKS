@@ -126,7 +126,8 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexBuffer("ContentBox");
 		Pipe->SetIndexBuffer("ContentBox");
 		Pipe->SetVertexShader("ContentShader.hlsl");
-		Pipe->SetRasterizer("EngineBase");
+		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ContentShader.hlsl");
+		Pipe->SetBlend("AlphaBlend");
 	}
 }

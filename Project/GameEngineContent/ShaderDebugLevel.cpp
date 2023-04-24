@@ -149,7 +149,7 @@ void ShaderDebugLevel::Update(float _DeltaTime)
 
 void ShaderDebugLevel::LookAtTarget(GameEngineTransform& _Transform, const float4& _TargetWorldPos)
 {
-	float4 TestRot = float4(40, 50, 0);
+	float4 TestRot = float4(40, 50, 70);
 	float4 TestQua = DirectX::XMQuaternionRotationRollPitchYawFromVector(TestRot * GameEngineMath::DegToRad);
 	float4 ResultRot = TestQua.QuaternionToEulerDeg();
 
