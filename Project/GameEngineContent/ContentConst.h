@@ -1,11 +1,14 @@
 #pragma once
 #include <GameEngineBase/GameEngineMath.h>
 
-class ContentConst
+class ContentConst sealed
 {
 public:
 	//Physics
 	static const float4 Gravity;
+
+	// Tile
+	static const float4 TileSize;
 
 private:
 	ContentConst();

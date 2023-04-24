@@ -5,6 +5,7 @@
 
 class BaseContentActor : public GameEngineActor
 {
+
 public:
 	BaseContentActor();
 	~BaseContentActor();
@@ -14,7 +15,13 @@ public:
 	BaseContentActor& operator=(const BaseContentActor& _Other) = delete;
 	BaseContentActor& operator=(BaseContentActor&& _Other) noexcept = delete;
 
+	inline UINT GetActorCode() const
+	{
+		return Code;
+	}
+
 protected:
 
 private:
+	const UINT Code;
 };

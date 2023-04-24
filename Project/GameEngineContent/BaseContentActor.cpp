@@ -1,7 +1,10 @@
 #include "PrecompileHeader.h"
 #include "BaseContentActor.h"
 
-BaseContentActor::BaseContentActor()
+static UINT NextCode = 0;
+
+BaseContentActor::BaseContentActor() :
+	Code(++NextCode)
 {
 }
 

@@ -106,6 +106,7 @@ void ContentCore::CoreLoading()
 	SkullDataLoad();
 	QuintessenceDataLoad();
 	MonsterDataLoad();
+	TimeDataLoad();
 
 	GameEngineCore::CreateLevel<LogoLevel>("Logo");
 	GameEngineCore::CreateLevel<ShaderDebugLevel>("ShaderDebug");

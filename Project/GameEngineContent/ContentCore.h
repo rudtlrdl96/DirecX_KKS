@@ -19,6 +19,7 @@ public:
 	static void SkullDataLoad();
 	static void QuintessenceDataLoad();
 	static void MonsterDataLoad();
+	static void TimeDataLoad();
 
 protected:
 

@@ -13,18 +13,6 @@
     <Filter Include="Class">
       <UniqueIdentifier>{579b2537-2b10-46ad-b525-e7f4274ea025}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Base">
-      <UniqueIdentifier>{1b08e87b-7a8b-488a-a753-40e39d041074}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Base\FSM">
-      <UniqueIdentifier>{de9f7019-9d28-451d-80d0-67b5619e7686}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Base\Common">
-      <UniqueIdentifier>{9f2040e1-30f8-4d52-b8e0-11eed909de89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Base\PCH">
-      <UniqueIdentifier>{868ce0c2-a748-42ee-b9b6-5206a05e0839}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\DebugLevel">
       <UniqueIdentifier>{86cc7c59-2073-4fd6-8252-5d08f1166dc8}</UniqueIdentifier>
     </Filter>
@@ -39,15 +27,6 @@
     </Filter>
     <Filter Include="Actor\Player\Skull">
       <UniqueIdentifier>{dcd1f1df-9dae-4799-b806-2f64eea7ba32}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Base\Data">
-      <UniqueIdentifier>{54c8fbd0-2ee5-4eb9-a7a6-d9133363eeac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Base\Data\Item">
-      <UniqueIdentifier>{3949bbe4-b1d5-4adb-b814-50e7171e28be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Base\Data\Skull">
-      <UniqueIdentifier>{bef6db0e-3e52-4a83-9bb9-2e7707f31099}</UniqueIdentifier>
     </Filter>
     <Filter Include="Level\DebugLevel\Animation">
       <UniqueIdentifier>{fa872e57-dff1-464a-8cf2-0a264bbc178d}</UniqueIdentifier>
@@ -64,14 +43,53 @@
     <Filter Include="Level\DebugLevel\Battle">
       <UniqueIdentifier>{9be16c7d-fa76-4cd7-81b1-cd038bf14c64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Base\Data\Battle">
+    <Filter Include="Component">
+      <UniqueIdentifier>{9fe88acc-d8d5-4949-bcd5-a77983c7eb22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Physics">
+      <UniqueIdentifier>{3bde9a22-123c-453e-a705-244ff654373a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collision">
+      <UniqueIdentifier>{2cf447f0-8e2a-449c-a4c6-4be613997837}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Tile">
+      <UniqueIdentifier>{72f7e1a4-1266-4525-b44a-0f38f492bb96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base">
+      <UniqueIdentifier>{1b08e87b-7a8b-488a-a753-40e39d041074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base\FSM">
+      <UniqueIdentifier>{de9f7019-9d28-451d-80d0-67b5619e7686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base\Common">
+      <UniqueIdentifier>{9f2040e1-30f8-4d52-b8e0-11eed909de89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base\PCH">
+      <UniqueIdentifier>{868ce0c2-a748-42ee-b9b6-5206a05e0839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base\Data">
+      <UniqueIdentifier>{54c8fbd0-2ee5-4eb9-a7a6-d9133363eeac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base\Data\Item">
+      <UniqueIdentifier>{3949bbe4-b1d5-4adb-b814-50e7171e28be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base\Data\Skull">
+      <UniqueIdentifier>{bef6db0e-3e52-4a83-9bb9-2e7707f31099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base\Data\Battle">
       <UniqueIdentifier>{4f916763-5a54-4b02-888d-dfcaf48219c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Base\Debug">
-      <UniqueIdentifier>{df8e5d72-6eee-44f8-a646-94ef8724ed4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Base\Data\Monster">
+    <Filter Include="Class\Base\Data\Monster">
       <UniqueIdentifier>{60e7fe7a-3522-4e92-b8ba-6f1eb6f6afd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base\Data\Quintessence">
+      <UniqueIdentifier>{6eb19772-fcfe-4da2-9bc5-62b98cf3d38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base\Data\Tile">
+      <UniqueIdentifier>{3371415e-0a4d-479f-bfed-e30e4858d0f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Base\Debug">
+      <UniqueIdentifier>{df8e5d72-6eee-44f8-a646-94ef8724ed4b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,31 +100,31 @@
       <Filter>Actor</Filter>
     </ClInclude>
     <ClInclude Include="ClassFSM.h">
-      <Filter>Base\FSM</Filter>
+      <Filter>Class\Base\FSM</Filter>
     </ClInclude>
     <ClInclude Include="ContentConst.h">
-      <Filter>Base\Common</Filter>
+      <Filter>Class\Base\Common</Filter>
     </ClInclude>
     <ClInclude Include="PrecompileHeader.h">
-      <Filter>Base\PCH</Filter>
+      <Filter>Class\Base\PCH</Filter>
     </ClInclude>
     <ClInclude Include="LogoLevel.h">
       <Filter>Level\GameLevel</Filter>
     </ClInclude>
     <ClInclude Include="ContentDatabase.h">
-      <Filter>Base\Data</Filter>
+      <Filter>Class\Base\Data</Filter>
     </ClInclude>
     <ClInclude Include="SkullData.h">
-      <Filter>Base\Data\Skull</Filter>
+      <Filter>Class\Base\Data\Skull</Filter>
     </ClInclude>
     <ClInclude Include="ItemData.h">
-      <Filter>Base\Data\Item</Filter>
+      <Filter>Class\Base\Data\Item</Filter>
     </ClInclude>
     <ClInclude Include="ContentEnum.h">
-      <Filter>Base\Common</Filter>
+      <Filter>Class\Base\Common</Filter>
     </ClInclude>
     <ClInclude Include="BaseCommonData.h">
-      <Filter>Base\Data</Filter>
+      <Filter>Class\Base\Data</Filter>
     </ClInclude>
     <ClInclude Include="BaseDebugLevel.h">
       <Filter>Level\DebugLevel</Filter>
@@ -121,13 +139,34 @@
       <Filter>ContentVertex</Filter>
     </ClInclude>
     <ClInclude Include="AbilityCommonData.h">
-      <Filter>Base\Data</Filter>
+      <Filter>Class\Base\Data</Filter>
     </ClInclude>
     <ClInclude Include="ContentDebug.h">
-      <Filter>Base\Debug</Filter>
+      <Filter>Class\Base\Debug</Filter>
     </ClInclude>
     <ClInclude Include="MonsterData.h">
-      <Filter>Base\Data\Monster</Filter>
+      <Filter>Class\Base\Data\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="QuintessenceData.h">
+      <Filter>Class\Base\Data\Quintessence</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody2D.h">
+      <Filter>Component\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision2D.h">
+      <Filter>Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapData.h">
+      <Filter>Class\Base\Data\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleDebugLevel.h">
+      <Filter>Level\DebugLevel\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="TileActor.h">
+      <Filter>Actor\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Actor\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -138,31 +177,31 @@
       <Filter>Actor</Filter>
     </ClCompile>
     <ClCompile Include="ClassFSM.cpp">
-      <Filter>Base\FSM</Filter>
+      <Filter>Class\Base\FSM</Filter>
     </ClCompile>
     <ClCompile Include="ContentConst.cpp">
-      <Filter>Base\Common</Filter>
+      <Filter>Class\Base\Common</Filter>
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp">
-      <Filter>Base\PCH</Filter>
+      <Filter>Class\Base\PCH</Filter>
     </ClCompile>
     <ClCompile Include="LogoLevel.cpp">
       <Filter>Level\GameLevel</Filter>
     </ClCompile>
     <ClCompile Include="ContentDatabase.cpp">
-      <Filter>Base\Data</Filter>
+      <Filter>Class\Base\Data</Filter>
     </ClCompile>
     <ClCompile Include="SkullData.cpp">
-      <Filter>Base\Data\Skull</Filter>
+      <Filter>Class\Base\Data\Skull</Filter>
     </ClCompile>
     <ClCompile Include="ItemData.cpp">
-      <Filter>Base\Data\Item</Filter>
+      <Filter>Class\Base\Data\Item</Filter>
     </ClCompile>
     <ClCompile Include="ContentEnum.cpp">
-      <Filter>Base\Common</Filter>
+      <Filter>Class\Base\Common</Filter>
     </ClCompile>
     <ClCompile Include="BaseCommonData.cpp">
-      <Filter>Base\Data</Filter>
+      <Filter>Class\Base\Data</Filter>
     </ClCompile>
     <ClCompile Include="BaseDebugLevel.cpp">
       <Filter>Level\DebugLevel</Filter>
@@ -177,10 +216,10 @@
       <Filter>ContentVertex</Filter>
     </ClCompile>
     <ClCompile Include="AbilityCommonData.cpp">
-      <Filter>Base\Data</Filter>
+      <Filter>Class\Base\Data</Filter>
     </ClCompile>
     <ClCompile Include="ContentDebug.cpp">
-      <Filter>Base\Debug</Filter>
+      <Filter>Class\Base\Debug</Filter>
     </ClCompile>
     <ClCompile Include="ContentCore_ItemData.cpp">
       <Filter>Core</Filter>
@@ -195,7 +234,31 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="MonsterData.cpp">
-      <Filter>Base\Data\Monster</Filter>
+      <Filter>Class\Base\Data\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="QuintessenceData.cpp">
+      <Filter>Class\Base\Data\Quintessence</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody2D.cpp">
+      <Filter>Component\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision2D.cpp">
+      <Filter>Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapData.cpp">
+      <Filter>Class\Base\Data\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_TilemapData.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleDebugLevel.cpp">
+      <Filter>Level\DebugLevel\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="TileActor.cpp">
+      <Filter>Actor\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Actor\Tile</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

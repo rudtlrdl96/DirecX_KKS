@@ -28,7 +28,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BattleDebugLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ClassFSM.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Collision2D.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -73,6 +81,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="QuintessenceData.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Rigidbody2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ShaderDebugLevel.h">
       <SubType>
       </SubType>
@@ -82,6 +98,18 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="AbilityCommonData.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TileActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TilemapData.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -96,7 +124,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BattleDebugLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ClassFSM.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Collision2D.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -115,6 +151,7 @@
     <ClCompile Include="ContentCore_MonsterData.cpp" />
     <ClCompile Include="ContentCore_QuintessenceData.cpp" />
     <ClCompile Include="ContentCore_SkullData.cpp" />
+    <ClCompile Include="ContentCore_TilemapData.cpp" />
     <ClCompile Include="ContentDatabase.cpp">
       <SubType>
       </SubType>
@@ -152,6 +189,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="QuintessenceData.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Rigidbody2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ShaderDebugLevel.cpp">
       <SubType>
       </SubType>
@@ -161,6 +206,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="AbilityCommonData.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TileActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TilemapData.cpp">
       <SubType>
       </SubType>
     </ClCompile>
