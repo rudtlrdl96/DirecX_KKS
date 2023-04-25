@@ -24,6 +24,8 @@ public:
 protected:
 
 private:
+	static void VertextBufferCreate();
+	static void ShaderCreate();
 	static void ContentPipeLineCreate();
 
 };

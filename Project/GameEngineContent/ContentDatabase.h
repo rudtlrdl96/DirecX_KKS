@@ -12,7 +12,7 @@ public:
 
 			if (FindIter != EndIter)
 			{
-				ContentDebug::RttiAssert<ContentDatabase<DataClass, GradeEnum>>(" - 중복된 인덱스의 데이터를 입력하려 했습니다 : " + std::to_string(_Data.Index));
+				MsgAssert_Rtti<ContentDatabase<DataClass, GradeEnum>>(" - 중복된 인덱스의 데이터를 입력하려 했습니다 : " + std::to_string(_Data.Index));
 				return;
 			}		
 		}
@@ -23,7 +23,7 @@ public:
 
 			if (FindIter != EndIter)
 			{
-				ContentDebug::RttiAssert<ContentDatabase<DataClass, GradeEnum>>(" - 중복된 이름의 데이터를 입력하려 했습니다 : " + _Data.Name);
+				MsgAssert_Rtti<ContentDatabase<DataClass, GradeEnum>>(" - 중복된 이름의 데이터를 입력하려 했습니다 : " + _Data.Name);
 				return;
 			}		
 		}
@@ -40,7 +40,7 @@ public:
 
 		if (FindIter == EndIter)
 		{
-			ContentDebug::RttiAssert<ContentDatabase<DataClass, GradeEnum>>(" - 존재하지 않는 데이터를 참조하려 했습니다 : " + std::to_string(_Index));
+			MsgAssert_Rtti<ContentDatabase<DataClass, GradeEnum>>(" - 존재하지 않는 데이터를 참조하려 했습니다 : " + std::to_string(_Index));
 			//return DataClass();
 		}
 
@@ -58,7 +58,7 @@ public:
 
 		if (FindIter == AllDatasIndex.end())
 		{
-			ContentDebug::RttiAssert<ContentDatabase<DataClass, GradeEnum>>(" - 존재하지 않는 데이터를 참조하려 했습니다 : " + std::string(_Name.data()));
+			MsgAssert_Rtti<ContentDatabase<DataClass, GradeEnum>>(" - 존재하지 않는 데이터를 참조하려 했습니다 : " + std::string(_Name.data()));
 			return 0;
 		}
 
@@ -73,7 +73,7 @@ public:
 		{
 			const type_info& EnumGradeRtti = typeid(GradeEnum);
 
-			ContentDebug::RttiAssert<ContentDatabase<DataClass, GradeEnum>>(" - 존재하지 않는 등급의 데이터를 참조하려 했습니다 : " + std::string(EnumGradeRtti.name()) + std::string(", ") + std::to_string(_Index));
+			MsgAssert_Rtti<ContentDatabase<DataClass, GradeEnum>>(" - 존재하지 않는 등급의 데이터를 참조하려 했습니다 : " + std::string(EnumGradeRtti.name()) + std::string(", ") + std::to_string(_Index));
 			return DataClass();
 		}
 

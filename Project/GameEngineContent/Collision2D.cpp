@@ -16,7 +16,7 @@ void Collision2D::AddColType(int _ColType, bool _IsCol/* = true*/)
 	{
 		if (ColTypes[i].first == _ColType)
 		{
-			ContentDebug::RttiAssert<Collision2D>(" - 중복된 충돌 타입을 추가하려 했습니다.");
+			MsgAssert_Rtti<Collision2D>(" - 중복된 충돌 타입을 추가하려 했습니다.");
 			return;
 		}
 	}

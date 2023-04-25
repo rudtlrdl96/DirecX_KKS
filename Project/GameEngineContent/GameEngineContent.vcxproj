@@ -32,7 +32,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BattleLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CameraController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CastleLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -77,6 +85,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ForestOfHarmonyLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GrandHallLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HolyCourtyardLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="int2.h">
       <SubType>
       </SubType>
@@ -90,6 +110,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="MonsterData.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MultiBackground.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="OpeningLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -109,11 +137,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ShopLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SkullData.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="AbilityCommonData.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StoryLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -126,6 +162,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TilemapData.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="UILevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -144,7 +184,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BattleLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="CameraController.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CastleLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -197,6 +245,18 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ForestOfHarmonyLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GrandHallLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HolyCourtyardLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="int2.cpp">
       <SubType>
       </SubType>
@@ -210,6 +270,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MonsterData.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MultiBackground.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="OpeningLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -233,11 +301,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ShopLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SkullData.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="AbilityCommonData.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StoryLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -250,6 +326,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TilemapData.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="UILevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>

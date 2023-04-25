@@ -13,12 +13,10 @@ LogoLevel::~LogoLevel()
 
 void LogoLevel::Start()
 {
-	ContentLevel::Start();
-	GetMainCamera()->GetTransform()->SetWorldPosition(float4(0, 0, -1000));
-	GetMainCamera()->SetProjectionType(CameraType::Perspective);
+	UILevel::Start();
 }
 
 void LogoLevel::Update(float _DeltaTime)
 {
-	ContentLevel::Update(_DeltaTime);
+	UILevel::Update(_DeltaTime);
 }

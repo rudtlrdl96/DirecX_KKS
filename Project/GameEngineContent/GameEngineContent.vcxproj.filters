@@ -103,6 +103,36 @@
     <Filter Include="Actor\Map\Background">
       <UniqueIdentifier>{018cacd0-fb6d-47bf-99a4-269e05e9f50b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\GameLevel\BattleLevel">
+      <UniqueIdentifier>{0d91061b-911d-4bf9-955d-a6e4b1a4f8f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameLevel\UILevel">
+      <UniqueIdentifier>{dd61cd96-dabc-4d42-92cf-6c912d466fed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameLevel\BattleLevel\Castle">
+      <UniqueIdentifier>{67c8c4dd-40f5-406b-8b14-a20ad7dfada4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameLevel\BattleLevel\ForestOfMarmony">
+      <UniqueIdentifier>{5aee5d21-eb1e-4af5-ad5f-7b1dfcf31ab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameLevel\BattleLevel\GrandHall">
+      <UniqueIdentifier>{2893c532-2da7-499c-af6a-37e9d69eb1c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameLevel\BattleLevel\HolyCourtyard">
+      <UniqueIdentifier>{a1994a46-8fad-4f03-b281-d87f071b6cac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameLevel\BattleLevel\Opening">
+      <UniqueIdentifier>{1d74fe82-96cb-49fc-808c-fc872588906b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameLevel\BattleLevel\Shop">
+      <UniqueIdentifier>{7a0e924a-99cb-4f0a-8046-606e8fabd751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameLevel\UILevel\Logo">
+      <UniqueIdentifier>{ae182b43-32bf-42e0-b906-b2dec8569a1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\GameLevel\UILevel\Story">
+      <UniqueIdentifier>{df809b18-562b-4345-bd04-e88bb7dc0c7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -119,9 +149,6 @@
     </ClInclude>
     <ClInclude Include="PrecompileHeader.h">
       <Filter>Class\Base\PCH</Filter>
-    </ClInclude>
-    <ClInclude Include="LogoLevel.h">
-      <Filter>Level\GameLevel</Filter>
     </ClInclude>
     <ClInclude Include="ContentDatabase.h">
       <Filter>Class\Base\Data</Filter>
@@ -192,6 +219,39 @@
     <ClInclude Include="Background.h">
       <Filter>Actor\Map\Background</Filter>
     </ClInclude>
+    <ClInclude Include="MultiBackground.h">
+      <Filter>Actor\Map\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="CastleLevel.h">
+      <Filter>Level\GameLevel\BattleLevel\Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="ForestOfHarmonyLevel.h">
+      <Filter>Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="GrandHallLevel.h">
+      <Filter>Level\GameLevel\BattleLevel\GrandHall</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyCourtyardLevel.h">
+      <Filter>Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
+    </ClInclude>
+    <ClInclude Include="OpeningLevel.h">
+      <Filter>Level\GameLevel\BattleLevel\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopLevel.h">
+      <Filter>Level\GameLevel\BattleLevel\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleLevel.h">
+      <Filter>Level\GameLevel\BattleLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoLevel.h">
+      <Filter>Level\GameLevel\UILevel\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryLevel.h">
+      <Filter>Level\GameLevel\UILevel\Story</Filter>
+    </ClInclude>
+    <ClInclude Include="UILevel.h">
+      <Filter>Level\GameLevel\UILevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -208,9 +268,6 @@
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp">
       <Filter>Class\Base\PCH</Filter>
-    </ClCompile>
-    <ClCompile Include="LogoLevel.cpp">
-      <Filter>Level\GameLevel</Filter>
     </ClCompile>
     <ClCompile Include="ContentDatabase.cpp">
       <Filter>Class\Base\Data</Filter>
@@ -295,6 +352,39 @@
     </ClCompile>
     <ClCompile Include="Background.cpp">
       <Filter>Actor\Map\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiBackground.cpp">
+      <Filter>Actor\Map\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="CastleLevel.cpp">
+      <Filter>Level\GameLevel\BattleLevel\Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="ForestOfHarmonyLevel.cpp">
+      <Filter>Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="GrandHallLevel.cpp">
+      <Filter>Level\GameLevel\BattleLevel\GrandHall</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyCourtyardLevel.cpp">
+      <Filter>Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
+    </ClCompile>
+    <ClCompile Include="OpeningLevel.cpp">
+      <Filter>Level\GameLevel\BattleLevel\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopLevel.cpp">
+      <Filter>Level\GameLevel\BattleLevel\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleLevel.cpp">
+      <Filter>Level\GameLevel\BattleLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoLevel.cpp">
+      <Filter>Level\GameLevel\UILevel\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryLevel.cpp">
+      <Filter>Level\GameLevel\UILevel\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="UILevel.cpp">
+      <Filter>Level\GameLevel\UILevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

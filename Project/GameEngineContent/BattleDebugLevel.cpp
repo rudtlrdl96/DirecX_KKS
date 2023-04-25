@@ -3,6 +3,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include "DebugSpriteActor.h"
 #include "Tilemap.h"
+#include "MultiBackground.h"
 
 BattleDebugLevel::BattleDebugLevel()
 {
@@ -48,6 +49,18 @@ void BattleDebugLevel::Start()
 
 	MainCamCtrl.SetMinWidth(DESC.Left);
 	MainCamCtrl.SetMaxWidth(DESC.Right);
+
+	DebugBackground = CreateActor<MultiBackground>();
+
+	//Background::BG_DESC Desc;
+	//
+	//Desc.TextureName = "";
+	//Desc.Center = {};
+	//Desc.Ratio = 0.01f;
+	//Desc.Size = {};
+	//
+	//DebugBackground->CreateBackground(Desc, 0);
+	
 
 	//for (UINT i = 0; i < DebugTilemap->SizeX(0); i++)
 	//{

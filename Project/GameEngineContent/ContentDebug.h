@@ -1,17 +1,19 @@
 #pragma once
 
 
+template<typename Class>
+static void MsgAssert_Rtti(std::string _AddErrorText)
+{
+	const type_info& RttiInfo = typeid(Class);
+	std::string ErrorText = std::string(RttiInfo.name()) + _AddErrorText.data();
+	MessageBoxA(nullptr, ErrorText.c_str(), "Error", MB_OK);
+	assert(false);
+}
+
 class ContentDebug
 {
 public:
-	template<typename Class>
-	static void RttiAssert(std::string _AddErrorText)
-	{
-		const type_info& RttiInfo = typeid(Class);
-		std::string ErrorText = std::string(RttiInfo.name()) + _AddErrorText.data();
-		MessageBoxA(nullptr, ErrorText.c_str(), "Error", MB_OK);
-		assert(false);
-	}
+	
 private:
 	ContentDebug() {}
 	~ContentDebug() {}

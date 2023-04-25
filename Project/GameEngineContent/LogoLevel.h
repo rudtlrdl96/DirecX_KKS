@@ -1,8 +1,7 @@
 #pragma once
-#include "ContentLevel.h"
-#include <memory>
+#include "UILevel.h"
 
-class LogoLevel : public ContentLevel
+class LogoLevel : public UILevel
 {
 public:
 	LogoLevel();
