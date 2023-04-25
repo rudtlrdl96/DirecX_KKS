@@ -17,7 +17,7 @@ ShaderDebugLevel::~ShaderDebugLevel()
 
 void ShaderDebugLevel::Start()
 {
-	BaseDebugLevel::Start();
+	ContentLevel::Start();
 
 	if (false == GameEngineInput::IsKey("CameraRot"))
 	{
@@ -47,9 +47,9 @@ void ShaderDebugLevel::Start()
 
 void ShaderDebugLevel::Update(float _DeltaTime)
 {
-	BaseDebugLevel::Update(_DeltaTime);
+	ContentLevel::Update(_DeltaTime);
 
-	if (nullptr == MainCam || nullptr == ShaderTestActor)
+	if (nullptr == ShaderTestActor)
 	{
 		return;
 	}
@@ -94,22 +94,6 @@ void ShaderDebugLevel::Update(float _DeltaTime)
 		TargetRotState = TargetRotType::Z;
 	}
 
-	if (true == GameEngineInput::IsDown("CameraRot"))
-	{
-		IsCameraRot = !IsCameraRot;
-
-		if(true == IsCameraRot)
-		{
-			OldTrans = MainCam->GetTransform()->GetTransDataRef();
-			RotVector = float4(0, 0, -1000, 1);
-			MainCam->GetTransform()->SetLocalRotation(float4::Zero);
-		}
-		else
-		{
-			MainCam->GetTransform()->SetTransformData(OldTrans);
-		}
-	}
-
 	if (true == IsTargetRot)
 	{
 		float4 RotTarget = float4::Zero;
@@ -129,61 +113,5 @@ void ShaderDebugLevel::Update(float _DeltaTime)
 
 		ShaderTestActor->GetTransform()->AddLocalRotation(RotTarget);
 	}
-
-	if (true == IsCameraRot)
-	{
-		//RotVector.RotaitonXDeg(_DeltaTime * 100.0f);
-		RotVector.RotaitonYDeg(_DeltaTime * 100.0f);
-		//RotVector.RotaitonZDeg(_DeltaTime * 50.0f);
-
-		float4 TargetPos = ShaderTestActor->GetTransform()->GetWorldPosition();
-
-		LookAtTarget(*MainCam->GetTransform(), TargetPos);
-		//MainCam->GetTransform()->AddLocalRotation(float4(0, _DeltaTime * 100.0f, 0));
-		MainCam->GetTransform()->SetWorldPosition(TargetPos + RotVector);
-
-	}
 }
 
-void ShaderDebugLevel::LookAtTarget(GameEngineTransform& _Transform, const float4& _TargetWorldPos)
-{
-	float4 TestRot = float4(40, 50, 70);
-	float4 TestQua = DirectX::XMQuaternionRotationRollPitchYawFromVector(TestRot * GameEngineMath::DegToRad);
-	float4 ResultRot = TestQua.QuaternionToEulerDeg();
-
-	float4 TransLook = _Transform.GetLocalForwardVector();
-	float4 LookDir = (_TargetWorldPos - _Transform.GetWorldPosition()).NormalizeReturn();
-	
-	// 회전 차이
-	float RotCos = acosf(float4::DotProduct3D(TransLook, LookDir));
-
-	// 두 벡터를 외적해 임의의 축 생성
-	float4 CrossVec = float4::Cross3DReturnNormal(TransLook, LookDir);
-	float CrossSize = CrossVec.Size();
-
-	// 예외 처리
-	if (0.0f == CrossSize)
-	{
-		return;
-	}
-
-	if(0 != isnan(CrossSize))
-	{
-		return;
-	}
-
-	// 내 현재 쿼터니언 구하기
-	float4 LocalQua = DirectX::XMQuaternionRotationRollPitchYawFromVector(_Transform.GetLocalRotation() * GameEngineMath::DegToRad);
-	
-	// 외적으로 구한 축을 기준으로 내적으로 구한 회전 값만큼 회전
-	float4 RotQua = DirectX::XMQuaternionRotationAxis(CrossVec, RotCos);
-
-	// 내 쿼터니언을 회전
-	LocalQua = DirectX::XMQuaternionMultiply(LocalQua, RotQua);
-
-	// 예외처리
-	if (false == DirectX::XMQuaternionIsNaN(LocalQua))
-	{
-		_Transform.SetLocalRotation(LocalQua.QuaternionToEulerDeg());
-	}
-}

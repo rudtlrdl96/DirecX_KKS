@@ -21,6 +21,7 @@ void TileActor::SetTileData(const TilemapData& _Data)
 		return;
 	}
 
+	DrawRender->GetTransform()->SetLocalPosition({0, -ContentConst::TileSize.hy()});
 	DrawRender->SetTexture(Data.Name);
 	DrawRender->On();
 }

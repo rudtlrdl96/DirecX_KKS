@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseDebugLevel.h"
+#include "ContentLevel.h"
 
-class ShaderDebugLevel : public BaseDebugLevel
+class ShaderDebugLevel : public ContentLevel
 {
 private:
 	enum class TargetRotType
@@ -28,13 +28,8 @@ private:
 
 	float4 RotVector = float4::Zero;
 
-	bool IsCameraRot = false;
 	bool IsTargetRot = false;
 
 	TargetRotType TargetRotState = TargetRotType::X;
-
 	TransformData OldTrans;
-
-	void LookAtTarget(GameEngineTransform& _Transform, const float4& _TargetWorldPos);
 };
-

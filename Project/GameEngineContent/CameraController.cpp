@@ -1,0 +1,177 @@
+#include "PrecompileHeader.h"
+#include "CameraController.h"
+#include <GameEngineBase/GameEngineRandom.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineActor.h>
+
+CameraController::CameraController()
+{
+}
+
+CameraController::~CameraController()
+{
+}
+
+void CameraController::Start(std::shared_ptr<GameEngineCamera> _MainCam)
+{
+	if (nullptr == _MainCam)
+	{
+		MsgAssert("CameraController - nullptr 카메라를 설정하려 했습니다");
+	}
+
+	MainCamera = _MainCam;
+	MainCamera->SetProjectionType(CameraType::Orthogonal);
+	WindowSize = GameEngineWindow::GetScreenSize();
+	WindowSizeHalf = WindowSize.half();
+}
+
+void CameraController::Update(float _DeltaTime)
+{
+	if (true == MainCamera->IsFreeCamera())
+	{
+		return;
+	}
+
+	switch (CamType)
+	{
+	case CameraController::CamCtrlType::None:
+	{
+		break;
+	}
+	case CameraController::CamCtrlType::LookAt:
+	{
+		if (nullptr == LookAtTarget)
+		{
+			CamType = CamCtrlType::None;
+			return;
+		}
+
+		if (true == LookAtTarget->IsDeath())
+		{
+			LookAtTarget = nullptr;
+			return;
+		}
+
+		float4 TargetWorldPos = LookAtTarget->GetTransform()->GetWorldPosition();
+		TargetWorldPos.z = CamPos.z;
+
+		CamPos = TargetWorldPos;
+		break;
+	}
+	case CameraController::CamCtrlType::Move:
+	{
+		MoveProgress += _DeltaTime * MoveSpeed;
+		CamPos = float4::LerpClamp(MoveStartPos, MoveEndPos, MoveProgress);
+
+		if (MoveProgress >= 1.0f)
+		{
+			if (nullptr == LookAtTarget)
+			{
+				CamType = CamCtrlType::None;
+			}
+			else
+			{
+				CamType = CamCtrlType::LookAt;
+			}
+		}
+		break;
+	}
+	default:
+		MsgAssert("잘못된 카메라 컨트롤러 타입 입니다.");
+		break;
+	}
+	
+	LastCameraPos = CamPos;
+	LastCameraRot = CamRot;
+
+	if (LastCameraPos.x - WindowSizeHalf.x < MinWidth)
+	{
+		LastCameraPos.x = MinWidth + WindowSizeHalf.x;
+	}
+	else if (LastCameraPos.x + WindowSizeHalf.x > MaxWidth)
+	{
+		LastCameraPos.x = MaxWidth - WindowSizeHalf.x;
+	}
+
+	if (LastCameraPos.y - WindowSizeHalf.y < MinHeight)
+	{
+		LastCameraPos.y = MinHeight + WindowSizeHalf.y;
+	}
+	else if (LastCameraPos.y + WindowSizeHalf.y > MaxHeight)
+	{
+		LastCameraPos.y = MaxHeight - WindowSizeHalf.y;
+	}
+
+	// 카메라 효과 적용
+	CameraEffectPos = float4::Zero;
+
+	if (0 < ShakeCount)
+	{
+		ShakeProgress += _DeltaTime * ShakeSpeed;
+		CameraEffectPos = float4::LerpClamp(StartShakePos, EndShakePos, ShakeProgress);
+	
+		if (1.0f < ShakeProgress)
+		{
+			ShakeProgress -= 1.0f;
+			--ShakeCount;
+			CalShakeValue();
+		}
+	}
+
+	LastCameraPos += CameraEffectPos;
+
+	MainCamera->GetTransform()->SetWorldPosition(LastCameraPos);
+	MainCamera->GetTransform()->SetWorldRotation(LastCameraRot);
+}
+
+void CameraController::CameraMove_ExceptionZ(const float4& _Start, const float4& _End, float _Time)
+{
+	MoveStartPos = _Start;
+	MoveStartPos.z = CamPos.z;
+	
+	MoveEndPos = _End;
+	MoveEndPos.z = CamPos.z;;
+
+	MoveSpeed = 1.0f / _Time;
+	MoveProgress = 0.0f;
+	CamType = CamCtrlType::Move;
+}
+
+void CameraController::CameraShake(float _ShakeDis, float _ShakeSpeed, int _ShakeCount)
+{
+	ShakeCount = _ShakeCount;
+	ShakeSpeed = _ShakeSpeed;
+	ShakeMinDistance = _ShakeDis * 0.75f;
+	ShakeMaxDistance = _ShakeDis * 1.25f;
+	ShakeProgress = 0.0f;
+
+	StartShakePos = float4::Zero;
+	EndShakePos = float4::Zero;
+	CalShakeValue();
+}
+
+void CameraController::SetLookatTarget(std::shared_ptr<GameEngineActor> _Target)
+{
+	LookAtTarget = _Target;
+	CamType = CamCtrlType::LookAt;
+}
+
+void CameraController::CalShakeValue()
+{
+	StartShakePos = EndShakePos;
+
+	if (ShakeCount == 1)
+	{
+		EndShakePos = float4::Zero;
+		return;
+	}
+
+	float RandomRot = GameEngineRandom::MainRandom.RandomFloat(0.0f, GameEngineMath::PIE2);
+	float RandomDis = GameEngineRandom::MainRandom.RandomFloat(ShakeMinDistance, ShakeMaxDistance);
+
+	EndShakePos.x = sinf(RandomRot);
+	EndShakePos.y = cosf(RandomRot);
+
+	EndShakePos *= RandomDis;
+}

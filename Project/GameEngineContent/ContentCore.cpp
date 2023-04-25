@@ -119,6 +119,7 @@ void ContentCore::CoreLoading()
 	{
 		GameEngineInput::CreateKey("LevelMove_ShaderDebug", VK_NUMPAD7);
 		GameEngineInput::CreateKey("LevelMove_BattleDebug", VK_NUMPAD8);
+		GameEngineInput::CreateKey("LevelMove_BackPrevLevel", VK_NUMPAD0);
 	}
 }
 

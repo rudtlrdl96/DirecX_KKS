@@ -38,11 +38,20 @@ public:
 		ActiveValue = false;
 	}
 
+	bool IsUpdate() const
+	{
+		return ActiveValue;
+	}
+
 	void Death()
 	{
 		DeathValue = true;
 	}
 
+	bool IsDeath() const
+	{
+		return DeathValue;
+	}
 
 	void DebugOn()
 	{

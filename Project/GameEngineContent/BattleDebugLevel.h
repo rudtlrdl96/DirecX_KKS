@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseDebugLevel.h"
+#include "ContentLevel.h"
 
-class BattleDebugLevel : public BaseDebugLevel
+class BattleDebugLevel : public ContentLevel
 {
 public:
 	BattleDebugLevel();
@@ -18,6 +18,7 @@ protected:
 
 private:
 	std::shared_ptr<class Tilemap> DebugTilemap = nullptr;
+	std::shared_ptr<class DebugSpriteActor> DeubgActor = nullptr;
 
 	float CameraSpeed = 300.0f;
 };

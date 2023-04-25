@@ -16,10 +16,10 @@ Tilemap::~Tilemap()
 void Tilemap::ResizeTilemap(size_t _SizeX, size_t _SizeY, int _Depth)
 {
 	std::vector<std::vector<std::shared_ptr<TileActor>>>& TilemapRef = TilemapDatas[_Depth];
-	int2& TileSize = TilemapSizeDatas[_Depth];
+	int2& TileCount = TilemapSizeDatas[_Depth];
 
-	TileSize.x = static_cast<int>(_SizeX);
-	TileSize.y = static_cast<int>(_SizeY);
+	TileCount.x = static_cast<int>(_SizeX);
+	TileCount.y = static_cast<int>(_SizeY);
 
 	for (size_t y = 0; y < TilemapRef.size(); y++)
 	{
@@ -121,9 +121,9 @@ void Tilemap::ChangeData(int _Depth, UINT _StartX, UINT _StartY, const std::vect
 
 bool Tilemap::IsOver(int _Depth, UINT _X, UINT _Y)
 {
-	int2& TileSize = TilemapSizeDatas[_Depth];
+	int2& TileCount = TilemapSizeDatas[_Depth];
 
-	if (TileSize.x <= static_cast<int>(_X) || TileSize.y <= static_cast<int>(_Y))
+	if (TileCount.x <= static_cast<int>(_X) || TileCount.y <= static_cast<int>(_Y))
 	{
 		return true;
 	}
@@ -134,4 +134,23 @@ bool Tilemap::IsOver(int _Depth, UINT _X, UINT _Y)
 float4 Tilemap::GetTilePos(UINT _X, UINT _Y) const
 {
 	return TilemapStartPos + float4(static_cast<float>(_X), static_cast<float>(_Y), 0, 0) * TileSize;
+}
+
+Tilemap_DESC Tilemap::GetTilemap_DESC(int _Depth)
+{
+	int2& TileCount = TilemapSizeDatas[_Depth];
+
+	Tilemap_DESC Result = Tilemap_DESC();
+
+	float4 TilemapPos = TilemapStartPos;
+
+	TilemapPos.x -= ContentConst::TileSize.hx();
+	TilemapPos.y -= ContentConst::TileSize.y;
+
+	Result.Bottom = TilemapPos.y;
+	Result.Top	  = TilemapPos.y + (TileCount.y * TileSize.y);
+	Result.Left   = TilemapPos.x;
+	Result.Right  = TilemapPos.x + (TileCount.x * TileSize.x);
+
+	return Result;
 }

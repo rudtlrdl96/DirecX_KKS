@@ -24,11 +24,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="BaseDebugLevel.h">
+    <ClInclude Include="BattleDebugLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="BattleDebugLevel.h">
+    <ClInclude Include="CameraController.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -60,8 +60,16 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentVertex.h" />
     <ClInclude Include="DebugBoxActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="DebugSpriteActor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -124,11 +132,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="BaseDebugLevel.cpp">
+    <ClCompile Include="BattleDebugLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="BattleDebugLevel.cpp">
+    <ClCompile Include="CameraController.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -168,8 +176,16 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentVertex.cpp" />
     <ClCompile Include="DebugBoxActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="DebugSpriteActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>

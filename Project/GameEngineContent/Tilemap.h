@@ -1,6 +1,15 @@
 #pragma once
 #include "BaseContentActor.h"
 
+class Tilemap_DESC
+{
+public:
+	float Left = 0.0f;
+	float Right = 0.0f;
+	float Top = 0.0f;
+	float Bottom = 0.0f;
+};
+
 class Tilemap : public BaseContentActor
 {
 public:
@@ -31,6 +40,8 @@ public:
 	{
 		return TilemapSizeDatas[_Depth].y;
 	}
+
+	Tilemap_DESC GetTilemap_DESC(int _Depth);
 
 	// void CopyData(....);
 

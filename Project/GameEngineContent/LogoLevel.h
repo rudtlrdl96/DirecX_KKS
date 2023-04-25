@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineLevel.h>
+#include "ContentLevel.h"
 #include <memory>
 
-class LogoLevel : public GameEngineLevel
+class LogoLevel : public ContentLevel
 {
 public:
 	LogoLevel();

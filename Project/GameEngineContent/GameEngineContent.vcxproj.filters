@@ -94,6 +94,9 @@
     <Filter Include="Class\Base\Math">
       <UniqueIdentifier>{1ed430eb-2b35-4b99-99c1-e142416ff8b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Camera">
+      <UniqueIdentifier>{c54d38e3-eb1a-43d5-a0a4-d6ad2958ea42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -128,9 +131,6 @@
     </ClInclude>
     <ClInclude Include="BaseCommonData.h">
       <Filter>Class\Base\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseDebugLevel.h">
-      <Filter>Level\DebugLevel</Filter>
     </ClInclude>
     <ClInclude Include="DebugBoxActor.h">
       <Filter>Actor\Debug</Filter>
@@ -174,6 +174,15 @@
     <ClInclude Include="int2.h">
       <Filter>Class\Base\Math</Filter>
     </ClInclude>
+    <ClInclude Include="ContentLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>Class\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugSpriteActor.h">
+      <Filter>Actor\Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -208,9 +217,6 @@
     </ClCompile>
     <ClCompile Include="BaseCommonData.cpp">
       <Filter>Class\Base\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseDebugLevel.cpp">
-      <Filter>Level\DebugLevel</Filter>
     </ClCompile>
     <ClCompile Include="DebugBoxActor.cpp">
       <Filter>Actor\Debug</Filter>
@@ -268,6 +274,15 @@
     </ClCompile>
     <ClCompile Include="int2.cpp">
       <Filter>Class\Base\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraController.cpp">
+      <Filter>Class\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugSpriteActor.cpp">
+      <Filter>Actor\Debug</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
