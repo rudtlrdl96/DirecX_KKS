@@ -16,7 +16,9 @@ public:
 
 	void ChangeData(int _Depth, UINT _X, UINT _Y, size_t Index);
 	void ChangeData(int _Depth, UINT _StartX, UINT _EndX, UINT _StartY, UINT _EndY,  size_t Index);
-	void ChangeData(int _Depth, UINT _X, UINT _Y, const std::vector<std::vector<size_t>>& _Indexs);
+	void ChangeData(int _Depth, UINT _StartX, UINT _StartY, const std::vector<std::vector<size_t>>& _Indexs);
+
+	bool IsOver(int _Depth, UINT _X, UINT _Y);
 
 	float4 GetTilePos(UINT _X, UINT _Y) const;
 

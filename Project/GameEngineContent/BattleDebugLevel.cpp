@@ -27,10 +27,15 @@ void BattleDebugLevel::Start()
 	DebugTilemap = CreateActor<Tilemap>();
 	DebugTilemap->ResizeTilemap(40, 12, 0);
 
-	for (UINT i = 0; i < DebugTilemap->SizeX(0); i++)
-	{
-		//DebugTilemap->ChangeData(i, 0, 1);
-	}
+	DebugTilemap->ChangeData(0, 0, 39, 0, 0, 2);
+	DebugTilemap->ChangeData(0, 0, 1, {{1000, 1001, 1002}});
+	DebugTilemap->ChangeData(0, 0, 2, {{1000, 1001, 1002}});
+	DebugTilemap->ChangeData(0, 0, 3, {{1000, 1001, 1002}});
+
+	//for (UINT i = 0; i < DebugTilemap->SizeX(0); i++)
+	//{
+	//	DebugTilemap->ChangeData(0, i, 0, 2);
+	//}
 }
 
 void BattleDebugLevel::Update(float _DeltaTime)
