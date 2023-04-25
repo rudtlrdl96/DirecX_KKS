@@ -30,17 +30,12 @@ public:
 
 	void On()
 	{
-		ActiveValue = true;
+		UpdateValue = true;
 	}
 
 	void Off()
 	{
-		ActiveValue = false;
-	}
-
-	bool IsUpdate() const
-	{
-		return ActiveValue;
+		UpdateValue = false;
 	}
 
 	void Death()
@@ -48,9 +43,14 @@ public:
 		DeathValue = true;
 	}
 
-	bool IsDeath() const
+	virtual bool IsDeath()
 	{
 		return DeathValue;
+	}
+
+	virtual bool IsUpdate()
+	{
+		return UpdateValue;
 	}
 
 	void DebugOn()
@@ -66,7 +66,7 @@ public:
 protected:
 
 private:
-	bool ActiveValue = true; // 켜졌다 꺼졌다
+	bool UpdateValue = true; // 켜졌다 꺼졌다
 	bool DeathValue = false; // 죽었다 살았다
 	bool DebugValue = false;
 	int Order = 0;

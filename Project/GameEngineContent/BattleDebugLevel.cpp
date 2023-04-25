@@ -38,6 +38,7 @@ void BattleDebugLevel::Start()
 
 	DeubgActor = CreateActor<DebugSpriteActor>();
 	DeubgActor->Off();
+	
 
 	MainCamCtrl.SetLookatTarget(DeubgActor);
 	Tilemap_DESC DESC = DebugTilemap->GetTilemap_DESC(0);
