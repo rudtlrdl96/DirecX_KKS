@@ -52,9 +52,6 @@
     <Filter Include="Component\Collision">
       <UniqueIdentifier>{2cf447f0-8e2a-449c-a4c6-4be613997837}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Tile">
-      <UniqueIdentifier>{72f7e1a4-1266-4525-b44a-0f38f492bb96}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Class\Base">
       <UniqueIdentifier>{1b08e87b-7a8b-488a-a753-40e39d041074}</UniqueIdentifier>
     </Filter>
@@ -96,6 +93,15 @@
     </Filter>
     <Filter Include="Class\Camera">
       <UniqueIdentifier>{c54d38e3-eb1a-43d5-a0a4-d6ad2958ea42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Map">
+      <UniqueIdentifier>{9a126e3c-fccb-47fd-985b-1461fb5b2a79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Map\Tile">
+      <UniqueIdentifier>{72f7e1a4-1266-4525-b44a-0f38f492bb96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Map\Background">
+      <UniqueIdentifier>{018cacd0-fb6d-47bf-99a4-269e05e9f50b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -166,10 +172,10 @@
       <Filter>Level\DebugLevel\Battle</Filter>
     </ClInclude>
     <ClInclude Include="TileActor.h">
-      <Filter>Actor\Tile</Filter>
+      <Filter>Actor\Map\Tile</Filter>
     </ClInclude>
     <ClInclude Include="Tilemap.h">
-      <Filter>Actor\Tile</Filter>
+      <Filter>Actor\Map\Tile</Filter>
     </ClInclude>
     <ClInclude Include="int2.h">
       <Filter>Class\Base\Math</Filter>
@@ -182,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="DebugSpriteActor.h">
       <Filter>Actor\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Actor\Map\Background</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -267,10 +276,10 @@
       <Filter>Level\DebugLevel\Battle</Filter>
     </ClCompile>
     <ClCompile Include="TileActor.cpp">
-      <Filter>Actor\Tile</Filter>
+      <Filter>Actor\Map\Tile</Filter>
     </ClCompile>
     <ClCompile Include="Tilemap.cpp">
-      <Filter>Actor\Tile</Filter>
+      <Filter>Actor\Map\Tile</Filter>
     </ClCompile>
     <ClCompile Include="int2.cpp">
       <Filter>Class\Base\Math</Filter>
@@ -283,6 +292,9 @@
     </ClCompile>
     <ClCompile Include="DebugSpriteActor.cpp">
       <Filter>Actor\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Actor\Map\Background</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
