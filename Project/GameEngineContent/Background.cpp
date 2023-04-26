@@ -23,6 +23,7 @@ void Background::Init(const BG_DESC& _Desc)
 	Desc.Ratio;
 	BackImage->SetTexture(Desc.TextureName);
 	BackImage->GetTransform()->SetLocalScale(Desc.Size);
+	BackImage->On();
 
 	GetTransform()->SetLocalPosition(Desc.Center);
 
@@ -80,6 +81,8 @@ void Background::UpdateTargetPos(float _DeltaTime, const float4& _TargetPos)
 
 void Background::Start()
 {
-	BackImage = CreateComponent<GameEngineSpriteRenderer>();	
+	BackImage = CreateComponent<GameEngineSpriteRenderer>();
+	BackImage->SetPipeLine("2DTexture_ColorLight");
+	BackImage->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", Desc.Color);
 	BackImage->Off();
 }

@@ -147,8 +147,11 @@ void ContentCore::ShaderCreate()
 
 	std::vector<GameEngineFile> Files = NewDir.GetAllFile({ ".hlsl", ".fx" });
 
-	GameEngineVertexShader::Load(Files[0].GetFullPath(), "Texture_VS");
-	GameEnginePixelShader::Load(Files[0].GetFullPath(), "Texture_PS");
+	for (size_t i = 0; i < Files.size(); i++)
+	{
+		GameEngineVertexShader::Load(Files[i].GetFullPath(), "Texture_VS");
+		GameEnginePixelShader::Load(Files[i].GetFullPath(), "Texture_PS");
+	}
 }
 
 void ContentCore::ContentPipeLineCreate()
@@ -161,6 +164,19 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("ContentShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ContentShader.hlsl");
-		Pipe->SetBlend("AlphaBlend");
+		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_ColorLight");
+
+		Pipe->SetVertexBuffer("Rect");
+		Pipe->SetIndexBuffer("Rect");
+		Pipe->SetVertexShader("ColorShader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("ColorShader.hlsl");
+		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
 	}
 }

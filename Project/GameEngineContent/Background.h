@@ -11,6 +11,7 @@ public:
 		float4 Center = float4::Zero;
 		float Ratio = 0.0f;
 		float4 Size = float4::Zero;
+		float4 Color = float4::Null;
 		bool Animation = false;
 		float AnimationSpeed = 0.0f;
 	};

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="..\Resources\Shader\ColorShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\ContentShader.hlsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
