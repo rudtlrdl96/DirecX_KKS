@@ -30,5 +30,6 @@ void TileActor::Start()
 {
 	DrawRender = CreateComponent<GameEngineSpriteRenderer>();
 	DrawRender->GetTransform()->SetLocalScale(ContentConst::TileSize);	
+	DrawRender->GetTransform()->SetLocalPosition({ 0, -ContentConst::TileSize.hy(), 0, 0 });
 	DrawRender->Off();
 }

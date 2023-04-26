@@ -31,13 +31,9 @@ void BattleDebugLevel::Start()
 	DebugTilemap = CreateActor<Tilemap>();
 	DebugTilemap->ResizeTilemap(40, 12, 0);
 
-	DebugTilemap->ChangeData(0, 0, 39, 0, 11, 0);
-	//DebugTilemap->ChangeData(0, 0, 1, {{1000, 1001, 1002}});
-	//DebugTilemap->ChangeData(0, 0, 2, {{1000, 1001, 1002}});
-	//DebugTilemap->ChangeData(0, 0, 3, {{1000, 1001, 1002}});
+	DebugTilemap->ChangeData(0, 0, 39, 0, 11, 1);
+	DebugTilemap->ChangeData(0, 0, 39, 0, 0, 2);
 
-	//MainCamCtrl.MoveLerp_ExceptionZ(MainCamCtrl.GetCameraPos(), float4(2000, 300), 5.0f);
-	
 	Tilemap_DESC TilemapDESC = DebugTilemap->GetTilemap_DESC(0);
 
 	MainCamCtrl.SetMinHeight(TilemapDESC.Bottom);
@@ -110,11 +106,6 @@ void BattleDebugLevel::Start()
 
 	DeubgActor = CreateActor<DebugSpriteActor>();
 	DeubgActor->Off();
-
-	//for (UINT i = 0; i < DebugTilemap->SizeX(0); i++)
-	//{
-	//	DebugTilemap->ChangeData(0, i, 0, 2);
-	//}
 
 	MainCamCtrl.SetLookatTarget(DeubgActor);
 }
