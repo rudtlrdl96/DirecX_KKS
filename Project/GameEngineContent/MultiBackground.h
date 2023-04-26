@@ -14,6 +14,7 @@ public:
 	MultiBackground& operator=(MultiBackground&& _Other) noexcept = delete;
 
 	void CreateBackground(Background::BG_DESC& _Desc, int _Depth);
+	void UpdateTargetPos(float _DeltaTime, const float4& _TargetPos);
 
 protected:
 	

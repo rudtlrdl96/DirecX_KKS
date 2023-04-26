@@ -25,15 +25,29 @@ void Background::Init(const BG_DESC& _Desc)
 	BackImage->GetTransform()->SetLocalScale(Desc.Size);
 
 	GetTransform()->SetLocalPosition(Desc.Center);
+
+	if (true == Desc.Animation)
+	{
+		AnimationImage = CreateComponent<GameEngineSpriteRenderer>();
+		AnimationImage->SetTexture(Desc.TextureName);
+		AnimationImage->GetTransform()->SetLocalScale(Desc.Size);
+		
+		Desc.AnimationSpeed = Desc.AnimationSpeed / Desc.Size.x;
+
+		if (0 < Desc.AnimationSpeed)
+		{
+			AnimationMoveDir = float4(Desc.Size.x, 0, 0, 0);
+		}
+		else
+		{
+			AnimationMoveDir = float4(-Desc.Size.x, 0, 0, 0);
+		}
+
+		AnimationImage->GetTransform()->SetLocalPosition(Desc.Center - AnimationMoveDir);
+	}
 }
 
-void Background::Start()
-{
-	BackImage = CreateComponent<GameEngineSpriteRenderer>();	
-	BackImage->Off();
-}
-
-void Background::Update(float _DeltaTime)
+void Background::UpdateTargetPos(float _DeltaTime, const float4& _TargetPos)
 {
 	if (nullptr == BackImage)
 	{
@@ -41,21 +55,31 @@ void Background::Update(float _DeltaTime)
 		return;
 	}
 
-	if(nullptr == Target)
-	{
-		return;
-	}
-
-	if (true == Target->IsDeath())
-	{
-		Target = nullptr;
-		return;
-	}
-
 	float4 RenderPos = Desc.Center;
-	float4 TargetDir = Target->GetWorldPosition() - Desc.Center;
+	float4 TargetDir = _TargetPos - Desc.Center;
 
-	RenderPos += TargetDir * Desc.Ratio;
+	RenderPos += TargetDir * (1.0f - Desc.Ratio);
+	RenderPos.z = Desc.Center.z;
+
+	if (true == Desc.Animation)
+	{
+		AnimationProgress += _DeltaTime * Desc.AnimationSpeed;
+		float4 AnimMove = float4::LerpClamp(float4::Zero, AnimationMoveDir, AnimationProgress);
+		RenderPos += AnimMove;
+
+		if (1.0f <= AnimationProgress)
+		{
+			AnimationProgress -= 1.0f;
+		}
+
+		AnimationImage->GetTransform()->SetWorldPosition(RenderPos - AnimationMoveDir);
+	}
 
 	BackImage->GetTransform()->SetWorldPosition(RenderPos);
+}
+
+void Background::Start()
+{
+	BackImage = CreateComponent<GameEngineSpriteRenderer>();	
+	BackImage->Off();
 }

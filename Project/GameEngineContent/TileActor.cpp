@@ -14,12 +14,12 @@ void TileActor::SetTileData(const TilemapData& _Data)
 {
 	Data = _Data;
 
-	if (0 == Data.Index)
-	{
-		DrawRender->Off();
-		Off();
-		return;
-	}
+	//if (0 == Data.Index)
+	//{
+	//	DrawRender->Off();
+	//	Off();
+	//	return;
+	//}
 
 	DrawRender->GetTransform()->SetLocalPosition({0, -ContentConst::TileSize.hy()});
 	DrawRender->SetTexture(Data.Name);

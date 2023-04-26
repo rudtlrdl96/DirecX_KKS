@@ -7,10 +7,12 @@ public:
 	class BG_DESC
 	{
 	public:
-		std::string TextureName;
-		float4 Center;
-		float Ratio;
-		float4 Size;
+		std::string TextureName = "";
+		float4 Center = float4::Zero;
+		float Ratio = 0.0f;
+		float4 Size = float4::Zero;
+		bool Animation = false;
+		float AnimationSpeed = 0.0f;
 	};
 public:
 	Background();
@@ -22,14 +24,18 @@ public:
 	Background& operator=(Background&& _Other) noexcept = delete;
 	
 	void Init(const BG_DESC& _Desc);
+	void UpdateTargetPos(float _DeltaTime, const float4& _TargetPos);
 
 protected:
 	void Start() override;
-	void Update(float _DeltaTime) override;
 
 private:
-	BG_DESC Desc;
+	BG_DESC Desc = BG_DESC();
 
-	std::shared_ptr<GameEngineTransform> Target = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> BackImage = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> AnimationImage = nullptr;
+
+	float AnimationProgress = 0.0f;
+	float4 AnimationMoveDir = float4::Zero;
+
 };

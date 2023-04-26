@@ -40,7 +40,11 @@ void Tilemap::ResizeTilemap(size_t _SizeX, size_t _SizeY, int _Depth)
 		{
 			TilemapRef[y][x] = GetLevel()->CreateActor<TileActor>();
 			TilemapRef[y][x]->GetTransform()->SetParent(GetTransform());
-			TilemapRef[y][x]->GetTransform()->SetLocalPosition(GetTilePos(x, y));
+
+			float4 TilePos = GetTilePos(x, y);
+			TilePos.z = _Depth * 100.0f;
+
+			TilemapRef[y][x]->GetTransform()->SetLocalPosition(TilePos);
 			TilemapRef[y][x]->SetTileData(1);
 		}
 	}

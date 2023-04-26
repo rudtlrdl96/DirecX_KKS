@@ -82,26 +82,26 @@ void CameraController::Update(float _DeltaTime)
 		break;
 	}
 	
+	if (CamPos.x - WindowSizeHalf.x < MinWidth)
+	{
+		CamPos.x = MinWidth + WindowSizeHalf.x;
+	}
+	else if (CamPos.x + WindowSizeHalf.x > MaxWidth)
+	{
+		CamPos.x = MaxWidth - WindowSizeHalf.x;
+	}
+
+	if (CamPos.y - WindowSizeHalf.y < MinHeight)
+	{
+		CamPos.y = MinHeight + WindowSizeHalf.y;
+	}
+	else if (CamPos.y + WindowSizeHalf.y > MaxHeight)
+	{
+		CamPos.y = MaxHeight - WindowSizeHalf.y;
+	}
+
 	LastCameraPos = CamPos;
 	LastCameraRot = CamRot;
-
-	if (LastCameraPos.x - WindowSizeHalf.x < MinWidth)
-	{
-		LastCameraPos.x = MinWidth + WindowSizeHalf.x;
-	}
-	else if (LastCameraPos.x + WindowSizeHalf.x > MaxWidth)
-	{
-		LastCameraPos.x = MaxWidth - WindowSizeHalf.x;
-	}
-
-	if (LastCameraPos.y - WindowSizeHalf.y < MinHeight)
-	{
-		LastCameraPos.y = MinHeight + WindowSizeHalf.y;
-	}
-	else if (LastCameraPos.y + WindowSizeHalf.y > MaxHeight)
-	{
-		LastCameraPos.y = MaxHeight - WindowSizeHalf.y;
-	}
 
 	// 카메라 효과 적용
 	CameraEffectPos = float4::Zero;
