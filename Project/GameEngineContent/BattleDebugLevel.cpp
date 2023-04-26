@@ -31,7 +31,7 @@ void BattleDebugLevel::Start()
 	DebugTilemap = CreateActor<Tilemap>();
 	DebugTilemap->ResizeTilemap(40, 12, 0);
 
-	DebugTilemap->ChangeData(0, 0, 39, 0, 11, 1);
+	DebugTilemap->ChangeData(0, 0, 39, 0, 11, 0);
 	DebugTilemap->ChangeData(0, 0, 39, 0, 0, 2);
 
 	Tilemap_DESC TilemapDESC = DebugTilemap->GetTilemap_DESC(0);

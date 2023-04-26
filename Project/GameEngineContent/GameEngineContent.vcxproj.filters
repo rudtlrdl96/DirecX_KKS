@@ -133,6 +133,54 @@
     <Filter Include="Level\GameLevel\UILevel\Story">
       <UniqueIdentifier>{df809b18-562b-4345-bd04-e88bb7dc0c7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Player\Skull\BornSkull">
+      <UniqueIdentifier>{2e5963b7-1936-4419-90ca-a0ff3aa32c46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\ChiefGuard">
+      <UniqueIdentifier>{d1143e47-9eba-4de6-8c7b-8cfa585823f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Minotaurus">
+      <UniqueIdentifier>{50134eaa-989d-4d4c-90ad-daf34dfcab05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Wolf">
+      <UniqueIdentifier>{59676618-25b2-4fc4-a1ad-083d9df730f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Alchemist">
+      <UniqueIdentifier>{db4c0849-8663-4610-82b1-0baec5e95bdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Minotaurus\Rare">
+      <UniqueIdentifier>{6e5913a8-95fc-4e4f-bb15-bcd3b8194373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Minotaurus\Unique">
+      <UniqueIdentifier>{fc55acae-276c-4647-9831-c2ac9ebac38f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Minotaurus\Legandary">
+      <UniqueIdentifier>{bd5d0109-1054-41d2-ae45-ad846c998baf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Alchemist\Rare">
+      <UniqueIdentifier>{3a2ef9ac-11bb-4028-aaf2-b90c82d3fcc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Alchemist\Unique">
+      <UniqueIdentifier>{b7f52a99-0dd3-4f92-a0b4-6358b45896b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Alchemist\Lagandary">
+      <UniqueIdentifier>{99859148-5f52-43fb-8887-f435bc559e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Wolf\Rare">
+      <UniqueIdentifier>{6d6f0935-ac6c-4c94-b711-4924dad61efe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Wolf\Unique">
+      <UniqueIdentifier>{c549aa68-b8da-415d-800a-79153744ea1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Wolf\Normal">
+      <UniqueIdentifier>{d80fbc1e-af7e-4c46-9df1-a4cd0c41428a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skull\Wolf\Lagandary">
+      <UniqueIdentifier>{fe04da4f-51de-4304-a945-f2d04a946fb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Map\StaticObject">
+      <UniqueIdentifier>{42e7682b-03c1-4b05-bbe5-2bb85bc7ea6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -251,6 +299,15 @@
     </ClInclude>
     <ClInclude Include="UILevel.h">
       <Filter>Level\GameLevel\UILevel</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBaseSkull.h">
+      <Filter>Actor\Player\Skull</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneSkull.h">
+      <Filter>Actor\Player\Skull\BornSkull</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticObject.h">
+      <Filter>Actor\Map\StaticObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +442,15 @@
     </ClCompile>
     <ClCompile Include="UILevel.cpp">
       <Filter>Level\GameLevel\UILevel</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBaseSkull.cpp">
+      <Filter>Actor\Player\Skull</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneSkull.cpp">
+      <Filter>Actor\Player\Skull\BornSkull</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticObject.cpp">
+      <Filter>Actor\Map\StaticObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

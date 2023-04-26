@@ -31,7 +31,7 @@ public:
 	ClassFSM& operator=(const ClassFSM& _Other) = delete;
 	ClassFSM& operator=(ClassFSM&& _Other) noexcept = delete;
 	
-	void Init(ClassType* _ClassPtr)
+	void Init(std::shared_ptr<ClassType> _ClassPtr)
 	{
 		if (nullptr == _ClassPtr)
 		{
@@ -73,16 +73,16 @@ public:
 
 		if (nullptr != _Start)
 		{
-			StartFunc = std::bind(_Start, ClassPtr);
+			StartFunc = std::bind(_Start, ClassPtr.get());
 		}
 
-		std::function<void(float)> UpdateFunc = std::bind(_Update, ClassPtr, std::placeholders::_1);
+		std::function<void(float)> UpdateFunc = std::bind(_Update, ClassPtr.get(), std::placeholders::_1);
 
 		std::function<void()> EndFunc = nullptr;
 
 		if (nullptr != _End)
 		{
-			EndFunc = std::bind(_End, ClassPtr);
+			EndFunc = std::bind(_End, ClassPtr.get());
 		}
 
 		FsmDatas.push_back(ClassFSM<ClassType>::FSMParameter(
@@ -154,7 +154,7 @@ protected:
 private:
 	std::vector<FSMParameter> FsmDatas;
 
-	ClassType* ClassPtr = nullptr;
+	std::shared_ptr<ClassType> ClassPtr = nullptr;
 
 	FSMParameter* CurState = nullptr;
 	FSMParameter* PrevState = nullptr;

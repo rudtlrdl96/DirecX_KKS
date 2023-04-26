@@ -111,7 +111,7 @@ void GameEngineCore::CoreResourcesInit()
 		ArrVertex[2] = { { 0.5f, -0.5f, 0.0f }, {1.0f, 1.0f} };
 		ArrVertex[3] = { { -0.5f, -0.5f, 0.0f }, {0.0f, 1.0f} };
 
-		std::vector<UINT> ArrIndex = {0, 1, 2, 0, 2, 3};
+		std::vector<UINT> ArrIndex = { 0, 1, 2, 0, 2, 3 };
 
 		GameEngineVertexBuffer::Create("Rect", ArrVertex);
 		GameEngineIndexBuffer::Create("Rect", ArrIndex);
@@ -120,10 +120,13 @@ void GameEngineCore::CoreResourcesInit()
 
 	{
 		// 블랜드
-		D3D11_BLEND_DESC Desc = {0,};
+		D3D11_BLEND_DESC Desc = { 0, };
 
 		// 자동으로 알파부분을 제거해서 출력해주는 건데
 		// 졸라느립니다.
+		// Desc.AlphaToCoverageEnable = false;
+
+		// 
 		Desc.AlphaToCoverageEnable = false;
 		// 블랜드를 여러개 넣을거냐
 		// TRUE면 블랜드를 여러개 넣습니다.
@@ -212,7 +215,7 @@ void GameEngineCore::CoreResourcesInit()
 		NewDir.Move("EngineResources");
 		NewDir.Move("Shader");
 
-		std::vector<GameEngineFile> Files = NewDir.GetAllFile({ ".hlsl", ".fx"});
+		std::vector<GameEngineFile> Files = NewDir.GetAllFile({ ".hlsl", ".fx" });
 
 		std::shared_ptr<GameEngineVertexShader> VertexShader = GameEngineVertexShader::Load(Files[0].GetFullPath(), "Texture_VS");
 
@@ -279,7 +282,8 @@ void GameEngineCore::CoreResourcesInit()
 			Pipe->SetVertexShader("TextureShader.hlsl");
 			Pipe->SetRasterizer("Engine2DBase");
 			Pipe->SetPixelShader("TextureShader.hlsl");
-			Pipe->SetBlend("AlphaBlend");
+			Pipe->SetBlendState("AlphaBlend");
+			Pipe->SetDepthState("EngineDepth");
 		}
 	}
 }
@@ -289,6 +293,7 @@ void GameEngineCore::CoreResourcesEnd()
 	GameEngineMesh::ResourcesClear();
 	GameEngineBlend::ResourcesClear();
 	GameEngineTexture::ResourcesClear();
+	GameEngineDepthState::ResourcesClear();
 	GameEngineRasterizer::ResourcesClear();
 	GameEngineIndexBuffer::ResourcesClear();
 	GameEnginePixelShader::ResourcesClear();
@@ -297,4 +302,5 @@ void GameEngineCore::CoreResourcesEnd()
 	GameEngineRenderTarget::ResourcesClear();
 	GameEngineConstantBuffer::ResourcesClear();
 	GameEngineRenderingPipeLine::ResourcesClear();
+
 }
