@@ -27,6 +27,9 @@ public:
 	void Init(const BG_DESC& _Desc);
 	void UpdateTargetPos(float _DeltaTime, const float4& _TargetPos);
 
+	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
+	static BG_DESC LoadBin(GameEngineSerializer& _SaveSerializer);
+
 protected:
 	void Start() override;
 

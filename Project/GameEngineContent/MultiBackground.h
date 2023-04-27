@@ -16,6 +16,9 @@ public:
 	void CreateBackground(Background::BG_DESC& _Desc, int _Depth);
 	void UpdateTargetPos(float _DeltaTime, const float4& _TargetPos);
 
+	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
+	void LoadBin(GameEngineSerializer& _SaveSerializer);
+
 protected:
 	
 private:

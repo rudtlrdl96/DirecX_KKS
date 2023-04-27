@@ -43,3 +43,29 @@ void MultiBackground::UpdateTargetPos(float _DeltaTime, const float4& _TargetPos
 		}
 	}
 }
+
+void MultiBackground::SaveBin(GameEngineSerializer& _SaveSerializer) const
+{
+	_SaveSerializer.Write(static_cast<int>(BackgroundBuffer.size()));
+
+	for (const std::pair<int, std::shared_ptr<Background>>& LoopRef : BackgroundBuffer)
+	{
+		_SaveSerializer.Write(LoopRef.first);
+		LoopRef.second->SaveBin(_SaveSerializer);
+	}
+}
+
+void MultiBackground::LoadBin(GameEngineSerializer& _SaveSerializer)
+{
+	int BackCount = 0;
+	_SaveSerializer.Read(BackCount);
+
+	for (int i = 0; i < BackCount; i++)
+	{
+		int Depth = 0;
+		_SaveSerializer.Read(Depth);
+
+		Background::BG_DESC LoadDesc = Background::LoadBin(_SaveSerializer);
+		CreateBackground(LoadDesc, Depth);
+	}
+}
