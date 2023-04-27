@@ -89,11 +89,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ForestOfHarmonyLevel_Boss.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ForestOfHarmonyLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="GrandHallLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GrandHallLevel_Boss.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -118,6 +126,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="MultiBackground.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -232,6 +244,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentCore_StaticObject.cpp" />
     <ClCompile Include="ContentCore_MonsterData.cpp" />
     <ClCompile Include="ContentCore_QuintessenceData.cpp" />
     <ClCompile Include="ContentCore_SkullData.cpp" />
@@ -261,11 +274,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ForestOfHarmonyLevel_Boss.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ForestOfHarmonyLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="GrandHallLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GrandHallLevel_Boss.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -290,6 +311,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MultiBackground.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>

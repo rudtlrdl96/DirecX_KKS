@@ -1,456 +1,483 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Level">
-      <UniqueIdentifier>{7e79c74e-1d6e-4820-970e-972b46adda15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor">
-      <UniqueIdentifier>{9c47de49-c4d8-48d4-aca8-9b8faff8dafd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core">
+    <Filter Include="0_Core">
       <UniqueIdentifier>{87681d83-7a26-43b9-bb69-16856c0a5f87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class">
+    <Filter Include="1_Class">
       <UniqueIdentifier>{579b2537-2b10-46ad-b525-e7f4274ea025}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\DebugLevel">
-      <UniqueIdentifier>{86cc7c59-2073-4fd6-8252-5d08f1166dc8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\GameLevel">
-      <UniqueIdentifier>{c40299fa-bf45-4b05-9b09-e48a1cd0660a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Inventory">
+    <Filter Include="1_Class\Inventory">
       <UniqueIdentifier>{004feef5-1412-40a9-8e9f-5f76481cd837}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player">
-      <UniqueIdentifier>{2d4faacb-1cc4-477e-9f4e-f278ba362eec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor\Player\Skull">
-      <UniqueIdentifier>{dcd1f1df-9dae-4799-b806-2f64eea7ba32}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\DebugLevel\Animation">
-      <UniqueIdentifier>{fa872e57-dff1-464a-8cf2-0a264bbc178d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor\Debug">
-      <UniqueIdentifier>{4a454154-fa79-4c3c-931f-5b6b9d12f46f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\DebugLevel\Shader">
-      <UniqueIdentifier>{7cb2c9ef-5890-48c1-b03b-067809aa1cc2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ContentVertex">
-      <UniqueIdentifier>{a71937fe-bac1-4671-8cc9-7c6cbefef509}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\DebugLevel\Battle">
-      <UniqueIdentifier>{9be16c7d-fa76-4cd7-81b1-cd038bf14c64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component">
-      <UniqueIdentifier>{9fe88acc-d8d5-4949-bcd5-a77983c7eb22}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Physics">
-      <UniqueIdentifier>{3bde9a22-123c-453e-a705-244ff654373a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Collision">
-      <UniqueIdentifier>{2cf447f0-8e2a-449c-a4c6-4be613997837}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Base">
+    <Filter Include="1_Class\Base">
       <UniqueIdentifier>{1b08e87b-7a8b-488a-a753-40e39d041074}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\FSM">
+    <Filter Include="1_Class\Base\FSM">
       <UniqueIdentifier>{de9f7019-9d28-451d-80d0-67b5619e7686}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\Common">
+    <Filter Include="1_Class\Base\Common">
       <UniqueIdentifier>{9f2040e1-30f8-4d52-b8e0-11eed909de89}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\PCH">
+    <Filter Include="1_Class\Base\PCH">
       <UniqueIdentifier>{868ce0c2-a748-42ee-b9b6-5206a05e0839}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\Data">
+    <Filter Include="1_Class\Base\Data">
       <UniqueIdentifier>{54c8fbd0-2ee5-4eb9-a7a6-d9133363eeac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\Data\Item">
+    <Filter Include="1_Class\Base\Data\Item">
       <UniqueIdentifier>{3949bbe4-b1d5-4adb-b814-50e7171e28be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\Data\Skull">
+    <Filter Include="1_Class\Base\Data\Skull">
       <UniqueIdentifier>{bef6db0e-3e52-4a83-9bb9-2e7707f31099}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\Data\Battle">
+    <Filter Include="1_Class\Base\Data\Battle">
       <UniqueIdentifier>{4f916763-5a54-4b02-888d-dfcaf48219c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\Data\Monster">
+    <Filter Include="1_Class\Base\Data\Monster">
       <UniqueIdentifier>{60e7fe7a-3522-4e92-b8ba-6f1eb6f6afd7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\Data\Quintessence">
+    <Filter Include="1_Class\Base\Data\Quintessence">
       <UniqueIdentifier>{6eb19772-fcfe-4da2-9bc5-62b98cf3d38a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\Data\Tile">
+    <Filter Include="1_Class\Base\Data\Tile">
       <UniqueIdentifier>{3371415e-0a4d-479f-bfed-e30e4858d0f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\Debug">
+    <Filter Include="1_Class\Base\Debug">
       <UniqueIdentifier>{df8e5d72-6eee-44f8-a646-94ef8724ed4b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Base\Math">
+    <Filter Include="1_Class\Base\Math">
       <UniqueIdentifier>{1ed430eb-2b35-4b99-99c1-e142416ff8b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Camera">
+    <Filter Include="1_Class\Camera">
       <UniqueIdentifier>{c54d38e3-eb1a-43d5-a0a4-d6ad2958ea42}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Map">
-      <UniqueIdentifier>{9a126e3c-fccb-47fd-985b-1461fb5b2a79}</UniqueIdentifier>
+    <Filter Include="2_Actor">
+      <UniqueIdentifier>{9c47de49-c4d8-48d4-aca8-9b8faff8dafd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Map\Tile">
-      <UniqueIdentifier>{72f7e1a4-1266-4525-b44a-0f38f492bb96}</UniqueIdentifier>
+    <Filter Include="2_Actor\Player">
+      <UniqueIdentifier>{2d4faacb-1cc4-477e-9f4e-f278ba362eec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Map\Background">
-      <UniqueIdentifier>{018cacd0-fb6d-47bf-99a4-269e05e9f50b}</UniqueIdentifier>
+    <Filter Include="2_Actor\Player\Skull">
+      <UniqueIdentifier>{dcd1f1df-9dae-4799-b806-2f64eea7ba32}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\GameLevel\BattleLevel">
-      <UniqueIdentifier>{0d91061b-911d-4bf9-955d-a6e4b1a4f8f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\GameLevel\UILevel">
-      <UniqueIdentifier>{dd61cd96-dabc-4d42-92cf-6c912d466fed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\GameLevel\BattleLevel\Castle">
-      <UniqueIdentifier>{67c8c4dd-40f5-406b-8b14-a20ad7dfada4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\GameLevel\BattleLevel\ForestOfMarmony">
-      <UniqueIdentifier>{5aee5d21-eb1e-4af5-ad5f-7b1dfcf31ab7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\GameLevel\BattleLevel\GrandHall">
-      <UniqueIdentifier>{2893c532-2da7-499c-af6a-37e9d69eb1c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\GameLevel\BattleLevel\HolyCourtyard">
-      <UniqueIdentifier>{a1994a46-8fad-4f03-b281-d87f071b6cac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\GameLevel\BattleLevel\Opening">
-      <UniqueIdentifier>{1d74fe82-96cb-49fc-808c-fc872588906b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\GameLevel\BattleLevel\Shop">
-      <UniqueIdentifier>{7a0e924a-99cb-4f0a-8046-606e8fabd751}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\GameLevel\UILevel\Logo">
-      <UniqueIdentifier>{ae182b43-32bf-42e0-b906-b2dec8569a1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\GameLevel\UILevel\Story">
-      <UniqueIdentifier>{df809b18-562b-4345-bd04-e88bb7dc0c7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor\Player\Skull\BornSkull">
+    <Filter Include="2_Actor\Player\Skull\BornSkull">
       <UniqueIdentifier>{2e5963b7-1936-4419-90ca-a0ff3aa32c46}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player\Skull\ChiefGuard">
+    <Filter Include="2_Actor\Player\Skull\ChiefGuard">
       <UniqueIdentifier>{d1143e47-9eba-4de6-8c7b-8cfa585823f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player\Skull\Minotaurus">
+    <Filter Include="2_Actor\Player\Skull\Minotaurus">
       <UniqueIdentifier>{50134eaa-989d-4d4c-90ad-daf34dfcab05}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player\Skull\Wolf">
-      <UniqueIdentifier>{59676618-25b2-4fc4-a1ad-083d9df730f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor\Player\Skull\Alchemist">
-      <UniqueIdentifier>{db4c0849-8663-4610-82b1-0baec5e95bdd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor\Player\Skull\Minotaurus\Rare">
+    <Filter Include="2_Actor\Player\Skull\Minotaurus\Rare">
       <UniqueIdentifier>{6e5913a8-95fc-4e4f-bb15-bcd3b8194373}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player\Skull\Minotaurus\Unique">
+    <Filter Include="2_Actor\Player\Skull\Minotaurus\Unique">
       <UniqueIdentifier>{fc55acae-276c-4647-9831-c2ac9ebac38f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player\Skull\Minotaurus\Legandary">
+    <Filter Include="2_Actor\Player\Skull\Minotaurus\Legandary">
       <UniqueIdentifier>{bd5d0109-1054-41d2-ae45-ad846c998baf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player\Skull\Alchemist\Rare">
-      <UniqueIdentifier>{3a2ef9ac-11bb-4028-aaf2-b90c82d3fcc7}</UniqueIdentifier>
+    <Filter Include="2_Actor\Player\Skull\Wolf">
+      <UniqueIdentifier>{59676618-25b2-4fc4-a1ad-083d9df730f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player\Skull\Alchemist\Unique">
-      <UniqueIdentifier>{b7f52a99-0dd3-4f92-a0b4-6358b45896b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor\Player\Skull\Alchemist\Lagandary">
-      <UniqueIdentifier>{99859148-5f52-43fb-8887-f435bc559e31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor\Player\Skull\Wolf\Rare">
+    <Filter Include="2_Actor\Player\Skull\Wolf\Rare">
       <UniqueIdentifier>{6d6f0935-ac6c-4c94-b711-4924dad61efe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player\Skull\Wolf\Unique">
+    <Filter Include="2_Actor\Player\Skull\Wolf\Unique">
       <UniqueIdentifier>{c549aa68-b8da-415d-800a-79153744ea1d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player\Skull\Wolf\Normal">
+    <Filter Include="2_Actor\Player\Skull\Wolf\Normal">
       <UniqueIdentifier>{d80fbc1e-af7e-4c46-9df1-a4cd0c41428a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Player\Skull\Wolf\Lagandary">
+    <Filter Include="2_Actor\Player\Skull\Wolf\Lagandary">
       <UniqueIdentifier>{fe04da4f-51de-4304-a945-f2d04a946fb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Map\StaticObject">
+    <Filter Include="2_Actor\Player\Skull\Alchemist">
+      <UniqueIdentifier>{db4c0849-8663-4610-82b1-0baec5e95bdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Player\Skull\Alchemist\Rare">
+      <UniqueIdentifier>{3a2ef9ac-11bb-4028-aaf2-b90c82d3fcc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Player\Skull\Alchemist\Unique">
+      <UniqueIdentifier>{b7f52a99-0dd3-4f92-a0b4-6358b45896b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Player\Skull\Alchemist\Lagandary">
+      <UniqueIdentifier>{99859148-5f52-43fb-8887-f435bc559e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Debug">
+      <UniqueIdentifier>{4a454154-fa79-4c3c-931f-5b6b9d12f46f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map">
+      <UniqueIdentifier>{9a126e3c-fccb-47fd-985b-1461fb5b2a79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Tile">
+      <UniqueIdentifier>{72f7e1a4-1266-4525-b44a-0f38f492bb96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Background">
+      <UniqueIdentifier>{018cacd0-fb6d-47bf-99a4-269e05e9f50b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Object">
+      <UniqueIdentifier>{1ede5441-c939-4507-a935-0b32249b7446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Object\StaticObject">
       <UniqueIdentifier>{42e7682b-03c1-4b05-bbe5-2bb85bc7ea6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Object\BrokenObject">
+      <UniqueIdentifier>{129bea81-84ba-44c4-8d99-a30ddc3d1295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Component">
+      <UniqueIdentifier>{9fe88acc-d8d5-4949-bcd5-a77983c7eb22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Component\Physics">
+      <UniqueIdentifier>{3bde9a22-123c-453e-a705-244ff654373a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Component\Collision">
+      <UniqueIdentifier>{2cf447f0-8e2a-449c-a4c6-4be613997837}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level">
+      <UniqueIdentifier>{7e79c74e-1d6e-4820-970e-972b46adda15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel">
+      <UniqueIdentifier>{86cc7c59-2073-4fd6-8252-5d08f1166dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Animation">
+      <UniqueIdentifier>{fa872e57-dff1-464a-8cf2-0a264bbc178d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Shader">
+      <UniqueIdentifier>{7cb2c9ef-5890-48c1-b03b-067809aa1cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Battle">
+      <UniqueIdentifier>{9be16c7d-fa76-4cd7-81b1-cd038bf14c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel">
+      <UniqueIdentifier>{c40299fa-bf45-4b05-9b09-e48a1cd0660a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel\BattleLevel">
+      <UniqueIdentifier>{0d91061b-911d-4bf9-955d-a6e4b1a4f8f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel\BattleLevel\Castle">
+      <UniqueIdentifier>{67c8c4dd-40f5-406b-8b14-a20ad7dfada4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel\BattleLevel\ForestOfMarmony">
+      <UniqueIdentifier>{5aee5d21-eb1e-4af5-ad5f-7b1dfcf31ab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel\BattleLevel\GrandHall">
+      <UniqueIdentifier>{2893c532-2da7-499c-af6a-37e9d69eb1c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel\BattleLevel\HolyCourtyard">
+      <UniqueIdentifier>{a1994a46-8fad-4f03-b281-d87f071b6cac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel\BattleLevel\Opening">
+      <UniqueIdentifier>{1d74fe82-96cb-49fc-808c-fc872588906b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel\BattleLevel\Shop">
+      <UniqueIdentifier>{7a0e924a-99cb-4f0a-8046-606e8fabd751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel\UILevel">
+      <UniqueIdentifier>{dd61cd96-dabc-4d42-92cf-6c912d466fed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel\UILevel\Logo">
+      <UniqueIdentifier>{ae182b43-32bf-42e0-b906-b2dec8569a1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\GameLevel\UILevel\Story">
+      <UniqueIdentifier>{df809b18-562b-4345-bd04-e88bb7dc0c7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_ContentVertex">
+      <UniqueIdentifier>{a71937fe-bac1-4671-8cc9-7c6cbefef509}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
-      <Filter>Core</Filter>
+      <Filter>0_Core</Filter>
     </ClInclude>
     <ClInclude Include="BaseContentActor.h">
-      <Filter>Actor</Filter>
+      <Filter>2_Actor</Filter>
     </ClInclude>
     <ClInclude Include="ClassFSM.h">
-      <Filter>Class\Base\FSM</Filter>
+      <Filter>1_Class\Base\FSM</Filter>
     </ClInclude>
     <ClInclude Include="ContentConst.h">
-      <Filter>Class\Base\Common</Filter>
+      <Filter>1_Class\Base\Common</Filter>
     </ClInclude>
     <ClInclude Include="PrecompileHeader.h">
-      <Filter>Class\Base\PCH</Filter>
+      <Filter>1_Class\Base\PCH</Filter>
     </ClInclude>
     <ClInclude Include="ContentDatabase.h">
-      <Filter>Class\Base\Data</Filter>
+      <Filter>1_Class\Base\Data</Filter>
     </ClInclude>
     <ClInclude Include="SkullData.h">
-      <Filter>Class\Base\Data\Skull</Filter>
+      <Filter>1_Class\Base\Data\Skull</Filter>
     </ClInclude>
     <ClInclude Include="ItemData.h">
-      <Filter>Class\Base\Data\Item</Filter>
+      <Filter>1_Class\Base\Data\Item</Filter>
     </ClInclude>
     <ClInclude Include="ContentEnum.h">
-      <Filter>Class\Base\Common</Filter>
+      <Filter>1_Class\Base\Common</Filter>
     </ClInclude>
     <ClInclude Include="BaseCommonData.h">
-      <Filter>Class\Base\Data</Filter>
+      <Filter>1_Class\Base\Data</Filter>
     </ClInclude>
     <ClInclude Include="DebugBoxActor.h">
-      <Filter>Actor\Debug</Filter>
+      <Filter>2_Actor\Debug</Filter>
     </ClInclude>
     <ClInclude Include="ShaderDebugLevel.h">
-      <Filter>Level\DebugLevel\Shader</Filter>
+      <Filter>4_Level\DebugLevel\Shader</Filter>
     </ClInclude>
     <ClInclude Include="ContentVertex.h">
-      <Filter>ContentVertex</Filter>
+      <Filter>5_ContentVertex</Filter>
     </ClInclude>
     <ClInclude Include="AbilityCommonData.h">
-      <Filter>Class\Base\Data</Filter>
+      <Filter>1_Class\Base\Data</Filter>
     </ClInclude>
     <ClInclude Include="ContentDebug.h">
-      <Filter>Class\Base\Debug</Filter>
+      <Filter>1_Class\Base\Debug</Filter>
     </ClInclude>
     <ClInclude Include="MonsterData.h">
-      <Filter>Class\Base\Data\Monster</Filter>
+      <Filter>1_Class\Base\Data\Monster</Filter>
     </ClInclude>
     <ClInclude Include="QuintessenceData.h">
-      <Filter>Class\Base\Data\Quintessence</Filter>
+      <Filter>1_Class\Base\Data\Quintessence</Filter>
     </ClInclude>
     <ClInclude Include="Rigidbody2D.h">
-      <Filter>Component\Physics</Filter>
+      <Filter>3_Component\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Collision2D.h">
-      <Filter>Component\Collision</Filter>
+      <Filter>3_Component\Collision</Filter>
     </ClInclude>
     <ClInclude Include="TilemapData.h">
-      <Filter>Class\Base\Data\Tile</Filter>
+      <Filter>1_Class\Base\Data\Tile</Filter>
     </ClInclude>
     <ClInclude Include="BattleDebugLevel.h">
-      <Filter>Level\DebugLevel\Battle</Filter>
+      <Filter>4_Level\DebugLevel\Battle</Filter>
     </ClInclude>
     <ClInclude Include="TileActor.h">
-      <Filter>Actor\Map\Tile</Filter>
+      <Filter>2_Actor\Map\Tile</Filter>
     </ClInclude>
     <ClInclude Include="Tilemap.h">
-      <Filter>Actor\Map\Tile</Filter>
+      <Filter>2_Actor\Map\Tile</Filter>
     </ClInclude>
     <ClInclude Include="int2.h">
-      <Filter>Class\Base\Math</Filter>
+      <Filter>1_Class\Base\Math</Filter>
     </ClInclude>
     <ClInclude Include="ContentLevel.h">
-      <Filter>Level</Filter>
+      <Filter>4_Level</Filter>
     </ClInclude>
     <ClInclude Include="CameraController.h">
-      <Filter>Class\Camera</Filter>
+      <Filter>1_Class\Camera</Filter>
     </ClInclude>
     <ClInclude Include="DebugSpriteActor.h">
-      <Filter>Actor\Debug</Filter>
+      <Filter>2_Actor\Debug</Filter>
     </ClInclude>
     <ClInclude Include="Background.h">
-      <Filter>Actor\Map\Background</Filter>
+      <Filter>2_Actor\Map\Background</Filter>
     </ClInclude>
     <ClInclude Include="MultiBackground.h">
-      <Filter>Actor\Map\Background</Filter>
+      <Filter>2_Actor\Map\Background</Filter>
     </ClInclude>
     <ClInclude Include="CastleLevel.h">
-      <Filter>Level\GameLevel\BattleLevel\Castle</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\Castle</Filter>
     </ClInclude>
     <ClInclude Include="ForestOfHarmonyLevel.h">
-      <Filter>Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
     </ClInclude>
     <ClInclude Include="GrandHallLevel.h">
-      <Filter>Level\GameLevel\BattleLevel\GrandHall</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\GrandHall</Filter>
     </ClInclude>
     <ClInclude Include="HolyCourtyardLevel.h">
-      <Filter>Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
     </ClInclude>
     <ClInclude Include="OpeningLevel.h">
-      <Filter>Level\GameLevel\BattleLevel\Opening</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\Opening</Filter>
     </ClInclude>
     <ClInclude Include="ShopLevel.h">
-      <Filter>Level\GameLevel\BattleLevel\Shop</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\Shop</Filter>
     </ClInclude>
     <ClInclude Include="BattleLevel.h">
-      <Filter>Level\GameLevel\BattleLevel</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel</Filter>
     </ClInclude>
     <ClInclude Include="LogoLevel.h">
-      <Filter>Level\GameLevel\UILevel\Logo</Filter>
+      <Filter>4_Level\GameLevel\UILevel\Logo</Filter>
     </ClInclude>
     <ClInclude Include="StoryLevel.h">
-      <Filter>Level\GameLevel\UILevel\Story</Filter>
+      <Filter>4_Level\GameLevel\UILevel\Story</Filter>
     </ClInclude>
     <ClInclude Include="UILevel.h">
-      <Filter>Level\GameLevel\UILevel</Filter>
+      <Filter>4_Level\GameLevel\UILevel</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBaseSkull.h">
-      <Filter>Actor\Player\Skull</Filter>
+      <Filter>2_Actor\Player\Skull</Filter>
     </ClInclude>
     <ClInclude Include="BoneSkull.h">
-      <Filter>Actor\Player\Skull\BornSkull</Filter>
+      <Filter>2_Actor\Player\Skull\BornSkull</Filter>
     </ClInclude>
     <ClInclude Include="StaticObject.h">
-      <Filter>Actor\Map\StaticObject</Filter>
+      <Filter>2_Actor\Map\Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ForestOfHarmonyLevel_Boss.h">
+      <Filter>4_Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="GrandHallLevel_Boss.h">
+      <Filter>4_Level\GameLevel\BattleLevel\GrandHall</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>2_Actor\Map\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
-      <Filter>Core</Filter>
+      <Filter>0_Core</Filter>
     </ClCompile>
     <ClCompile Include="BaseContentActor.cpp">
-      <Filter>Actor</Filter>
+      <Filter>2_Actor</Filter>
     </ClCompile>
     <ClCompile Include="ClassFSM.cpp">
-      <Filter>Class\Base\FSM</Filter>
+      <Filter>1_Class\Base\FSM</Filter>
     </ClCompile>
     <ClCompile Include="ContentConst.cpp">
-      <Filter>Class\Base\Common</Filter>
+      <Filter>1_Class\Base\Common</Filter>
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp">
-      <Filter>Class\Base\PCH</Filter>
+      <Filter>1_Class\Base\PCH</Filter>
     </ClCompile>
     <ClCompile Include="ContentDatabase.cpp">
-      <Filter>Class\Base\Data</Filter>
+      <Filter>1_Class\Base\Data</Filter>
     </ClCompile>
     <ClCompile Include="SkullData.cpp">
-      <Filter>Class\Base\Data\Skull</Filter>
+      <Filter>1_Class\Base\Data\Skull</Filter>
     </ClCompile>
     <ClCompile Include="ItemData.cpp">
-      <Filter>Class\Base\Data\Item</Filter>
+      <Filter>1_Class\Base\Data\Item</Filter>
     </ClCompile>
     <ClCompile Include="ContentEnum.cpp">
-      <Filter>Class\Base\Common</Filter>
+      <Filter>1_Class\Base\Common</Filter>
     </ClCompile>
     <ClCompile Include="BaseCommonData.cpp">
-      <Filter>Class\Base\Data</Filter>
+      <Filter>1_Class\Base\Data</Filter>
     </ClCompile>
     <ClCompile Include="DebugBoxActor.cpp">
-      <Filter>Actor\Debug</Filter>
+      <Filter>2_Actor\Debug</Filter>
     </ClCompile>
     <ClCompile Include="ShaderDebugLevel.cpp">
-      <Filter>Level\DebugLevel\Shader</Filter>
+      <Filter>4_Level\DebugLevel\Shader</Filter>
     </ClCompile>
     <ClCompile Include="ContentVertex.cpp">
-      <Filter>ContentVertex</Filter>
+      <Filter>5_ContentVertex</Filter>
     </ClCompile>
     <ClCompile Include="AbilityCommonData.cpp">
-      <Filter>Class\Base\Data</Filter>
+      <Filter>1_Class\Base\Data</Filter>
     </ClCompile>
     <ClCompile Include="ContentDebug.cpp">
-      <Filter>Class\Base\Debug</Filter>
+      <Filter>1_Class\Base\Debug</Filter>
     </ClCompile>
     <ClCompile Include="ContentCore_ItemData.cpp">
-      <Filter>Core</Filter>
+      <Filter>0_Core</Filter>
     </ClCompile>
     <ClCompile Include="ContentCore_SkullData.cpp">
-      <Filter>Core</Filter>
+      <Filter>0_Core</Filter>
     </ClCompile>
     <ClCompile Include="ContentCore_QuintessenceData.cpp">
-      <Filter>Core</Filter>
+      <Filter>0_Core</Filter>
     </ClCompile>
     <ClCompile Include="ContentCore_MonsterData.cpp">
-      <Filter>Core</Filter>
+      <Filter>0_Core</Filter>
     </ClCompile>
     <ClCompile Include="MonsterData.cpp">
-      <Filter>Class\Base\Data\Monster</Filter>
+      <Filter>1_Class\Base\Data\Monster</Filter>
     </ClCompile>
     <ClCompile Include="QuintessenceData.cpp">
-      <Filter>Class\Base\Data\Quintessence</Filter>
+      <Filter>1_Class\Base\Data\Quintessence</Filter>
     </ClCompile>
     <ClCompile Include="Rigidbody2D.cpp">
-      <Filter>Component\Physics</Filter>
+      <Filter>3_Component\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Collision2D.cpp">
-      <Filter>Component\Collision</Filter>
+      <Filter>3_Component\Collision</Filter>
     </ClCompile>
     <ClCompile Include="TilemapData.cpp">
-      <Filter>Class\Base\Data\Tile</Filter>
+      <Filter>1_Class\Base\Data\Tile</Filter>
     </ClCompile>
     <ClCompile Include="ContentCore_TilemapData.cpp">
-      <Filter>Core</Filter>
+      <Filter>0_Core</Filter>
     </ClCompile>
     <ClCompile Include="BattleDebugLevel.cpp">
-      <Filter>Level\DebugLevel\Battle</Filter>
+      <Filter>4_Level\DebugLevel\Battle</Filter>
     </ClCompile>
     <ClCompile Include="TileActor.cpp">
-      <Filter>Actor\Map\Tile</Filter>
+      <Filter>2_Actor\Map\Tile</Filter>
     </ClCompile>
     <ClCompile Include="Tilemap.cpp">
-      <Filter>Actor\Map\Tile</Filter>
+      <Filter>2_Actor\Map\Tile</Filter>
     </ClCompile>
     <ClCompile Include="int2.cpp">
-      <Filter>Class\Base\Math</Filter>
+      <Filter>1_Class\Base\Math</Filter>
     </ClCompile>
     <ClCompile Include="ContentLevel.cpp">
-      <Filter>Level</Filter>
+      <Filter>4_Level</Filter>
     </ClCompile>
     <ClCompile Include="CameraController.cpp">
-      <Filter>Class\Camera</Filter>
+      <Filter>1_Class\Camera</Filter>
     </ClCompile>
     <ClCompile Include="DebugSpriteActor.cpp">
-      <Filter>Actor\Debug</Filter>
+      <Filter>2_Actor\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp">
-      <Filter>Actor\Map\Background</Filter>
+      <Filter>2_Actor\Map\Background</Filter>
     </ClCompile>
     <ClCompile Include="MultiBackground.cpp">
-      <Filter>Actor\Map\Background</Filter>
+      <Filter>2_Actor\Map\Background</Filter>
     </ClCompile>
     <ClCompile Include="CastleLevel.cpp">
-      <Filter>Level\GameLevel\BattleLevel\Castle</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\Castle</Filter>
     </ClCompile>
     <ClCompile Include="ForestOfHarmonyLevel.cpp">
-      <Filter>Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
     </ClCompile>
     <ClCompile Include="GrandHallLevel.cpp">
-      <Filter>Level\GameLevel\BattleLevel\GrandHall</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\GrandHall</Filter>
     </ClCompile>
     <ClCompile Include="HolyCourtyardLevel.cpp">
-      <Filter>Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
     </ClCompile>
     <ClCompile Include="OpeningLevel.cpp">
-      <Filter>Level\GameLevel\BattleLevel\Opening</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\Opening</Filter>
     </ClCompile>
     <ClCompile Include="ShopLevel.cpp">
-      <Filter>Level\GameLevel\BattleLevel\Shop</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel\Shop</Filter>
     </ClCompile>
     <ClCompile Include="BattleLevel.cpp">
-      <Filter>Level\GameLevel\BattleLevel</Filter>
+      <Filter>4_Level\GameLevel\BattleLevel</Filter>
     </ClCompile>
     <ClCompile Include="LogoLevel.cpp">
-      <Filter>Level\GameLevel\UILevel\Logo</Filter>
+      <Filter>4_Level\GameLevel\UILevel\Logo</Filter>
     </ClCompile>
     <ClCompile Include="StoryLevel.cpp">
-      <Filter>Level\GameLevel\UILevel\Story</Filter>
+      <Filter>4_Level\GameLevel\UILevel\Story</Filter>
     </ClCompile>
     <ClCompile Include="UILevel.cpp">
-      <Filter>Level\GameLevel\UILevel</Filter>
+      <Filter>4_Level\GameLevel\UILevel</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBaseSkull.cpp">
-      <Filter>Actor\Player\Skull</Filter>
+      <Filter>2_Actor\Player\Skull</Filter>
     </ClCompile>
     <ClCompile Include="BoneSkull.cpp">
-      <Filter>Actor\Player\Skull\BornSkull</Filter>
+      <Filter>2_Actor\Player\Skull\BornSkull</Filter>
     </ClCompile>
     <ClCompile Include="StaticObject.cpp">
-      <Filter>Actor\Map\StaticObject</Filter>
+      <Filter>2_Actor\Map\Object\StaticObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ForestOfHarmonyLevel_Boss.cpp">
+      <Filter>4_Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="GrandHallLevel_Boss.cpp">
+      <Filter>4_Level\GameLevel\BattleLevel\GrandHall</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>2_Actor\Map\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_StaticObject.cpp">
+      <Filter>0_Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

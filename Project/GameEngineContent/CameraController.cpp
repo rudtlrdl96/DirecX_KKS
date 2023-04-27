@@ -33,11 +33,18 @@ void CameraController::Update(float _DeltaTime)
 		return;
 	}
 
+
+	float4 CurCamPos = MainCamera->GetTransform()->GetWorldPosition();
+	float4 TargetWorldPos = CurCamPos;
+
+	float DiffX = 0.0f;
+	float DiffY = 0.0f;
+
 	switch (CamType)
 	{
 	case CameraController::CamCtrlType::None:
 	{
-		break;
+		return;
 	}
 	case CameraController::CamCtrlType::LookAt:
 	{
@@ -53,18 +60,20 @@ void CameraController::Update(float _DeltaTime)
 			return;
 		}
 
-		float4 TargetWorldPos = LookAtTarget->GetTransform()->GetWorldPosition();
-		TargetWorldPos.z = CamPos.z;
+		TargetWorldPos = CurCamPos;
 
-		CamPos = TargetWorldPos;
+		float4 LookatPos = LookAtTarget->GetTransform()->GetWorldPosition();
+
+		DiffX = LookatPos.x - CurCamPos.x;
+		DiffY = LookatPos.y - CurCamPos.y;
 		break;
 	}
 	case CameraController::CamCtrlType::Move:
 	{
-		MoveProgress += _DeltaTime * MoveSpeed;
-		CamPos = float4::LerpClamp(MoveStartPos, MoveEndPos, MoveProgress);
+		LerpMoveProgress += _DeltaTime * LerpMoveSpeed;
+		TargetWorldPos = float4::LerpClamp(MoveStartPos, MoveEndPos, LerpMoveProgress);
 
-		if (MoveProgress >= 1.0f)
+		if (LerpMoveProgress >= 1.0f)
 		{
 			if (nullptr == LookAtTarget)
 			{
@@ -81,26 +90,42 @@ void CameraController::Update(float _DeltaTime)
 		MsgAssert("잘못된 카메라 컨트롤러 타입 입니다.");
 		break;
 	}
-	
-	if (CamPos.x - WindowSizeHalf.x < MinWidth)
+		
+	if (CamCtrlType::LookAt == CamType)
 	{
-		CamPos.x = MinWidth + WindowSizeHalf.x;
-	}
-	else if (CamPos.x + WindowSizeHalf.x > MaxWidth)
-	{
-		CamPos.x = MaxWidth - WindowSizeHalf.x;
+		float4 DiffDir = float4(DiffX, DiffY);
+		float DiffSize = DiffDir.Size();
+
+		float CamMove = _DeltaTime * DiffSize * 10.0f;
+
+
+		if (CamMove > 1.0f)
+		{
+			DiffDir.Normalize();
+			TargetWorldPos +=  DiffDir * CamMove;
+		}
 	}
 
-	if (CamPos.y - WindowSizeHalf.y < MinHeight)
+	if (TargetWorldPos.x - WindowSizeHalf.x < MinWidth)
 	{
-		CamPos.y = MinHeight + WindowSizeHalf.y;
+		TargetWorldPos.x = MinWidth + WindowSizeHalf.x;
 	}
-	else if (CamPos.y + WindowSizeHalf.y > MaxHeight)
+	else if (TargetWorldPos.x + WindowSizeHalf.x > MaxWidth)
 	{
-		CamPos.y = MaxHeight - WindowSizeHalf.y;
+		TargetWorldPos.x = MaxWidth - WindowSizeHalf.x;
 	}
 
-	LastCameraPos = CamPos;
+	if (TargetWorldPos.y - WindowSizeHalf.y < MinHeight)
+	{
+		TargetWorldPos.y = MinHeight + WindowSizeHalf.y;
+	}
+	else if (TargetWorldPos.y + WindowSizeHalf.y > MaxHeight)
+	{
+		TargetWorldPos.y = MaxHeight - WindowSizeHalf.y;
+	}
+
+	CamPos = TargetWorldPos;
+	LastCameraPos = TargetWorldPos;
 	LastCameraRot = CamRot;
 
 	// 카메라 효과 적용
@@ -120,7 +145,7 @@ void CameraController::Update(float _DeltaTime)
 	}
 
 	LastCameraPos += CameraEffectPos;
-
+	
 	MainCamera->GetTransform()->SetWorldPosition(LastCameraPos);
 	MainCamera->GetTransform()->SetWorldRotation(LastCameraRot);
 }
@@ -133,8 +158,8 @@ void CameraController::CameraMove_ExceptionZ(const float4& _Start, const float4&
 	MoveEndPos = _End;
 	MoveEndPos.z = CamPos.z;;
 
-	MoveSpeed = 1.0f / _Time;
-	MoveProgress = 0.0f;
+	LerpMoveSpeed = 1.0f / _Time;
+	LerpMoveProgress = 0.0f;
 	CamType = CamCtrlType::Move;
 }
 

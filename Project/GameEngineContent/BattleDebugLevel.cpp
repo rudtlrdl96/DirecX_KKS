@@ -5,6 +5,7 @@
 #include "DebugSpriteActor.h"
 #include "Tilemap.h"
 #include "MultiBackground.h"
+#include "ObjectManager.h"
 
 BattleDebugLevel::BattleDebugLevel()
 {
@@ -34,7 +35,7 @@ void BattleDebugLevel::Start()
 		Background::BG_DESC BgDesc;
 
 		BgDesc.TextureName = "Castle_BackImage_InSky.png";
-		BgDesc.Center = { 1280.0f, 384.0f, 0, 0 };
+		BgDesc.Center = { 0.0f, 0.0f, 0, 0 };
 		BgDesc.Ratio = 0.0f;
 		BgDesc.Size = float4(960.0f, 350.0f, 0, 0);
 		BgDesc.Size *= 4.0f;
@@ -49,7 +50,7 @@ void BattleDebugLevel::Start()
 		Background::BG_DESC BgDesc;
 
 		BgDesc.TextureName = "Castle_BackImage_Star.png";
-		BgDesc.Center = { 1280.0f, 384.0f, 0, 0 };
+		BgDesc.Center = { 0.0f, 0.0f, 0, 0 };
 		BgDesc.Ratio = 0.2f;
 		BgDesc.Size = float4(927.0f, 347.0f, 0, 0);
 		BgDesc.Size *= 2.5f;
@@ -63,7 +64,7 @@ void BattleDebugLevel::Start()
 		Background::BG_DESC BgDesc;
 
 		BgDesc.TextureName = "Castle_BackImage_InSmallCloud.png";
-		BgDesc.Center = { 1280.0f, 684.0f, 0, 0 };
+		BgDesc.Center = { 0.0f, 100.0f, 0, 0 };
 		BgDesc.Ratio = 0.2f;
 		BgDesc.Size = float4(1521.6f, 552.0f, 0, 0);
 		BgDesc.Animation = true;
@@ -76,7 +77,7 @@ void BattleDebugLevel::Start()
 		Background::BG_DESC BgDesc;
 
 		BgDesc.TextureName = "Castle_BackImage_InBigCloud.png";
-		BgDesc.Center = { 1280.0f, -700.0f, 0, 0 };
+		BgDesc.Center = { 500.0f, 20.0f, 0, 0 };
 		BgDesc.Ratio = 0.1f;
 		BgDesc.Size = float4(2110.0f, 422.5f, 0, 0);
 		BgDesc.Animation = false;
@@ -89,7 +90,7 @@ void BattleDebugLevel::Start()
 		Background::BG_DESC BgDesc;
 
 		BgDesc.TextureName = "Castle_BackImage_CastleWall.png";
-		BgDesc.Center = { 1680.0f, 200.0f, 0, 0 };
+		BgDesc.Center = { 700.0f, 50.0f, 0, 0 };
 		BgDesc.Ratio = 0.3f;
 		BgDesc.Size = float4(2400.0f, 875.0f, 0, 0);
 		BgDesc.Animation = false;
@@ -103,9 +104,9 @@ void BattleDebugLevel::Start()
 		Background::BG_DESC BgDesc;
 
 		BgDesc.TextureName = "Castle_BackImage_Chandelier.png";
-		BgDesc.Center = {1280.0f, 550.0f, 0, 0 };
-		BgDesc.Ratio = 0.5f;
-		BgDesc.Size = float4(1050.0f, 238.6f, 0, 0);
+		BgDesc.Center = {780.0f, 220.0f, 0, 0 };
+		BgDesc.Ratio = 0.35f;
+		BgDesc.Size = float4(1050.0f, 304.0f, 0, 0);
 		BgDesc.Size *= 2.0f;
 		BgDesc.Animation = false;
 		BgDesc.AnimationSpeed = 0.0f;
@@ -114,11 +115,48 @@ void BattleDebugLevel::Start()
 		DebugBackground->CreateBackground(BgDesc, 4);
 	}
 
-	DebugTilemap = CreateActor<Tilemap>();
-	DebugTilemap->ResizeTilemap(40, 12, 0);
+	DeubgObject = CreateActor<ObjectManager>();
 
-	DebugTilemap->ChangeData(0, 0, 39, 0, 11, 0);
-	DebugTilemap->ChangeData(0, 0, 39, 0, 0, 2);
+	{
+		SObject_DESC Desc = ContentDatabase<SObject_DESC, LevelType>::GetData(
+			GameEngineString::ToUpper("Castle_StaticObject_Wall00.png"));
+		
+		Desc.Pos = float4(-1900.0f, 0, 0, 0);
+		Desc.Size *= 2.5f;
+		Desc.Size.z = 1;
+		Desc.Color = float4(0, 0, 0.05f, 0);
+
+		DeubgObject->CreateStaticObject(Desc);
+	}
+
+	{
+		SObject_DESC Desc = ContentDatabase<SObject_DESC, LevelType>::GetData(
+			GameEngineString::ToUpper("Castle_StaticObject_Wall01.png"));
+
+		Desc.Pos = float4(-2160, 0, 0, 0);
+		Desc.Size *= 2.5f;
+		Desc.Size.z = 1;
+		Desc.Color = float4(0, 0, 0.05f, 0);
+
+		DeubgObject->CreateStaticObject(Desc);
+	}	
+	{
+		SObject_DESC Desc = ContentDatabase<SObject_DESC, LevelType>::GetData(
+			GameEngineString::ToUpper("Castle_StaticObject_Wall04.png"));
+		
+		Desc.Pos = float4(-2420, 0, 0, 0);
+		Desc.Size *= 2.5f;
+		Desc.Size.z = 1;
+		Desc.Color = float4(0, 0, 0.05f, 0);
+
+		DeubgObject->CreateStaticObject(Desc);
+	}
+
+	DebugTilemap = CreateActor<Tilemap>();
+	DebugTilemap->ResizeTilemap(80, 12, 0);
+
+	DebugTilemap->ChangeData(0, 0, 79, 0, 11, 0);
+	DebugTilemap->ChangeData(0, 0, 79, 0, 0, 2);
 
 	Tilemap_DESC TilemapDESC = DebugTilemap->GetTilemap_DESC(0);
 
@@ -126,7 +164,12 @@ void BattleDebugLevel::Start()
 	MainCamCtrl.SetMaxHeight(TilemapDESC.Top);
 
 	MainCamCtrl.SetMinWidth(TilemapDESC.Left);
-	MainCamCtrl.SetMaxWidth(TilemapDESC.Right);
+
+	float4 CenterPos = float4((TilemapDESC.Left + TilemapDESC.Right) * 0.5f,
+		(TilemapDESC.Top + TilemapDESC.Bottom) * 0.5f);
+
+	DebugBackground->GetTransform()->SetWorldPosition(CenterPos);
+	DeubgObject->GetTransform()->SetWorldPosition(CenterPos);
 
 	DeubgActor = CreateActor<DebugSpriteActor>();
 	MainCamCtrl.SetLookatTarget(DeubgActor);

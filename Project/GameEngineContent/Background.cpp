@@ -73,10 +73,10 @@ void Background::UpdateTargetPos(float _DeltaTime, const float4& _TargetPos)
 			AnimationProgress -= 1.0f;
 		}
 
-		AnimationImage->GetTransform()->SetWorldPosition(RenderPos - AnimationMoveDir);
+		AnimationImage->GetTransform()->SetLocalPosition(RenderPos - AnimationMoveDir);
 	}
 
-	BackImage->GetTransform()->SetWorldPosition(RenderPos);
+	BackImage->GetTransform()->SetLocalPosition(RenderPos);
 }
 
 void Background::Start()

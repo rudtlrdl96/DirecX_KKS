@@ -95,8 +95,8 @@ private:
 	float4 MoveStartPos = float4::Zero;
 	float4 MoveEndPos = float4::Zero;
 
-	float MoveSpeed = 0.0f;
-	float MoveProgress = 0.0f;
+	float LerpMoveSpeed = 0.0f;
+	float LerpMoveProgress = 0.0f;
 
 	int ShakeCount = 0;
 	float ShakeSpeed = 0.0f;

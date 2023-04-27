@@ -8,7 +8,7 @@ void TileLoad(const TilemapData& _Data)
 	ContentDatabase<TilemapData, TileArea>::InsertData(_Data);
 }
 
-void ContentCore::TimeDataLoad()
+void ContentCore::TileDataLoad()
 {
 	GameEngineDirectory Path;
 	Path.MoveParentToDirectory("Resources");

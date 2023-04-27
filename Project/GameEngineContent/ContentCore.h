@@ -15,11 +15,6 @@ public:
 	static void CoreLoading();
 	static void CoreEnd();
 
-	static void ItemDataLoad();
-	static void SkullDataLoad();
-	static void QuintessenceDataLoad();
-	static void MonsterDataLoad();
-	static void TimeDataLoad();
 
 protected:
 
@@ -28,4 +23,11 @@ private:
 	static void ShaderCreate();
 	static void ContentPipeLineCreate();
 
+	// Data Base Load
+	static void ItemDataLoad();
+	static void SkullDataLoad();
+	static void QuintessenceDataLoad();
+	static void MonsterDataLoad();
+	static void TileDataLoad();
+	static void StaticObjectLoad();
 };

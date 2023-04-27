@@ -35,7 +35,7 @@ public:
 	{
 		if (nullptr == _ClassPtr)
 		{
-			MsgAssert("FSM의 ClassPtr을 nullptr로 설정하려 했습니다");
+			MsgAssert_Rtti<ClassType>(" - FSM의 ClassPtr을 nullptr로 설정하려 했습니다");
 		}
 
 		ClassPtr = _ClassPtr;
@@ -48,7 +48,7 @@ public:
 	{
 		if (nullptr == ClassPtr)
 		{
-			MsgAssert("FSM을 초기화하지 않고 사용하려 했습니다");
+			MsgAssert(" - FSM을 초기화하지 않고 사용하려 했습니다");
 			return;
 		}
 
@@ -58,14 +58,14 @@ public:
 		{
 			if (FsmDatas[i].StateName == UpperName)
 			{
-				MsgAssert("이미 존재하는 스테이트를 생성하려 했습니다.");
+				MsgAssert_Rtti<ClassType>(" - 이미 존재하는 스테이트를 생성하려 했습니다.");
 				return;
 			}
 		}
 
 		if (nullptr == _Update)
 		{
-			MsgAssert("FSM State의 업데이트 함수를 nullptr로 등록하려 했습니다");
+			MsgAssert_Rtti<ClassType>(" - FSM State의 업데이트 함수를 nullptr로 등록하려 했습니다");
 			return;
 		}
 
@@ -97,13 +97,13 @@ public:
 	{
 		if (nullptr == CurState)
 		{
-			MsgAssert("현재 FSM 스테이트를 세팅하지 않고 업데이트를 실행했습니다.");
+			MsgAssert_Rtti<ClassType>(" - 현재 FSM 스테이트를 세팅하지 않고 업데이트를 실행했습니다.");
 			return;
 		}
 
 		if (nullptr == CurState->UpdateFunc)
 		{
-			MsgAssert("FSM State의 Update 함수가 nullptr 입니다");
+			MsgAssert_Rtti<ClassType>(" - FSM State의 Update 함수가 nullptr 입니다");
 		}
 
 		CurState->UpdateFunc(_DeltaTime);
@@ -129,7 +129,7 @@ public:
 
 		if (nullptr == CurState)
 		{
-			MsgAssert("존재하지 않는 스테이트로 변경하려 했습니다");
+			MsgAssert_Rtti<ClassType>(" - 존재하지 않는 스테이트로 변경하려 했습니다");
 			return;
 		}
 

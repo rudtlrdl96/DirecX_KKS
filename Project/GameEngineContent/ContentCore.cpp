@@ -16,8 +16,9 @@
 #include "OpeningLevel.h"
 #include "CastleLevel.h"
 #include "ForestOfHarmonyLevel.h"
+#include "ForestOfHarmonyLevel_Boss.h"
 #include "GrandHallLevel.h"
-#include "HolyCourtyardLevel.h"
+#include "GrandHallLevel_Boss.h"
 #include "StoryLevel.h"
 #include "ShopLevel.h"
 
@@ -44,14 +45,17 @@ void ContentCore::CoreLoading()
 	SkullDataLoad();
 	QuintessenceDataLoad();
 	MonsterDataLoad();
-	TimeDataLoad();
+	TileDataLoad();
+	StaticObjectLoad();
 
 	// GameLevel Create
 	GameEngineCore::CreateLevel<LogoLevel>("Logo");
 	GameEngineCore::CreateLevel<OpeningLevel>("Opening");
 	GameEngineCore::CreateLevel<CastleLevel>("Castle");
 	GameEngineCore::CreateLevel<ForestOfHarmonyLevel>("ForestOfHarmony");
-	GameEngineCore::CreateLevel<HolyCourtyardLevel>("HolyCourtyard");
+	GameEngineCore::CreateLevel<ForestOfHarmonyLevel_Boss>("ForestOfHarmony_Boss");
+	GameEngineCore::CreateLevel<GrandHallLevel>("GrandHall");
+	GameEngineCore::CreateLevel<GrandHallLevel_Boss>("GrandHall_Boss");
 	GameEngineCore::CreateLevel<StoryLevel>("Story");
 	GameEngineCore::CreateLevel<ShopLevel>("Shop");
 	
