@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 
-class Tilemap_DESC
+class Tilemap_Meta
 {
 public:
 	float Left = 0.0f;
@@ -41,9 +41,11 @@ public:
 		return TilemapSizeDatas[_Depth].y;
 	}
 
-	Tilemap_DESC GetTilemap_DESC(int _Depth);
+	Tilemap_Meta GetTilemap_DESC(int _Depth);
 
 	// void CopyData(....);
+	void SaveBin(GameEngineSerializer& _SaveSerializer);
+	void LoadBin(GameEngineSerializer& _LoadSerializer);
 
 protected:
 	

@@ -90,12 +90,12 @@ void Background::SaveBin(GameEngineSerializer& _SaveSerializer) const
 	// float AnimationSpeed = 0.0f;
 
 	_SaveSerializer.Write(Desc.TextureName);
-	_SaveSerializer.Write((void*)&Desc.Center, sizeof(float4));
-	_SaveSerializer.Write((void*)&Desc.Ratio, sizeof(float));
-	_SaveSerializer.Write((void*)&Desc.Size, sizeof(float4));
-	_SaveSerializer.Write((void*)&Desc.Color, sizeof(float4));
-	_SaveSerializer.Write((void*)&Desc.Animation, sizeof(bool));
-	_SaveSerializer.Write((void*)&Desc.AnimationSpeed, sizeof(float));
+	_SaveSerializer.Write(&Desc.Center, sizeof(float4));
+	_SaveSerializer.Write(&Desc.Ratio, sizeof(float));
+	_SaveSerializer.Write(&Desc.Size, sizeof(float4));
+	_SaveSerializer.Write(&Desc.Color, sizeof(float4));
+	_SaveSerializer.Write(&Desc.Animation, sizeof(bool));
+	_SaveSerializer.Write(&Desc.AnimationSpeed, sizeof(float));
 }
 
 Background::BG_DESC Background::LoadBin(GameEngineSerializer& _SaveSerializer)

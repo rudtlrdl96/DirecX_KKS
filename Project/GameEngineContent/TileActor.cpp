@@ -26,6 +26,18 @@ void TileActor::SetTileData(const TilemapData& _Data)
 	DrawRender->On();
 }
 
+void TileActor::SaveBin(GameEngineSerializer& _SaveSerializer) const
+{
+	_SaveSerializer.Write(&Data.Index, sizeof(size_t));
+}
+
+size_t TileActor::LoadBin(GameEngineSerializer& _LoadSerializer)
+{
+	size_t LoadIndex = 0;
+	_LoadSerializer.Write(&LoadIndex, sizeof(size_t));
+	return LoadIndex;
+}
+
 void TileActor::Start()
 {
 	DrawRender = CreateComponent<GameEngineSpriteRenderer>();

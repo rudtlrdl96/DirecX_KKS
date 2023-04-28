@@ -15,6 +15,9 @@ public:
 
 	void CreateStaticObject(const SObject_DESC& _Desc);
 
+	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
+	void LoadBin(GameEngineSerializer& _LoadSerializer);
+
 protected:
 	
 private:

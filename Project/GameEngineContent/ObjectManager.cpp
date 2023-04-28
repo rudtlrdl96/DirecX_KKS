@@ -4,6 +4,7 @@
 
 ObjectManager::ObjectManager()
 {
+	StaticObjectActors.reserve(32);
 }
 
 ObjectManager::~ObjectManager()
@@ -16,4 +17,27 @@ void ObjectManager::CreateStaticObject(const SObject_DESC& _Desc)
 	CreatePtr->GetTransform()->SetParent(this->GetTransform());
 	CreatePtr->Init(_Desc);
 	StaticObjectActors.push_back(CreatePtr);
+}
+
+void ObjectManager::SaveBin(GameEngineSerializer& _SaveSerializer) const
+{
+	_SaveSerializer.Write(static_cast<int>(StaticObjectActors.size()));
+
+	for (const std::shared_ptr<StaticObject>& LoopRef : StaticObjectActors)
+	{
+		LoopRef->SaveBin(_SaveSerializer);
+	}	
+}
+
+void ObjectManager::LoadBin(GameEngineSerializer& _LoadSerializer)
+{
+	int StaticObjectCount = 0;
+	_LoadSerializer.Read(StaticObjectCount);
+
+	StaticObjectActors.reserve(StaticObjectCount);
+	for (int i = 0; i < StaticObjectActors.size(); i++)
+	{
+		SObject_DESC LoadDesc = StaticObject::LoadBin(_LoadSerializer);
+		CreateStaticObject(LoadDesc);
+	}
 }

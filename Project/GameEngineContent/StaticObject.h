@@ -26,6 +26,9 @@ public:
 
 	void Init(const SObject_DESC& _Desc);
 
+	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
+	static SObject_DESC LoadBin(GameEngineSerializer& _LoadSerializer);
+
 protected:
 	void Start() override;
 

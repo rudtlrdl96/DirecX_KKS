@@ -140,11 +140,11 @@ float4 Tilemap::GetTilePos(UINT _X, UINT _Y) const
 	return TilemapStartPos + float4(static_cast<float>(_X), static_cast<float>(_Y), 0, 0) * TileSize;
 }
 
-Tilemap_DESC Tilemap::GetTilemap_DESC(int _Depth)
+Tilemap_Meta Tilemap::GetTilemap_DESC(int _Depth)
 {
 	int2& TileCount = TilemapSizeDatas[_Depth];
 
-	Tilemap_DESC Result = Tilemap_DESC();
+	Tilemap_Meta Result = Tilemap_Meta();
 
 	float4 TilemapPos = TilemapStartPos;
 
@@ -157,4 +157,54 @@ Tilemap_DESC Tilemap::GetTilemap_DESC(int _Depth)
 	Result.Right  = TilemapPos.x + (TileCount.x * TileSize.x);
 
 	return Result;
+}
+
+void Tilemap::SaveBin(GameEngineSerializer& _SaveSerializer)
+{
+	_SaveSerializer.Write(static_cast<int>(TilemapSizeDatas.size()));
+
+	for (const std::pair<int, int2>& SizeRef : TilemapSizeDatas)
+	{
+		_SaveSerializer.Write(static_cast<int>(SizeRef.first));
+		_SaveSerializer.Write(static_cast<int>(SizeRef.second.x));
+		_SaveSerializer.Write(static_cast<int>(SizeRef.second.y));
+
+		std::vector<std::vector<std::shared_ptr<TileActor>>>& DepthTiles = TilemapDatas[SizeRef.first];
+
+		for (size_t y = 0; y < DepthTiles.size(); y++)
+		{
+			for (size_t x = 0; x < DepthTiles[y].size(); x++)
+			{
+				DepthTiles[y][x]->SaveBin(_SaveSerializer);
+			}
+		}
+	}
+}
+
+void Tilemap::LoadBin(GameEngineSerializer& _LoadSerializer)
+{
+	int DepthCount = 0;
+	_LoadSerializer.Read(DepthCount);
+
+	for (int i = 0; i < DepthCount; i++)
+	{
+		int Depth = 0;
+		_LoadSerializer.Read(Depth);
+
+		int2& SizeRef = TilemapSizeDatas[Depth];
+
+		_LoadSerializer.Read(SizeRef.x);
+		_LoadSerializer.Read(SizeRef.y);
+
+		ResizeTilemap(SizeRef.x, SizeRef.y, Depth);
+
+		for (size_t y = 0; y < SizeRef.y; y++)
+		{
+			for (size_t x = 0; x < SizeRef.x; x++)
+			{
+				size_t LoadIndex = TileActor::LoadBin(_LoadSerializer);
+				ChangeData(Depth, x, y, LoadIndex);
+			}
+		}
+	}
 }

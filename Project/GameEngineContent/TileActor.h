@@ -20,6 +20,9 @@ public:
 
 	void SetTileData(const TilemapData& _Data);
 
+	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
+	static size_t LoadBin(GameEngineSerializer& _LoadSerializer);
+
 protected:
 	void Start() override;
 
