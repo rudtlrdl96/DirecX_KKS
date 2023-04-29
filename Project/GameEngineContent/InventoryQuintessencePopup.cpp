@@ -29,5 +29,5 @@ void InventoryQuintessencePopup::Start()
 	PopupFrameRender->SetTexture("Inventory_Quintessence_Frame.png");
 	PopupFrameRender->GetTransform()->SetWorldScale(TexSize);
 
-	PopupFrameColor.w = 1.2f;
+	PopupFrameColor.w = 1.21f;
 }

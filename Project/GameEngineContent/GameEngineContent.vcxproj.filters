@@ -411,6 +411,9 @@
     <ClInclude Include="InventoryQuintessencePopup.h">
       <Filter>2_Actor\UI\Inventory\Popup</Filter>
     </ClInclude>
+    <ClInclude Include="InventoryStatPopup.h">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -624,6 +627,9 @@
       <Filter>2_Actor\UI\Inventory\Popup</Filter>
     </ClCompile>
     <ClCompile Include="InventoryQuintessencePopup.cpp">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryStatPopup.cpp">
       <Filter>2_Actor\UI\Inventory\Popup</Filter>
     </ClCompile>
   </ItemGroup>

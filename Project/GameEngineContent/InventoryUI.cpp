@@ -6,6 +6,7 @@
 #include "InventoryItemPopup.h"
 #include "InventoryQuintessencePopup.h"
 #include "InventorySkullPopup.h"
+#include "InventoryStatPopup.h"
 
 InventoryUI::InventoryUI()
 {
@@ -54,7 +55,11 @@ void InventoryUI::Start()
 	//QuintessencePopup->GetTransform()->SetParent(Trans);
 	//QuintessencePopup->GetTransform()->SetLocalPosition(float4{ 224, -67, -10 });
 
-	SkullPopup = GetLevel()->CreateActor<InventorySkullPopup>();
-	SkullPopup->GetTransform()->SetParent(Trans);
-	SkullPopup->GetTransform()->SetLocalPosition(float4{ 224, -75, -10 });
+	//SkullPopup = GetLevel()->CreateActor<InventorySkullPopup>();
+	//SkullPopup->GetTransform()->SetParent(Trans);
+	//SkullPopup->GetTransform()->SetLocalPosition(float4{ 224, -75, -10 });
+
+	StatPopup = GetLevel()->CreateActor<InventoryStatPopup>();
+	StatPopup->GetTransform()->SetParent(Trans);
+	StatPopup->GetTransform()->SetLocalPosition(float4{ 224, -3, -10 });
 }

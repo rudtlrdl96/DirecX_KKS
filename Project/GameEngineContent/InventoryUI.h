@@ -28,6 +28,7 @@ private:
 	std::shared_ptr<class InventoryItemPopup> ItemPopup = nullptr;
 	std::shared_ptr<class InventoryQuintessencePopup> QuintessencePopup = nullptr;
 	std::shared_ptr<class InventorySkullPopup> SkullPopup = nullptr;
+	std::shared_ptr<class InventoryStatPopup> StatPopup = nullptr;
 
 	float4 MainFrameColor = float4::Zero;
 	float4 BackFrameColor = float4::Zero;

@@ -29,5 +29,5 @@ void InventorySkullPopup::Start()
 	PopupFrameRender->SetTexture("Inventory_Skul_Single_Frame.png");
 	PopupFrameRender->GetTransform()->SetWorldScale(TexSize);
 
-	PopupFrameColor.w = 1.2f;
+	PopupFrameColor.w = 1.21f;
 }
