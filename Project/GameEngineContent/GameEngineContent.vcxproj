@@ -129,6 +129,30 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="InventoryDebugLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="InventoryItemPopup.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="InventoryQuintessencePopup.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="InventorySkullPopup.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="InventorySlot.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="InventoryUI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ItemData.h">
       <SubType>
       </SubType>
@@ -363,6 +387,30 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="int2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventoryDebugLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventoryItemPopup.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventoryQuintessencePopup.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventorySkullPopup.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventorySlot.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventoryUI.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -27,6 +27,7 @@
 // Debug Level
 #include "ShaderDebugLevel.h"
 #include "BattleDebugLevel.h"
+#include "InventoryDebugLevel.h"
 
 ContentCore::ContentCore()
 {
@@ -69,6 +70,7 @@ void ContentCore::CoreLoading()
 	// DebugLevel Create
 	GameEngineCore::CreateLevel<ShaderDebugLevel>("ShaderDebug");
 	GameEngineCore::CreateLevel<BattleDebugLevel>("BattleDebug");
+	GameEngineCore::CreateLevel<InventoryDebugLevel>("InventoryDebug");
 
 	GameEngineCore::ChangeLevel("Title");
 
@@ -76,6 +78,7 @@ void ContentCore::CoreLoading()
 	{
 		GameEngineInput::CreateKey("CheckDebugCtrl", VK_LCONTROL);
 
+		GameEngineInput::CreateKey("NumPad0", VK_NUMPAD0);
 		GameEngineInput::CreateKey("NumPad1", VK_NUMPAD1);
 		GameEngineInput::CreateKey("NumPad2", VK_NUMPAD2);
 		GameEngineInput::CreateKey("NumPad3", VK_NUMPAD3);
@@ -84,8 +87,7 @@ void ContentCore::CoreLoading()
 		GameEngineInput::CreateKey("NumPad6", VK_NUMPAD6);
 		GameEngineInput::CreateKey("NumPad7", VK_NUMPAD7);
 		GameEngineInput::CreateKey("NumPad8", VK_NUMPAD8);
-
-		GameEngineInput::CreateKey("NumPad0", VK_NUMPAD0);
+		GameEngineInput::CreateKey("NumPad9", VK_NUMPAD9);
 	}
 }
 

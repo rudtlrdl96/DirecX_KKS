@@ -31,19 +31,9 @@ public:
 		return CamPos;
 	}
 
-	inline void SetCamPos(const float4& _Pos)
-	{
-		CamPos = _Pos;
-	}
-
 	inline void SetCamRot(const float4& _Rot)
 	{
 		CamRot = _Rot;
-	}
-
-	inline void AddCamPos(const float4& _Pos)
-	{
-		CamPos += _Pos;
 	}
 
 	inline void AddCamRot(const float4& _Rot)

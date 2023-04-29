@@ -20,12 +20,8 @@ void BattleDebugLevel::Start()
 {
 	ContentLevel::Start();
 
-	if (false == GameEngineInput::IsKey("CameraMoveX++"))
+	if (false == GameEngineInput::IsKey("CameraShake"))
 	{
-		GameEngineInput::CreateKey("CameraMoveX++", 'L');
-		GameEngineInput::CreateKey("CameraMoveY++", 'I');
-		GameEngineInput::CreateKey("CameraMoveX--", 'J');
-		GameEngineInput::CreateKey("CameraMoveY--", 'K');
 		GameEngineInput::CreateKey("CameraShake", VK_SPACE);		
 	}
 		
@@ -202,23 +198,7 @@ void BattleDebugLevel::Update(float _DeltaTime)
 {
 	ContentLevel::Update(_DeltaTime);
 
-	if (true == GameEngineInput::IsPress("CameraMoveX++"))
-	{
-		MainCamCtrl.AddCamPos({_DeltaTime * CameraSpeed, 0, 0, 0});
-	}
-	else if (true == GameEngineInput::IsPress("CameraMoveX--"))
-	{
-		MainCamCtrl.AddCamPos({-_DeltaTime * CameraSpeed, 0, 0, 0});
-	}
-	else if (true == GameEngineInput::IsPress("CameraMoveY++"))
-	{
-		MainCamCtrl.AddCamPos({0,_DeltaTime * CameraSpeed, 0, 0});
-	}
-	else if (true == GameEngineInput::IsPress("CameraMoveY--"))
-	{
-		MainCamCtrl.AddCamPos({0, -_DeltaTime * CameraSpeed, 0, 0});
-	}
-	else if (true == GameEngineInput::IsPress("CameraShake"))
+	if (true == GameEngineInput::IsPress("CameraShake"))
 	{
 		MainCamCtrl.CameraShake( 4.0f, 30.0f, 40);
 	}

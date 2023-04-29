@@ -145,4 +145,16 @@ void ContentCore::CommonTextureLoad()
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 		}
 	}
+
+	{
+		Path.MoveParent();
+		Path.Move("Inventory");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+		}
+	}
 }

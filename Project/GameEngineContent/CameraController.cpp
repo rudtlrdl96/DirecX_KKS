@@ -44,7 +44,7 @@ void CameraController::Update(float _DeltaTime)
 	{
 	case CameraController::CamCtrlType::None:
 	{
-		return;
+		break;
 	}
 	case CameraController::CamCtrlType::LookAt:
 	{

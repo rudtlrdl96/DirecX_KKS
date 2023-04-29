@@ -45,7 +45,7 @@ void StoryLevel::Start()
 		GameEngineInput::CreateKey("Story_Ending", '5');
 	}
 
-	//BackImage = CreateActor<StoryBackImage>();
+	BackImage = CreateActor<StoryBackImage>();
 	StoryView = CreateActor<StoryTextureView>();
 	FrontImage = CreateActor<StoryFrontImage>();
 

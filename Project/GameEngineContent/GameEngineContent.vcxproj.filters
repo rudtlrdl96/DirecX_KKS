@@ -205,6 +205,18 @@
     <Filter Include="2_Actor\UI\Title">
       <UniqueIdentifier>{217b0d88-54bb-4232-b5d8-0a29764a4f48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\UI\Inventory">
+      <UniqueIdentifier>{3c1e6f27-c93f-4136-af84-0eb498b9c103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\InventoryDebug">
+      <UniqueIdentifier>{720c127f-8be1-444e-9336-6b5662081fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\UI\Inventory\InventorySlot">
+      <UniqueIdentifier>{42ba3ee2-56cf-462a-aa3b-c85e95bb1a18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\UI\Inventory\Popup">
+      <UniqueIdentifier>{6b60e3a3-bf93-459f-8df6-aa707111c26e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -380,6 +392,24 @@
     </ClInclude>
     <ClInclude Include="TitleActor.h">
       <Filter>2_Actor\UI\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryUI.h">
+      <Filter>2_Actor\UI\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryDebugLevel.h">
+      <Filter>4_Level\DebugLevel\InventoryDebug</Filter>
+    </ClInclude>
+    <ClInclude Include="InventorySlot.h">
+      <Filter>2_Actor\UI\Inventory\InventorySlot</Filter>
+    </ClInclude>
+    <ClInclude Include="InventorySkullPopup.h">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryItemPopup.h">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryQuintessencePopup.h">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -577,6 +607,24 @@
     </ClCompile>
     <ClCompile Include="TitleActor.cpp">
       <Filter>2_Actor\UI\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryUI.cpp">
+      <Filter>2_Actor\UI\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryDebugLevel.cpp">
+      <Filter>4_Level\DebugLevel\InventoryDebug</Filter>
+    </ClCompile>
+    <ClCompile Include="InventorySlot.cpp">
+      <Filter>2_Actor\UI\Inventory\InventorySlot</Filter>
+    </ClCompile>
+    <ClCompile Include="InventorySkullPopup.cpp">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryItemPopup.cpp">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryQuintessencePopup.cpp">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

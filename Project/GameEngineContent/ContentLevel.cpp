@@ -22,8 +22,8 @@ void ContentLevel::Start()
 
 	std::shared_ptr<GameEngineCamera> Cam = GetMainCamera();
 	MainCamCtrl.Start(Cam);
-	MainCamCtrl.SetCamPos(float4(0, 0, -1000, 1));
-	MainCamCtrl.SetCamRot(float4::Zero);
+	Cam->GetTransform()->SetLocalPosition({0, 0, -1000});
+	Cam->GetTransform()->SetLocalRotation(float4::Zero);
 }
 
 void ContentLevel::Update(float _DeltaTime)
@@ -54,6 +54,10 @@ void ContentLevel::Update(float _DeltaTime)
 		else if (true == GameEngineInput::IsDown("NumPad2"))
 		{
 			Debug_LevelMove("ShaderDebug");
+		}
+		else if (true == GameEngineInput::IsDown("NumPad3"))
+		{
+			Debug_LevelMove("InventoryDebug");
 		}
 	}
 	else
