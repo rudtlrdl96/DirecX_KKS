@@ -41,7 +41,7 @@ void BattleDebugLevel::Start()
 		BgDesc.Size *= 4.0f;
 		BgDesc.Animation = false;
 		BgDesc.AnimationSpeed = 0.0f;
-		BgDesc.Color = float4(0.03f, 0, 0.2f, 0);
+		BgDesc.Color = float4(0.03f, 0, 0.2f, 1.0f);
 	
 		DebugBackground->CreateBackground(BgDesc, 11);
 	}
@@ -95,7 +95,7 @@ void BattleDebugLevel::Start()
 		BgDesc.Size = float4(2400.0f, 875.0f, 0, 0);
 		BgDesc.Animation = false;
 		BgDesc.AnimationSpeed = 0.0f;
-		BgDesc.Color = -float4(0.1f, 0.1f, 0.1f, 0);
+		BgDesc.Color = -float4(0.1f, 0.1f, 0.1f, 1.0f);
 	
 		DebugBackground->CreateBackground(BgDesc, 7);
 	}
@@ -110,7 +110,7 @@ void BattleDebugLevel::Start()
 		BgDesc.Size *= 2.0f;
 		BgDesc.Animation = false;
 		BgDesc.AnimationSpeed = 0.0f;
-		BgDesc.Color = float4(0.07f, 0.05f, 0.12f, 0);
+		BgDesc.Color = float4(0.07f, 0.05f, 0.12f, 1.0f);
 	
 		DebugBackground->CreateBackground(BgDesc, 6);
 	}
@@ -124,7 +124,7 @@ void BattleDebugLevel::Start()
 		Desc.Pos = float4(-1900.0f, 0, 0, 0);
 		Desc.Size *= 2.5f;
 		Desc.Size.z = 1;
-		Desc.Color = float4(0, 0, 0.05f, 0);
+		Desc.Color = float4(0, 0, 0.05f, 1.0f);
 
 		DeubgObject->CreateStaticObject(Desc);
 	}
@@ -136,7 +136,7 @@ void BattleDebugLevel::Start()
 		Desc.Pos = float4(-2160, 0, 0, 0);
 		Desc.Size *= 2.5f;
 		Desc.Size.z = 1;
-		Desc.Color = float4(0, 0, 0.05f, 0);
+		Desc.Color = float4(0, 0, 0.05f, 1.0f);
 
 		DeubgObject->CreateStaticObject(Desc);
 	}	
@@ -147,7 +147,7 @@ void BattleDebugLevel::Start()
 		Desc.Pos = float4(-2420, 0, 0, 0);
 		Desc.Size *= 2.5f;
 		Desc.Size.z = 1;
-		Desc.Color = float4(0, 0, 0.05f, 0);
+		Desc.Color = float4(0, 0, 0.05f, 1.0f);
 
 		DeubgObject->CreateStaticObject(Desc);
 	}
@@ -193,8 +193,8 @@ void BattleDebugLevel::Start()
 		//DebugTilemap->SaveBin(SaveSer);
 		//SaveFile.SaveBin(SaveSer);
 
-		SaveFile.LoadBin(SaveSer);
-		DebugTilemap->LoadBin(SaveSer);
+		//SaveFile.LoadBin(SaveSer);
+		//DebugTilemap->LoadBin(SaveSer);
 	}
 }
 

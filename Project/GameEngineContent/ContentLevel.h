@@ -18,6 +18,10 @@ protected:
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
-private:
-};
 
+private:
+	static std::string CurLevelName;
+	static std::string PrevLevelName;
+
+	void Debug_LevelMove(const std::string_view& _LevelName);
+};

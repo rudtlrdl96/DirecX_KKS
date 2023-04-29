@@ -21,7 +21,7 @@ void TileActor::SetTileData(const TilemapData& _Data)
 	//	return;
 	//}
 
-	DrawRender->GetTransform()->SetLocalPosition({0, -ContentConst::TileSize.hy()});
+	DrawRender->GetTransform()->SetLocalPosition({0, -ContentConst::TileSize.hy()});	
 	DrawRender->SetTexture(Data.Name);
 	DrawRender->On();
 }
@@ -41,6 +41,9 @@ size_t TileActor::LoadBin(GameEngineSerializer& _LoadSerializer)
 void TileActor::Start()
 {
 	DrawRender = CreateComponent<GameEngineSpriteRenderer>();
+
+	DrawRender->SetPipeLine("2DTexture_ColorLight");
+	DrawRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", TileColor);
 	DrawRender->GetTransform()->SetLocalScale(ContentConst::TileSize);	
 	DrawRender->GetTransform()->SetLocalPosition({ 0, -ContentConst::TileSize.hy(), 0, 0 });
 	DrawRender->Off();

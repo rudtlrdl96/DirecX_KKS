@@ -30,4 +30,7 @@ private:
 	static void MonsterDataLoad();
 	static void TileDataLoad();
 	static void StaticObjectLoad();
+
+	// Common Load
+	static void CommonTextureLoad();
 };

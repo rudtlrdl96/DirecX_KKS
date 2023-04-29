@@ -36,6 +36,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BlackBackground.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BoneSkull.h">
       <SubType>
       </SubType>
@@ -76,6 +80,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentFunc.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentLevel.h">
       <SubType>
       </SubType>
@@ -86,6 +94,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="DebugSpriteActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EndingLogoLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FadeActor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -117,7 +133,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="LogoLevel.h">
+    <ClInclude Include="TitleActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TitleLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -169,11 +189,39 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="SkulLogo.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="StaticObject.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="StoryBackImage.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StoryBook.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StoryFrontImage.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="StoryLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StoryPage.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StoryTextureView.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StoryWalkHelper.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -186,6 +234,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TilemapData.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TitleLogo.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -209,6 +261,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BattleLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BlackBackground.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -261,6 +317,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentFunc.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentLevel.cpp">
       <SubType>
       </SubType>
@@ -271,6 +331,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="DebugSpriteActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EndingLogoLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FadeActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -302,7 +370,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="LogoLevel.cpp">
+    <ClCompile Include="TitleActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -358,11 +430,40 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SkulLogo.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="StaticObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="StoryBackImage.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StoryBook.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StoryFrontImage.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="StoryLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StoryLevel_SetStory.cpp" />
+    <ClCompile Include="StoryPage.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StoryTextureView.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StoryWalkHelper.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -375,6 +476,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TilemapData.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleLogo.cpp">
       <SubType>
       </SubType>
     </ClCompile>

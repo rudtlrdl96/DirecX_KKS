@@ -198,9 +198,9 @@ void Tilemap::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 		ResizeTilemap(SizeRef.x, SizeRef.y, Depth);
 
-		for (size_t y = 0; y < SizeRef.y; y++)
+		for (int y = 0; y < SizeRef.y; y++)
 		{
-			for (size_t x = 0; x < SizeRef.x; x++)
+			for (int x = 0; x < SizeRef.x; x++)
 			{
 				size_t LoadIndex = TileActor::LoadBin(_LoadSerializer);
 				ChangeData(Depth, x, y, LoadIndex);

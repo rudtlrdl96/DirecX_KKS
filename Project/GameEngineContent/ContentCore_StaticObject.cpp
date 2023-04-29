@@ -128,3 +128,21 @@ void ContentCore::StaticObjectLoad()
 
 	int a = 0;
 }
+
+void ContentCore::CommonTextureLoad()
+{
+	GameEngineDirectory Path;
+	Path.MoveParentToDirectory("Resources");
+	Path.Move("Resources");
+	Path.Move("Texture");
+	Path.Move("UI");
+	Path.Move("Common");
+	{
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+		}
+	}
+}

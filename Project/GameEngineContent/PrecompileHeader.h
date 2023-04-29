@@ -5,4 +5,5 @@
 #include "ContentDebug.h"
 #include "ContentConst.h"
 #include "ContentEnum.h"
+#include "ContentFunc.h"
 #include "ContentDatabase.h"

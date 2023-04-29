@@ -187,6 +187,24 @@
     <Filter Include="5_ContentVertex">
       <UniqueIdentifier>{a71937fe-bac1-4671-8cc9-7c6cbefef509}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\UI">
+      <UniqueIdentifier>{c814c637-c47b-4396-8b63-b492620efac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\UI\Common">
+      <UniqueIdentifier>{cc05cf35-28ce-4cb4-bdec-ef881c6a7437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\UI\Story">
+      <UniqueIdentifier>{6a51b329-4bbe-4a01-82d4-0b1232d148fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Story">
+      <UniqueIdentifier>{67c8b5d1-4a29-496f-8b76-ea6bd00acf88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\UI\Ending">
+      <UniqueIdentifier>{7b0030f0-e76c-4546-88b8-863eb39d52b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\UI\Title">
+      <UniqueIdentifier>{217b0d88-54bb-4232-b5d8-0a29764a4f48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -297,7 +315,7 @@
     <ClInclude Include="BattleLevel.h">
       <Filter>4_Level\GameLevel\BattleLevel</Filter>
     </ClInclude>
-    <ClInclude Include="LogoLevel.h">
+    <ClInclude Include="TitleLevel.h">
       <Filter>4_Level\GameLevel\UILevel\Logo</Filter>
     </ClInclude>
     <ClInclude Include="StoryLevel.h">
@@ -323,6 +341,45 @@
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>2_Actor\Map\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeActor.h">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryFrontImage.h">
+      <Filter>2_Actor\UI\Story</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryTextureView.h">
+      <Filter>2_Actor\UI\Story</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentFunc.h">
+      <Filter>1_Class\Base\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryWalkHelper.h">
+      <Filter>1_Class\Story</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryPage.h">
+      <Filter>1_Class\Story</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryBook.h">
+      <Filter>1_Class\Story</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryBackImage.h">
+      <Filter>2_Actor\UI\Story</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingLogoLevel.h">
+      <Filter>4_Level\GameLevel\UILevel\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackBackground.h">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SkulLogo.h">
+      <Filter>2_Actor\UI\Ending</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleLogo.h">
+      <Filter>2_Actor\UI\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleActor.h">
+      <Filter>2_Actor\UI\Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -449,7 +506,7 @@
     <ClCompile Include="BattleLevel.cpp">
       <Filter>4_Level\GameLevel\BattleLevel</Filter>
     </ClCompile>
-    <ClCompile Include="LogoLevel.cpp">
+    <ClCompile Include="TitleLevel.cpp">
       <Filter>4_Level\GameLevel\UILevel\Logo</Filter>
     </ClCompile>
     <ClCompile Include="StoryLevel.cpp">
@@ -478,6 +535,48 @@
     </ClCompile>
     <ClCompile Include="ContentCore_StaticObject.cpp">
       <Filter>0_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeActor.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryFrontImage.cpp">
+      <Filter>2_Actor\UI\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryTextureView.cpp">
+      <Filter>2_Actor\UI\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryLevel_SetStory.cpp">
+      <Filter>4_Level\GameLevel\UILevel\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentFunc.cpp">
+      <Filter>1_Class\Base\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryWalkHelper.cpp">
+      <Filter>1_Class\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryPage.cpp">
+      <Filter>1_Class\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryBook.cpp">
+      <Filter>1_Class\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryBackImage.cpp">
+      <Filter>2_Actor\UI\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingLogoLevel.cpp">
+      <Filter>4_Level\GameLevel\UILevel\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackBackground.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="SkulLogo.cpp">
+      <Filter>2_Actor\UI\Ending</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLogo.cpp">
+      <Filter>2_Actor\UI\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleActor.cpp">
+      <Filter>2_Actor\UI\Title</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

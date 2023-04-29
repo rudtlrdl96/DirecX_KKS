@@ -12,15 +12,17 @@
 #include "ContentVertex.h"
 
 // Player Level
-#include "LogoLevel.h"
+#include "TitleLevel.h"
 #include "OpeningLevel.h"
 #include "CastleLevel.h"
 #include "ForestOfHarmonyLevel.h"
 #include "ForestOfHarmonyLevel_Boss.h"
 #include "GrandHallLevel.h"
 #include "GrandHallLevel_Boss.h"
+#include "HolyCourtyardLevel.h"
 #include "StoryLevel.h"
 #include "ShopLevel.h"
+#include "EndingLogoLevel.h"
 
 // Debug Level
 #include "ShaderDebugLevel.h"
@@ -48,27 +50,42 @@ void ContentCore::CoreLoading()
 	TileDataLoad();
 	StaticObjectLoad();
 
+	// Common Load
+	CommonTextureLoad();
+
 	// GameLevel Create
-	GameEngineCore::CreateLevel<LogoLevel>("Logo");
+	GameEngineCore::CreateLevel<TitleLevel>("Title");
 	GameEngineCore::CreateLevel<OpeningLevel>("Opening");
 	GameEngineCore::CreateLevel<CastleLevel>("Castle");
 	GameEngineCore::CreateLevel<ForestOfHarmonyLevel>("ForestOfHarmony");
 	GameEngineCore::CreateLevel<ForestOfHarmonyLevel_Boss>("ForestOfHarmony_Boss");
 	GameEngineCore::CreateLevel<GrandHallLevel>("GrandHall");
 	GameEngineCore::CreateLevel<GrandHallLevel_Boss>("GrandHall_Boss");
+	GameEngineCore::CreateLevel<HolyCourtyardLevel>("HolyCourtyard");
 	GameEngineCore::CreateLevel<StoryLevel>("Story");
 	GameEngineCore::CreateLevel<ShopLevel>("Shop");
+	GameEngineCore::CreateLevel<EndingLogoLevel>("EndingLogo");
 	
 	// DebugLevel Create
 	GameEngineCore::CreateLevel<ShaderDebugLevel>("ShaderDebug");
 	GameEngineCore::CreateLevel<BattleDebugLevel>("BattleDebug");
-	GameEngineCore::ChangeLevel("BattleDebug");
+
+	GameEngineCore::ChangeLevel("Title");
 
 	if (false == GameEngineInput::IsKey("LevelMove_ShaderDebug"))
 	{
-		GameEngineInput::CreateKey("LevelMove_ShaderDebug", VK_NUMPAD7);
-		GameEngineInput::CreateKey("LevelMove_BattleDebug", VK_NUMPAD8);
-		GameEngineInput::CreateKey("LevelMove_BackPrevLevel", VK_NUMPAD0);
+		GameEngineInput::CreateKey("CheckDebugCtrl", VK_LCONTROL);
+
+		GameEngineInput::CreateKey("NumPad1", VK_NUMPAD1);
+		GameEngineInput::CreateKey("NumPad2", VK_NUMPAD2);
+		GameEngineInput::CreateKey("NumPad3", VK_NUMPAD3);
+		GameEngineInput::CreateKey("NumPad4", VK_NUMPAD4);
+		GameEngineInput::CreateKey("NumPad5", VK_NUMPAD5);
+		GameEngineInput::CreateKey("NumPad6", VK_NUMPAD6);
+		GameEngineInput::CreateKey("NumPad7", VK_NUMPAD7);
+		GameEngineInput::CreateKey("NumPad8", VK_NUMPAD8);
+
+		GameEngineInput::CreateKey("NumPad0", VK_NUMPAD0);
 	}
 }
 
