@@ -18,7 +18,7 @@ void ContentCore::TileDataLoad()
 	Path.Move("Tile");
 
 	{
-		Path.Move("Debug");
+		Path.Move("DebugTile");
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
 		for (size_t i = 0; i < Files.size(); i++)
