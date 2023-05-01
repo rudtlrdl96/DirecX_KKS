@@ -217,6 +217,9 @@
     <Filter Include="2_Actor\UI\Inventory\Popup">
       <UniqueIdentifier>{6b60e3a3-bf93-459f-8df6-aa707111c26e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Player\Capture">
+      <UniqueIdentifier>{1ee9704a-d7ba-47d3-b257-56db50907bde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -413,6 +416,15 @@
     </ClInclude>
     <ClInclude Include="InventoryStatPopup.h">
       <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="CaptureRenderer.h">
+      <Filter>2_Actor\Player\Capture</Filter>
+    </ClInclude>
+    <ClInclude Include="CaptureTrail.h">
+      <Filter>2_Actor\Player\Capture</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugTrailActor.h">
+      <Filter>2_Actor\Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -631,6 +643,15 @@
     </ClCompile>
     <ClCompile Include="InventoryStatPopup.cpp">
       <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="CaptureRenderer.cpp">
+      <Filter>2_Actor\Player\Capture</Filter>
+    </ClCompile>
+    <ClCompile Include="CaptureTrail.cpp">
+      <Filter>2_Actor\Player\Capture</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugTrailActor.cpp">
+      <Filter>2_Actor\Debug</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

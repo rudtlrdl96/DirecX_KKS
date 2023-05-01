@@ -27,7 +27,7 @@ void InventoryQuintessencePopup::Start()
 	PopupFrameRender->SetPipeLine("2DTexture_ColorLight");
 	PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupFrameColor);
 	PopupFrameRender->SetTexture("Inventory_Quintessence_Frame.png");
-	PopupFrameRender->GetTransform()->SetWorldScale(TexSize);
+	PopupFrameRender->GetTransform()->SetLocalScale(TexSize);
 
 	PopupFrameColor.w = 1.21f;
 }

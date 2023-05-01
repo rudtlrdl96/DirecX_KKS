@@ -25,6 +25,9 @@ protected:
 
 private:
 	std::shared_ptr<GameEngineActor> ShaderTestActor = nullptr;
+	std::shared_ptr<class CaptureRenderer> CaptureTest = nullptr;
+	std::shared_ptr<class DebugTrailActor> TrailTest = nullptr;
+	
 
 	float4 RotVector = float4::Zero;
 

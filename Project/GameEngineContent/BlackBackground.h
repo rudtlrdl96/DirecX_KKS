@@ -12,6 +12,8 @@ public:
 	BlackBackground& operator=(const BlackBackground& _Other) = delete;
 	BlackBackground& operator=(BlackBackground&& _Other) noexcept = delete;
 
+	void SetRenderSize(const float4& _Size);
+
 protected:
 	void Start() override;
 

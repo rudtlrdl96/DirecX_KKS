@@ -6,6 +6,9 @@
 
 // Actors
 #include "DebugBoxActor.h"
+#include "BlackBackground.h"
+#include "CaptureRenderer.h"
+#include "DebugTrailActor.h"
 
 ShaderDebugLevel::ShaderDebugLevel()
 {
@@ -43,6 +46,17 @@ void ShaderDebugLevel::Start()
 	}
 
 	ShaderTestActor = CreateActor<DebugBoxActor>();
+
+	CaptureTest = CreateActor<CaptureRenderer>();
+	CaptureTest->GetTransform()->SetLocalPosition(float4(300, 0, 0, 1));
+	CaptureTest->SetTexture("Bone04.png");
+	CaptureTest->SetLoop(true);
+	CaptureTest->SetWaitTime(1.0f);
+	CaptureTest->Play(float4(0.95f, 0.2f, 1.0f, 1.0f), float4(0.95f, 0.2f, 1.0f, 0.0f), 0.3f);
+
+	TrailTest = CreateActor<DebugTrailActor>();
+	TrailTest->GetTransform()->SetLocalPosition(float4(-300, 0, 0, 1));
+
 }
 
 void ShaderDebugLevel::Update(float _DeltaTime)

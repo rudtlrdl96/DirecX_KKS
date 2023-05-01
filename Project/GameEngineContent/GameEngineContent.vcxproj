@@ -48,6 +48,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CaptureRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CaptureTrail.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CastleLevel.h">
       <SubType>
       </SubType>
@@ -94,6 +102,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="DebugSpriteActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="DebugTrailActor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -304,6 +316,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="CaptureRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CaptureTrail.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="CastleLevel.cpp">
       <SubType>
       </SubType>
@@ -359,6 +379,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="DebugSpriteActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="DebugTrailActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>

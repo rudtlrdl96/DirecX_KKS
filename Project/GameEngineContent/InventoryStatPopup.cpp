@@ -20,7 +20,7 @@ void InventoryStatPopup::Start()
 			return;
 		}
 
-		float4 TexSize = { static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()) };
+		float4 TexSize = { static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()), 1.0f};
 		TexSize.x *= 2.0f;
 		TexSize.y *= 2.0f;
 
@@ -28,13 +28,13 @@ void InventoryStatPopup::Start()
 		PopupFrameRender->SetPipeLine("2DTexture_ColorLight");
 		PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupFrameColor);
 		PopupFrameRender->SetTexture("Inventory_Stat_Frame.png");
-		PopupFrameRender->GetTransform()->SetWorldScale(TexSize);
+		PopupFrameRender->GetTransform()->SetLocalScale(TexSize);
 
 		PopupFrameColor.w = 1.21f;
 	}
 
 	{
-		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find("Inventory_Stat_Frame.png");
+		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find("Inventory_Stat_Back.png");
 
 		if (nullptr == FindTex)
 		{
@@ -42,15 +42,16 @@ void InventoryStatPopup::Start()
 			return;
 		}
 
-		float4 TexSize = { static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()) };
-		TexSize.x *= 2.0f;
+		float4 TexSize = { static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()), 1.0f};
+		TexSize.x *= 2.1f;
 		TexSize.y *= 2.0f;
 
 		PopupBackRender = CreateComponent<GameEngineSpriteRenderer>();
 		PopupBackRender->SetPipeLine("2DTexture_ColorLight");
 		PopupBackRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupBackColor);
-		PopupBackRender->SetTexture("Inventory_Stat_Frame.png");
-		PopupBackRender->GetTransform()->SetWorldScale(TexSize);
+		PopupBackRender->SetTexture("Inventory_Stat_Back.png");
+		PopupBackRender->GetTransform()->SetLocalPosition(float4(-465, 1, 0));
+		PopupBackRender->GetTransform()->SetLocalScale(TexSize);
 
 		PopupBackColor.w = 1.21f;
 	}

@@ -1,5 +1,7 @@
 #include "PrecompileHeader.h"
 #include "InventoryUI.h"
+
+#include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
 
 #include "InventorySlot.h"
@@ -59,7 +61,24 @@ void InventoryUI::Start()
 	//SkullPopup->GetTransform()->SetParent(Trans);
 	//SkullPopup->GetTransform()->SetLocalPosition(float4{ 224, -75, -10 });
 
-	StatPopup = GetLevel()->CreateActor<InventoryStatPopup>();
-	StatPopup->GetTransform()->SetParent(Trans);
-	StatPopup->GetTransform()->SetLocalPosition(float4{ 224, -3, -10 });
+	//StatPopup = GetLevel()->CreateActor<InventoryStatPopup>();
+	//StatPopup->GetTransform()->SetParent(Trans);
+	//StatPopup->GetTransform()->SetLocalPosition(float4{ 224, -3, -10 });
+
+	if (false == GameEngineInput::IsKey("ShowInventoryStat"))
+	{
+		GameEngineInput::CreateKey("ShowInventoryStat", 'A');
+	}
+}
+
+void InventoryUI::Update(float _DeltaTime)
+{
+	if (true == GameEngineInput::IsPress("ShowInventoryStat"))
+	{
+
+	}
+	else
+	{
+
+	}
 }
