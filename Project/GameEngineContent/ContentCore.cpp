@@ -20,6 +20,7 @@
 #include "GrandHallLevel.h"
 #include "GrandHallLevel_Boss.h"
 #include "HolyCourtyardLevel.h"
+#include "HolyCourtyardLevel_Boss.h"
 #include "StoryLevel.h"
 #include "ShopLevel.h"
 #include "EndingLogoLevel.h"
@@ -28,6 +29,7 @@
 #include "ShaderDebugLevel.h"
 #include "BattleDebugLevel.h"
 #include "InventoryDebugLevel.h"
+#include "MapToolLevel.h"
 
 ContentCore::ContentCore()
 {
@@ -63,6 +65,7 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<GrandHallLevel>("GrandHall");
 	GameEngineCore::CreateLevel<GrandHallLevel_Boss>("GrandHall_Boss");
 	GameEngineCore::CreateLevel<HolyCourtyardLevel>("HolyCourtyard");
+	GameEngineCore::CreateLevel<HolyCourtyardLevel_Boss>("HolyCourtyard_Boss");
 	GameEngineCore::CreateLevel<StoryLevel>("Story");
 	GameEngineCore::CreateLevel<ShopLevel>("Shop");
 	GameEngineCore::CreateLevel<EndingLogoLevel>("EndingLogo");
@@ -71,12 +74,14 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<ShaderDebugLevel>("ShaderDebug");
 	GameEngineCore::CreateLevel<BattleDebugLevel>("BattleDebug");
 	GameEngineCore::CreateLevel<InventoryDebugLevel>("InventoryDebug");
+	GameEngineCore::CreateLevel<MapToolLevel>("MapTool");
 
 	GameEngineCore::ChangeLevel("Title");
 
 	if (false == GameEngineInput::IsKey("LevelMove_ShaderDebug"))
 	{
 		GameEngineInput::CreateKey("CheckDebugCtrl", VK_LCONTROL);
+		GameEngineInput::CreateKey("CheckUIAlt", VK_MENU);
 
 		GameEngineInput::CreateKey("NumPad0", VK_NUMPAD0);
 		GameEngineInput::CreateKey("NumPad1", VK_NUMPAD1);

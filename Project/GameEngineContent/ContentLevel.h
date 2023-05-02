@@ -13,6 +13,8 @@ public:
 	ContentLevel& operator=(const ContentLevel& _Other) = delete;
 	ContentLevel& operator=(ContentLevel&& _Other) noexcept = delete;
 
+	float4 GetMousePos() const;
+
 protected:
 	CameraController MainCamCtrl;
 
@@ -22,6 +24,8 @@ protected:
 private:
 	static std::string CurLevelName;
 	static std::string PrevLevelName;
+
+	std::shared_ptr<GameEngineCamera> MainCam = nullptr;
 
 	void Debug_LevelMove(const std::string_view& _LevelName);
 };

@@ -4,6 +4,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineCore.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
 
 std::string ContentLevel::CurLevelName = "";
 std::string ContentLevel::PrevLevelName = "";
@@ -16,14 +17,25 @@ ContentLevel::~ContentLevel()
 {
 }
 
+float4 ContentLevel::GetMousePos() const
+{
+	float4 Result = GameEngineWindow::GetMousePosition();
+	float4 WindowHalfSize = GameEngineWindow::GetScreenSize().half();
+	Result += WindowHalfSize; // 데카르트 좌표계로 변환
+
+
+
+	return Result;
+}
+
 void ContentLevel::Start()
 {
 	GameEngineLevel::Start();
 
-	std::shared_ptr<GameEngineCamera> Cam = GetMainCamera();
-	MainCamCtrl.Start(Cam);
-	Cam->GetTransform()->SetLocalPosition({0, 0, -5000});
-	Cam->GetTransform()->SetLocalRotation(float4::Zero);
+	MainCam = GetMainCamera();
+	MainCamCtrl.Start(MainCam);
+	MainCam->GetTransform()->SetLocalPosition({0, 0, -5000});
+	MainCam->GetTransform()->SetLocalRotation(float4::Zero);
 }
 
 void ContentLevel::Update(float _DeltaTime)
@@ -42,9 +54,7 @@ void ContentLevel::Update(float _DeltaTime)
 		GameEngineCore::ChangeLevel(CurLevelName);
 		return;
 	}
-
-
-	
+		
 	if (true == GameEngineInput::IsPress("CheckDebugCtrl"))
 	{
 		if (true == GameEngineInput::IsDown("NumPad1"))
@@ -61,46 +71,57 @@ void ContentLevel::Update(float _DeltaTime)
 		}
 		else if (true == GameEngineInput::IsDown("NumPad4"))
 		{
-			Debug_LevelMove("Story");
-		}
-		else if (true == GameEngineInput::IsDown("NumPad5"))
-		{
-			Debug_LevelMove("EndingLogo");
+			Debug_LevelMove("MapTool");
 		}
 	}
-	else
+	else if (true == GameEngineInput::IsPress("CheckUIAlt"))
 	{
 		if (true == GameEngineInput::IsDown("NumPad1"))
 		{
 			Debug_LevelMove("Title");
 		}
-		else if (true == GameEngineInput::IsDown("NumPad2"))
+		if (true == GameEngineInput::IsDown("NumPad2"))
 		{
-			Debug_LevelMove("Castle");
+			Debug_LevelMove("Story");
 		}
 		else if (true == GameEngineInput::IsDown("NumPad3"))
 		{
+			Debug_LevelMove("EndingLogo");
+		}
+	}
+	else
+	{		
+		if (true == GameEngineInput::IsDown("NumPad1"))
+		{
+			Debug_LevelMove("Castle");
+		}
+		else if (true == GameEngineInput::IsDown("NumPad2"))
+		{
 			Debug_LevelMove("Opening");
 		}
-		else if (true == GameEngineInput::IsDown("NumPad4"))
+		else if (true == GameEngineInput::IsDown("NumPad3"))
 		{
 			Debug_LevelMove("ForestOfHarmony");
 		}
-		else if (true == GameEngineInput::IsDown("NumPad5"))
+		else if (true == GameEngineInput::IsDown("NumPad4"))
 		{
 			Debug_LevelMove("ForestOfHarmony_Boss");
 		}
-		else if (true == GameEngineInput::IsDown("NumPad6"))
+		else if (true == GameEngineInput::IsDown("NumPad5"))
 		{
 			Debug_LevelMove("GrandHall");
 		}
-		else if (true == GameEngineInput::IsDown("NumPad7"))
+		else if (true == GameEngineInput::IsDown("NumPad6"))
 		{
 			Debug_LevelMove("GrandHall_Boss");
 		}
-		else if (true == GameEngineInput::IsDown("NumPad8"))
+		else if (true == GameEngineInput::IsDown("NumPad7"))
 		{
 			Debug_LevelMove("HolyCourtyard");
+		}
+		else if (true == GameEngineInput::IsDown("NumPad8"))
+		{
+			Debug_LevelMove("HolyCourtyard_Boss");
 		}
 		else if (true == GameEngineInput::IsDown("NumPad9"))
 		{

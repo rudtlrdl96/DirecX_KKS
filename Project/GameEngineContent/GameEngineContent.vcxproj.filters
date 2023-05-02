@@ -220,6 +220,9 @@
     <Filter Include="2_Actor\Player\Capture">
       <UniqueIdentifier>{1ee9704a-d7ba-47d3-b257-56db50907bde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Level\DebugLevel\MapTool">
+      <UniqueIdentifier>{e0381330-3519-4221-9cc1-b548154c8e2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -425,6 +428,12 @@
     </ClInclude>
     <ClInclude Include="DebugTrailActor.h">
       <Filter>2_Actor\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="MapToolLevel.h">
+      <Filter>4_Level\DebugLevel\MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyCourtyardLevel_Boss.h">
+      <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -652,6 +661,12 @@
     </ClCompile>
     <ClCompile Include="DebugTrailActor.cpp">
       <Filter>2_Actor\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolLevel.cpp">
+      <Filter>4_Level\DebugLevel\MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyCourtyardLevel_Boss.cpp">
+      <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
