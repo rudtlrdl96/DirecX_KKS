@@ -30,6 +30,8 @@ void Background::Init(const BG_DESC& _Desc)
 	if (true == Desc.Animation)
 	{
 		AnimationImage = CreateComponent<GameEngineSpriteRenderer>();
+		AnimationImage->SetPipeLine("2DTexture_ColorLight");
+		AnimationImage->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", Desc.Color);
 		AnimationImage->SetTexture(Desc.TextureName);
 		AnimationImage->GetTransform()->SetLocalScale(Desc.Size);
 		

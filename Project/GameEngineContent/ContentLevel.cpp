@@ -59,6 +59,14 @@ void ContentLevel::Update(float _DeltaTime)
 		{
 			Debug_LevelMove("InventoryDebug");
 		}
+		else if (true == GameEngineInput::IsDown("NumPad4"))
+		{
+			Debug_LevelMove("Story");
+		}
+		else if (true == GameEngineInput::IsDown("NumPad5"))
+		{
+			Debug_LevelMove("EndingLogo");
+		}
 	}
 	else
 	{
@@ -72,27 +80,31 @@ void ContentLevel::Update(float _DeltaTime)
 		}
 		else if (true == GameEngineInput::IsDown("NumPad3"))
 		{
-			Debug_LevelMove("ForestOfHarmony");
+			Debug_LevelMove("Opening");
 		}
 		else if (true == GameEngineInput::IsDown("NumPad4"))
 		{
-			Debug_LevelMove("GrandHall");
+			Debug_LevelMove("ForestOfHarmony");
 		}
 		else if (true == GameEngineInput::IsDown("NumPad5"))
 		{
-			Debug_LevelMove("HolyCourtyard");
+			Debug_LevelMove("ForestOfHarmony_Boss");
 		}
 		else if (true == GameEngineInput::IsDown("NumPad6"))
 		{
-			Debug_LevelMove("Shop");
+			Debug_LevelMove("GrandHall");
 		}
 		else if (true == GameEngineInput::IsDown("NumPad7"))
 		{
-			Debug_LevelMove("Story");
+			Debug_LevelMove("GrandHall_Boss");
 		}
 		else if (true == GameEngineInput::IsDown("NumPad8"))
 		{
-			Debug_LevelMove("EndingLogo");
+			Debug_LevelMove("HolyCourtyard");
+		}
+		else if (true == GameEngineInput::IsDown("NumPad9"))
+		{
+			Debug_LevelMove("Shop");
 		}
 	}
 }

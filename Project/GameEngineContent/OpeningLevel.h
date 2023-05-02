@@ -18,6 +18,7 @@ protected:
 
 private:
 
+	void TextureLoad();
 
 };
 

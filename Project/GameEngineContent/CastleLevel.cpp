@@ -26,7 +26,7 @@ void CastleLevel::Start()
 		BgDesc.Size *= 4.0f;
 		BgDesc.Animation = false;
 		BgDesc.AnimationSpeed = 0.0f;
-		BgDesc.Color = float4(0.03f, 0, 0.2f, 1.0f);
+		BgDesc.Color = float4(-0.062f, -0.076f, -0.053f, 1.0f);
 
 		MBackgroundPtr->CreateBackground(BgDesc, 11);
 	}
@@ -41,6 +41,7 @@ void CastleLevel::Start()
 		BgDesc.Size *= 2.5f;
 		BgDesc.Animation = false;
 		BgDesc.AnimationSpeed = 0.0f;
+		BgDesc.Color = float4(-0.051f, -0.101f, -0.051f, 1.0f);
 
 		MBackgroundPtr->CreateBackground(BgDesc, 10);
 	}
@@ -54,6 +55,7 @@ void CastleLevel::Start()
 		BgDesc.Size = float4(1521.6f, 552.0f, 0, 0);
 		BgDesc.Animation = true;
 		BgDesc.AnimationSpeed = 25.0f;
+		BgDesc.Color = float4(-0.05f, -0.05f, -0.05f, 1.0f);
 
 		MBackgroundPtr->CreateBackground(BgDesc, 9);
 	}
@@ -67,6 +69,7 @@ void CastleLevel::Start()
 		BgDesc.Size = float4(2110.0f, 422.5f, 0, 0);
 		BgDesc.Animation = false;
 		BgDesc.AnimationSpeed = 0.0f;
+		BgDesc.Color = float4(-0.05f, -0.05f, -0.05f, 1.0f);
 
 		MBackgroundPtr->CreateBackground(BgDesc, 8);
 	}
@@ -76,11 +79,11 @@ void CastleLevel::Start()
 
 		BgDesc.TextureName = "Castle_BackImage_CastleWall.png";
 		BgDesc.Center = { 700.0f, 50.0f, 0, 0 };
-		BgDesc.Ratio = 0.3f;
+		BgDesc.Ratio = 0.5f;
 		BgDesc.Size = float4(2400.0f, 875.0f, 0, 0);
 		BgDesc.Animation = false;
 		BgDesc.AnimationSpeed = 0.0f;
-		BgDesc.Color = -float4(0.1f, 0.1f, 0.1f, 1.0f);
+		BgDesc.Color = float4(-0.2f, -0.2f, -0.25f, 1.0f);
 
 		MBackgroundPtr->CreateBackground(BgDesc, 7);
 	}
@@ -89,13 +92,13 @@ void CastleLevel::Start()
 		Background::BG_DESC BgDesc;
 
 		BgDesc.TextureName = "Castle_BackImage_Chandelier.png";
-		BgDesc.Center = { 780.0f, 220.0f, 0, 0 };
-		BgDesc.Ratio = 0.35f;
+		BgDesc.Center = { 780.0f, 100.0f, 0, 0 };
+		BgDesc.Ratio = 0.7f;
 		BgDesc.Size = float4(1050.0f, 304.0f, 0, 0);
 		BgDesc.Size *= 2.0f;
 		BgDesc.Animation = false;
 		BgDesc.AnimationSpeed = 0.0f;
-		BgDesc.Color = float4(0.07f, 0.05f, 0.12f, 1.0f);
+		BgDesc.Color = float4(-0.05f, -0.05f, -0.05f, 1.0f);
 
 		MBackgroundPtr->CreateBackground(BgDesc, 6);
 	}
