@@ -20,10 +20,11 @@ ContentLevel::~ContentLevel()
 float4 ContentLevel::GetMousePos() const
 {
 	float4 Result = GameEngineWindow::GetMousePosition();
-	float4 WindowHalfSize = GameEngineWindow::GetScreenSize().half();
-	Result += WindowHalfSize; // 데카르트 좌표계로 변환
+	float4 CameraPos = MainCam->GetTransform()->GetWorldPosition();
 
-
+	Result *= MainCam->GetViewPort().InverseReturn();
+	Result *= MainCam->GetProjection().InverseReturn();
+	Result *= MainCam->GetView().InverseReturn();
 
 	return Result;
 }
@@ -34,7 +35,7 @@ void ContentLevel::Start()
 
 	MainCam = GetMainCamera();
 	MainCamCtrl.Start(MainCam);
-	MainCam->GetTransform()->SetLocalPosition({0, 0, -5000});
+	MainCam->GetTransform()->AddLocalPosition({0, 0, -5000});
 	MainCam->GetTransform()->SetLocalRotation(float4::Zero);
 }
 
