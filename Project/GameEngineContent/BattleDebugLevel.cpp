@@ -136,6 +136,7 @@ void BattleDebugLevel::Start()
 
 		DeubgObject->CreateStaticObject(Desc);
 	}	
+
 	{
 		SObject_DESC Desc = ContentDatabase<SObject_DESC, LevelType>::GetData(
 			GameEngineString::ToUpper("Castle_StaticObject_Wall04.png"));

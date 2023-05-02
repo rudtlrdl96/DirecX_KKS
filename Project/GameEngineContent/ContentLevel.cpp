@@ -22,7 +22,7 @@ void ContentLevel::Start()
 
 	std::shared_ptr<GameEngineCamera> Cam = GetMainCamera();
 	MainCamCtrl.Start(Cam);
-	Cam->GetTransform()->SetLocalPosition({0, 0, -1000});
+	Cam->GetTransform()->SetLocalPosition({0, 0, -5000});
 	Cam->GetTransform()->SetLocalRotation(float4::Zero);
 }
 

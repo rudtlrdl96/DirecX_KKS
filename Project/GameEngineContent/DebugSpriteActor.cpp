@@ -12,7 +12,7 @@ DebugSpriteActor::~DebugSpriteActor()
 
 void DebugSpriteActor::Start()
 {
-	if (false == GameEngineInput::IsKey("DebugMoveX++"))
+	if (false == GameEngineInput::IsKey("DebugMoveUp"))
 	{
 		GameEngineInput::CreateKey("DebugMoveUp", VK_UP);
 		GameEngineInput::CreateKey("DebugMoveDown", VK_DOWN);
@@ -27,16 +27,8 @@ void DebugSpriteActor::Start()
 		GameEngineInput::CreateKey("DebugRotZ-", 'E');
 	}
 
-	SpriteRender0 = CreateComponent<GameEngineSpriteRenderer>();
-	SpriteRender0->GetTransform()->SetLocalScale({100, 100});
-
-	SpriteRender1 = CreateComponent<GameEngineSpriteRenderer>();
-	SpriteRender1->GetTransform()->SetLocalScale({ 100, 100 });
-	SpriteRender1->GetTransform()->SetLocalPosition({ 300, 0 });
-
-	SpriteRender2 = CreateComponent<GameEngineSpriteRenderer>();
-	SpriteRender2->GetTransform()->SetLocalScale({ 100, 100 });
-	SpriteRender2->GetTransform()->SetLocalPosition({ -300, 0 });
+	SpriteRender = CreateComponent<GameEngineSpriteRenderer>();
+	SpriteRender->GetTransform()->SetLocalScale({100, 100});
 }
 
 void DebugSpriteActor::Update(float _DeltaTime)
@@ -45,19 +37,19 @@ void DebugSpriteActor::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsPress("DebugMoveUp"))
 	{
-		GetTransform()->AddWorldPosition({ 0, MoveDis, 0 });
+		GetTransform()->AddLocalPosition({ 0, MoveDis, 0 });
 	}
 	else if (true == GameEngineInput::IsPress("DebugMoveDown"))
 	{
-		GetTransform()->AddWorldPosition({ 0, -MoveDis, 0 });
+		GetTransform()->AddLocalPosition({ 0, -MoveDis, 0 });
 	}
 	else if (true == GameEngineInput::IsPress("DebugMoveLeft"))
 	{
-		GetTransform()->AddWorldPosition({ -MoveDis, 0, 0 });
+		GetTransform()->AddLocalPosition({ -MoveDis, 0, 0 });
 	}
 	else if (true == GameEngineInput::IsPress("DebugMoveRight"))
 	{
-		GetTransform()->AddWorldPosition({ MoveDis, 0, 0 });
+		GetTransform()->AddLocalPosition({ MoveDis, 0, 0 });
 	}
 
 	float RotDis = _DeltaTime * RotSpeed;
@@ -85,6 +77,4 @@ void DebugSpriteActor::Update(float _DeltaTime)
 	{
 		GetTransform()->AddLocalRotation({ 0, 0, -RotDis });
 	}
-
-	SpriteRender0->GetTransform()->SetWorldRotation(float4::Zero);
 }

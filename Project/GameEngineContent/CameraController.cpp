@@ -99,7 +99,7 @@ void CameraController::Update(float _DeltaTime)
 		float CamMove = _DeltaTime * DiffSize * 10.0f;
 
 
-		if (CamMove > 1.0f)
+		if (DiffSize > 1.0f)
 		{
 			DiffDir.Normalize();
 			TargetWorldPos +=  DiffDir * CamMove;

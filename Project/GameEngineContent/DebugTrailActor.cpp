@@ -14,7 +14,7 @@ DebugTrailActor::~DebugTrailActor()
 
 void DebugTrailActor::Start()
 {
-	if(false == GameEngineInput::IsKey("TrailMoveX+"))
+	if(false == GameEngineInput::IsKey("TrailMoveY+"))
 	{
 		GameEngineInput::CreateKey("TrailMoveY+", VK_UP);
 		GameEngineInput::CreateKey("TrailMoveY-", VK_DOWN);
