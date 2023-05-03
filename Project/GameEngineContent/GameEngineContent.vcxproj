@@ -305,7 +305,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="TransformGUI.h">
+    <ClInclude Include="GameEngineActorGUI.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -615,7 +615,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TransformGUI.cpp">
+    <ClCompile Include="GameEngineActorGUI.cpp">
       <SubType>
       </SubType>
     </ClCompile>

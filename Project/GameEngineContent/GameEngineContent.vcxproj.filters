@@ -462,7 +462,7 @@
     <ClInclude Include="MouseCursorFollowTex.h">
       <Filter>2_Actor\Debug\MapTool</Filter>
     </ClInclude>
-    <ClInclude Include="TransformGUI.h">
+    <ClInclude Include="GameEngineActorGUI.h">
       <Filter>5_ImGui</Filter>
     </ClInclude>
   </ItemGroup>
@@ -710,7 +710,7 @@
     <ClCompile Include="MouseCursorFollowTex.cpp">
       <Filter>2_Actor\Debug\MapTool</Filter>
     </ClCompile>
-    <ClCompile Include="TransformGUI.cpp">
+    <ClCompile Include="GameEngineActorGUI.cpp">
       <Filter>5_ImGui</Filter>
     </ClCompile>
   </ItemGroup>

@@ -22,9 +22,10 @@ private:
 	std::shared_ptr<class MultiBackground> DebugBackground = nullptr;
 	std::shared_ptr<class Tilemap> DebugTilemap = nullptr;
 	std::shared_ptr<class DebugSpriteActor> DeubgActor = nullptr;
+	std::shared_ptr<class DebugSpriteActor> DeubgChildActor = nullptr;
 	std::shared_ptr<class ObjectManager> DeubgObject = nullptr;
 
-	std::shared_ptr<class TransformGUI> TransformGUIPtr = nullptr;
+	std::shared_ptr<class GameEngineActorGUI> GameEngineActorGUIPtr = nullptr;
 
 	float CameraSpeed = 300.0f;
 };

@@ -1,16 +1,21 @@
 #include "PrecompileHeader.h"
-#include "TransformGUI.h"
+#include "GameEngineActorGUI.h"
 #include <GameEngineCore/GameEngineLevel.h>
 
-TransformGUI::TransformGUI()
+GameEngineActorGUI::GameEngineActorGUI()
 {
 }
 
-TransformGUI::~TransformGUI()
+GameEngineActorGUI::~GameEngineActorGUI()
 {
 }
 
-void TransformGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTime)
+void GameEngineActorGUI::Start()
+{
+	ImGui::SetWindowSize(GetName().data(), ImVec2(300, 150));
+}
+
+void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTime)
 {
 	if (nullptr == TargetTransform)
 	{
@@ -28,6 +33,24 @@ void TransformGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTime)
 	HelpMarker("Setting World Postion");
 	ImGui::SameLine();
 
+	float4 GetPostion = float4::Zero; 
+
+	if (true == IsWorldPostion)
+	{
+		TargetTransform->SetWorldPosition(TargetTransform->GetWorldPosition());
+		GetPostion = TargetTransform->GetWorldPosition();
+	}
+	else
+	{
+		TargetTransform->SetLocalPosition(TargetTransform->GetLocalPosition());
+		GetPostion = TargetTransform->GetLocalPosition();
+	}
+
+	Postion[0] = GetPostion.x;
+	Postion[1] = GetPostion.y;
+	Postion[2] = GetPostion.z;
+	Postion[3] = GetPostion.w;
+
 	ImGui::DragFloat4(" - Postion", Postion);
 
 	if (true == IsWorldPostion)
@@ -43,6 +66,24 @@ void TransformGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTime)
 	ImGui::SameLine();
 	HelpMarker("Setting World Rotation");
 	ImGui::SameLine();
+
+	float4 GetRoation = float4::Zero;
+
+	if (true == IsWorldPostion)
+	{
+		TargetTransform->SetWorldRotation(TargetTransform->GetWorldRotation());
+		GetRoation = TargetTransform->GetWorldRotation();
+	}
+	else
+	{
+		TargetTransform->SetLocalRotation(TargetTransform->GetLocalRotation());
+		GetRoation = TargetTransform->GetLocalRotation();
+	}
+
+	Rotation[0] = GetRoation.x;
+	Rotation[1] = GetRoation.y;
+	Rotation[2] = GetRoation.z;
+	Rotation[3] = GetRoation.w;
 
 	ImGui::DragFloat4(" - Rotation", Rotation);
 
@@ -60,6 +101,24 @@ void TransformGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTime)
 	HelpMarker("Setting World Scale");
 	ImGui::SameLine();
 
+	float4 GetScale = float4::Zero;
+
+	if (true == IsWorldScale)
+	{
+		TargetTransform->SetWorldScale(TargetTransform->GetWorldRotation());
+		GetScale = TargetTransform->GetWorldScale();
+	}
+	else
+	{
+		TargetTransform->SetLocalScale(TargetTransform->GetLocalScale());
+		GetScale = TargetTransform->GetLocalScale();
+	}
+
+	Scale[0] = GetScale.x;
+	Scale[1] = GetScale.y;
+	Scale[2] = GetScale.z;
+	Scale[3] = GetScale.w;
+
 	ImGui::DragFloat4(" - Scale", Scale);
 
 	if (true == IsWorldScale)
@@ -70,9 +129,20 @@ void TransformGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTime)
 	{
 		TargetTransform->SetLocalScale(ConvertFloat4(Scale));
 	}
+
+	for (std::function<void()>& _CallbackRef: CustomGuiFunctions)
+	{
+		if (nullptr == _CallbackRef)
+		{
+			MsgAssert_Rtti<GameEngineActorGUI>(" - nullptr 커스텀 Gui 콜백을 호출하려 했습니다");
+			return;
+		}
+
+		_CallbackRef();
+	}
 }
 
-void TransformGUI::SetTarget(GameEngineTransform* _Target)
+void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target)
 {
 	TargetTransform = _Target;
 
@@ -103,7 +173,7 @@ void TransformGUI::SetTarget(GameEngineTransform* _Target)
 	}
 }
 
-void TransformGUI::HelpMarker(const std::string_view& _Text)
+void GameEngineActorGUI::HelpMarker(const std::string_view& _Text)
 {
 	ImGui::TextDisabled("(?)");
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayShort) && ImGui::BeginTooltip())
@@ -115,7 +185,7 @@ void TransformGUI::HelpMarker(const std::string_view& _Text)
 	}
 }
 
-float4 TransformGUI::ConvertFloat4(float _FloatArr[4])
+float4 GameEngineActorGUI::ConvertFloat4(float _FloatArr[4])
 {
 	return float4(_FloatArr[0], _FloatArr[1], _FloatArr[2], _FloatArr[3]);
 }

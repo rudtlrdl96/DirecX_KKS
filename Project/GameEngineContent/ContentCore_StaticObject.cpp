@@ -2,7 +2,7 @@
 #include "ContentCore.h"
 #include "StaticObject.h"
 #include <GameEngineCore/GameEngineGUI.h>
-#include "TransformGUI.h"
+#include "GameEngineActorGUI.h"
 
 void ContentCore::StaticObjectLoad()
 {
@@ -163,5 +163,5 @@ void ContentCore::CommonTextureLoad()
 
 void ContentCore::ImGuiCreate()
 {
-	GameEngineGUI::GUIWindowCreate<TransformGUI>("TransformGUI");
+	GameEngineGUI::GUIWindowCreate<GameEngineActorGUI>("GameEngineActorGUI");
 }

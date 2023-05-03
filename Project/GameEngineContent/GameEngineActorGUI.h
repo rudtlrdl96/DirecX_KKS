@@ -1,17 +1,18 @@
 #pragma once
 #include <GameEngineCore/GameEngineCoreWindow.h>
 
-class TransformGUI : public GameEngineCoreWindow
+class GameEngineActorGUI : public GameEngineCoreWindow
 {
 public:
-	TransformGUI();
-	~TransformGUI();
+	GameEngineActorGUI();
+	~GameEngineActorGUI();
 
-	TransformGUI(const TransformGUI& _Other) = delete;
-	TransformGUI(TransformGUI&& _Other) noexcept = delete;
-	TransformGUI& operator=(const TransformGUI& _Other) = delete;
-	TransformGUI& operator=(TransformGUI&& _Other) noexcept = delete;
+	GameEngineActorGUI(const GameEngineActorGUI& _Other) = delete;
+	GameEngineActorGUI(GameEngineActorGUI&& _Other) noexcept = delete;
+	GameEngineActorGUI& operator=(const GameEngineActorGUI& _Other) = delete;
+	GameEngineActorGUI& operator=(GameEngineActorGUI&& _Other) noexcept = delete;
 	
+	void Start() override;
 	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
 
 	void SetTarget(GameEngineTransform* _Target);
@@ -28,6 +29,8 @@ private:
 	float Postion[4] = { 0, 0, 0, 1 };
 	float Rotation[4] = { 0, 0, 0, 1 };
 	float Scale[4] = { 1, 1, 1, 1 };
+	
+	std::vector<std::function<void()>> CustomGuiFunctions;
 
 	void HelpMarker(const std::string_view& _Text);
 

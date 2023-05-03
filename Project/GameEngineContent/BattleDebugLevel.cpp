@@ -6,7 +6,7 @@
 #include "Tilemap.h"
 #include "MultiBackground.h"
 #include "ObjectManager.h"
-#include "TransformGUI.h"
+#include "GameEngineActorGUI.h"
 
 BattleDebugLevel::BattleDebugLevel()
 {
@@ -21,7 +21,7 @@ void BattleDebugLevel::Start()
 {
 	ContentLevel::Start();
 
-	TransformGUIPtr = GameEngineGUI::FindGUIWindowConvert<TransformGUI>("TransformGUI");
+	GameEngineActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 
 	if (false == GameEngineInput::IsKey("CameraShake"))
 	{
@@ -172,6 +172,9 @@ void BattleDebugLevel::Start()
 	DeubgObject->GetTransform()->SetWorldPosition(CenterPos);
 
 	DeubgActor = CreateActor<DebugSpriteActor>();
+	DeubgChildActor = CreateActor<DebugSpriteActor>();
+	DeubgChildActor->GetTransform()->SetParent(DeubgActor->GetTransform());
+
 	MainCamCtrl.SetLookatTarget(DeubgActor);
 
 	{
@@ -210,5 +213,5 @@ void BattleDebugLevel::Update(float _DeltaTime)
 
 void BattleDebugLevel::LevelChangeStart()
 {
-	TransformGUIPtr->SetTarget(DeubgActor->GetTransform());
+	GameEngineActorGUIPtr->SetTarget(DeubgChildActor->GetTransform());
 }
