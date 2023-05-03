@@ -12,6 +12,8 @@ public:
 		*_Right = Temp;
 	}
 
+	static float4 GetMousePos(std::shared_ptr<class GameEngineCamera> _MainCam);
+
 protected:
 	
 private:

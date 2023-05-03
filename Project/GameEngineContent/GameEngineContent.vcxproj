@@ -189,6 +189,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="MouseCursorFollowTex.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TilemapPallet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TitleActor.h">
       <SubType>
       </SubType>
@@ -479,6 +487,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MapToolLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MouseCursorFollowTex.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TilemapPallet.cpp">
       <SubType>
       </SubType>
     </ClCompile>

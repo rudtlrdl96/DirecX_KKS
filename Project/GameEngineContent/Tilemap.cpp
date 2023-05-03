@@ -74,8 +74,21 @@ void Tilemap::ChangeData(int _Depth, const float4& _WorldPos, UINT Index)
 
 	int2 InputIndex;
 
-	InputIndex.x = static_cast<int>(LocalPos.x / TileScale.x);
-	InputIndex.y = static_cast<int>(LocalPos.y / TileScale.y);
+	float IndexFloatX = LocalPos.x / TileScale.x;
+	float IndexFloatY = LocalPos.y / TileScale.y;
+
+	if (IndexFloatX < 0)
+	{
+		return;
+	}
+
+	if (IndexFloatY < 0)
+	{
+		return;
+	}
+
+	InputIndex.x = static_cast<int>(IndexFloatX);
+	InputIndex.y = static_cast<int>(IndexFloatY);
 
 	ChangeData(_Depth, InputIndex.x, InputIndex.y, Index);
 }
@@ -86,7 +99,6 @@ void Tilemap::ChangeData(int _Depth, UINT _X, UINT _Y, UINT Index)
 	
 	if (true == IsOver(_Depth, _X, _Y))
 	{
-		MsgAssert("타일맵 인덱스를 초과해 데이터를 변경하려 했습니다");
 		return;
 	}
 
@@ -99,13 +111,11 @@ void Tilemap::ChangeData(int _Depth, UINT _StartX, UINT _EndX, UINT _StartY, UIN
 
 	if (true == IsOver(_Depth, _StartX, _StartY))
 	{
-		MsgAssert("타일맵 인덱스를 초과해 데이터를 변경하려 했습니다");
 		return;
 	}
 
 	if (true == IsOver(_Depth, _EndX, _EndY))
 	{
-		MsgAssert("타일맵 인덱스를 초과해 데이터를 변경하려 했습니다");
 		return;
 	}
 
@@ -134,7 +144,6 @@ void Tilemap::ChangeData(int _Depth, UINT _StartX, UINT _StartY, const std::vect
 
 	if (true == IsOver(_Depth, _StartX, _StartY))
 	{
-		MsgAssert("타일맵 인덱스를 초과해 데이터를 변경하려 했습니다");
 		return;
 	}
 
@@ -142,7 +151,6 @@ void Tilemap::ChangeData(int _Depth, UINT _StartX, UINT _StartY, const std::vect
 	{
 		if (true == IsOver(_Depth, _StartX + static_cast<UINT>(_Indexs[y].size()), _StartY + y))
 		{
-			MsgAssert("타일맵 인덱스를 초과해 데이터를 변경하려 했습니다");
 			return;
 		}
 

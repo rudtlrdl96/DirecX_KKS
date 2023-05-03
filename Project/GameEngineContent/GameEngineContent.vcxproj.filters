@@ -229,6 +229,12 @@
     <Filter Include="1_Class\Shader\ContentVertex">
       <UniqueIdentifier>{a71937fe-bac1-4671-8cc9-7c6cbefef509}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Debug\MapTool">
+      <UniqueIdentifier>{d794b95d-468a-4fc2-b724-c2cf83402d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Debug\Common">
+      <UniqueIdentifier>{efa08f5b-bd48-4916-8546-5ef30aa7d74b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -260,9 +266,6 @@
     </ClInclude>
     <ClInclude Include="BaseCommonData.h">
       <Filter>1_Class\Base\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugBoxActor.h">
-      <Filter>2_Actor\Debug</Filter>
     </ClInclude>
     <ClInclude Include="ShaderDebugLevel.h">
       <Filter>4_Level\DebugLevel\Shader</Filter>
@@ -308,9 +311,6 @@
     </ClInclude>
     <ClInclude Include="CameraController.h">
       <Filter>1_Class\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugSpriteActor.h">
-      <Filter>2_Actor\Debug</Filter>
     </ClInclude>
     <ClInclude Include="Background.h">
       <Filter>2_Actor\Map\Background</Filter>
@@ -432,9 +432,6 @@
     <ClInclude Include="CaptureTrail.h">
       <Filter>2_Actor\Player\Capture</Filter>
     </ClInclude>
-    <ClInclude Include="DebugTrailActor.h">
-      <Filter>2_Actor\Debug</Filter>
-    </ClInclude>
     <ClInclude Include="MapToolLevel.h">
       <Filter>4_Level\DebugLevel\MapTool</Filter>
     </ClInclude>
@@ -446,6 +443,21 @@
     </ClInclude>
     <ClInclude Include="ContentShaderBuffer.h">
       <Filter>1_Class\Shader\ShaderBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapPallet.h">
+      <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugBoxActor.h">
+      <Filter>2_Actor\Debug\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugSpriteActor.h">
+      <Filter>2_Actor\Debug\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugTrailActor.h">
+      <Filter>2_Actor\Debug\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseCursorFollowTex.h">
+      <Filter>2_Actor\Debug\MapTool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -478,9 +490,6 @@
     </ClCompile>
     <ClCompile Include="BaseCommonData.cpp">
       <Filter>1_Class\Base\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugBoxActor.cpp">
-      <Filter>2_Actor\Debug</Filter>
     </ClCompile>
     <ClCompile Include="ShaderDebugLevel.cpp">
       <Filter>4_Level\DebugLevel\Shader</Filter>
@@ -541,9 +550,6 @@
     </ClCompile>
     <ClCompile Include="CameraController.cpp">
       <Filter>1_Class\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugSpriteActor.cpp">
-      <Filter>2_Actor\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp">
       <Filter>2_Actor\Map\Background</Filter>
@@ -671,9 +677,6 @@
     <ClCompile Include="CaptureTrail.cpp">
       <Filter>2_Actor\Player\Capture</Filter>
     </ClCompile>
-    <ClCompile Include="DebugTrailActor.cpp">
-      <Filter>2_Actor\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="MapToolLevel.cpp">
       <Filter>4_Level\DebugLevel\MapTool</Filter>
     </ClCompile>
@@ -685,6 +688,21 @@
     </ClCompile>
     <ClCompile Include="ContentShaderBuffer.cpp">
       <Filter>1_Class\Shader\ShaderBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapPallet.cpp">
+      <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugBoxActor.cpp">
+      <Filter>2_Actor\Debug\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugSpriteActor.cpp">
+      <Filter>2_Actor\Debug\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugTrailActor.cpp">
+      <Filter>2_Actor\Debug\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseCursorFollowTex.cpp">
+      <Filter>2_Actor\Debug\MapTool</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

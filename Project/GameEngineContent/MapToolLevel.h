@@ -23,5 +23,7 @@ private:
 	std::shared_ptr<class Tilemap> TilemapPtr = nullptr;
 	std::shared_ptr<class ObjectManager> ObjectMgr = nullptr;
 
+	std::shared_ptr<class TilemapPallet> TilemapPalletPtr = nullptr;
+
 	float CameraSpeed = 500.0f;
 };

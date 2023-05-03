@@ -5,6 +5,7 @@
 
 #include "Tilemap.h"
 #include "ObjectManager.h"
+#include "TilemapPallet.h"
 
 MapToolLevel::MapToolLevel()
 {
@@ -26,10 +27,10 @@ void MapToolLevel::Start()
 		GameEngineInput::CreateKey("TempSizeUp", VK_OEM_PLUS);
 		GameEngineInput::CreateKey("TempSizeDown", VK_OEM_MINUS);
 
-		GameEngineInput::CreateKey("CameraMoveUp", VK_UP);
-		GameEngineInput::CreateKey("CameraMoveDown", VK_DOWN);
-		GameEngineInput::CreateKey("CameraMoveLeft", VK_LEFT);
-		GameEngineInput::CreateKey("CameraMoveRight", VK_RIGHT);
+		GameEngineInput::CreateKey("CameraMoveUp", 'W');
+		GameEngineInput::CreateKey("CameraMoveDown", 'S');
+		GameEngineInput::CreateKey("CameraMoveLeft", 'A');
+		GameEngineInput::CreateKey("CameraMoveRight", 'D');
 
 		GameEngineInput::CreateKey("CameraMoveBoost", VK_LSHIFT);
 	}
@@ -38,6 +39,9 @@ void MapToolLevel::Start()
 	TilemapPtr->ResizeTilemap(20, 20, 0);
 
 	ObjectMgr = CreateActor<ObjectManager>();
+
+	TilemapPalletPtr = CreateActor<TilemapPallet>();
+	TilemapPalletPtr->SetPencleIndex(1000);
 }
 
 void MapToolLevel::Update(float _DeltaTime)
@@ -48,7 +52,7 @@ void MapToolLevel::Update(float _DeltaTime)
 	{
 		float4 TestMousePos = GetMousePos();
 
-		TilemapPtr->ChangeData(0, TestMousePos, 1000);
+		TilemapPtr->ChangeData(0, TestMousePos, TilemapPalletPtr->GetPencleIndex());
 		int a = 0;
 	}
 
