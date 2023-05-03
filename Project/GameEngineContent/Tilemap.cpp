@@ -69,11 +69,15 @@ void Tilemap::ChangeData(int _Depth, const float4& _WorldPos, UINT Index)
 {
 	float4 LocalPos = _WorldPos - GetTransform()->GetWorldPosition();
 
+	LocalPos.x += TileScale.hx();
+	LocalPos.y += TileScale.y;
+
 	int2 InputIndex;
 
 	InputIndex.x = static_cast<int>(LocalPos.x / TileScale.x);
 	InputIndex.y = static_cast<int>(LocalPos.y / TileScale.y);
 
+	ChangeData(_Depth, InputIndex.x, InputIndex.y, Index);
 }
 
 void Tilemap::ChangeData(int _Depth, UINT _X, UINT _Y, UINT Index)

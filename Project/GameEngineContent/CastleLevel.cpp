@@ -50,7 +50,7 @@ void CastleLevel::Start()
 		Background::BG_DESC BgDesc;
 
 		BgDesc.TextureName = "Castle_BackImage_InSmallCloud.png";
-		BgDesc.Center = { 0.0f, 100.0f, 0, 0 };
+		BgDesc.Center = { 400.0f, 100.0f, 0, 0 };
 		BgDesc.Ratio = 0.2f;
 		BgDesc.Size = float4(1521.6f, 552.0f, 0, 0);
 		BgDesc.Animation = true;

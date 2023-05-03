@@ -63,7 +63,7 @@ OutPut Texture_VS(Input _Value)
 	
     _Value.Pos.w = 1.0f;
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
-    OutPutValue.UV = _Value.UV + OutUv;
+    OutPutValue.UV = _Value.UV - OutUv;
     
     return OutPutValue;
 }

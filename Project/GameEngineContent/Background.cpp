@@ -61,12 +61,26 @@ void Background::UpdateTargetPos(float _DeltaTime, const float4& _TargetPos)
 
 	if (true == Desc.Animation)
 	{
-		Buffer.Uv.x += _DeltaTime * Desc.AnimationSpeed;
-
-		if (1.0f <= Buffer.Uv.x)
+		if (0 < Desc.AnimationSpeed)
 		{
-			Buffer.Uv.x -= 1.0f;
+			Buffer.Uv.x += _DeltaTime * Desc.AnimationSpeed;
+
+			if (1.0f <= Buffer.Uv.x)
+			{
+				Buffer.Uv.x -= 1.0f;
+			}
 		}
+		else
+		{
+			Buffer.Uv.x += _DeltaTime * Desc.AnimationSpeed;
+
+			if (0.0f > Buffer.Uv.x)
+			{
+				Buffer.Uv.x += 1.0f;
+			}
+		}
+
+
 	}
 
 	BackImage->GetTransform()->SetLocalPosition(RenderPos);

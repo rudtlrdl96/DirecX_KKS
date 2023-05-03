@@ -44,7 +44,7 @@ void MapToolLevel::Update(float _DeltaTime)
 {
 	ContentLevel::Update(_DeltaTime);
 
-	if (true == GameEngineInput::IsDown("ToolActive"))
+	if (true == GameEngineInput::IsPress("ToolActive"))
 	{
 		float4 TestMousePos = GetMousePos();
 
