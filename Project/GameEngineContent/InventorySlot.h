@@ -19,7 +19,7 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> SlotFrameRender = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> SlotImageRender = nullptr;
 
-	float4 SlotFrameColor = float4::Zero;
-	float4 SlotImageColor = float4::Zero;
+	ColorBuffer SlotFrameBuffer;
+	ColorBuffer SlotImageBuffer;
 };
 

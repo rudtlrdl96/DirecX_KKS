@@ -31,7 +31,7 @@ private:
 	std::shared_ptr<class InventorySkullPopup> SkullPopup = nullptr;
 	std::shared_ptr<class InventoryStatPopup> StatPopup = nullptr;
 
-	float4 MainFrameColor = float4::Zero;
-	float4 BackFrameColor = float4::Zero;
+	ColorBuffer MainFrameTex;
+	ColorBuffer BackFrameTex;
 };
 

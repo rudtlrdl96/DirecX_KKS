@@ -38,7 +38,7 @@ protected:
 private:
 	std::shared_ptr<GameEngineSpriteRenderer> CaptureRender = nullptr;
 
-	float4 Color = float4::Zero;
+	CaptureBuffer Buffer;
 
 	float4 StartColor = float4::Zero;
 	float4 EndColor = float4::Zero;

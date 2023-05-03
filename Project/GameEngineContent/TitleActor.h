@@ -34,7 +34,7 @@ private:
 
 	bool IsLogoFadeValue = false;
 
-	float4 BackTextureColor = float4::Zero;
-	float4 LogoTextureColor = float4::Zero;
+	ColorBuffer BackTexBuffer;
+	ColorBuffer LogoBuffer;
 };
 

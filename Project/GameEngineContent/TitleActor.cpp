@@ -24,7 +24,7 @@ void TitleActor::Start()
 {
 	TextureRender = CreateComponent<GameEngineSpriteRenderer>();
 	TextureRender->SetPipeLine("2DTexture_ColorLight");
-	TextureRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", BackTextureColor);
+	TextureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", BackTexBuffer);
 	TextureRender->SetTexture("DarkMirror_Title_Art_1.png");
 	TextureRender->GetTransform()->SetWorldScale(GameEngineWindow::GetScreenSize());
 	TextureRender->Off();
@@ -41,7 +41,7 @@ void TitleActor::Start()
 
 	LogoRender = CreateComponent<GameEngineSpriteRenderer>();
 	LogoRender->SetPipeLine("2DTexture_ColorLight");
-	LogoRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", LogoTextureColor);
+	LogoRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", LogoBuffer);
 	LogoRender->SetTexture("Title_Logo2.png");
 	LogoRender->GetTransform()->SetWorldScale(LogoSize);
 	LogoRender->GetTransform()->SetWorldPosition({0, -150, -100});
@@ -69,6 +69,6 @@ void TitleActor::Update(float _DeltaTime)
 			IsLogoFadeValue = true;
 		}
 
-		LogoTextureColor.w = LogoFadeProgress;
+		LogoBuffer.Color.w = LogoFadeProgress;
 	}
 }

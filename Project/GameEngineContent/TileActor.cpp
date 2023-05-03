@@ -14,12 +14,12 @@ void TileActor::SetTileData(const TilemapData& _Data)
 {
 	Data = _Data;
 
-	//if (0 == Data.Index)
-	//{
-	//	DrawRender->Off();
-	//	Off();
-	//	return;
-	//}
+	if (0 == Data.Index)
+	{
+		DrawRender->Off();
+		Off();
+		return;
+	}
 
 	DrawRender->GetTransform()->SetLocalPosition({0, -ContentConst::TileSize.hy()});	
 	DrawRender->SetTexture(Data.Name);
@@ -43,7 +43,7 @@ void TileActor::Start()
 	DrawRender = CreateComponent<GameEngineSpriteRenderer>();
 
 	DrawRender->SetPipeLine("2DTexture_ColorLight");
-	DrawRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", TileColor);
+	DrawRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	DrawRender->GetTransform()->SetLocalScale(ContentConst::TileSize);	
 	DrawRender->GetTransform()->SetLocalPosition({ 0, -ContentConst::TileSize.hy(), 0, 0 });
 	DrawRender->Off();

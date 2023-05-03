@@ -28,7 +28,7 @@ private:
 
 	bool LogoEndValue = false;
 
-	float4 LogoColor = float4::Zero;
+	ColorBuffer Buffer;
 	float ProgressTime = 0.0f;
 
 	float IntroStartTime = 1.0f;

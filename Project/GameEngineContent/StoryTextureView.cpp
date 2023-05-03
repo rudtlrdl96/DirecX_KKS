@@ -93,7 +93,7 @@ void StoryTextureView::SetBackgroundTexture(const std::string_view& _TextureName
 void StoryTextureView::SwapMainSubTexture()
 {
 	ContentFunc::Swap<std::string>(&MainTextureName, &SubTextureName);
-	ContentFunc::Swap<float4>(&MainColor, &SubColor);
+	ContentFunc::Swap<float4>(&MainTexBuffer.Color, &SubTexBuffer.Color);
 
 	TransformData MainTrans = MainTextureRender->GetTransform()->GetTransDataRef();
 	TransformData SubTrans = SubTextureRender->GetTransform()->GetTransDataRef();
@@ -145,9 +145,9 @@ void StoryTextureView::Reset()
 	SetSubTexture("Empty.png");
 	SetBackgroundTexture("Empty.png");
 
-	MainColor = float4::Zero;
-	SubColor = float4::Zero;
-	BackColor = float4::Zero;
+	MainTexBuffer.Color = float4::Zero;
+	SubTexBuffer.Color = float4::Zero;
+	BackTexBuffer.Color = float4::Zero;
 
 	MoveStart = float4::Zero;
 	MoveEnd = float4::Zero;
@@ -168,19 +168,19 @@ void StoryTextureView::Start()
 {
 	BackgroundTextureRender = CreateComponent<GameEngineSpriteRenderer>();
 	BackgroundTextureRender->SetPipeLine("2DTexture_ColorLight");
-	BackgroundTextureRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", BackColor);
+	BackgroundTextureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", BackTexBuffer);
 	BackgroundTextureRender->SetTexture("Empty.png");
 	BackgroundTextureRender->GetTransform()->SetWorldPosition({ 0, 0, 100 });
 
 	SubTextureRender = CreateComponent<GameEngineSpriteRenderer>();
 	SubTextureRender->SetPipeLine("2DTexture_ColorLight");
-	SubTextureRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", SubColor);
+	SubTextureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", SubTexBuffer);
 	SubTextureRender->SetTexture("Empty.png");
 	SubTextureRender->GetTransform()->SetWorldPosition({ 0, 0, 0});
 
 	MainTextureRender = CreateComponent<GameEngineSpriteRenderer>();
 	MainTextureRender->SetPipeLine("2DTexture_ColorLight");
-	MainTextureRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", MainColor);
+	MainTextureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", MainTexBuffer);
 	MainTextureRender->SetTexture("Empty.png");	
 	MainTextureRender->GetTransform()->SetWorldPosition({0, 0, -100});
 }
@@ -192,7 +192,7 @@ void StoryTextureView::Update(float _DeltaTime)
 	case StoryTextureView::StoryViewState::Fade:
 	{
 		FadeProgress += _DeltaTime * FadeSpeed;	
-		MainColor.w = FadeProgress;
+		MainTexBuffer.Color.w = FadeProgress;
 
 		if (FadeProgress >= 1.0f)
 		{

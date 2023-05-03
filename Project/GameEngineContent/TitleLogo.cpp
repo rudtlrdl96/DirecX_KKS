@@ -24,7 +24,7 @@ void TitleLogo::SetLogo(const std::string_view& _TexName, float _IntroTime, floa
 	LogoRender->GetTransform()->SetWorldScale(TextureSize * _Scale);
 	LogoRender->On();
 
-	LogoColor = float4::Zero;
+	Buffer.Color = float4::Zero;
 	ProgressTime = 0.0f;
 
 	LogoEndValue = false;
@@ -41,7 +41,7 @@ void TitleLogo::Start()
 	LogoRender = CreateComponent<GameEngineSpriteRenderer>();
 
 	LogoRender->SetPipeLine("2DTexture_ColorLight");
-	LogoRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", LogoColor);
+	LogoRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	LogoRender->SetTexture("Empty.png");
 
 	LogoRender->Off();
@@ -60,7 +60,7 @@ void TitleLogo::Update(float _DeltaTime)
 
 	if (ProgressTime >= OutroStartTime)
 	{
-		LogoColor.w = 1.0f - ProgressCheck(OutroStartTime, OutroEndTime, ProgressTime);
+		Buffer.Color.w = 1.0f - ProgressCheck(OutroStartTime, OutroEndTime, ProgressTime);
 	}
 	else if (ProgressTime >= WaitStartTime)
 	{
@@ -68,7 +68,7 @@ void TitleLogo::Update(float _DeltaTime)
 	}
 	else if (ProgressTime >= IntroStartTime)
 	{
-		LogoColor.w = ProgressCheck(IntroStartTime, IntroEndTime, ProgressTime);
+		Buffer.Color.w = ProgressCheck(IntroStartTime, IntroEndTime, ProgressTime);
 	}	 
 }
 

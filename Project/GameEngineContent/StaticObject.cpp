@@ -34,6 +34,8 @@ void StaticObject::Init(const SObject_DESC& _Desc)
 	float4 ActorScale = GetTransform()->GetLocalScale();
 	float4 RenderScale = ImageRender->GetTransform()->GetLocalScale();
 	
+	Buffer.Color = Desc.Color;
+
 	ImageRender->On();
 }
 
@@ -65,6 +67,6 @@ void StaticObject::Start()
 {
 	ImageRender = CreateComponent<GameEngineSpriteRenderer>();
 	ImageRender->SetPipeLine("2DTexture_ColorLight");
-	ImageRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", Desc.Color);
+	ImageRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	ImageRender->Off();
 }

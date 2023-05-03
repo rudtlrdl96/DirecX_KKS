@@ -25,7 +25,7 @@ void Background::Init(const BG_DESC& _Desc)
 	BackImage->GetTransform()->SetLocalScale(Desc.Size);
 	BackImage->On();
 
-	Buffer.Color = Desc.Color;
+	Buffer.OutColor = Desc.Color;
 	Buffer.Uv = float4::Zero;
 
 	GetTransform()->SetLocalPosition(Desc.Center);
@@ -124,6 +124,6 @@ void Background::Start()
 {
 	BackImage = CreateComponent<GameEngineSpriteRenderer>();
 	BackImage->SetPipeLine("2DTexture_Background");
-	BackImage->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", Buffer);
+	BackImage->GetShaderResHelper().SetConstantBufferLink("TextureMoveBuffer", Buffer);
 	BackImage->Off();
 }

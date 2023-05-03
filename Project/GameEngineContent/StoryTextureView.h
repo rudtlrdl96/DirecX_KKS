@@ -45,9 +45,9 @@ private:
 	std::string SubTextureName = "Empty.png";
 	std::string BackTextureName = "Empty.png";
 
-	float4 MainColor = float4::Zero;
-	float4 SubColor = float4::Zero;
-	float4 BackColor = float4::Zero;
+	ColorBuffer MainTexBuffer;
+	ColorBuffer SubTexBuffer;
+	ColorBuffer BackTexBuffer;
 
 	float4 MoveStart = float4::Zero;
 	float4 MoveEnd = float4::Zero;

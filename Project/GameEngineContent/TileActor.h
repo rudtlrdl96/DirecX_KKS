@@ -30,6 +30,7 @@ protected:
 private:
 	int2 TileIndex = int2::Zero;
 
+	ColorBuffer Buffer;
 	float4 TileColor = float4::Zero;
 
 	TilemapData Data = TilemapData();

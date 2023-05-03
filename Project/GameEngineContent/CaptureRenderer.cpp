@@ -60,7 +60,7 @@ void CaptureRenderer::Start()
 {
 	CaptureRender = CreateComponent<GameEngineSpriteRenderer>();
 	CaptureRender->SetPipeLine("2DTexture_Capture");
-	CaptureRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", Color);
+	CaptureRender->GetShaderResHelper().SetConstantBufferLink("CaptureBuffer", Buffer);
 	CaptureRender->SetTexture("Empty.png");
 	CaptureRender->Off();
 }
@@ -73,7 +73,7 @@ void CaptureRenderer::Update(float _DeltaTime)
 	}
 
 	ProgressTime += _DeltaTime * PlaySpeed;
-	Color = float4::LerpClamp(StartColor, EndColor, ProgressTime);
+	Buffer.Color = float4::LerpClamp(StartColor, EndColor, ProgressTime);
 
 	if (1.0f + (WaitTime * PlaySpeed) <= ProgressTime)
 	{

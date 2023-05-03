@@ -38,7 +38,7 @@ private:
 
 	std::shared_ptr<GameEngineSpriteRenderer> BackImage = nullptr;
 
-	BackgroundBuffer Buffer;
+	TextureMoveBuffer Buffer;
 
 	float4 AnimationMoveDir = float4::Zero;
 };

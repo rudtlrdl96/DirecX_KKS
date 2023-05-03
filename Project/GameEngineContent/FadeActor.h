@@ -41,7 +41,8 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> MainRenderer = nullptr;
 
 	FadeState State = FadeState::Wait;
-	float4 FadeColor = float4(0, 0, 0, 1);
+
+	ColorBuffer Buffer;
 	float FadeSpeed = 1.0f;
 
 	std::function<void()> FadeEndCallback = nullptr;

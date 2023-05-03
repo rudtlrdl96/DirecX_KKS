@@ -37,6 +37,8 @@ private:
 
 	std::shared_ptr<GameEngineSpriteRenderer> ImageRender = nullptr;
 
+	ColorBuffer Buffer;
+
 #if _DEBUG
 	static std::shared_ptr<StaticObject> FocusStaticObject;
 #endif
