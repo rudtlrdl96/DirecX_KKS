@@ -16,8 +16,12 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	void Save();
+	void Load();
+
 private:
+	std::shared_ptr<class Tilemap> TilemapPtr = nullptr;
+	std::shared_ptr<class ObjectManager> ObjectMgr = nullptr;
 
-
+	float CameraSpeed = 500.0f;
 };
-

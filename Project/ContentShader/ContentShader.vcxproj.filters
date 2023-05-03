@@ -4,5 +4,6 @@
     <FxCompile Include="..\Resources\Shader\ContentShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\ColorShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\CaptureShader.hlsl" />
+    <FxCompile Include="..\Resources\Shader\TextureMoveShader.hlsl" />
   </ItemGroup>
 </Project>

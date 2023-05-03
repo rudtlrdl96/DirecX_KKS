@@ -21,7 +21,7 @@ void ContentCore::TileDataLoad()
 		Path.Move("DebugTile");
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
-		for (size_t i = 0; i < Files.size(); i++)
+		for (UINT i = 0; i < Files.size(); i++)
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
@@ -34,7 +34,7 @@ void ContentCore::TileDataLoad()
 		Path.Move("Castle");
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
-		for (size_t i = 0; i < Files.size(); i++)
+		for (UINT i = 0; i < Files.size(); i++)
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
@@ -46,7 +46,7 @@ void ContentCore::TileDataLoad()
 		Path.Move("ForestOfHarmony");
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 	
-		for (size_t i = 0; i < Files.size(); i++)
+		for (UINT i = 0; i < Files.size(); i++)
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
@@ -58,7 +58,7 @@ void ContentCore::TileDataLoad()
 		Path.Move("GrandHall");
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 	
-		for (size_t i = 0; i < Files.size(); i++)
+		for (UINT i = 0; i < Files.size(); i++)
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
@@ -70,7 +70,7 @@ void ContentCore::TileDataLoad()
 		Path.Move("HolyCourtyard");
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
-		for (size_t i = 0; i < Files.size(); i++)
+		for (UINT i = 0; i < Files.size(); i++)
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();

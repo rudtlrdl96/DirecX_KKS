@@ -21,29 +21,36 @@ public:
 	Tilemap& operator=(const Tilemap& _Other) = delete;
 	Tilemap& operator=(Tilemap&& _Other) noexcept = delete;
 	
-	void ResizeTilemap(size_t _SizeX, size_t _SizeY, int _Depth);
+	void ResizeTilemap(UINT _SizeX, UINT _SizeY, int _Depth);
 
-	void ChangeData(int _Depth, UINT _X, UINT _Y, size_t Index);
+	void ChangeData(int _Depth, const float4& _WorldPos, UINT Index);
+	void ChangeData(int _Depth, UINT _X, UINT _Y, UINT Index);
 	void ChangeData(int _Depth, UINT _StartX, UINT _EndX, UINT _StartY, UINT _EndY,  size_t Index);
 	void ChangeData(int _Depth, UINT _StartX, UINT _StartY, const std::vector<std::vector<size_t>>& _Indexs);
+
+	void ClearTileMap();
 
 	bool IsOver(int _Depth, UINT _X, UINT _Y);
 
 	float4 GetTilePos(UINT _X, UINT _Y) const;
 
-	size_t SizeX(int _Depth)
+	inline UINT SizeX(int _Depth)
 	{
 		return TilemapSizeDatas[_Depth].x;
 	}
 	
-	size_t SizeY(int _Depth)
+	inline UINT SizeY(int _Depth)
 	{
 		return TilemapSizeDatas[_Depth].y;
 	}
 
+	inline int2 GetSize(int _Depth)
+	{
+		return int2(SizeX(_Depth), SizeY(_Depth));
+	}
+
 	Tilemap_Meta GetTilemap_DESC(int _Depth);
 
-	// void CopyData(....);
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
 
@@ -51,8 +58,10 @@ protected:
 	
 private:
 	std::map<int, std::vector<std::vector<std::shared_ptr<class TileActor>>>> TilemapDatas;
+	std::map<int, int2> MemorySizeDatas;
 	std::map<int, int2> TilemapSizeDatas;
 
-	float4 TileSize = float4::Zero;
-	float4 TilemapStartPos = float4::Zero;
+	float4 TileScale = float4::Zero;
+
+	void CreateTile(int _Depth, UINT _X, UINT _Y);
 };

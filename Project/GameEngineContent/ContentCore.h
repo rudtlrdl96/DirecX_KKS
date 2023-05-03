@@ -1,6 +1,5 @@
 #pragma once
 
-
 class ContentCore
 {
 public:
@@ -34,3 +33,4 @@ private:
 	// Common Load
 	static void CommonTextureLoad();
 };
+

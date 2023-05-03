@@ -184,9 +184,6 @@
     <Filter Include="4_Level\GameLevel\UILevel\Story">
       <UniqueIdentifier>{df809b18-562b-4345-bd04-e88bb7dc0c7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="5_ContentVertex">
-      <UniqueIdentifier>{a71937fe-bac1-4671-8cc9-7c6cbefef509}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\UI">
       <UniqueIdentifier>{c814c637-c47b-4396-8b63-b492620efac9}</UniqueIdentifier>
     </Filter>
@@ -222,6 +219,15 @@
     </Filter>
     <Filter Include="4_Level\DebugLevel\MapTool">
       <UniqueIdentifier>{e0381330-3519-4221-9cc1-b548154c8e2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Shader">
+      <UniqueIdentifier>{25084501-36bb-401c-a0fa-050591fc652d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Shader\ShaderBuffer">
+      <UniqueIdentifier>{8a897e0a-9592-4f5c-bc26-19bcd8ed353a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Shader\ContentVertex">
+      <UniqueIdentifier>{a71937fe-bac1-4671-8cc9-7c6cbefef509}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -262,7 +268,7 @@
       <Filter>4_Level\DebugLevel\Shader</Filter>
     </ClInclude>
     <ClInclude Include="ContentVertex.h">
-      <Filter>5_ContentVertex</Filter>
+      <Filter>1_Class\Shader\ContentVertex</Filter>
     </ClInclude>
     <ClInclude Include="AbilityCommonData.h">
       <Filter>1_Class\Base\Data</Filter>
@@ -435,6 +441,12 @@
     <ClInclude Include="HolyCourtyardLevel_Boss.h">
       <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
     </ClInclude>
+    <ClInclude Include="BackgroundToolLevel.h">
+      <Filter>4_Level\DebugLevel\MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentShaderBuffer.h">
+      <Filter>1_Class\Shader\ShaderBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -474,7 +486,7 @@
       <Filter>4_Level\DebugLevel\Shader</Filter>
     </ClCompile>
     <ClCompile Include="ContentVertex.cpp">
-      <Filter>5_ContentVertex</Filter>
+      <Filter>1_Class\Shader\ContentVertex</Filter>
     </ClCompile>
     <ClCompile Include="AbilityCommonData.cpp">
       <Filter>1_Class\Base\Data</Filter>
@@ -667,6 +679,12 @@
     </ClCompile>
     <ClCompile Include="HolyCourtyardLevel_Boss.cpp">
       <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundToolLevel.cpp">
+      <Filter>4_Level\DebugLevel\MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentShaderBuffer.cpp">
+      <Filter>1_Class\Shader\ShaderBuffer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

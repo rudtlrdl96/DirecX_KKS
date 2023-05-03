@@ -21,10 +21,11 @@ public:
 	void SetTileData(const TilemapData& _Data);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
-	static size_t LoadBin(GameEngineSerializer& _LoadSerializer);
+	static UINT LoadBin(GameEngineSerializer& _LoadSerializer);
 
 protected:
 	void Start() override;
+
 
 private:
 	int2 TileIndex = int2::Zero;

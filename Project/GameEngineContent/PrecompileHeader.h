@@ -7,3 +7,4 @@
 #include "ContentEnum.h"
 #include "ContentFunc.h"
 #include "ContentDatabase.h"
+#include "ContentShaderBuffer.h"

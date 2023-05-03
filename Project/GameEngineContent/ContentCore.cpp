@@ -30,6 +30,7 @@
 #include "BattleDebugLevel.h"
 #include "InventoryDebugLevel.h"
 #include "MapToolLevel.h"
+#include "BackgroundToolLevel.h"
 
 ContentCore::ContentCore()
 {
@@ -75,6 +76,7 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<BattleDebugLevel>("BattleDebug");
 	GameEngineCore::CreateLevel<InventoryDebugLevel>("InventoryDebug");
 	GameEngineCore::CreateLevel<MapToolLevel>("MapTool");
+	GameEngineCore::CreateLevel<BackgroundToolLevel>("BackgroundTool");
 
 	GameEngineCore::ChangeLevel("Title");
 
@@ -216,6 +218,18 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("CaptureShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("CaptureShader.hlsl");
+		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Background");
+
+		Pipe->SetVertexBuffer("Rect");
+		Pipe->SetIndexBuffer("Rect");
+		Pipe->SetVertexShader("TextureMoveShader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("TextureMoveShader.hlsl");
 		Pipe->SetBlendState("AlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}

@@ -13,6 +13,6 @@ class TilemapData
 {
 public:
 	std::string Name = "";
-	size_t Index = 0;
+	UINT Index = 0;
 	TileArea Grade = TileArea::None;
 };

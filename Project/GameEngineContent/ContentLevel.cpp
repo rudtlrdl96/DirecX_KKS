@@ -35,7 +35,7 @@ void ContentLevel::Start()
 
 	MainCam = GetMainCamera();
 	MainCamCtrl.Start(MainCam);
-	MainCam->GetTransform()->AddLocalPosition({0, 0, -5000});
+	MainCam->GetTransform()->SetLocalPosition({0, 0, -5000});
 	MainCam->GetTransform()->SetLocalRotation(float4::Zero);
 }
 

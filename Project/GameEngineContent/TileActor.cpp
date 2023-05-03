@@ -28,13 +28,13 @@ void TileActor::SetTileData(const TilemapData& _Data)
 
 void TileActor::SaveBin(GameEngineSerializer& _SaveSerializer) const
 {
-	_SaveSerializer.Write(&Data.Index, sizeof(size_t));
+	_SaveSerializer.Write(&Data.Index, sizeof(UINT));
 }
 
-size_t TileActor::LoadBin(GameEngineSerializer& _LoadSerializer)
+UINT TileActor::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
-	size_t LoadIndex = 0;
-	_LoadSerializer.Write(&LoadIndex, sizeof(size_t));
+	UINT LoadIndex = 0;
+	_LoadSerializer.Write(&LoadIndex, sizeof(UINT));
 	return LoadIndex;
 }
 

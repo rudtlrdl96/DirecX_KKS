@@ -25,16 +25,13 @@ void Background::Init(const BG_DESC& _Desc)
 	BackImage->GetTransform()->SetLocalScale(Desc.Size);
 	BackImage->On();
 
+	Buffer.Color = Desc.Color;
+	Buffer.Uv = float4::Zero;
+
 	GetTransform()->SetLocalPosition(Desc.Center);
 
 	if (true == Desc.Animation)
 	{
-		AnimationImage = CreateComponent<GameEngineSpriteRenderer>();
-		AnimationImage->SetPipeLine("2DTexture_ColorLight");
-		AnimationImage->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", Desc.Color);
-		AnimationImage->SetTexture(Desc.TextureName);
-		AnimationImage->GetTransform()->SetLocalScale(Desc.Size);
-		
 		Desc.AnimationSpeed = Desc.AnimationSpeed / Desc.Size.x;
 
 		if (0 < Desc.AnimationSpeed)
@@ -45,8 +42,6 @@ void Background::Init(const BG_DESC& _Desc)
 		{
 			AnimationMoveDir = float4(-Desc.Size.x, 0, 0, 0);
 		}
-
-		AnimationImage->GetTransform()->SetLocalPosition(Desc.Center - AnimationMoveDir);
 	}
 }
 
@@ -66,16 +61,12 @@ void Background::UpdateTargetPos(float _DeltaTime, const float4& _TargetPos)
 
 	if (true == Desc.Animation)
 	{
-		AnimationProgress += _DeltaTime * Desc.AnimationSpeed;
-		float4 AnimMove = float4::LerpClamp(float4::Zero, AnimationMoveDir, AnimationProgress);
-		RenderPos += AnimMove;
+		Buffer.Uv.x += _DeltaTime * Desc.AnimationSpeed;
 
-		if (1.0f <= AnimationProgress)
+		if (1.0f <= Buffer.Uv.x)
 		{
-			AnimationProgress -= 1.0f;
+			Buffer.Uv.x -= 1.0f;
 		}
-
-		AnimationImage->GetTransform()->SetLocalPosition(RenderPos - AnimationMoveDir);
 	}
 
 	BackImage->GetTransform()->SetLocalPosition(RenderPos);
@@ -118,7 +109,7 @@ Background::BG_DESC Background::LoadBin(GameEngineSerializer& _SaveSerializer)
 void Background::Start()
 {
 	BackImage = CreateComponent<GameEngineSpriteRenderer>();
-	BackImage->SetPipeLine("2DTexture_ColorLight");
-	BackImage->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", Desc.Color);
+	BackImage->SetPipeLine("2DTexture_Background");
+	BackImage->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", Buffer);
 	BackImage->Off();
 }

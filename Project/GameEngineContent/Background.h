@@ -37,9 +37,8 @@ private:
 	BG_DESC Desc = BG_DESC();
 
 	std::shared_ptr<GameEngineSpriteRenderer> BackImage = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> AnimationImage = nullptr;
 
-	float AnimationProgress = 0.0f;
+	BackgroundBuffer Buffer;
+
 	float4 AnimationMoveDir = float4::Zero;
-
 };
