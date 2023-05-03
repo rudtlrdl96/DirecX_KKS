@@ -235,6 +235,9 @@
     <Filter Include="2_Actor\Debug\Common">
       <UniqueIdentifier>{efa08f5b-bd48-4916-8546-5ef30aa7d74b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="5_ImGui">
+      <UniqueIdentifier>{55af7a50-a6b3-4ed2-8e73-6b3d75758333}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -458,6 +461,9 @@
     </ClInclude>
     <ClInclude Include="MouseCursorFollowTex.h">
       <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformGUI.h">
+      <Filter>5_ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -703,6 +709,9 @@
     </ClCompile>
     <ClCompile Include="MouseCursorFollowTex.cpp">
       <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformGUI.cpp">
+      <Filter>5_ImGui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

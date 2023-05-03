@@ -56,6 +56,24 @@ void ContentCore::CoreLoading()
 
 	// Common Load
 	CommonTextureLoad();
+	ImGuiCreate();
+
+	if (false == GameEngineInput::IsKey("LevelMove_ShaderDebug"))
+	{
+		GameEngineInput::CreateKey("CheckDebugCtrl", VK_LCONTROL);
+		GameEngineInput::CreateKey("CheckUIAlt", VK_MENU);
+
+		GameEngineInput::CreateKey("NumPad0", VK_NUMPAD0);
+		GameEngineInput::CreateKey("NumPad1", VK_NUMPAD1);
+		GameEngineInput::CreateKey("NumPad2", VK_NUMPAD2);
+		GameEngineInput::CreateKey("NumPad3", VK_NUMPAD3);
+		GameEngineInput::CreateKey("NumPad4", VK_NUMPAD4);
+		GameEngineInput::CreateKey("NumPad5", VK_NUMPAD5);
+		GameEngineInput::CreateKey("NumPad6", VK_NUMPAD6);
+		GameEngineInput::CreateKey("NumPad7", VK_NUMPAD7);
+		GameEngineInput::CreateKey("NumPad8", VK_NUMPAD8);
+		GameEngineInput::CreateKey("NumPad9", VK_NUMPAD9);
+	}
 
 	// GameLevel Create
 	GameEngineCore::CreateLevel<TitleLevel>("Title");
@@ -80,22 +98,6 @@ void ContentCore::CoreLoading()
 
 	GameEngineCore::ChangeLevel("Title");
 
-	if (false == GameEngineInput::IsKey("LevelMove_ShaderDebug"))
-	{
-		GameEngineInput::CreateKey("CheckDebugCtrl", VK_LCONTROL);
-		GameEngineInput::CreateKey("CheckUIAlt", VK_MENU);
-
-		GameEngineInput::CreateKey("NumPad0", VK_NUMPAD0);
-		GameEngineInput::CreateKey("NumPad1", VK_NUMPAD1);
-		GameEngineInput::CreateKey("NumPad2", VK_NUMPAD2);
-		GameEngineInput::CreateKey("NumPad3", VK_NUMPAD3);
-		GameEngineInput::CreateKey("NumPad4", VK_NUMPAD4);
-		GameEngineInput::CreateKey("NumPad5", VK_NUMPAD5);
-		GameEngineInput::CreateKey("NumPad6", VK_NUMPAD6);
-		GameEngineInput::CreateKey("NumPad7", VK_NUMPAD7);
-		GameEngineInput::CreateKey("NumPad8", VK_NUMPAD8);
-		GameEngineInput::CreateKey("NumPad9", VK_NUMPAD9);
-	}
 }
 
 void ContentCore::CoreEnd()

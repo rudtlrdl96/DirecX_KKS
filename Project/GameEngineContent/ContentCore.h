@@ -32,5 +32,6 @@ private:
 
 	// Common Load
 	static void CommonTextureLoad();
+	static void ImGuiCreate();
 };
 
