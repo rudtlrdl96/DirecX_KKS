@@ -5,8 +5,10 @@ class BrokenData
 {
 public:
 	std::string TextureName;
+
 	float4 Pos = float4::Zero;
-	
+	float4 Size = float4::Zero;
+	float4 Color = float4::Zero;
 };
 
 class BObject_DESC
@@ -18,8 +20,6 @@ public:
 
 	std::vector<std::string> BrokenPartName;
 
-	int Hp = 1;
-		
 	float4 Pos = float4::Zero;
 	float4 Size = float4(100, 100, 0, 0);
 	float4 Color = float4::Zero;

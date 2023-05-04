@@ -132,19 +132,4 @@ void CastleLevel::TextureLoad()
 		Path.MoveParent();
 		Path.MoveParent();
 	}
-
-	{
-		Path.Move("FrontImage");
-		Path.Move("Castle");
-
-		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
-
-		for (size_t i = 0; i < Files.size(); i++)
-		{
-			GameEngineTexture::Load(Files[i].GetFullPath());
-		}
-
-		Path.MoveParent();
-		Path.MoveParent();
-	}
 }

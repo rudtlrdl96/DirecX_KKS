@@ -241,7 +241,7 @@
     <Filter Include="2_Actor\Map\Object\InteractionObject">
       <UniqueIdentifier>{01e8e598-a218-43e1-975d-9ecc45339501}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Map\Object\PointObject">
+    <Filter Include="2_Actor\Map\Object\EventObject">
       <UniqueIdentifier>{cfb67d9b-7d8b-425d-8e42-8749f3270a82}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

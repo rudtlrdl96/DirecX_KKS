@@ -24,7 +24,5 @@ protected:
 private:
 	std::vector<std::shared_ptr<StaticObject>> StaticObjectActors;
 	std::vector<std::shared_ptr<BrokenObject>> BrokenObjectActors;
-	//std::vector<class BombObject> BombObjectActors;
-	//std::vector<class TrapObject> TrapObjectActors;
 };
 
