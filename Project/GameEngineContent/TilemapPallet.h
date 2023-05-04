@@ -20,6 +20,9 @@ public:
 		return PencleTile;
 	}
 
+	void SetActiveCursor(bool _Active);
+
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -28,5 +31,6 @@ private:
 	UINT PencleTile = 0;
 
 	std::shared_ptr<class MouseCursorFollowTex> CursorActor = nullptr;
+	std::shared_ptr<class MapToolGUI> MapToolGuiPtr = nullptr;
 };
 

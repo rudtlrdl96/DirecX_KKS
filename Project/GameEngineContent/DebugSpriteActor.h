@@ -12,6 +12,8 @@ public:
 	DebugSpriteActor& operator=(const DebugSpriteActor& _Other) = delete;
 	DebugSpriteActor& operator=(DebugSpriteActor&& _Other) noexcept = delete;
 
+	bool UnMove = false;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

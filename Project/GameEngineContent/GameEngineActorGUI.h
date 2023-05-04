@@ -43,8 +43,6 @@ private:
 	
 	std::vector<std::function<void()>> CustomActorGuiFunctions;
 
-	void HelpMarker(const std::string_view& _Text);
-
 	static float4 ConvertFloat4(float _FloatArr[4]);
 };
 

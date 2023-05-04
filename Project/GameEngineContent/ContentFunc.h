@@ -13,6 +13,10 @@ public:
 	}
 
 	static float4 GetMousePos(std::shared_ptr<class GameEngineCamera> _MainCam);
+	static void ImGuiHelpMarker(const std::string_view& _Text);
+
+	static std::string GetOpenFilePath();
+	static std::string GetSaveFilePath();
 
 protected:
 	

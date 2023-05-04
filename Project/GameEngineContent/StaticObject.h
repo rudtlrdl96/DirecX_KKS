@@ -1,12 +1,13 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "TilemapData.h"
 
 class SObject_DESC
 {
 public:
 	std::string Name = "";
 	size_t Index = 0;
-	LevelType Grade = LevelType::None;
+	LevelArea Grade = LevelArea::None;
 
 	float4 Pos = float4::Zero;
 	float4 Size = float4(100, 100, 0, 0);

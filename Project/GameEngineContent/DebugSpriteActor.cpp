@@ -33,6 +33,11 @@ void DebugSpriteActor::Start()
 
 void DebugSpriteActor::Update(float _DeltaTime)
 {
+	if (true == UnMove)
+	{
+		return;
+	}
+
 	float MoveDis = _DeltaTime * MoveSpeed;
 
 	if (true == GameEngineInput::IsPress("DebugMoveUp"))

@@ -15,7 +15,7 @@ public:
 
 	inline void SetTileData(size_t _Index)
 	{
-		SetTileData(ContentDatabase<TilemapData, TileArea>::GetData(_Index));
+		SetTileData(ContentDatabase<TilemapData, LevelArea>::GetData(_Index));
 	}
 
 	void SetTileData(const TilemapData& _Data);

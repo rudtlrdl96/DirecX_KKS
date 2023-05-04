@@ -43,7 +43,7 @@ void StaticObject::SaveBin(GameEngineSerializer& _SaveSerializer) const
 {
 	_SaveSerializer.Write(Desc.Name);
 	_SaveSerializer.Write(&Desc.Index, sizeof(size_t));
-	_SaveSerializer.Write(&Desc.Grade, sizeof(LevelType));
+	_SaveSerializer.Write(&Desc.Grade, sizeof(LevelArea));
 	_SaveSerializer.Write(&Desc.Pos, sizeof(float4));
 	_SaveSerializer.Write(&Desc.Size, sizeof(float4));
 	_SaveSerializer.Write(&Desc.Color, sizeof(float4));
@@ -55,7 +55,7 @@ SObject_DESC StaticObject::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 	_LoadSerializer.Read(LoadDesc.Name);
 	_LoadSerializer.Read(&LoadDesc.Index, sizeof(size_t));
-	_LoadSerializer.Read(&LoadDesc.Grade, sizeof(LevelType));
+	_LoadSerializer.Read(&LoadDesc.Grade, sizeof(LevelArea));
 	_LoadSerializer.Read(&LoadDesc.Pos, sizeof(float4));
 	_LoadSerializer.Read(&LoadDesc.Size, sizeof(float4));
 	_LoadSerializer.Read(&LoadDesc.Color, sizeof(float4));

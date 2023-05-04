@@ -5,7 +5,7 @@
 
 void TileLoad(const TilemapData& _Data)
 {
-	ContentDatabase<TilemapData, TileArea>::InsertData(_Data);
+	ContentDatabase<TilemapData, LevelArea>::InsertData(_Data);
 }
 
 void ContentCore::TileDataLoad()
@@ -25,7 +25,20 @@ void ContentCore::TileDataLoad()
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
-			TileLoad({ .Name = Name, .Index = i, .Grade = TileArea::Castle });
+			TileLoad({ .Name = Name, .Index = i, .Grade = LevelArea::None });
+		}
+	}
+
+	{
+		Path.MoveParent();
+		Path.Move("Opening");
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (UINT i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			std::string Name = Tex->GetNameToString();
+			TileLoad({ .Name = Name, .Index = 1000 + i, .Grade = LevelArea::Opening });
 		}
 	}
 
@@ -38,7 +51,7 @@ void ContentCore::TileDataLoad()
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
-			TileLoad({ .Name = Name, .Index = 1000 + i, .Grade = TileArea::Castle});
+			TileLoad({ .Name = Name, .Index = 2000 + i, .Grade = LevelArea::Castle});
 		}
 	}
 	{
@@ -50,7 +63,7 @@ void ContentCore::TileDataLoad()
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
-			TileLoad({ .Name = Name, .Index = 2000 + i, .Grade = TileArea::ForestOfHamory });
+			TileLoad({ .Name = Name, .Index = 3000 + i, .Grade = LevelArea::ForestOfHamory });
 		}
 	}
 	{
@@ -62,7 +75,7 @@ void ContentCore::TileDataLoad()
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
-			TileLoad({ .Name = Name, .Index = 3000 + i, .Grade = TileArea::GrandHall });
+			TileLoad({ .Name = Name, .Index = 4000 + i, .Grade = LevelArea::GrandHall });
 		}
 	}
 	{
@@ -74,21 +87,27 @@ void ContentCore::TileDataLoad()
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 			std::string Name = Tex->GetNameToString();
-			TileLoad({ .Name = Name, .Index = 4000 + i, .Grade = TileArea::SacredGrounds });
+			TileLoad({ .Name = Name, .Index = 5000 + i, .Grade = LevelArea::HolyCourtyard });
 		}
 	}
 
+	std::vector<TilemapData> NoneDatas;
+	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::None, NoneDatas);
+
+	std::vector<TilemapData> OpeningDatas;
+	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::Opening, OpeningDatas);
+
 	std::vector<TilemapData> CastleDatas;
-	ContentDatabase<TilemapData, TileArea>::CopyGradeDatas(TileArea::Castle, CastleDatas);
+	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::Castle, CastleDatas);
 
 	std::vector<TilemapData> ForestDatas;
-	ContentDatabase<TilemapData, TileArea>::CopyGradeDatas(TileArea::ForestOfHamory, ForestDatas);
+	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestDatas);
 
 	std::vector<TilemapData> GrandHallDatas;
-	ContentDatabase<TilemapData, TileArea>::CopyGradeDatas(TileArea::GrandHall, GrandHallDatas);
+	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GrandHallDatas);
 
 	std::vector<TilemapData> SacredGroundsDatas;
-	ContentDatabase<TilemapData, TileArea>::CopyGradeDatas(TileArea::SacredGrounds, SacredGroundsDatas);
+	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::HolyCourtyard, SacredGroundsDatas);
 
 	int a = 0;
 }

@@ -30,7 +30,7 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 	
 	ImGui::Checkbox("W", &IsWorldPostion);
 	ImGui::SameLine();
-	HelpMarker("Setting World Postion");
+	ContentFunc::ImGuiHelpMarker("Setting World Postion");
 	ImGui::SameLine();
 
 	float4 GetPostion = float4::Zero; 
@@ -64,7 +64,7 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 
 	ImGui::Checkbox("W", &IsWorldRotation);
 	ImGui::SameLine();
-	HelpMarker("Setting World Rotation");
+	ContentFunc::ImGuiHelpMarker("Setting World Rotation");
 	ImGui::SameLine();
 
 	float4 GetRoation = float4::Zero;
@@ -98,7 +98,7 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 
 	ImGui::Checkbox("W", &IsWorldScale);
 	ImGui::SameLine();
-	HelpMarker("Setting World Scale");
+	ContentFunc::ImGuiHelpMarker("Setting World Scale");
 	ImGui::SameLine();
 
 	float4 GetScale = float4::Zero;
@@ -176,18 +176,6 @@ void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target)
 		Scale[2] = LocalScale.z;
 		Scale[3] = LocalScale.w;
 
-	}
-}
-
-void GameEngineActorGUI::HelpMarker(const std::string_view& _Text)
-{
-	ImGui::TextDisabled("(?)");
-	if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayShort) && ImGui::BeginTooltip())
-	{
-		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-		ImGui::TextUnformatted(_Text.data());
-		ImGui::PopTextWrapPos();
-		ImGui::EndTooltip();
 	}
 }
 

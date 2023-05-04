@@ -4,6 +4,13 @@
 class MapToolLevel : public ContentLevel
 {
 public:
+	enum class MapToolState
+	{
+		Tilemap,
+		Object,
+		Light
+	};
+public:
 	MapToolLevel();
 	~MapToolLevel();
 
@@ -24,6 +31,12 @@ private:
 	std::shared_ptr<class ObjectManager> ObjectMgr = nullptr;
 
 	std::shared_ptr<class TilemapPallet> TilemapPalletPtr = nullptr;
+	std::shared_ptr<class MapToolGUI> MapToolGuiPtr = nullptr;
 
+	MapToolState MapToolType = MapToolState::Tilemap;
+
+	UINT SelectIndex = 0;
 	float CameraSpeed = 500.0f;
+
+	void CameraMoveFunction(float _DeltaTime);
 };

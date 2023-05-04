@@ -117,7 +117,7 @@ void BattleDebugLevel::Start()
 	DeubgObject = CreateActor<ObjectManager>();
 
 	{
-		SObject_DESC Desc = ContentDatabase<SObject_DESC, LevelType>::GetData(
+		SObject_DESC Desc = ContentDatabase<SObject_DESC, LevelArea>::GetData(
 			GameEngineString::ToUpper("Castle_StaticObject_Wall00.png"));
 		
 		Desc.Pos = float4(-1900.0f, 0, 0, 0);
@@ -129,7 +129,7 @@ void BattleDebugLevel::Start()
 	}
 
 	{
-		SObject_DESC Desc = ContentDatabase<SObject_DESC, LevelType>::GetData(
+		SObject_DESC Desc = ContentDatabase<SObject_DESC, LevelArea>::GetData(
 			GameEngineString::ToUpper("Castle_StaticObject_Wall01.png"));
 
 		Desc.Pos = float4(-2160, 0, 0, 0);
@@ -141,7 +141,7 @@ void BattleDebugLevel::Start()
 	}	
 
 	{
-		SObject_DESC Desc = ContentDatabase<SObject_DESC, LevelType>::GetData(
+		SObject_DESC Desc = ContentDatabase<SObject_DESC, LevelArea>::GetData(
 			GameEngineString::ToUpper("Castle_StaticObject_Wall04.png"));
 		
 		Desc.Pos = float4(-2420, 0, 0, 0);
@@ -172,8 +172,12 @@ void BattleDebugLevel::Start()
 	DeubgObject->GetTransform()->SetWorldPosition(CenterPos);
 
 	DeubgActor = CreateActor<DebugSpriteActor>();
+	DeubgActor->GetTransform()->SetWorldPosition(float4(100, 0 , 0));
+	DeubgActor->UnMove = true;
+
 	DeubgChildActor = CreateActor<DebugSpriteActor>();
 	DeubgChildActor->GetTransform()->SetParent(DeubgActor->GetTransform());
+	DeubgChildActor->GetTransform()->SetLocalPosition(float4(100, 0, 0));
 
 	MainCamCtrl.SetLookatTarget(DeubgActor);
 

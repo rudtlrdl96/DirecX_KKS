@@ -9,7 +9,6 @@ public:
 
 	// Tile
 	static const float4 TileSize;
-
 private:
 	ContentConst();
 	~ContentConst();

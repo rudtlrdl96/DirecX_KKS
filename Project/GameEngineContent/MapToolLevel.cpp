@@ -3,10 +3,12 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/imgui.h>
+#include <GameEngineCore/GameEngineGUI.h>
 
 #include "Tilemap.h"
 #include "ObjectManager.h"
 #include "TilemapPallet.h"
+#include "MapToolGUI.h"
 
 MapToolLevel::MapToolLevel()
 {
@@ -43,17 +45,106 @@ void MapToolLevel::Start()
 
 	TilemapPalletPtr = CreateActor<TilemapPallet>();
 	TilemapPalletPtr->SetPencleIndex(1000);
+
+	MapToolGuiPtr = GameEngineGUI::FindGUIWindowConvert<MapToolGUI>("MapToolGUI");
+	
+	if (nullptr == MapToolGuiPtr)
+	{
+		MsgAssert_Rtti<MapToolLevel>(" - 맵툴 Gui가 생성되지 않았습니다.");
+	}
 }
 
 void MapToolLevel::Update(float _DeltaTime)
 {
 	ContentLevel::Update(_DeltaTime);
 
-	if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsPress("ToolActive"))
+	MapToolType = MapToolGuiPtr->GetMapToolState();
+
+	TilemapPalletPtr->SetActiveCursor(false);
+
+	switch (MapToolType)
 	{
-		float4 TestMousePos = GetMousePos();
-		TilemapPtr->ChangeData(0, TestMousePos, TilemapPalletPtr->GetPencleIndex());
+	case MapToolLevel::MapToolState::Tilemap:
+	{
+		TilemapPalletPtr->SetActiveCursor(true);
+	
+		if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsPress("ToolActive"))
+		{
+			float4 TestMousePos = GetMousePos();
+			TilemapPtr->ChangeData(0, TestMousePos, TilemapPalletPtr->GetPencleIndex());
+		}
 	}
+		break;
+	case MapToolLevel::MapToolState::Object:
+	{
+		
+		if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
+		{
+			float4 TestMousePos = GetMousePos();
+			SObject_DESC NewObjectDesc = MapToolGuiPtr->GetSelectSObject();
+			NewObjectDesc.Pos = TestMousePos;
+			ObjectMgr->CreateStaticObject(NewObjectDesc);
+		}
+	}
+		break;
+	case MapToolLevel::MapToolState::Light:
+		break;
+	default:
+		break;
+	}
+
+	if (true == MapToolGuiPtr->CheckSaveTrigger())
+	{
+		Save();
+	}
+
+	if (true == MapToolGuiPtr->CheckLoadTrigger())
+	{
+		Load();
+	}
+
+
+	CameraMoveFunction(_DeltaTime);
+}
+
+void MapToolLevel::Save()
+{
+	std::string Path = ContentFunc::GetSaveFilePath();
+
+	if ("" == Path)
+	{
+		return;
+	}
+
+	GameEngineSerializer SaveSerializer;
+
+	TilemapPtr->SaveBin(SaveSerializer);
+	ObjectMgr->SaveBin(SaveSerializer);
+
+	GameEngineFile SaveFile = GameEngineFile(Path);
+	SaveFile.SaveBin(SaveSerializer);
+}
+
+void MapToolLevel::Load()
+{
+	std::string Path = ContentFunc::GetOpenFilePath();
+
+	if ("" == Path)
+	{
+		return;
+	}
+
+	GameEngineFile LoadFile = GameEngineFile(Path);
+
+	GameEngineSerializer SaveSerializer;
+	LoadFile.LoadBin(SaveSerializer);
+
+	TilemapPtr->LoadBin(SaveSerializer);
+	ObjectMgr->LoadBin(SaveSerializer);
+}
+
+void MapToolLevel::CameraMoveFunction(float _DeltaTime)
+{
 
 	float CurFrameCameraSpeed = CameraSpeed * _DeltaTime;
 
@@ -66,7 +157,7 @@ void MapToolLevel::Update(float _DeltaTime)
 	{
 		TilemapPtr->ResizeTilemap(TilemapPtr->SizeX(0) + 1, TilemapPtr->SizeY(0) + 1, 0);
 	}
-	
+
 	if (GameEngineInput::IsDown("TempSizeDown"))
 	{
 		TilemapPtr->ResizeTilemap(TilemapPtr->SizeX(0) - 1, TilemapPtr->SizeY(0) - 1, 0);
@@ -88,12 +179,4 @@ void MapToolLevel::Update(float _DeltaTime)
 	{
 		GetMainCamera()->GetTransform()->AddLocalPosition(float4::Right * CurFrameCameraSpeed);
 	}
-}
-
-void MapToolLevel::Save()
-{
-}
-
-void MapToolLevel::Load()
-{
 }
