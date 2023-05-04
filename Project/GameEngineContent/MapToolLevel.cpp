@@ -4,10 +4,15 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/imgui.h>
 #include <GameEngineCore/GameEngineGUI.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
+
 
 #include "Tilemap.h"
 #include "ObjectManager.h"
 #include "TilemapPallet.h"
+#include "TilemapHoverRenderActor.h"
+
+#include "GameEngineActorGUI.h"
 #include "MapToolGUI.h"
 
 MapToolLevel::MapToolLevel()
@@ -52,6 +57,15 @@ void MapToolLevel::Start()
 	{
 		MsgAssert_Rtti<MapToolLevel>(" - 맵툴 Gui가 생성되지 않았습니다.");
 	}
+
+	ActorGUI = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+
+	if (nullptr == ActorGUI)
+	{
+		MsgAssert_Rtti<MapToolLevel>(" - GameEngineActor Gui가 생성되지 않았습니다.");
+	}
+
+	TilemapHoverPtr = CreateActor<TilemapHoverRenderActor>();
 }
 
 void MapToolLevel::Update(float _DeltaTime)
@@ -61,17 +75,37 @@ void MapToolLevel::Update(float _DeltaTime)
 	MapToolType = MapToolGuiPtr->GetMapToolState();
 
 	TilemapPalletPtr->SetActiveCursor(false);
+	TilemapHoverPtr->HoverOff();
 
 	switch (MapToolType)
 	{
 	case MapToolLevel::MapToolState::Tilemap:
 	{
 		TilemapPalletPtr->SetActiveCursor(true);
-	
+		TilemapPalletPtr->On();
+
+		float4 TestMousePos = GetMousePos();
+		int2 MouseIndex = TilemapPtr->GetTileIndex(TestMousePos);
+
+		UINT CastingIndexX = static_cast<UINT>(MouseIndex.x);
+		UINT CastingIndexY = static_cast<UINT>(MouseIndex.y);
+
+
+		TilemapPalletPtr->GetTransform()->SetWorldPosition(TestMousePos);
+
+		if (MouseIndex.x >= 0 && MouseIndex.y >= 0)
+		{
+			TilemapHoverPtr->HoverOn();
+			TilemapHoverPtr->GetTransform()->SetWorldPosition(TilemapPtr->GetTilePos(CastingIndexX, CastingIndexY));
+		}
+		else
+		{
+			break;
+		}
+
 		if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsPress("ToolActive"))
 		{
-			float4 TestMousePos = GetMousePos();
-			TilemapPtr->ChangeData(0, TestMousePos, TilemapPalletPtr->GetPencleIndex());
+			TilemapPtr->ChangeData(0, MouseIndex.x, MouseIndex.y, TilemapPalletPtr->GetPencleIndex());
 		}
 	}
 		break;
@@ -142,6 +176,45 @@ void MapToolLevel::Load()
 
 	TilemapPtr->LoadBin(SaveSerializer);
 	ObjectMgr->LoadBin(SaveSerializer);
+}
+
+void MapToolLevel::LevelChangeStart()
+{
+	if (nullptr == MapToolGuiPtr)
+	{
+		MsgAssert_Rtti<MapToolLevel>(" - MapTool Gui를 찾을 수 없습니다");
+		return;
+	}
+
+	MapToolGuiPtr->On();
+
+	if (nullptr == ActorGUI)
+	{
+		MsgAssert_Rtti<MapToolLevel>(" - GameEngineActor Gui를 찾을 수 없습니다");
+		return;
+	}
+
+	ActorGUI->On();
+}
+
+void MapToolLevel::LevelChangeEnd()
+{
+	if (nullptr == MapToolGuiPtr)
+	{
+		MsgAssert_Rtti<MapToolLevel>(" - MapTool Gui를 찾을 수 없습니다");
+		return;
+	}
+
+	MapToolGuiPtr->Off();
+
+	if (nullptr == ActorGUI)
+	{
+		MsgAssert_Rtti<MapToolLevel>(" - GameEngineActor Gui를 찾을 수 없습니다");
+		return;
+	}
+
+	ActorGUI->SetTarget(nullptr);
+	ActorGUI->Off();
 }
 
 void MapToolLevel::CameraMoveFunction(float _DeltaTime)

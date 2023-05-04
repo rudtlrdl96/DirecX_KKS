@@ -217,5 +217,22 @@ void BattleDebugLevel::Update(float _DeltaTime)
 
 void BattleDebugLevel::LevelChangeStart()
 {
+	if (nullptr == GameEngineActorGUIPtr)
+	{
+		MsgAssert_Rtti<BattleDebugLevel>(" - GameEngineActor GUI를 찾을 수 없습니다");
+	}
+
+	GameEngineActorGUIPtr->On();
 	GameEngineActorGUIPtr->SetTarget(DeubgChildActor->GetTransform());
+}
+
+void BattleDebugLevel::LevelChangeEnd()
+{
+	if (nullptr == GameEngineActorGUIPtr)
+	{
+		MsgAssert_Rtti<BattleDebugLevel>(" - GameEngineActor GUI를 찾을 수 없습니다");
+	}
+
+	GameEngineActorGUIPtr->Off();
+	GameEngineActorGUIPtr->SetTarget(nullptr);
 }

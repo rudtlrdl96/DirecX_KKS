@@ -32,6 +32,7 @@ public:
 
 	bool IsOver(int _Depth, UINT _X, UINT _Y);
 
+	int2 GetTileIndex(const float4& _WorldPos);
 	float4 GetTilePos(UINT _X, UINT _Y) const;
 
 	inline UINT SizeX(int _Depth)

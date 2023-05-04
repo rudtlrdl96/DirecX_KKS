@@ -24,13 +24,26 @@ void ObjectManager::SaveBin(GameEngineSerializer& _SaveSerializer) const
 	_SaveSerializer.Write(static_cast<int>(StaticObjectActors.size()));
 
 	for (const std::shared_ptr<StaticObject>& LoopRef : StaticObjectActors)
-	{
+	{ 
 		LoopRef->SaveBin(_SaveSerializer);
 	}	
 }
 
 void ObjectManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
+	for (size_t i = 0; i < StaticObjectActors.size(); i++)
+	{
+		if (nullptr == StaticObjectActors[i])
+		{
+			continue;
+		}
+
+		StaticObjectActors[i]->Death();
+		StaticObjectActors[i] = nullptr;
+	}
+
+	StaticObjectActors.clear();
+
 	int StaticObjectCount = 0;
 	_LoadSerializer.Read(StaticObjectCount);
 

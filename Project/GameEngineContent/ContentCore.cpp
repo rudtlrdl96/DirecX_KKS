@@ -245,6 +245,9 @@ void ContentCore::ContentPipeLineCreate()
 
 void ContentCore::ImGuiCreate()
 {
-	GameEngineGUI::GUIWindowCreate<GameEngineActorGUI>("GameEngineActorGUI");
-	GameEngineGUI::GUIWindowCreate<MapToolGUI>("MapToolGUI");
+	std::shared_ptr<GameEngineGUIWindow> ActorGUIPtr = GameEngineGUI::GUIWindowCreate<GameEngineActorGUI>("GameEngineActorGUI");
+	ActorGUIPtr->Off();
+
+	std::shared_ptr<GameEngineGUIWindow> MapToolGUIPtr = GameEngineGUI::GUIWindowCreate<MapToolGUI>("MapToolGUI");
+	MapToolGUIPtr->Off();
 }

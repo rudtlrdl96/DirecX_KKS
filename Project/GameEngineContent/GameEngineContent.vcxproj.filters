@@ -238,6 +238,12 @@
     <Filter Include="5_ImGui">
       <UniqueIdentifier>{55af7a50-a6b3-4ed2-8e73-6b3d75758333}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Object\InteractionObject">
+      <UniqueIdentifier>{01e8e598-a218-43e1-975d-9ecc45339501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Object\PointObject">
+      <UniqueIdentifier>{cfb67d9b-7d8b-425d-8e42-8749f3270a82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -467,6 +473,12 @@
     </ClInclude>
     <ClInclude Include="MapToolGUI.h">
       <Filter>5_ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapHoverRenderActor.h">
+      <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenObject.h">
+      <Filter>2_Actor\Map\Object\BrokenObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -718,6 +730,12 @@
     </ClCompile>
     <ClCompile Include="MapToolGUI.cpp">
       <Filter>5_ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapHoverRenderActor.cpp">
+      <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="BrokenObject.cpp">
+      <Filter>2_Actor\Map\Object\BrokenObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

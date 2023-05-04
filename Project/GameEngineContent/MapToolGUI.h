@@ -68,6 +68,8 @@ private:
 	std::map<LevelArea, std::vector<MapTool_TilemapData>> TileTexDatas;
 	std::map<LevelArea, std::vector<MapTool_SObjectData>> SObjectTexDatas;
 
+	std::shared_ptr<class ObjectManager> ObjectMgrPtr = nullptr;
+
 	LevelArea CurShowAreaTile = LevelArea::None;
 	MapToolLevel::MapToolState MapToolType = MapToolLevel::MapToolState::Tilemap;
 

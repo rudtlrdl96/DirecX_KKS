@@ -26,13 +26,19 @@ protected:
 	void Save();
 	void Load();
 
+	void LevelChangeStart() override;
+	void LevelChangeEnd() override;
+
 private:
 	std::shared_ptr<class Tilemap> TilemapPtr = nullptr;
 	std::shared_ptr<class ObjectManager> ObjectMgr = nullptr;
 
 	std::shared_ptr<class TilemapPallet> TilemapPalletPtr = nullptr;
 	std::shared_ptr<class MapToolGUI> MapToolGuiPtr = nullptr;
+	std::shared_ptr<class GameEngineActorGUI> ActorGUI = nullptr;
 
+	std::shared_ptr<class TilemapHoverRenderActor> TilemapHoverPtr = nullptr;
+		
 	MapToolState MapToolType = MapToolState::Tilemap;
 
 	UINT SelectIndex = 0;

@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 #include "StaticObject.h"
+#include "BrokenObject.h"
 
 class ObjectManager : public BaseContentActor
 {
@@ -22,7 +23,7 @@ protected:
 	
 private:
 	std::vector<std::shared_ptr<StaticObject>> StaticObjectActors;
-	//std::vector<class BrokenObject> BrokenObjectActors;
+	std::vector<std::shared_ptr<BrokenObject>> BrokenObjectActors;
 	//std::vector<class BombObject> BombObjectActors;
 	//std::vector<class TrapObject> TrapObjectActors;
 };

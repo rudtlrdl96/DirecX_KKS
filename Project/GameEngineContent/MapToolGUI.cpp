@@ -5,6 +5,7 @@
 
 #include "TilemapData.h"
 #include "StaticObject.h"
+#include "ObjectManager.h"
 
 MapToolGUI::MapToolGUI() :
 	CurShowAreaTile(LevelArea::Opening)
@@ -203,4 +204,17 @@ void MapToolGUI::SObjectDatasLoad(LevelArea _Area)
 
 		BufferTextureDatas.push_back(MapTool_SObjectData(CopyDatas[i], FindTex));
 	}
+
+	if (nullptr == ObjectMgrPtr)
+	{
+		return;
+	}
+
+	if (true == ObjectMgrPtr->IsDeath())
+	{
+		ObjectMgrPtr = nullptr;
+		return;
+	}
+
+
 }

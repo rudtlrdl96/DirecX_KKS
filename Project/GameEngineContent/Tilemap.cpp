@@ -67,28 +67,17 @@ void Tilemap::ResizeTilemap(UINT _SizeX, UINT _SizeY, int _Depth)
 
 void Tilemap::ChangeData(int _Depth, const float4& _WorldPos, UINT Index)
 {
-	float4 LocalPos = _WorldPos - GetTransform()->GetWorldPosition();
+	int2 InputIndex = GetTileIndex(_WorldPos);
 
-	LocalPos.x += TileScale.hx();
-	LocalPos.y += TileScale.y;
-
-	int2 InputIndex;
-
-	float IndexFloatX = LocalPos.x / TileScale.x;
-	float IndexFloatY = LocalPos.y / TileScale.y;
-
-	if (IndexFloatX < 0)
+	if (InputIndex.x < 0)
 	{
 		return;
 	}
 
-	if (IndexFloatY < 0)
+	if (InputIndex.y < 0)
 	{
 		return;
 	}
-
-	InputIndex.x = static_cast<int>(IndexFloatX);
-	InputIndex.y = static_cast<int>(IndexFloatY);
 
 	ChangeData(_Depth, InputIndex.x, InputIndex.y, Index);
 }
@@ -202,6 +191,39 @@ bool Tilemap::IsOver(int _Depth, UINT _X, UINT _Y)
 	}
 
 	return false;
+}
+
+int2 Tilemap::GetTileIndex(const float4& _WorldPos)
+{
+	float4 LocalPos = _WorldPos - GetTransform()->GetWorldPosition();
+
+	LocalPos.x += TileScale.hx();
+	LocalPos.y += TileScale.y;
+
+	int2 ResultIndex = int2::Zero;
+
+	float IndexFloatX = LocalPos.x / TileScale.x;
+	float IndexFloatY = LocalPos.y / TileScale.y;
+
+	if (IndexFloatX < 0)
+	{
+		ResultIndex.x = static_cast<int>(floorf(IndexFloatX));
+	}
+	else
+	{
+		ResultIndex.x = static_cast<int>(IndexFloatX);
+	}
+
+	if (IndexFloatY < 0)
+	{
+		ResultIndex.y = static_cast<int>(floorf(IndexFloatY));
+	}
+	else
+	{
+		ResultIndex.y = static_cast<int>(IndexFloatY);
+	}
+
+	return ResultIndex;
 }
 
 float4 Tilemap::GetTilePos(UINT _X, UINT _Y) const
