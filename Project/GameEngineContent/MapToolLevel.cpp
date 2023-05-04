@@ -137,6 +137,7 @@ void MapToolLevel::Load()
 	GameEngineFile LoadFile = GameEngineFile(Path);
 
 	GameEngineSerializer SaveSerializer;
+	SaveSerializer.BufferResize(30000);
 	LoadFile.LoadBin(SaveSerializer);
 
 	TilemapPtr->LoadBin(SaveSerializer);

@@ -284,13 +284,10 @@ void Tilemap::LoadBin(GameEngineSerializer& _LoadSerializer)
 		int Depth = 0;
 		_LoadSerializer.Read(Depth);
 
-		int2& SizeRef = TilemapSizeDatas[Depth];
+		int2 SizeRef = int2::Zero;
 
 		_LoadSerializer.Read(SizeRef.x);
 		_LoadSerializer.Read(SizeRef.y);
-
-		int2& MemoryRef = MemorySizeDatas[Depth];
-		MemoryRef = SizeRef;
 
 		ResizeTilemap(SizeRef.x, SizeRef.y, Depth);
 

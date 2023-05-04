@@ -35,7 +35,7 @@ void ObjectManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 	_LoadSerializer.Read(StaticObjectCount);
 
 	StaticObjectActors.reserve(StaticObjectCount);
-	for (int i = 0; i < StaticObjectActors.size(); i++)
+	for (int i = 0; i < StaticObjectCount; i++)
 	{
 		SObject_DESC LoadDesc = StaticObject::LoadBin(_LoadSerializer);
 		CreateStaticObject(LoadDesc);

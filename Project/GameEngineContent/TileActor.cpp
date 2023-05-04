@@ -34,7 +34,7 @@ void TileActor::SaveBin(GameEngineSerializer& _SaveSerializer) const
 UINT TileActor::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
 	UINT LoadIndex = 0;
-	_LoadSerializer.Write(&LoadIndex, sizeof(UINT));
+	_LoadSerializer.Read(&LoadIndex, sizeof(UINT));
 	return LoadIndex;
 }
 
