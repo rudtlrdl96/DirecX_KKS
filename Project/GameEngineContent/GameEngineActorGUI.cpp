@@ -105,7 +105,7 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 
 	if (true == IsWorldScale)
 	{
-		TargetTransform->SetWorldScale(TargetTransform->GetWorldRotation());
+		TargetTransform->SetWorldScale(TargetTransform->GetWorldScale());
 		GetScale = TargetTransform->GetWorldScale();
 	}
 	else
@@ -130,13 +130,17 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 		TargetTransform->SetLocalScale(ConvertFloat4(Scale));
 	}
 
-	for (std::function<void()>& _CallbackRef: CustomGuiFunctions)
-	{
+	for (std::function<void()>& _CallbackRef: CustomActorGuiFunctions)
+	{	
+
 		if (nullptr == _CallbackRef)
 		{
 			MsgAssert_Rtti<GameEngineActorGUI>(" - nullptr 커스텀 Gui 콜백을 호출하려 했습니다");
 			return;
 		}
+
+		ImGui::Spacing();
+		ImGui::Spacing();
 
 		_CallbackRef();
 	}
@@ -144,6 +148,7 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 
 void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target)
 {
+	CustomActorGuiFunctions.clear();
 	TargetTransform = _Target;
 
 	if (nullptr != TargetTransform)
@@ -170,6 +175,7 @@ void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target)
 		Scale[1] = LocalScale.y;
 		Scale[2] = LocalScale.z;
 		Scale[3] = LocalScale.w;
+
 	}
 }
 

@@ -7,9 +7,14 @@
 #include <GameEngineCore/GameEngineRenderingPipeLine.h>
 #include <GameEngineCore/GameEngineVertexBuffer.h>
 #include <GameEngineCore/GameEngineIndexBuffer.h>
+#include <GameEngineCore/GameEngineGUI.h>
 
 // Vertext
 #include "ContentVertex.h"
+
+// ImGui
+#include "GameEngineActorGUI.h"
+#include "MapToolGUI.h"
 
 // Player Level
 #include "TitleLevel.h"
@@ -235,4 +240,11 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetBlendState("AlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
+}
+
+
+void ContentCore::ImGuiCreate()
+{
+	GameEngineGUI::GUIWindowCreate<GameEngineActorGUI>("GameEngineActorGUI");
+	GameEngineGUI::GUIWindowCreate<MapToolGUI>("MapToolGUI");
 }

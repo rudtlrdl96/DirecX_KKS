@@ -3,6 +3,7 @@
 enum class TileArea
 {
 	None,			// µð¹ö±ë¿ë None
+	Opening,		// ¿ÀÇÁ´×
 	Castle,			// Ä³½½
 	ForestOfHamory,	// Á¶È­ÀÇ ½£
 	GrandHall,		// ±×·£µå È¦

@@ -2,6 +2,7 @@
 #include "MapToolLevel.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/imgui.h>
 
 #include "Tilemap.h"
 #include "ObjectManager.h"
@@ -48,12 +49,10 @@ void MapToolLevel::Update(float _DeltaTime)
 {
 	ContentLevel::Update(_DeltaTime);
 
-	if (true == GameEngineInput::IsPress("ToolActive"))
+	if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsPress("ToolActive"))
 	{
 		float4 TestMousePos = GetMousePos();
-
 		TilemapPtr->ChangeData(0, TestMousePos, TilemapPalletPtr->GetPencleIndex());
-		int a = 0;
 	}
 
 	float CurFrameCameraSpeed = CameraSpeed * _DeltaTime;

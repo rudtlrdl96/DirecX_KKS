@@ -1,8 +1,6 @@
 #include "PrecompileHeader.h"
 #include "ContentCore.h"
 #include "StaticObject.h"
-#include <GameEngineCore/GameEngineGUI.h>
-#include "GameEngineActorGUI.h"
 
 void ContentCore::StaticObjectLoad()
 {
@@ -159,9 +157,4 @@ void ContentCore::CommonTextureLoad()
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 		}
 	}
-}
-
-void ContentCore::ImGuiCreate()
-{
-	GameEngineGUI::GUIWindowCreate<GameEngineActorGUI>("GameEngineActorGUI");
 }

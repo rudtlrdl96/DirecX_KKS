@@ -17,6 +17,17 @@ public:
 
 	void SetTarget(GameEngineTransform* _Target);
 
+	inline void EditorGui(std::function<void()> _GuiFunction)
+	{
+		if (nullptr == _GuiFunction)
+		{
+			MsgAssert_Rtti<GameEngineActorGUI>(" - nullptr 콜백이 들어왔습니다");
+			return;
+		}
+
+		CustomActorGuiFunctions.push_back(_GuiFunction);
+	}
+
 protected:
 	
 private:
@@ -30,7 +41,7 @@ private:
 	float Rotation[4] = { 0, 0, 0, 1 };
 	float Scale[4] = { 1, 1, 1, 1 };
 	
-	std::vector<std::function<void()>> CustomGuiFunctions;
+	std::vector<std::function<void()>> CustomActorGuiFunctions;
 
 	void HelpMarker(const std::string_view& _Text);
 

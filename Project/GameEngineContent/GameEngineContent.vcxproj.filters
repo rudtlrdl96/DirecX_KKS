@@ -465,6 +465,9 @@
     <ClInclude Include="GameEngineActorGUI.h">
       <Filter>5_ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="MapToolGUI.h">
+      <Filter>5_ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -711,6 +714,9 @@
       <Filter>2_Actor\Debug\MapTool</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineActorGUI.cpp">
+      <Filter>5_ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolGUI.cpp">
       <Filter>5_ImGui</Filter>
     </ClCompile>
   </ItemGroup>

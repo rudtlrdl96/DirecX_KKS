@@ -104,6 +104,11 @@ public:
 		return DSV;
 	}
 
+	const ID3D11ShaderResourceView* GetSRV() const
+	{
+		return SRV;
+	}
+
 	int GetWidth() 
 	{
 		return Desc.Width;
@@ -112,6 +117,11 @@ public:
 	int GetHeight()
 	{
 		return Desc.Height;
+	}
+
+	float4 GetTextureSize() const
+	{
+		return float4(static_cast<float>(Desc.Width), static_cast<float>(Desc.Height));
 	}
 
 	GameEnginePixelColor GetPixel(int _X, int _Y, GameEnginePixelColor DefaultColor = GameEnginePixelColor::Black);
