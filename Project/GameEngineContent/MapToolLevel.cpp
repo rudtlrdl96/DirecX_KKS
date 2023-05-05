@@ -105,9 +105,8 @@ void MapToolLevel::Update(float _DeltaTime)
 		TilemapPalletPtr->GetTransform()->SetWorldPosition(WorldMousePos);
 
 		int2 InputMapSize = MapToolGuiPtr->GetTilemapSize();
-		int2 CreateTilemapSize = TilemapPtr->GetSize();
 
-		if (InputMapSize != CreateTilemapSize)
+		if (true == MapToolGuiPtr->CheckTilemapReSizeTrigger())
 		{
 			TilemapPtr->ResizeTilemap(static_cast<UINT>(InputMapSize.x),static_cast<UINT>(InputMapSize.y));
 			TilemapOutLine->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
@@ -182,6 +181,7 @@ void MapToolLevel::Save()
 	}
 
 	GameEngineSerializer SaveSerializer;
+	SaveSerializer.BufferResize(131072);
 
 	TilemapPtr->SaveBin(SaveSerializer);
 	ObjectMgr->SaveBin(SaveSerializer);
@@ -202,11 +202,14 @@ void MapToolLevel::Load()
 	GameEngineFile LoadFile = GameEngineFile(Path);
 
 	GameEngineSerializer SaveSerializer;
-	SaveSerializer.BufferResize(30000);
+	SaveSerializer.BufferResize(131072);
 	LoadFile.LoadBin(SaveSerializer);
 
 	TilemapPtr->LoadBin(SaveSerializer);
 	ObjectMgr->LoadBin(SaveSerializer);
+
+	TilemapOutLine->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
+	MapToolGuiPtr->SetTilemapSize(TilemapPtr->GetSize());
 }
 
 void MapToolLevel::LevelChangeStart()

@@ -89,14 +89,7 @@ void Tilemap::ResizeTilemap(UINT _SizeX, UINT _SizeY)
 			{
 				if (nullptr != TilemapRef[y][x])
 				{
-					if (0 != TilemapRef[y][x]->GetTileIndex())
-					{
-						TilemapRef[y][x]->TileOn();
-					}
-				}
-				else
-				{
-					CreateTile(i, x, y);
+					TilemapRef[y][x]->TileOn();
 				}
 			}
 		}
@@ -129,6 +122,17 @@ void Tilemap::ChangeData(int _Depth, UINT _X, UINT _Y, UINT Index)
 		return;
 	}
 
+	if (0 == Index)
+	{
+		ReleseTile(_Depth, _X, _Y);
+		return;
+	}
+
+	if (nullptr == TilemapRef[_Y][_X])
+	{
+		CreateTile(_Depth, _X, _Y);
+	}
+
 	TilemapRef[_Y][_X]->SetTileData(Index);
 }
 
@@ -150,6 +154,17 @@ void Tilemap::ChangeData(int _Depth, UINT _StartX, UINT _EndX, UINT _StartY, UIN
 	{
 		for (UINT x = _StartX; x <= _EndX; x++)
 		{
+			if (0 == Index)
+			{
+				ReleseTile(_Depth, x, y);
+				continue;
+			}
+
+			if (nullptr == TilemapRef[y][x])
+			{
+				CreateTile(_Depth, x, y);
+			}
+
 			TilemapRef[y][x]->SetTileData(Index);
 		}
 	}
@@ -308,7 +323,14 @@ void Tilemap::SaveBin(GameEngineSerializer& _SaveSerializer)
 		{
 			for (UINT x = 0; x < static_cast<UINT>(TilemapSize.x); x++)
 			{
-				TileRef[y][x]->SaveBin(_SaveSerializer);
+				if (nullptr == TileRef[y][x])
+				{
+					TileActor::SaveEmptyBin(_SaveSerializer);
+				}
+				else
+				{
+					TileRef[y][x]->SaveBin(_SaveSerializer);
+				}
 			}
 		}
 	}
@@ -344,7 +366,7 @@ void Tilemap::CreateTile(UINT _Depth, UINT _X, UINT _Y)
 {
 	std::shared_ptr<TileActor> NewTile = GetLevel()->CreateActor<TileActor>();
 
-	NewTile->GetTransform()->SetParent(GetTransform());
+	//NewTile->GetTransform()->SetParent(GetTransform());
 
 	float4 TilePos = GetTilePos(_X, _Y);
 	TilePos.z = _Depth * 10.0f;
@@ -353,4 +375,18 @@ void Tilemap::CreateTile(UINT _Depth, UINT _X, UINT _Y)
 	NewTile->SetTileData(0);
 
 	TilemapDatas[_Depth][_Y][_X] = NewTile;
+}
+
+void Tilemap::ReleseTile(UINT _Depth, UINT _X, UINT _Y)
+{
+	if (true == IsOver(_X, _Y))
+	{
+		return;
+	}
+
+	if (nullptr != TilemapDatas[_Depth][_Y][_X])
+	{
+		TilemapDatas[_Depth][_Y][_X]->Death();
+		TilemapDatas[_Depth][_Y][_X] = nullptr;
+	}
 }

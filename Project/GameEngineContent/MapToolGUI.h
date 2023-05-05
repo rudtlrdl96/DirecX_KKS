@@ -76,6 +76,7 @@ public:
 
 	bool CheckSaveTrigger();
 	bool CheckLoadTrigger();
+	bool CheckTilemapReSizeTrigger();
 
 protected:
 	
@@ -102,6 +103,7 @@ private:
 
 	bool IsSaveTrigger = false;
 	bool IsLoadTrigger = false;
+	bool IsTilemapReSizeTrigger = false;
 
 	void TileDatasLoad(LevelArea _Area);
 	void SObjectDatasLoad(LevelArea _Area);

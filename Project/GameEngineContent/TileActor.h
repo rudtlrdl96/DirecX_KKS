@@ -25,7 +25,7 @@ public:
 		return Data.Index;
 	}
 
-
+	static void SaveEmptyBin(GameEngineSerializer& _SaveSerializer);
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
 	static UINT LoadBin(GameEngineSerializer& _LoadSerializer);
 

@@ -30,6 +30,8 @@ void StaticObject::Init(const SObject_DESC& _Desc)
 	ImageRender->SetTexture(Desc.Name);
 	ImageRender->GetTransform()->SetLocalScale(Desc.Size);
 	GetTransform()->SetLocalPosition(Desc.Pos);
+	GetTransform()->SetLocalRotation(Desc.Rot);
+	GetTransform()->SetLocalScale(Desc.Scale);
 
 	float4 ActorScale = GetTransform()->GetLocalScale();
 	float4 RenderScale = ImageRender->GetTransform()->GetLocalScale();
@@ -39,12 +41,18 @@ void StaticObject::Init(const SObject_DESC& _Desc)
 	ImageRender->On();
 }
 
-void StaticObject::SaveBin(GameEngineSerializer& _SaveSerializer) const
+void StaticObject::SaveBin(GameEngineSerializer& _SaveSerializer)
 {
+	Desc.Pos = GetTransform()->GetLocalPosition();
+	Desc.Rot = GetTransform()->GetLocalRotation();
+	Desc.Scale = GetTransform()->GetLocalScale();
+
 	_SaveSerializer.Write(Desc.Name);
 	_SaveSerializer.Write(&Desc.Index, sizeof(size_t));
 	_SaveSerializer.Write(&Desc.Grade, sizeof(LevelArea));
 	_SaveSerializer.Write(&Desc.Pos, sizeof(float4));
+	_SaveSerializer.Write(&Desc.Rot, sizeof(float4));
+	_SaveSerializer.Write(&Desc.Scale, sizeof(float4));
 	_SaveSerializer.Write(&Desc.Size, sizeof(float4));
 	_SaveSerializer.Write(&Desc.Color, sizeof(float4));
 }
@@ -57,6 +65,8 @@ SObject_DESC StaticObject::LoadBin(GameEngineSerializer& _LoadSerializer)
 	_LoadSerializer.Read(&LoadDesc.Index, sizeof(size_t));
 	_LoadSerializer.Read(&LoadDesc.Grade, sizeof(LevelArea));
 	_LoadSerializer.Read(&LoadDesc.Pos, sizeof(float4));
+	_LoadSerializer.Read(&LoadDesc.Rot, sizeof(float4));
+	_LoadSerializer.Read(&LoadDesc.Scale, sizeof(float4));
 	_LoadSerializer.Read(&LoadDesc.Size, sizeof(float4));
 	_LoadSerializer.Read(&LoadDesc.Color, sizeof(float4));
 	

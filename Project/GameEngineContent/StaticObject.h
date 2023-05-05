@@ -10,6 +10,9 @@ public:
 	LevelArea Grade = LevelArea::None;
 
 	float4 Pos = float4::Zero;
+	float4 Rot = float4::Zero;
+	float4 Scale = float4::One;
+
 	float4 Size = float4(100, 100, 0, 0);
 	float4 Color = float4::Zero;
 };
@@ -27,7 +30,7 @@ public:
 
 	void Init(const SObject_DESC& _Desc);
 
-	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
+	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	static SObject_DESC LoadBin(GameEngineSerializer& _LoadSerializer);
 
 protected:

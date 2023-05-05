@@ -26,6 +26,12 @@ void TileActor::SetTileData(const TilemapData& _Data)
 	TileOn();
 }
 
+void TileActor::SaveEmptyBin(GameEngineSerializer& _SaveSerializer)
+{
+	UINT EmptyIndex = 0;
+	_SaveSerializer.Write(&EmptyIndex, sizeof(UINT));
+}
+
 void TileActor::SaveBin(GameEngineSerializer& _SaveSerializer) const
 {
 	_SaveSerializer.Write(&Data.Index, sizeof(UINT));

@@ -65,4 +65,5 @@ private:
 	float4 TileScale = float4::Zero;
 
 	void CreateTile(UINT _Depth, UINT _X, UINT _Y);
+	void ReleseTile(UINT _Depth, UINT _X, UINT _Y);
 };

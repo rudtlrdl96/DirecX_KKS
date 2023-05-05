@@ -17,6 +17,7 @@ void TilemapOutlineRenderActor::SetSize(const float4& _Size)
 
 	CenterPos.x -= ContentConst::TileSize.hx();
 	CenterPos.y -= ContentConst::TileSize.y;
+	CenterPos.z = 10000.0f;
 
 	GetTransform()->SetWorldPosition(CenterPos);
 }

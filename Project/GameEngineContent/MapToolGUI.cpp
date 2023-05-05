@@ -110,12 +110,21 @@ bool MapToolGUI::CheckLoadTrigger()
 	return ReturnValue;
 }
 
+bool MapToolGUI::CheckTilemapReSizeTrigger()
+{
+	bool ReturnValue = IsTilemapReSizeTrigger;
+
+	IsTilemapReSizeTrigger = false;
+
+	return ReturnValue;
+}
+
 void MapToolGUI::DrawGui_Tilemap()
 {
 	ImGui::Spacing();
 
 	int TileData[2] = { TilemapSize.x, TilemapSize.y};
-	ImGui::DragInt2("TilemapSize", TileData);
+	ImGui::DragInt2("TilemapSize", TileData, 1.0f, 0, 100);
 
 	TilemapSize.x = TileData[0];
 	TilemapSize.y = TileData[1];
@@ -128,6 +137,13 @@ void MapToolGUI::DrawGui_Tilemap()
 	if (TilemapSize.y < 1)
 	{
 		TilemapSize.y = 1;
+	}
+
+	ImGui::SameLine();
+		
+	if (true == ImGui::Button("Tilemap Resize"))
+	{
+		IsTilemapReSizeTrigger = true;
 	}
 
 	const std::vector<MapTool_TilemapData>& BufferTextureDatas = TileTexDatas[CurShowAreaTile];
