@@ -7,9 +7,6 @@
     <Filter Include="1_Class">
       <UniqueIdentifier>{579b2537-2b10-46ad-b525-e7f4274ea025}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_Class\Inventory">
-      <UniqueIdentifier>{004feef5-1412-40a9-8e9f-5f76481cd837}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1_Class\Base">
       <UniqueIdentifier>{1b08e87b-7a8b-488a-a753-40e39d041074}</UniqueIdentifier>
     </Filter>
@@ -220,9 +217,6 @@
     <Filter Include="2_Actor\Debug\Common">
       <UniqueIdentifier>{efa08f5b-bd48-4916-8546-5ef30aa7d74b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="5_ImGui">
-      <UniqueIdentifier>{55af7a50-a6b3-4ed2-8e73-6b3d75758333}</UniqueIdentifier>
-    </Filter>
     <Filter Include="4_Level\DebugLevel\Tool">
       <UniqueIdentifier>{3b170142-de97-4669-9c05-0b0220fb79b6}</UniqueIdentifier>
     </Filter>
@@ -249,6 +243,15 @@
     </Filter>
     <Filter Include="0_Core\CoreLoad">
       <UniqueIdentifier>{8124cd25-a05a-423e-a6dc-7ceb378910d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_GUI">
+      <UniqueIdentifier>{55af7a50-a6b3-4ed2-8e73-6b3d75758333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_GUI\Tool">
+      <UniqueIdentifier>{d87681e1-aec4-4952-b4dd-91aaed9b0f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_GUI\Common">
+      <UniqueIdentifier>{c5899389-f8f5-4731-995d-0a49bf0f924a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -471,12 +474,6 @@
     <ClInclude Include="MouseCursorFollowTex.h">
       <Filter>2_Actor\Debug\MapTool</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineActorGUI.h">
-      <Filter>5_ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="MapToolGUI.h">
-      <Filter>5_ImGui</Filter>
-    </ClInclude>
     <ClInclude Include="TilemapHoverRenderActor.h">
       <Filter>2_Actor\Debug\MapTool</Filter>
     </ClInclude>
@@ -489,8 +486,14 @@
     <ClInclude Include="BackgroundToolLevel.h">
       <Filter>4_Level\DebugLevel\Tool\BackgroundTool</Filter>
     </ClInclude>
+    <ClInclude Include="MapToolGUI.h">
+      <Filter>5_GUI\Tool</Filter>
+    </ClInclude>
     <ClInclude Include="BackgroundToolGUI.h">
-      <Filter>5_ImGui</Filter>
+      <Filter>5_GUI\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineActorGUI.h">
+      <Filter>5_GUI\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -716,12 +719,6 @@
     <ClCompile Include="MouseCursorFollowTex.cpp">
       <Filter>2_Actor\Debug\MapTool</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineActorGUI.cpp">
-      <Filter>5_ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="MapToolGUI.cpp">
-      <Filter>5_ImGui</Filter>
-    </ClCompile>
     <ClCompile Include="TilemapHoverRenderActor.cpp">
       <Filter>2_Actor\Debug\MapTool</Filter>
     </ClCompile>
@@ -733,9 +730,6 @@
     </ClCompile>
     <ClCompile Include="BackgroundToolLevel.cpp">
       <Filter>4_Level\DebugLevel\Tool\BackgroundTool</Filter>
-    </ClCompile>
-    <ClCompile Include="BackgroundToolGUI.cpp">
-      <Filter>5_ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ContentCore_TilemapData.cpp">
       <Filter>0_Core\CoreLoad</Filter>
@@ -757,6 +751,15 @@
     </ClCompile>
     <ClCompile Include="ContentCore_BackgroundData.cpp">
       <Filter>0_Core\CoreLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundToolGUI.cpp">
+      <Filter>5_GUI\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolGUI.cpp">
+      <Filter>5_GUI\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineActorGUI.cpp">
+      <Filter>5_GUI\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
