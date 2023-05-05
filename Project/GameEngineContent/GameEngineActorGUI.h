@@ -15,7 +15,7 @@ public:
 	void Start() override;
 	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
 
-	void SetTarget(GameEngineTransform* _Target, const std::vector<std::function<void()>>& _CustomActorGuiFunctions = {0});
+	void SetTarget(GameEngineTransform* _Target, const std::vector<std::function<void()>>& _CustomActorGuiFunctions = {});
 
 	inline void EditorGui(std::function<void()> _GuiFunction)
 	{

@@ -19,30 +19,14 @@ void Background::Init(const BG_DESC& _Desc)
 		return;
 	}
 
-	Desc.Center;
-	Desc.Ratio;
-	BackImage->SetTexture(Desc.TextureName);
-	BackImage->GetTransform()->SetLocalScale(Desc.Size);
+	BackImage->SetTexture(Desc.Name);
+	BackImage->GetTransform()->SetLocalScale(Desc.TextureSize * Desc.TextureScale);
 	BackImage->On();
 
 	Buffer.OutColor = Desc.Color;
 	Buffer.Uv = float4::Zero;
 
 	GetTransform()->SetLocalPosition(Desc.Center);
-
-	if (true == Desc.Animation)
-	{
-		Desc.AnimationSpeed = Desc.AnimationSpeed / Desc.Size.x;
-
-		if (0 < Desc.AnimationSpeed)
-		{
-			AnimationMoveDir = float4(Desc.Size.x, 0, 0, 0);
-		}
-		else
-		{
-			AnimationMoveDir = float4(-Desc.Size.x, 0, 0, 0);
-		}
-	}
 }
 
 void Background::UpdateTargetPos(float _DeltaTime, const float4& _TargetPos)
@@ -56,7 +40,9 @@ void Background::UpdateTargetPos(float _DeltaTime, const float4& _TargetPos)
 	float4 RenderPos = Desc.Center;
 	float4 TargetDir = _TargetPos - Desc.Center;
 
-	RenderPos += TargetDir * (1.0f - Desc.Ratio);
+	TargetDir.z = Desc.Center.z;
+
+	RenderPos += TargetDir * (1.0f - Desc.MoveRatio);
 	RenderPos.z = Desc.Center.z;
 
 	if (true == Desc.Animation)
@@ -79,8 +65,6 @@ void Background::UpdateTargetPos(float _DeltaTime, const float4& _TargetPos)
 				Buffer.Uv.x += 1.0f;
 			}
 		}
-
-
 	}
 
 	BackImage->GetTransform()->SetLocalPosition(RenderPos);
@@ -88,34 +72,30 @@ void Background::UpdateTargetPos(float _DeltaTime, const float4& _TargetPos)
 
 void Background::SaveBin(GameEngineSerializer& _SaveSerializer) const
 {
-	// std::string TextureName = "";
-	// float4 Center = float4::Zero;
-	// float Ratio = 0.0f;
-	// float4 Size = float4::Zero;
-	// float4 Color = float4::Null;
-	// bool Animation = false;
-	// float AnimationSpeed = 0.0f;
-
-	_SaveSerializer.Write(Desc.TextureName);
+	_SaveSerializer.Write(Desc.Name);
+	_SaveSerializer.Write(&Desc.Index, sizeof(UINT));
 	_SaveSerializer.Write(&Desc.Center, sizeof(float4));
-	_SaveSerializer.Write(&Desc.Ratio, sizeof(float));
-	_SaveSerializer.Write(&Desc.Size, sizeof(float4));
-	_SaveSerializer.Write(&Desc.Color, sizeof(float4));
 	_SaveSerializer.Write(&Desc.Animation, sizeof(bool));
 	_SaveSerializer.Write(&Desc.AnimationSpeed, sizeof(float));
+	_SaveSerializer.Write(&Desc.MoveRatio, sizeof(float));
+	_SaveSerializer.Write(&Desc.TextureSize, sizeof(float4));
+	_SaveSerializer.Write(&Desc.TextureScale, sizeof(float));
+	_SaveSerializer.Write(&Desc.Color, sizeof(float4));
 }
 
-Background::BG_DESC Background::LoadBin(GameEngineSerializer& _SaveSerializer)
+BG_DESC Background::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
 	BG_DESC LoadDesc = BG_DESC();
 
-	_SaveSerializer.Read(LoadDesc.TextureName);
-	_SaveSerializer.Read((void*)&LoadDesc.Center, sizeof(float4));
-	_SaveSerializer.Read((void*)&LoadDesc.Ratio, sizeof(float));
-	_SaveSerializer.Read((void*)&LoadDesc.Size, sizeof(float4));
-	_SaveSerializer.Read((void*)&LoadDesc.Color, sizeof(float4));
-	_SaveSerializer.Read((void*)&LoadDesc.Animation, sizeof(bool));
-	_SaveSerializer.Read((void*)&LoadDesc.AnimationSpeed, sizeof(float));
+	_LoadSerializer.Read(LoadDesc.Name);
+	_LoadSerializer.Read((void*)&LoadDesc.Index, sizeof(UINT));
+	_LoadSerializer.Read((void*)&LoadDesc.Center, sizeof(float4));
+	_LoadSerializer.Read((void*)&LoadDesc.Animation, sizeof(bool));
+	_LoadSerializer.Read((void*)&LoadDesc.AnimationSpeed, sizeof(float));
+	_LoadSerializer.Read((void*)&LoadDesc.MoveRatio, sizeof(float));
+	_LoadSerializer.Read((void*)&LoadDesc.TextureSize, sizeof(float4));
+	_LoadSerializer.Read((void*)&LoadDesc.TextureScale, sizeof(float));
+	_LoadSerializer.Read((void*)&LoadDesc.Color, sizeof(float4));
 
 	return LoadDesc;
 }

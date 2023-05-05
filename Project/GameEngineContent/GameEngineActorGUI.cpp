@@ -135,8 +135,7 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 
 		if (nullptr == _CallbackRef)
 		{
-			MsgAssert_Rtti<GameEngineActorGUI>(" - nullptr 커스텀 Gui 콜백을 호출하려 했습니다");
-			return;
+			continue;
 		}
 
 		ImGui::Spacing();

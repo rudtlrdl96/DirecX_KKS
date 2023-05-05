@@ -15,6 +15,7 @@
 // ImGui
 #include "GameEngineActorGUI.h"
 #include "MapToolGUI.h"
+#include "BackgroundToolGUI.h"
 
 // Player Level
 #include "TitleLevel.h"
@@ -58,6 +59,7 @@ void ContentCore::CoreLoading()
 	MonsterDataLoad();
 	TileDataLoad();
 	StaticObjectLoad();
+	BackgroundDataLoad();
 
 	// Common Load
 	CommonTextureLoad();
@@ -250,4 +252,7 @@ void ContentCore::ImGuiCreate()
 
 	std::shared_ptr<GameEngineGUIWindow> MapToolGUIPtr = GameEngineGUI::GUIWindowCreate<MapToolGUI>("MapToolGUI");
 	MapToolGUIPtr->Off();
+
+	std::shared_ptr<GameEngineGUIWindow> BackgroundGUIPtr = GameEngineGUI::GUIWindowCreate<BackgroundToolGUI>("BackgroundToolGUI");
+	BackgroundGUIPtr->Off();
 }

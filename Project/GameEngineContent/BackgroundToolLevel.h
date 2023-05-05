@@ -16,8 +16,13 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	void LevelChangeStart() override;
+	void LevelChangeEnd() override;
 private:
+	void Save();
+	void Load();
 
-
+	std::shared_ptr<class MultiBackground> MultiBackgroundPtr = nullptr;
+	std::shared_ptr<class BackgroundToolGUI> BackgroundToolGUIPtr = nullptr;
 };
 

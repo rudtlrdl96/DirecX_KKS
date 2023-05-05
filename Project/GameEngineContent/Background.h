@@ -1,20 +1,28 @@
 #pragma once
 #include "BaseContentActor.h"
 
-class Background : public BaseContentActor
+class BG_DESC
 {
 public:
-	class BG_DESC
-	{
-	public:
-		std::string TextureName = "";
-		float4 Center = float4::Zero;
-		float Ratio = 0.0f;
-		float4 Size = float4::Zero;
-		float4 Color = float4::Zero;
-		bool Animation = false;
-		float AnimationSpeed = 0.0f;
-	};
+	std::string Name = "";
+	UINT Index = 0;
+	LevelArea Grade = LevelArea::None;
+
+	float4 Center = float4::Zero;
+
+	bool Animation = false;
+	float AnimationSpeed = 0.0f;
+
+	float MoveRatio = 0.0f;
+
+	float4 TextureSize = float4::Zero;
+	float TextureScale = 1.0f;
+
+	float4 Color = float4::Zero;
+};
+
+class Background : public BaseContentActor
+{
 public:
 	Background();
 	~Background();
@@ -39,6 +47,4 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> BackImage = nullptr;
 
 	TextureMoveBuffer Buffer;
-
-	float4 AnimationMoveDir = float4::Zero;
 };

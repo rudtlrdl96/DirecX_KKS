@@ -74,6 +74,10 @@ void ContentLevel::Update(float _DeltaTime)
 		{
 			Debug_LevelMove("MapTool");
 		}
+		else if (true == GameEngineInput::IsDown("NumPad5"))
+		{
+			Debug_LevelMove("BackgroundTool");
+		}
 	}
 	else if (true == GameEngineInput::IsPress("CheckUIAlt"))
 	{

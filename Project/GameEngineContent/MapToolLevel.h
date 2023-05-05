@@ -23,27 +23,27 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
-	void Save();
-	void Load();
-
 	void LevelChangeStart() override;
 	void LevelChangeEnd() override;
 
 private:
 	std::shared_ptr<class Tilemap> TilemapPtr = nullptr;
-	std::shared_ptr<class ObjectManager> ObjectMgr = nullptr;
+	std::shared_ptr<class ObjectManager> ObjectMgrPtr = nullptr;
 
-	std::shared_ptr<class TilemapPallet> TilemapPalletPtr = nullptr;
+	std::shared_ptr<class TilemapPallet> TilePalletPtr = nullptr;
 	std::shared_ptr<class MapToolGUI> MapToolGuiPtr = nullptr;
-	std::shared_ptr<class GameEngineActorGUI> ActorGUI = nullptr;
+	std::shared_ptr<class GameEngineActorGUI> ActorGUIPtr = nullptr;
 
 	std::shared_ptr<class TilemapHoverRenderActor> TilemapHoverPtr = nullptr;
-	std::shared_ptr<class TilemapOutlineRenderActor> TilemapOutLine = nullptr;
+	std::shared_ptr<class TilemapOutlineRenderActor> TilemapOutLinePtr = nullptr;
 		
 	MapToolState MapToolType = MapToolState::Tilemap;
 
 	UINT SelectIndex = 0;
 	float CameraSpeed = 500.0f;
+
+	void Save();
+	void Load();
 
 	void CameraMoveFunction(float _DeltaTime);
 };

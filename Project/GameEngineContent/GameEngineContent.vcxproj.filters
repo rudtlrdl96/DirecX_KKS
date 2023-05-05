@@ -142,15 +142,6 @@
     <Filter Include="4_Level\DebugLevel">
       <UniqueIdentifier>{86cc7c59-2073-4fd6-8252-5d08f1166dc8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="4_Level\DebugLevel\Animation">
-      <UniqueIdentifier>{fa872e57-dff1-464a-8cf2-0a264bbc178d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Level\DebugLevel\Shader">
-      <UniqueIdentifier>{7cb2c9ef-5890-48c1-b03b-067809aa1cc2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Level\DebugLevel\Battle">
-      <UniqueIdentifier>{9be16c7d-fa76-4cd7-81b1-cd038bf14c64}</UniqueIdentifier>
-    </Filter>
     <Filter Include="4_Level\GameLevel">
       <UniqueIdentifier>{c40299fa-bf45-4b05-9b09-e48a1cd0660a}</UniqueIdentifier>
     </Filter>
@@ -205,9 +196,6 @@
     <Filter Include="2_Actor\UI\Inventory">
       <UniqueIdentifier>{3c1e6f27-c93f-4136-af84-0eb498b9c103}</UniqueIdentifier>
     </Filter>
-    <Filter Include="4_Level\DebugLevel\InventoryDebug">
-      <UniqueIdentifier>{720c127f-8be1-444e-9336-6b5662081fc3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\UI\Inventory\InventorySlot">
       <UniqueIdentifier>{42ba3ee2-56cf-462a-aa3b-c85e95bb1a18}</UniqueIdentifier>
     </Filter>
@@ -216,9 +204,6 @@
     </Filter>
     <Filter Include="2_Actor\Player\Capture">
       <UniqueIdentifier>{1ee9704a-d7ba-47d3-b257-56db50907bde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Level\DebugLevel\MapTool">
-      <UniqueIdentifier>{e0381330-3519-4221-9cc1-b548154c8e2e}</UniqueIdentifier>
     </Filter>
     <Filter Include="1_Class\Shader">
       <UniqueIdentifier>{25084501-36bb-401c-a0fa-050591fc652d}</UniqueIdentifier>
@@ -238,11 +223,35 @@
     <Filter Include="5_ImGui">
       <UniqueIdentifier>{55af7a50-a6b3-4ed2-8e73-6b3d75758333}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Map\Object\InteractionObject">
-      <UniqueIdentifier>{01e8e598-a218-43e1-975d-9ecc45339501}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\Map\Object\EventObject">
       <UniqueIdentifier>{cfb67d9b-7d8b-425d-8e42-8749f3270a82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Tool">
+      <UniqueIdentifier>{3b170142-de97-4669-9c05-0b0220fb79b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Tool\MapTool">
+      <UniqueIdentifier>{e0381330-3519-4221-9cc1-b548154c8e2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Test">
+      <UniqueIdentifier>{bfbf03be-5dc1-478d-bd5e-5fb9086f129a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Test\Shader">
+      <UniqueIdentifier>{7cb2c9ef-5890-48c1-b03b-067809aa1cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Test\InventoryDebug">
+      <UniqueIdentifier>{720c127f-8be1-444e-9336-6b5662081fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Test\Battle">
+      <UniqueIdentifier>{9be16c7d-fa76-4cd7-81b1-cd038bf14c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Test\Animation">
+      <UniqueIdentifier>{fa872e57-dff1-464a-8cf2-0a264bbc178d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Level\DebugLevel\Tool\BackgroundTool">
+      <UniqueIdentifier>{8361f90a-fd4a-40ff-95d1-8a8f40e91669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_Core\CoreLoad">
+      <UniqueIdentifier>{8124cd25-a05a-423e-a6dc-7ceb378910d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -277,7 +286,7 @@
       <Filter>1_Class\Base\Data</Filter>
     </ClInclude>
     <ClInclude Include="ShaderDebugLevel.h">
-      <Filter>4_Level\DebugLevel\Shader</Filter>
+      <Filter>4_Level\DebugLevel\Test\Shader</Filter>
     </ClInclude>
     <ClInclude Include="ContentVertex.h">
       <Filter>1_Class\Shader\ContentVertex</Filter>
@@ -304,7 +313,7 @@
       <Filter>1_Class\Base\Data\Tile</Filter>
     </ClInclude>
     <ClInclude Include="BattleDebugLevel.h">
-      <Filter>4_Level\DebugLevel\Battle</Filter>
+      <Filter>4_Level\DebugLevel\Test\Battle</Filter>
     </ClInclude>
     <ClInclude Include="TileActor.h">
       <Filter>2_Actor\Map\Tile</Filter>
@@ -418,7 +427,7 @@
       <Filter>2_Actor\UI\Inventory</Filter>
     </ClInclude>
     <ClInclude Include="InventoryDebugLevel.h">
-      <Filter>4_Level\DebugLevel\InventoryDebug</Filter>
+      <Filter>4_Level\DebugLevel\Test\InventoryDebug</Filter>
     </ClInclude>
     <ClInclude Include="InventorySlot.h">
       <Filter>2_Actor\UI\Inventory\InventorySlot</Filter>
@@ -442,13 +451,10 @@
       <Filter>2_Actor\Player\Capture</Filter>
     </ClInclude>
     <ClInclude Include="MapToolLevel.h">
-      <Filter>4_Level\DebugLevel\MapTool</Filter>
+      <Filter>4_Level\DebugLevel\Tool\MapTool</Filter>
     </ClInclude>
     <ClInclude Include="HolyCourtyardLevel_Boss.h">
       <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
-    </ClInclude>
-    <ClInclude Include="BackgroundToolLevel.h">
-      <Filter>4_Level\DebugLevel\MapTool</Filter>
     </ClInclude>
     <ClInclude Include="ContentShaderBuffer.h">
       <Filter>1_Class\Shader\ShaderBuffer</Filter>
@@ -483,6 +489,12 @@
     <ClInclude Include="TilemapOutlineRenderActor.h">
       <Filter>2_Actor\Debug\MapTool</Filter>
     </ClInclude>
+    <ClInclude Include="BackgroundToolLevel.h">
+      <Filter>4_Level\DebugLevel\Tool\BackgroundTool</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundToolGUI.h">
+      <Filter>5_ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -516,7 +528,7 @@
       <Filter>1_Class\Base\Data</Filter>
     </ClCompile>
     <ClCompile Include="ShaderDebugLevel.cpp">
-      <Filter>4_Level\DebugLevel\Shader</Filter>
+      <Filter>4_Level\DebugLevel\Test\Shader</Filter>
     </ClCompile>
     <ClCompile Include="ContentVertex.cpp">
       <Filter>1_Class\Shader\ContentVertex</Filter>
@@ -526,18 +538,6 @@
     </ClCompile>
     <ClCompile Include="ContentDebug.cpp">
       <Filter>1_Class\Base\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="ContentCore_ItemData.cpp">
-      <Filter>0_Core</Filter>
-    </ClCompile>
-    <ClCompile Include="ContentCore_SkullData.cpp">
-      <Filter>0_Core</Filter>
-    </ClCompile>
-    <ClCompile Include="ContentCore_QuintessenceData.cpp">
-      <Filter>0_Core</Filter>
-    </ClCompile>
-    <ClCompile Include="ContentCore_MonsterData.cpp">
-      <Filter>0_Core</Filter>
     </ClCompile>
     <ClCompile Include="MonsterData.cpp">
       <Filter>1_Class\Base\Data\Monster</Filter>
@@ -554,11 +554,8 @@
     <ClCompile Include="TilemapData.cpp">
       <Filter>1_Class\Base\Data\Tile</Filter>
     </ClCompile>
-    <ClCompile Include="ContentCore_TilemapData.cpp">
-      <Filter>0_Core</Filter>
-    </ClCompile>
     <ClCompile Include="BattleDebugLevel.cpp">
-      <Filter>4_Level\DebugLevel\Battle</Filter>
+      <Filter>4_Level\DebugLevel\Test\Battle</Filter>
     </ClCompile>
     <ClCompile Include="TileActor.cpp">
       <Filter>2_Actor\Map\Tile</Filter>
@@ -629,9 +626,6 @@
     <ClCompile Include="ObjectManager.cpp">
       <Filter>2_Actor\Map\Object</Filter>
     </ClCompile>
-    <ClCompile Include="ContentCore_StaticObject.cpp">
-      <Filter>0_Core</Filter>
-    </ClCompile>
     <ClCompile Include="FadeActor.cpp">
       <Filter>2_Actor\UI\Common</Filter>
     </ClCompile>
@@ -678,7 +672,7 @@
       <Filter>2_Actor\UI\Inventory</Filter>
     </ClCompile>
     <ClCompile Include="InventoryDebugLevel.cpp">
-      <Filter>4_Level\DebugLevel\InventoryDebug</Filter>
+      <Filter>4_Level\DebugLevel\Test\InventoryDebug</Filter>
     </ClCompile>
     <ClCompile Include="InventorySlot.cpp">
       <Filter>2_Actor\UI\Inventory\InventorySlot</Filter>
@@ -702,13 +696,10 @@
       <Filter>2_Actor\Player\Capture</Filter>
     </ClCompile>
     <ClCompile Include="MapToolLevel.cpp">
-      <Filter>4_Level\DebugLevel\MapTool</Filter>
+      <Filter>4_Level\DebugLevel\Tool\MapTool</Filter>
     </ClCompile>
     <ClCompile Include="HolyCourtyardLevel_Boss.cpp">
       <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
-    </ClCompile>
-    <ClCompile Include="BackgroundToolLevel.cpp">
-      <Filter>4_Level\DebugLevel\MapTool</Filter>
     </ClCompile>
     <ClCompile Include="ContentShaderBuffer.cpp">
       <Filter>1_Class\Shader\ShaderBuffer</Filter>
@@ -742,6 +733,33 @@
     </ClCompile>
     <ClCompile Include="TilemapOutlineRenderActor.cpp">
       <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundToolLevel.cpp">
+      <Filter>4_Level\DebugLevel\Tool\BackgroundTool</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundToolGUI.cpp">
+      <Filter>5_ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_TilemapData.cpp">
+      <Filter>0_Core\CoreLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_ItemData.cpp">
+      <Filter>0_Core\CoreLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_MonsterData.cpp">
+      <Filter>0_Core\CoreLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_QuintessenceData.cpp">
+      <Filter>0_Core\CoreLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_SkullData.cpp">
+      <Filter>0_Core\CoreLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_StaticObject.cpp">
+      <Filter>0_Core\CoreLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_BackgroundData.cpp">
+      <Filter>0_Core\CoreLoad</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
