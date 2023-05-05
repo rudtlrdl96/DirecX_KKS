@@ -119,8 +119,48 @@ bool MapToolGUI::CheckTilemapReSizeTrigger()
 	return ReturnValue;
 }
 
+bool MapToolGUI::CheckDepthResizeTrigger()
+{
+	bool ReturnValue = IsTilemapReSizeTrigger;
+
+	IsDepthResizeTrigger = false;
+
+	return IsDepthResizeTrigger;
+}
+
 void MapToolGUI::DrawGui_Tilemap()
 {
+	ImGui::Spacing();
+
+	int InputDepthCount = static_cast<int>(TilemapDepthCount);
+
+	ImGui::InputInt("DepthCount", &InputDepthCount);
+
+	if (true == ImGui::Button("Depth Resize"))
+	{
+		IsDepthResizeTrigger = true;
+	}
+
+	if (InputDepthCount < 1)
+	{
+		InputDepthCount = 1;
+	}
+
+	TilemapDepthCount = static_cast<UINT>(InputDepthCount);
+
+	ImGui::Spacing();
+
+	int InputCurDepth = static_cast<int>(TilemapCurDepth);
+	ImGui::InputInt("Cur Depth", &InputCurDepth);
+
+	if (InputCurDepth < 0)
+	{
+		InputCurDepth = 0;
+	}
+
+	TilemapCurDepth = static_cast<UINT>(InputCurDepth);
+
+	ImGui::Spacing();
 	ImGui::Spacing();
 
 	int TileData[2] = { TilemapSize.x, TilemapSize.y};
@@ -138,9 +178,7 @@ void MapToolGUI::DrawGui_Tilemap()
 	{
 		TilemapSize.y = 1;
 	}
-
-	ImGui::SameLine();
-		
+			
 	if (true == ImGui::Button("Tilemap Resize"))
 	{
 		IsTilemapReSizeTrigger = true;

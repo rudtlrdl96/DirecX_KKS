@@ -64,6 +64,7 @@ void MapToolLevel::Start()
 
 	MapToolGuiPtr->Pushback_SObjectCallbackFunc(std::bind(&ObjectManager::ShowGUI, ObjectMgr));
 	MapToolGuiPtr->SetTilemapSize(TilemapPtr->GetSize());
+	MapToolGuiPtr->SetDepthCount(TilemapPtr->GetDepthCount());
 
 	ActorGUI = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 
@@ -106,6 +107,11 @@ void MapToolLevel::Update(float _DeltaTime)
 
 		int2 InputMapSize = MapToolGuiPtr->GetTilemapSize();
 
+		if (true == MapToolGuiPtr->CheckDepthResizeTrigger())
+		{
+			TilemapPtr->SetDepth(MapToolGuiPtr->GetDepthCount());
+		}
+
 		if (true == MapToolGuiPtr->CheckTilemapReSizeTrigger())
 		{
 			TilemapPtr->ResizeTilemap(static_cast<UINT>(InputMapSize.x),static_cast<UINT>(InputMapSize.y));
@@ -124,7 +130,15 @@ void MapToolLevel::Update(float _DeltaTime)
 
 		if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsPress("ToolActive"))
 		{
-			TilemapPtr->ChangeData(0, MouseIndex.x, MouseIndex.y, TilemapPalletPtr->GetPencleIndex());
+			UINT MapToolDepthCount = MapToolGuiPtr->GetCurDepth();
+
+			if (MapToolDepthCount >= TilemapPtr->GetDepthCount())
+			{
+				MapToolDepthCount = TilemapPtr->GetDepthCount() - 1;
+				MapToolGuiPtr->SetCurDepth(MapToolDepthCount);
+			}
+
+			TilemapPtr->ChangeData(MapToolDepthCount, MouseIndex.x, MouseIndex.y, TilemapPalletPtr->GetPencleIndex());
 		}
 	}
 		break;
@@ -138,15 +152,18 @@ void MapToolLevel::Update(float _DeltaTime)
 		}
 		else
 		{
-			ActorGUI->SetTarget(GetActorPtr->GetTransform());
+			ActorGUI->SetTarget(GetActorPtr->GetTransform(), {std::bind(&BaseContentActor::ShowGUI, GetActorPtr)});
 		}
 
 
 		if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
 		{
 			float4 TestMousePos = GetMousePos();
+			TestMousePos.z = 0;
+
 			SObject_DESC NewObjectDesc = MapToolGuiPtr->GetSelectSObject();
 			NewObjectDesc.Pos = TestMousePos;
+
 			ObjectMgr->CreateStaticObject(NewObjectDesc);
 		}
 	}

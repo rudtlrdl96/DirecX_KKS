@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "StaticObject.h"
+#include <GameEngineCore/imgui.h>
 
 #if _DEBUG
 std::shared_ptr<StaticObject> StaticObject::FocusStaticObject = nullptr;
@@ -46,6 +47,7 @@ void StaticObject::SaveBin(GameEngineSerializer& _SaveSerializer)
 	Desc.Pos = GetTransform()->GetLocalPosition();
 	Desc.Rot = GetTransform()->GetLocalRotation();
 	Desc.Scale = GetTransform()->GetLocalScale();
+	Desc.Color = Buffer.Color;
 
 	_SaveSerializer.Write(Desc.Name);
 	_SaveSerializer.Write(&Desc.Index, sizeof(size_t));
@@ -55,6 +57,7 @@ void StaticObject::SaveBin(GameEngineSerializer& _SaveSerializer)
 	_SaveSerializer.Write(&Desc.Scale, sizeof(float4));
 	_SaveSerializer.Write(&Desc.Size, sizeof(float4));
 	_SaveSerializer.Write(&Desc.Color, sizeof(float4));
+
 }
 
 SObject_DESC StaticObject::LoadBin(GameEngineSerializer& _LoadSerializer)
@@ -71,6 +74,27 @@ SObject_DESC StaticObject::LoadBin(GameEngineSerializer& _LoadSerializer)
 	_LoadSerializer.Read(&LoadDesc.Color, sizeof(float4));
 	
 	return LoadDesc;
+}
+
+void StaticObject::ShowGUI()
+{
+	ImGui::Spacing();
+
+	float Color[4] = { Buffer.Color.x, Buffer.Color.y, Buffer.Color.z, Buffer.Color.w };
+	ImGui::ColorEdit4("MyColor##1", Color);
+	
+	if (Buffer.Color.x != Color[0] ||
+		Buffer.Color.y != Color[1] ||
+		Buffer.Color.z != Color[2] ||
+		Buffer.Color.w != Color[3])
+	{
+		Buffer.Color.x = Color[0];
+		Buffer.Color.y = Color[1];
+		Buffer.Color.z = Color[2];
+		Buffer.Color.w = Color[3];
+	}
+
+	//ImGui::ColorEdit4();
 }
 
 void StaticObject::Start()

@@ -30,8 +30,15 @@ public:
 
 	void Init(const SObject_DESC& _Desc);
 
+	const SObject_DESC& GetDesc() const
+	{
+		return Desc;
+	}
+
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	static SObject_DESC LoadBin(GameEngineSerializer& _LoadSerializer);
+
+	void ShowGUI() override;
 
 protected:
 	void Start() override;

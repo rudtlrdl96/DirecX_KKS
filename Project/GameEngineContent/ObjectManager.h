@@ -14,13 +14,13 @@ public:
 	ObjectManager& operator=(const ObjectManager& _Other) = delete;
 	ObjectManager& operator=(ObjectManager&& _Other) noexcept = delete;
 
-	void CreateStaticObject(const SObject_DESC& _Desc);
+	std::shared_ptr<StaticObject> CreateStaticObject(const SObject_DESC& _Desc);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
 
 	void ShowGUI() override;
-
+	
 	inline std::shared_ptr<BaseContentActor> GetSelectSObject() const
 	{
 		if (CurrentStaticObjectIndex < 0 || CurrentStaticObjectIndex >= StaticObjectActors.size())

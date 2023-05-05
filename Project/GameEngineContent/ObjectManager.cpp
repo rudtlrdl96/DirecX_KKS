@@ -12,11 +12,11 @@ ObjectManager::~ObjectManager()
 {
 }
 
-void ObjectManager::CreateStaticObject(const SObject_DESC& _Desc)
+std::shared_ptr<StaticObject> ObjectManager::CreateStaticObject(const SObject_DESC& _Desc)
 {
 	if ("" == _Desc.Name)
 	{
-		return;
+		return nullptr;
 	}
 
 	std::shared_ptr<StaticObject> CreatePtr = GetLevel()->CreateActor<StaticObject>();
@@ -24,6 +24,9 @@ void ObjectManager::CreateStaticObject(const SObject_DESC& _Desc)
 	CreatePtr->GetTransform()->SetParent(this->GetTransform());
 	CreatePtr->Init(_Desc);
 	StaticObjectActors.push_back(CreatePtr);
+	CurrentStaticObjectIndex = static_cast<int>(StaticObjectActors.size() - 1);
+
+	return CreatePtr;
 }
 
 void ObjectManager::SaveBin(GameEngineSerializer& _SaveSerializer) const
@@ -97,5 +100,41 @@ void ObjectManager::ShowGUI()
 		}
 
 		ImGui::EndListBox();
+	}
+
+	if (true == ImGui::Button("Copy", ImVec2(70, 25)))
+	{
+		if (CurrentStaticObjectIndex < 0)
+		{
+			return;
+		}
+
+		CreateStaticObject(StaticObjectActors[CurrentStaticObjectIndex]->GetDesc());
+	}
+
+	if (true == ImGui::Button("Remove", ImVec2(70, 25)))
+	{
+		if (CurrentStaticObjectIndex < 0)
+		{
+			return;
+		}
+
+		std::vector<std::shared_ptr<StaticObject>>::iterator EraseIter = StaticObjectActors.begin();
+
+		EraseIter += CurrentStaticObjectIndex;
+
+		(*EraseIter)->Death();
+		(*EraseIter) = nullptr;
+		EraseIter = StaticObjectActors.erase(EraseIter);
+
+		if (CurrentStaticObjectIndex >= StaticObjectActors.size())
+		{
+			CurrentStaticObjectIndex = static_cast<int>(StaticObjectActors.size() - 1);
+		}
+
+		if (StaticObjectActors.size() <= 0)
+		{
+			CurrentStaticObjectIndex = -1;
+		}
 	}
 }

@@ -59,6 +59,26 @@ public:
 		return MapToolType;
 	}
 
+	inline void SetDepthCount(UINT _DepthCount)
+	{
+		TilemapDepthCount = _DepthCount;
+	}
+
+	inline void SetCurDepth(UINT _CurDepth)
+	{
+		TilemapCurDepth = _CurDepth;
+	}
+
+	inline UINT GetDepthCount() const
+	{
+		return TilemapDepthCount;
+	}
+
+	inline UINT GetCurDepth() const
+	{
+		return TilemapCurDepth;
+	}
+
 	inline void Pushback_SObjectCallbackFunc(std::function<void()> _FunctionPtr)
 	{
 		SObjectCallback.push_back(_FunctionPtr);
@@ -77,6 +97,7 @@ public:
 	bool CheckSaveTrigger();
 	bool CheckLoadTrigger();
 	bool CheckTilemapReSizeTrigger();
+	bool CheckDepthResizeTrigger();
 
 protected:
 	
@@ -92,6 +113,9 @@ private:
 	const char* AreaComboText[6] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard"};
 	const char* MapToolComboText[3] = {"Tilemap" ,"Object", "Light"};
 
+	UINT TilemapDepthCount = 0;
+	UINT TilemapCurDepth = 0;
+
 	float4 TileSize = float4::Zero;
 	int2 TilemapSize = int2::Zero;
 
@@ -104,6 +128,7 @@ private:
 	bool IsSaveTrigger = false;
 	bool IsLoadTrigger = false;
 	bool IsTilemapReSizeTrigger = false;
+	bool IsDepthResizeTrigger = false;
 
 	void TileDatasLoad(LevelArea _Area);
 	void SObjectDatasLoad(LevelArea _Area);

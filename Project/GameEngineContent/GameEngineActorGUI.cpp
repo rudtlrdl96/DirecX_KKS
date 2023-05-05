@@ -146,7 +146,7 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 	}
 }
 
-void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target)
+void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target, const std::vector<std::function<void()>>& _CustomActorGuiFunctions)
 {
 	if (TargetTransform == _Target)
 	{
@@ -181,6 +181,11 @@ void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target)
 		Scale[2] = LocalScale.z;
 		Scale[3] = LocalScale.w;
 
+	}
+
+	for (size_t i = 0; i < _CustomActorGuiFunctions.size(); i++)
+	{
+		CustomActorGuiFunctions.push_back(_CustomActorGuiFunctions[i]);
 	}
 }
 

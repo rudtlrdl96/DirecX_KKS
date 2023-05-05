@@ -51,6 +51,11 @@ public:
 		return TilemapSize;
 	}
 
+	inline UINT GetDepthCount() const
+	{
+		return static_cast<UINT>(TilemapDatas.size());
+	}
+
 	Tilemap_Meta GetTilemap_DESC(int _Depth);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
