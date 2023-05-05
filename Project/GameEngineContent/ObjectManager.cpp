@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "ObjectManager.h"
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/imgui.h>
 
 ObjectManager::ObjectManager()
 {
@@ -13,7 +14,13 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::CreateStaticObject(const SObject_DESC& _Desc)
 {
+	if ("" == _Desc.Name)
+	{
+		return;
+	}
+
 	std::shared_ptr<StaticObject> CreatePtr = GetLevel()->CreateActor<StaticObject>();
+	CreatePtr->SetName(_Desc.Name + " - " + std::to_string(CreatePtr->GetActorCode()));
 	CreatePtr->GetTransform()->SetParent(this->GetTransform());
 	CreatePtr->Init(_Desc);
 	StaticObjectActors.push_back(CreatePtr);
@@ -67,5 +74,28 @@ void ObjectManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 	for (int i = 0; i < BrokenObjectCount; i++)
 	{
+	}
+}
+
+
+void ObjectManager::ShowGUI()
+{
+	if (ImGui::BeginListBox("SObjectBox 1"))
+	{
+		for (int n = 0; n < StaticObjectActors.size(); n++)
+		{
+			const bool is_selected = (CurrentStaticObjectIndex == n);
+
+			if (ImGui::Selectable(StaticObjectActors[n]->GetName().data(), is_selected))
+			{
+				CurrentStaticObjectIndex = n;
+			}
+
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+
+		ImGui::EndListBox();
 	}
 }

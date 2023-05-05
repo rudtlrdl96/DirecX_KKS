@@ -59,6 +59,21 @@ public:
 		return MapToolType;
 	}
 
+	inline void Pushback_SObjectCallbackFunc(std::function<void()> _FunctionPtr)
+	{
+		SObjectCallback.push_back(_FunctionPtr);
+	}
+
+	inline void SetTilemapSize(int2 _Size)
+	{
+		TilemapSize = _Size;
+	}
+
+	inline int2 GetTilemapSize() const
+	{
+		return TilemapSize;
+	}
+
 	bool CheckSaveTrigger();
 	bool CheckLoadTrigger();
 
@@ -68,15 +83,16 @@ private:
 	std::map<LevelArea, std::vector<MapTool_TilemapData>> TileTexDatas;
 	std::map<LevelArea, std::vector<MapTool_SObjectData>> SObjectTexDatas;
 
-	std::shared_ptr<class ObjectManager> ObjectMgrPtr = nullptr;
-
 	LevelArea CurShowAreaTile = LevelArea::None;
 	MapToolLevel::MapToolState MapToolType = MapToolLevel::MapToolState::Tilemap;
+
+	std::vector<std::function<void()>> SObjectCallback;
 
 	const char* AreaComboText[6] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard"};
 	const char* MapToolComboText[3] = {"Tilemap" ,"Object", "Light"};
 
 	float4 TileSize = float4::Zero;
+	int2 TilemapSize = int2::Zero;
 
 	UINT SelectTileIndex = 0;
 	SObject_DESC SelectSObject_Desc;

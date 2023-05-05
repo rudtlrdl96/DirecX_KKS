@@ -14,6 +14,16 @@ public:
 	int x = 0;
 	int y = 0;
 
+	bool operator==(const int2& _Other)
+	{
+		return (this->x == _Other.x) && (this->y == _Other.y);
+	}
+
+	bool operator!=(const int2& _Other)
+	{
+		return (this->x != _Other.x) || (this->y != _Other.y);
+	}
+
 	int2 operator+(const int2& _Other)
 	{
 		int2 Result = *this;
@@ -69,6 +79,17 @@ public:
 
 		return Result;
 	}
+
+	float4 operator*(const float4& _Other)
+	{
+		float4 Result = { static_cast<float>(this->x), static_cast<float>(this->y)};
+
+		Result.x *= _Other.x;
+		Result.y *= _Other.y;
+
+		return Result;
+	}
+
 
 	int2& operator*=(const int2& _Other)
 	{

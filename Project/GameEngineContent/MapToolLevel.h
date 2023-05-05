@@ -38,6 +38,7 @@ private:
 	std::shared_ptr<class GameEngineActorGUI> ActorGUI = nullptr;
 
 	std::shared_ptr<class TilemapHoverRenderActor> TilemapHoverPtr = nullptr;
+	std::shared_ptr<class TilemapOutlineRenderActor> TilemapOutLine = nullptr;
 		
 	MapToolState MapToolType = MapToolState::Tilemap;
 

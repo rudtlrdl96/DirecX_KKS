@@ -19,10 +19,24 @@ public:
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
 
+	void ShowGUI() override;
+
+	inline std::shared_ptr<BaseContentActor> GetSelectSObject() const
+	{
+		if (CurrentStaticObjectIndex < 0 || CurrentStaticObjectIndex >= StaticObjectActors.size())
+		{
+			return nullptr;
+		}
+
+		return StaticObjectActors[CurrentStaticObjectIndex];
+	}
+
 protected:
-	
+
 private:
 	std::vector<std::shared_ptr<StaticObject>> StaticObjectActors;
 	std::vector<std::shared_ptr<BrokenObject>> BrokenObjectActors;
+
+	int CurrentStaticObjectIndex = -1;
 };
 

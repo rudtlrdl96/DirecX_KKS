@@ -480,6 +480,9 @@
     <ClInclude Include="BrokenObject.h">
       <Filter>2_Actor\Map\Object\BrokenObject</Filter>
     </ClInclude>
+    <ClInclude Include="TilemapOutlineRenderActor.h">
+      <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -736,6 +739,9 @@
     </ClCompile>
     <ClCompile Include="BrokenObject.cpp">
       <Filter>2_Actor\Map\Object\BrokenObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapOutlineRenderActor.cpp">
+      <Filter>2_Actor\Debug\MapTool</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

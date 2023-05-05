@@ -69,7 +69,7 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 
 	float4 GetRoation = float4::Zero;
 
-	if (true == IsWorldPostion)
+	if (true == IsWorldRotation)
 	{
 		TargetTransform->SetWorldRotation(TargetTransform->GetWorldRotation());
 		GetRoation = TargetTransform->GetWorldRotation();
@@ -148,6 +148,11 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 
 void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target)
 {
+	if (TargetTransform == _Target)
+	{
+		return;
+	}
+
 	CustomActorGuiFunctions.clear();
 	TargetTransform = _Target;
 

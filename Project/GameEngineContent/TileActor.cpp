@@ -16,14 +16,14 @@ void TileActor::SetTileData(const TilemapData& _Data)
 
 	if (0 == Data.Index)
 	{
-		DrawRender->Off();
-		Off();
+		TileOff();
 		return;
 	}
 
-	DrawRender->GetTransform()->SetLocalPosition({0, -ContentConst::TileSize.hy()});	
+	DrawRender->GetTransform()->SetLocalPosition({ 0, -ContentConst::TileSize.hy() });
 	DrawRender->SetTexture(Data.Name);
-	DrawRender->On();
+
+	TileOn();
 }
 
 void TileActor::SaveBin(GameEngineSerializer& _SaveSerializer) const
@@ -36,6 +36,18 @@ UINT TileActor::LoadBin(GameEngineSerializer& _LoadSerializer)
 	UINT LoadIndex = 0;
 	_LoadSerializer.Read(&LoadIndex, sizeof(UINT));
 	return LoadIndex;
+}
+
+void TileActor::TileOn()
+{
+	DrawRender->On();
+	On();
+}
+
+void TileActor::TileOff()
+{
+	Off();
+	DrawRender->Off();
 }
 
 void TileActor::Start()

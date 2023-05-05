@@ -153,7 +153,8 @@ void BattleDebugLevel::Start()
 	}
 
 	DebugTilemap = CreateActor<Tilemap>();
-	DebugTilemap->ResizeTilemap(80, 12, 0);
+	DebugTilemap->SetDepth(1); 
+	DebugTilemap->ResizeTilemap(80, 12);
 
 	DebugTilemap->ChangeData(0, 0, 79, 0, 11, 0);
 	DebugTilemap->ChangeData(0, 0, 79, 0, 0, 2);

@@ -11,6 +11,7 @@
 #include "ObjectManager.h"
 #include "TilemapPallet.h"
 #include "TilemapHoverRenderActor.h"
+#include "TilemapOutlineRenderActor.h"
 
 #include "GameEngineActorGUI.h"
 #include "MapToolGUI.h"
@@ -43,8 +44,11 @@ void MapToolLevel::Start()
 		GameEngineInput::CreateKey("CameraMoveBoost", VK_LSHIFT);
 	}
 
+	TilemapOutLine = CreateActor<TilemapOutlineRenderActor>();
 	TilemapPtr = CreateActor<Tilemap>();
-	TilemapPtr->ResizeTilemap(20, 20, 0);
+
+	TilemapPtr->SetDepth(2);
+	TilemapPtr->ResizeTilemap(20, 20);
 
 	ObjectMgr = CreateActor<ObjectManager>();
 
@@ -58,6 +62,9 @@ void MapToolLevel::Start()
 		MsgAssert_Rtti<MapToolLevel>(" - 맵툴 Gui가 생성되지 않았습니다.");
 	}
 
+	MapToolGuiPtr->Pushback_SObjectCallbackFunc(std::bind(&ObjectManager::ShowGUI, ObjectMgr));
+	MapToolGuiPtr->SetTilemapSize(TilemapPtr->GetSize());
+
 	ActorGUI = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 
 	if (nullptr == ActorGUI)
@@ -66,6 +73,7 @@ void MapToolLevel::Start()
 	}
 
 	TilemapHoverPtr = CreateActor<TilemapHoverRenderActor>();
+	TilemapOutLine->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
 }
 
 void MapToolLevel::Update(float _DeltaTime)
@@ -81,19 +89,31 @@ void MapToolLevel::Update(float _DeltaTime)
 	{
 	case MapToolLevel::MapToolState::Tilemap:
 	{
+		ActorGUI->SetTarget(nullptr);
 		TilemapPalletPtr->SetActiveCursor(true);
 		TilemapPalletPtr->On();
 
-		float4 TestMousePos = GetMousePos();
-		int2 MouseIndex = TilemapPtr->GetTileIndex(TestMousePos);
+		float4 WorldMousePos = GetMousePos();
+		WorldMousePos.z = 0.0f;
+
+		int2 MouseIndex = TilemapPtr->GetTileIndex(WorldMousePos);
 
 		UINT CastingIndexX = static_cast<UINT>(MouseIndex.x);
 		UINT CastingIndexY = static_cast<UINT>(MouseIndex.y);
 
 
-		TilemapPalletPtr->GetTransform()->SetWorldPosition(TestMousePos);
+		TilemapPalletPtr->GetTransform()->SetWorldPosition(WorldMousePos);
 
-		if (MouseIndex.x >= 0 && MouseIndex.y >= 0)
+		int2 InputMapSize = MapToolGuiPtr->GetTilemapSize();
+		int2 CreateTilemapSize = TilemapPtr->GetSize();
+
+		if (InputMapSize != CreateTilemapSize)
+		{
+			TilemapPtr->ResizeTilemap(static_cast<UINT>(InputMapSize.x),static_cast<UINT>(InputMapSize.y));
+			TilemapOutLine->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
+		}
+
+		if ( MouseIndex.x >= 0 && MouseIndex.y >= 0 && false == TilemapPtr->IsOver(MouseIndex.x, MouseIndex.y))
 		{
 			TilemapHoverPtr->HoverOn();
 			TilemapHoverPtr->GetTransform()->SetWorldPosition(TilemapPtr->GetTilePos(CastingIndexX, CastingIndexY));
@@ -111,7 +131,18 @@ void MapToolLevel::Update(float _DeltaTime)
 		break;
 	case MapToolLevel::MapToolState::Object:
 	{
-		
+		std::shared_ptr<BaseContentActor> GetActorPtr = ObjectMgr->GetSelectSObject();
+
+		if (nullptr == GetActorPtr)
+		{
+			ActorGUI->SetTarget(nullptr);
+		}
+		else
+		{
+			ActorGUI->SetTarget(GetActorPtr->GetTransform());
+		}
+
+
 		if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
 		{
 			float4 TestMousePos = GetMousePos();
@@ -229,12 +260,12 @@ void MapToolLevel::CameraMoveFunction(float _DeltaTime)
 
 	if (GameEngineInput::IsDown("TempSizeUp"))
 	{
-		TilemapPtr->ResizeTilemap(TilemapPtr->SizeX(0) + 1, TilemapPtr->SizeY(0) + 1, 0);
+		TilemapPtr->ResizeTilemap(TilemapPtr->SizeX() + 1, TilemapPtr->SizeY() + 1);
 	}
 
 	if (GameEngineInput::IsDown("TempSizeDown"))
 	{
-		TilemapPtr->ResizeTilemap(TilemapPtr->SizeX(0) - 1, TilemapPtr->SizeY(0) - 1, 0);
+		TilemapPtr->ResizeTilemap(TilemapPtr->SizeX() - 1, TilemapPtr->SizeY() - 1);
 	}
 
 	if (GameEngineInput::IsPress("CameraMoveUp"))

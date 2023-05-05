@@ -34,15 +34,7 @@ void MapToolGUI::Start()
 
 void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 {
-	std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find("DebugBoxTexture.png");
-
-	if (nullptr == FindTex)
-	{
-		MsgAssert_Rtti<MapToolGUI>(" - 텍스쳐를 찾을 수 없습니다.");
-		return;
-	}
-
-	if (true == ImGui::Button("Save", ImVec2(60, 20)))
+	if (true == ImGui::Button("Save", ImVec2(60, 25)))
 	{
 		IsSaveTrigger = true;
 		return;
@@ -50,12 +42,12 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 
 	ImGui::SameLine();
 
-	if (true == ImGui::Button("Load", ImVec2(60, 20)))
+	if (true == ImGui::Button("Load", ImVec2(60, 25)))
 	{
 		IsLoadTrigger = true;
 		return;
 	}
-		
+			
 	ImGui::Spacing();
 	ImGui::Spacing();
 	ImGui::Spacing();
@@ -120,6 +112,24 @@ bool MapToolGUI::CheckLoadTrigger()
 
 void MapToolGUI::DrawGui_Tilemap()
 {
+	ImGui::Spacing();
+
+	int TileData[2] = { TilemapSize.x, TilemapSize.y};
+	ImGui::DragInt2("TilemapSize", TileData);
+
+	TilemapSize.x = TileData[0];
+	TilemapSize.y = TileData[1];
+
+	if (TilemapSize.x < 1)
+	{
+		TilemapSize.x = 1;
+	}
+
+	if (TilemapSize.y < 1)
+	{
+		TilemapSize.y = 1;
+	}
+
 	const std::vector<MapTool_TilemapData>& BufferTextureDatas = TileTexDatas[CurShowAreaTile];
 
 	ImGui::Spacing();
@@ -143,6 +153,14 @@ void MapToolGUI::DrawGui_Object()
 	const std::vector<MapTool_SObjectData>& BufferTextureDatas = SObjectTexDatas[CurShowAreaTile];
 
 	ImGui::Spacing();
+
+	for (size_t i = 0; i < SObjectCallback.size(); i++)
+	{
+		if (nullptr != SObjectCallback[i])
+		{
+			SObjectCallback[i]();
+		}
+	}
 
 	for (size_t i = 0; i < BufferTextureDatas.size(); i++)
 	{
@@ -204,17 +222,4 @@ void MapToolGUI::SObjectDatasLoad(LevelArea _Area)
 
 		BufferTextureDatas.push_back(MapTool_SObjectData(CopyDatas[i], FindTex));
 	}
-
-	if (nullptr == ObjectMgrPtr)
-	{
-		return;
-	}
-
-	if (true == ObjectMgrPtr->IsDeath())
-	{
-		ObjectMgrPtr = nullptr;
-		return;
-	}
-
-
 }

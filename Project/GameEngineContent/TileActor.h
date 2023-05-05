@@ -20,16 +20,23 @@ public:
 
 	void SetTileData(const TilemapData& _Data);
 
+	inline UINT GetTileIndex() const
+	{
+		return Data.Index;
+	}
+
+
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
 	static UINT LoadBin(GameEngineSerializer& _LoadSerializer);
+
+	void TileOn();
+	void TileOff();
 
 protected:
 	void Start() override;
 
 
 private:
-	int2 TileIndex = int2::Zero;
-
 	ColorBuffer Buffer;
 	float4 TileColor = float4::Zero;
 

@@ -20,6 +20,8 @@ public:
 		return Code;
 	}
 
+	virtual void ShowGUI() {}
+
 protected:
 
 private:

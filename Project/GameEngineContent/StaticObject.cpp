@@ -29,7 +29,7 @@ void StaticObject::Init(const SObject_DESC& _Desc)
 
 	ImageRender->SetTexture(Desc.Name);
 	ImageRender->GetTransform()->SetLocalScale(Desc.Size);
-	ImageRender->GetTransform()->SetLocalPosition(Desc.Pos);
+	GetTransform()->SetLocalPosition(Desc.Pos);
 
 	float4 ActorScale = GetTransform()->GetLocalScale();
 	float4 RenderScale = ImageRender->GetTransform()->GetLocalScale();
