@@ -4,6 +4,7 @@
 
 class MultiBackground : public BaseContentActor
 {
+	
 public:
 	MultiBackground();
 	~MultiBackground();

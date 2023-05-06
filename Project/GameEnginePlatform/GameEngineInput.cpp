@@ -14,7 +14,7 @@ float4 GameEngineInput::MouseDirection;
 
 void GameEngineInput::GameEngineKey::Update(float _DeltaTime)
 {
-	if (true == KeyCheck())
+	if (true == KeyCheck() && NULL != GetFocus())
 	{
 		PressTime += _DeltaTime;
 		if (true == Free)
