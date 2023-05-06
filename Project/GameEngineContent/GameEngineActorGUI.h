@@ -43,6 +43,5 @@ private:
 	
 	std::vector<std::function<void()>> CustomActorGuiFunctions;
 
-	static float4 ConvertFloat4(float _FloatArr[4]);
 };
 

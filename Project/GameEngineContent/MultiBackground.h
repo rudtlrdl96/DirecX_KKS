@@ -20,6 +20,7 @@ public:
 	void LoadBin(GameEngineSerializer& _SaveSerializer);
 
 	void ShowGUI() override;
+	void ClearBackground();
 protected:
 	
 private:

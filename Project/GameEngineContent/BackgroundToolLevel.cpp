@@ -3,6 +3,7 @@
 #include "MultiBackground.h"
 #include "BackgroundToolGUI.h"
 #include "ContentDatabase.h"
+#include "DebugSpriteActor.h"
 
 BackgroundToolLevel::BackgroundToolLevel()
 {
@@ -27,6 +28,10 @@ void BackgroundToolLevel::Start()
 	}
 
 	BackgroundToolGUIPtr->Pushback_OnGuiCallbackFunc(std::bind(&MultiBackground::ShowGUI, MultiBackgroundPtr));
+
+	DebugActor = CreateActor<DebugSpriteActor>();
+
+	MainCamCtrl.SetLookatTarget(DebugActor);
 }
 
 void BackgroundToolLevel::Update(float _DeltaTime)
@@ -42,6 +47,17 @@ void BackgroundToolLevel::Update(float _DeltaTime)
 			BG_DESC NewDesc = ContentDatabase<BG_DESC, LevelArea>::GetData(static_cast<size_t>(NewIndex));
 			MultiBackgroundPtr->CreateBackground(NewDesc);
 		}
+	}
+
+	MultiBackgroundPtr->UpdateTargetPos(_DeltaTime, MainCamCtrl.GetCameraPos());
+
+	if (true == BackgroundToolGUIPtr->CheckSaveTrigger())
+	{
+		Save();
+	}
+	else if (true == BackgroundToolGUIPtr->CheckLoadTrigger())
+	{
+		Load();
 	}
 }
 
@@ -65,11 +81,41 @@ void BackgroundToolLevel::LevelChangeEnd()
 	BackgroundToolGUIPtr->Off();
 }
 
+
+
 void BackgroundToolLevel::Save()
 {
+	std::string Path = ContentFunc::GetSaveFilePath();
+
+	if ("" == Path)
+	{
+		return;
+	}
+
+	GameEngineSerializer SaveSerializer;
+	SaveSerializer.BufferResize(2048);
+
+	MultiBackgroundPtr->SaveBin(SaveSerializer);
+
+	GameEngineFile SaveFile = GameEngineFile(Path);
+	SaveFile.SaveBin(SaveSerializer);
 
 }
 
 void BackgroundToolLevel::Load()
 {
+	std::string Path = ContentFunc::GetOpenFilePath();
+
+	if ("" == Path)
+	{
+		return;
+	}
+
+	GameEngineFile LoadFile = GameEngineFile(Path);
+
+	GameEngineSerializer SaveSerializer;
+	SaveSerializer.BufferResize(2048);
+	LoadFile.LoadBin(SaveSerializer);
+
+	MultiBackgroundPtr->LoadBin(SaveSerializer);
 }

@@ -32,6 +32,8 @@ public:
 	}
 
 	bool CheckCreateTrigger();
+	bool CheckSaveTrigger();
+	bool CheckLoadTrigger();
 
 	inline int GetSelectBackgroundIndex() const
 	{

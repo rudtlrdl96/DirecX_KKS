@@ -24,5 +24,7 @@ private:
 
 	std::shared_ptr<class MultiBackground> MultiBackgroundPtr = nullptr;
 	std::shared_ptr<class BackgroundToolGUI> BackgroundToolGUIPtr = nullptr;
+
+	std::shared_ptr<class DebugSpriteActor> DebugActor = nullptr;
 };
 

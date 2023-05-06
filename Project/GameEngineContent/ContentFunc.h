@@ -18,6 +18,8 @@ public:
 	static std::string GetOpenFilePath();
 	static std::string GetSaveFilePath();
 
+	static float4 ConvertFloat4(float _FloatArr[4]);
+
 protected:
 	
 private:

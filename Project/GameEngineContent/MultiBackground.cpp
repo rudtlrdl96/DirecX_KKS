@@ -16,6 +16,8 @@ void MultiBackground::CreateBackground(BG_DESC& _Desc)
 	std::shared_ptr<Background> NewBackground = GetLevel()->CreateActor<Background>();
 	NewBackground->SetName(_Desc.Name + " - " + std::to_string(NewBackground->GetActorCode()));
 	NewBackground->Init(_Desc);
+
+	CurrentBackgroundIndex = static_cast<int>(BackgroundBuffer.size());
 	BackgroundBuffer.push_back(NewBackground);
 }
 
@@ -51,6 +53,8 @@ void MultiBackground::SaveBin(GameEngineSerializer& _SaveSerializer) const
 
 void MultiBackground::LoadBin(GameEngineSerializer& _SaveSerializer)
 {
+	ClearBackground();
+
 	int BackCount = 0;
 	_SaveSerializer.Read(BackCount);
 
@@ -82,29 +86,108 @@ void MultiBackground::ShowGUI()
 		ImGui::EndListBox();
 	}
 
-	//if (true == ImGui::Button("Remove", ImVec2(70, 25)))
-	//{
-	//	if (CurrentStaticObjectIndex < 0)
-	//	{
-	//		return;
-	//	}
-	//
-	//	std::vector<std::shared_ptr<StaticObject>>::iterator EraseIter = StaticObjectActors.begin();
-	//
-	//	EraseIter += CurrentStaticObjectIndex;
-	//
-	//	(*EraseIter)->Death();
-	//	(*EraseIter) = nullptr;
-	//	EraseIter = StaticObjectActors.erase(EraseIter);
-	//
-	//	if (CurrentStaticObjectIndex >= StaticObjectActors.size())
-	//	{
-	//		CurrentStaticObjectIndex = static_cast<int>(StaticObjectActors.size() - 1);
-	//	}
-	//
-	//	if (StaticObjectActors.size() <= 0)
-	//	{
-	//		CurrentStaticObjectIndex = -1;
-	//	}
-	//}
+	if (0 <= CurrentBackgroundIndex && BackgroundBuffer.size() > CurrentBackgroundIndex)
+	{
+		ImGui::Spacing();
+		ImGui::Spacing();
+
+		if (true == ImGui::Button("Remove", ImVec2(70, 25)))
+		{
+			std::vector<std::shared_ptr<Background>>::iterator EraseIter = BackgroundBuffer.begin();
+
+			EraseIter += CurrentBackgroundIndex;
+
+			(*EraseIter)->Death();
+			(*EraseIter) = nullptr;
+			EraseIter = BackgroundBuffer.erase(EraseIter);
+
+			if (CurrentBackgroundIndex >= BackgroundBuffer.size())
+			{
+				CurrentBackgroundIndex = static_cast<int>(BackgroundBuffer.size() - 1);
+			}
+
+			if (BackgroundBuffer.size() <= 0)
+			{
+				CurrentBackgroundIndex = -1;
+				return;
+			}
+		}
+
+		std::shared_ptr<Background> BackPtr = BackgroundBuffer[CurrentBackgroundIndex];
+
+		BG_DESC& DescRef = BackPtr->GetDescRef();
+		TextureMoveBuffer& BufferRef = BackPtr->GetShaderBuffer();
+
+		float4 CenterPostion = DescRef.Center;
+		float CenterArrPostion[4] = { CenterPostion.x, CenterPostion.y, CenterPostion.z, CenterPostion.w };
+		ImGui::DragFloat4("Center", CenterArrPostion);
+		float4 ResultCenter = ContentFunc::ConvertFloat4(CenterArrPostion);
+
+		if (CenterPostion != ResultCenter)
+		{
+			DescRef.Center = ResultCenter;
+		}
+
+		ImGui::Checkbox("IsActive LeftRender", &DescRef.IsLeftRender);
+
+		if (true == DescRef.IsLeftRender)
+		{
+			BackPtr->CreateLeftRender();
+		}
+		else
+		{
+			BackPtr->ReleaseLeftRender();
+		}
+
+		ImGui::Checkbox("IsActive RightRender", &DescRef.IsRightRender);
+
+		if (true == DescRef.IsRightRender)
+		{
+			BackPtr->CreateRightRedner();
+		}
+		else
+		{
+			BackPtr->ReleaseRightRender();
+		}
+
+		float4 ShaderColor = BufferRef.OutColor;
+		float ShaderArrColor[4] = { ShaderColor.x, ShaderColor.y, ShaderColor.z, ShaderColor.w };
+		ImGui::ColorEdit4("Color", ShaderArrColor);
+		float4 ResultColor = ContentFunc::ConvertFloat4(ShaderArrColor);
+
+		if (ShaderColor != ResultColor)
+		{
+			BufferRef.OutColor = ResultColor;
+		}
+
+		float BackScale = DescRef.TextureScale;
+		ImGui::DragFloat("Scale", &BackScale, 0.01f);
+
+		if (BackScale != DescRef.TextureScale)
+		{
+			BackPtr->ResizeTextureScale(BackScale);
+		}
+
+		ImGui::DragFloat("Ratio", &DescRef.MoveRatio, 0.01f);
+
+		ImGui::Checkbox("Is Animation", &DescRef.Animation);
+
+		if (true == DescRef.Animation)
+		{
+			ImGui::DragFloat("Animation Speed", &DescRef.AnimationSpeed, 0.01f);
+		}
+	}
+
+	
+}
+
+void MultiBackground::ClearBackground()
+{
+	for (size_t i = 0; i < BackgroundBuffer.size(); i++)
+	{
+		BackgroundBuffer[i]->Death();
+		BackgroundBuffer[i] = nullptr;
+	}
+
+	BackgroundBuffer.clear();
 }

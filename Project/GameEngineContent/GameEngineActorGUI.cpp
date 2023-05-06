@@ -55,11 +55,11 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 
 	if (true == IsWorldPostion)
 	{
-		TargetTransform->SetWorldPosition(ConvertFloat4(Postion));
+		TargetTransform->SetWorldPosition(ContentFunc::ConvertFloat4(Postion));
 	}
 	else
 	{
-		TargetTransform->SetLocalPosition(ConvertFloat4(Postion));
+		TargetTransform->SetLocalPosition(ContentFunc::ConvertFloat4(Postion));
 	}
 
 	ImGui::Checkbox("W", &IsWorldRotation);
@@ -89,11 +89,11 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 
 	if (true == IsWorldRotation)
 	{
-		TargetTransform->SetWorldRotation(ConvertFloat4(Rotation));
+		TargetTransform->SetWorldRotation(ContentFunc::ConvertFloat4(Rotation));
 	}
 	else
 	{
-		TargetTransform->SetLocalRotation(ConvertFloat4(Rotation));
+		TargetTransform->SetLocalRotation(ContentFunc::ConvertFloat4(Rotation));
 	}
 
 	ImGui::Checkbox("W", &IsWorldScale);
@@ -123,11 +123,11 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 
 	if (true == IsWorldScale)
 	{
-		TargetTransform->SetWorldScale(ConvertFloat4(Scale));
+		TargetTransform->SetWorldScale(ContentFunc::ConvertFloat4(Scale));
 	}
 	else
 	{
-		TargetTransform->SetLocalScale(ConvertFloat4(Scale));
+		TargetTransform->SetLocalScale(ContentFunc::ConvertFloat4(Scale));
 	}
 
 	for (std::function<void()>& _CallbackRef: CustomActorGuiFunctions)
@@ -186,9 +186,4 @@ void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target, const std::vect
 	{
 		CustomActorGuiFunctions.push_back(_CustomActorGuiFunctions[i]);
 	}
-}
-
-float4 GameEngineActorGUI::ConvertFloat4(float _FloatArr[4])
-{
-	return float4(_FloatArr[0], _FloatArr[1], _FloatArr[2], _FloatArr[3]);
 }

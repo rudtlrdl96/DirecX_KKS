@@ -104,6 +104,11 @@ std::string ContentFunc::GetSaveFilePath()
     return "";
 }
 
+float4 ContentFunc::ConvertFloat4(float _FloatArr[4])
+{
+    return float4(_FloatArr[0], _FloatArr[1], _FloatArr[2], _FloatArr[3]);
+}
+
 ContentFunc::ContentFunc()
 {
 }

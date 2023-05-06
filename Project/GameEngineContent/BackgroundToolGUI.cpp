@@ -18,6 +18,24 @@ bool BackgroundToolGUI::CheckCreateTrigger()
 	return CheckResult;
 }
 
+bool BackgroundToolGUI::CheckSaveTrigger()
+{
+	bool CheckResult = IsSaveTrigger;
+
+	IsSaveTrigger = false;
+
+	return CheckResult;
+}
+
+bool BackgroundToolGUI::CheckLoadTrigger()
+{
+	bool CheckResult = IsLoadTrigger;
+
+	IsLoadTrigger = false;
+
+	return CheckResult;
+}
+
 void BackgroundToolGUI::Start()
 {
 	BackgroundDatasLoad(LevelArea::None);
