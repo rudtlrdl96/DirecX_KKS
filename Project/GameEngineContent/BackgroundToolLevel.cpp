@@ -1,7 +1,10 @@
 #include "PrecompileHeader.h"
 #include "BackgroundToolLevel.h"
-#include "MultiBackground.h"
+
 #include "BackgroundToolGUI.h"
+#include "GameEngineActorGUI.h"
+
+#include "MultiBackground.h"
 #include "ContentDatabase.h"
 #include "DebugSpriteActor.h"
 
@@ -29,9 +32,18 @@ void BackgroundToolLevel::Start()
 
 	BackgroundToolGUIPtr->Pushback_OnGuiCallbackFunc(std::bind(&MultiBackground::ShowGUI, MultiBackgroundPtr));
 
+
+	ActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+
+	if (nullptr == ActorGUIPtr)
+	{
+		MsgAssert_Rtti<BackgroundToolLevel>(" - GameEngineActor Gui가 생성되지 않았습니다.");
+	}
+
 	DebugActor = CreateActor<DebugSpriteActor>();
 
 	MainCamCtrl.SetLookatTarget(DebugActor);
+	ActorGUIPtr->SetTarget(DebugActor->GetTransform());
 }
 
 void BackgroundToolLevel::Update(float _DeltaTime)
@@ -69,6 +81,15 @@ void BackgroundToolLevel::LevelChangeStart()
 	}
 
 	BackgroundToolGUIPtr->On();
+
+	if (nullptr == ActorGUIPtr)
+	{
+		MsgAssert_Rtti<BackgroundToolLevel>(" - GameEngineActor Gui를 찾을 수 없습니다");
+		return;
+	}
+
+	ActorGUIPtr->SetTarget(DebugActor->GetTransform());
+	ActorGUIPtr->On();
 }
 
 void BackgroundToolLevel::LevelChangeEnd()
@@ -79,6 +100,15 @@ void BackgroundToolLevel::LevelChangeEnd()
 	}
 
 	BackgroundToolGUIPtr->Off();
+
+	if (nullptr == ActorGUIPtr)
+	{
+		MsgAssert_Rtti<BackgroundToolLevel>(" - GameEngineActor Gui를 찾을 수 없습니다");
+		return;
+	}
+
+	ActorGUIPtr->SetTarget(nullptr);
+	ActorGUIPtr->Off();
 }
 
 

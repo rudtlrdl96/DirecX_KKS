@@ -152,13 +152,10 @@ void MultiBackground::ShowGUI()
 
 		float4 ShaderColor = BufferRef.OutColor;
 		float ShaderArrColor[4] = { ShaderColor.x, ShaderColor.y, ShaderColor.z, ShaderColor.w };
-		ImGui::ColorEdit4("Color", ShaderArrColor);
+		ImGui::ColorEdit4("Color", ShaderArrColor, ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_AlphaBar);
 		float4 ResultColor = ContentFunc::ConvertFloat4(ShaderArrColor);
 
-		if (ShaderColor != ResultColor)
-		{
-			BufferRef.OutColor = ResultColor;
-		}
+		BufferRef.OutColor = ResultColor;
 
 		float BackScale = DescRef.TextureScale;
 		ImGui::DragFloat("Scale", &BackScale, 0.01f);

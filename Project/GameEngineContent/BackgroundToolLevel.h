@@ -26,5 +26,6 @@ private:
 	std::shared_ptr<class BackgroundToolGUI> BackgroundToolGUIPtr = nullptr;
 
 	std::shared_ptr<class DebugSpriteActor> DebugActor = nullptr;
+	std::shared_ptr<class GameEngineActorGUI> ActorGUIPtr = nullptr;
 };
 
