@@ -375,12 +375,6 @@
     <ClInclude Include="StaticObject.h">
       <Filter>2_Actor\Map\Object\StaticObject</Filter>
     </ClInclude>
-    <ClInclude Include="ForestOfHarmonyLevel_Boss.h">
-      <Filter>4_Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
-    </ClInclude>
-    <ClInclude Include="GrandHallLevel_Boss.h">
-      <Filter>4_Level\GameLevel\BattleLevel\GrandHall</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>2_Actor\Map\Object</Filter>
     </ClInclude>
@@ -452,9 +446,6 @@
     </ClInclude>
     <ClInclude Include="MapToolLevel.h">
       <Filter>4_Level\DebugLevel\Tool\MapTool</Filter>
-    </ClInclude>
-    <ClInclude Include="HolyCourtyardLevel_Boss.h">
-      <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
     </ClInclude>
     <ClInclude Include="ContentShaderBuffer.h">
       <Filter>1_Class\Shader\ShaderBuffer</Filter>
@@ -620,12 +611,6 @@
     <ClCompile Include="StaticObject.cpp">
       <Filter>2_Actor\Map\Object\StaticObject</Filter>
     </ClCompile>
-    <ClCompile Include="ForestOfHarmonyLevel_Boss.cpp">
-      <Filter>4_Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
-    </ClCompile>
-    <ClCompile Include="GrandHallLevel_Boss.cpp">
-      <Filter>4_Level\GameLevel\BattleLevel\GrandHall</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>2_Actor\Map\Object</Filter>
     </ClCompile>
@@ -700,9 +685,6 @@
     </ClCompile>
     <ClCompile Include="MapToolLevel.cpp">
       <Filter>4_Level\DebugLevel\Tool\MapTool</Filter>
-    </ClCompile>
-    <ClCompile Include="HolyCourtyardLevel_Boss.cpp">
-      <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
     </ClCompile>
     <ClCompile Include="ContentShaderBuffer.cpp">
       <Filter>1_Class\Shader\ShaderBuffer</Filter>

@@ -13,11 +13,13 @@ public:
 	LevelMoveGUI& operator=(LevelMoveGUI&& _Other) noexcept = delete;
 
 protected:
-	void Start() override {}
-	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override {}
 	
 private:
+	const char* LevelComboText[11] = { "Opening" ,"Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop", "Title", "Story", "EndingLogo", "MapTool", "BackgroundTool"};
 
+	int CurrentLevelIndex = 6;
 
+	void Start() override {}
+	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
 };
 

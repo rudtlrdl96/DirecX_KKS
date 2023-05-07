@@ -14,6 +14,12 @@ public:
 	float4 WorldLight = float4::Zero;
 };
 
+class FadeBuffer
+{
+public:
+	float4 Color = float4::Zero;
+};
+
 class TextureMoveBuffer
 {
 public:    

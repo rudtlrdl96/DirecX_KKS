@@ -22,10 +22,5 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	static std::string CurLevelName;
-	static std::string PrevLevelName;
-
 	std::shared_ptr<GameEngineCamera> MainCam = nullptr;
-
-	void Debug_LevelMove(const std::string_view& _LevelName);
 };

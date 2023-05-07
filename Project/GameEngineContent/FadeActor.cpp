@@ -45,8 +45,8 @@ void FadeActor::Reset()
 void FadeActor::Start()
 {
 	MainRenderer = CreateComponent<GameEngineSpriteRenderer>();
-	MainRenderer->SetPipeLine("2DTexture_ColorLight");
-	MainRenderer->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
+	MainRenderer->SetPipeLine("2DTexture_Fade");
+	MainRenderer->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", Buffer);
 	MainRenderer->SetTexture("FadeImage.png");
 	MainRenderer->GetTransform()->SetWorldScale(GameEngineWindow::GetScreenSize());
 	MainRenderer->GetTransform()->SetWorldPosition({0, 0, -999, 1});

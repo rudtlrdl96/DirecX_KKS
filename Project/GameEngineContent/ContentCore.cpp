@@ -16,17 +16,15 @@
 #include "GameEngineActorGUI.h"
 #include "MapToolGUI.h"
 #include "BackgroundToolGUI.h"
+#include "LevelMoveGUI.h"
 
 // Player Level
 #include "TitleLevel.h"
 #include "OpeningLevel.h"
 #include "CastleLevel.h"
 #include "ForestOfHarmonyLevel.h"
-#include "ForestOfHarmonyLevel_Boss.h"
 #include "GrandHallLevel.h"
-#include "GrandHallLevel_Boss.h"
 #include "HolyCourtyardLevel.h"
-#include "HolyCourtyardLevel_Boss.h"
 #include "StoryLevel.h"
 #include "ShopLevel.h"
 #include "EndingLogoLevel.h"
@@ -87,11 +85,8 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<OpeningLevel>("Opening");
 	GameEngineCore::CreateLevel<CastleLevel>("Castle");
 	GameEngineCore::CreateLevel<ForestOfHarmonyLevel>("ForestOfHarmony");
-	GameEngineCore::CreateLevel<ForestOfHarmonyLevel_Boss>("ForestOfHarmony_Boss");
 	GameEngineCore::CreateLevel<GrandHallLevel>("GrandHall");
-	GameEngineCore::CreateLevel<GrandHallLevel_Boss>("GrandHall_Boss");
 	GameEngineCore::CreateLevel<HolyCourtyardLevel>("HolyCourtyard");
-	GameEngineCore::CreateLevel<HolyCourtyardLevel_Boss>("HolyCourtyard_Boss");
 	GameEngineCore::CreateLevel<StoryLevel>("Story");
 	GameEngineCore::CreateLevel<ShopLevel>("Shop");
 	GameEngineCore::CreateLevel<EndingLogoLevel>("EndingLogo");
@@ -242,6 +237,18 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetBlendState("AlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Fade");
+
+		Pipe->SetVertexBuffer("Rect");
+		Pipe->SetIndexBuffer("Rect");
+		Pipe->SetVertexShader("FadeShader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("FadeShader.hlsl");
+		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
 }
 
 
@@ -255,4 +262,7 @@ void ContentCore::ImGuiCreate()
 
 	std::shared_ptr<GameEngineGUIWindow> BackgroundGUIPtr = GameEngineGUI::GUIWindowCreate<BackgroundToolGUI>("BackgroundToolGUI");
 	BackgroundGUIPtr->Off();
+
+	std::shared_ptr<GameEngineGUIWindow> LevelMoveGUIPtr = GameEngineGUI::GUIWindowCreate<LevelMoveGUI>("LevelMoveGUI");
+	LevelMoveGUIPtr->On();
 }

@@ -167,20 +167,20 @@ void StoryTextureView::Reset()
 void StoryTextureView::Start()
 {
 	BackgroundTextureRender = CreateComponent<GameEngineSpriteRenderer>();
-	BackgroundTextureRender->SetPipeLine("2DTexture_ColorLight");
-	BackgroundTextureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", BackTexBuffer);
+	BackgroundTextureRender->SetPipeLine("2DTexture_Fade");
+	BackgroundTextureRender->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", BackTexBuffer);
 	BackgroundTextureRender->SetTexture("Empty.png");
 	BackgroundTextureRender->GetTransform()->SetWorldPosition({ 0, 0, 100 });
 
 	SubTextureRender = CreateComponent<GameEngineSpriteRenderer>();
-	SubTextureRender->SetPipeLine("2DTexture_ColorLight");
-	SubTextureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", SubTexBuffer);
+	SubTextureRender->SetPipeLine("2DTexture_Fade");
+	SubTextureRender->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", SubTexBuffer);
 	SubTextureRender->SetTexture("Empty.png");
 	SubTextureRender->GetTransform()->SetWorldPosition({ 0, 0, 0});
 
 	MainTextureRender = CreateComponent<GameEngineSpriteRenderer>();
-	MainTextureRender->SetPipeLine("2DTexture_ColorLight");
-	MainTextureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", MainTexBuffer);
+	MainTextureRender->SetPipeLine("2DTexture_Fade");
+	MainTextureRender->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", MainTexBuffer);
 	MainTextureRender->SetTexture("Empty.png");	
 	MainTextureRender->GetTransform()->SetWorldPosition({0, 0, -100});
 }

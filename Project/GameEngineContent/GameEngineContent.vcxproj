@@ -133,10 +133,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="ForestOfHarmonyLevel_Boss.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="ForestOfHarmonyLevel.h">
       <SubType>
       </SubType>
@@ -145,15 +141,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GrandHallLevel_Boss.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="HolyCourtyardLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="HolyCourtyardLevel_Boss.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -463,10 +451,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ForestOfHarmonyLevel_Boss.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="ForestOfHarmonyLevel.cpp">
       <SubType>
       </SubType>
@@ -475,15 +459,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GrandHallLevel_Boss.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="HolyCourtyardLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="HolyCourtyardLevel_Boss.cpp">
       <SubType>
       </SubType>
     </ClCompile>
