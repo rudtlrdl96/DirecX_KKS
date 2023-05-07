@@ -12,9 +12,6 @@ public:
 	GameEngineActorGUI& operator=(const GameEngineActorGUI& _Other) = delete;
 	GameEngineActorGUI& operator=(GameEngineActorGUI&& _Other) noexcept = delete;
 	
-	void Start() override;
-	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
-
 	void SetTarget(GameEngineTransform* _Target, const std::vector<std::function<void()>>& _CustomActorGuiFunctions = {});
 
 	inline void EditorGui(std::function<void()> _GuiFunction)
@@ -43,5 +40,7 @@ private:
 	
 	std::vector<std::function<void()>> CustomActorGuiFunctions;
 
+	void Start() override;
+	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
 };
 

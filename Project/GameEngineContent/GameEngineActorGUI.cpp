@@ -10,6 +10,49 @@ GameEngineActorGUI::~GameEngineActorGUI()
 {
 }
 
+void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target, const std::vector<std::function<void()>>& _CustomActorGuiFunctions)
+{
+	if (TargetTransform == _Target)
+	{
+		return;
+	}
+
+	CustomActorGuiFunctions.clear();
+	TargetTransform = _Target;
+
+	if (nullptr != TargetTransform)
+	{
+		IsWorldPostion = false;
+		IsWorldRotation = false;
+		IsWorldScale = false;
+
+		float4 LocalPos = TargetTransform->GetLocalPosition();
+		float4 LocalRotation = TargetTransform->GetLocalRotation();
+		float4 LocalScale = TargetTransform->GetLocalScale();
+
+		Postion[0] = LocalPos.x;
+		Postion[1] = LocalPos.y;
+		Postion[2] = LocalPos.z;
+		Postion[3] = LocalPos.w;
+
+		Rotation[0] = LocalRotation.x;
+		Rotation[1] = LocalRotation.y;
+		Rotation[2] = LocalRotation.z;
+		Rotation[3] = LocalRotation.w;
+
+		Scale[0] = LocalScale.x;
+		Scale[1] = LocalScale.y;
+		Scale[2] = LocalScale.z;
+		Scale[3] = LocalScale.w;
+
+	}
+
+	for (size_t i = 0; i < _CustomActorGuiFunctions.size(); i++)
+	{
+		CustomActorGuiFunctions.push_back(_CustomActorGuiFunctions[i]);
+	}
+}
+
 void GameEngineActorGUI::Start()
 {
 	ImGui::SetWindowSize(GetName().data(), ImVec2(300, 150));
@@ -142,48 +185,5 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 		ImGui::Spacing();
 
 		_CallbackRef();
-	}
-}
-
-void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target, const std::vector<std::function<void()>>& _CustomActorGuiFunctions)
-{
-	if (TargetTransform == _Target)
-	{
-		return;
-	}
-
-	CustomActorGuiFunctions.clear();
-	TargetTransform = _Target;
-
-	if (nullptr != TargetTransform)
-	{
-		IsWorldPostion = false;
-		IsWorldRotation = false;
-		IsWorldScale = false;
-
-		float4 LocalPos = TargetTransform->GetLocalPosition();
-		float4 LocalRotation = TargetTransform->GetLocalRotation();
-		float4 LocalScale = TargetTransform->GetLocalScale();
-
-		Postion[0] = LocalPos.x;
-		Postion[1] = LocalPos.y;
-		Postion[2] = LocalPos.z;
-		Postion[3] = LocalPos.w;
-
-		Rotation[0] = LocalRotation.x;
-		Rotation[1] = LocalRotation.y;
-		Rotation[2] = LocalRotation.z;
-		Rotation[3] = LocalRotation.w;
-
-		Scale[0] = LocalScale.x;
-		Scale[1] = LocalScale.y;
-		Scale[2] = LocalScale.z;
-		Scale[3] = LocalScale.w;
-
-	}
-
-	for (size_t i = 0; i < _CustomActorGuiFunctions.size(); i++)
-	{
-		CustomActorGuiFunctions.push_back(_CustomActorGuiFunctions[i]);
 	}
 }

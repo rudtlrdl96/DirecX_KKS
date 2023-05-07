@@ -41,8 +41,6 @@ public:
 	}
 
 protected:
-	void Start() override;
-	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
 
 private:
 	std::map<LevelArea, std::vector<BackgroundToolData>> BackgroundDatas;
@@ -57,6 +55,9 @@ private:
 	std::vector<std::function<void()>> OnGuiCallback;
 
 	int SelectBackgroundIndex = 0;
+
+	void Start() override;
+	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
 
 	void BackgroundDatasLoad(LevelArea _Area);
 

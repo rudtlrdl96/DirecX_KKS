@@ -41,9 +41,6 @@ public:
 	MapToolGUI& operator=(const MapToolGUI& _Other) = delete;
 	MapToolGUI& operator=(MapToolGUI&& _Other) noexcept = delete;
 
-	void Start() override;
-	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
-
 	inline UINT GetSelectTileIndex() const
 	{
 		return SelectTileIndex;
@@ -59,45 +56,18 @@ public:
 		return MapToolType;
 	}
 
-	inline void SetDepthCount(UINT _DepthCount)
+	inline void Pushback_TilemapCallback(std::function<void()> _FunctionPtr)
 	{
-		TilemapDepthCount = _DepthCount;
+		TilemapCallback.push_back(_FunctionPtr);
 	}
 
-	inline void SetCurDepth(UINT _CurDepth)
+	inline void Pushback_ObjectManagerCallback(std::function<void()> _FunctionPtr)
 	{
-		TilemapCurDepth = _CurDepth;
-	}
-
-	inline UINT GetDepthCount() const
-	{
-		return TilemapDepthCount;
-	}
-
-	inline UINT GetCurDepth() const
-	{
-		return TilemapCurDepth;
-	}
-
-	inline void Pushback_SObjectCallbackFunc(std::function<void()> _FunctionPtr)
-	{
-		SObjectCallback.push_back(_FunctionPtr);
-	}
-
-	inline void SetTilemapSize(int2 _Size)
-	{
-		TilemapSize = _Size;
-	}
-
-	inline int2 GetTilemapSize() const
-	{
-		return TilemapSize;
+		ObjectManagerCallback.push_back(_FunctionPtr);
 	}
 
 	bool CheckSaveTrigger();
 	bool CheckLoadTrigger();
-	bool CheckTilemapReSizeTrigger();
-	bool CheckDepthResizeTrigger();
 
 protected:
 	
@@ -108,27 +78,25 @@ private:
 	LevelArea CurShowAreaTile = LevelArea::None;
 	MapToolLevel::MapToolState MapToolType = MapToolLevel::MapToolState::Tilemap;
 
-	std::vector<std::function<void()>> SObjectCallback;
+	std::vector<std::function<void()>> TilemapCallback;
+	std::vector<std::function<void()>> ObjectManagerCallback;
 
-	const char* AreaComboText[6] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard"};
+	const char* AreaComboText[7] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop"};
 	const char* MapToolComboText[3] = {"Tilemap" ,"Object", "Light"};
 
-	UINT TilemapDepthCount = 0;
-	UINT TilemapCurDepth = 0;
-
 	float4 TileSize = float4::Zero;
-	int2 TilemapSize = int2::Zero;
 
 	UINT SelectTileIndex = 0;
 	SObject_DESC SelectSObject_Desc;
 	
-	float MinWidth = 0.0f;
-	float MaxWitdh = 0.0f;
-
 	bool IsSaveTrigger = false;
 	bool IsLoadTrigger = false;
-	bool IsTilemapReSizeTrigger = false;
+
+	bool IsTilemapClearTrigger = false;
 	bool IsDepthResizeTrigger = false;
+
+	void Start() override;
+	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
 
 	void TileDatasLoad(LevelArea _Area);
 	void SObjectDatasLoad(LevelArea _Area);

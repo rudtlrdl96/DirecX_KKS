@@ -56,15 +56,26 @@ public:
 		return static_cast<UINT>(TilemapDatas.size());
 	}
 
+	inline UINT GetCurDepth() const
+	{
+		return Gui_TilemapCurDepth;
+	}
+
 	Tilemap_Meta GetTilemap_DESC(int _Depth);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
 
+	void ShowGUI() override;
+
 protected:
 	
 private:
 	std::vector<std::vector<std::vector<std::shared_ptr<class TileActor>>>> TilemapDatas;
+
+	UINT Gui_TilemapCurDepth = 0;
+	UINT Gui_TilemapDepthCount = 0;
+	int2 Gui_TilemapSize = int2::Zero;
 
 	int2 TilemapSize = int2::Zero;
 	float4 TileScale = float4::Zero;

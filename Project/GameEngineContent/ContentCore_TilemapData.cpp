@@ -91,6 +91,19 @@ void ContentCore::TileDataLoad()
 		}
 	}
 
+	{
+		Path.MoveParent();
+		Path.Move("Shop");
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (UINT i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			std::string Name = Tex->GetNameToString();
+			TileLoad({ .Name = Name, .Index = 6000 + i, .Grade = LevelArea::Shop });
+		}
+	}
+
 	std::vector<TilemapData> NoneDatas;
 	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::None, NoneDatas);
 
@@ -108,6 +121,9 @@ void ContentCore::TileDataLoad()
 
 	std::vector<TilemapData> SacredGroundsDatas;
 	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::HolyCourtyard, SacredGroundsDatas);
+		
+	std::vector<TilemapData> ShopDatas;
+	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::Shop, ShopDatas);
 
 	int a = 0;
 }

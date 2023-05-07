@@ -495,6 +495,9 @@
     <ClInclude Include="GameEngineActorGUI.h">
       <Filter>5_GUI\Common</Filter>
     </ClInclude>
+    <ClInclude Include="LevelMoveGUI.h">
+      <Filter>5_GUI\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -759,6 +762,9 @@
       <Filter>5_GUI\Tool</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineActorGUI.cpp">
+      <Filter>5_GUI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelMoveGUI.cpp">
       <Filter>5_GUI\Common</Filter>
     </ClCompile>
   </ItemGroup>

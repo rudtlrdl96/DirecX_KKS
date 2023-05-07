@@ -62,9 +62,8 @@ void MapToolLevel::Start()
 		MsgAssert_Rtti<MapToolLevel>(" - 맵툴 Gui가 생성되지 않았습니다.");
 	}
 
-	MapToolGuiPtr->Pushback_SObjectCallbackFunc(std::bind(&ObjectManager::ShowGUI, ObjectMgrPtr));
-	MapToolGuiPtr->SetTilemapSize(TilemapPtr->GetSize());
-	MapToolGuiPtr->SetDepthCount(TilemapPtr->GetDepthCount());
+	MapToolGuiPtr->Pushback_ObjectManagerCallback(std::bind(&ObjectManager::ShowGUI, ObjectMgrPtr));
+	MapToolGuiPtr->Pushback_TilemapCallback(std::bind(&Tilemap::ShowGUI, TilemapPtr));
 
 	ActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 
@@ -94,6 +93,8 @@ void MapToolLevel::Update(float _DeltaTime)
 		TilePalletPtr->SetActiveCursor(true);
 		TilePalletPtr->On();
 
+		TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
+
 		float4 WorldMousePos = GetMousePos();
 		WorldMousePos.z = 0.0f;
 
@@ -102,44 +103,36 @@ void MapToolLevel::Update(float _DeltaTime)
 		UINT CastingIndexX = static_cast<UINT>(MouseIndex.x);
 		UINT CastingIndexY = static_cast<UINT>(MouseIndex.y);
 
-
 		TilePalletPtr->GetTransform()->SetWorldPosition(WorldMousePos);
-
-		int2 InputMapSize = MapToolGuiPtr->GetTilemapSize();
-
-		if (true == MapToolGuiPtr->CheckDepthResizeTrigger())
-		{
-			TilemapPtr->SetDepth(MapToolGuiPtr->GetDepthCount());
-		}
-
-		if (true == MapToolGuiPtr->CheckTilemapReSizeTrigger())
-		{
-			TilemapPtr->ResizeTilemap(static_cast<UINT>(InputMapSize.x),static_cast<UINT>(InputMapSize.y));
-			TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
-		}
-
+		
 		if ( MouseIndex.x >= 0 && MouseIndex.y >= 0 && false == TilemapPtr->IsOver(MouseIndex.x, MouseIndex.y))
 		{
+			float4 TileIndexPos = TilemapPtr->GetTilePos(CastingIndexX, CastingIndexY);
+			TileIndexPos.z = -50;
+
 			TilemapHoverPtr->HoverOn();
-			TilemapHoverPtr->GetTransform()->SetWorldPosition(TilemapPtr->GetTilePos(CastingIndexX, CastingIndexY));
+			TilemapHoverPtr->GetTransform()->SetWorldPosition(TileIndexPos);
 		}
 		else
 		{
 			break;
 		}
 
-		if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsPress("ToolActive"))
+		if (false == ImGui::GetIO().WantCaptureMouse &&
+			(true == GameEngineInput::IsPress("ToolActive") ||
+			true == GameEngineInput::IsPress("ToolDisable")))
 		{
-			UINT MapToolDepthCount = MapToolGuiPtr->GetCurDepth();
+			UINT TilemapCurDepthCount = TilemapPtr->GetCurDepth();
 
-			if (MapToolDepthCount >= TilemapPtr->GetDepthCount())
+			if (true == GameEngineInput::IsPress("ToolActive"))
 			{
-				MapToolDepthCount = TilemapPtr->GetDepthCount() - 1;
-				MapToolGuiPtr->SetCurDepth(MapToolDepthCount);
+				TilemapPtr->ChangeData(TilemapCurDepthCount, MouseIndex.x, MouseIndex.y, TilePalletPtr->GetPencleIndex());
 			}
-
-			TilemapPtr->ChangeData(MapToolDepthCount, MouseIndex.x, MouseIndex.y, TilePalletPtr->GetPencleIndex());
-		}
+			else if (true == GameEngineInput::IsPress("ToolDisable"))
+			{
+				TilemapPtr->ChangeData(TilemapCurDepthCount, MouseIndex.x, MouseIndex.y, 0);
+			}
+		} 
 	}
 		break;
 	case MapToolLevel::MapToolState::Object:
@@ -265,7 +258,6 @@ void MapToolLevel::Load()
 	ObjectMgrPtr->LoadBin(SaveSerializer);
 
 	TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
-	MapToolGuiPtr->SetTilemapSize(TilemapPtr->GetSize());
 }
 
 

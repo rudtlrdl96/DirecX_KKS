@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "Tilemap.h"
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/imgui.h>
 #include "TileActor.h"
 
 Tilemap::Tilemap() :
@@ -52,6 +53,7 @@ void Tilemap::ResizeTilemap(UINT _SizeX, UINT _SizeY)
 {
 	int2 PrevTileSize = TilemapSize;
 	TilemapSize = int2(_SizeX, _SizeY); 
+	Gui_TilemapSize = TilemapSize;
 
 	for (UINT i = 0; i < TilemapDatas.size(); i++)
 	{
@@ -359,6 +361,64 @@ void Tilemap::LoadBin(GameEngineSerializer& _LoadSerializer)
 				ChangeData(i, x, y, LoadIndex);
 			}
 		}
+	}
+}
+
+void Tilemap::ShowGUI()
+{
+	int InputCurDepth = static_cast<int>(Gui_TilemapCurDepth);
+	ImGui::InputInt("Cur Depth", &InputCurDepth);
+
+	if (InputCurDepth < 0)
+	{
+		InputCurDepth = 0;
+	}
+
+	if (InputCurDepth >= TilemapDatas.size())
+	{
+		InputCurDepth = static_cast<int>(TilemapDatas.size() - 1);
+	}
+
+	Gui_TilemapCurDepth = static_cast<UINT>(InputCurDepth);
+
+	int InputDepthCount = static_cast<int>(Gui_TilemapDepthCount);
+	ImGui::InputInt("DepthCount", &InputDepthCount);
+
+	if (InputDepthCount < 1)
+	{
+		InputDepthCount = 1;
+	}
+
+	Gui_TilemapDepthCount = static_cast<UINT>(InputDepthCount);
+
+	if (true == ImGui::Button("Depth Resize"))
+	{
+		SetDepth(InputDepthCount);
+	}
+
+	int TileData[2] = { Gui_TilemapSize.x, Gui_TilemapSize.y };
+	ImGui::DragInt2("TilemapSize", TileData, 1.0f, 0, 100);
+
+	Gui_TilemapSize.x = TileData[0];
+	Gui_TilemapSize.y = TileData[1];
+
+	if (Gui_TilemapSize.x < 1)
+	{
+		Gui_TilemapSize.x = 1;
+	}
+
+	if (Gui_TilemapSize.y < 1)
+	{
+		Gui_TilemapSize.y = 1;
+	}
+
+	if (true == ImGui::Button("Tilemap Resize"))
+	{
+		ResizeTilemap(static_cast<UINT>(Gui_TilemapSize.x), static_cast<UINT>(Gui_TilemapSize.y));
+	}
+	else if (true == ImGui::Button("Tilemap Clear"))
+	{
+		ClearTileMap();
 	}
 }
 
