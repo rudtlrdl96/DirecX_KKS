@@ -109,21 +109,6 @@
     <Filter Include="2_Actor\Map">
       <UniqueIdentifier>{9a126e3c-fccb-47fd-985b-1461fb5b2a79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Map\Tile">
-      <UniqueIdentifier>{72f7e1a4-1266-4525-b44a-0f38f492bb96}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\Map\Background">
-      <UniqueIdentifier>{018cacd0-fb6d-47bf-99a4-269e05e9f50b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\Map\Object">
-      <UniqueIdentifier>{1ede5441-c939-4507-a935-0b32249b7446}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\Map\Object\StaticObject">
-      <UniqueIdentifier>{42e7682b-03c1-4b05-bbe5-2bb85bc7ea6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\Map\Object\BrokenObject">
-      <UniqueIdentifier>{129bea81-84ba-44c4-8d99-a30ddc3d1295}</UniqueIdentifier>
-    </Filter>
     <Filter Include="3_Component">
       <UniqueIdentifier>{9fe88acc-d8d5-4949-bcd5-a77983c7eb22}</UniqueIdentifier>
     </Filter>
@@ -253,6 +238,24 @@
     <Filter Include="5_GUI\Common">
       <UniqueIdentifier>{c5899389-f8f5-4731-995d-0a49bf0f924a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Background">
+      <UniqueIdentifier>{018cacd0-fb6d-47bf-99a4-269e05e9f50b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage">
+      <UniqueIdentifier>{d91cd220-0859-45b0-8dec-5a5e41671217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Object">
+      <UniqueIdentifier>{1ede5441-c939-4507-a935-0b32249b7446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Object\StaticObject">
+      <UniqueIdentifier>{42e7682b-03c1-4b05-bbe5-2bb85bc7ea6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Object\BrokenObject">
+      <UniqueIdentifier>{129bea81-84ba-44c4-8d99-a30ddc3d1295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Tile">
+      <UniqueIdentifier>{72f7e1a4-1266-4525-b44a-0f38f492bb96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -316,10 +319,10 @@
       <Filter>4_Level\DebugLevel\Test\Battle</Filter>
     </ClInclude>
     <ClInclude Include="TileActor.h">
-      <Filter>2_Actor\Map\Tile</Filter>
+      <Filter>2_Actor\Map\Stage\Tile</Filter>
     </ClInclude>
     <ClInclude Include="Tilemap.h">
-      <Filter>2_Actor\Map\Tile</Filter>
+      <Filter>2_Actor\Map\Stage\Tile</Filter>
     </ClInclude>
     <ClInclude Include="int2.h">
       <Filter>1_Class\Base\Math</Filter>
@@ -373,10 +376,10 @@
       <Filter>2_Actor\Player\Skull\BornSkull</Filter>
     </ClInclude>
     <ClInclude Include="StaticObject.h">
-      <Filter>2_Actor\Map\Object\StaticObject</Filter>
+      <Filter>2_Actor\Map\Stage\Object\StaticObject</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
-      <Filter>2_Actor\Map\Object</Filter>
+      <Filter>2_Actor\Map\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="FadeActor.h">
       <Filter>2_Actor\UI\Common</Filter>
@@ -469,7 +472,7 @@
       <Filter>2_Actor\Debug\MapTool</Filter>
     </ClInclude>
     <ClInclude Include="BrokenObject.h">
-      <Filter>2_Actor\Map\Object\BrokenObject</Filter>
+      <Filter>2_Actor\Map\Stage\Object\BrokenObject</Filter>
     </ClInclude>
     <ClInclude Include="TilemapOutlineRenderActor.h">
       <Filter>2_Actor\Debug\MapTool</Filter>
@@ -488,6 +491,12 @@
     </ClInclude>
     <ClInclude Include="LevelMoveGUI.h">
       <Filter>5_GUI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleArea.h">
+      <Filter>2_Actor\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleStage.h">
+      <Filter>2_Actor\Map\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -552,10 +561,10 @@
       <Filter>4_Level\DebugLevel\Test\Battle</Filter>
     </ClCompile>
     <ClCompile Include="TileActor.cpp">
-      <Filter>2_Actor\Map\Tile</Filter>
+      <Filter>2_Actor\Map\Stage\Tile</Filter>
     </ClCompile>
     <ClCompile Include="Tilemap.cpp">
-      <Filter>2_Actor\Map\Tile</Filter>
+      <Filter>2_Actor\Map\Stage\Tile</Filter>
     </ClCompile>
     <ClCompile Include="int2.cpp">
       <Filter>1_Class\Base\Math</Filter>
@@ -609,10 +618,10 @@
       <Filter>2_Actor\Player\Skull\BornSkull</Filter>
     </ClCompile>
     <ClCompile Include="StaticObject.cpp">
-      <Filter>2_Actor\Map\Object\StaticObject</Filter>
+      <Filter>2_Actor\Map\Stage\Object\StaticObject</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
-      <Filter>2_Actor\Map\Object</Filter>
+      <Filter>2_Actor\Map\Stage\Object</Filter>
     </ClCompile>
     <ClCompile Include="FadeActor.cpp">
       <Filter>2_Actor\UI\Common</Filter>
@@ -708,7 +717,7 @@
       <Filter>2_Actor\Debug\MapTool</Filter>
     </ClCompile>
     <ClCompile Include="BrokenObject.cpp">
-      <Filter>2_Actor\Map\Object\BrokenObject</Filter>
+      <Filter>2_Actor\Map\Stage\Object\BrokenObject</Filter>
     </ClCompile>
     <ClCompile Include="TilemapOutlineRenderActor.cpp">
       <Filter>2_Actor\Debug\MapTool</Filter>
@@ -748,6 +757,12 @@
     </ClCompile>
     <ClCompile Include="LevelMoveGUI.cpp">
       <Filter>5_GUI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleArea.cpp">
+      <Filter>2_Actor\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleStage.cpp">
+      <Filter>2_Actor\Map\Stage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -17,10 +17,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 	std::shared_ptr<class DebugSpriteActor> DebugActor = nullptr;
-
-	std::shared_ptr<class MultiBackground> MBackgroundPtr;
-	std::shared_ptr<class Tilemap> TilemapPtr = nullptr;
-	std::shared_ptr<class ObjectManager> ObjectManagerPtr = nullptr;
+	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
 private:
 
 

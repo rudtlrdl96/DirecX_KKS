@@ -36,11 +36,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BattleArea.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BattleDebugLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="BattleLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="BattleStage.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -344,11 +352,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BattleArea.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BattleDebugLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="BattleLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BattleStage.cpp">
       <SubType>
       </SubType>
     </ClCompile>
