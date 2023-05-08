@@ -82,4 +82,9 @@ private:
 
 	void CreateTile(UINT _Depth, UINT _X, UINT _Y);
 	void ReleseTile(UINT _Depth, UINT _X, UINT _Y);
+
+	void Push_Tilemap_Up(UINT _Depth);
+	void Push_Tilemap_Down(UINT _Depth);
+	void Push_Tilemap_Left(UINT _Depth);
+	void Push_Tilemap_Right(UINT _Depth);
 };
