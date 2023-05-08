@@ -154,11 +154,10 @@ int GameEngineWindow::WindowLoop(
                 _Loop();
             }
 
-            GameEngineInput::IsAnyKeyOff();
-
             TranslateMessage(&msg);
             DispatchMessage(&msg);
 
+            GameEngineInput::IsAnyKeyOff();
             continue;
         } 
 
