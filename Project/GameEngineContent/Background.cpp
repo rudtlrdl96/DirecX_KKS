@@ -19,15 +19,18 @@ void Background::Init(const BG_DESC& _Desc)
 		return;
 	}
 
+	float4 RenderSize = Desc.TextureSize * Desc.TextureScale;
+	RenderSize.z = 1;
+
 	BackRender->SetTexture(Desc.Name);
-	BackRender->GetTransform()->SetLocalScale(Desc.TextureSize * Desc.TextureScale);
+	BackRender->GetTransform()->SetLocalScale(RenderSize);
 	BackRender->On();
 
 	if (true == Desc.IsLeftRender)
 	{
 		CreateLeftRender();
 		LeftRender->SetTexture(Desc.Name);
-		LeftRender->GetTransform()->SetLocalScale(Desc.TextureSize * Desc.TextureScale);
+		LeftRender->GetTransform()->SetLocalScale(RenderSize);
 		LeftRender->On();	
 	}
 
@@ -35,7 +38,7 @@ void Background::Init(const BG_DESC& _Desc)
 	{
 		CreateRightRedner();
 		RightRender->SetTexture(Desc.Name);
-		RightRender->GetTransform()->SetLocalScale(Desc.TextureSize * Desc.TextureScale);
+		RightRender->GetTransform()->SetLocalScale(RenderSize);
 		RightRender->On();
 	}
 
@@ -96,6 +99,7 @@ void Background::ResizeTextureScale(float _Scale)
 	Desc.TextureScale = _Scale;
 
 	float4 RenderSize = Desc.TextureSize * Desc.TextureScale;
+	RenderSize.z = 1;
 
 	BackRender->GetTransform()->SetLocalScale(RenderSize);
 
@@ -120,6 +124,7 @@ void Background::CreateLeftRender()
 	}
 
 	float4 RenderSize = Desc.TextureSize * Desc.TextureScale;
+	RenderSize.z = 1;
 
 	LeftRender = CreateComponent<GameEngineSpriteRenderer>();
 	LeftRender->SetPipeLine("2DTexture_Background");
@@ -137,6 +142,7 @@ void Background::CreateRightRedner()
 	}
 
 	float4 RenderSize = Desc.TextureSize * Desc.TextureScale;
+	RenderSize.z = 1;
 
 	RightRender = CreateComponent<GameEngineSpriteRenderer>();
 	RightRender->SetPipeLine("2DTexture_Background");

@@ -29,6 +29,7 @@ void StaticObject::Init(const SObject_DESC& _Desc)
 	}
 
 	ImageRender->SetTexture(Desc.Name);
+	Desc.Size.z = 1;
 	ImageRender->GetTransform()->SetLocalScale(Desc.Size);
 	GetTransform()->SetLocalPosition(Desc.Pos);
 	GetTransform()->SetLocalRotation(Desc.Rot);
