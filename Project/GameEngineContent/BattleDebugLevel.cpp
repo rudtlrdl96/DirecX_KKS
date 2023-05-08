@@ -182,26 +182,26 @@ void BattleDebugLevel::Start()
 
 	MainCamCtrl.SetLookatTarget(DeubgActor);
 
-	{
-		GameEngineDirectory Directory;
-		Directory.MoveParentToDirectory("Resources");
-		Directory.Move("Resources");
-		Directory.Move("Data");
-		Directory.Move("Map");
-		Directory.Move("Castle");
-
-		GameEnginePath Path = Directory.GetPlusFileName("TilemapData.txt");
-
-		GameEngineFile SaveFile = GameEngineFile(Path.GetFullPath());
-		GameEngineSerializer SaveSer = GameEngineSerializer();
-		SaveSer.BufferResize(51200);
-
-		//DebugTilemap->SaveBin(SaveSer);
-		//SaveFile.SaveBin(SaveSer);
-
-		//SaveFile.LoadBin(SaveSer);
-		//DebugTilemap->LoadBin(SaveSer);
-	}
+	//
+	//	GameEngineDirectory Directory;
+	//	Directory.MoveParentToDirectory("Resources");
+	//	Directory.Move("Resources");
+	//	Directory.Move("Data");
+	//	Directory.Move("Map");
+	//	Directory.Move("Castle");
+	//
+	//	GameEnginePath Path = Directory.GetPlusFileName("TilemapData.txt");
+	//
+	//	GameEngineFile SaveFile = GameEngineFile(Path.GetFullPath());
+	//	GameEngineSerializer SaveSer = GameEngineSerializer();
+	//	SaveSer.BufferResize(51200);
+	//
+	//	//DebugTilemap->SaveBin(SaveSer);
+	//	//SaveFile.SaveBin(SaveSer);
+	//
+	//	//SaveFile.LoadBin(SaveSer);
+	//	//DebugTilemap->LoadBin(SaveSer);
+	//
 }
 
 void BattleDebugLevel::Update(float _DeltaTime)
