@@ -8,12 +8,10 @@ void ContentCore::StaticObjectLoad()
 	Path.MoveParentToDirectory("Resources");
 	Path.Move("Resources");
 	Path.Move("Texture");
-	Path.Move("Map");
-	Path.Move("Object");
-	Path.Move("StaticObject");
 
 	{
-		Path.Move("Castle");
+		Path.Move("2_Castle");
+		Path.Move("StaticObject");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -33,10 +31,12 @@ void ContentCore::StaticObjectLoad()
 		}
 
 		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.Move("ForestOfHarmony");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("StaticObject");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -57,10 +57,12 @@ void ContentCore::StaticObjectLoad()
 		}
 
 		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.Move("GrandHall");
+		Path.Move("4_GrandHall");
+		Path.Move("StaticObject");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -82,10 +84,12 @@ void ContentCore::StaticObjectLoad()
 		}
 
 		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.Move("HolyCourtyard");
+		Path.Move("5_HolyCourtyard");
+		Path.Move("StaticObject");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -105,10 +109,12 @@ void ContentCore::StaticObjectLoad()
 		}
 
 		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.Move("Opening");
+		Path.Move("1_Opening");
+		Path.Move("StaticObject");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -128,10 +134,12 @@ void ContentCore::StaticObjectLoad()
 		}
 
 		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.Move("Shop");
+		Path.Move("7_Shop");
+		Path.Move("StaticObject");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -150,6 +158,7 @@ void ContentCore::StaticObjectLoad()
 				{ .Name = Name, .Index = 5000 + i, .Grade = LevelArea::Shop, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
+		Path.MoveParent();
 		Path.MoveParent();
 	}
 
@@ -180,8 +189,9 @@ void ContentCore::CommonTextureLoad()
 	Path.MoveParentToDirectory("Resources");
 	Path.Move("Resources");
 	Path.Move("Texture");
+	Path.Move("0_Common");
 	Path.Move("UI");
-	Path.Move("Common");
+
 	{
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -189,10 +199,11 @@ void ContentCore::CommonTextureLoad()
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
 		}
+
+		Path.MoveParent();
 	}
 
 	{
-		Path.MoveParent();
 		Path.Move("Inventory");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });

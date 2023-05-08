@@ -35,7 +35,8 @@ void ShaderDebugLevel::Start()
 		Path.MoveParentToDirectory("Resources");
 		Path.Move("Resources");
 		Path.Move("Texture");
-		Path.Move("DebugTex");
+		Path.Move("12_Debug");
+		Path.Move("3DBox");
 
 		std::vector<GameEngineFile> File = Path.GetAllFile({ ".Png", });
 

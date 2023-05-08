@@ -19,8 +19,8 @@ void EndingLogoLevel::Start()
 	Path.MoveParentToDirectory("Resources");
 	Path.Move("Resources");
 	Path.Move("Texture");
+	Path.Move("10_EndingLogo");
 	Path.Move("UI");
-	Path.Move("Ending");
 
 	{
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });

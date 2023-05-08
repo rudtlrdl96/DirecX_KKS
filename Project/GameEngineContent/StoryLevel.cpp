@@ -24,8 +24,8 @@ void StoryLevel::Start()
 	Path.MoveParentToDirectory("Resources");
 	Path.Move("Resources");
 	Path.Move("Texture");
+	Path.Move("9_Story");
 	Path.Move("UI");
-	Path.Move("Story");
 
 	{
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });

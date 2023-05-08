@@ -26,8 +26,8 @@ void TitleLevel::Start()
 	Path.MoveParentToDirectory("Resources");
 	Path.Move("Resources");
 	Path.Move("Texture");
+	Path.Move("8_Title");
 	Path.Move("UI");
-	Path.Move("Title");
 
 	{
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });

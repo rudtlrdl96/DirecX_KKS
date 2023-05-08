@@ -14,11 +14,11 @@ void ContentCore::TileDataLoad()
 	Path.MoveParentToDirectory("Resources");
 	Path.Move("Resources");
 	Path.Move("Texture");
-	Path.Move("Map");
-	Path.Move("Tile");
 
 	{
-		Path.Move("DebugTile");
+		Path.Move("12_Debug");
+		Path.Move("Tile");
+
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
 		for (UINT i = 0; i < Files.size(); i++)
@@ -27,11 +27,15 @@ void ContentCore::TileDataLoad()
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = i, .Grade = LevelArea::None });
 		}
+
+		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.MoveParent();
-		Path.Move("Opening");
+		Path.Move("1_Opening");
+		Path.Move("Tile");
+
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
 		for (UINT i = 0; i < Files.size(); i++)
@@ -40,11 +44,15 @@ void ContentCore::TileDataLoad()
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 1000 + i, .Grade = LevelArea::Opening });
 		}
+
+		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.MoveParent();
-		Path.Move("Castle");
+		Path.Move("2_Castle");
+		Path.Move("Tile");
+
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
 		for (UINT i = 0; i < Files.size(); i++)
@@ -53,10 +61,14 @@ void ContentCore::TileDataLoad()
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 2000 + i, .Grade = LevelArea::Castle});
 		}
+
+		Path.MoveParent();
+		Path.MoveParent();
 	}
 	{
-		Path.MoveParent();
-		Path.Move("ForestOfHarmony");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("Tile");
+
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 	
 		for (UINT i = 0; i < Files.size(); i++)
@@ -65,10 +77,14 @@ void ContentCore::TileDataLoad()
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 3000 + i, .Grade = LevelArea::ForestOfHamory });
 		}
+
+		Path.MoveParent();
+		Path.MoveParent();
 	}
 	{
-		Path.MoveParent();
-		Path.Move("GrandHall");
+		Path.Move("4_GrandHall");
+		Path.Move("Tile");
+
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 	
 		for (UINT i = 0; i < Files.size(); i++)
@@ -77,10 +93,14 @@ void ContentCore::TileDataLoad()
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 4000 + i, .Grade = LevelArea::GrandHall });
 		}
+
+		Path.MoveParent();
+		Path.MoveParent();
 	}
 	{
-		Path.MoveParent();
-		Path.Move("HolyCourtyard");
+		Path.Move("5_HolyCourtyard");
+		Path.Move("Tile");
+
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
 		for (UINT i = 0; i < Files.size(); i++)
@@ -89,11 +109,15 @@ void ContentCore::TileDataLoad()
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 5000 + i, .Grade = LevelArea::HolyCourtyard });
 		}
+
+		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.MoveParent();
-		Path.Move("Shop");
+		Path.Move("7_Shop");
+		Path.Move("Tile");
+
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
 		for (UINT i = 0; i < Files.size(); i++)
@@ -102,6 +126,9 @@ void ContentCore::TileDataLoad()
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 6000 + i, .Grade = LevelArea::Shop });
 		}
+
+		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	std::vector<TilemapData> NoneDatas;

@@ -13,11 +13,11 @@ void ContentCore::BackgroundDataLoad()
 	Path.MoveParentToDirectory("Resources");
 	Path.Move("Resources");
 	Path.Move("Texture");
-	Path.Move("Map");
-	Path.Move("Background");
 
-	{
-		Path.Move("Opening");
+
+	{	
+		Path.Move("1_Opening");	
+		Path.Move("Background");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -32,10 +32,12 @@ void ContentCore::BackgroundDataLoad()
 		}
 
 		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.Move("Castle");
+		Path.Move("2_Castle");
+		Path.Move("Background");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -50,10 +52,12 @@ void ContentCore::BackgroundDataLoad()
 		}
 
 		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.Move("ForestOfHarmony");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("Background");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -68,10 +72,12 @@ void ContentCore::BackgroundDataLoad()
 		}
 
 		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.Move("GrandHall");
+		Path.Move("4_GrandHall");
+		Path.Move("Background");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -86,10 +92,12 @@ void ContentCore::BackgroundDataLoad()
 		}
 
 		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.Move("HolyCourtyard");
+		Path.Move("5_HolyCourtyard");
+		Path.Move("Background");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -104,10 +112,12 @@ void ContentCore::BackgroundDataLoad()
 		}
 
 		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-		Path.Move("Shop");
+		Path.Move("7_Shop");
+		Path.Move("Background");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -121,6 +131,7 @@ void ContentCore::BackgroundDataLoad()
 			.Name = LoadTex->GetNameToString(), .Index = 600 + i, .Grade = LevelArea::Shop , .TextureSize = TexSize });
 		}
 
+		Path.MoveParent();
 		Path.MoveParent();
 	}
 
