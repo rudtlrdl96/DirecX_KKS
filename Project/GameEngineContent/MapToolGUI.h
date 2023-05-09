@@ -82,7 +82,7 @@ private:
 	std::vector<std::function<void()>> ObjectManagerCallback;
 
 	const char* AreaComboText[7] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop"};
-	const char* MapToolComboText[3] = {"Tilemap" ,"Object", "Light"};
+	const char* MapToolComboText[4] = {"Tilemap" ,"Object", "Collision", "Light"};
 
 	float4 TileSize = float4::Zero;
 
@@ -103,6 +103,7 @@ private:
 	
 	void DrawGui_Tilemap();
 	void DrawGui_Object();
+	void DrawGui_Collision();
 	void DrawGui_Light();
 };
 

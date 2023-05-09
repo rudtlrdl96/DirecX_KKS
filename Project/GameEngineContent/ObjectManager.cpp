@@ -6,6 +6,8 @@
 ObjectManager::ObjectManager()
 {
 	StaticObjectActors.reserve(32);
+	BrokenObjectActors.reserve(32);
+	MapCollisionActors.reserve(32);
 }
 
 ObjectManager::~ObjectManager()
@@ -41,6 +43,13 @@ void ObjectManager::SaveBin(GameEngineSerializer& _SaveSerializer) const
 	_SaveSerializer.Write(static_cast<int>(BrokenObjectActors.size()));
 
 	for (const std::shared_ptr<BrokenObject>& LoopRef : BrokenObjectActors)
+	{
+		//LoopRef->SaveBin(_SaveSerializer);
+	}
+
+	_SaveSerializer.Write(static_cast<int>(MapCollisionActors.size()));
+
+	for (const std::shared_ptr<MapCollision>& LoopRef : MapCollisionActors)
 	{
 		//LoopRef->SaveBin(_SaveSerializer);
 	}

@@ -160,6 +160,8 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 	case MapToolLevel::MapToolState::Object:
 		DrawGui_Object();
 		break;
+	case MapToolLevel::MapToolState::Collision:
+		break;
 	case MapToolLevel::MapToolState::Light:
 		DrawGui_Light();
 		break;
@@ -168,6 +170,10 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 	}
 }
 
+
+void MapToolGUI::DrawGui_Collision()
+{
+}
 
 void MapToolGUI::TileDatasLoad(LevelArea _Area)
 {

@@ -2,6 +2,7 @@
 #include "BaseContentActor.h"
 #include "StaticObject.h"
 #include "BrokenObject.h"
+#include "MapCollision.h"
 
 class ObjectManager : public BaseContentActor
 {
@@ -36,6 +37,7 @@ protected:
 private:
 	std::vector<std::shared_ptr<StaticObject>> StaticObjectActors;
 	std::vector<std::shared_ptr<BrokenObject>> BrokenObjectActors;
+	std::vector<std::shared_ptr<MapCollision>> MapCollisionActors;
 
 	int CurrentStaticObjectIndex = -1;
 };

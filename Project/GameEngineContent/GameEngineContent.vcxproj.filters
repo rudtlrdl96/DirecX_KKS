@@ -259,6 +259,9 @@
     <Filter Include="6_Doc">
       <UniqueIdentifier>{70badb27-0eb8-4909-83d6-b77486917f74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\Object\MapCollision">
+      <UniqueIdentifier>{b3303797-7ec9-4922-b8c4-e36611cf38f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -500,6 +503,9 @@
     </ClInclude>
     <ClInclude Include="BattleStage.h">
       <Filter>2_Actor\Map\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="MapCollision.h">
+      <Filter>2_Actor\Map\Stage\Object\MapCollision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -766,6 +772,9 @@
     </ClCompile>
     <ClCompile Include="BattleStage.cpp">
       <Filter>2_Actor\Map\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="MapCollision.cpp">
+      <Filter>2_Actor\Map\Stage\Object\MapCollision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

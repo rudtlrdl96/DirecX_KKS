@@ -8,6 +8,7 @@ public:
 	{
 		Tilemap,
 		Object,
+		Collision,
 		Light
 	};
 public:
