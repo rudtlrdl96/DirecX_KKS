@@ -6,6 +6,7 @@
 
 std::map<std::string, GameEngineInput::GameEngineKey> GameEngineInput::Keys;
 bool GameEngineInput::IsAnyKeyValue = false;
+bool GameEngineInput::IsFocus = true;
 
 float4 GameEngineInput::MousePos;
 float4 GameEngineInput::PrevMousePos;
@@ -14,7 +15,7 @@ float4 GameEngineInput::MouseDirection;
 
 void GameEngineInput::GameEngineKey::Update(float _DeltaTime)
 {
-	if (NULL != GetFocus() && true == KeyCheck())
+	if (true == KeyCheck())
 	{
 		PressTime += _DeltaTime;
 		if (true == Free)
@@ -148,6 +149,19 @@ void GameEngineInput::Update(float _DeltaTime)
 	MouseDirection = MousePos - PrevMousePos;
 
 	PrevMousePos = MousePos;
+
+	if (false == IsFocus)
+	{
+		std::map<std::string, GameEngineKey>::iterator StartKeyIter = Keys.begin();
+		std::map<std::string, GameEngineKey>::iterator EndKeyIter = Keys.end();
+
+		for (; StartKeyIter != EndKeyIter; ++StartKeyIter)
+		{
+			StartKeyIter->second.Reset();
+		}
+
+		return;
+	}
 
 	std::map<std::string, GameEngineKey>::iterator StartKeyIter = Keys.begin();
 	std::map<std::string, GameEngineKey>::iterator EndKeyIter = Keys.end();
