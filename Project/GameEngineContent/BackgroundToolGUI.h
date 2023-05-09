@@ -46,7 +46,7 @@ private:
 	std::map<LevelArea, std::vector<BackgroundToolData>> BackgroundDatas;
 
 	LevelArea CurShowAreaTile = LevelArea::None;
-	const char* AreaComboText[6] = { "None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard" };
+	const char* AreaComboText[7] = { "None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop"};
 
 	bool IsSaveTrigger = false;
 	bool IsLoadTrigger = false;

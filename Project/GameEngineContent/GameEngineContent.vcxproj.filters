@@ -256,6 +256,9 @@
     <Filter Include="2_Actor\Map\Stage\Tile">
       <UniqueIdentifier>{72f7e1a4-1266-4525-b44a-0f38f492bb96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="6_Doc">
+      <UniqueIdentifier>{70badb27-0eb8-4909-83d6-b77486917f74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -764,5 +767,16 @@
     <ClCompile Include="BattleStage.cpp">
       <Filter>2_Actor\Map\Stage</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Doc\스컬 간트차트.xlsx">
+      <Filter>6_Doc</Filter>
+    </None>
+    <None Include="..\Doc\아이템 정리.xlsx">
+      <Filter>6_Doc</Filter>
+    </None>
+    <None Include="..\Doc\스컬 ppt.pptx">
+      <Filter>6_Doc</Filter>
+    </None>
   </ItemGroup>
 </Project>

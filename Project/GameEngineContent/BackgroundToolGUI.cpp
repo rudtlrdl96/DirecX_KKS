@@ -45,6 +45,7 @@ void BackgroundToolGUI::Start()
 	BackgroundDatasLoad(LevelArea::GrandHall);
 	BackgroundDatasLoad(LevelArea::HolyCourtyard);
 	BackgroundDatasLoad(LevelArea::Shop);
+
 }
 
 void BackgroundToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
