@@ -30,10 +30,7 @@ public:
 
 	void Init(const SObject_DESC& _Desc);
 
-	const SObject_DESC& GetDesc() const
-	{
-		return Desc;
-	}
+	const SObject_DESC& GetDesc();
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	static SObject_DESC LoadBin(GameEngineSerializer& _LoadSerializer);

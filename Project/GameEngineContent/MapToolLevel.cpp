@@ -33,6 +33,7 @@ void MapToolLevel::Start()
 		GameEngineInput::CreateKey("ToolActive", VK_LBUTTON);
 		GameEngineInput::CreateKey("ToolDisable", VK_RBUTTON);
 
+
 		GameEngineInput::CreateKey("TempSizeUp", VK_OEM_PLUS);
 		GameEngineInput::CreateKey("TempSizeDown", VK_OEM_MINUS);
 

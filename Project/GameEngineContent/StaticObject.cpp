@@ -43,12 +43,19 @@ void StaticObject::Init(const SObject_DESC& _Desc)
 	ImageRender->On();
 }
 
-void StaticObject::SaveBin(GameEngineSerializer& _SaveSerializer)
+const SObject_DESC& StaticObject::GetDesc()
 {
 	Desc.Pos = GetTransform()->GetLocalPosition();
 	Desc.Rot = GetTransform()->GetLocalRotation();
 	Desc.Scale = GetTransform()->GetLocalScale();
 	Desc.Color = Buffer.Color;
+
+	return Desc;
+}
+
+void StaticObject::SaveBin(GameEngineSerializer& _SaveSerializer)
+{
+	GetDesc();
 
 	_SaveSerializer.Write(Desc.Name);
 	_SaveSerializer.Write(&Desc.Index, sizeof(size_t));
@@ -82,7 +89,7 @@ void StaticObject::ShowGUI()
 	ImGui::Spacing();
 
 	float Color[4] = { Buffer.Color.x, Buffer.Color.y, Buffer.Color.z, Buffer.Color.w };
-	ImGui::ColorEdit4("MyColor##1", Color);
+	ImGui::ColorEdit4("MyColor##1", Color, ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_AlphaBar);
 	
 	if (Buffer.Color.x != Color[0] ||
 		Buffer.Color.y != Color[1] ||
