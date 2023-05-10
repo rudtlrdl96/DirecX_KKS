@@ -11,10 +11,10 @@ BoneSkull::~BoneSkull()
 
 void BoneSkull::Start()
 {
-	FSMInit<BoneSkull>(SkullFsm, Shared_This_dynamic_pointer<BoneSkull>());
+	PlayerBaseSkull::Start();
 }
 
 void BoneSkull::Update(float _DeltaTime)
 {
-	SkullFsm.Update(_DeltaTime);
+	PlayerBaseSkull::Update(_DeltaTime);
 }

@@ -782,6 +782,9 @@
     <ClCompile Include="MapPlatformDebugRender.cpp">
       <Filter>2_Actor\Map\Stage\Object\MapPlatform</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerBaseSkull_FSM.cpp">
+      <Filter>2_Actor\Player\Skull</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Doc\스컬 간트차트.xlsx">

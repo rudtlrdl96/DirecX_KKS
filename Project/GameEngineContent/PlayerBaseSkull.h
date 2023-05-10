@@ -16,33 +16,25 @@ public:
 protected:	
 	void Start() override;
 
+	ActorWalkDir ViewDir = ActorWalkDir::Right;
+	ClassFSM<PlayerBaseSkull> PlayerFSM;
+
 	std::shared_ptr<GameEngineSpriteRenderer> SkullRenderer = nullptr;
-
-	template<typename SkullClass>
-	void FSMInit(ClassFSM<SkullClass>& _SkullFSM, std::shared_ptr<SkullClass> _ClassPtr)
-	{
-		if (nullptr == _ClassPtr)
-		{
-			MsgAssert_Rtti<SkullClass>(" - nullptr 객체으로 스컬 FSM을 초기화하려 했습니다.");
-		}
-
-		_SkullFSM.Init(_ClassPtr);
-
-		_SkullFSM.AddFSM("Idle", &SkullClass::Idle_Enter, &SkullClass::Idle_Update, &SkullClass::Idle_End);
-		_SkullFSM.AddFSM("Walk", &SkullClass::Walk_Enter, &SkullClass::Walk_Update, &SkullClass::Walk_End);
-		_SkullFSM.AddFSM("Attack", &SkullClass::Attack_Enter, &SkullClass::Attack_Update, &SkullClass::Attack_End);
-		_SkullFSM.AddFSM("Jump", &SkullClass::Jump_Enter, &SkullClass::Jump_Update, &SkullClass::Jump_End);
-		_SkullFSM.AddFSM("JumpAttack", &SkullClass::JumpAttack_Enter, &SkullClass::JumpAttack_Update, &SkullClass::JumpAttack_End);
-		_SkullFSM.AddFSM("Fall",  &SkullClass::Fall_Enter, &SkullClass::Fall_Update, &SkullClass::Fall_End);
-		_SkullFSM.AddFSM("Dash",  &SkullClass::Dash_Enter, &SkullClass::Dash_Update, &SkullClass::Dash_End);
-		_SkullFSM.AddFSM("Switch", &SkullClass::Switch_Enter, &SkullClass::Switch_Update, &SkullClass::Switch_End);
-		_SkullFSM.AddFSM("SkillSlotA", &SkullClass::Skill_SlotA_Enter, &SkullClass::Skill_SlotA_Update, &SkullClass::Skill_SlotA_End);
-		_SkullFSM.AddFSM("SkillSlotB", &SkullClass::Skill_SlotB_Enter, &SkullClass::Skill_SlotB_Update, &SkullClass::Skill_SlotB_End);
-	}
 	
-	virtual void Idle_Enter() {}
-	virtual void Idle_Update(float _DeltaTime) {}
-	virtual void Idle_End() {}
+	float4 JumpDir = float4::Zero;
+	float JumpPower = 100.0f;
+	int JumpCount = 2;
+
+	float WalkSpeed = 250.0f;
+
+	float MaxFallSpeed = 400.0f;
+
+	bool IsGround() const;
+
+	// FSM Functions
+	virtual void Idle_Enter();
+	virtual void Idle_Update(float _DeltaTime);
+	virtual void Idle_End();
 
 	virtual void Walk_Enter() {}
 	virtual void Walk_Update(float _DeltaTime) {}
@@ -57,7 +49,7 @@ protected:
 	virtual void JumpAttack_End() {}
 
 	virtual void Jump_Enter() {}
-	virtual void Jump_Update(float _DeltaTime) {}
+	virtual void Jump_Update(float _DeltaTime);
 	virtual void Jump_End() {}
 
 	virtual void Fall_Enter() {}

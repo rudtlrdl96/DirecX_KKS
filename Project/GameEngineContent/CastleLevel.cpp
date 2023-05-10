@@ -33,8 +33,11 @@ void CastleLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
-	BattleAreaPtr->ChangeBackground("DB_Castle_Background");
-	BattleAreaPtr->ChangeMap("DB_Castle_Map");
+	BattleAreaPtr->ChangeBackground("DB_Castle_Background", float4(640.0f, 20, 0));
+	BattleAreaPtr->ChangeMap("DB_Castle_Map", float4(0, -64.0f * 3, 0, 0));
+	BattleAreaPtr->SetCameraLock(MainCamCtrl);
+
+	MainCamCtrl.SetMaxWidth(D3D11_FLOAT32_MAX);
 }
 
 void CastleLevel::Update(float _DeltaTime)

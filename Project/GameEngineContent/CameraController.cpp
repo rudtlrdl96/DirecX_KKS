@@ -106,7 +106,7 @@ void CameraController::Update(float _DeltaTime)
 		}
 	}
 
-	if (TargetWorldPos.x - WindowSizeHalf.x < MinWidth)
+	if (TargetWorldPos.x - WindowSizeHalf.x <= MinWidth)
 	{
 		TargetWorldPos.x = MinWidth + WindowSizeHalf.x;
 	}
@@ -115,7 +115,7 @@ void CameraController::Update(float _DeltaTime)
 		TargetWorldPos.x = MaxWidth - WindowSizeHalf.x;
 	}
 
-	if (TargetWorldPos.y - WindowSizeHalf.y < MinHeight)
+	if (TargetWorldPos.y - WindowSizeHalf.y <= MinHeight)
 	{
 		TargetWorldPos.y = MinHeight + WindowSizeHalf.y;
 	}

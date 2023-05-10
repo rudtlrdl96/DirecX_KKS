@@ -280,7 +280,7 @@ float4 Tilemap::GetTilePos(UINT _X, UINT _Y) const
 	return float4(static_cast<float>(_X), static_cast<float>(_Y), 0, 0) * TileScale;
 }
 
-Tilemap_Meta Tilemap::GetTilemap_DESC(int _Depth)
+Tilemap_Meta Tilemap::GetTilemap_DESC()
 {
 	Tilemap_Meta Result = Tilemap_Meta();
 

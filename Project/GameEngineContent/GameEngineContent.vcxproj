@@ -547,6 +547,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerBaseSkull_FSM.cpp" />
     <ClCompile Include="TilemapHoverRenderActor.cpp">
       <SubType>
       </SubType>

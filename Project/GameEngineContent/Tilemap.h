@@ -61,7 +61,7 @@ public:
 		return Gui_TilemapCurDepth;
 	}
 
-	Tilemap_Meta GetTilemap_DESC(int _Depth);
+	Tilemap_Meta GetTilemap_DESC();
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	void LoadBin(GameEngineSerializer& _LoadSerializer);

@@ -16,10 +16,7 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
-	//void Idle_Update() override;
-
 private:
-	ClassFSM<BoneSkull> SkullFsm;
 
 };
 

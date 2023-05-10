@@ -15,15 +15,17 @@ public:
 	BattleArea& operator=(BattleArea&& _Other) noexcept = delete;
 
 	void LoadMap(GameEngineDirectory& _Directory, const std::string_view& _FileName);
-	void ChangeMap(const std::string_view _Name);
+	void ChangeMap(const std::string_view _Name, const float4& _Pivot = float4::Zero);
 
 	void LoadBackground(GameEngineDirectory& _Directory, const std::string_view& _FileName);
-	void ChangeBackground(const std::string_view _Name);
+	void ChangeBackground(const std::string_view _Name, const float4& _Pivot = float4::Zero);
 
 	inline void UpdateBackground(float _DeltaTime, const float4& _CenterPos)
 	{
 		CurBackground->UpdateTargetPos(_DeltaTime, _CenterPos);
 	}
+
+	void SetCameraLock(class CameraController& _CameraCtrl);
 
 protected:
 	

@@ -46,8 +46,9 @@ void OpeningLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
-	BattleAreaPtr->ChangeBackground("DB_Opening_Background");
+	BattleAreaPtr->ChangeBackground("DB_Opening_Background", float4(0, 128, 0));
 	BattleAreaPtr->ChangeMap("DB_Opening_01_Map");
+	BattleAreaPtr->SetCameraLock(MainCamCtrl);
 }
 
 void OpeningLevel::Update(float _DeltaTime)
@@ -57,19 +58,23 @@ void OpeningLevel::Update(float _DeltaTime)
 	if (true == GameEngineInput::IsDown("Opening_Debug_SetMap0"))
 	{
 		BattleAreaPtr->ChangeMap("DB_Opening_01_Map");
+		BattleAreaPtr->SetCameraLock(MainCamCtrl);
 	}
 	if (true == GameEngineInput::IsDown("Opening_Debug_SetMap1"))
 	{
 		BattleAreaPtr->ChangeMap("DB_Opening_02_Map");
+		BattleAreaPtr->SetCameraLock(MainCamCtrl);
 	}
 
 	if (true == GameEngineInput::IsDown("Opening_Debug_SetMap2"))
 	{
 		BattleAreaPtr->ChangeMap("DB_Opening_03_Map");
+		BattleAreaPtr->SetCameraLock(MainCamCtrl);
 	}
 
 	if (true == GameEngineInput::IsDown("Opening_Debug_SetMap3"))
 	{
 		BattleAreaPtr->ChangeMap("DB_Opening_04_Map");
+		BattleAreaPtr->SetCameraLock(MainCamCtrl);
 	}
 }

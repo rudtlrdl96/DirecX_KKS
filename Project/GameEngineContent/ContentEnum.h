@@ -10,3 +10,9 @@ enum class LevelArea
 	HolyCourtyard,	// 성역
 	Shop,		    // 상점
 };
+
+enum class ActorWalkDir
+{
+	Left,
+	Right
+};

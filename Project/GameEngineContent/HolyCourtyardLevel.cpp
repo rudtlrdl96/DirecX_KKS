@@ -38,8 +38,9 @@ void HolyCourtyardLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
-	BattleAreaPtr->ChangeBackground("DB_BossPahse0_Background_1");
+	BattleAreaPtr->ChangeBackground("DB_HolyCourtyard_Background_1", float4(0, 0, 0));
 	BattleAreaPtr->ChangeMap("DB_HoluCourtyard_BossEntranceFade_Map");
+	BattleAreaPtr->SetCameraLock(MainCamCtrl);
 }
 
 void HolyCourtyardLevel::Update(float _DeltaTime)

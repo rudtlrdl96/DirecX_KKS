@@ -159,7 +159,7 @@ void BattleDebugLevel::Start()
 	DebugTilemap->ChangeData(0, 0, 79, 0, 11, 0);
 	DebugTilemap->ChangeData(0, 0, 79, 0, 0, 2);
 
-	Tilemap_Meta TilemapDESC = DebugTilemap->GetTilemap_DESC(0);
+	Tilemap_Meta TilemapDESC = DebugTilemap->GetTilemap_DESC();
 
 	MainCamCtrl.SetMinHeight(TilemapDESC.Bottom);
 	MainCamCtrl.SetMaxHeight(TilemapDESC.Top);

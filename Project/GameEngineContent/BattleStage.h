@@ -13,6 +13,7 @@ public:
 	BattleStage& operator=(BattleStage&& _Other) noexcept = delete;
 
 	void Init(GameEngineSerializer& _LoadSerializer);
+	class Tilemap_Meta GetTilemapDesc() const;
 
 protected:
 	void Start() override;

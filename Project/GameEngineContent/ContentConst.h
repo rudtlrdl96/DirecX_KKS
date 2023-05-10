@@ -6,6 +6,7 @@ class ContentConst sealed
 public:
 	//Physics
 	static const float4 Gravity;
+	static const float Gravity_f;
 
 	// Tile
 	static const float4 TileSize;

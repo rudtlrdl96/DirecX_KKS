@@ -22,6 +22,11 @@ void BattleStage::Init(GameEngineSerializer& _LoadSerializer)
 	ObjectManagerPtr->LoadBin(_LoadSerializer);
 }
 
+Tilemap_Meta BattleStage::GetTilemapDesc() const
+{
+	return TilemapPtr->GetTilemap_DESC();
+}
+
 void BattleStage::Start()
 {
 	std::shared_ptr<GameEngineLevel> LevelPtr = GetLevel()->Shared_This_dynamic_pointer<GameEngineLevel>();

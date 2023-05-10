@@ -3,6 +3,9 @@
 
 #include <GameEngineCore/GameEngineLevel.h>
 
+#include "CameraController.h"
+#include "Tilemap.h"
+
 BattleArea::BattleArea()
 {
 }
@@ -36,7 +39,7 @@ void BattleArea::LoadMap(GameEngineDirectory& _Directory, const std::string_view
 	BattleStageDatas.insert(std::make_pair(UpperName, NewStage));
 }
 
-void BattleArea::ChangeMap(const std::string_view _Name)
+void BattleArea::ChangeMap(const std::string_view _Name, const float4& _Pivot /*= float4::Zero*/)
 {
 	std::string UpperName = GameEngineString::ToUpper(_Name);
 
@@ -51,6 +54,7 @@ void BattleArea::ChangeMap(const std::string_view _Name)
 	}
 
 	CurStage = BattleStageDatas[UpperName];
+	CurStage->GetTransform()->SetLocalPosition(_Pivot);
 	CurStage->On();
 }
 
@@ -66,7 +70,7 @@ void BattleArea::LoadBackground(GameEngineDirectory& _Directory, const std::stri
 	GameEngineFile LoadFile = GameEngineFile(_Directory.GetPlusFileName(_FileName).GetFullPath());
 	GameEngineSerializer LoadSer;
 	
-	LoadSer.BufferResize(2048);
+	LoadSer.BufferResize(4096);
 	LoadFile.LoadBin(LoadSer);
 	
 	std::shared_ptr<MultiBackground> NewBackground = GetLevel()->CreateActor<MultiBackground>();
@@ -78,7 +82,7 @@ void BattleArea::LoadBackground(GameEngineDirectory& _Directory, const std::stri
 	BattleBackgroundDatas.insert(std::make_pair(UpperName, NewBackground));
 }
 
-void BattleArea::ChangeBackground(const std::string_view _Name)
+void BattleArea::ChangeBackground(const std::string_view _Name, const float4& _Pivot /*= float4::Zero*/)
 {
 
 	std::string UpperName = GameEngineString::ToUpper(_Name);
@@ -95,5 +99,22 @@ void BattleArea::ChangeBackground(const std::string_view _Name)
 	}
 
 	CurBackground = BattleBackgroundDatas[UpperName];
+	CurBackground->GetTransform()->SetLocalPosition(_Pivot);
 	CurBackground->On();
+}
+
+void BattleArea::SetCameraLock(CameraController& _CameraCtrl)
+{
+	if (nullptr == CurStage)
+	{
+		MsgAssert_Rtti<BattleArea>(" - 맵 데이터를 설정하지 않고 카메라 Lock을 설정하려 했습니다");
+		return;
+	}
+
+	Tilemap_Meta TileMeta = CurStage->GetTilemapDesc();
+
+	_CameraCtrl.SetMinHeight(TileMeta.Bottom);
+	_CameraCtrl.SetMaxHeight(TileMeta.Top);
+	_CameraCtrl.SetMinWidth(TileMeta.Left);
+	_CameraCtrl.SetMaxWidth(TileMeta.Right);
 }
