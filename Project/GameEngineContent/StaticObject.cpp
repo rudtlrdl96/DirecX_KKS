@@ -101,8 +101,6 @@ void StaticObject::ShowGUI()
 		Buffer.Color.z = Color[2];
 		Buffer.Color.w = Color[3];
 	}
-
-	//ImGui::ColorEdit4();
 }
 
 void StaticObject::Start()

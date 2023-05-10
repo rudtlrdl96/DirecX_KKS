@@ -62,19 +62,11 @@ void MapToolGUI::DrawGui_Tilemap()
 	}
 }
 
-void MapToolGUI::DrawGui_Object()
+void MapToolGUI::DrawGui_SObject()
 {
 	const std::vector<MapTool_SObjectData>& BufferTextureDatas = SObjectTexDatas[CurShowAreaTile];
 
 	ImGui::Spacing();
-
-	for (size_t i = 0; i < ObjectManagerCallback.size(); i++)
-	{
-		if (nullptr != ObjectManagerCallback[i])
-		{
-			ObjectManagerCallback[i]();
-		}
-	}
 
 	for (size_t i = 0; i < BufferTextureDatas.size(); i++)
 	{
@@ -88,6 +80,26 @@ void MapToolGUI::DrawGui_Object()
 			SelectSObject_Desc = BufferTextureDatas[i].Data;
 		}
 	}
+}
+
+void MapToolGUI::DrawGui_BObject()
+{
+
+}
+
+void MapToolGUI::DrawGui_Platform()
+{
+	static int CurrentPlatformTypeIndex = 0;
+	ImGui::Combo("Default New Platform Type", &CurrentPlatformTypeIndex, PlatformTypeCombo, IM_ARRAYSIZE(PlatformTypeCombo));
+
+	BasePlatformType = static_cast<MapPlatform::PlatformType>(CurrentPlatformTypeIndex);
+
+	if (BasePlatformType < MapPlatform::PlatformType::Normal || BasePlatformType > MapPlatform::PlatformType::Half)
+	{
+		MsgAssert_Rtti<MapToolGUI>(" - 잘못된 Platform 타입이 입력되었습니다");
+	}
+
+	ImGui::Spacing();
 }
 
 void MapToolGUI::DrawGui_Light()
@@ -152,15 +164,27 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 		MsgAssert_Rtti<MapToolGUI>(" - 잘못된 MappTool 타입이 입력되었습니다");
 	}
 
+	for (size_t i = 0; i < ObjectManagerCallback.size(); i++)
+	{
+		if (nullptr != ObjectManagerCallback[i])
+		{
+			ObjectManagerCallback[i]();
+		}
+	}
+
 	switch (MapToolType)
 	{
 	case MapToolLevel::MapToolState::Tilemap:
 		DrawGui_Tilemap();
 		break;
-	case MapToolLevel::MapToolState::Object:
-		DrawGui_Object();
+	case MapToolLevel::MapToolState::SObject:
+		DrawGui_SObject();
 		break;
-	case MapToolLevel::MapToolState::Collision:
+	case MapToolLevel::MapToolState::BObject:
+		DrawGui_BObject();
+		break;
+	case MapToolLevel::MapToolState::Platform:
+		DrawGui_Platform();
 		break;
 	case MapToolLevel::MapToolState::Light:
 		DrawGui_Light();
@@ -168,11 +192,6 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 	default:
 		break;
 	}
-}
-
-
-void MapToolGUI::DrawGui_Collision()
-{
 }
 
 void MapToolGUI::TileDatasLoad(LevelArea _Area)
@@ -199,6 +218,7 @@ void MapToolGUI::TileDatasLoad(LevelArea _Area)
 
 void MapToolGUI::SObjectDatasLoad(LevelArea _Area)
 {
+
 	std::vector<MapTool_SObjectData>& BufferTextureDatas = SObjectTexDatas[_Area];
 
 	std::vector<SObject_DESC> CopyDatas;

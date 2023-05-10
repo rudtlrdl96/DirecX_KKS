@@ -56,6 +56,11 @@ public:
 		return MapToolType;
 	}
 
+	inline MapPlatform::PlatformType GetPlatformType() const
+	{
+		return BasePlatformType;
+	}
+
 	inline void Pushback_TilemapCallback(std::function<void()> _FunctionPtr)
 	{
 		TilemapCallback.push_back(_FunctionPtr);
@@ -77,13 +82,15 @@ private:
 
 	LevelArea CurShowAreaTile = LevelArea::None;
 	MapToolLevel::MapToolState MapToolType = MapToolLevel::MapToolState::Tilemap;
+	MapPlatform::PlatformType BasePlatformType = MapPlatform::PlatformType::Normal;
 
 	std::vector<std::function<void()>> TilemapCallback;
 	std::vector<std::function<void()>> ObjectManagerCallback;
 
 	const char* AreaComboText[7] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop"};
-	const char* MapToolComboText[4] = {"Tilemap" ,"Object", "Collision", "Light"};
-
+	const char* MapToolComboText[5] = {"Tilemap" ,"SObject", "BObject", "Platform", "Light"};
+	const char* PlatformTypeCombo[2] = {"Normal" ,"Half"};
+	
 	float4 TileSize = float4::Zero;
 
 	UINT SelectTileIndex = 0;
@@ -102,8 +109,9 @@ private:
 	void SObjectDatasLoad(LevelArea _Area);
 	
 	void DrawGui_Tilemap();
-	void DrawGui_Object();
-	void DrawGui_Collision();
+	void DrawGui_SObject();
+	void DrawGui_BObject();
+	void DrawGui_Platform();
 	void DrawGui_Light();
 };
 

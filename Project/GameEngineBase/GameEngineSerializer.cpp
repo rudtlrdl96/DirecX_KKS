@@ -72,3 +72,15 @@ void GameEngineSerializer::Read(void* _Ptr, size_t _Size)
 
 	Offset += _Size;
 }
+
+bool GameEngineSerializer::IsOver(size_t _Size)
+{
+	if (Datas.size() <= Offset + _Size)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

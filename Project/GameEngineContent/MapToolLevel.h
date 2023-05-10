@@ -7,8 +7,9 @@ public:
 	enum class MapToolState
 	{
 		Tilemap,
-		Object,
-		Collision,
+		SObject,
+		BObject,
+		Platform,
 		Light
 	};
 public:
@@ -40,11 +41,17 @@ private:
 		
 	MapToolState MapToolType = MapToolState::Tilemap;
 
-	UINT SelectIndex = 0;
 	float CameraSpeed = 500.0f;
 
 	void Save();
 	void Load();
 
 	void CameraMoveFunction(float _DeltaTime);
+
+
+	void Update_Tilemap(float _DeltaTime);
+	void Update_SObject(float _DeltaTime);
+	void Update_BObject(float _DeltaTime);
+	void Update_Platfrom(float _DeltaTime);
+
 };

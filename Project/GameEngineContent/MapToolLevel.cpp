@@ -52,6 +52,7 @@ void MapToolLevel::Start()
 	TilemapPtr->ResizeTilemap(20, 20);
 
 	ObjectMgrPtr = CreateActor<ObjectManager>();
+	ObjectMgrPtr->PlatformDebugOn();
 
 	TilePalletPtr = CreateActor<TilemapPallet>();
 	TilePalletPtr->SetPencleIndex(1000);
@@ -90,78 +91,25 @@ void MapToolLevel::Update(float _DeltaTime)
 	{
 	case MapToolLevel::MapToolState::Tilemap:
 	{
-		ActorGUIPtr->SetTarget(nullptr);
-		TilePalletPtr->SetActiveCursor(true);
-		TilePalletPtr->On();
-
-		TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
-
-		float4 WorldMousePos = GetMousePos();
-		WorldMousePos.z = 0.0f;
-
-		int2 MouseIndex = TilemapPtr->GetTileIndex(WorldMousePos);
-
-		UINT CastingIndexX = static_cast<UINT>(MouseIndex.x);
-		UINT CastingIndexY = static_cast<UINT>(MouseIndex.y);
-
-		TilePalletPtr->GetTransform()->SetWorldPosition(WorldMousePos);
-		
-		if ( MouseIndex.x >= 0 && MouseIndex.y >= 0 && false == TilemapPtr->IsOver(MouseIndex.x, MouseIndex.y))
-		{
-			float4 TileIndexPos = TilemapPtr->GetTilePos(CastingIndexX, CastingIndexY);
-			TileIndexPos.z = -50;
-
-			TilemapHoverPtr->HoverOn();
-			TilemapHoverPtr->GetTransform()->SetWorldPosition(TileIndexPos);
-		}
-		else
-		{
-			break;
-		}
-
-		if (false == ImGui::GetIO().WantCaptureMouse &&
-			(true == GameEngineInput::IsPress("ToolActive") ||
-			true == GameEngineInput::IsPress("ToolDisable")))
-		{
-			UINT TilemapCurDepthCount = TilemapPtr->GetCurDepth();
-
-			if (true == GameEngineInput::IsPress("ToolActive"))
-			{
-				TilemapPtr->ChangeData(TilemapCurDepthCount, MouseIndex.x, MouseIndex.y, TilePalletPtr->GetPencleIndex());
-			}
-			else if (true == GameEngineInput::IsPress("ToolDisable"))
-			{
-				TilemapPtr->ChangeData(TilemapCurDepthCount, MouseIndex.x, MouseIndex.y, 0);
-			}
-		} 
-	}
+		Update_Tilemap(_DeltaTime);
 		break;
-	case MapToolLevel::MapToolState::Object:
+	}
+	case MapToolLevel::MapToolState::SObject:
 	{
-		std::shared_ptr<BaseContentActor> GetActorPtr = ObjectMgrPtr->GetSelectSObject();
-
-		if (nullptr == GetActorPtr)
-		{
-			ActorGUIPtr->SetTarget(nullptr);
-		}
-		else
-		{
-			ActorGUIPtr->SetTarget(GetActorPtr->GetTransform(), {std::bind(&BaseContentActor::ShowGUI, GetActorPtr)});
-		}
-
-
-		if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
-		{
-			float4 TestMousePos = GetMousePos();
-			TestMousePos.z = 0;
-
-			SObject_DESC NewObjectDesc = MapToolGuiPtr->GetSelectSObject();
-			NewObjectDesc.Pos = TestMousePos;
-
-			ObjectMgrPtr->CreateStaticObject(NewObjectDesc);
-		}
-	}
+		Update_SObject(_DeltaTime);		
 		break;
+	}
+
+	case MapToolLevel::MapToolState::BObject:
+	{
+		Update_BObject(_DeltaTime);
+		break;
+	}
+	case MapToolLevel::MapToolState::Platform:
+	{
+		Update_Platfrom(_DeltaTime);	
+		break;
+	}
 	case MapToolLevel::MapToolState::Light:
 		break;
 	default:
@@ -235,6 +183,7 @@ void MapToolLevel::Save()
 
 	TilemapPtr->SaveBin(SaveSerializer);
 	ObjectMgrPtr->SaveBin(SaveSerializer);
+	
 
 	GameEngineFile SaveFile = GameEngineFile(Path);
 	SaveFile.SaveBin(SaveSerializer);
@@ -297,5 +246,121 @@ void MapToolLevel::CameraMoveFunction(float _DeltaTime)
 	else if (GameEngineInput::IsPress("CameraMoveRight"))
 	{
 		GetMainCamera()->GetTransform()->AddLocalPosition(float4::Right * CurFrameCameraSpeed);
+	}
+}
+
+
+void MapToolLevel::Update_Tilemap(float _DeltaTime)
+{
+	ActorGUIPtr->SetTarget(nullptr);
+	TilePalletPtr->SetActiveCursor(true);
+	TilePalletPtr->On();
+
+	TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
+
+	float4 WorldMousePos = GetMousePos();
+	WorldMousePos.z = 0.0f;
+
+	int2 MouseIndex = TilemapPtr->GetTileIndex(WorldMousePos);
+
+	UINT CastingIndexX = static_cast<UINT>(MouseIndex.x);
+	UINT CastingIndexY = static_cast<UINT>(MouseIndex.y);
+
+	TilePalletPtr->GetTransform()->SetWorldPosition(WorldMousePos);
+
+	if (MouseIndex.x >= 0 && MouseIndex.y >= 0 && false == TilemapPtr->IsOver(MouseIndex.x, MouseIndex.y))
+	{
+		float4 TileIndexPos = TilemapPtr->GetTilePos(CastingIndexX, CastingIndexY);
+		TileIndexPos.z = -50;
+
+		TilemapHoverPtr->HoverOn();
+		TilemapHoverPtr->GetTransform()->SetWorldPosition(TileIndexPos);
+	}
+	else
+	{
+		return;
+	}
+
+	if (false == ImGui::GetIO().WantCaptureMouse &&
+		(true == GameEngineInput::IsPress("ToolActive") ||
+			true == GameEngineInput::IsPress("ToolDisable")))
+	{
+		UINT TilemapCurDepthCount = TilemapPtr->GetCurDepth();
+
+		if (true == GameEngineInput::IsPress("ToolActive"))
+		{
+			TilemapPtr->ChangeData(TilemapCurDepthCount, MouseIndex.x, MouseIndex.y, TilePalletPtr->GetPencleIndex());
+		}
+		else if (true == GameEngineInput::IsPress("ToolDisable"))
+		{
+			TilemapPtr->ChangeData(TilemapCurDepthCount, MouseIndex.x, MouseIndex.y, 0);
+		}
+	}
+}
+
+void MapToolLevel::Update_SObject(float _DeltaTime)
+{
+	ObjectMgrPtr->SetGuiType(ObjectManager::GuiType::SObject);
+
+	std::shared_ptr<BaseContentActor> GetActorPtr = ObjectMgrPtr->GetSelectSObject();
+
+	if (nullptr == GetActorPtr)
+	{
+		ActorGUIPtr->SetTarget(nullptr);
+	}
+	else
+	{
+		ActorGUIPtr->SetTarget(GetActorPtr->GetTransform(), { std::bind(&BaseContentActor::ShowGUI, GetActorPtr) });
+	}
+
+
+	if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
+	{
+		float4 TestMousePos = GetMousePos();
+		TestMousePos.z = 0;
+
+		SObject_DESC NewObjectDesc = MapToolGuiPtr->GetSelectSObject();
+		NewObjectDesc.Pos = TestMousePos;
+
+		ObjectMgrPtr->CreateStaticObject(NewObjectDesc);
+	}
+}
+
+void MapToolLevel::Update_BObject(float _DeltaTime)
+{
+
+	ObjectMgrPtr->SetGuiType(ObjectManager::GuiType::BObject);
+}
+
+void MapToolLevel::Update_Platfrom(float _DeltaTime)
+{
+	ObjectMgrPtr->SetGuiType(ObjectManager::GuiType::Platform);
+
+	static float4 PlatformStartPos = float4::Zero;
+	static float4 PlatformEndPos = float4::Zero;
+
+	if (false == ImGui::GetIO().WantCaptureMouse)
+	{
+		if (true == GameEngineInput::IsDown("ToolActive"))
+		{
+			PlatformStartPos = GetMousePos();
+		}
+		else if (true == GameEngineInput::IsUp("ToolActive"))
+		{
+			PlatformEndPos = GetMousePos();
+			MapPlatform::Platform_DESC NewDesc;
+
+			NewDesc.Type = MapToolGuiPtr->GetPlatformType();
+			NewDesc.Pos = (PlatformStartPos + PlatformEndPos) * 0.5f;
+			NewDesc.Pos.z = -100;
+			NewDesc.Rot = float4::Zero;
+			NewDesc.Scale = float4(
+				std::abs(PlatformStartPos.x - PlatformEndPos.x),
+				std::abs(PlatformStartPos.y - PlatformEndPos.y),
+				1,
+				1);
+
+			ObjectMgrPtr->CreatePaltform(NewDesc);
+		}	
 	}
 }

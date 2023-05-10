@@ -39,6 +39,8 @@ public:
 
 	void Read(void* _Ptr, size_t _Size);
 
+	bool IsOver(size_t _Size);
+
 
 	inline void* GetData()
 	{

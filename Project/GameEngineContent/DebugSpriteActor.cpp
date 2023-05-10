@@ -18,6 +18,7 @@ void DebugSpriteActor::Start()
 		GameEngineInput::CreateKey("DebugMoveDown", VK_DOWN);
 		GameEngineInput::CreateKey("DebugMoveLeft", VK_LEFT);
 		GameEngineInput::CreateKey("DebugMoveRight", VK_RIGHT);
+		GameEngineInput::CreateKey("DebugBoost", VK_LSHIFT);
 
 		GameEngineInput::CreateKey("DebugRotX+", 'W');
 		GameEngineInput::CreateKey("DebugRotX-", 'S');
@@ -39,6 +40,11 @@ void DebugSpriteActor::Update(float _DeltaTime)
 	}
 
 	float MoveDis = _DeltaTime * MoveSpeed;
+
+	if (true == GameEngineInput::IsPress("DebugBoost"))
+	{
+		MoveDis *= 2.0f;
+	}
 
 	if (true == GameEngineInput::IsPress("DebugMoveUp"))
 	{
