@@ -15,6 +15,26 @@ void CastleLevel::Start()
 {
 	BattleLevel::Start();
 
+	GameEngineDirectory DirectoryPath;
+	DirectoryPath.MoveParentToDirectory("Resources");
+	DirectoryPath.Move("Resources");
+	DirectoryPath.Move("Data");
+	DirectoryPath.Move("2_Castle");
+
+	{
+		DirectoryPath.Move("Background");
+		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_Castle_Background");
+		DirectoryPath.MoveParent();
+	}
+
+	{
+		DirectoryPath.Move("Map");
+		BattleAreaPtr->LoadMap(DirectoryPath, "DB_Castle_Map");
+		DirectoryPath.MoveParent();
+	}
+
+	BattleAreaPtr->ChangeBackground("DB_Castle_Background");
+	BattleAreaPtr->ChangeMap("DB_Castle_Map");
 }
 
 void CastleLevel::Update(float _DeltaTime)

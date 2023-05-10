@@ -144,7 +144,7 @@ void BackgroundToolLevel::Load()
 	GameEngineFile LoadFile = GameEngineFile(Path);
 
 	GameEngineSerializer SaveSerializer;
-	SaveSerializer.BufferResize(2048);
+	SaveSerializer.BufferResize(2^11);
 	LoadFile.LoadBin(SaveSerializer);
 
 	MultiBackgroundPtr->LoadBin(SaveSerializer);

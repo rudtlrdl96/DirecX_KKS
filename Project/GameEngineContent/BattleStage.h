@@ -12,6 +12,8 @@ public:
 	BattleStage& operator=(const BattleStage& _Other) = delete;
 	BattleStage& operator=(BattleStage&& _Other) noexcept = delete;
 
+	void Init(GameEngineSerializer& _LoadSerializer);
+
 protected:
 	void Start() override;
 	

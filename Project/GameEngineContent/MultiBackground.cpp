@@ -14,6 +14,7 @@ MultiBackground::~MultiBackground()
 void MultiBackground::CreateBackground(BG_DESC& _Desc)
 {
 	std::shared_ptr<Background> NewBackground = GetLevel()->CreateActor<Background>();
+	NewBackground->GetTransform()->SetParent(GetTransform());
 	NewBackground->SetName(_Desc.Name + " - " + std::to_string(NewBackground->GetActorCode()));
 	NewBackground->Init(_Desc);
 

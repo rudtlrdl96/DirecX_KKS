@@ -30,4 +30,5 @@ void BattleLevel::Start()
 void BattleLevel::Update(float _DeltaTime)
 {
 	ContentLevel::Update(_DeltaTime);
+	BattleAreaPtr->UpdateBackground(_DeltaTime, MainCamCtrl.GetCameraPos());
 }

@@ -16,10 +16,19 @@ BattleStage::~BattleStage()
 {
 }
 
+void BattleStage::Init(GameEngineSerializer& _LoadSerializer)
+{
+	TilemapPtr->LoadBin(_LoadSerializer);
+	ObjectManagerPtr->LoadBin(_LoadSerializer);
+}
+
 void BattleStage::Start()
 {
 	std::shared_ptr<GameEngineLevel> LevelPtr = GetLevel()->Shared_This_dynamic_pointer<GameEngineLevel>();
 
 	TilemapPtr = LevelPtr->CreateActor<Tilemap>();
+	TilemapPtr->GetTransform()->SetParent(GetTransform());
+
 	ObjectManagerPtr = LevelPtr->CreateActor<ObjectManager>();
+	ObjectManagerPtr->GetTransform()->SetParent(GetTransform());
 }

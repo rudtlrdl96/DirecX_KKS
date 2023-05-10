@@ -1,5 +1,6 @@
 #pragma once
 #include "ContentLevel.h"
+#include "BattleArea.h"
 
 class BattleLevel : public ContentLevel
 {

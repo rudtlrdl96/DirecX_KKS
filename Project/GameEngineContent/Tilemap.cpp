@@ -455,8 +455,7 @@ void Tilemap::ShowGUI()
 void Tilemap::CreateTile(UINT _Depth, UINT _X, UINT _Y)
 {
 	std::shared_ptr<TileActor> NewTile = GetLevel()->CreateActor<TileActor>();
-
-	//NewTile->GetTransform()->SetParent(GetTransform());
+	NewTile->GetTransform()->SetParent(GetTransform());
 
 	float4 TilePos = GetTilePos(_X, _Y);
 	TilePos.z = _Depth * 10.0f;

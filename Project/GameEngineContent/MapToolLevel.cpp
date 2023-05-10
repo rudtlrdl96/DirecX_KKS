@@ -179,7 +179,7 @@ void MapToolLevel::Save()
 	}
 
 	GameEngineSerializer SaveSerializer;
-	SaveSerializer.BufferResize(131072);
+	SaveSerializer.BufferResize(2^17);
 
 	TilemapPtr->SaveBin(SaveSerializer);
 	ObjectMgrPtr->SaveBin(SaveSerializer);
