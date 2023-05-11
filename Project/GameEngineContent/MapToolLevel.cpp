@@ -9,6 +9,7 @@
 
 #include "Tilemap.h"
 #include "ObjectManager.h"
+#include "GameEventManager.h"
 #include "TilemapPallet.h"
 #include "TilemapHoverRenderActor.h"
 #include "TilemapOutlineRenderActor.h"
@@ -54,6 +55,8 @@ void MapToolLevel::Start()
 	ObjectMgrPtr = CreateActor<ObjectManager>();
 	ObjectMgrPtr->PlatformDebugOn();
 
+	EventMgrPtr = CreateActor<GameEventManager>();
+
 	TilePalletPtr = CreateActor<TilemapPallet>();
 	TilePalletPtr->SetPencleIndex(1000);
 
@@ -66,6 +69,7 @@ void MapToolLevel::Start()
 
 	MapToolGuiPtr->Pushback_ObjectManagerCallback(std::bind(&ObjectManager::ShowGUI, ObjectMgrPtr));
 	MapToolGuiPtr->Pushback_TilemapCallback(std::bind(&Tilemap::ShowGUI, TilemapPtr));
+	MapToolGuiPtr->Pushback_EventManagerCallback(std::bind(&GameEventManager::ShowGUI, EventMgrPtr));
 
 	ActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 
@@ -89,28 +93,31 @@ void MapToolLevel::Update(float _DeltaTime)
 
 	switch (MapToolType)
 	{
-	case MapToolLevel::MapToolState::Tilemap:
+	case MapToolState::Tilemap:
 	{
 		Update_Tilemap(_DeltaTime);
 		break;
 	}
-	case MapToolLevel::MapToolState::SObject:
+	case MapToolState::SObject:
 	{
 		Update_SObject(_DeltaTime);		
 		break;
 	}
 
-	case MapToolLevel::MapToolState::BObject:
+	case MapToolState::BObject:
 	{
 		Update_BObject(_DeltaTime);
 		break;
 	}
-	case MapToolLevel::MapToolState::Platform:
+	case MapToolState::Platform:
 	{
 		Update_Platfrom(_DeltaTime);	
 		break;
 	}
-	case MapToolLevel::MapToolState::Light:
+	case MapToolState::Event:
+		Update_Event(_DeltaTime);
+		break;
+	case MapToolState::Light:
 		break;
 	default:
 		break;
@@ -363,4 +370,9 @@ void MapToolLevel::Update_Platfrom(float _DeltaTime)
 			ObjectMgrPtr->CreatePaltform(NewDesc);
 		}	
 	}
+}
+
+void MapToolLevel::Update_Event(float _DeltaTime)
+{
+
 }

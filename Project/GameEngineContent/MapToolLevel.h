@@ -10,6 +10,7 @@ public:
 		SObject,
 		BObject,
 		Platform,
+		Event,
 		Light
 	};
 public:
@@ -31,6 +32,7 @@ protected:
 private:
 	std::shared_ptr<class Tilemap> TilemapPtr = nullptr;
 	std::shared_ptr<class ObjectManager> ObjectMgrPtr = nullptr;
+	std::shared_ptr<class GameEventManager> EventMgrPtr = nullptr;
 
 	std::shared_ptr<class TilemapPallet> TilePalletPtr = nullptr;
 	std::shared_ptr<class MapToolGUI> MapToolGuiPtr = nullptr;
@@ -53,5 +55,6 @@ private:
 	void Update_SObject(float _DeltaTime);
 	void Update_BObject(float _DeltaTime);
 	void Update_Platfrom(float _DeltaTime);
+	void Update_Event(float _DeltaTime);
 
 };

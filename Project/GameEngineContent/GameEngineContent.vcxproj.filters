@@ -262,6 +262,12 @@
     <Filter Include="2_Actor\Map\Stage\Object\MapPlatform">
       <UniqueIdentifier>{b3303797-7ec9-4922-b8c4-e36611cf38f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\Event">
+      <UniqueIdentifier>{0892b26d-e62c-4c40-8112-a891900164e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Event\MonsterSpawnEvent">
+      <UniqueIdentifier>{dfd62202-f218-412b-a9e4-5bfb1e67b08f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -509,6 +515,9 @@
     </ClInclude>
     <ClInclude Include="MapPlatformDebugRender.h">
       <Filter>2_Actor\Map\Stage\Object\MapPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEventManager.h">
+      <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -784,6 +793,9 @@
     </ClCompile>
     <ClCompile Include="PlayerBaseSkull_FSM.cpp">
       <Filter>2_Actor\Player\Skull</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEventManager.cpp">
+      <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

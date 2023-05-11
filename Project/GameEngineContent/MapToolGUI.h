@@ -71,6 +71,11 @@ public:
 		ObjectManagerCallback.push_back(_FunctionPtr);
 	}
 
+	inline void Pushback_EventManagerCallback(std::function<void()> _FunctionPtr)
+	{
+		EventManagerCallback.push_back(_FunctionPtr);
+	}
+
 	bool CheckSaveTrigger();
 	bool CheckLoadTrigger();
 
@@ -86,9 +91,10 @@ private:
 
 	std::vector<std::function<void()>> TilemapCallback;
 	std::vector<std::function<void()>> ObjectManagerCallback;
+	std::vector<std::function<void()>> EventManagerCallback;
 
 	const char* AreaComboText[7] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop"};
-	const char* MapToolComboText[5] = {"Tilemap" ,"SObject", "BObject", "Platform", "Light"};
+	const char* MapToolComboText[6] = {"Tilemap" ,"SObject", "BObject", "Platform", "Event", "Light"};
 	const char* PlatformTypeCombo[2] = {"Normal" ,"Half"};
 	
 	float4 TileSize = float4::Zero;
@@ -112,6 +118,10 @@ private:
 	void DrawGui_SObject();
 	void DrawGui_BObject();
 	void DrawGui_Platform();
+	void DrawGui_Event();
 	void DrawGui_Light();
+
+	void Callback_Object();
+	void Callback_Event();
 };
 

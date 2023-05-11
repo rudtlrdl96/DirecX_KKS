@@ -102,8 +102,35 @@ void MapToolGUI::DrawGui_Platform()
 	ImGui::Spacing();
 }
 
+void MapToolGUI::DrawGui_Event()
+{
+}
+
 void MapToolGUI::DrawGui_Light()
 {
+}
+
+void MapToolGUI::Callback_Object()
+{
+
+	for (size_t i = 0; i < ObjectManagerCallback.size(); i++)
+	{
+		if (nullptr != ObjectManagerCallback[i])
+		{
+			ObjectManagerCallback[i]();
+		}
+	}
+}
+
+void MapToolGUI::Callback_Event()
+{
+	for (size_t i = 0; i < EventManagerCallback.size(); i++)
+	{
+		if (nullptr != EventManagerCallback[i])
+		{
+			EventManagerCallback[i]();
+		}
+	}
 }
 
 void MapToolGUI::Start()
@@ -164,27 +191,25 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 		MsgAssert_Rtti<MapToolGUI>(" - 잘못된 MappTool 타입이 입력되었습니다");
 	}
 
-	for (size_t i = 0; i < ObjectManagerCallback.size(); i++)
-	{
-		if (nullptr != ObjectManagerCallback[i])
-		{
-			ObjectManagerCallback[i]();
-		}
-	}
-
 	switch (MapToolType)
 	{
 	case MapToolLevel::MapToolState::Tilemap:
 		DrawGui_Tilemap();
 		break;
 	case MapToolLevel::MapToolState::SObject:
+		Callback_Object();
 		DrawGui_SObject();
 		break;
 	case MapToolLevel::MapToolState::BObject:
+		Callback_Object();
 		DrawGui_BObject();
 		break;
 	case MapToolLevel::MapToolState::Platform:
 		DrawGui_Platform();
+		break;
+	case MapToolLevel::MapToolState::Event:
+		Callback_Event();
+		DrawGui_Event();
 		break;
 	case MapToolLevel::MapToolState::Light:
 		DrawGui_Light();
