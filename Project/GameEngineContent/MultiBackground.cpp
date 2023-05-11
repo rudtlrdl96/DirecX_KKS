@@ -11,12 +11,12 @@ MultiBackground::~MultiBackground()
 {
 }
 
-void MultiBackground::CreateBackground(BG_DESC& _Desc)
+void MultiBackground::CreateBackground(BackgroundMetaData& _MetaData)
 {
 	std::shared_ptr<Background> NewBackground = GetLevel()->CreateActor<Background>();
 	NewBackground->GetTransform()->SetParent(GetTransform());
-	NewBackground->SetName(_Desc.Name + " - " + std::to_string(NewBackground->GetActorCode()));
-	NewBackground->Init(_Desc);
+	NewBackground->SetName(_MetaData.Name + " - " + std::to_string(NewBackground->GetActorCode()));
+	NewBackground->Init(_MetaData);
 
 	CurrentBackgroundIndex = static_cast<int>(BackgroundBuffer.size());
 	BackgroundBuffer.push_back(NewBackground);
@@ -61,8 +61,8 @@ void MultiBackground::LoadBin(GameEngineSerializer& _SaveSerializer)
 
 	for (int i = 0; i < BackCount; i++)
 	{
-		BG_DESC LoadDesc = Background::LoadBin(_SaveSerializer);
-		CreateBackground(LoadDesc);
+		BackgroundMetaData LoadMetaData = Background::LoadBin(_SaveSerializer);
+		CreateBackground(LoadMetaData);
 	}
 }
 
@@ -116,22 +116,22 @@ void MultiBackground::ShowGUI()
 
 		std::shared_ptr<Background> BackPtr = BackgroundBuffer[CurrentBackgroundIndex];
 
-		BG_DESC& DescRef = BackPtr->GetDescRef();
+		BackgroundMetaData& MetaDataRef = BackPtr->GetMetaDataRef();
 		TextureMoveBuffer& BufferRef = BackPtr->GetShaderBuffer();
 
-		float4 CenterPostion = DescRef.Center;
+		float4 CenterPostion = MetaDataRef.Center;
 		float CenterArrPostion[4] = { CenterPostion.x, CenterPostion.y, CenterPostion.z, CenterPostion.w };
 		ImGui::DragFloat4("Center", CenterArrPostion);
 		float4 ResultCenter = ContentFunc::ConvertFloat4(CenterArrPostion);
 
 		if (CenterPostion != ResultCenter)
 		{
-			DescRef.Center = ResultCenter;
+			MetaDataRef.Center = ResultCenter;
 		}
 
-		ImGui::Checkbox("IsActive LeftRender", &DescRef.IsLeftRender);
+		ImGui::Checkbox("IsActive LeftRender", &MetaDataRef.IsLeftRender);
 
-		if (true == DescRef.IsLeftRender)
+		if (true == MetaDataRef.IsLeftRender)
 		{
 			BackPtr->CreateLeftRender();
 		}
@@ -140,9 +140,9 @@ void MultiBackground::ShowGUI()
 			BackPtr->ReleaseLeftRender();
 		}
 
-		ImGui::Checkbox("IsActive RightRender", &DescRef.IsRightRender);
+		ImGui::Checkbox("IsActive RightRender", &MetaDataRef.IsRightRender);
 
-		if (true == DescRef.IsRightRender)
+		if (true == MetaDataRef.IsRightRender)
 		{
 			BackPtr->CreateRightRedner();
 		}
@@ -158,21 +158,21 @@ void MultiBackground::ShowGUI()
 
 		BufferRef.OutColor = ResultColor;
 
-		float BackScale = DescRef.TextureScale;
+		float BackScale = MetaDataRef.TextureScale;
 		ImGui::DragFloat("Scale", &BackScale, 0.01f);
 
-		if (BackScale != DescRef.TextureScale)
+		if (BackScale != MetaDataRef.TextureScale)
 		{
 			BackPtr->ResizeTextureScale(BackScale);
 		}
 
-		ImGui::DragFloat("Ratio", &DescRef.MoveRatio, 0.01f);
+		ImGui::DragFloat("Ratio", &MetaDataRef.MoveRatio, 0.01f);
 
-		ImGui::Checkbox("Is Animation", &DescRef.Animation);
+		ImGui::Checkbox("Is Animation", &MetaDataRef.Animation);
 
-		if (true == DescRef.Animation)
+		if (true == MetaDataRef.Animation)
 		{
-			ImGui::DragFloat("Animation Speed", &DescRef.AnimationSpeed, 0.01f);
+			ImGui::DragFloat("Animation Speed", &MetaDataRef.AnimationSpeed, 0.01f);
 		}
 	}
 

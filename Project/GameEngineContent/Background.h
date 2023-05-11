@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 
-class BG_DESC
+class BackgroundMetaData
 {
 public:
 	std::string Name = "";
@@ -35,7 +35,7 @@ public:
 	Background& operator=(const Background& _Other) = delete;
 	Background& operator=(Background&& _Other) noexcept = delete;
 	
-	void Init(const BG_DESC& _Desc);
+	void Init(const BackgroundMetaData& _MetaData);
 	void UpdateTargetPos(float _DeltaTime, const float4& _TargetPos);
 	void ResizeTextureScale(float _Scale);
 
@@ -46,11 +46,11 @@ public:
 	void ReleaseRightRender();
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
-	static BG_DESC LoadBin(GameEngineSerializer& _SaveSerializer);
+	static BackgroundMetaData LoadBin(GameEngineSerializer& _SaveSerializer);
 
-	inline BG_DESC& GetDescRef()
+	inline BackgroundMetaData& GetMetaDataRef()
 	{
-		return Desc;
+		return MetaData;
 	}
 
 	inline TextureMoveBuffer& GetShaderBuffer()
@@ -62,7 +62,7 @@ protected:
 	void Start() override;
 
 private:
-	BG_DESC Desc = BG_DESC();
+	BackgroundMetaData MetaData = BackgroundMetaData();
 
 	std::shared_ptr<GameEngineSpriteRenderer> BackRender = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> LeftRender = nullptr;

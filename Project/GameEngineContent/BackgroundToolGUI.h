@@ -8,10 +8,10 @@ private:
 	class BackgroundToolData
 	{
 	public:
-		BG_DESC Data;
+		BackgroundMetaData Data;
 		std::shared_ptr<class GameEngineTexture> TexturePtr = nullptr;
 
-		BackgroundToolData(const BG_DESC& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
+		BackgroundToolData(const BackgroundMetaData& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
 			Data(_Data),
 			TexturePtr(_TexturePtr)
 		{

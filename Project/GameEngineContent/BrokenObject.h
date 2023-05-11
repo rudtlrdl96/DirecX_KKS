@@ -11,7 +11,7 @@ public:
 	float4 Color = float4::Zero;
 };
 
-class BObject_DESC
+class BOjectMetaData
 {
 public:
 	std::string Name = "";

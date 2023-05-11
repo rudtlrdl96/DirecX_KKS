@@ -77,7 +77,7 @@ void MapToolGUI::DrawGui_SObject()
 
 		if (true == ImGui::ImageButton((void*)BufferTextureDatas[i].TexturePtr->GetSRV(), ImVec2(TileSize.x, TileSize.y)))
 		{
-			SelectSObject_Desc = BufferTextureDatas[i].Data;
+			SelectSObjectMetaData = BufferTextureDatas[i].Data;
 		}
 	}
 }
@@ -247,8 +247,8 @@ void MapToolGUI::SObjectDatasLoad(LevelArea _Area)
 
 	std::vector<MapTool_SObjectData>& BufferTextureDatas = SObjectTexDatas[_Area];
 
-	std::vector<SObject_DESC> CopyDatas;
-	ContentDatabase<SObject_DESC, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
+	std::vector<SObjectMetaData> CopyDatas;
+	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
 
 	BufferTextureDatas.reserve(CopyDatas.size());
 

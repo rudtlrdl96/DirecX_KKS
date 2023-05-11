@@ -112,8 +112,8 @@ void BackgroundToolGUI::BackgroundDatasLoad(LevelArea _Area)
 {
 	std::vector<BackgroundToolData>& BufferTextureDatas = BackgroundDatas[_Area];
 
-	std::vector<BG_DESC> CopyDatas;
-	ContentDatabase<BG_DESC, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
+	std::vector<BackgroundMetaData> CopyDatas;
+	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
 
 	BufferTextureDatas.reserve(CopyDatas.size());
 

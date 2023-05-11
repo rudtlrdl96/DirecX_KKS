@@ -334,10 +334,10 @@ void MapToolLevel::Update_SObject(float _DeltaTime)
 		float4 TestMousePos = GetMousePos();
 		TestMousePos.z = 0;
 
-		SObject_DESC NewObjectDesc = MapToolGuiPtr->GetSelectSObject();
-		NewObjectDesc.Pos = TestMousePos;
+		SObjectMetaData NewObjectMetaData = MapToolGuiPtr->GetSelectSObject();
+		NewObjectMetaData.Pos = TestMousePos;
 
-		ObjectMgrPtr->CreateStaticObject(NewObjectDesc);
+		ObjectMgrPtr->CreateStaticObject(NewObjectMetaData);
 	}
 }
 
@@ -363,19 +363,19 @@ void MapToolLevel::Update_Platfrom(float _DeltaTime)
 		else if (true == GameEngineInput::IsUp("ToolActive"))
 		{
 			PlatformEndPos = GetMousePos();
-			MapPlatform::Platform_DESC NewDesc;
+			MapPlatform::PlatformMetaData NewMetaData;
 
-			NewDesc.Type = MapToolGuiPtr->GetPlatformType();
-			NewDesc.Pos = (PlatformStartPos + PlatformEndPos) * 0.5f;
-			NewDesc.Pos.z = -100;
-			NewDesc.Rot = float4::Zero;
-			NewDesc.Scale = float4(
+			NewMetaData.Type = MapToolGuiPtr->GetPlatformType();
+			NewMetaData.Pos = (PlatformStartPos + PlatformEndPos) * 0.5f;
+			NewMetaData.Pos.z = -100;
+			NewMetaData.Rot = float4::Zero;
+			NewMetaData.Scale = float4(
 				std::abs(PlatformStartPos.x - PlatformEndPos.x),
 				std::abs(PlatformStartPos.y - PlatformEndPos.y),
 				1,
 				1);
 
-			ObjectMgrPtr->CreatePaltform(NewDesc);
+			ObjectMgrPtr->CreatePaltform(NewMetaData);
 		}	
 	}
 }

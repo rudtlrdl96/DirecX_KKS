@@ -23,10 +23,10 @@ private:
 	class MapTool_SObjectData
 	{
 	public:
-		SObject_DESC Data;
+		SObjectMetaData Data;
 		std::shared_ptr<class GameEngineTexture> TexturePtr = nullptr;
 
-		MapTool_SObjectData(const SObject_DESC& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
+		MapTool_SObjectData(const SObjectMetaData& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
 			Data(_Data),
 			TexturePtr(_TexturePtr)
 		{
@@ -46,9 +46,9 @@ public:
 		return SelectTileIndex;
 	}
 
-	inline SObject_DESC GetSelectSObject() const
+	inline SObjectMetaData GetSelectSObject() const
 	{
-		return SelectSObject_Desc;
+		return SelectSObjectMetaData;
 	}
 
 	inline MapToolLevel::MapToolState GetMapToolState() const
@@ -100,7 +100,7 @@ private:
 	float4 TileSize = float4::Zero;
 
 	UINT SelectTileIndex = 0;
-	SObject_DESC SelectSObject_Desc;
+	SObjectMetaData SelectSObjectMetaData;
 	
 	bool IsSaveTrigger = false;
 	bool IsLoadTrigger = false;

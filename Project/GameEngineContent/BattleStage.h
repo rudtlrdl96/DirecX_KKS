@@ -14,7 +14,7 @@ public:
 
 	void Init(GameEngineSerializer& _LoadSerializer);
 	
-	class Tilemap_Meta GetTilemapDesc() const;
+	class TilemapMetaData GetTilemapMetaData() const;
 
 	float4 GetSpawnPoint() const;
 

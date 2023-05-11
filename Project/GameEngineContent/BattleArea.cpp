@@ -111,7 +111,7 @@ void BattleArea::SetCameraLock(CameraController& _CameraCtrl)
 		return;
 	}
 
-	Tilemap_Meta TileMeta = CurStage->GetTilemapDesc();
+	TilemapMetaData TileMeta = CurStage->GetTilemapMetaData();
 
 	_CameraCtrl.SetMinHeight(TileMeta.Bottom);
 	_CameraCtrl.SetMaxHeight(TileMeta.Top);

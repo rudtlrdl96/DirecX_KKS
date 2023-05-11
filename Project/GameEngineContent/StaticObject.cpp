@@ -14,74 +14,74 @@ StaticObject::~StaticObject()
 {
 }
 
-void StaticObject::Init(const SObject_DESC& _Desc)
+void StaticObject::Init(const SObjectMetaData& _MetaData)
 {
-	Desc = _Desc;
+	MetaData = _MetaData;
 
-	if ("" == Desc.Name)
+	if ("" == MetaData.Name)
 	{
 		MsgAssert_Rtti<StaticObject>(" - 텍스쳐 이름을 지정하지 않았습니다");
 	}
 
-	if (Desc.Size == float4::Zero)
+	if (MetaData.Size == float4::Zero)
 	{
 		MsgAssert_Rtti<StaticObject>(" - 랜더 사이즈를 지정하지 않았습니다");
 	}
 
-	ImageRender->SetTexture(Desc.Name);
-	Desc.Size.z = 1;
-	ImageRender->GetTransform()->SetLocalScale(Desc.Size);
-	GetTransform()->SetLocalPosition(Desc.Pos);
-	GetTransform()->SetLocalRotation(Desc.Rot);
-	GetTransform()->SetLocalScale(Desc.Scale);
+	ImageRender->SetTexture(MetaData.Name);
+	MetaData.Size.z = 1;
+	ImageRender->GetTransform()->SetLocalScale(MetaData.Size);
+	GetTransform()->SetLocalPosition(MetaData.Pos);
+	GetTransform()->SetLocalRotation(MetaData.Rot);
+	GetTransform()->SetLocalScale(MetaData.Scale);
 
 	float4 ActorScale = GetTransform()->GetLocalScale();
 	float4 RenderScale = ImageRender->GetTransform()->GetLocalScale();
 	
-	Buffer.Color = Desc.Color;
+	Buffer.Color = MetaData.Color;
 
 	ImageRender->On();
 }
 
-const SObject_DESC& StaticObject::GetDesc()
+const SObjectMetaData& StaticObject::GetMetaData()
 {
-	Desc.Pos = GetTransform()->GetLocalPosition();
-	Desc.Rot = GetTransform()->GetLocalRotation();
-	Desc.Scale = GetTransform()->GetLocalScale();
-	Desc.Color = Buffer.Color;
+	MetaData.Pos = GetTransform()->GetLocalPosition();
+	MetaData.Rot = GetTransform()->GetLocalRotation();
+	MetaData.Scale = GetTransform()->GetLocalScale();
+	MetaData.Color = Buffer.Color;
 
-	return Desc;
+	return MetaData;
 }
 
 void StaticObject::SaveBin(GameEngineSerializer& _SaveSerializer)
 {
-	GetDesc();
+	GetMetaData();
 
-	_SaveSerializer.Write(Desc.Name);
-	_SaveSerializer.Write(&Desc.Index, sizeof(size_t));
-	_SaveSerializer.Write(&Desc.Grade, sizeof(LevelArea));
-	_SaveSerializer.Write(&Desc.Pos, sizeof(float4));
-	_SaveSerializer.Write(&Desc.Rot, sizeof(float4));
-	_SaveSerializer.Write(&Desc.Scale, sizeof(float4));
-	_SaveSerializer.Write(&Desc.Size, sizeof(float4));
-	_SaveSerializer.Write(&Desc.Color, sizeof(float4));
+	_SaveSerializer.Write(MetaData.Name);
+	_SaveSerializer.Write(&MetaData.Index, sizeof(size_t));
+	_SaveSerializer.Write(&MetaData.Grade, sizeof(LevelArea));
+	_SaveSerializer.Write(&MetaData.Pos, sizeof(float4));
+	_SaveSerializer.Write(&MetaData.Rot, sizeof(float4));
+	_SaveSerializer.Write(&MetaData.Scale, sizeof(float4));
+	_SaveSerializer.Write(&MetaData.Size, sizeof(float4));
+	_SaveSerializer.Write(&MetaData.Color, sizeof(float4));
 
 }
 
-SObject_DESC StaticObject::LoadBin(GameEngineSerializer& _LoadSerializer)
+SObjectMetaData StaticObject::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
-	SObject_DESC LoadDesc = SObject_DESC();
+	SObjectMetaData LoadMetaData = SObjectMetaData();
 
-	_LoadSerializer.Read(LoadDesc.Name);
-	_LoadSerializer.Read(&LoadDesc.Index, sizeof(size_t));
-	_LoadSerializer.Read(&LoadDesc.Grade, sizeof(LevelArea));
-	_LoadSerializer.Read(&LoadDesc.Pos, sizeof(float4));
-	_LoadSerializer.Read(&LoadDesc.Rot, sizeof(float4));
-	_LoadSerializer.Read(&LoadDesc.Scale, sizeof(float4));
-	_LoadSerializer.Read(&LoadDesc.Size, sizeof(float4));
-	_LoadSerializer.Read(&LoadDesc.Color, sizeof(float4));
+	_LoadSerializer.Read(LoadMetaData.Name);
+	_LoadSerializer.Read(&LoadMetaData.Index, sizeof(size_t));
+	_LoadSerializer.Read(&LoadMetaData.Grade, sizeof(LevelArea));
+	_LoadSerializer.Read(&LoadMetaData.Pos, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.Rot, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.Scale, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.Size, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.Color, sizeof(float4));
 	
-	return LoadDesc;
+	return LoadMetaData;
 }
 
 void StaticObject::ShowGUI()

@@ -14,29 +14,29 @@ ObjectManager::~ObjectManager()
 {
 }
 
-std::shared_ptr<StaticObject> ObjectManager::CreateStaticObject(const SObject_DESC& _Desc)
+std::shared_ptr<StaticObject> ObjectManager::CreateStaticObject(const SObjectMetaData& _Meta)
 {
-	if ("" == _Desc.Name)
+	if ("" == _Meta.Name)
 	{
 		return nullptr;
 	}
 
 	std::shared_ptr<StaticObject> CreatePtr = GetLevel()->CreateActor<StaticObject>();
-	CreatePtr->SetName(_Desc.Name + " - " + std::to_string(CreatePtr->GetActorCode()));
+	CreatePtr->SetName(_Meta.Name + " - " + std::to_string(CreatePtr->GetActorCode()));
 	CreatePtr->GetTransform()->SetParent(this->GetTransform());
-	CreatePtr->Init(_Desc);
+	CreatePtr->Init(_Meta);
 	StaticObjectActors.push_back(CreatePtr);
 	CurrentStaticObjectIndex = static_cast<int>(StaticObjectActors.size() - 1);
 
 	return CreatePtr;
 }
 
-std::shared_ptr<MapPlatform> ObjectManager::CreatePaltform(const MapPlatform::Platform_DESC& _Desc)
+std::shared_ptr<MapPlatform> ObjectManager::CreatePaltform(const MapPlatform::PlatformMetaData& _MetaData)
 {
 	std::shared_ptr<MapPlatform> CreatePtr = GetLevel()->CreateActor<MapPlatform>();
 	CreatePtr->SetName("Platform - " + std::to_string(CreatePtr->GetActorCode()));
 	CreatePtr->GetTransform()->SetParent(this->GetTransform());
-	CreatePtr->Init(_Desc);
+	CreatePtr->Init(_MetaData);
 	MapPlatformActors.push_back(CreatePtr);
 	CurrentPlatformIndex = static_cast<int>(MapPlatformActors.size() - 1);
 
@@ -96,8 +96,8 @@ void ObjectManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 		for (int i = 0; i < StaticObjectCount; i++)
 		{
-			SObject_DESC LoadDesc = StaticObject::LoadBin(_LoadSerializer);
-			CreateStaticObject(LoadDesc);
+			SObjectMetaData LoadMetaData = StaticObject::LoadBin(_LoadSerializer);
+			CreateStaticObject(LoadMetaData);
 		}
 	}
 
@@ -145,8 +145,8 @@ void ObjectManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 		for (size_t i = 0; i < PlatformCount; i++)
 		{
-			MapPlatform::Platform_DESC LoadDesc = MapPlatform::LoadBin(_LoadSerializer);
-			CreatePaltform(LoadDesc);
+			MapPlatform::PlatformMetaData LoadMetaData = MapPlatform::LoadBin(_LoadSerializer);
+			CreatePaltform(LoadMetaData);
 		}
 	}
 }
@@ -219,7 +219,7 @@ void ObjectManager::Draw_SObject_GUI()
 			return;
 		}
 
-		CreateStaticObject(StaticObjectActors[CurrentStaticObjectIndex]->GetDesc());
+		CreateStaticObject(StaticObjectActors[CurrentStaticObjectIndex]->GetMetaData());
 	}
 
 	if (true == ImGui::Button("Remove", ImVec2(70, 25)))
@@ -286,7 +286,7 @@ void ObjectManager::Draw_Platform_GUI()
 			return;
 		}
 
-		CreatePaltform(MapPlatformActors[CurrentPlatformIndex]->GetDesc());
+		CreatePaltform(MapPlatformActors[CurrentPlatformIndex]->GetMetaData());
 	}
 
 	if (true == ImGui::Button("Remove", ImVec2(70, 25)))

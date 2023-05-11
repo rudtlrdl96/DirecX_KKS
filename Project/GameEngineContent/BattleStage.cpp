@@ -24,9 +24,9 @@ void BattleStage::Init(GameEngineSerializer& _LoadSerializer)
 	EventManagerPtr->LoadBin(_LoadSerializer);
 }
 
-Tilemap_Meta BattleStage::GetTilemapDesc() const
+TilemapMetaData BattleStage::GetTilemapMetaData() const
 {
-	return TilemapPtr->GetTilemap_DESC();
+	return TilemapPtr->GetTilemapMetaData();
 }
 
 float4 BattleStage::GetSpawnPoint() const

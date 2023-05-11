@@ -2,7 +2,7 @@
 #include "BaseContentActor.h"
 #include "TilemapData.h"
 
-class SObject_DESC
+class SObjectMetaData
 {
 public:
 	std::string Name = "";
@@ -28,12 +28,12 @@ public:
 	StaticObject& operator=(const StaticObject& _Other) = delete;
 	StaticObject& operator=(StaticObject&& _Other) noexcept = delete;
 
-	void Init(const SObject_DESC& _Desc);
+	void Init(const SObjectMetaData& _MetaData);
 
-	const SObject_DESC& GetDesc();
+	const SObjectMetaData& GetMetaData();
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
-	static SObject_DESC LoadBin(GameEngineSerializer& _LoadSerializer);
+	static SObjectMetaData LoadBin(GameEngineSerializer& _LoadSerializer);
 
 	void ShowGUI() override;
 
@@ -41,7 +41,7 @@ protected:
 	void Start() override;
 
 private:
-	SObject_DESC Desc = SObject_DESC();
+	SObjectMetaData MetaData = SObjectMetaData();
 
 	std::shared_ptr<GameEngineSpriteRenderer> ImageRender = nullptr;
 

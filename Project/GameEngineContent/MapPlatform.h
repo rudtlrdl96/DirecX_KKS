@@ -13,7 +13,7 @@ public:
 		Half,   // 아래에서는 위로 올라올 수 있지만 위에서는 아래로 못내려가는 플랫폼
 	};
 
-	class Platform_DESC
+	class PlatformMetaData
 	{
 	public:
 		PlatformType Type = PlatformType::Normal;
@@ -30,23 +30,23 @@ public:
 	MapPlatform& operator=(const MapPlatform& _Other) = delete;
 	MapPlatform& operator=(MapPlatform&& _Other) noexcept = delete;
 
-	void Init(const Platform_DESC& _Desc);
+	void Init(const PlatformMetaData& _MetaData);
 	void PlatformDebugOn();
 	void PlatformDebugOff();
 
 	void ShowGUI() override;
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
-	static Platform_DESC LoadBin(GameEngineSerializer& _LoadSerializer);
+	static PlatformMetaData LoadBin(GameEngineSerializer& _LoadSerializer);
 
-	const Platform_DESC& GetDesc() const
+	const PlatformMetaData& GetMetaData() const
 	{
-		return Desc;
+		return MetaData;
 	}
 
 protected:
 
 private:
-	Platform_DESC Desc = Platform_DESC();
+	PlatformMetaData MetaData = PlatformMetaData();
 };
 

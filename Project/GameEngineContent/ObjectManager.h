@@ -24,8 +24,8 @@ public:
 	ObjectManager& operator=(const ObjectManager& _Other) = delete;
 	ObjectManager& operator=(ObjectManager&& _Other) noexcept = delete;
 
-	std::shared_ptr<StaticObject> CreateStaticObject(const SObject_DESC& _Desc);
-	std::shared_ptr<MapPlatform> CreatePaltform(const MapPlatform::Platform_DESC& _Desc);
+	std::shared_ptr<StaticObject> CreateStaticObject(const SObjectMetaData& _MetaData);
+	std::shared_ptr<MapPlatform> CreatePaltform(const MapPlatform::PlatformMetaData& _MetaData);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
 	void LoadBin(GameEngineSerializer& _LoadSerializer);

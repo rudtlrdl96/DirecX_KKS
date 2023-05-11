@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 
-class Tilemap_Meta
+class TilemapMetaData
 {
 public:
 	float Left = 0.0f;
@@ -61,7 +61,7 @@ public:
 		return Gui_TilemapCurDepth;
 	}
 
-	Tilemap_Meta GetTilemap_DESC();
+	TilemapMetaData GetTilemapMetaData();
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
@@ -72,6 +72,8 @@ protected:
 	
 private:
 	std::vector<std::vector<std::vector<std::shared_ptr<class TileActor>>>> TilemapDatas;
+	
+	std::shared_ptr<GameEngineTexture> RenderTexture;
 
 	UINT Gui_TilemapCurDepth = 0;
 	UINT Gui_TilemapDepthCount = 0;

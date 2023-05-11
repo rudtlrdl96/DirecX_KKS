@@ -59,8 +59,8 @@ void BackgroundToolLevel::Update(float _DeltaTime)
 
 		if (NewIndex >= 0)
 		{
-			BG_DESC NewDesc = ContentDatabase<BG_DESC, LevelArea>::GetData(static_cast<size_t>(NewIndex));
-			MultiBackgroundPtr->CreateBackground(NewDesc);
+			BackgroundMetaData NewMetaData = ContentDatabase<BackgroundMetaData, LevelArea>::GetData(static_cast<size_t>(NewIndex));
+			MultiBackgroundPtr->CreateBackground(NewMetaData);
 		}
 	}
 

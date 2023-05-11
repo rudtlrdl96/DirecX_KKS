@@ -26,7 +26,7 @@ void ContentCore::StaticObjectLoad()
 			}
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObject_DESC, LevelArea>::InsertData(
+			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
 				{.Name = Name, .Index = i, .Grade = LevelArea::Castle, .Size = float4(Tex->GetWidth(), Tex->GetHeight())});
 		}
 
@@ -52,7 +52,7 @@ void ContentCore::StaticObjectLoad()
 			}
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObject_DESC, LevelArea>::InsertData(
+			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
 				{ .Name = Name, .Index = 1000 + i, .Grade = LevelArea::ForestOfHamory, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
@@ -79,7 +79,7 @@ void ContentCore::StaticObjectLoad()
 
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObject_DESC, LevelArea>::InsertData(
+			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
 				{ .Name = Name, .Index = 2000 + i, .Grade = LevelArea::GrandHall, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
@@ -104,7 +104,7 @@ void ContentCore::StaticObjectLoad()
 			}
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObject_DESC, LevelArea>::InsertData(
+			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
 				{ .Name = Name, .Index = 3000 + i, .Grade = LevelArea::HolyCourtyard, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
@@ -129,7 +129,7 @@ void ContentCore::StaticObjectLoad()
 			}
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObject_DESC, LevelArea>::InsertData(
+			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
 				{ .Name = Name, .Index = 4000 + i, .Grade = LevelArea::Opening, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
@@ -154,7 +154,7 @@ void ContentCore::StaticObjectLoad()
 			}
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObject_DESC, LevelArea>::InsertData(
+			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
 				{ .Name = Name, .Index = 5000 + i, .Grade = LevelArea::Shop, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
@@ -162,23 +162,23 @@ void ContentCore::StaticObjectLoad()
 		Path.MoveParent();
 	}
 
-	std::vector<SObject_DESC> Castle_SObject_Datas;
-	ContentDatabase<SObject_DESC, LevelArea>::CopyGradeDatas(LevelArea::Castle , Castle_SObject_Datas);
+	std::vector<SObjectMetaData> Castle_SObject_Datas;
+	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Castle , Castle_SObject_Datas);
 
-	std::vector<SObject_DESC> Opening_SObject_Datas;
-	ContentDatabase<SObject_DESC, LevelArea>::CopyGradeDatas(LevelArea::Opening, Opening_SObject_Datas);
+	std::vector<SObjectMetaData> Opening_SObject_Datas;
+	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Opening, Opening_SObject_Datas);
 
-	std::vector<SObject_DESC> ForestOfHarmony_SObject_Datas;
-	ContentDatabase<SObject_DESC, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestOfHarmony_SObject_Datas);
+	std::vector<SObjectMetaData> ForestOfHarmony_SObject_Datas;
+	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestOfHarmony_SObject_Datas);
 
-	std::vector<SObject_DESC> GranHall_SObject_Datas;
-	ContentDatabase<SObject_DESC, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GranHall_SObject_Datas);
+	std::vector<SObjectMetaData> GranHall_SObject_Datas;
+	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GranHall_SObject_Datas);
 
-	std::vector<SObject_DESC> HolyCourtyard_SObject_Datas;
-	ContentDatabase<SObject_DESC, LevelArea>::CopyGradeDatas(LevelArea::HolyCourtyard, HolyCourtyard_SObject_Datas);
+	std::vector<SObjectMetaData> HolyCourtyard_SObject_Datas;
+	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::HolyCourtyard, HolyCourtyard_SObject_Datas);
 
-	std::vector<SObject_DESC> Shop_SObject_Datas;
-	ContentDatabase<SObject_DESC, LevelArea>::CopyGradeDatas(LevelArea::Shop, Shop_SObject_Datas);
+	std::vector<SObjectMetaData> Shop_SObject_Datas;
+	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Shop, Shop_SObject_Datas);
 
 	int a = 0;
 }

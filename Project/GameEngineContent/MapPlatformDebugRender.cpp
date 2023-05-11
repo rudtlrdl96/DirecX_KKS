@@ -43,7 +43,7 @@ void MapPlatformDebugRender::Update(float _DeltaTime)
 		return;
 	}
 
-	switch (ParentPlatform->Desc.Type)
+	switch (ParentPlatform->MetaData.Type)
 	{
 	case MapPlatform::PlatformType::Normal:
 		DebugBuffer.Color = float4(-1, 1, -1, 1);
@@ -56,5 +56,5 @@ void MapPlatformDebugRender::Update(float _DeltaTime)
 		break;
 	}
 
-	DebugRender->GetTransform()->SetLocalScale(ParentPlatform->Desc.Scale);
+	DebugRender->GetTransform()->SetLocalScale(ParentPlatform->MetaData.Scale);
 }

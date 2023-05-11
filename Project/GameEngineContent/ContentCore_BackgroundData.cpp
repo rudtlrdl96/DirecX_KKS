@@ -27,7 +27,7 @@ void ContentCore::BackgroundDataLoad()
 
 			float4 TexSize = { (float)LoadTex->GetWidth(), (float)LoadTex->GetHeight() };
 
-			ContentDatabase<BG_DESC, LevelArea>::InsertData({
+			ContentDatabase<BackgroundMetaData, LevelArea>::InsertData({
 			.Name = LoadTex->GetNameToString(), .Index = 100 + i, .Grade = LevelArea::Opening , .TextureSize = TexSize });
 		}
 
@@ -47,7 +47,7 @@ void ContentCore::BackgroundDataLoad()
 
 			float4 TexSize = { (float)LoadTex->GetWidth(), (float)LoadTex->GetHeight() };
 
-			ContentDatabase<BG_DESC, LevelArea>::InsertData({
+			ContentDatabase<BackgroundMetaData, LevelArea>::InsertData({
 			.Name = LoadTex->GetNameToString(), .Index = 200 + i, .Grade = LevelArea::Castle, .TextureSize = TexSize });
 		}
 
@@ -67,7 +67,7 @@ void ContentCore::BackgroundDataLoad()
 
 			float4 TexSize = { (float)LoadTex->GetWidth(), (float)LoadTex->GetHeight() };
 
-			ContentDatabase<BG_DESC, LevelArea>::InsertData({
+			ContentDatabase<BackgroundMetaData, LevelArea>::InsertData({
 			.Name = LoadTex->GetNameToString(), .Index = 300 + i, .Grade = LevelArea::ForestOfHamory, .TextureSize = TexSize });
 		}
 
@@ -87,7 +87,7 @@ void ContentCore::BackgroundDataLoad()
 
 			float4 TexSize = { (float)LoadTex->GetWidth(), (float)LoadTex->GetHeight() };
 
-			ContentDatabase<BG_DESC, LevelArea>::InsertData({
+			ContentDatabase<BackgroundMetaData, LevelArea>::InsertData({
 			.Name = LoadTex->GetNameToString(), .Index = 400 + i, .Grade = LevelArea::GrandHall , .TextureSize = TexSize });
 		}
 
@@ -107,7 +107,7 @@ void ContentCore::BackgroundDataLoad()
 
 			float4 TexSize = { (float)LoadTex->GetWidth(), (float)LoadTex->GetHeight() };
 
-			ContentDatabase<BG_DESC, LevelArea>::InsertData({
+			ContentDatabase<BackgroundMetaData, LevelArea>::InsertData({
 			.Name = LoadTex->GetNameToString(), .Index = 500 + i, .Grade = LevelArea::HolyCourtyard, .TextureSize = TexSize });
 		}
 
@@ -127,7 +127,7 @@ void ContentCore::BackgroundDataLoad()
 
 			float4 TexSize = { (float)LoadTex->GetWidth(), (float)LoadTex->GetHeight() };
 
-			ContentDatabase<BG_DESC, LevelArea>::InsertData({
+			ContentDatabase<BackgroundMetaData, LevelArea>::InsertData({
 			.Name = LoadTex->GetNameToString(), .Index = 600 + i, .Grade = LevelArea::Shop , .TextureSize = TexSize });
 		}
 
@@ -135,23 +135,23 @@ void ContentCore::BackgroundDataLoad()
 		Path.MoveParent();
 	}
 
-	std::vector<BG_DESC> OpeningDatas;
-	ContentDatabase<BG_DESC, LevelArea>::CopyGradeDatas(LevelArea::Opening, OpeningDatas);
+	std::vector<BackgroundMetaData> OpeningDatas;
+	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(LevelArea::Opening, OpeningDatas);
 
-	std::vector<BG_DESC> CastleDatas;
-	ContentDatabase<BG_DESC, LevelArea>::CopyGradeDatas(LevelArea::Castle, CastleDatas);
+	std::vector<BackgroundMetaData> CastleDatas;
+	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(LevelArea::Castle, CastleDatas);
 
-	std::vector<BG_DESC> ForestOfHarmonyDatas;
-	ContentDatabase<BG_DESC, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestOfHarmonyDatas);
+	std::vector<BackgroundMetaData> ForestOfHarmonyDatas;
+	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestOfHarmonyDatas);
 
-	std::vector<BG_DESC> GrandHallDatas;
-	ContentDatabase<BG_DESC, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GrandHallDatas);
+	std::vector<BackgroundMetaData> GrandHallDatas;
+	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GrandHallDatas);
 
-	std::vector<BG_DESC> HoluCourtyardDatas;
-	ContentDatabase<BG_DESC, LevelArea>::CopyGradeDatas(LevelArea::HolyCourtyard, HoluCourtyardDatas);
+	std::vector<BackgroundMetaData> HoluCourtyardDatas;
+	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(LevelArea::HolyCourtyard, HoluCourtyardDatas);
 
-	std::vector<BG_DESC> ShopDatas;
-	ContentDatabase<BG_DESC, LevelArea>::CopyGradeDatas(LevelArea::Shop, ShopDatas);
+	std::vector<BackgroundMetaData> ShopDatas;
+	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(LevelArea::Shop, ShopDatas);
 
 	int a = 0;
 }

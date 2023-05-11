@@ -14,7 +14,7 @@ public:
 	MultiBackground& operator=(const MultiBackground& _Other) = delete;
 	MultiBackground& operator=(MultiBackground&& _Other) noexcept = delete;
 
-	void CreateBackground(BG_DESC& _Desc);
+	void CreateBackground(BackgroundMetaData& _MetaData);
 	void UpdateTargetPos(float _DeltaTime, const float4& _TargetPos);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
