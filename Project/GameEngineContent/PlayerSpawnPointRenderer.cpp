@@ -42,4 +42,6 @@ void PlayerSpawnPointRenderer::Start()
 	SpawnRender = CreateComponent<GameEngineSpriteRenderer>();
 	SpawnRender->SetTexture("SkulIcon.png");
 	SpawnRender->GetTransform()->SetLocalScale(TextureScale);
+
+	SpawnRender->GetTransform()->SetLocalPosition(float4(0, TextureScale.hy(), 0));
 }

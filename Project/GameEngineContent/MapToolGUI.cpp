@@ -205,6 +205,7 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 		DrawGui_BObject();
 		break;
 	case MapToolLevel::MapToolState::Platform:
+		Callback_Object();
 		DrawGui_Platform();
 		break;
 	case MapToolLevel::MapToolState::Event:
