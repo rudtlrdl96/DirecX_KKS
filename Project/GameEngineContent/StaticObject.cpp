@@ -107,6 +107,7 @@ void StaticObject::Start()
 {
 	ImageRender = CreateComponent<GameEngineSpriteRenderer>();
 	ImageRender->SetPipeLine("2DTexture_ColorLight");
+	ImageRender->SetAtlasConstantBuffer();
 	ImageRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	ImageRender->Off();
 }

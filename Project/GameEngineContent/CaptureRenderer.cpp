@@ -60,6 +60,7 @@ void CaptureRenderer::Start()
 {
 	CaptureRender = CreateComponent<GameEngineSpriteRenderer>();
 	CaptureRender->SetPipeLine("2DTexture_Capture");
+	CaptureRender->SetAtlasConstantBuffer();
 	CaptureRender->GetShaderResHelper().SetConstantBufferLink("CaptureBuffer", Buffer);
 	CaptureRender->SetTexture("Empty.png");
 	CaptureRender->Off();

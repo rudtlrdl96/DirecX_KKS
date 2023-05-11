@@ -128,6 +128,7 @@ void Background::CreateLeftRender()
 
 	LeftRender = CreateComponent<GameEngineSpriteRenderer>();
 	LeftRender->SetPipeLine("2DTexture_Background");
+	LeftRender->SetAtlasConstantBuffer();
 	LeftRender->GetShaderResHelper().SetConstantBufferLink("TextureMoveBuffer", Buffer);
 	LeftRender->SetTexture(Desc.Name);
 	LeftRender->GetTransform()->SetLocalPosition(float4(-RenderSize.x, 0));
@@ -146,6 +147,7 @@ void Background::CreateRightRedner()
 
 	RightRender = CreateComponent<GameEngineSpriteRenderer>();
 	RightRender->SetPipeLine("2DTexture_Background");
+	RightRender->SetAtlasConstantBuffer();
 	RightRender->GetShaderResHelper().SetConstantBufferLink("TextureMoveBuffer", Buffer);
 	RightRender->SetTexture(Desc.Name);
 	RightRender->GetTransform()->SetLocalPosition(float4(RenderSize.x, 0));
@@ -214,6 +216,7 @@ void Background::Start()
 {
 	BackRender = CreateComponent<GameEngineSpriteRenderer>();
 	BackRender->SetPipeLine("2DTexture_Background");
+	BackRender->SetAtlasConstantBuffer();
 	BackRender->GetShaderResHelper().SetConstantBufferLink("TextureMoveBuffer", Buffer);
 	BackRender->Off();
 	BackRender->GetTransform()->SetLocalPosition(float4::Zero);

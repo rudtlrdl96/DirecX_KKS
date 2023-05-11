@@ -15,6 +15,7 @@ void InventorySlot::Start()
 		
 	SlotFrameRender = CreateComponent<GameEngineSpriteRenderer>();
 	SlotFrameRender->SetPipeLine("2DTexture_ColorLight");
+	SlotFrameRender->SetAtlasConstantBuffer();
 	SlotFrameRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", SlotFrameBuffer);
 	SlotFrameRender->SetTexture("Inventory_Deactivate.png");
 	SlotFrameRender->GetTransform()->SetLocalScale(FrameSize);
@@ -23,6 +24,7 @@ void InventorySlot::Start()
 
 	SlotImageRender = CreateComponent<GameEngineSpriteRenderer>();
 	SlotImageRender->SetPipeLine("2DTexture_ColorLight");
+	SlotImageRender->SetAtlasConstantBuffer();
 	SlotImageRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", SlotImageBuffer);
 	SlotImageRender->SetTexture("Empty.png");
 	SlotImageRender->GetTransform()->SetLocalScale(FrameSize);

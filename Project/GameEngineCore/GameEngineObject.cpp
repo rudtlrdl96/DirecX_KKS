@@ -83,15 +83,11 @@ void GameEngineObject::AllRelease()
 		return;
 	}
 
-	if (false == IsUpdate())
-	{
-		return;
-	}
-
 	Release();
 
 	for (std::shared_ptr<GameEngineObject> Object : Childs)
 	{
 		Object->AllRelease();
 	}
+
 }

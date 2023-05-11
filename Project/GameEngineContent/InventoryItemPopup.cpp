@@ -25,6 +25,7 @@ void InventoryItemPopup::Start()
 
 	PopupFrameRender = CreateComponent<GameEngineSpriteRenderer>();
 	PopupFrameRender->SetPipeLine("2DTexture_ColorLight");
+	PopupFrameRender->SetAtlasConstantBuffer();
 	PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupFrameColor);
 	PopupFrameRender->SetTexture("Inventory_Item_Frame.png");
 	PopupFrameRender->GetTransform()->SetLocalScale(TexSize);

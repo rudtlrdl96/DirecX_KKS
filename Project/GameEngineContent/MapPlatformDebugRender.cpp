@@ -18,6 +18,7 @@ void MapPlatformDebugRender::Start()
 {
 	DebugRender = CreateComponent<GameEngineSpriteRenderer>();
 	DebugRender->SetPipeLine("2DTexture_ColorLight");
+	DebugRender->SetAtlasConstantBuffer();
 	DebugRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", DebugBuffer);
 	DebugRender->SetTexture("Debug_1_MapToolEmpty.png");
 }

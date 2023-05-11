@@ -26,6 +26,7 @@ void InventoryStatPopup::Start()
 
 		PopupFrameRender = CreateComponent<GameEngineSpriteRenderer>();
 		PopupFrameRender->SetPipeLine("2DTexture_ColorLight");
+		PopupFrameRender->SetAtlasConstantBuffer();
 		PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupFrameColor);
 		PopupFrameRender->SetTexture("Inventory_Stat_Frame.png");
 		PopupFrameRender->GetTransform()->SetLocalScale(TexSize);
@@ -48,6 +49,7 @@ void InventoryStatPopup::Start()
 
 		PopupBackRender = CreateComponent<GameEngineSpriteRenderer>();
 		PopupBackRender->SetPipeLine("2DTexture_ColorLight");
+		PopupBackRender->SetAtlasConstantBuffer();
 		PopupBackRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupBackColor);
 		PopupBackRender->SetTexture("Inventory_Stat_Back.png");
 		PopupBackRender->GetTransform()->SetLocalPosition(float4(-465, 1, 0));

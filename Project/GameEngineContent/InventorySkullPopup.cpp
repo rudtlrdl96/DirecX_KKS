@@ -25,6 +25,7 @@ void InventorySkullPopup::Start()
 
 	PopupFrameRender = CreateComponent<GameEngineSpriteRenderer>();
 	PopupFrameRender->SetPipeLine("2DTexture_ColorLight");
+	PopupFrameRender->SetAtlasConstantBuffer();
 	PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupFrameColor);
 	PopupFrameRender->SetTexture("Inventory_Skul_Single_Frame.png");
 	PopupFrameRender->GetTransform()->SetLocalScale(TexSize);
