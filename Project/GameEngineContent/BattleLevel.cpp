@@ -32,3 +32,8 @@ void BattleLevel::Update(float _DeltaTime)
 	ContentLevel::Update(_DeltaTime);
 	BattleAreaPtr->UpdateBackground(_DeltaTime, MainCamCtrl.GetCameraPos());
 }
+
+void BattleLevel::SetPosDebugActor(const float4& _Pos)
+{
+	DebugActor->GetTransform()->SetLocalPosition(_Pos);
+}

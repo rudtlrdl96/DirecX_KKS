@@ -63,6 +63,9 @@ void LevelMoveGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTim
 		case 13: // Inventory
 			GameEngineCore::ChangeLevel("InventoryDebug");
 			break;
+		case 14://Debug_Physics
+			GameEngineCore::ChangeLevel("PhysicsDebug");
+			break;
 		default:
 			break;
 		}

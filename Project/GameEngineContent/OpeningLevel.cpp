@@ -49,6 +49,7 @@ void OpeningLevel::Start()
 	BattleAreaPtr->ChangeBackground("DB_Opening_Background", float4(0, 128, 0));
 	BattleAreaPtr->ChangeMap("DB_Opening_01_Map");
 	BattleAreaPtr->SetCameraLock(MainCamCtrl);
+	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
 }
 
 void OpeningLevel::Update(float _DeltaTime)
@@ -59,22 +60,26 @@ void OpeningLevel::Update(float _DeltaTime)
 	{
 		BattleAreaPtr->ChangeMap("DB_Opening_01_Map");
 		BattleAreaPtr->SetCameraLock(MainCamCtrl);
+		SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
 	}
 	if (true == GameEngineInput::IsDown("Opening_Debug_SetMap1"))
 	{
 		BattleAreaPtr->ChangeMap("DB_Opening_02_Map");
 		BattleAreaPtr->SetCameraLock(MainCamCtrl);
+		SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
 	}
 
 	if (true == GameEngineInput::IsDown("Opening_Debug_SetMap2"))
 	{
 		BattleAreaPtr->ChangeMap("DB_Opening_03_Map");
 		BattleAreaPtr->SetCameraLock(MainCamCtrl);
+		SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
 	}
 
 	if (true == GameEngineInput::IsDown("Opening_Debug_SetMap3"))
 	{
 		BattleAreaPtr->ChangeMap("DB_Opening_04_Map");
 		BattleAreaPtr->SetCameraLock(MainCamCtrl);
+		SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
 	}
 }

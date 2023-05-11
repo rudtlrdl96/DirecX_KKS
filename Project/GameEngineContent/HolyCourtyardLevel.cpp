@@ -41,6 +41,7 @@ void HolyCourtyardLevel::Start()
 	BattleAreaPtr->ChangeBackground("DB_HolyCourtyard_Background_1");
 	BattleAreaPtr->ChangeMap("DB_HoluCourtyard_BossEntranceFade_Map");
 	BattleAreaPtr->SetCameraLock(MainCamCtrl);
+	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
 }
 
 void HolyCourtyardLevel::Update(float _DeltaTime)

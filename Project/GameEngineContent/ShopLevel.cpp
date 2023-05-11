@@ -35,6 +35,7 @@ void ShopLevel::Start()
 	BattleAreaPtr->ChangeBackground("DB_Shop_Background");
 	BattleAreaPtr->ChangeMap("DB_Shop_Map");
 	BattleAreaPtr->SetCameraLock(MainCamCtrl);
+	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
 }
 
 void ShopLevel::Update(float _DeltaTime)

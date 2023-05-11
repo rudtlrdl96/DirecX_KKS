@@ -36,6 +36,7 @@ void CastleLevel::Start()
 	BattleAreaPtr->ChangeBackground("DB_Castle_Background");
 	BattleAreaPtr->ChangeMap("DB_Castle_Map");
 	BattleAreaPtr->SetCameraLock(MainCamCtrl);
+	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
 
 	MainCamCtrl.SetMinHeight(128);
 	MainCamCtrl.SetMaxHeight(128 + GameEngineWindow::GetScreenSize().y);

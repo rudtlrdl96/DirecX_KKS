@@ -12,10 +12,12 @@ GameEventManager::~GameEventManager()
 
 void GameEventManager::SaveBin(GameEngineSerializer& _SaveSerializer)
 {
+	_SaveSerializer.Write(&SpawnPoint, sizeof(float4));
 }
 
 void GameEventManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
+	_LoadSerializer.Read(&SpawnPoint, sizeof(float4));
 }
 
 void GameEventManager::ShowGUI()

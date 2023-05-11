@@ -25,6 +25,11 @@ public:
 		CurBackground->UpdateTargetPos(_DeltaTime, _CenterPos);
 	}
 
+	inline float4 GetSpawnPoint() const
+	{
+		return CurStage->GetSpawnPoint();
+	}
+
 	void SetCameraLock(class CameraController& _CameraCtrl);
 
 protected:

@@ -40,7 +40,9 @@ private:
 
 	std::shared_ptr<class TilemapHoverRenderActor> TilemapHoverPtr = nullptr;
 	std::shared_ptr<class TilemapOutlineRenderActor> TilemapOutLinePtr = nullptr;
-		
+	
+	std::shared_ptr<class PlayerSpawnPointRenderer> PlayerSpawnRender = nullptr;
+
 	MapToolState MapToolType = MapToolState::Tilemap;
 
 	float CameraSpeed = 500.0f;
@@ -50,11 +52,11 @@ private:
 
 	void CameraMoveFunction(float _DeltaTime);
 
-
 	void Update_Tilemap(float _DeltaTime);
 	void Update_SObject(float _DeltaTime);
 	void Update_BObject(float _DeltaTime);
 	void Update_Platfrom(float _DeltaTime);
 	void Update_Event(float _DeltaTime);
+
 
 };

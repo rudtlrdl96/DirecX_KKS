@@ -94,5 +94,4 @@ void GameEngineObject::AllRelease()
 	{
 		Object->AllRelease();
 	}
-
 }

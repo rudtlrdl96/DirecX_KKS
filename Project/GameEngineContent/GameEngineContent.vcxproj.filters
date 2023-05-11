@@ -268,6 +268,9 @@
     <Filter Include="2_Actor\Map\Stage\Event\MonsterSpawnEvent">
       <UniqueIdentifier>{dfd62202-f218-412b-a9e4-5bfb1e67b08f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Level\DebugLevel\Test\Physics">
+      <UniqueIdentifier>{fd7cad70-4e2d-4d33-b57d-67bab004333a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -320,9 +323,6 @@
     </ClInclude>
     <ClInclude Include="Rigidbody2D.h">
       <Filter>3_Component\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision2D.h">
-      <Filter>3_Component\Collision</Filter>
     </ClInclude>
     <ClInclude Include="TilemapData.h">
       <Filter>1_Class\Base\Data\Tile</Filter>
@@ -519,6 +519,15 @@
     <ClInclude Include="GameEventManager.h">
       <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerSpawnPointRenderer.h">
+      <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsDebugLevel.h">
+      <Filter>4_Level\DebugLevel\Test\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRigidbodyTestActor.h">
+      <Filter>2_Actor\Debug\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -571,9 +580,6 @@
     </ClCompile>
     <ClCompile Include="Rigidbody2D.cpp">
       <Filter>3_Component\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision2D.cpp">
-      <Filter>3_Component\Collision</Filter>
     </ClCompile>
     <ClCompile Include="TilemapData.cpp">
       <Filter>1_Class\Base\Data\Tile</Filter>
@@ -796,6 +802,15 @@
     </ClCompile>
     <ClCompile Include="GameEventManager.cpp">
       <Filter>2_Actor\Map\Stage\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSpawnPointRenderer.cpp">
+      <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsDebugLevel.cpp">
+      <Filter>4_Level\DebugLevel\Test\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRigidbodyTestActor.cpp">
+      <Filter>2_Actor\Debug\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,8 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	void SetPosDebugActor(const float4& _Pos);
+
 	std::shared_ptr<class DebugSpriteActor> DebugActor = nullptr;
 	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
 private:

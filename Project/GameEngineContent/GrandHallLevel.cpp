@@ -36,6 +36,7 @@ void GrandHallLevel::Start()
 	BattleAreaPtr->ChangeBackground("DB_GrandHall_Background_0");
 	BattleAreaPtr->ChangeMap("DB_GrandHall_BossEntrance_Map");
 	BattleAreaPtr->SetCameraLock(MainCamCtrl);
+	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
 }
 
 void GrandHallLevel::Update(float _DeltaTime)

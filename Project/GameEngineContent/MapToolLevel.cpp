@@ -10,9 +10,11 @@
 #include "Tilemap.h"
 #include "ObjectManager.h"
 #include "GameEventManager.h"
+
 #include "TilemapPallet.h"
 #include "TilemapHoverRenderActor.h"
 #include "TilemapOutlineRenderActor.h"
+#include "PlayerSpawnPointRenderer.h"
 
 #include "GameEngineActorGUI.h"
 #include "MapToolGUI.h"
@@ -80,6 +82,8 @@ void MapToolLevel::Start()
 
 	TilemapHoverPtr = CreateActor<TilemapHoverRenderActor>();
 	TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
+
+	PlayerSpawnRender = CreateActor<PlayerSpawnPointRenderer>();
 }
 
 void MapToolLevel::Update(float _DeltaTime)
@@ -90,6 +94,9 @@ void MapToolLevel::Update(float _DeltaTime)
 
 	TilePalletPtr->SetActiveCursor(false);
 	TilemapHoverPtr->HoverOff();
+
+	float4 SpawnPos = EventMgrPtr->GetSpawnPoint();
+	PlayerSpawnRender->GetTransform()->SetWorldPosition(SpawnPos);
 
 	switch (MapToolType)
 	{
@@ -190,7 +197,7 @@ void MapToolLevel::Save()
 
 	TilemapPtr->SaveBin(SaveSerializer);
 	ObjectMgrPtr->SaveBin(SaveSerializer);
-	
+	EventMgrPtr->SaveBin(SaveSerializer);
 
 	GameEngineFile SaveFile = GameEngineFile(Path);
 	SaveFile.SaveBin(SaveSerializer);
@@ -213,6 +220,7 @@ void MapToolLevel::Load()
 
 	TilemapPtr->LoadBin(SaveSerializer);
 	ObjectMgrPtr->LoadBin(SaveSerializer);
+	EventMgrPtr->LoadBin(SaveSerializer);
 
 	TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
 }

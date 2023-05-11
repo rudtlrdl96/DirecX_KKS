@@ -9,12 +9,38 @@ Rigidbody2D::~Rigidbody2D()
 {
 }
 
-void Rigidbody2D::Init(const std::vector<int>& _ColTypes)
+void Rigidbody2D::UpdateForce(float _DeltaTime)
 {
+	if (ForceVector.Size() > 0)
+	{
+		Accel = ForceVector / Mass;
+		Velocity += Accel * _DeltaTime;
+	}
 
-}
+	if (true == IsGravity)
+	{
+		Velocity += float4(0, Gravity) * Mass * _DeltaTime;
+	}
 
-void Rigidbody2D::Update(float _DeltaTime)
-{
-	// 충돌 체크
+	float4 VelDir = Velocity.NormalizeReturn();
+	float VelSize = Velocity.Size();
+		
+	VelSize -= FricCoeff * _DeltaTime;
+
+	if (VelSize > MaxSpeed)
+	{
+		VelSize = MaxSpeed;
+	}
+	
+	if (VelSize > 0)
+	{
+		Velocity = VelDir * VelSize;
+	}
+	else
+	{
+		Velocity = float4::Zero;
+	}
+
+
+	ForceVector = float4::Zero;
 }

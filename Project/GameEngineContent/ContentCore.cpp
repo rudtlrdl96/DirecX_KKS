@@ -35,6 +35,7 @@
 #include "InventoryDebugLevel.h"
 #include "MapToolLevel.h"
 #include "BackgroundToolLevel.h"
+#include "PhysicsDebugLevel.h"
 
 ContentCore::ContentCore()
 {
@@ -97,6 +98,7 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<InventoryDebugLevel>("InventoryDebug");
 	GameEngineCore::CreateLevel<MapToolLevel>("MapTool");
 	GameEngineCore::CreateLevel<BackgroundToolLevel>("BackgroundTool");
+	GameEngineCore::CreateLevel<PhysicsDebugLevel>("PhysicsDebug");
 
 	GameEngineCore::ChangeLevel("Title");
 

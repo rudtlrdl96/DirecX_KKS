@@ -17,6 +17,11 @@ public:
 
 	void ShowGUI() override;
 
+	inline float4 GetSpawnPoint() const
+	{
+		return SpawnPoint;
+	}
+
 protected:
 	
 private:

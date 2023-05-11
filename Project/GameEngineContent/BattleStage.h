@@ -13,7 +13,10 @@ public:
 	BattleStage& operator=(BattleStage&& _Other) noexcept = delete;
 
 	void Init(GameEngineSerializer& _LoadSerializer);
+	
 	class Tilemap_Meta GetTilemapDesc() const;
+
+	float4 GetSpawnPoint() const;
 
 protected:
 	void Start() override;
@@ -21,5 +24,6 @@ protected:
 private:
 	std::shared_ptr<class Tilemap> TilemapPtr = nullptr;
 	std::shared_ptr<class ObjectManager> ObjectManagerPtr = nullptr;
+	std::shared_ptr<class GameEventManager> EventManagerPtr = nullptr;
 };
 
