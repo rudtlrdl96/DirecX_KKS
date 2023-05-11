@@ -1,11 +1,11 @@
 #include "PrecompileHeader.h"
 #include "ContentCore.h"
 #include <GameEngineCore/GameEngineTexture.h>
-#include "TilemapData.h"
+#include "TileMetaData.h"
 
-void TileLoad(const TilemapData& _Data)
+void TileLoad(const TileMetaData& _Data)
 {
-	ContentDatabase<TilemapData, LevelArea>::InsertData(_Data);
+	ContentDatabase<TileMetaData, LevelArea>::InsertData(_Data);
 }
 
 void ContentCore::TileDataLoad()
@@ -131,26 +131,26 @@ void ContentCore::TileDataLoad()
 		Path.MoveParent();
 	}
 
-	std::vector<TilemapData> NoneDatas;
-	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::None, NoneDatas);
+	std::vector<TileMetaData> NoneDatas;
+	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::None, NoneDatas);
 
-	std::vector<TilemapData> OpeningDatas;
-	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::Opening, OpeningDatas);
+	std::vector<TileMetaData> OpeningDatas;
+	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::Opening, OpeningDatas);
 
-	std::vector<TilemapData> CastleDatas;
-	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::Castle, CastleDatas);
+	std::vector<TileMetaData> CastleDatas;
+	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::Castle, CastleDatas);
 
-	std::vector<TilemapData> ForestDatas;
-	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestDatas);
+	std::vector<TileMetaData> ForestDatas;
+	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestDatas);
 
-	std::vector<TilemapData> GrandHallDatas;
-	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GrandHallDatas);
+	std::vector<TileMetaData> GrandHallDatas;
+	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GrandHallDatas);
 
-	std::vector<TilemapData> SacredGroundsDatas;
-	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::HolyCourtyard, SacredGroundsDatas);
+	std::vector<TileMetaData> SacredGroundsDatas;
+	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::HolyCourtyard, SacredGroundsDatas);
 		
-	std::vector<TilemapData> ShopDatas;
-	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(LevelArea::Shop, ShopDatas);
+	std::vector<TileMetaData> ShopDatas;
+	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::Shop, ShopDatas);
 
 	int a = 0;
 }

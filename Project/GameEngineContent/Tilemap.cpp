@@ -338,6 +338,11 @@ void Tilemap::SaveBin(GameEngineSerializer& _SaveSerializer)
 	}
 }
 
+void Tilemap::SaveBin_TileMetaData(TileMetaData _Meta, GameEngineSerializer& _SaveSerializer)
+{
+	_SaveSerializer.Write(_Meta.Index);
+}
+
 void Tilemap::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
 	ClearTileMap();
@@ -362,6 +367,13 @@ void Tilemap::LoadBin(GameEngineSerializer& _LoadSerializer)
 			}
 		}
 	}
+}
+
+TileMetaData Tilemap::LoadBin_TileMetaData(GameEngineSerializer& _SaveSerializer)
+{
+	TileMetaData LoadMetaData;
+	_SaveSerializer.Write(LoadMetaData.Index);
+	return LoadMetaData;
 }
 
 void Tilemap::ShowGUI()
@@ -626,4 +638,57 @@ void Tilemap::Push_Tilemap_Right(UINT _Depth)
 	{
 		ChangeData(_Depth, 0, y, 0);
 	}
+}
+
+void Tilemap::CreateTilemapRenderer(UINT _Depth, UINT _CurWitdh, UINT _CurHeight, UINT _ResizeWitdh, UINT _ResizeHeight)
+{
+	if (_Depth >= RenderTexture.size())
+	{
+		MsgAssert_Rtti<Tilemap>(" - 깊이를 초과해 타일맵랜더링 텍스쳐를 생성하려했습니다");
+		return;
+	}
+
+	if (nullptr == RenderTexture[_Depth])
+	{
+		D3D11_TEXTURE2D_DESC TextureDESC = {};
+		TextureDESC.Width = ContentConst::TileSize.ix() * _ResizeWitdh;
+		TextureDESC.Height = ContentConst::TileSize.iy() * _ResizeHeight;
+		TextureDESC.MipLevels = 1;
+		TextureDESC.ArraySize = 1;
+		TextureDESC.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+		TextureDESC.SampleDesc.Count = 1;
+		TextureDESC.Usage = D3D11_USAGE_DEFAULT;
+		TextureDESC.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+
+		RenderTexture[_Depth] = GameEngineTexture::Create(TextureDESC);
+	}
+	else
+	{
+		DirectX::ScratchImage& SrcImage = RenderTexture[_Depth]->GetScratchImage();
+		DirectX::Image SrcImageData = {};
+
+		size_t NewTextureWitdh = ContentConst::TileSize.ix() * _ResizeWitdh;
+		size_t NewTextureHeight = ContentConst::TileSize.iy() * _ResizeHeight;
+
+		SrcImageData.width = ContentConst::TileSize.ix() * _CurWitdh;
+		SrcImageData.height = ContentConst::TileSize.iy() * _CurHeight;
+		SrcImageData.format = DXGI_FORMAT_B8G8R8A8_UNORM;
+		SrcImageData.rowPitch = sizeof(uint32_t) * SrcImageData.width;
+		SrcImageData.slicePitch = SrcImageData.rowPitch * SrcImageData.height;
+		SrcImageData.pixels = SrcImage.GetPixels();
+
+		HRESULT Result = DirectX::Resize(
+			SrcImageData,
+			NewTextureWitdh,
+			NewTextureHeight, DirectX::TEX_FILTER_DEFAULT,
+			SrcImage);
+
+		if (FAILED(Result))
+		{
+			MsgAssert_Rtti<Tilemap>(" - 텍스쳐를 리사이즈하는데 실패했습니다");
+			return;
+		}
+	}
+	
+
 }

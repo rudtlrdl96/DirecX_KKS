@@ -10,7 +10,7 @@ TileActor::~TileActor()
 {
 }
 
-void TileActor::SetTileData(const TilemapData& _Data)
+void TileActor::SetTileData(const TileMetaData& _Data)
 {
 	Data = _Data;
 

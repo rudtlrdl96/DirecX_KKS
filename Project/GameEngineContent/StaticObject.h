@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
-#include "TilemapData.h"
+#include "TileMetaData.h"
 
 class SObjectMetaData
 {

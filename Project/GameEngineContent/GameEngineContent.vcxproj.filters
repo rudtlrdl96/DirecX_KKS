@@ -324,7 +324,7 @@
     <ClInclude Include="Rigidbody2D.h">
       <Filter>3_Component\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="TilemapData.h">
+    <ClInclude Include="TileMetaData.h">
       <Filter>1_Class\Base\Data\Tile</Filter>
     </ClInclude>
     <ClInclude Include="BattleDebugLevel.h">
@@ -581,7 +581,7 @@
     <ClCompile Include="Rigidbody2D.cpp">
       <Filter>3_Component\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="TilemapData.cpp">
+    <ClCompile Include="TileMetaData.cpp">
       <Filter>1_Class\Base\Data\Tile</Filter>
     </ClCompile>
     <ClCompile Include="BattleDebugLevel.cpp">

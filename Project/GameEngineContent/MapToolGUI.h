@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineCoreWindow.h>
-#include "TilemapData.h"
+#include "TileMetaData.h"
 #include "MapToolLevel.h"
 #include "ObjectManager.h"
 
@@ -10,10 +10,10 @@ private:
 	class MapTool_TilemapData
 	{
 	public:
-		TilemapData Data;
+		TileMetaData Data;
 		std::shared_ptr<class GameEngineTexture> TexturePtr = nullptr; 
 
-		MapTool_TilemapData(const TilemapData& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
+		MapTool_TilemapData(const TileMetaData& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
 			Data(_Data),
 			TexturePtr(_TexturePtr)
 		{		

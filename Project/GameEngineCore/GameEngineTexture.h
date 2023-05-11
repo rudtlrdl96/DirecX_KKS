@@ -108,6 +108,11 @@ public:
 		return DSV;
 	}
 
+	DirectX::ScratchImage& GetScratchImage()
+	{
+		return Image;
+	}
+
 	int GetWidth() 
 	{
 		return Desc.Width;

@@ -337,7 +337,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="TilemapData.h">
+    <ClInclude Include="TileMetaData.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -689,7 +689,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TilemapData.cpp">
+    <ClCompile Include="TileMetaData.cpp">
       <SubType>
       </SubType>
     </ClCompile>

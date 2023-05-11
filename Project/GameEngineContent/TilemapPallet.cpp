@@ -5,7 +5,7 @@
 
 #include "ContentDatabase.h"
 #include "MouseCursorFollowTex.h"
-#include "TilemapData.h"
+#include "TileMetaData.h"
 
 #include "MapToolGUI.h"
 
@@ -30,7 +30,7 @@ void TilemapPallet::SetPencleIndex(UINT _Index)
 	}
 
 	PencleTile = _Index;
-	const TilemapData& TileDataRef = ContentDatabase<TilemapData, LevelArea>::GetData(PencleTile);
+	const TileMetaData& TileDataRef = ContentDatabase<TileMetaData, LevelArea>::GetData(PencleTile);
 	CursorActor->SetTexture(TileDataRef.Name);
 }
 
@@ -61,6 +61,6 @@ void TilemapPallet::Start()
 void TilemapPallet::Update(float _DeltaTime)
 {
 	PencleTile = MapToolGuiPtr->GetSelectTileIndex();
-	const TilemapData& TileDataRef = ContentDatabase<TilemapData, LevelArea>::GetData(PencleTile);
+	const TileMetaData& TileDataRef = ContentDatabase<TileMetaData, LevelArea>::GetData(PencleTile);
 	CursorActor->SetTexture(TileDataRef.Name);
 }

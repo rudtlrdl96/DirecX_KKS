@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
-#include "TilemapData.h"
+#include "TileMetaData.h"
 
 class TileActor : public BaseContentActor
 {
@@ -15,10 +15,10 @@ public:
 
 	inline void SetTileData(size_t _Index)
 	{
-		SetTileData(ContentDatabase<TilemapData, LevelArea>::GetData(_Index));
+		SetTileData(ContentDatabase<TileMetaData, LevelArea>::GetData(_Index));
 	}
 
-	void SetTileData(const TilemapData& _Data);
+	void SetTileData(const TileMetaData& _Data);
 
 	inline UINT GetTileIndex() const
 	{
@@ -40,7 +40,7 @@ private:
 	ColorBuffer Buffer;
 	float4 TileColor = float4::Zero;
 
-	TilemapData Data = TilemapData();
+	TileMetaData Data = TileMetaData();
 	std::shared_ptr<class GameEngineSpriteRenderer> DrawRender = nullptr;
 
 };

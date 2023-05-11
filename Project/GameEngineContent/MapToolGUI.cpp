@@ -3,7 +3,7 @@
 
 #include <GameEngineCore/GameEngineTexture.h>
 
-#include "TilemapData.h"
+#include "TileMetaData.h"
 #include "StaticObject.h"
 #include "ObjectManager.h"
 
@@ -224,8 +224,8 @@ void MapToolGUI::TileDatasLoad(LevelArea _Area)
 {
 	std::vector<MapTool_TilemapData>& BufferTextureDatas = TileTexDatas[_Area];
 
-	std::vector<TilemapData> CopyDatas;
-	ContentDatabase<TilemapData, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
+	std::vector<TileMetaData> CopyDatas;
+	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
 
 	BufferTextureDatas.reserve(CopyDatas.size());
 

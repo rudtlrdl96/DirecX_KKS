@@ -1,6 +1,6 @@
 #pragma once
 
-class TilemapData
+class TileMetaData
 {
 public:
 	std::string Name = "";

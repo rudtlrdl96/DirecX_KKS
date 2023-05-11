@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "TileMetaData.h"
 
 class TilemapMetaData
 {
@@ -64,7 +65,10 @@ public:
 	TilemapMetaData GetTilemapMetaData();
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
+	void SaveBin_TileMetaData(TileMetaData _Meta, GameEngineSerializer& _SaveSerializer);
+
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
+	TileMetaData LoadBin_TileMetaData(GameEngineSerializer& _SaveSerializer);
 
 	void ShowGUI() override;
 
@@ -73,7 +77,7 @@ protected:
 private:
 	std::vector<std::vector<std::vector<std::shared_ptr<class TileActor>>>> TilemapDatas;
 	
-	std::shared_ptr<GameEngineTexture> RenderTexture;
+	std::vector<std::shared_ptr<GameEngineTexture>> RenderTexture;
 
 	UINT Gui_TilemapCurDepth = 0;
 	UINT Gui_TilemapDepthCount = 0;
@@ -89,4 +93,6 @@ private:
 	void Push_Tilemap_Down(UINT _Depth);
 	void Push_Tilemap_Left(UINT _Depth);
 	void Push_Tilemap_Right(UINT _Depth);
+
+	void CreateTilemapRenderer(UINT _Depth, UINT _CurWitdh, UINT _CurHeight, UINT _ResizeWitdh, UINT _ResizeHeight);
 };
