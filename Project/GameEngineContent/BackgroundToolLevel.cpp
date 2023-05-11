@@ -20,6 +20,9 @@ void BackgroundToolLevel::Start()
 {
 	ContentLevel::Start();
 
+	MainCamCtrl.SetMinWidth(128);
+	MainCamCtrl.SetMinHeight(128);
+
 	MultiBackgroundPtr = CreateActor<MultiBackground>();
 
 	BackgroundToolGUIPtr = GameEngineGUI::FindGUIWindowConvert<BackgroundToolGUI>("BackgroundToolGUI");

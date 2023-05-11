@@ -289,10 +289,10 @@ Tilemap_Meta Tilemap::GetTilemap_DESC()
 	TilemapPos.x -= ContentConst::TileSize.hx();
 	TilemapPos.y -= ContentConst::TileSize.y;
 
-	Result.Bottom = TilemapPos.y;
-	Result.Top	  = TilemapPos.y + (TilemapSize.y * TileScale.y);
-	Result.Left   = TilemapPos.x;
-	Result.Right  = TilemapPos.x + (TilemapSize.x * TileScale.x);
+	Result.Bottom = TilemapPos.y + 128;
+	Result.Top	  = TilemapPos.y + (TilemapSize.y * TileScale.y) - 128;
+	Result.Left   = TilemapPos.x + 128;
+	Result.Right  = TilemapPos.x + (TilemapSize.x * TileScale.x) - 128;
 
 	return Result;
 }

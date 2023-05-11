@@ -30,39 +30,7 @@ void GameEngineTransform::TransformUpdate()
 	}
 	else // 차이
 	{
-		float4x4 ParentWorldMatrix = Parent->GetWorldMatrixRef();
-		float4 PScale, PRotation, PPosition;
-		ParentWorldMatrix.Decompose(PScale, PRotation, PPosition);
-
-
-		if (true == AbsoluteScale)
-		{
-			// 부모쪽 행렬의 스케일을 1
-			PScale = float4::One;
-		}
-		if (true == AbsoluteRotation)
-		{
-			// 부모의 회전 
-			PRotation = float4::Zero;
-			PRotation.EulerDegToQuaternion();
-		}
-		if (true == AbsolutePosition)
-		{
-			PPosition = float4::Zero;
-		}
-
-		float4x4 MatScale, MatRot, MatPos;
-
-		//scale
-		MatScale.Scale(PScale);
-
-		//rot
-		MatRot = PRotation.QuaternionToRotationMatrix();
-
-		//pos
-		MatPos.Pos(PPosition);
-
-		TransData.WorldMatrix = TransData.LocalWorldMatrix * (MatScale * MatRot * MatPos);
+		WorldCalculation();
 	}
 
 	WorldDecompose();
@@ -70,6 +38,43 @@ void GameEngineTransform::TransformUpdate()
 	LocalDecompose();
 		// ParentWorldMatrix.Decompose(PScale, PRoatation, PPosition);
 
+}
+
+void GameEngineTransform::WorldCalculation()
+{
+	float4x4 ParentWorldMatrix = Parent->GetWorldMatrixRef();
+	float4 PScale, PRotation, PPosition;
+	ParentWorldMatrix.Decompose(PScale, PRotation, PPosition);
+
+
+	if (true == AbsoluteScale)
+	{
+		// 부모쪽 행렬의 스케일을 1
+		PScale = float4::One;
+	}
+	if (true == AbsoluteRotation)
+	{
+		// 부모의 회전 
+		PRotation = float4::Zero;
+		PRotation.EulerDegToQuaternion();
+	}
+	if (true == AbsolutePosition)
+	{
+		PPosition = float4::Zero;
+	}
+
+	float4x4 MatScale, MatRot, MatPos;
+
+	//scale
+	MatScale.Scale(PScale);
+
+	//rot
+	MatRot = PRotation.QuaternionToRotationMatrix();
+
+	//pos
+	MatPos.Pos(PPosition);
+
+	TransData.WorldMatrix = TransData.LocalWorldMatrix * (MatScale * MatRot * MatPos);
 }
 
 void GameEngineTransform::LocalDecompose() 
@@ -90,6 +95,12 @@ void GameEngineTransform::SetParent(GameEngineTransform* _Parent)
 	if (IsDebug())
 	{
 		int a = 0;
+	}
+
+	// 내가 원래 기존의 부모를 가지고 있다면
+	if (nullptr != Parent)
+	{
+		// 여기서 뭔가를 해서 
 	}
 
 	Parent = _Parent;
@@ -129,22 +140,15 @@ void GameEngineTransform::SetParent(GameEngineTransform* _Parent)
 
 void GameEngineTransform::CalChild()
 {
+	if (false == Master->IsUpdate())
+	{
+		return;
+	}
+
 	for (GameEngineTransform* ChildTrans : Child)
 	{
-		if (false == ChildTrans->AbsoluteScale)
-		{
-			ChildTrans->SetLocalScale(ChildTrans->GetLocalScale());
-		}
-
-		if (false == ChildTrans->AbsoluteRotation)
-		{
-			ChildTrans->SetLocalRotation(ChildTrans->GetLocalRotation());
-		}
-
-		if (false == ChildTrans->AbsolutePosition)
-		{
-			ChildTrans->SetLocalPosition(ChildTrans->GetLocalPosition());
-		}
+		ChildTrans->WorldCalculation();
+		ChildTrans->CalChild();
 	}
 }
 
