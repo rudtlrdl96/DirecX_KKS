@@ -70,7 +70,6 @@ OutPut Texture_VS(Input _Value)
 cbuffer CaptureBuffer : register(b1)
 {
     float4 OutColor;
-    float4 WorldLight;
 }
 
 Texture2D DiffuseTex : register(t0);

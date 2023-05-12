@@ -53,7 +53,6 @@ struct OutPut
 cbuffer TextureMoveBuffer : register(b1)
 {
     float4 OutColor;
-    float4 WorldLight;
     float4 OutUv;
 }
 
