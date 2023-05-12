@@ -85,6 +85,11 @@ public:
 
 	void AllAnimation();
 
+	bool IsAnimationEnd()
+	{
+		return CurAnimation->IsEnd();
+	}
+
 	void SetAtlasConstantBuffer();
 
 protected:

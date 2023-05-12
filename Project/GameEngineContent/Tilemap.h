@@ -77,8 +77,6 @@ protected:
 private:
 	std::vector<std::vector<std::vector<std::shared_ptr<class TileActor>>>> TilemapDatas;
 	
-	std::vector<std::shared_ptr<GameEngineTexture>> RenderTexture;
-
 	UINT Gui_TilemapCurDepth = 0;
 	UINT Gui_TilemapDepthCount = 0;
 	int2 Gui_TilemapSize = int2::Zero;
@@ -93,6 +91,4 @@ private:
 	void Push_Tilemap_Down(UINT _Depth);
 	void Push_Tilemap_Left(UINT _Depth);
 	void Push_Tilemap_Right(UINT _Depth);
-
-	void CreateTilemapRenderer(UINT _Depth, UINT _CurWitdh, UINT _CurHeight, UINT _ResizeWitdh, UINT _ResizeHeight);
 };
