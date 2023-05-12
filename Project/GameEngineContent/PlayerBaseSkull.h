@@ -31,7 +31,7 @@ protected:
 	ActorViewDir ViewDir = ActorViewDir::Right;
 
 	float4 JumpDir = float4::Zero;
-	float JumpPower = 600.0f;
+	float JumpPower = 700.0f;
 	bool DoubleJump = false;
 
 	bool CanDash = false;
@@ -41,7 +41,7 @@ protected:
 	bool DashCombo = false;
 
 	float WalkSpeed = 350.0f;
-	float MaxFallSpeed = 800.0f;
+	float MaxFallSpeed = 1400.0f;
 
 	bool IsGround() const;
 

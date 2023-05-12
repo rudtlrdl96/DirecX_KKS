@@ -528,6 +528,9 @@
     <ClInclude Include="DebugRigidbodyTestActor.h">
       <Filter>2_Actor\Debug\Common</Filter>
     </ClInclude>
+    <ClInclude Include="AttackCollisionToolGUI.h">
+      <Filter>5_GUI\Tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -811,6 +814,9 @@
     </ClCompile>
     <ClCompile Include="DebugRigidbodyTestActor.cpp">
       <Filter>2_Actor\Debug\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackCollisionToolGUI.cpp">
+      <Filter>5_GUI\Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
