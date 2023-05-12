@@ -7,6 +7,7 @@ void PlayerBaseSkull::Idle_Enter()
 {
 	SkullRenderer->ChangeAnimation("Idle");
 	JumpDir = float4::Zero;
+	CanJump = true;
 	DoubleJump = true;
 }
 
@@ -58,6 +59,7 @@ void PlayerBaseSkull::Idle_End()
 
 void PlayerBaseSkull::Jump_Enter()
 {
+	CanJump = false;
 	JumpDir = float4::Up * JumpPower;
 	SkullRenderer->ChangeAnimation("Jump");
 }
@@ -102,6 +104,7 @@ void PlayerBaseSkull::Walk_Enter()
 {
 	SkullRenderer->ChangeAnimation("Walk");
 	JumpDir = float4::Zero;
+	CanJump = true;
 	DoubleJump = true;
 }
 
@@ -171,6 +174,11 @@ void PlayerBaseSkull::Dash_Enter()
 
 void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 {
+	if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
+	{
+		PlayerFSM.ChangeState("Jump");
+		return;
+	}
 
 	if (false == DashCombo && GameEngineInput::IsDown("PlayerMove_Dash"))
 	{

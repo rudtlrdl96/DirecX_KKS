@@ -271,6 +271,9 @@
     <Filter Include="2_Actor\Player\Skull\BoneSkull">
       <UniqueIdentifier>{2e5963b7-1936-4419-90ca-a0ff3aa32c46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Level\DebugLevel\Tool\AttackColTool">
+      <UniqueIdentifier>{b6a3eb4d-4dee-4bca-88b4-25c6aac1441c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -530,6 +533,9 @@
     </ClInclude>
     <ClInclude Include="AttackCollisionToolGUI.h">
       <Filter>5_GUI\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackColToolLevel.h">
+      <Filter>4_Level\DebugLevel\Tool\AttackColTool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -817,6 +823,9 @@
     </ClCompile>
     <ClCompile Include="AttackCollisionToolGUI.cpp">
       <Filter>5_GUI\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackColToolLevel.cpp">
+      <Filter>4_Level\DebugLevel\Tool\AttackColTool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

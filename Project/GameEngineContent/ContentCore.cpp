@@ -17,6 +17,7 @@
 #include "MapToolGUI.h"
 #include "BackgroundToolGUI.h"
 #include "LevelMoveGUI.h"
+#include "AttackCollisionToolGUI.h"
 
 // Player Level
 #include "TitleLevel.h"
@@ -33,9 +34,10 @@
 #include "ShaderDebugLevel.h"
 #include "BattleDebugLevel.h"
 #include "InventoryDebugLevel.h"
+#include "PhysicsDebugLevel.h"
 #include "MapToolLevel.h"
 #include "BackgroundToolLevel.h"
-#include "PhysicsDebugLevel.h"
+#include "AttackColToolLevel.h"
 
 ContentCore::ContentCore()
 {
@@ -96,9 +98,10 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<ShaderDebugLevel>("ShaderDebug");
 	GameEngineCore::CreateLevel<BattleDebugLevel>("BattleDebug");
 	GameEngineCore::CreateLevel<InventoryDebugLevel>("InventoryDebug");
+	GameEngineCore::CreateLevel<PhysicsDebugLevel>("PhysicsDebug");
 	GameEngineCore::CreateLevel<MapToolLevel>("MapTool");
 	GameEngineCore::CreateLevel<BackgroundToolLevel>("BackgroundTool");
-	GameEngineCore::CreateLevel<PhysicsDebugLevel>("PhysicsDebug");
+	GameEngineCore::CreateLevel<AttackColToolLevel>("AttackColTool");
 
 	GameEngineCore::ChangeLevel("Title");
 
@@ -267,4 +270,7 @@ void ContentCore::ImGuiCreate()
 
 	std::shared_ptr<GameEngineGUIWindow> LevelMoveGUIPtr = GameEngineGUI::GUIWindowCreate<LevelMoveGUI>("LevelMoveGUI");
 	LevelMoveGUIPtr->On();
+
+	std::shared_ptr<GameEngineGUIWindow> AttackColToolGUIPtr = GameEngineGUI::GUIWindowCreate<AttackCollisionToolGUI>("AttackCollisionToolGUI");
+	AttackColToolGUIPtr->Off();
 }

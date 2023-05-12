@@ -54,16 +54,19 @@ void LevelMoveGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTim
 		case 10: // BackgroundTool
 			GameEngineCore::ChangeLevel("BackgroundTool");
 			break;
-		case 11: // Battle
+		case 11: // AttackColTool
+			GameEngineCore::ChangeLevel("AttackColTool");
+			break;
+		case 12: // Battle
 			GameEngineCore::ChangeLevel("BattleDebug");
 			break;
-		case 12: // Shader
+		case 13: // Shader
 			GameEngineCore::ChangeLevel("ShaderDebug");
 			break;
-		case 13: // Inventory
+		case 14: // Inventory
 			GameEngineCore::ChangeLevel("InventoryDebug");
 			break;
-		case 14://Debug_Physics
+		case 15://Debug_Physics
 			GameEngineCore::ChangeLevel("PhysicsDebug");
 			break;
 		default:

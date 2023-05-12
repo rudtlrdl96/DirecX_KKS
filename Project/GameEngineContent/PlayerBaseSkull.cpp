@@ -93,7 +93,7 @@ bool PlayerBaseSkull::IsGround() const
 
 	if (false == GameEngineInput::IsKey("Debug Ground Check"))
 	{
-		GameEngineInput::CreateKey("Debug Ground Check", VK_ESCAPE);
+		GameEngineInput::CreateKey("Debug Ground Check", 'G');
 	}
 
 	if (true == GameEngineInput::IsDown("Debug Ground Check"))

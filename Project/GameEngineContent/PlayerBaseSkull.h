@@ -32,6 +32,7 @@ protected:
 
 	float4 JumpDir = float4::Zero;
 	float JumpPower = 700.0f;
+	bool CanJump = false;
 	bool DoubleJump = false;
 
 	bool CanDash = false;
