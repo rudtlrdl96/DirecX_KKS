@@ -17,9 +17,17 @@ public:
 protected:
 	
 private:
-	std::string TestSpriteAnim = "";
+	std::shared_ptr<class GameEngineSpriteRenderer> SpriteRender = nullptr;
+
+	std::string SpriteAnimationName = "";
+
+	UINT LoadWitdhCount = 1;
+	UINT LoadHeightCount = 1;
 
 	UINT ShowIndex = 0;
 	UINT StartIndex = 0;
 	UINT EndIndex = 0;
+
+	float4 ColCenterPos = float4::Zero;
+	float4 ColSize = float4::Zero;
 };
