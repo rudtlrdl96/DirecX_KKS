@@ -323,14 +323,19 @@ void GameEngineTransform::SetParent(GameEngineTransform* _Parent)
 
 		AbsoluteReset();
 
-		// 나의 로컬포지션 나의 로컬 이런것들이 있었는데.
-		// 나는 새로운 부모가 생겼고
-		// 내가 이미 다른 부모가 있다면
+		GameEngineLevel* Level = Master->GetLevel();
+
+		std::shared_ptr<GameEngineObject> MasterPtr = Master->shared_from_this();
+
+		if (nullptr != dynamic_cast<GameEngineActor*>(Master))
+		{
+			Level->Actors[MasterPtr->GetOrder()].remove(std::dynamic_pointer_cast<GameEngineActor>(MasterPtr));
+		}
 
 		Parent->Child.push_back(this);
 		Parent->Master->Childs.push_back(Master->shared_from_this());
 	}
-	else 
+	else
 	{
 		WorldDecompose();
 
@@ -339,8 +344,6 @@ void GameEngineTransform::SetParent(GameEngineTransform* _Parent)
 		TransData.Scale = TransData.WorldScale;
 		TransformUpdate();
 		AbsoluteReset();
-
-		// 레벨에 집어넣어야 한다.
 
 		GameEngineLevel* Level = Master->GetLevel();
 
@@ -354,7 +357,6 @@ void GameEngineTransform::SetParent(GameEngineTransform* _Parent)
 		{
 			MsgAssert("액터만이 레벨의 루트 오브젝트로 지정될 수 있습니다.");
 		}
-
 	}
 }
 
