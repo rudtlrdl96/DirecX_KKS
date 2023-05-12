@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "Rigidbody2D.h"
 
 class DebugRigidbodyTestActor : public BaseContentActor
 {
@@ -20,7 +21,7 @@ protected:
 
 private:
 	std::shared_ptr<GameEngineSpriteRenderer> TestRender = nullptr;
-	std::shared_ptr<class Rigidbody2D> RigdPtr = nullptr;
+	Rigidbody2D RigdPtr  = Rigidbody2D();
 
 };
 

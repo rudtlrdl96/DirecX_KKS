@@ -2,7 +2,8 @@
 #include "BattleDebugLevel.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCamera.h>
-#include "DebugSpriteActor.h"
+
+#include "BoneSkull.h"
 #include "Tilemap.h"
 #include "MultiBackground.h"
 #include "ObjectManager.h"
@@ -41,26 +42,22 @@ void BattleDebugLevel::Start()
 
 	TilemapMetaData TilemapMeta = DebugTilemap->GetTilemapMetaData();
 
+	TilemapMeta.Top = GameEngineWindow::GetScreenSize().y;
+	TilemapMeta.Bottom = 0;
+	TilemapMeta.Left = 0;
+	TilemapMeta.Right = GameEngineWindow::GetScreenSize().x;
+
 	MainCamCtrl.SetMinHeight(TilemapMeta.Bottom);
 	MainCamCtrl.SetMaxHeight(TilemapMeta.Top);
 
 	MainCamCtrl.SetMinWidth(TilemapMeta.Left);
+	MainCamCtrl.SetMaxWidth(TilemapMeta.Right);
 
-	float4 CenterPos = float4((TilemapMeta.Left + TilemapMeta.Right) * 0.5f,
-		(TilemapMeta.Top + TilemapMeta.Bottom) * 0.5f);
+	DebugSkull = CreateActor<BoneSkull>();
+	DebugSkull->GetTransform()->SetLocalPosition(float4(128, 128 , 0));
 
-	DebugBackground->GetTransform()->SetWorldPosition(CenterPos);
-	DeubgObject->GetTransform()->SetWorldPosition(CenterPos);
 
-	DeubgActor = CreateActor<DebugSpriteActor>();
-	DeubgActor->GetTransform()->SetWorldPosition(float4(100, 0 , 0));
-	DeubgActor->UnMove = true;
-
-	DeubgChildActor = CreateActor<DebugSpriteActor>();
-	DeubgChildActor->GetTransform()->SetParent(DeubgActor->GetTransform());
-	DeubgChildActor->GetTransform()->SetLocalPosition(float4(100, 0, 0));
-
-	MainCamCtrl.SetLookatTarget(DeubgActor);
+	MainCamCtrl.SetLookatTarget(DebugSkull);
 
 	//
 	//	GameEngineDirectory Directory;
@@ -104,7 +101,8 @@ void BattleDebugLevel::LevelChangeStart()
 	}
 
 	GameEngineActorGUIPtr->On();
-	GameEngineActorGUIPtr->SetTarget(DeubgChildActor->GetTransform());
+	GameEngineActorGUIPtr->SetTarget(DebugSkull->GetTransform());
+	GameEngineActorGUIPtr->EditorGui(std::bind(&Rigidbody2D::ShowGUI, &DebugSkull->GetRigidbody()));
 }
 
 void BattleDebugLevel::LevelChangeEnd()

@@ -31,12 +31,12 @@ public:
 	ClassFSM& operator=(const ClassFSM& _Other) = delete;
 	ClassFSM& operator=(ClassFSM&& _Other) noexcept = delete;
 	
-	void Init(std::shared_ptr<ClassType> _ClassPtr)
+	void Init(ClassType* _ClassPtr)
 	{
-		if (nullptr == _ClassPtr)
-		{
-			MsgAssert_Rtti<ClassType>(" - FSM의 ClassPtr을 nullptr로 설정하려 했습니다");
-		}
+		//if (nullptr == _ClassPtr)
+		//{
+		//	MsgAssert_Rtti<ClassType>(" - FSM의 ClassPtr을 nullptr로 설정하려 했습니다");
+		//}
 
 		ClassPtr = _ClassPtr;
 	}
@@ -73,16 +73,16 @@ public:
 
 		if (nullptr != _Start)
 		{
-			StartFunc = std::bind(_Start, ClassPtr.get());
+			StartFunc = std::bind(_Start, ClassPtr);
 		}
 
-		std::function<void(float)> UpdateFunc = std::bind(_Update, ClassPtr.get(), std::placeholders::_1);
+		std::function<void(float)> UpdateFunc = std::bind(_Update, ClassPtr, std::placeholders::_1);
 
 		std::function<void()> EndFunc = nullptr;
 
 		if (nullptr != _End)
 		{
-			EndFunc = std::bind(_End, ClassPtr.get());
+			EndFunc = std::bind(_End, ClassPtr);
 		}
 
 		FsmDatas.push_back(ClassFSM<ClassType>::FSMParameter(
@@ -154,7 +154,7 @@ protected:
 private:
 	std::vector<FSMParameter> FsmDatas;
 
-	std::shared_ptr<ClassType> ClassPtr = nullptr;
+	ClassType* ClassPtr;
 
 	FSMParameter* CurState = nullptr;
 	FSMParameter* PrevState = nullptr;

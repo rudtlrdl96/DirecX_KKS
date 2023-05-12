@@ -58,9 +58,6 @@
     <Filter Include="2_Actor\Player\Skull">
       <UniqueIdentifier>{dcd1f1df-9dae-4799-b806-2f64eea7ba32}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Player\Skull\BornSkull">
-      <UniqueIdentifier>{2e5963b7-1936-4419-90ca-a0ff3aa32c46}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\Player\Skull\ChiefGuard">
       <UniqueIdentifier>{d1143e47-9eba-4de6-8c7b-8cfa585823f1}</UniqueIdentifier>
     </Filter>
@@ -111,9 +108,6 @@
     </Filter>
     <Filter Include="3_Component">
       <UniqueIdentifier>{9fe88acc-d8d5-4949-bcd5-a77983c7eb22}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Component\Physics">
-      <UniqueIdentifier>{3bde9a22-123c-453e-a705-244ff654373a}</UniqueIdentifier>
     </Filter>
     <Filter Include="3_Component\Collision">
       <UniqueIdentifier>{2cf447f0-8e2a-449c-a4c6-4be613997837}</UniqueIdentifier>
@@ -271,6 +265,12 @@
     <Filter Include="4_Level\DebugLevel\Test\Physics">
       <UniqueIdentifier>{fd7cad70-4e2d-4d33-b57d-67bab004333a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1_Class\Physics">
+      <UniqueIdentifier>{3bde9a22-123c-453e-a705-244ff654373a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Player\Skull\BoneSkull">
+      <UniqueIdentifier>{2e5963b7-1936-4419-90ca-a0ff3aa32c46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -322,7 +322,7 @@
       <Filter>1_Class\Base\Data\Quintessence</Filter>
     </ClInclude>
     <ClInclude Include="Rigidbody2D.h">
-      <Filter>3_Component\Physics</Filter>
+      <Filter>1_Class\Physics</Filter>
     </ClInclude>
     <ClInclude Include="TileMetaData.h">
       <Filter>1_Class\Base\Data\Tile</Filter>
@@ -385,7 +385,7 @@
       <Filter>2_Actor\Player\Skull</Filter>
     </ClInclude>
     <ClInclude Include="BoneSkull.h">
-      <Filter>2_Actor\Player\Skull\BornSkull</Filter>
+      <Filter>2_Actor\Player\Skull\BoneSkull</Filter>
     </ClInclude>
     <ClInclude Include="StaticObject.h">
       <Filter>2_Actor\Map\Stage\Object\StaticObject</Filter>
@@ -579,7 +579,7 @@
       <Filter>1_Class\Base\Data\Quintessence</Filter>
     </ClCompile>
     <ClCompile Include="Rigidbody2D.cpp">
-      <Filter>3_Component\Physics</Filter>
+      <Filter>1_Class\Physics</Filter>
     </ClCompile>
     <ClCompile Include="TileMetaData.cpp">
       <Filter>1_Class\Base\Data\Tile</Filter>
@@ -642,7 +642,7 @@
       <Filter>2_Actor\Player\Skull</Filter>
     </ClCompile>
     <ClCompile Include="BoneSkull.cpp">
-      <Filter>2_Actor\Player\Skull\BornSkull</Filter>
+      <Filter>2_Actor\Player\Skull\BoneSkull</Filter>
     </ClCompile>
     <ClCompile Include="StaticObject.cpp">
       <Filter>2_Actor\Map\Stage\Object\StaticObject</Filter>

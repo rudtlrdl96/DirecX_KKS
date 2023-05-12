@@ -1,7 +1,6 @@
 #pragma once
-#include <GameEngineCore/GameEngineComponent.h>
 
-class Rigidbody2D : public GameEngineComponent
+class Rigidbody2D
 {
 public:
 	Rigidbody2D();
@@ -63,6 +62,9 @@ public:
 	}
 
 	void UpdateForce(float _DeltaTime);
+
+	void ShowGUI();
+
 protected:
 
 private:

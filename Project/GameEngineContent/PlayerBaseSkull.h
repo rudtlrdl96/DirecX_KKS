@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 #include "ClassFSM.h"
+#include "Rigidbody2D.h"
 
 class PlayerBaseSkull : public BaseContentActor
 {
@@ -13,21 +14,34 @@ public:
 	PlayerBaseSkull& operator=(const PlayerBaseSkull& _Other) = delete;
 	PlayerBaseSkull& operator=(PlayerBaseSkull&& _Other) noexcept = delete;
 
+	Rigidbody2D& GetRigidbody()
+	{
+		return PlayerRigidbody;
+	}
+
 protected:	
 	void Start() override;
+	void Update(float _DeltaTime) override;
 
-	ActorWalkDir ViewDir = ActorWalkDir::Right;
+	Rigidbody2D PlayerRigidbody;
 	ClassFSM<PlayerBaseSkull> PlayerFSM;
 
 	std::shared_ptr<GameEngineSpriteRenderer> SkullRenderer = nullptr;
 	
+	ActorViewDir ViewDir = ActorViewDir::Right;
+
 	float4 JumpDir = float4::Zero;
-	float JumpPower = 100.0f;
-	int JumpCount = 2;
+	float JumpPower = 600.0f;
+	bool DoubleJump = false;
 
-	float WalkSpeed = 250.0f;
+	bool CanDash = false;
+	float DashCoolTime = 0.0f;
 
-	float MaxFallSpeed = 400.0f;
+	float DashVelocity = 3000.0f;
+	bool DashCombo = false;
+
+	float WalkSpeed = 350.0f;
+	float MaxFallSpeed = 800.0f;
 
 	bool IsGround() const;
 
@@ -36,9 +50,9 @@ protected:
 	virtual void Idle_Update(float _DeltaTime);
 	virtual void Idle_End();
 
-	virtual void Walk_Enter() {}
-	virtual void Walk_Update(float _DeltaTime) {}
-	virtual void Walk_End() {}
+	virtual void Walk_Enter();
+	virtual void Walk_Update(float _DeltaTime);
+	virtual void Walk_End();
 
 	virtual void Attack_Enter() {}
 	virtual void Attack_Update(float _DeltaTime) {}
@@ -48,17 +62,17 @@ protected:
 	virtual void JumpAttack_Update(float _DeltaTime) {}
 	virtual void JumpAttack_End() {}
 
-	virtual void Jump_Enter() {}
+	virtual void Jump_Enter();
 	virtual void Jump_Update(float _DeltaTime);
 	virtual void Jump_End() {}
 
-	virtual void Fall_Enter() {}
-	virtual void Fall_Update(float _DeltaTime) {}
-	virtual void Fall_End() {}
+	virtual void Fall_Enter();
+	virtual void Fall_Update(float _DeltaTime);
+	virtual void Fall_End();
 
-	virtual void Dash_Enter() {}
-	virtual void Dash_Update(float _DeltaTime) {}
-	virtual void Dash_End() {}
+	virtual void Dash_Enter();
+	virtual void Dash_Update(float _DeltaTime);
+	virtual void Dash_End();
 
 	virtual void Switch_Enter() {}
 	virtual void Switch_Update(float _DeltaTime) {}
@@ -71,7 +85,10 @@ protected:
 	virtual void Skill_SlotB_Enter() {}
 	virtual void Skill_SlotB_Update(float _DeltaTime) {}
 	virtual void Skill_SlotB_End() {}
-private:
+
+	virtual void TextureLoad() = 0;
+	virtual void CreateAnimation() = 0;
+private:	
 
 };
 

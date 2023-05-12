@@ -19,7 +19,7 @@ protected:
 
 	void SetPosDebugActor(const float4& _Pos);
 
-	std::shared_ptr<class DebugSpriteActor> DebugActor = nullptr;
+	std::shared_ptr<class BoneSkull> DebugActor = nullptr;
 	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
 private:
 

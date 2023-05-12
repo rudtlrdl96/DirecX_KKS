@@ -11,7 +11,7 @@ enum class LevelArea
 	Shop,		    // ªÛ¡°
 };
 
-enum class ActorWalkDir
+enum class ActorViewDir
 {
 	Left,
 	Right

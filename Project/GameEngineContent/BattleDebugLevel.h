@@ -22,8 +22,7 @@ protected:
 private:
 	std::shared_ptr<class MultiBackground> DebugBackground = nullptr;
 	std::shared_ptr<class Tilemap> DebugTilemap = nullptr;
-	std::shared_ptr<class DebugSpriteActor> DeubgActor = nullptr;
-	std::shared_ptr<class DebugSpriteActor> DeubgChildActor = nullptr;
+	std::shared_ptr<class BoneSkull> DebugSkull = nullptr;
 	std::shared_ptr<class ObjectManager> DeubgObject = nullptr;
 
 	std::shared_ptr<class GameEngineActorGUI> GameEngineActorGUIPtr = nullptr;

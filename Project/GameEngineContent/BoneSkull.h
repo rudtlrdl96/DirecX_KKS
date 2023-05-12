@@ -13,10 +13,9 @@ public:
 	BoneSkull& operator=(BoneSkull&& _Other) noexcept = delete;
 
 protected:
-	void Start() override;
-	void Update(float _DeltaTime) override;
 
 private:
-
+	void TextureLoad() override;
+	void CreateAnimation() override;
 };
 

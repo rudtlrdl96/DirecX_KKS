@@ -2,7 +2,7 @@
 #include "BattleLevel.h"
 
 // Debug
-#include "DebugSpriteActor.h"
+#include "BoneSkull.h"
 
 // Game
 #include "BattleArea.h"
@@ -21,7 +21,7 @@ void BattleLevel::Start()
 
 	float4 HalfWindowSize = GameEngineWindow::GetScreenSize().half();
 
-	DebugActor = CreateActor<DebugSpriteActor>();
+	DebugActor = CreateActor<BoneSkull>();
 	MainCamCtrl.SetLookatTarget(DebugActor);
 
 	BattleAreaPtr = CreateActor<BattleArea>();
