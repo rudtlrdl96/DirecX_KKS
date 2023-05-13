@@ -2,6 +2,7 @@
 #include "BaseContentActor.h"
 #include "ClassFSM.h"
 #include "Rigidbody2D.h"
+#include "AttackMetaData.h"
 
 class PlayerBaseSkull : public BaseContentActor
 {
@@ -14,36 +15,19 @@ public:
 	PlayerBaseSkull& operator=(const PlayerBaseSkull& _Other) = delete;
 	PlayerBaseSkull& operator=(PlayerBaseSkull&& _Other) noexcept = delete;
 
-	Rigidbody2D& GetRigidbody()
+	inline Rigidbody2D* GetRigidbody()
 	{
-		return PlayerRigidbody;
+		return &PlayerRigidbody;
 	}
 
 protected:	
+	std::shared_ptr<GameEngineSpriteRenderer> SkullRenderer = nullptr;
+
+	//std::vector<AttackMetaData> 
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
-
-	Rigidbody2D PlayerRigidbody;
-	ClassFSM<PlayerBaseSkull> PlayerFSM;
-
-	std::shared_ptr<GameEngineSpriteRenderer> SkullRenderer = nullptr;
 	
-	ActorViewDir ViewDir = ActorViewDir::Right;
-
-	float4 JumpDir = float4::Zero;
-	float JumpPower = 700.0f;
-	bool CanJump = false;
-	bool DoubleJump = false;
-
-	bool CanDash = false;
-	float DashCoolTime = 0.0f;
-
-	float DashVelocity = 3000.0f;
-	bool DashCombo = false;
-
-	float WalkSpeed = 350.0f;
-	float MaxFallSpeed = 1400.0f;
-
 	bool IsGround() const;
 
 	// FSM Functions
@@ -89,7 +73,26 @@ protected:
 
 	virtual void TextureLoad() = 0;
 	virtual void CreateAnimation() = 0;
-private:	
+
+private:		
+	Rigidbody2D PlayerRigidbody;
+	ClassFSM<PlayerBaseSkull> PlayerFSM;
+	
+	ActorViewDir ViewDir = ActorViewDir::Right;
+
+	float4 JumpDir = float4::Zero;
+	float JumpPower = 700.0f;
+	bool CanJump = false;
+	bool DoubleJump = false;
+
+	bool CanDash = false;
+	float DashCoolTime = 0.0f;
+
+	float DashVelocity = 3000.0f;
+	bool DashCombo = false;
+
+	float WalkSpeed = 350.0f;
+	float MaxFallSpeed = 1400.0f;
 
 };
 

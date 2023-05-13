@@ -92,6 +92,17 @@ public:
 
 	void SetAtlasConstantBuffer();
 
+	inline void AnimPause()
+	{
+		IsAnimPauseValue = true;
+	}
+
+	inline void AnimUnPause()
+	{
+		IsAnimPauseValue = false;
+	}
+
+
 protected:
 
 private:
@@ -104,6 +115,8 @@ private:
 	float4 AtlasData;
 
 	float ScaleRatio = 1.0f;
+
+	bool IsAnimPauseValue = false;
 		
 	void Start() override;
 };

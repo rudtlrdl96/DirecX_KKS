@@ -14,12 +14,22 @@ public:
 
 	void Start() override;
 	void OnGUI(std::shared_ptr<class GameEngineLevel> _Level, float _DeltaTime) override;
+
+	void SetRenderer(std::shared_ptr<class GameEngineSpriteRenderer> _Render);
+	void SetCol(std::shared_ptr<class DebugCollisionRender> _Render);
+
 protected:
 	
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> SpriteRender = nullptr;
+	std::shared_ptr<class DebugCollisionRender> ColRender = nullptr;
 
 	std::string SpriteAnimationName = "";
+
+	const char* ColTypeComboText[2] = { "Box", "Sphere"};
+	int ColComboIndex = 0;
+
+	float RenderScale = 1.0f;
 
 	UINT LoadWitdhCount = 1;
 	UINT LoadHeightCount = 1;

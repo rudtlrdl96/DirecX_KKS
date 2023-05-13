@@ -23,7 +23,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="AttackColToolAnimActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="AttackColToolLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="AttackMetaData.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -126,6 +134,10 @@
     </ClInclude>
     <ClInclude Include="ContentVertex.h" />
     <ClInclude Include="DebugBoxActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="DebugCollisionRender.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -367,7 +379,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="AttackColToolAnimActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="AttackColToolLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="AttackMetaData.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -480,6 +500,10 @@
     </ClCompile>
     <ClCompile Include="ContentVertex.cpp" />
     <ClCompile Include="DebugBoxActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="DebugCollisionRender.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -1,6 +1,8 @@
 #include "PrecompileHeader.h"
 #include "AttackColToolLevel.h"
 #include "AttackCollisionToolGUI.h"
+#include "AttackColToolAnimActor.h"
+#include "DebugCollisionRender.h"
 
 AttackColToolLevel::AttackColToolLevel()
 {
@@ -21,6 +23,9 @@ void AttackColToolLevel::Start()
 		MsgAssert_Rtti<AttackColToolLevel>(" - AttackColGui가 생성되지 않았습니다");
 		return;
 	}
+
+	AnimRenderActor = CreateActor<AttackColToolAnimActor>();
+	ColRenderActor = CreateActor<DebugCollisionRender>();
 }
 
 void AttackColToolLevel::Update(float _DeltaTime)
@@ -36,6 +41,8 @@ void AttackColToolLevel::LevelChangeStart()
 		return;
 	}
 
+	AttackCollisionToolGUIPtr->SetRenderer(AnimRenderActor->GetSpriteRender());
+	AttackCollisionToolGUIPtr->SetCol(ColRenderActor);
 	AttackCollisionToolGUIPtr->On();
 }
 

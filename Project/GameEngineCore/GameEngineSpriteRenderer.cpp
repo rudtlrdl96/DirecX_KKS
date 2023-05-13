@@ -218,7 +218,14 @@ void GameEngineSpriteRenderer::Render(float _Delta)
 {
 	if (nullptr != CurAnimation)
 	{
-		CurAnimation->Update(_Delta);
+		if (true == IsAnimPauseValue)
+		{
+			CurAnimation->Update(0.0f);
+		}
+		else
+		{
+			CurAnimation->Update(_Delta);
+		}
 
 		const SpriteInfo& Info = CurAnimation->CurSpriteInfo();
 

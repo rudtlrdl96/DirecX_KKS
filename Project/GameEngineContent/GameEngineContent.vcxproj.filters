@@ -190,9 +190,6 @@
     <Filter Include="1_Class\Shader\ContentVertex">
       <UniqueIdentifier>{a71937fe-bac1-4671-8cc9-7c6cbefef509}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Debug\MapTool">
-      <UniqueIdentifier>{d794b95d-468a-4fc2-b724-c2cf83402d41}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\Debug\Common">
       <UniqueIdentifier>{efa08f5b-bd48-4916-8546-5ef30aa7d74b}</UniqueIdentifier>
     </Filter>
@@ -273,6 +270,15 @@
     </Filter>
     <Filter Include="4_Level\DebugLevel\Tool\AttackColTool">
       <UniqueIdentifier>{b6a3eb4d-4dee-4bca-88b4-25c6aac1441c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Debug\MapTool">
+      <UniqueIdentifier>{d794b95d-468a-4fc2-b724-c2cf83402d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Debug\AttackColTool">
+      <UniqueIdentifier>{9d5853b5-f4a2-4f7b-b92d-bdb0b11b6f7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Battle">
+      <UniqueIdentifier>{9154380d-edbd-443f-b9c6-1e3544cb89f8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -536,6 +542,15 @@
     </ClInclude>
     <ClInclude Include="AttackColToolLevel.h">
       <Filter>4_Level\DebugLevel\Tool\AttackColTool</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackColToolAnimActor.h">
+      <Filter>2_Actor\Debug\AttackColTool</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugCollisionRender.h">
+      <Filter>2_Actor\Debug\AttackColTool</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackMetaData.h">
+      <Filter>1_Class\Battle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -826,6 +841,15 @@
     </ClCompile>
     <ClCompile Include="AttackColToolLevel.cpp">
       <Filter>4_Level\DebugLevel\Tool\AttackColTool</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackColToolAnimActor.cpp">
+      <Filter>2_Actor\Debug\AttackColTool</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugCollisionRender.cpp">
+      <Filter>2_Actor\Debug\AttackColTool</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackMetaData.cpp">
+      <Filter>1_Class\Battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

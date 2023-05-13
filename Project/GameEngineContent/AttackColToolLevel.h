@@ -22,5 +22,7 @@ protected:
 private:
 	std::shared_ptr<class AttackCollisionToolGUI> AttackCollisionToolGUIPtr = nullptr;
 
+	std::shared_ptr<class AttackColToolAnimActor> AnimRenderActor = nullptr;
+	std::shared_ptr<class DebugCollisionRender> ColRenderActor = nullptr;
 };
 

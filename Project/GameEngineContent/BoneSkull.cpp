@@ -43,6 +43,8 @@ void BoneSkull::TextureLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Fall_NoHead.png").GetFullPath(), 2, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Fall_NoWeapon.png").GetFullPath(), 2, 1);
 
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Normal_FallDead.png").GetFullPath(), 3, 1);
+
 		// FallRepeat Sprite
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_FallRepeat.png").GetFullPath(), 3, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_FallRepeat_NoHead.png").GetFullPath(), 3, 1);
@@ -53,6 +55,41 @@ void BoneSkull::TextureLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Jump_NoHead.png").GetFullPath(), 2, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Jump_NoWeapon.png").GetFullPath(), 2, 1);
 
+		// AttackA Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_AttackA.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_AttackA_NoHead.png").GetFullPath(), 5, 1);
+		
+		// AttackB Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_AttackB.png").GetFullPath(), 4, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_AttackB_NoHead.png").GetFullPath(), 4, 1);
+		
+		// JumpAttack Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_JumpAttack.png").GetFullPath(), 4, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_JumpAttack_NoHead.png").GetFullPath(), 4, 1);
+		
+		// SkillA Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Skill.png").GetFullPath(), 4, 1);
+
+		// SkillB Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_SkillReborn.png").GetFullPath(), 9, 1);
+
+		// Skull Switch
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Switch.png").GetFullPath(), 7, 1);
+			
+		// Reborn
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Normal_Reborn2Field.png").GetFullPath(), 22, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Normal_RebornCastle.png").GetFullPath(), 6, 5);
+
+		// Story Animation
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Wait.png").GetFullPath(), 8, 6);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Intro_Getbone.png").GetFullPath(), 10, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_DeadLoop.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Getscroll.png").GetFullPath(), 6, 9);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Intro_Idle.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Intro_0.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Intro_1.png").GetFullPath(), 5, 11);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Intro_2.png").GetFullPath(), 5, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Normal_Getskull.png").GetFullPath(), 7, 7);
 	}
 }
 

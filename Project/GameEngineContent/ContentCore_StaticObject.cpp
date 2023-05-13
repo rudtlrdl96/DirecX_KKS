@@ -190,6 +190,12 @@ void ContentCore::CommonTextureLoad()
 	Path.Move("Resources");
 	Path.Move("Texture");
 	Path.Move("0_Common");
+
+	{
+		GameEngineTexture::Load(Path.GetPlusFileName("BoxCol.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("SphereCol.png").GetFullPath());
+	}
+
 	Path.Move("UI");
 
 	{

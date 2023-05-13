@@ -20,7 +20,7 @@ void MapPlatformDebugRender::Start()
 	DebugRender->SetPipeLine("2DTexture_ColorLight");
 	DebugRender->SetAtlasConstantBuffer();
 	DebugRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", DebugBuffer);
-	DebugRender->SetTexture("Debug_1_MapToolEmpty.png");
+	DebugRender->SetTexture("BoxCol.png");
 }
 
 void MapPlatformDebugRender::Update(float _DeltaTime)
