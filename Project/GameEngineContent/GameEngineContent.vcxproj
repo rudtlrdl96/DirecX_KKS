@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AttackCollisionToolGUI.h">
+    <ClInclude Include="AnimationCollisionToolGUI.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -27,7 +27,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="AttackColToolLevel.h">
+    <ClInclude Include="AnimationColToolLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -375,7 +375,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AttackCollisionToolGUI.cpp">
+    <ClCompile Include="AnimationCollisionToolGUI.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -383,7 +383,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="AttackColToolLevel.cpp">
+    <ClCompile Include="AnimationColToolLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>

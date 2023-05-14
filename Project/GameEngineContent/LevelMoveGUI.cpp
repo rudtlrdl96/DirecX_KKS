@@ -54,8 +54,8 @@ void LevelMoveGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTim
 		case 10: // BackgroundTool
 			GameEngineCore::ChangeLevel("BackgroundTool");
 			break;
-		case 11: // AttackColTool
-			GameEngineCore::ChangeLevel("AttackColTool");
+		case 11: // AnimationColTool
+			GameEngineCore::ChangeLevel("AnimationColTool");
 			break;
 		case 12: // Battle
 			GameEngineCore::ChangeLevel("BattleDebug");
