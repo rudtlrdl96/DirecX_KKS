@@ -24,6 +24,7 @@ private:
 	std::shared_ptr<class Tilemap> DebugTilemap = nullptr;
 	std::shared_ptr<class BoneSkull> DebugSkull = nullptr;
 	std::shared_ptr<class ObjectManager> DeubgObject = nullptr;
+	std::shared_ptr<class ParticleManager> DebugParticleMgr = nullptr;
 
 	std::shared_ptr<class GameEngineActorGUI> GameEngineActorGUIPtr = nullptr;
 

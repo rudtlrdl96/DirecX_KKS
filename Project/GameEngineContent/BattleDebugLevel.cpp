@@ -7,6 +7,8 @@
 #include "Tilemap.h"
 #include "MultiBackground.h"
 #include "ObjectManager.h"
+#include "ParticleManager.h"
+
 #include "GameEngineActorGUI.h"
 
 BattleDebugLevel::BattleDebugLevel()
@@ -46,6 +48,19 @@ void BattleDebugLevel::Start()
 	TilemapMeta.Bottom = 0;
 	TilemapMeta.Left = 0;
 	TilemapMeta.Right = GameEngineWindow::GetScreenSize().x;
+
+	DebugParticleMgr = CreateActor<ParticleManager>();
+
+	DebugParticleMgr->CreateMapParticleArea({
+		.Type = AreaParticle::ForestOfHarmony,
+		.Center = GameEngineWindow::GetScreenSize().half(),
+		.Size = GameEngineWindow::GetScreenSize(),
+		.RandRot = float4(100.0f, 50.0f, 50.0f),
+		.WindDir = float4(-0.5, -1).NormalizeReturn(),
+		.MinWindDiff = 50.0f,
+		.MaxWindDiff = 100.0f,
+		.CreateMinTime = 0.25f, 
+		.CreateMaxTime = 0.5f});
 
 	MainCamCtrl.SetMinHeight(TilemapMeta.Bottom);
 	MainCamCtrl.SetMaxHeight(TilemapMeta.Top);

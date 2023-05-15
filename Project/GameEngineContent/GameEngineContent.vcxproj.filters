@@ -280,6 +280,24 @@
     <Filter Include="1_Class\Battle">
       <UniqueIdentifier>{9154380d-edbd-443f-b9c6-1e3544cb89f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\Particle">
+      <UniqueIdentifier>{d6c3d6ff-be9b-4165-9f44-b5b35d52a205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Particle\Opening">
+      <UniqueIdentifier>{9b8a2e78-eb10-4dee-9c1f-991f774bcadf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Particle\Castle">
+      <UniqueIdentifier>{17f934c1-2ed7-4d47-a183-a191f02703bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Particle\ForestOfHarmony">
+      <UniqueIdentifier>{5a9a85ca-89b3-4801-8c2a-9eec008c6f51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Particle\GrandHall">
+      <UniqueIdentifier>{ad4bd4f6-0567-448c-a997-2fc3046b7bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Particle\HolyCourtyard">
+      <UniqueIdentifier>{3da095ea-464e-4efe-81c6-09a71a7c43e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -551,6 +569,18 @@
     </ClInclude>
     <ClInclude Include="AttackMetaData.h">
       <Filter>1_Class\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="MapParticleBase.h">
+      <Filter>2_Actor\Map\Stage\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ForestOfHarmony_MapParticle.h">
+      <Filter>2_Actor\Map\Stage\Particle\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleManager.h">
+      <Filter>2_Actor\Map\Stage\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleArea.h">
+      <Filter>2_Actor\Map\Stage\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -850,6 +880,18 @@
     </ClCompile>
     <ClCompile Include="AttackMetaData.cpp">
       <Filter>1_Class\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="MapParticleBase.cpp">
+      <Filter>2_Actor\Map\Stage\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="ForestOfHarmony_MapParticle.cpp">
+      <Filter>2_Actor\Map\Stage\Particle\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleManager.cpp">
+      <Filter>2_Actor\Map\Stage\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleArea.cpp">
+      <Filter>2_Actor\Map\Stage\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
