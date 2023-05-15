@@ -7,6 +7,7 @@
 #include "ObjectManager.h"
 #include "Tilemap.h"
 #include "GameEventManager.h"
+#include "ParticleManager.h"
 
 
 BattleStage::BattleStage()
@@ -22,6 +23,7 @@ void BattleStage::Init(GameEngineSerializer& _LoadSerializer)
 	TilemapPtr->LoadBin(_LoadSerializer);
 	ObjectManagerPtr->LoadBin(_LoadSerializer);
 	EventManagerPtr->LoadBin(_LoadSerializer);
+	ParticleMgrPtr->LoadBin(_LoadSerializer);
 }
 
 TilemapMetaData BattleStage::GetTilemapMetaData() const
@@ -46,4 +48,7 @@ void BattleStage::Start()
 
 	EventManagerPtr = LevelPtr->CreateActor<GameEventManager>();
 	EventManagerPtr->GetTransform()->SetParent(GetTransform());
+
+	ParticleMgrPtr = LevelPtr->CreateActor<ParticleManager>();
+	ParticleMgrPtr->GetTransform()->SetParent(GetTransform());
 }

@@ -25,5 +25,6 @@ private:
 	std::shared_ptr<class Tilemap> TilemapPtr = nullptr;
 	std::shared_ptr<class ObjectManager> ObjectManagerPtr = nullptr;
 	std::shared_ptr<class GameEventManager> EventManagerPtr = nullptr;
+	std::shared_ptr<class ParticleManager> ParticleMgrPtr = nullptr;
 };
 
