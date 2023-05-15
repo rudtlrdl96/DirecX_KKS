@@ -585,6 +585,9 @@
     <ClInclude Include="Castle_MapParticle.h">
       <Filter>2_Actor\Map\Stage\Particle\Castle</Filter>
     </ClInclude>
+    <ClInclude Include="ForestOfHarmony_MapBlueParticle.h">
+      <Filter>2_Actor\Map\Stage\Particle\ForestOfHarmony</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -901,6 +904,9 @@
     </ClCompile>
     <ClCompile Include="Castle_MapParticle.cpp">
       <Filter>2_Actor\Map\Stage\Particle\Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="ForestOfHarmony_MapBlueParticle.cpp">
+      <Filter>2_Actor\Map\Stage\Particle\ForestOfHarmony</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

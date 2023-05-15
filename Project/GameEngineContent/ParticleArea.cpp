@@ -5,6 +5,7 @@
 
 #include "MapParticleBase.h"
 #include "ForestOfHarmony_MapParticle.h"
+#include "ForestOfHarmony_MapBlueParticle.h"
 #include "Opening_MapParticle.h"
 #include "Castle_MapParticle.h"
 
@@ -159,6 +160,9 @@ std::shared_ptr<MapParticleBase> ParticleArea::CreateParticle()
 
 	case ParticleAreaType::ForestOfHarmony:
 		NewParticle = GetLevel()->CreateActor<ForestOfHarmony_MapParticle>();
+		break;
+	case ParticleAreaType::ForestOfHarmony_Blue:
+		NewParticle = GetLevel()->CreateActor<ForestOfHarmony_MapBlueParticle>();
 		break;
 	default:
 		break;

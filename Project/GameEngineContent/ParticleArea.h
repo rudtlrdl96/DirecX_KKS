@@ -6,6 +6,7 @@ enum class ParticleAreaType
 	Opening,
 	Castle,
 	ForestOfHarmony,
+	ForestOfHarmony_Blue,
 	GrandHall,
 };
 

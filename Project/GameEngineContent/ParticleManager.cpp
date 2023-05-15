@@ -130,7 +130,7 @@ void ParticleManager::ShowGUI()
 
 	ParticleAreaMetaData& SelectAreaParticle = ParticleAreaDatas[CurrentAreaParticleNumber]->GetMetaData();
 
-	const char* AreaComboText[4] = { "Opening", "Castle", "ForestOfHarmony", "GrandHall" };
+	const char* AreaComboText[5] = { "Opening", "Castle", "ForestOfHarmony", "ForestOfHarmony_Blue", "GrandHall"};
 
 	int SelectIndex = static_cast<int>(SelectAreaParticle.Type);
 
