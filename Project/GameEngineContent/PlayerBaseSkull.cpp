@@ -20,6 +20,21 @@ void PlayerBaseSkull::Start()
 	TextureLoad();
 	CreateAnimation();
 
+	if (nullptr == GameEngineSprite::Find("DashSmokeEffect.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Player");
+		Path.Move("Effect");
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("DashSmokeEffect.png").GetFullPath(), 6, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("DoubleJumpEffect.png").GetFullPath(), 5, 2);
+	}
+
 	if (false == GameEngineInput::IsKey("PlayerMove_Left"))
 	{
 		GameEngineInput::CreateKey("PlayerMove_Up", VK_UP);
