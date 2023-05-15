@@ -15,6 +15,9 @@ public:
 
 	void CreateMapParticleArea(const ParticleAreaParameter& _Parameter);
 
+	void SaveBin(GameEngineSerializer& _SaveSerializer);
+	void LoadBin(GameEngineSerializer& _LoadSerializer);
+
 protected:
 
 private:

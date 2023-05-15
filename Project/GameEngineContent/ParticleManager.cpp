@@ -20,3 +20,32 @@ void ParticleManager::CreateMapParticleArea(const ParticleAreaParameter& _Parame
 
 	ParticleAreaDatas.push_back(NewArea);
 }
+
+void ParticleManager::SaveBin(GameEngineSerializer& _SaveSerializer)
+{
+	_SaveSerializer.Write(static_cast<int>(ParticleAreaDatas.size()));
+
+	for (size_t i = 0; i < ParticleAreaDatas.size(); i++)
+	{
+		ParticleAreaDatas[i]->SaveBin(_SaveSerializer);
+	}
+}
+
+void ParticleManager::LoadBin(GameEngineSerializer& _LoadSerializer)
+{
+	for (size_t i = 0; i < ParticleAreaDatas.size(); i++)
+	{
+		ParticleAreaDatas[i]->Death();
+		ParticleAreaDatas[i] = nullptr;
+	}
+
+	ParticleAreaDatas.clear();
+
+	int LoadSize = 0;
+	_LoadSerializer.Read(LoadSize);
+
+	for (int i = 0; i < LoadSize; i++)
+	{
+		CreateMapParticleArea(ParticleArea::LoadBin(_LoadSerializer));
+	}
+}

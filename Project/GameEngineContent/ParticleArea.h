@@ -49,6 +49,9 @@ public:
 		GetTransform()->SetLocalPosition(Parameter.Center);
 	}
 
+	void SaveBin(GameEngineSerializer& _SaveBin);
+	static ParticleAreaParameter LoadBin(GameEngineSerializer& _LoadBin);
+
 protected:
 	void Update(float _DeltaTime) override;
 

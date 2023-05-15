@@ -15,6 +15,38 @@ ParticleArea::~ParticleArea()
 {
 }
 
+void ParticleArea::SaveBin(GameEngineSerializer& _SaveSerializer)
+{
+	_SaveSerializer.Write(&Parameter.Type, sizeof(AreaParticle));
+	_SaveSerializer.Write(&Parameter.Center, sizeof(float4));
+	_SaveSerializer.Write(&Parameter.Size, sizeof(float4));
+	_SaveSerializer.Write(&Parameter.IsTopSpawn, sizeof(bool));
+	_SaveSerializer.Write(&Parameter.MinWindDir, sizeof(float4));
+	_SaveSerializer.Write(&Parameter.MaxWindDir, sizeof(float4));
+	_SaveSerializer.Write(&Parameter.MinRandRot, sizeof(float4));
+	_SaveSerializer.Write(&Parameter.MaxRandRot, sizeof(float4));
+	_SaveSerializer.Write(&Parameter.CreateMinTime, sizeof(float));
+	_SaveSerializer.Write(&Parameter.CreateMaxTime, sizeof(float));
+}
+
+ParticleAreaParameter ParticleArea::LoadBin(GameEngineSerializer& _LoadSerializer)
+{
+	ParticleAreaParameter LoadParameter = ParticleAreaParameter();
+
+	_LoadSerializer.Read(&LoadParameter.Type, sizeof(AreaParticle));
+	_LoadSerializer.Read(&LoadParameter.Center, sizeof(float4));
+	_LoadSerializer.Read(&LoadParameter.Size, sizeof(float4));
+	_LoadSerializer.Read(&LoadParameter.IsTopSpawn, sizeof(bool));
+	_LoadSerializer.Read(&LoadParameter.MinWindDir, sizeof(float4));
+	_LoadSerializer.Read(&LoadParameter.MaxWindDir, sizeof(float4));
+	_LoadSerializer.Read(&LoadParameter.MinRandRot, sizeof(float4));
+	_LoadSerializer.Read(&LoadParameter.MaxRandRot, sizeof(float4));
+	_LoadSerializer.Read(&LoadParameter.CreateMinTime, sizeof(float));
+	_LoadSerializer.Read(&LoadParameter.CreateMaxTime, sizeof(float));
+
+	return LoadParameter;
+}
+
 void ParticleArea::Update(float _DeltaTime)
 {
 	CreateCoolTime += _DeltaTime;
