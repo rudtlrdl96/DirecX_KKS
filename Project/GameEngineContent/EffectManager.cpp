@@ -1,12 +1,59 @@
 #include "PrecompileHeader.h"
 #include "EffectManager.h"
 
-std::shared_ptr<class GameEngineLevel> EffectManager::CurLevel = nullptr;
+#include <GameEngineCore/GameEngineLevel.h>
 
-EffectManager::EffectManager()
+std::map<std::string, EffectMetaData> EffectManager::EffectMetaDatas;
+std::shared_ptr<GameEngineLevel> EffectManager::CurLevel = nullptr;
+
+bool EffectManager::IsCreate(const std::string_view& _EffectName)
 {
+	std::string UpperName = GameEngineString::ToUpper(_EffectName);
+
+	std::map<std::string, EffectMetaData>::iterator FindIter = EffectMetaDatas.find(UpperName);
+
+	if (EffectMetaDatas.end() != FindIter)
+	{
+		return true;
+	}
+
+	return false;
 }
 
-EffectManager::~EffectManager()
+void EffectManager::CreateMetaData(const std::string_view& _EffectName, const EffectMetaData& _MetaData)
 {
+	std::string UpperName = GameEngineString::ToUpper(_EffectName);
+
+	std::map<std::string, EffectMetaData>::iterator FindIter = EffectMetaDatas.find(UpperName);
+
+	if (EffectMetaDatas.end() != FindIter)
+	{
+		MsgAssert_Rtti<EffectManager>(" - 같은 이름의 이펙트를 중복해서 생성했습니다");
+		return;
+	}
+
+	EffectMetaDatas[UpperName] = _MetaData;
+}
+
+std::shared_ptr<EffectActor> EffectManager::PlayEffect(const std::string_view& _EffectName, EffectDeathTrigger _Triger /*= EffectDeathTrigger::AnimEnd*/, float _Time /*= 0.0f*/)
+{
+	if (nullptr == CurLevel)
+	{
+		MsgAssert_Rtti<EffectManager>(" - EffectManager에 레벨 포인터가 설정되지 않았습니다");
+		return nullptr;
+	}
+
+	std::string UpperName = GameEngineString::ToUpper(_EffectName);
+	std::map<std::string, EffectMetaData>::iterator FindIter = EffectMetaDatas.find(UpperName);
+
+	if (EffectMetaDatas.end() == FindIter)
+	{
+		MsgAssert_Rtti<EffectManager>(" - 생성하지 않은 이펙트를 사용하려 했습니다");
+		return nullptr;
+	}
+
+	std::shared_ptr<EffectActor> NewEffectActor = CurLevel->CreateActor<EffectActor>();
+	NewEffectActor->Init(FindIter->second, _Triger, _Time);
+
+	return NewEffectActor;
 }

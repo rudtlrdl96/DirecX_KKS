@@ -11,13 +11,18 @@ enum class EffectDeathTrigger
 class EffectMetaData
 {
 public:
-	std::string SpriteName;
+	std::string SpriteName = "";
+	std::string AnimationName = "";
 
 	float4 RenderPivot = float4::Zero;
-	float4 ScaleRatio = float4::Zero;
 
 	UINT AnimStart = 0;
 	UINT AnimEnd = 0;
+
+	float AnimIter = 0.1f;
+	float ScaleRatio = 1.0f;
+
+
 };
 
 class EffectActor : public BaseContentActor
@@ -36,12 +41,14 @@ public:
 	EffectActor& operator=(EffectActor&& _Other) noexcept = delete;
 
 protected:
+	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
-	void Init(EffectMetaData _MetaData, EffectDeathTrigger _DeathTrigger);
-
+	std::shared_ptr<GameEngineSpriteRenderer> EffectRender = nullptr;
+	EffectDeathTrigger DeathTrigger = EffectDeathTrigger::Time;
 	float DeathTime = 0.0f;
 
+	void Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime);
 };
 
