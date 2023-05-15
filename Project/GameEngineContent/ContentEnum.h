@@ -1,5 +1,15 @@
 #pragma once
 
+enum class CollisionOrder
+{
+	Player,
+	PlayerAttack,
+	Enemy,
+	EnemyAttack,
+	Platform_Normal,
+	Platform_Half,
+};
+
 enum class LevelArea
 {
 	None,			// µð¹ö±ë¿ë None

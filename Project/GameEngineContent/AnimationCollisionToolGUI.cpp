@@ -52,7 +52,7 @@ void AnimationCollisionToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel> _Le
 			ShowIndex = 0;
 			SpriteRender->ChangeAnimation(SpriteAnimationName, ShowIndex, true);
 
-			SpriteRender->AnimPause();
+			SpriteRender->SetAnimPauseOn();
 		}
 	}
 
@@ -161,11 +161,6 @@ void AnimationCollisionToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel> _Le
 void AnimationCollisionToolGUI::SetRenderer(std::shared_ptr<class GameEngineSpriteRenderer> _Render)
 {
 	SpriteRender = _Render;
-
-	if (nullptr != SpriteRender)
-	{
-		SpriteRender->AnimPause();
-	}
 }
 
 void AnimationCollisionToolGUI::SetCol(std::shared_ptr<class DebugCollisionRender> _Render)

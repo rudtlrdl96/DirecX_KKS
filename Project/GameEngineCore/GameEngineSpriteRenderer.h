@@ -20,6 +20,16 @@ private:
 
 	const SpriteInfo& CurSpriteInfo();
 
+	inline void PauseOn()
+	{
+		IsPauseValue = true;
+	}
+
+	inline void PauseOff() 
+	{
+		IsPauseValue = false;
+	}
+
 public:
 	size_t CurFrame = 0;
 	size_t StartFrame = -1;
@@ -28,6 +38,12 @@ public:
 	float Inter = 0.1f;
 	bool Loop = true;
 	bool ScaleToTexture = false;
+	bool IsPauseValue = false;
+	std::vector<size_t> FrameIndex = std::vector<size_t>();
+	std::vector<float> FrameTime = std::vector<float>();
+
+	std::map<size_t, std::function<void()>> UpdateEventFunction;
+	std::map<size_t, std::function<void()>> StartEventFunction;
 
 	bool IsEnd();
 };
@@ -43,6 +59,8 @@ public:
 	float FrameInter = 0.1f;
 	bool Loop = true;
 	bool ScaleToTexture = false;
+	std::vector<size_t> FrameIndex = std::vector<size_t>();
+	std::vector<float> FrameTime = std::vector<float>();
 };
 
 
@@ -64,7 +82,7 @@ public:
 
 	void SetTexture(const std::string_view& _Name);
 
-	void SetScaleRatio(float _Ratio) 
+	void SetScaleRatio(float _Ratio)
 	{
 		ScaleRatio = _Ratio;
 	}
@@ -78,34 +96,51 @@ public:
 
 	void ChangeAnimation(const std::string_view& _Name, bool _Force, size_t _Frame = -1)
 	{
-		ChangeAnimation(_Name, _Frame,_Force);
+		ChangeAnimation(_Name, _Frame, _Force);
 	}
 
 	void ChangeAnimation(const std::string_view& _Name, size_t _Frame = -1, bool _Force = true);
-
-	void AllAnimation();
 
 	bool IsAnimationEnd()
 	{
 		return CurAnimation->IsEnd();
 	}
 
+	size_t GetCurrentFrame()
+	{
+		return CurAnimation->CurFrame;
+	}
+
+	float4 GetAtlasData()
+	{
+		return AtlasData;
+	}
+
 	void SetAtlasConstantBuffer();
 
-	inline void AnimPause()
+	void SetSprite(const std::string_view& _SpriteName, size_t _Frame = 0);
+
+	void SetFrame(size_t _Frame);
+
+	void SetAnimPauseOn() 
 	{
-		IsAnimPauseValue = true;
+		CurAnimation->PauseOn();
 	}
 
-	inline void AnimUnPause()
+	void SetAnimPauseOff()
 	{
-		IsAnimPauseValue = false;
+		CurAnimation->PauseOff();
 	}
 
+	void SetAnimationUpdateEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event);
+
+	void SetAnimationStartEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event);
 
 protected:
 
 private:
+	void Update(float _Delta) override;
+
 	void Render(float _Delta) override;
 
 	std::map<std::string, std::shared_ptr<AnimationInfo>> Animations;
@@ -114,10 +149,12 @@ private:
 
 	float4 AtlasData;
 
+	std::shared_ptr<GameEngineSprite> Sprite = nullptr;
+	size_t Frame = -1;
+
+
 	float ScaleRatio = 1.0f;
 
-	bool IsAnimPauseValue = false;
-		
 	void Start() override;
 };
 

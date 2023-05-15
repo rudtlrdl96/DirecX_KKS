@@ -40,9 +40,9 @@ void OpeningLevel::Start()
 	{
 		DirectoryPath.Move("Map");
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_01_Map");
-		BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_02_Map");
-		BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_03_Map");
-		BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_04_Map");
+		//BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_02_Map");
+		//BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_03_Map");
+		//BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_04_Map");
 		DirectoryPath.MoveParent();
 	}
 

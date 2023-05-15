@@ -3,6 +3,7 @@
 
 #include <GameEngineCore/imgui.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "MapPlatformDebugRender.h"
 
@@ -21,6 +22,38 @@ void MapPlatform::Init(const PlatformMetaData& _MetaData)
 
 	GetTransform()->SetLocalPosition(MetaData.Pos);
 
+	switch (MetaData.Type)
+	{
+	case PlatformType::Normal:
+	{
+		if (nullptr == PlatformCol)
+		{
+			PlatformCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Normal);
+		}
+		else
+		{
+			PlatformCol->SetOrder((int)CollisionOrder::Platform_Normal);
+		}
+	}
+		break;
+	case PlatformType::Half:
+	{
+		if (nullptr == PlatformCol)
+		{
+			PlatformCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
+		}
+		else
+		{
+			PlatformCol->SetOrder((int)CollisionOrder::Platform_Half);
+		}
+	}
+		break;
+	default:
+		MsgAssert_Rtti<MapPlatform>(" - 잘못된 플랫폼 타입입니다.");
+		break;
+	}
+
+	PlatformCol->GetTransform()->SetLocalScale(MetaData.Scale);
 }
 
 void MapPlatform::PlatformDebugOn()
@@ -105,7 +138,10 @@ void MapPlatform::ShowGUI()
 		MetaData.Scale.y = Scale[1];
 		MetaData.Scale.z = Scale[2];
 		MetaData.Scale.w = Scale[3];
+
+		PlatformCol->GetTransform()->SetLocalScale(MetaData.Scale);
 	}
+
 }
 
 void MapPlatform::SaveBin(GameEngineSerializer& _SaveSerializer)

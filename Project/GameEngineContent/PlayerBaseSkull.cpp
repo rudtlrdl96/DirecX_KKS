@@ -2,6 +2,7 @@
 #include "PlayerBaseSkull.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 PlayerBaseSkull::PlayerBaseSkull()
 {
@@ -66,6 +67,13 @@ void PlayerBaseSkull::Start()
 	PlayerRigidbody.SetActiveGravity(false);
 	PlayerRigidbody.SetMaxSpeed(1050);
 	PlayerRigidbody.SetFricCoeff(3500);
+
+	BodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);
+	BodyCol->GetTransform()->SetLocalPosition(float4(0, 31, 0));
+	BodyCol->GetTransform()->SetLocalScale(float4(30, 60, 1));
+
+	GroundCol = CreateComponent<GameEngineCollision>();
+	GroundCol->GetTransform()->SetLocalScale(float4(35.0f, 1.0f, 1.0f));
 }
 
 void PlayerBaseSkull::Update(float _DeltaTime)
@@ -85,10 +93,11 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 	}
 
 	PlayerRigidbody.UpdateForce(_DeltaTime);
-	float4 Velocity = PlayerRigidbody.GetVelocity();
+	float4 Velocity = PlayerRigidbody.GetVelocity() * _DeltaTime;
 
 	// Todo Map Ãæµ¹
-	GetTransform()->AddLocalPosition(Velocity * _DeltaTime);
+
+	GetTransform()->AddLocalPosition(Velocity);
 
 	if (false == CanDash)
 	{
@@ -104,17 +113,15 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 
 bool PlayerBaseSkull::IsGround() const
 {
-	static bool GroundCheck = true;
-
-	if (false == GameEngineInput::IsKey("Debug Ground Check"))
+	if (GroundCol->Collision(CollisionOrder::Platform_Normal, ColType::AABBBOX2D, ColType::AABBBOX2D))
 	{
-		GameEngineInput::CreateKey("Debug Ground Check", 'G');
+		return true;
 	}
 
-	if (true == GameEngineInput::IsDown("Debug Ground Check"))
+	if (GroundCol->Collision(CollisionOrder::Platform_Half, ColType::AABBBOX2D, ColType::AABBBOX2D))
 	{
-		GroundCheck = !GroundCheck;	
+		return true;
 	}
 
-	return GroundCheck;
+	return false;
 }

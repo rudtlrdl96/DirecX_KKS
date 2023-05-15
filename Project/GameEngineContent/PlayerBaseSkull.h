@@ -78,6 +78,9 @@ private:
 	Rigidbody2D PlayerRigidbody;
 	ClassFSM<PlayerBaseSkull> PlayerFSM;
 	
+	std::shared_ptr<class GameEngineCollision> BodyCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> GroundCol = nullptr;
+
 	ActorViewDir ViewDir = ActorViewDir::Right;
 
 	float4 JumpDir = float4::Zero;
@@ -93,6 +96,5 @@ private:
 
 	float WalkSpeed = 350.0f;
 	float MaxFallSpeed = 1400.0f;
-
 };
 

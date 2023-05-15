@@ -48,5 +48,6 @@ protected:
 
 private:
 	PlatformMetaData MetaData = PlatformMetaData();
+	std::shared_ptr<class GameEngineCollision> PlatformCol = nullptr;
 };
 

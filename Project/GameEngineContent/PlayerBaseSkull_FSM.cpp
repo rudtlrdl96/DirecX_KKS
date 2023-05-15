@@ -2,6 +2,7 @@
 #include "PlayerBaseSkull.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 void PlayerBaseSkull::Idle_Enter()
 {
@@ -68,8 +69,8 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 {
 	// 충돌 체크 들어가야함
 	JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
-
 	GetTransform()->AddLocalPosition(JumpDir * _DeltaTime);
+
 
 	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
@@ -86,12 +87,16 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		ViewDir = ActorViewDir::Left;
-		GetTransform()->AddLocalPosition(float4::Left  * WalkSpeed * _DeltaTime);
+
+		float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
+		GetTransform()->AddLocalPosition(MoveDir);
 	}
 	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
 		ViewDir = ActorViewDir::Right;
-		GetTransform()->AddLocalPosition(float4::Right * WalkSpeed * _DeltaTime);
+
+		float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
+		GetTransform()->AddLocalPosition(MoveDir);
 	}
 
 	if (JumpDir.y < 0)
@@ -131,12 +136,16 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		ViewDir = ActorViewDir::Left;
-		GetTransform()->AddLocalPosition(float4::Left * WalkSpeed * _DeltaTime);
+
+		float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
+		GetTransform()->AddLocalPosition(MoveDir);
 	}
 	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
 		ViewDir = ActorViewDir::Right;
-		GetTransform()->AddLocalPosition(float4::Right * WalkSpeed * _DeltaTime);
+
+		float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
+		GetTransform()->AddLocalPosition(MoveDir);
 	}
 	else
 	{
@@ -266,12 +275,15 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		ViewDir = ActorViewDir::Left;
-		GetTransform()->AddLocalPosition(float4::Left * WalkSpeed * _DeltaTime);
+		float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
+		GetTransform()->AddLocalPosition(MoveDir);
+
 	}
 	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
 		ViewDir = ActorViewDir::Right;
-		GetTransform()->AddLocalPosition(float4::Right * WalkSpeed * _DeltaTime);
+		float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
+		GetTransform()->AddLocalPosition(MoveDir);
 	}
 
 	if (true == IsGround())

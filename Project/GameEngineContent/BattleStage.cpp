@@ -38,7 +38,7 @@ float4 BattleStage::GetSpawnPoint() const
 
 void BattleStage::Start()
 {
-	std::shared_ptr<GameEngineLevel> LevelPtr = GetLevel()->Shared_This_dynamic_pointer<GameEngineLevel>();
+	std::shared_ptr<GameEngineLevel> LevelPtr = GetLevel()->DynamicThis<GameEngineLevel>();
 
 	TilemapPtr = LevelPtr->CreateActor<Tilemap>();
 	TilemapPtr->GetTransform()->SetParent(GetTransform());
