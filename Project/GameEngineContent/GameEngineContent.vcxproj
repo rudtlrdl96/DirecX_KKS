@@ -157,6 +157,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EffectActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EffectManager.h">
       <SubType>
       </SubType>
@@ -556,6 +560,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="DebugTrailActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EffectActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -298,6 +298,9 @@
     <Filter Include="1_Class\Effect">
       <UniqueIdentifier>{abcb9d47-de5a-495d-8d48-1a726cf0eb42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Effect">
+      <UniqueIdentifier>{c4e835d6-193a-4cf4-b34b-61a63d7aca1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -596,6 +599,9 @@
     </ClInclude>
     <ClInclude Include="EffectManager.h">
       <Filter>1_Class\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectActor.h">
+      <Filter>2_Actor\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -922,6 +928,9 @@
     </ClCompile>
     <ClCompile Include="EffectManager.cpp">
       <Filter>1_Class\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectActor.cpp">
+      <Filter>2_Actor\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

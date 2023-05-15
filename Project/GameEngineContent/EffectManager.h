@@ -1,5 +1,5 @@
 #pragma once
-
+#include "EffectActor.h"
 
 class EffectManager
 {
@@ -8,6 +8,7 @@ public:
 protected:
 	
 private:
+	static std::map<std::string, EffectMetaData> test;
 	static std::shared_ptr<class GameEngineLevel> CurLevel;
 
 	EffectManager();
