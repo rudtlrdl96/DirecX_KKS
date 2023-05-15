@@ -10,6 +10,7 @@
 #include "Tilemap.h"
 #include "ObjectManager.h"
 #include "GameEventManager.h"
+#include "ParticleManager.h"
 
 #include "TilemapPallet.h"
 #include "TilemapHoverRenderActor.h"
@@ -58,6 +59,8 @@ void MapToolLevel::Start()
 	ObjectMgrPtr->PlatformDebugOn();
 
 	EventMgrPtr = CreateActor<GameEventManager>();
+
+	ParticleMgrPtr = CreateActor<ParticleManager>();
 
 	TilePalletPtr = CreateActor<TilemapPallet>();
 	TilePalletPtr->SetPencleIndex(1000);
@@ -123,6 +126,9 @@ void MapToolLevel::Update(float _DeltaTime)
 	}
 	case MapToolState::Event:
 		Update_Event(_DeltaTime);
+		break;
+	case MapToolState::Particle:
+		Update_Particle(_DeltaTime);
 		break;
 	case MapToolState::Light:
 		break;
@@ -198,6 +204,7 @@ void MapToolLevel::Save()
 	TilemapPtr->SaveBin(SaveSerializer);
 	ObjectMgrPtr->SaveBin(SaveSerializer);
 	EventMgrPtr->SaveBin(SaveSerializer);
+	ParticleMgrPtr->SaveBin(SaveSerializer);
 
 	GameEngineFile SaveFile = GameEngineFile(Path);
 	SaveFile.SaveBin(SaveSerializer);
@@ -214,13 +221,14 @@ void MapToolLevel::Load()
 
 	GameEngineFile LoadFile = GameEngineFile(Path);
 
-	GameEngineSerializer SaveSerializer;
-	SaveSerializer.BufferResize(131072);
-	LoadFile.LoadBin(SaveSerializer);
+	GameEngineSerializer LoadSerializer;
+	LoadSerializer.BufferResize(131072);
+	LoadFile.LoadBin(LoadSerializer);
 
-	TilemapPtr->LoadBin(SaveSerializer);
-	ObjectMgrPtr->LoadBin(SaveSerializer);
-	EventMgrPtr->LoadBin(SaveSerializer);
+	TilemapPtr->LoadBin(LoadSerializer);
+	ObjectMgrPtr->LoadBin(LoadSerializer);
+	EventMgrPtr->LoadBin(LoadSerializer);
+	ParticleMgrPtr->LoadBin(LoadSerializer);
 
 	TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
 }
@@ -383,4 +391,8 @@ void MapToolLevel::Update_Platfrom(float _DeltaTime)
 void MapToolLevel::Update_Event(float _DeltaTime)
 {
 
+}
+
+void MapToolLevel::Update_Particle(float _DeltaTime)
+{
 }

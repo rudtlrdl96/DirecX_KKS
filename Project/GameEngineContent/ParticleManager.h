@@ -13,7 +13,7 @@ public:
 	ParticleManager& operator=(const ParticleManager& _Other) = delete;
 	ParticleManager& operator=(ParticleManager&& _Other) noexcept = delete;
 
-	void CreateMapParticleArea(const ParticleAreaParameter& _Parameter);
+	void CreateMapParticleArea(const ParticleAreaMetaData& _Parameter);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	void LoadBin(GameEngineSerializer& _LoadSerializer);

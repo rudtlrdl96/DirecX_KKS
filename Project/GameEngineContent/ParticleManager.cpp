@@ -11,7 +11,7 @@ ParticleManager::~ParticleManager()
 {
 }
 
-void ParticleManager::CreateMapParticleArea(const ParticleAreaParameter& _Parameter)
+void ParticleManager::CreateMapParticleArea(const ParticleAreaMetaData& _Parameter)
 {
 	std::shared_ptr<ParticleArea> NewArea = GetLevel()->CreateActor<ParticleArea>();
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 
-enum class AreaParticle
+enum class ParticleAreaType
 {
 	Opening,
 	Castle,
@@ -9,10 +9,10 @@ enum class AreaParticle
 	GrandHall,
 };
 
-class ParticleAreaParameter
+class ParticleAreaMetaData
 {
 public:
-	AreaParticle Type = AreaParticle::Castle;
+	ParticleAreaType Type = ParticleAreaType::Castle;
 
 	float4 Center = float4::Zero;
 	float4 Size = float4::Zero;
@@ -42,15 +42,15 @@ public:
 	ParticleArea& operator=(const ParticleArea& _Other) = delete;
 	ParticleArea& operator=(ParticleArea&& _Other) noexcept = delete;
 
-	inline void Init(const ParticleAreaParameter& _Parameter)
+	inline void Init(const ParticleAreaMetaData& _Parameter)
 	{
 		Parameter = _Parameter;
 
 		GetTransform()->SetLocalPosition(Parameter.Center);
 	}
 
-	void SaveBin(GameEngineSerializer& _SaveBin);
-	static ParticleAreaParameter LoadBin(GameEngineSerializer& _LoadBin);
+	void SaveBin(GameEngineSerializer& _SaveSerializer);
+	static ParticleAreaMetaData LoadBin(GameEngineSerializer& _LoadSerializer);
 
 protected:
 	void Update(float _DeltaTime) override;
@@ -58,7 +58,7 @@ protected:
 private:
 	std::list<std::shared_ptr<class MapParticleBase>> ParticleActors;
 
-	ParticleAreaParameter Parameter = ParticleAreaParameter();
+	ParticleAreaMetaData Parameter = ParticleAreaMetaData();
 
 	float CreateCoolTime = 0.0f;
 	float NextCreateTime = 0.0f;

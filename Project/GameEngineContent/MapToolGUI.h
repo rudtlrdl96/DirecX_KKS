@@ -3,6 +3,7 @@
 #include "TileMetaData.h"
 #include "MapToolLevel.h"
 #include "ObjectManager.h"
+#include "ParticleManager.h"
 
 class MapToolGUI : public GameEngineCoreWindow
 {
@@ -76,6 +77,11 @@ public:
 		EventManagerCallback.push_back(_FunctionPtr);
 	}
 
+	inline void Pushback_ParticleManagerCallback(std::function<void()> _FunctionPtr)
+	{
+		ParticleManagerCallback.push_back(_FunctionPtr);
+	}
+
 	bool CheckSaveTrigger();
 	bool CheckLoadTrigger();
 
@@ -92,15 +98,18 @@ private:
 	std::vector<std::function<void()>> TilemapCallback;
 	std::vector<std::function<void()>> ObjectManagerCallback;
 	std::vector<std::function<void()>> EventManagerCallback;
+	std::vector<std::function<void()>> ParticleManagerCallback;
 
 	const char* AreaComboText[7] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop"};
-	const char* MapToolComboText[6] = {"Tilemap" ,"SObject", "BObject", "Platform", "Event", "Light"};
+	const char* MapToolComboText[7] = {"Tilemap" ,"SObject", "BObject", "Platform", "Event", "Particle", "Light"};
 	const char* PlatformTypeCombo[2] = {"Normal" ,"Half"};
 	
 	float4 TileSize = float4::Zero;
 
 	UINT SelectTileIndex = 0;
 	SObjectMetaData SelectSObjectMetaData;
+
+	ParticleAreaMetaData ParticleAreaMapMetaData;
 	
 	bool IsSaveTrigger = false;
 	bool IsLoadTrigger = false;
@@ -119,9 +128,11 @@ private:
 	void DrawGui_BObject();
 	void DrawGui_Platform();
 	void DrawGui_Event();
+	void DrawGui_Particle();
 	void DrawGui_Light();
 
 	void Callback_Object();
 	void Callback_Event();
+	void Callback_Particle();
 };
 

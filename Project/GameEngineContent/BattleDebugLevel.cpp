@@ -52,7 +52,7 @@ void BattleDebugLevel::Start()
 	DebugParticleMgr = CreateActor<ParticleManager>();
 
 	DebugParticleMgr->CreateMapParticleArea({
-	.Type = AreaParticle::Opening,
+	.Type = ParticleAreaType::Opening,
 	.Center = GameEngineWindow::GetScreenSize().half(),
 	.Size = GameEngineWindow::GetScreenSize(),
 	.IsTopSpawn = true,
@@ -64,7 +64,7 @@ void BattleDebugLevel::Start()
 	.CreateMaxTime = 3.5f });
 
 	DebugParticleMgr->CreateMapParticleArea({
-		.Type = AreaParticle::Opening,
+		.Type = ParticleAreaType::Opening,
 		.Center = GameEngineWindow::GetScreenSize().half(),
 		.Size = GameEngineWindow::GetScreenSize(),
 		.IsTopSpawn = false,

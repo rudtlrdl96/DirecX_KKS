@@ -106,6 +106,10 @@ void MapToolGUI::DrawGui_Event()
 {
 }
 
+void MapToolGUI::DrawGui_Particle()
+{
+}
+
 void MapToolGUI::DrawGui_Light()
 {
 }
@@ -129,6 +133,17 @@ void MapToolGUI::Callback_Event()
 		if (nullptr != EventManagerCallback[i])
 		{
 			EventManagerCallback[i]();
+		}
+	}
+}
+
+void MapToolGUI::Callback_Particle()
+{
+	for (size_t i = 0; i < ParticleManagerCallback.size(); i++)
+	{
+		if (nullptr != ParticleManagerCallback[i])
+		{
+			ParticleManagerCallback[i]();
 		}
 	}
 }
@@ -211,6 +226,10 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 	case MapToolLevel::MapToolState::Event:
 		Callback_Event();
 		DrawGui_Event();
+		break;
+	case MapToolLevel::MapToolState::Particle:
+		Callback_Particle();
+		DrawGui_Particle();
 		break;
 	case MapToolLevel::MapToolState::Light:
 		DrawGui_Light();

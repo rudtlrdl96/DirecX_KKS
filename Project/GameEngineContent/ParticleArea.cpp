@@ -17,7 +17,7 @@ ParticleArea::~ParticleArea()
 
 void ParticleArea::SaveBin(GameEngineSerializer& _SaveSerializer)
 {
-	_SaveSerializer.Write(&Parameter.Type, sizeof(AreaParticle));
+	_SaveSerializer.Write(&Parameter.Type, sizeof(ParticleAreaType));
 	_SaveSerializer.Write(&Parameter.Center, sizeof(float4));
 	_SaveSerializer.Write(&Parameter.Size, sizeof(float4));
 	_SaveSerializer.Write(&Parameter.IsTopSpawn, sizeof(bool));
@@ -29,22 +29,22 @@ void ParticleArea::SaveBin(GameEngineSerializer& _SaveSerializer)
 	_SaveSerializer.Write(&Parameter.CreateMaxTime, sizeof(float));
 }
 
-ParticleAreaParameter ParticleArea::LoadBin(GameEngineSerializer& _LoadSerializer)
+ParticleAreaMetaData ParticleArea::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
-	ParticleAreaParameter LoadParameter = ParticleAreaParameter();
+	ParticleAreaMetaData LoadMetaData = ParticleAreaMetaData();
 
-	_LoadSerializer.Read(&LoadParameter.Type, sizeof(AreaParticle));
-	_LoadSerializer.Read(&LoadParameter.Center, sizeof(float4));
-	_LoadSerializer.Read(&LoadParameter.Size, sizeof(float4));
-	_LoadSerializer.Read(&LoadParameter.IsTopSpawn, sizeof(bool));
-	_LoadSerializer.Read(&LoadParameter.MinWindDir, sizeof(float4));
-	_LoadSerializer.Read(&LoadParameter.MaxWindDir, sizeof(float4));
-	_LoadSerializer.Read(&LoadParameter.MinRandRot, sizeof(float4));
-	_LoadSerializer.Read(&LoadParameter.MaxRandRot, sizeof(float4));
-	_LoadSerializer.Read(&LoadParameter.CreateMinTime, sizeof(float));
-	_LoadSerializer.Read(&LoadParameter.CreateMaxTime, sizeof(float));
+	_LoadSerializer.Read(&LoadMetaData.Type, sizeof(ParticleAreaType));
+	_LoadSerializer.Read(&LoadMetaData.Center, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.Size, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.IsTopSpawn, sizeof(bool));
+	_LoadSerializer.Read(&LoadMetaData.MinWindDir, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.MaxWindDir, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.MinRandRot, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.MaxRandRot, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.CreateMinTime, sizeof(float));
+	_LoadSerializer.Read(&LoadMetaData.CreateMaxTime, sizeof(float));
 
-	return LoadParameter;
+	return LoadMetaData;
 }
 
 void ParticleArea::Update(float _DeltaTime)
@@ -145,16 +145,16 @@ std::shared_ptr<MapParticleBase> ParticleArea::CreateParticle()
 	//	GrandHall,
 	switch (Parameter.Type)
 	{
-	case AreaParticle::Opening:
+	case ParticleAreaType::Opening:
 		NewParticle = GetLevel()->CreateActor<Opening_MapParticle>();
 		break;
 
-	case AreaParticle::Castle:
-	case AreaParticle::GrandHall:
+	case ParticleAreaType::Castle:
+	case ParticleAreaType::GrandHall:
 
 		break;
 
-	case AreaParticle::ForestOfHarmony:
+	case ParticleAreaType::ForestOfHarmony:
 		NewParticle = GetLevel()->CreateActor<ForestOfHarmony_MapParticle>();
 		break;
 	default:
