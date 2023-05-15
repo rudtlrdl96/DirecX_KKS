@@ -18,11 +18,14 @@ public:
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
 
+	void ShowGUI() override;
+
 protected:
 
 private:
 	std::vector<std::shared_ptr<ParticleArea>> ParticleAreaDatas;
 
+	int CurrentAreaParticleNumber = 0;
 
 };
 

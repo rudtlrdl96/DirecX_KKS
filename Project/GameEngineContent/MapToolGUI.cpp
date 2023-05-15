@@ -108,6 +108,69 @@ void MapToolGUI::DrawGui_Event()
 
 void MapToolGUI::DrawGui_Particle()
 {
+	ImGui::Spacing();
+	ImGui::Text("New Create Particle Parameter");
+
+	const char* AreaComboText[4] = { "Opening", "Castle", "ForestOfHarmony", "GrandHall"};
+	
+	int SelectIndex = static_cast<int>(ParticleAreaMapMetaData.Type);
+
+	ImGui::Combo("New Particle Type", &SelectIndex, AreaComboText, IM_ARRAYSIZE(AreaComboText));
+	
+	ParticleAreaType InputType = static_cast<ParticleAreaType>(SelectIndex);
+
+	if (InputType != ParticleAreaMapMetaData.Type)
+	{
+		ParticleAreaMapMetaData.Type = InputType;
+	}
+
+	ImGui::Checkbox("New Is Top Spawn", &ParticleAreaMapMetaData.IsTopSpawn);
+
+	float4 MinWind = ParticleAreaMapMetaData.MinWindDir;
+	float InputMinWind[4] = { MinWind.x, MinWind.y, MinWind.z, MinWind.w };
+
+	ImGui::DragFloat4("New Min Wind", InputMinWind);
+
+	ParticleAreaMapMetaData.MinWindDir.x = InputMinWind[0];
+	ParticleAreaMapMetaData.MinWindDir.y = InputMinWind[1];
+	ParticleAreaMapMetaData.MinWindDir.z = InputMinWind[2];
+	ParticleAreaMapMetaData.MinWindDir.w = InputMinWind[3];
+
+
+	float4 MaxWind = ParticleAreaMapMetaData.MaxWindDir;
+	float InputMaxWind[4] = { MaxWind.x, MaxWind.y, MaxWind.z, MaxWind.w };
+
+	ImGui::DragFloat4("New Max Wind", InputMaxWind);
+
+	ParticleAreaMapMetaData.MaxWindDir.x = InputMaxWind[0];
+	ParticleAreaMapMetaData.MaxWindDir.y = InputMaxWind[1];
+	ParticleAreaMapMetaData.MaxWindDir.z = InputMaxWind[2];
+	ParticleAreaMapMetaData.MaxWindDir.w = InputMaxWind[3];
+
+
+	float4 MinRandRot = ParticleAreaMapMetaData.MinRandRot;
+	float InputMinRandrot[4] = { MinRandRot.x, MinRandRot.y, MinRandRot.z, MinRandRot.w };
+
+	ImGui::DragFloat4("New Min RandRot", InputMinRandrot);
+
+	ParticleAreaMapMetaData.MinRandRot.x = InputMinRandrot[0];
+	ParticleAreaMapMetaData.MinRandRot.y = InputMinRandrot[1];
+	ParticleAreaMapMetaData.MinRandRot.z = InputMinRandrot[2];
+	ParticleAreaMapMetaData.MinRandRot.w = InputMinRandrot[3];
+
+
+	float4 MaxRandRot = ParticleAreaMapMetaData.MaxRandRot;
+	float InputMaxRandrot[4] = { MaxRandRot.x, MaxRandRot.y, MaxRandRot.z, MaxRandRot.w };
+
+	ImGui::DragFloat4("New Max RandRot", InputMaxRandrot);
+
+	ParticleAreaMapMetaData.MaxRandRot.x = InputMaxRandrot[0];
+	ParticleAreaMapMetaData.MaxRandRot.y = InputMaxRandrot[1];
+	ParticleAreaMapMetaData.MaxRandRot.z = InputMaxRandrot[2];
+	ParticleAreaMapMetaData.MaxRandRot.w = InputMaxRandrot[3];
+
+	ImGui::DragFloat("New Create MinTime", &ParticleAreaMapMetaData.CreateMinTime);
+	ImGui::DragFloat("New Create MaxTime", &ParticleAreaMapMetaData.CreateMaxTime);
 }
 
 void MapToolGUI::DrawGui_Light()

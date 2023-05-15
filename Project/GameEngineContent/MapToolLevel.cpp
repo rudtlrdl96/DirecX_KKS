@@ -75,6 +75,7 @@ void MapToolLevel::Start()
 	MapToolGuiPtr->Pushback_ObjectManagerCallback(std::bind(&ObjectManager::ShowGUI, ObjectMgrPtr));
 	MapToolGuiPtr->Pushback_TilemapCallback(std::bind(&Tilemap::ShowGUI, TilemapPtr));
 	MapToolGuiPtr->Pushback_EventManagerCallback(std::bind(&GameEventManager::ShowGUI, EventMgrPtr));
+	MapToolGuiPtr->Pushback_ParticleManagerCallback(std::bind(& ParticleManager::ShowGUI, ParticleMgrPtr));
 
 	ActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 
@@ -199,7 +200,7 @@ void MapToolLevel::Save()
 	}
 
 	GameEngineSerializer SaveSerializer;
-	SaveSerializer.BufferResize(2^17);
+	SaveSerializer.BufferResize(131072);
 
 	TilemapPtr->SaveBin(SaveSerializer);
 	ObjectMgrPtr->SaveBin(SaveSerializer);
@@ -395,4 +396,30 @@ void MapToolLevel::Update_Event(float _DeltaTime)
 
 void MapToolLevel::Update_Particle(float _DeltaTime)
 {
+	static float4 ParticleStartPos = float4::Zero;
+	static float4 ParticleEndPos = float4::Zero;
+
+	if (false == ImGui::GetIO().WantCaptureMouse)
+	{
+		if (true == GameEngineInput::IsDown("ToolActive"))
+		{
+			ParticleStartPos = GetMousePos();
+		}
+		else if (true == GameEngineInput::IsUp("ToolActive"))
+		{
+			ParticleEndPos = GetMousePos();
+
+			ParticleAreaMetaData NewMetaData = MapToolGuiPtr->GetNewParticleMetaData();
+
+			NewMetaData.Center = (ParticleStartPos + ParticleEndPos) * 0.5f;
+			NewMetaData.Center.z = -100;
+			NewMetaData.Size = float4(
+				std::abs(ParticleStartPos.x - ParticleEndPos.x),
+				std::abs(ParticleStartPos.y - ParticleEndPos.y),
+				1,
+				1);
+
+			ParticleMgrPtr->CreateMapParticleArea(NewMetaData);
+		}
+	}
 }

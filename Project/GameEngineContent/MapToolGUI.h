@@ -52,6 +52,11 @@ public:
 		return SelectSObjectMetaData;
 	}
 
+	inline ParticleAreaMetaData GetNewParticleMetaData() const
+	{
+		return ParticleAreaMapMetaData;
+	}
+
 	inline MapToolLevel::MapToolState GetMapToolState() const
 	{
 		return MapToolType;

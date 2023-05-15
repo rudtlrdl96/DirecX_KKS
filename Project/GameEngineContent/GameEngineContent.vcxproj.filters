@@ -292,9 +292,6 @@
     <Filter Include="2_Actor\Map\Stage\Particle\ForestOfHarmony">
       <UniqueIdentifier>{5a9a85ca-89b3-4801-8c2a-9eec008c6f51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Map\Stage\Particle\GrandHall">
-      <UniqueIdentifier>{ad4bd4f6-0567-448c-a997-2fc3046b7bd0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\Map\Stage\Particle\HolyCourtyard">
       <UniqueIdentifier>{3da095ea-464e-4efe-81c6-09a71a7c43e7}</UniqueIdentifier>
     </Filter>
@@ -584,6 +581,9 @@
     </ClInclude>
     <ClInclude Include="Opening_MapParticle.h">
       <Filter>2_Actor\Map\Stage\Particle\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="Castle_MapParticle.h">
+      <Filter>2_Actor\Map\Stage\Particle\Castle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -898,6 +898,9 @@
     </ClCompile>
     <ClCompile Include="Opening_MapParticle.cpp">
       <Filter>2_Actor\Map\Stage\Particle\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="Castle_MapParticle.cpp">
+      <Filter>2_Actor\Map\Stage\Particle\Castle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
