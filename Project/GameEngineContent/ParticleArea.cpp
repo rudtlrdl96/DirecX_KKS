@@ -5,6 +5,7 @@
 
 #include "MapParticleBase.h"
 #include "ForestOfHarmony_MapParticle.h"
+#include "Opening_MapParticle.h"
 
 ParticleArea::ParticleArea()
 {
@@ -35,24 +36,47 @@ void ParticleArea::Update(float _DeltaTime)
 		float4 SpawnPostion = float4::Zero;
 
 		SpawnPostion.x = Rand.RandomFloat(-Parameter.Size.hx(), Parameter.Size.hx());
-		SpawnPostion.y = Parameter.Size.hy();
+
+		if (true == Parameter.IsTopSpawn)
+		{
+			SpawnPostion.y = Parameter.Size.hy() * 1.05f;
+		}
+		else
+		{
+			SpawnPostion.y = -Parameter.Size.hy() * 1.05f;
+		}
 
 		NewParticle->GetTransform()->SetLocalPosition(SpawnPostion);
 
+		float4 RandomWind = float4::Zero;
+
+		RandomWind.x = Rand.RandomFloat(
+			(Parameter.MinWindDir.x < Parameter.MaxWindDir.x) ? Parameter.MinWindDir.x : Parameter.MaxWindDir.x,
+			(Parameter.MinWindDir.x >= Parameter.MaxWindDir.x) ? Parameter.MinWindDir.x : Parameter.MaxWindDir.x);
+		RandomWind.y = Rand.RandomFloat(
+			(Parameter.MinWindDir.y < Parameter.MaxWindDir.y) ? Parameter.MinWindDir.y : Parameter.MaxWindDir.y,
+			(Parameter.MinWindDir.y >= Parameter.MaxWindDir.y) ? Parameter.MinWindDir.y : Parameter.MaxWindDir.y);
+		RandomWind.z = Rand.RandomFloat(
+			(Parameter.MinWindDir.z < Parameter.MaxWindDir.z) ? Parameter.MinWindDir.z : Parameter.MaxWindDir.z,
+			(Parameter.MinWindDir.z >= Parameter.MaxWindDir.z) ? Parameter.MinWindDir.z : Parameter.MaxWindDir.z);
+
 		float4 RandomRot = float4::Zero;
 
-		RandomRot.x = Rand.RandomFloat(0.0f, Parameter.RandRot.x);
-		RandomRot.y = Rand.RandomFloat(0.0f, Parameter.RandRot.y);
-		RandomRot.z = Rand.RandomFloat(0.0f, Parameter.RandRot.z);
+		RandomRot.x = Rand.RandomFloat(
+			(Parameter.MinRandRot.x < Parameter.MaxRandRot.x) ? Parameter.MinRandRot.x : Parameter.MaxRandRot.x,
+			(Parameter.MinRandRot.x >= Parameter.MaxRandRot.x) ? Parameter.MinRandRot.x : Parameter.MaxRandRot.x);
+		RandomRot.y = Rand.RandomFloat(
+			(Parameter.MinRandRot.y < Parameter.MaxRandRot.y) ? Parameter.MinRandRot.y : Parameter.MaxRandRot.y,
+			(Parameter.MinRandRot.y >= Parameter.MaxRandRot.y) ? Parameter.MinRandRot.y : Parameter.MaxRandRot.y);
+		RandomRot.z = Rand.RandomFloat(
+			(Parameter.MinRandRot.z < Parameter.MaxRandRot.z) ? Parameter.MinRandRot.z : Parameter.MaxRandRot.z,
+			(Parameter.MinRandRot.z >= Parameter.MaxRandRot.z) ? Parameter.MinRandRot.z : Parameter.MaxRandRot.z);
 
-		NewParticle->Init(RandomRot);
+		NewParticle->Init(RandomWind, RandomRot);
 		ParticleActors.push_back(NewParticle);
 		CreateCoolTime -= NextCreateTime;
 		NextCreateTime = Rand.RandomFloat(Parameter.CreateMinTime, Parameter.CreateMaxTime);
 	}
-
-	float RandDiff = Rand.RandomFloat(Parameter.MinWindDiff, Parameter.MaxWindDiff);
-	float4 RandWind = Parameter.WindDir.NormalizeReturn() * RandDiff;
 
 	std::list<std::shared_ptr<MapParticleBase>>::iterator LoopIter = ParticleActors.begin();
 	std::list<std::shared_ptr<MapParticleBase>>::iterator EndIter = ParticleActors.end();
@@ -77,8 +101,6 @@ void ParticleArea::Update(float _DeltaTime)
 		{
 			++LoopIter;
 		}
-
-		LoopParticle->AddForce(RandWind);
 	}
 }
 
@@ -92,6 +114,7 @@ std::shared_ptr<MapParticleBase> ParticleArea::CreateParticle()
 	switch (Parameter.Type)
 	{
 	case AreaParticle::Opening:
+		NewParticle = GetLevel()->CreateActor<Opening_MapParticle>();
 		break;
 
 	case AreaParticle::Castle:

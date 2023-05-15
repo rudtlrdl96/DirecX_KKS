@@ -9,14 +9,10 @@ MapParticleBase::~MapParticleBase()
 {
 }
 
-void MapParticleBase::Init(const float4& _RandRot)
+void MapParticleBase::Init(const float4& _RandWind, const float4& _RandRot)
 {
+	RandWind = _RandWind;
 	RandRot = _RandRot;
-}
-
-void MapParticleBase::AddForce(const float4& _Force)
-{
-	ParticleRigid.AddForce(_Force);
 }
 
 void MapParticleBase::Start()
@@ -35,6 +31,7 @@ void MapParticleBase::Start()
 
 void MapParticleBase::Update(float _DeltaTime)
 {
+	ParticleRigid.AddForce(RandWind);
 	ParticleRigid.UpdateForce(_DeltaTime);
 
 	GameEngineTransform* ActorTrans = GetTransform();

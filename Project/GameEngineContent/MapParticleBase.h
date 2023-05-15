@@ -13,8 +13,7 @@ public:
 	MapParticleBase& operator=(const MapParticleBase& _Other) = delete;
 	MapParticleBase& operator=(MapParticleBase&& _Other) noexcept = delete;
 
-	void Init(const float4& _RandRot);
-	void AddForce(const float4& _Force);
+	void Init(const float4& _RandWind, const float4& _RandRot);
 
 protected:
 	void Start() override;
@@ -24,6 +23,8 @@ protected:
 
 private:
 	Rigidbody2D ParticleRigid;
+
+	float4 RandWind = float4::Zero;
 	float4 RandRot = float4::Zero;
 
 	virtual void SetTexture() = 0;

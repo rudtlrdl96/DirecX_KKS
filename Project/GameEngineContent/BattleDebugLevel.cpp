@@ -52,15 +52,28 @@ void BattleDebugLevel::Start()
 	DebugParticleMgr = CreateActor<ParticleManager>();
 
 	DebugParticleMgr->CreateMapParticleArea({
-		.Type = AreaParticle::ForestOfHarmony,
+	.Type = AreaParticle::Opening,
+	.Center = GameEngineWindow::GetScreenSize().half(),
+	.Size = GameEngineWindow::GetScreenSize(),
+	.IsTopSpawn = true,
+	.MinWindDir = float4(-30.0f, -10.0f, 0.0f),
+	.MaxWindDir = float4(30.0f, -20.0f, 0.0f),
+	.MinRandRot = float4::Zero,
+	.MaxRandRot = float4(100.0f, 100.0f, 100.0f),
+	.CreateMinTime = 2.0f,
+	.CreateMaxTime = 3.5f });
+
+	DebugParticleMgr->CreateMapParticleArea({
+		.Type = AreaParticle::Opening,
 		.Center = GameEngineWindow::GetScreenSize().half(),
 		.Size = GameEngineWindow::GetScreenSize(),
-		.RandRot = float4(100.0f, 50.0f, 50.0f),
-		.WindDir = float4(-0.5, -1).NormalizeReturn(),
-		.MinWindDiff = 50.0f,
-		.MaxWindDiff = 100.0f,
-		.CreateMinTime = 0.25f, 
-		.CreateMaxTime = 0.5f});
+		.IsTopSpawn = false,
+		.MinWindDir = float4(-30.0f, 10.0f, 0.0f),
+		.MaxWindDir = float4(30.0f, 30.0f, 0.0f),
+		.MinRandRot = float4::Zero,
+		.MaxRandRot = float4(100.0f, 100.0f, 100.0f),
+		.CreateMinTime = 0.4f, 
+		.CreateMaxTime = 1.0f});
 
 	MainCamCtrl.SetMinHeight(TilemapMeta.Bottom);
 	MainCamCtrl.SetMaxHeight(TilemapMeta.Top);

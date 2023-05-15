@@ -582,6 +582,9 @@
     <ClInclude Include="ParticleArea.h">
       <Filter>2_Actor\Map\Stage\Particle</Filter>
     </ClInclude>
+    <ClInclude Include="Opening_MapParticle.h">
+      <Filter>2_Actor\Map\Stage\Particle\Opening</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -892,6 +895,9 @@
     </ClCompile>
     <ClCompile Include="ParticleArea.cpp">
       <Filter>2_Actor\Map\Stage\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Opening_MapParticle.cpp">
+      <Filter>2_Actor\Map\Stage\Particle\Opening</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

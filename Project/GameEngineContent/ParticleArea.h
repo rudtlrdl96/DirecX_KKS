@@ -17,12 +17,13 @@ public:
 	float4 Center = float4::Zero;
 	float4 Size = float4::Zero;
 
-	float4 RandRot = float4::Zero;
-	float4 WindDir = float4::Down;
+	bool IsTopSpawn = true;
 
-	float MinWindDiff = 1.0f;
-	float MaxWindDiff = 1.0f;
-
+	float4 MinWindDir = float4::Down;
+	float4 MaxWindDir = float4::Down;
+	
+	float4 MinRandRot = float4::Zero;
+	float4 MaxRandRot = float4::Zero;
 
 	float CreateMinTime = 0.0f;
 	float CreateMaxTime = 1.0f;
