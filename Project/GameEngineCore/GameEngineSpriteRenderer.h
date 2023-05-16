@@ -1,6 +1,7 @@
 #pragma once
 #include "GameEngineRenderer.h"
 #include "GameEngineSprite.h"
+#include "EngineContentRenderingStruct.h"
 #include <map>
 
 class AnimationInfo : public std::enable_shared_from_this<AnimationInfo>
@@ -87,11 +88,6 @@ public:
 		ScaleRatio = _Ratio;
 	}
 
-	inline float GetScaleRatio() const
-	{
-		return ScaleRatio;
-	}
-
 	void SetFlipX();
 	void SetFlipY();
 
@@ -121,12 +117,10 @@ public:
 		return AtlasData;
 	}
 
-	inline std::shared_ptr<GameEngineSprite> GetSprite() const
+	inline float GetScaleRatio() const
 	{
-		return Sprite;
+		return ScaleRatio;
 	}
-
-	void SetAtlasConstantBuffer();
 
 	void SetSprite(const std::string_view& _SpriteName, size_t _Frame = 0);
 
@@ -142,9 +136,15 @@ public:
 		CurAnimation->PauseOff();
 	}
 
+	ColorOption ColorOptionValue;
+
+
 	void SetAnimationUpdateEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event);
 
 	void SetAnimationStartEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event);
+
+	std::string GetTexName();
+
 
 protected:
 
@@ -158,6 +158,7 @@ private:
 	std::shared_ptr<AnimationInfo> CurAnimation;
 
 	float4 AtlasData;
+
 
 	std::shared_ptr<GameEngineSprite> Sprite = nullptr;
 	size_t Frame = -1;
