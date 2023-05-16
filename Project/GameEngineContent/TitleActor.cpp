@@ -22,7 +22,7 @@ void TitleActor::TitleOn(float _LogoWaitTime, float _LogoFadeSpeed)
 
 void TitleActor::Start()
 {
-	TextureRender = CreateComponent<GameEngineSpriteRenderer>();
+	TextureRender = CreateComponent<ContentSpriteRenderer>();
 	TextureRender->SetPipeLine("2DTexture_ColorLight");
 	TextureRender->SetAtlasConstantBuffer();
 	TextureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", BackTexBuffer);
@@ -40,7 +40,7 @@ void TitleActor::Start()
 	float4 LogoSize = {static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight())};
 	LogoSize *= 0.7f;
 
-	LogoRender = CreateComponent<GameEngineSpriteRenderer>();
+	LogoRender = CreateComponent<ContentSpriteRenderer>();
 	LogoRender->SetPipeLine("2DTexture_ColorLight");
 	LogoRender->SetAtlasConstantBuffer();
 	LogoRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", LogoBuffer);

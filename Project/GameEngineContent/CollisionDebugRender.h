@@ -37,7 +37,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> DebugRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> DebugRender = nullptr;
 	ColorBuffer DebugBuffer;
 
 	std::weak_ptr<GameEngineCollision> TargetCollision;

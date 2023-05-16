@@ -41,7 +41,7 @@ private:
 	float4 TileColor = float4::Zero;
 
 	TileMetaData Data = TileMetaData();
-	std::shared_ptr<class GameEngineSpriteRenderer> DrawRender = nullptr;
+	std::shared_ptr<class ContentSpriteRenderer> DrawRender = nullptr;
 
 };
 

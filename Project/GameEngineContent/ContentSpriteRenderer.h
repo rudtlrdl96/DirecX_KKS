@@ -1,15 +1,15 @@
 #pragma once
-#include "GameEngineRenderer.h"
-#include "GameEngineSprite.h"
-#include "EngineContentRenderingStruct.h"
-#include <map>
 
-class AnimationInfo : public std::enable_shared_from_this<AnimationInfo>
+#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineSprite.h>
+#include <GameEngineCore/EngineContentRenderingStruct.h>
+
+class ContentAnimationInfo : public std::enable_shared_from_this<ContentAnimationInfo>
 {
-	friend class GameEngineSpriteRenderer;
+	friend class ContentSpriteRenderer;
 
 private:
-	GameEngineSpriteRenderer* Parent = nullptr;
+	ContentSpriteRenderer* Parent = nullptr;
 
 	std::shared_ptr<GameEngineSprite> Sprite;
 
@@ -50,7 +50,7 @@ public:
 };
 
 
-class ContentAnimationParameter
+class AnimationParameter
 {
 public:
 	std::string_view AnimationName = "";
@@ -66,18 +66,18 @@ public:
 
 
 // Ό³Έν :
-class GameEngineSpriteRenderer : public GameEngineRenderer
+class ContentSpriteRenderer : public GameEngineRenderer
 {
 public:
 	// constrcuter destructer
-	GameEngineSpriteRenderer();
-	~GameEngineSpriteRenderer();
+	ContentSpriteRenderer();
+	~ContentSpriteRenderer();
 
 	// delete Function
-	GameEngineSpriteRenderer(const GameEngineSpriteRenderer& _Other) = delete;
-	GameEngineSpriteRenderer(GameEngineSpriteRenderer&& _Other) noexcept = delete;
-	GameEngineSpriteRenderer& operator=(const GameEngineSpriteRenderer& _Other) = delete;
-	GameEngineSpriteRenderer& operator=(GameEngineSpriteRenderer&& _Other) noexcept = delete;
+	ContentSpriteRenderer(const ContentSpriteRenderer& _Other) = delete;
+	ContentSpriteRenderer(ContentSpriteRenderer&& _Other) noexcept = delete;
+	ContentSpriteRenderer& operator=(const ContentSpriteRenderer& _Other) = delete;
+	ContentSpriteRenderer& operator=(ContentSpriteRenderer&& _Other) noexcept = delete;
 
 	void SetScaleToTexture(const std::string_view& _Name);
 
@@ -91,12 +91,12 @@ public:
 	void SetFlipX();
 	void SetFlipY();
 
-	std::shared_ptr<AnimationInfo> FindAnimation(const std::string_view& _Name);
+	std::shared_ptr<ContentAnimationInfo> FindAnimation(const std::string_view& _Name);
 
-	std::shared_ptr<AnimationInfo> CreateAnimation(const ContentAnimationParameter& _Paramter);
+	std::shared_ptr<ContentAnimationInfo> CreateAnimation(const AnimationParameter& _Paramter);
 
 	void ChangeAnimation(const std::string_view& _Name, bool _Force, size_t _Frame = -1)
-	{ 
+	{
 		ChangeAnimation(_Name, _Frame, _Force);
 	}
 
@@ -136,6 +136,9 @@ public:
 		CurAnimation->PauseOff();
 	}
 
+
+	void SetAtlasConstantBuffer();
+
 	ColorOption ColorOptionValue;
 
 
@@ -153,9 +156,9 @@ private:
 
 	void Render(float _Delta) override;
 
-	std::map<std::string, std::shared_ptr<AnimationInfo>> Animations;
+	std::map<std::string, std::shared_ptr<ContentAnimationInfo>> Animations;
 
-	std::shared_ptr<AnimationInfo> CurAnimation;
+	std::shared_ptr<ContentAnimationInfo> CurAnimation;
 
 	float4 AtlasData;
 
@@ -168,4 +171,3 @@ private:
 
 	void Start() override;
 };
-

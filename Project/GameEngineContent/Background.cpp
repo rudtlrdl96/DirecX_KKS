@@ -126,7 +126,7 @@ void Background::CreateLeftRender()
 	float4 RenderSize = MetaData.TextureSize * MetaData.TextureScale;
 	RenderSize.z = 1;
 
-	LeftRender = CreateComponent<GameEngineSpriteRenderer>();
+	LeftRender = CreateComponent<ContentSpriteRenderer>();
 	LeftRender->SetPipeLine("2DTexture_Background");
 	LeftRender->SetAtlasConstantBuffer();
 	LeftRender->GetShaderResHelper().SetConstantBufferLink("TextureMoveBuffer", Buffer);
@@ -145,7 +145,7 @@ void Background::CreateRightRedner()
 	float4 RenderSize = MetaData.TextureSize * MetaData.TextureScale;
 	RenderSize.z = 1;
 
-	RightRender = CreateComponent<GameEngineSpriteRenderer>();
+	RightRender = CreateComponent<ContentSpriteRenderer>();
 	RightRender->SetPipeLine("2DTexture_Background");
 	RightRender->SetAtlasConstantBuffer();
 	RightRender->GetShaderResHelper().SetConstantBufferLink("TextureMoveBuffer", Buffer);
@@ -214,7 +214,7 @@ BackgroundMetaData Background::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 void Background::Start()
 {
-	BackRender = CreateComponent<GameEngineSpriteRenderer>();
+	BackRender = CreateComponent<ContentSpriteRenderer>();
 	BackRender->SetPipeLine("2DTexture_Background");
 	BackRender->SetAtlasConstantBuffer();
 	BackRender->GetShaderResHelper().SetConstantBufferLink("TextureMoveBuffer", Buffer);

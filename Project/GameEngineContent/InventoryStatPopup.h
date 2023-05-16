@@ -16,8 +16,8 @@ protected:
 	void Start() override;
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> PopupFrameRender = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> PopupBackRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> PopupFrameRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> PopupBackRender = nullptr;
 	float4 PopupFrameColor = float4::Zero;
 	float4 PopupBackColor = float4::Zero;
 

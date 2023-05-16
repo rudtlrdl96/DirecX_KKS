@@ -23,7 +23,7 @@ void InventoryQuintessencePopup::Start()
 	TexSize.x *= 2.0f;
 	TexSize.y *= 1.975f;
 
-	PopupFrameRender = CreateComponent<GameEngineSpriteRenderer>();
+	PopupFrameRender = CreateComponent<ContentSpriteRenderer>();
 	PopupFrameRender->SetPipeLine("2DTexture_ColorLight");
 	PopupFrameRender->SetAtlasConstantBuffer();
 	PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupFrameColor);

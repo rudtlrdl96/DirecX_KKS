@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include "ContentSpriteRenderer.h"
 #include "ClassFSM.h"
 
 class BaseContentActor : public GameEngineActor

@@ -13,7 +13,7 @@ void InventorySlot::Start()
 {
 	float4 FrameSize = { 53, 53 };
 		
-	SlotFrameRender = CreateComponent<GameEngineSpriteRenderer>();
+	SlotFrameRender = CreateComponent<ContentSpriteRenderer>();
 	SlotFrameRender->SetPipeLine("2DTexture_ColorLight");
 	SlotFrameRender->SetAtlasConstantBuffer();
 	SlotFrameRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", SlotFrameBuffer);
@@ -22,7 +22,7 @@ void InventorySlot::Start()
 	SlotFrameRender->GetTransform()->SetLocalPosition(float4::Zero);
 	SlotFrameBuffer.Color.w = 1.34f;
 
-	SlotImageRender = CreateComponent<GameEngineSpriteRenderer>();
+	SlotImageRender = CreateComponent<ContentSpriteRenderer>();
 	SlotImageRender->SetPipeLine("2DTexture_ColorLight");
 	SlotImageRender->SetAtlasConstantBuffer();
 	SlotImageRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", SlotImageBuffer);

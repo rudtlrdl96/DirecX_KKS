@@ -17,8 +17,8 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> MainFrameRender = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> InventoryBackRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> MainFrameRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> InventoryBackRender = nullptr;
 
 	std::shared_ptr<class InventorySlot> CurSelectSlot = nullptr;
 

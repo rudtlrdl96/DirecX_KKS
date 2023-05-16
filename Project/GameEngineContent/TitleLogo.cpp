@@ -38,7 +38,7 @@ void TitleLogo::SetLogo(const std::string_view& _TexName, float _IntroTime, floa
 
 void TitleLogo::Start()
 {
-	LogoRender = CreateComponent<GameEngineSpriteRenderer>();
+	LogoRender = CreateComponent<ContentSpriteRenderer>();
 	LogoRender->SetPipeLine("2DTexture_ColorLight");
 	LogoRender->SetAtlasConstantBuffer();
 	LogoRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);

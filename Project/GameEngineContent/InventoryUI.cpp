@@ -20,7 +20,7 @@ InventoryUI::~InventoryUI()
 
 void InventoryUI::Start()
 {
-	InventoryBackRender = CreateComponent<GameEngineSpriteRenderer>();
+	InventoryBackRender = CreateComponent<ContentSpriteRenderer>();
 	InventoryBackRender->SetPipeLine("2DTexture_ColorLight");
 	InventoryBackRender->SetAtlasConstantBuffer();
 	InventoryBackRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", BackFrameTex);
@@ -29,7 +29,7 @@ void InventoryUI::Start()
 	InventoryBackRender->GetTransform()->SetLocalPosition(float4::Zero);
 	BackFrameTex.Color.w = 0.5f;
 
-	MainFrameRender = CreateComponent<GameEngineSpriteRenderer>();
+	MainFrameRender = CreateComponent<ContentSpriteRenderer>();
 	MainFrameRender->SetPipeLine("2DTexture_ColorLight");
 	MainFrameRender->SetAtlasConstantBuffer();
 	MainFrameRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", MainFrameTex);

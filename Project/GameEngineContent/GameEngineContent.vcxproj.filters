@@ -304,6 +304,9 @@
     <Filter Include="2_Actor\Debug\Tilemap">
       <UniqueIdentifier>{768d03cb-951d-492e-a25d-6b7dac086fa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_Component\Renderer">
+      <UniqueIdentifier>{8bf0b896-7e80-4916-8d00-b56c5cdc8cbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -611,6 +614,9 @@
     </ClInclude>
     <ClInclude Include="TilemapDebugActor.h">
       <Filter>2_Actor\Debug\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentSpriteRenderer.h">
+      <Filter>3_Component\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -946,6 +952,9 @@
     </ClCompile>
     <ClCompile Include="TilemapDebugActor.cpp">
       <Filter>2_Actor\Debug\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentSpriteRenderer.cpp">
+      <Filter>3_Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> LogoRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> LogoRender = nullptr;
 
 	bool LogoEndValue = false;
 

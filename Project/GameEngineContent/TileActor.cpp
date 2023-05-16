@@ -58,7 +58,7 @@ void TileActor::TileOff()
 
 void TileActor::Start()
 {
-	DrawRender = CreateComponent<GameEngineSpriteRenderer>();
+	DrawRender = CreateComponent<ContentSpriteRenderer>();
 
 	DrawRender->SetPipeLine("2DTexture_ColorLight");
 	DrawRender->SetAtlasConstantBuffer();

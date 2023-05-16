@@ -16,8 +16,8 @@ protected:
 	void Start() override;
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> SlotFrameRender = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> SlotImageRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> SlotFrameRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> SlotImageRender = nullptr;
 
 	ColorBuffer SlotFrameBuffer;
 	ColorBuffer SlotImageBuffer;

@@ -133,6 +133,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentSpriteRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentVertex.h" />
     <ClInclude Include="DebugBoxActor.h">
       <SubType>
@@ -538,6 +542,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentShaderBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentSpriteRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

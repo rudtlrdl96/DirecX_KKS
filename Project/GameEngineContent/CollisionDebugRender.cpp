@@ -16,7 +16,7 @@ void CollisionDebugRender::SetTargetCollision(std::shared_ptr<GameEngineCollisio
 
 void CollisionDebugRender::Start()
 {
-	DebugRender = CreateComponent<GameEngineSpriteRenderer>();
+	DebugRender = CreateComponent<ContentSpriteRenderer>();
 	DebugRender->SetPipeLine("2DTexture_ColorLight");
 	DebugRender->SetAtlasConstantBuffer();
 	DebugRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", DebugBuffer);

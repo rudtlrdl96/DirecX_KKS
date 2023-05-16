@@ -64,9 +64,9 @@ protected:
 private:
 	BackgroundMetaData MetaData = BackgroundMetaData();
 
-	std::shared_ptr<GameEngineSpriteRenderer> BackRender = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> LeftRender = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> RightRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> BackRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> LeftRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> RightRender = nullptr;
 
 	TextureMoveBuffer Buffer;
 };

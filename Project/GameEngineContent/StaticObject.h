@@ -43,7 +43,7 @@ protected:
 private:
 	SObjectMetaData MetaData = SObjectMetaData();
 
-	std::shared_ptr<GameEngineSpriteRenderer> ImageRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> ImageRender = nullptr;
 
 	ColorBuffer Buffer;
 

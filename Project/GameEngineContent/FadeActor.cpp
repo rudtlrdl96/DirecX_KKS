@@ -44,7 +44,7 @@ void FadeActor::Reset()
 
 void FadeActor::Start()
 {
-	MainRenderer = CreateComponent<GameEngineSpriteRenderer>();
+	MainRenderer = CreateComponent<ContentSpriteRenderer>();
 	MainRenderer->SetPipeLine("2DTexture_Fade");
 	MainRenderer->SetAtlasConstantBuffer();
 	MainRenderer->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", Buffer);
