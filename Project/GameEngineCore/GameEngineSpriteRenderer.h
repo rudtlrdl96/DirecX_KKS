@@ -136,6 +136,9 @@ public:
 		CurAnimation->PauseOff();
 	}
 
+
+	void SetAtlasConstantBuffer();
+
 	ColorOption ColorOptionValue;
 
 
