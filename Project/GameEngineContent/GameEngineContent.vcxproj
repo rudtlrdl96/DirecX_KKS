@@ -279,6 +279,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TilemapDebugActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TilemapDebugLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TilemapHoverRenderActor.h">
       <SubType>
       </SubType>
@@ -677,6 +685,14 @@
     </ClCompile>
     <ClCompile Include="PlayerBaseSkull_FSM.cpp" />
     <ClCompile Include="PlayerSpawnPointRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TilemapDebugActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TilemapDebugLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>

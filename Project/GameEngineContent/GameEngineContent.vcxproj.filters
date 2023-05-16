@@ -298,6 +298,12 @@
     <Filter Include="2_Actor\Effect">
       <UniqueIdentifier>{c4e835d6-193a-4cf4-b34b-61a63d7aca1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Level\DebugLevel\Test\Tilemap">
+      <UniqueIdentifier>{f73c1e26-bbc0-4cb8-8c6a-f19e1ee58c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Debug\Tilemap">
+      <UniqueIdentifier>{768d03cb-951d-492e-a25d-6b7dac086fa8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -599,6 +605,12 @@
     </ClInclude>
     <ClInclude Include="AttackColToolAnimActor.h">
       <Filter>2_Actor\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapDebugLevel.h">
+      <Filter>4_Level\DebugLevel\Test\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapDebugActor.h">
+      <Filter>2_Actor\Debug\Tilemap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -928,6 +940,12 @@
     </ClCompile>
     <ClCompile Include="AttackColToolAnimActor.cpp">
       <Filter>2_Actor\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapDebugLevel.cpp">
+      <Filter>4_Level\DebugLevel\Test\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapDebugActor.cpp">
+      <Filter>2_Actor\Debug\Tilemap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
