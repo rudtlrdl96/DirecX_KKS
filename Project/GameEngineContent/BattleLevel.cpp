@@ -1,6 +1,8 @@
 #include "PrecompileHeader.h"
 #include "BattleLevel.h"
 
+#include "EffectManager.h"
+
 // Debug
 #include "BoneSkull.h"
 
@@ -35,4 +37,14 @@ void BattleLevel::Update(float _DeltaTime)
 void BattleLevel::SetPosDebugActor(const float4& _Pos)
 {
 	DebugActor->GetTransform()->SetLocalPosition(_Pos);
+}
+
+void BattleLevel::LevelChangeStart()
+{
+	EffectManager::SetLevel(DynamicThis<GameEngineLevel>());
+}
+
+void BattleLevel::LevelChangeEnd()
+{
+	EffectManager::SetLevel(nullptr);
 }

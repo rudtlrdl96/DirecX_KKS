@@ -95,6 +95,8 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
+		EffectManager::PlayEffect({.EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition()});
+
 		JumpDir = float4::Up * JumpPower;
 		DoubleJump = false;
 	}
@@ -199,6 +201,11 @@ void PlayerBaseSkull::Dash_Enter()
 {
 	SkullRenderer->ChangeAnimation("Dash");
 
+	EffectManager::PlayEffect({ 
+		.EffectName = "PlayerDashEffect",
+		.Postion = GetTransform()->GetWorldPosition(), 
+		.FlipX = ViewDir == ActorViewDir::Left});
+
 	switch (ViewDir)
 	{
 	case ActorViewDir::Left:
@@ -227,8 +234,6 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 	if (false == DashCombo && GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
-		DashCombo = true;
-
 		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
 			SetViewDir(ActorViewDir::Left);
@@ -237,6 +242,13 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 		{
 			SetViewDir(ActorViewDir::Right);
 		}
+
+		EffectManager::PlayEffect({
+			.EffectName = "PlayerDashEffect",
+			.Postion = GetTransform()->GetWorldPosition(),
+			.FlipX = ViewDir == ActorViewDir::Left });
+
+		DashCombo = true;
 
 		switch (ViewDir)
 		{
@@ -299,6 +311,8 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
+		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition() });
+
 		PlayerFSM.ChangeState("Jump");
 		DoubleJump = false;
 		return;

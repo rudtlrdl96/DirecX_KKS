@@ -21,6 +21,10 @@ protected:
 
 	std::shared_ptr<class BoneSkull> DebugActor = nullptr;
 	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
+
+	void LevelChangeStart() override;
+	void LevelChangeEnd() override;
+
 private:
 
 

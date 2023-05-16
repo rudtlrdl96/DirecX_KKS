@@ -35,7 +35,7 @@ void EffectManager::CreateMetaData(const std::string_view& _EffectName, const Ef
 	EffectMetaDatas[UpperName] = _MetaData;
 }
 
-std::shared_ptr<EffectActor> EffectManager::PlayEffect(const std::string_view& _EffectName, EffectDeathTrigger _Triger /*= EffectDeathTrigger::AnimEnd*/, float _Time /*= 0.0f*/)
+std::shared_ptr<EffectActor> EffectManager::PlayEffect(const EffectParameter& _Parameter)
 {
 	if (nullptr == CurLevel)
 	{
@@ -43,7 +43,7 @@ std::shared_ptr<EffectActor> EffectManager::PlayEffect(const std::string_view& _
 		return nullptr;
 	}
 
-	std::string UpperName = GameEngineString::ToUpper(_EffectName);
+	std::string UpperName = GameEngineString::ToUpper(_Parameter.EffectName);
 	std::map<std::string, EffectMetaData>::iterator FindIter = EffectMetaDatas.find(UpperName);
 
 	if (EffectMetaDatas.end() == FindIter)
@@ -53,7 +53,13 @@ std::shared_ptr<EffectActor> EffectManager::PlayEffect(const std::string_view& _
 	}
 
 	std::shared_ptr<EffectActor> NewEffectActor = CurLevel->CreateActor<EffectActor>();
-	NewEffectActor->Init(FindIter->second, _Triger, _Time);
+	NewEffectActor->Init(FindIter->second, _Parameter.Triger, _Parameter.Time);
+	NewEffectActor->GetTransform()->SetLocalPosition(_Parameter.Postion);
+
+	if (true == _Parameter.FlipX)
+	{
+		NewEffectActor->GetTransform()->SetLocalNegativeScaleX();
+	}
 
 	return NewEffectActor;
 }

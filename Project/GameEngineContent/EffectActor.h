@@ -12,7 +12,6 @@ class EffectMetaData
 {
 public:
 	std::string SpriteName = "";
-	std::string AnimationName = "";
 
 	float4 RenderPivot = float4::Zero;
 
@@ -29,8 +28,7 @@ class EffectActor : public BaseContentActor
 {
 private:
 	friend class EffectManager;
-
-
+	
 public:
 	EffectActor();
 	~EffectActor();

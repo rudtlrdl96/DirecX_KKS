@@ -52,19 +52,19 @@ void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _Deat
 {
 	DeathTime = _DeathTime;
 	DeathTrigger = _DeathTrigger;
-
+	
 	EffectRender->CreateAnimation({ 
-		_MetaData.AnimationName,
+		_MetaData.SpriteName,
 		_MetaData.SpriteName,
 		_MetaData.AnimStart,
 		_MetaData.AnimEnd,
 		_MetaData.AnimIter,
-		true,
+		_DeathTrigger != EffectDeathTrigger::AnimEnd,
 		true});
 
 	GameEngineTransform* RenderTrans = EffectRender->GetTransform();
 	RenderTrans->SetLocalPosition(_MetaData.RenderPivot);
 	EffectRender->SetScaleRatio(_MetaData.ScaleRatio);
-	EffectRender->ChangeAnimation(_MetaData.AnimationName);
+	EffectRender->ChangeAnimation(_MetaData.SpriteName);
 	EffectRender->On();
 }

@@ -24,7 +24,9 @@ void PlayerBaseSkull::Start()
 	TextureLoad();
 	CreateAnimation();
 
-	if (nullptr == GameEngineSprite::Find("DashSmokeEffect.png"))
+
+
+	if (nullptr == GameEngineSprite::Find("Player_DashSmokeEffect.png"))
 	{
 		GameEngineDirectory Path;
 
@@ -35,8 +37,8 @@ void PlayerBaseSkull::Start()
 		Path.Move("Player");
 		Path.Move("Effect");
 
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("DashSmokeEffect.png").GetFullPath(), 6, 2);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("DoubleJumpEffect.png").GetFullPath(), 5, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Player_DashSmokeEffect.png").GetFullPath(), 6, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Player_DoubleJumpEffect.png").GetFullPath(), 5, 2);
 	}
 
 	if (false == GameEngineInput::IsKey("PlayerMove_Left"))
@@ -68,6 +70,24 @@ void PlayerBaseSkull::Start()
 	PlayerFSM.AddFSM("Skill_B", &PlayerBaseSkull::Skill_SlotB_Enter, &PlayerBaseSkull::Skill_SlotB_Update, &PlayerBaseSkull::Skill_SlotB_End);
 
 	PlayerFSM.ChangeState("Idle");
+
+	if (false == EffectManager::IsCreate("PlayerDashEffect"))
+	{
+		EffectManager::CreateMetaData("PlayerDashEffect", { 
+			"Player_DashSmokeEffect.png" ,
+			float4::Zero,
+			0, 11,
+			0.04f,
+			1.5f});
+
+		EffectManager::CreateMetaData("PlayerJumpEffect", {
+			"Player_DoubleJumpEffect.png" ,
+			float4::Zero,
+			0, 9,
+			0.05f,
+			1.5f});
+
+	}
 
 	DashRigidbody.SetActiveGravity(false);
 	DashRigidbody.SetMaxSpeed(1050);
@@ -158,6 +178,7 @@ void PlayerBaseSkull::SetViewDir(ActorViewDir _ViewDir)
 
 	GameEngineTransform* WalkColTrans = WalkCol->GetTransform();
 	GameEngineTransform* GroundColTrans = GroundCol->GetTransform();
+	GameEngineTransform* JumpColTrans = JumpCol->GetTransform();
 
 	switch (ViewDir)
 	{
@@ -165,30 +186,44 @@ void PlayerBaseSkull::SetViewDir(ActorViewDir _ViewDir)
 	{
 		GetTransform()->SetLocalNegativeScaleX();
 
+		float4 GroundColScale = GroundColTrans->GetLocalScale();
+		GroundColScale.x = fabsf(GroundColScale.x);
+		GroundColScale.y = -fabsf(GroundColScale.y);
+		GroundColTrans->SetLocalScale(GroundColScale);
+
+		float4 JumpColScale = JumpColTrans->GetLocalScale();
+		JumpColScale.x = fabsf(JumpColScale.x);
+		JumpColScale.y = -fabsf(JumpColScale.y);
+		JumpColTrans->SetLocalScale(JumpColScale);
+
 		float4 WalkColScale = WalkColTrans->GetLocalScale();
 		WalkColScale.x = fabsf(WalkColScale.x);
 		WalkColScale.y = -fabsf(WalkColScale.y);
 		WalkColTrans->SetLocalScale(WalkColScale);
 
-		float4 GroundColScale = GroundColTrans->GetLocalScale();
-		GroundColScale.x = fabsf(GroundColScale.x);
-		GroundColScale.y = -fabsf(GroundColScale.y);
-		GroundColTrans->SetLocalScale(GroundColScale);
 	}
 		break;
 	case ActorViewDir::Right:
 	{
 		GetTransform()->SetLocalPositiveScaleX();
 
-		float4 WalkColScale = WalkColTrans->GetLocalScale();
-		WalkColScale.x = fabsf(WalkColScale.x);
-		WalkColScale.y = fabsf(WalkColScale.y);
-		WalkColTrans->SetLocalScale(WalkColScale);
 
 		float4 GroundColScale = GroundColTrans->GetLocalScale();
 		GroundColScale.x = fabsf(GroundColScale.x);
 		GroundColScale.y = fabsf(GroundColScale.y);
 		GroundColTrans->SetLocalScale(GroundColScale);
+
+		float4 JumpColScale = JumpColTrans->GetLocalScale();
+		JumpColScale.x = fabsf(JumpColScale.x);
+		JumpColScale.y = fabsf(JumpColScale.y);
+		JumpColTrans->SetLocalScale(JumpColScale);
+
+		float4 WalkColScale = WalkColTrans->GetLocalScale();
+		WalkColScale.x = fabsf(WalkColScale.x);
+		WalkColScale.y = fabsf(WalkColScale.y);
+		WalkColTrans->SetLocalScale(WalkColScale);
+
+
 	}
 		break;
 	default:
