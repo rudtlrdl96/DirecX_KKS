@@ -15,9 +15,9 @@ public:
 	PlayerBaseSkull& operator=(const PlayerBaseSkull& _Other) = delete;
 	PlayerBaseSkull& operator=(PlayerBaseSkull&& _Other) noexcept = delete;
 
-	inline Rigidbody2D* GetRigidbody()
+	inline Rigidbody2D* GetDashRigidbody()
 	{
-		return &PlayerRigidbody;
+		return &DashRigidbody;
 	}
 
 protected:	
@@ -28,8 +28,6 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	
-	bool IsGround() const;
-
 	// FSM Functions
 	virtual void Idle_Enter();
 	virtual void Idle_Update(float _DeltaTime);
@@ -74,12 +72,16 @@ protected:
 	virtual void TextureLoad() = 0;
 	virtual void CreateAnimation() = 0;
 
+
+	std::shared_ptr<class GameEngineCollision> PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf = false);
+
 private:		
-	Rigidbody2D PlayerRigidbody;
+	Rigidbody2D DashRigidbody;
 	ClassFSM<PlayerBaseSkull> PlayerFSM;
 	
-	std::shared_ptr<class GameEngineCollision> BodyCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> WalkCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> GroundCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> JumpCol = nullptr;
 
 	ActorViewDir ViewDir = ActorViewDir::Right;
 
@@ -87,6 +89,8 @@ private:
 	float JumpPower = 700.0f;
 	bool CanJump = false;
 	bool DoubleJump = false;
+
+	float FallCooldown = 0.0f;
 
 	bool CanDash = false;
 	float DashCoolTime = 0.0f;
@@ -96,5 +100,8 @@ private:
 
 	float WalkSpeed = 350.0f;
 	float MaxFallSpeed = 1400.0f;
+
+	void SetViewDir(ActorViewDir _ViewDir);
+	void CreateColDebugRender();
 };
 

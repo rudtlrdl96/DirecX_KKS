@@ -1,5 +1,7 @@
 #include "PrecompileHeader.h"
 #include "ObjectManager.h"
+
+#include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/imgui.h>
 
@@ -189,6 +191,31 @@ void ObjectManager::PlatformDebugOff()
 	{
 		MapPlatformActors[i]->PlatformDebugOff();
 	}
+}
+
+void ObjectManager::Start()
+{
+	if (false == GameEngineInput::IsKey("PlatformDebugSwtich"))
+	{
+		GameEngineInput::CreateKey("PlatformDebugSwtich", VK_F1);
+	}
+
+}
+
+void ObjectManager::Update(float _DeltaTime)
+{
+	if (true == GameEngineInput::IsDown("PlatformDebugSwtich"))
+	{
+		if (true == IsPlatformDebug)
+		{
+			PlatformDebugOff();
+		}
+		else
+		{
+			PlatformDebugOn();
+		}
+	}
+
 }
 
 void ObjectManager::Draw_SObject_GUI()

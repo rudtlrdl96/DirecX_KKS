@@ -274,9 +274,6 @@
     <Filter Include="2_Actor\Debug\MapTool">
       <UniqueIdentifier>{d794b95d-468a-4fc2-b724-c2cf83402d41}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Debug\AttackColTool">
-      <UniqueIdentifier>{9d5853b5-f4a2-4f7b-b92d-bdb0b11b6f7a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1_Class\Battle">
       <UniqueIdentifier>{9154380d-edbd-443f-b9c6-1e3544cb89f8}</UniqueIdentifier>
     </Filter>
@@ -543,7 +540,7 @@
     <ClInclude Include="MapPlatform.h">
       <Filter>2_Actor\Map\Stage\Object\MapPlatform</Filter>
     </ClInclude>
-    <ClInclude Include="MapPlatformDebugRender.h">
+    <ClInclude Include="CollisionDebugRender.h">
       <Filter>2_Actor\Map\Stage\Object\MapPlatform</Filter>
     </ClInclude>
     <ClInclude Include="GameEventManager.h">
@@ -563,12 +560,6 @@
     </ClInclude>
     <ClInclude Include="AnimationColToolLevel.h">
       <Filter>4_Level\DebugLevel\Tool\AttackColTool</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackColToolAnimActor.h">
-      <Filter>2_Actor\Debug\AttackColTool</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugCollisionRender.h">
-      <Filter>2_Actor\Debug\AttackColTool</Filter>
     </ClInclude>
     <ClInclude Include="AttackMetaData.h">
       <Filter>1_Class\Battle</Filter>
@@ -602,6 +593,12 @@
     </ClInclude>
     <ClInclude Include="EffectActor.h">
       <Filter>2_Actor\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugCollisionRender.h">
+      <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackColToolAnimActor.h">
+      <Filter>2_Actor\Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -869,7 +866,7 @@
     <ClCompile Include="MapPlatform.cpp">
       <Filter>2_Actor\Map\Stage\Object\MapPlatform</Filter>
     </ClCompile>
-    <ClCompile Include="MapPlatformDebugRender.cpp">
+    <ClCompile Include="CollisionDebugRender.cpp">
       <Filter>2_Actor\Map\Stage\Object\MapPlatform</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBaseSkull_FSM.cpp">
@@ -892,12 +889,6 @@
     </ClCompile>
     <ClCompile Include="AnimationColToolLevel.cpp">
       <Filter>4_Level\DebugLevel\Tool\AttackColTool</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackColToolAnimActor.cpp">
-      <Filter>2_Actor\Debug\AttackColTool</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugCollisionRender.cpp">
-      <Filter>2_Actor\Debug\AttackColTool</Filter>
     </ClCompile>
     <ClCompile Include="AttackMetaData.cpp">
       <Filter>1_Class\Battle</Filter>
@@ -931,6 +922,12 @@
     </ClCompile>
     <ClCompile Include="EffectActor.cpp">
       <Filter>2_Actor\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugCollisionRender.cpp">
+      <Filter>2_Actor\Debug\MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackColToolAnimActor.cpp">
+      <Filter>2_Actor\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

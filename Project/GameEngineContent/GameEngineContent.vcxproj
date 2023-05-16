@@ -23,14 +23,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="AttackColToolAnimActor.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="AnimationColToolLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="AttackColToolAnimActor.h" />
     <ClInclude Include="AttackMetaData.h">
       <SubType>
       </SubType>
@@ -141,10 +138,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="DebugCollisionRender.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="DebugCollisionRender.h" />
     <ClInclude Include="DebugRigidbodyTestActor.h">
       <SubType>
       </SubType>
@@ -245,7 +239,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="MapPlatformDebugRender.h">
+    <ClInclude Include="CollisionDebugRender.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -419,14 +413,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="AttackColToolAnimActor.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="AnimationColToolLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="AttackColToolAnimActor.cpp" />
     <ClCompile Include="AttackMetaData.cpp">
       <SubType>
       </SubType>
@@ -547,10 +538,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="DebugCollisionRender.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="DebugCollisionRender.cpp" />
     <ClCompile Include="DebugRigidbodyTestActor.cpp">
       <SubType>
       </SubType>
@@ -651,7 +639,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="MapPlatformDebugRender.cpp">
+    <ClCompile Include="CollisionDebugRender.cpp">
       <SubType>
       </SubType>
     </ClCompile>

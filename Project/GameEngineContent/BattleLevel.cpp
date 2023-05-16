@@ -21,10 +21,9 @@ void BattleLevel::Start()
 
 	float4 HalfWindowSize = GameEngineWindow::GetScreenSize().half();
 
+	BattleAreaPtr = CreateActor<BattleArea>();
 	DebugActor = CreateActor<BoneSkull>();
 	MainCamCtrl.SetLookatTarget(DebugActor);
-
-	BattleAreaPtr = CreateActor<BattleArea>();
 }
 
 void BattleLevel::Update(float _DeltaTime)

@@ -3,6 +3,9 @@
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineLevel.h>
+
+#include "CollisionDebugRender.h"
 
 PlayerBaseSkull::PlayerBaseSkull()
 {
@@ -47,6 +50,8 @@ void PlayerBaseSkull::Start()
 		GameEngineInput::CreateKey("PlayerMove_Jump", 'C');
 		GameEngineInput::CreateKey("PlayerMove_Skill_A", 'A');
 		GameEngineInput::CreateKey("PlayerMove_Skill_B", 'S');
+
+		GameEngineInput::CreateKey("PlayerCollisionDebugSwitch", VK_F2);
 	}
 
 	PlayerFSM.Init(this);
@@ -64,40 +69,50 @@ void PlayerBaseSkull::Start()
 
 	PlayerFSM.ChangeState("Idle");
 
-	PlayerRigidbody.SetActiveGravity(false);
-	PlayerRigidbody.SetMaxSpeed(1050);
-	PlayerRigidbody.SetFricCoeff(3500);
-
-	BodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);
-	BodyCol->GetTransform()->SetLocalPosition(float4(0, 31, 0));
-	BodyCol->GetTransform()->SetLocalScale(float4(30, 60, 1));
+	DashRigidbody.SetActiveGravity(false);
+	DashRigidbody.SetMaxSpeed(1050);
+	DashRigidbody.SetFricCoeff(3500);
 
 	GroundCol = CreateComponent<GameEngineCollision>();
-	GroundCol->GetTransform()->SetLocalScale(float4(35.0f, 1.0f, 1.0f));
+	GroundCol->GetTransform()->SetLocalPosition(float4(0.0f, -2.0f, 1.0f));
+	GroundCol->GetTransform()->SetLocalScale(float4(30.0f, 5.0f, 1.0f));	
+	
+	JumpCol = CreateComponent<GameEngineCollision>();
+	JumpCol->GetTransform()->SetLocalPosition(float4(0.0f, 66.0f, 1.0f));
+	JumpCol->GetTransform()->SetLocalScale(float4(30.0f, 5.0f, 1.0f));
+
+	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);
+	WalkCol->GetTransform()->SetLocalPosition(float4(20, 30, 0));
+	WalkCol->GetTransform()->SetLocalScale(float4(10, 58, 1));
+
 }
 
 void PlayerBaseSkull::Update(float _DeltaTime)
 {
-	PlayerFSM.Update(_DeltaTime);
-
-	switch (ViewDir)
+	if (true == GameEngineInput::IsDown("PlayerCollisionDebugSwitch"))
 	{
-	case ActorViewDir::Left:
-		GetTransform()->SetLocalNegativeScaleX();
-		break;
-	case ActorViewDir::Right:
-		GetTransform()->SetLocalPositiveScaleX();
-		break;
-	default:
-		break;
+		if (true == IsDebug())
+		{
+			DebugOff();
+		}
+		else
+		{
+			DebugOn();
+			CreateColDebugRender();
+		}
 	}
 
-	PlayerRigidbody.UpdateForce(_DeltaTime);
-	float4 Velocity = PlayerRigidbody.GetVelocity() * _DeltaTime;
+	PlayerFSM.Update(_DeltaTime);
+	DashRigidbody.UpdateForce(_DeltaTime);
 
-	// Todo Map Ãæµ¹
+	FallCooldown -= _DeltaTime;
 
-	GetTransform()->AddLocalPosition(Velocity);
+	if (nullptr == PlatformColCheck(WalkCol))
+	{
+		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
+
+		GetTransform()->AddLocalPosition(Velocity);
+	}
 
 	if (false == CanDash)
 	{
@@ -111,17 +126,103 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 	}
 }
 
-bool PlayerBaseSkull::IsGround() const
+std::shared_ptr< GameEngineCollision> PlayerBaseSkull::PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf /*= false*/)
 {
-	if (GroundCol->Collision(CollisionOrder::Platform_Normal, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	std::shared_ptr<GameEngineCollision> ReslutCol = nullptr;
+
+	ReslutCol = _Col->Collision(CollisionOrder::Platform_Normal, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+	if (nullptr != ReslutCol)
 	{
-		return true;
+		return ReslutCol;
 	}
 
-	if (GroundCol->Collision(CollisionOrder::Platform_Half, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	if (false == _IsHalf)
 	{
-		return true;
+		return ReslutCol;
 	}
 
-	return false;
+	ReslutCol = _Col->Collision(CollisionOrder::Platform_Half, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+	if (nullptr != ReslutCol)
+	{
+		return ReslutCol;
+	}
+
+	return ReslutCol;
+}
+
+void PlayerBaseSkull::SetViewDir(ActorViewDir _ViewDir)
+{
+	ViewDir = _ViewDir;
+
+	GameEngineTransform* WalkColTrans = WalkCol->GetTransform();
+	GameEngineTransform* GroundColTrans = GroundCol->GetTransform();
+
+	switch (ViewDir)
+	{
+	case ActorViewDir::Left:
+	{
+		GetTransform()->SetLocalNegativeScaleX();
+
+		float4 WalkColScale = WalkColTrans->GetLocalScale();
+		WalkColScale.x = fabsf(WalkColScale.x);
+		WalkColScale.y = -fabsf(WalkColScale.y);
+		WalkColTrans->SetLocalScale(WalkColScale);
+
+		float4 GroundColScale = GroundColTrans->GetLocalScale();
+		GroundColScale.x = fabsf(GroundColScale.x);
+		GroundColScale.y = -fabsf(GroundColScale.y);
+		GroundColTrans->SetLocalScale(GroundColScale);
+	}
+		break;
+	case ActorViewDir::Right:
+	{
+		GetTransform()->SetLocalPositiveScaleX();
+
+		float4 WalkColScale = WalkColTrans->GetLocalScale();
+		WalkColScale.x = fabsf(WalkColScale.x);
+		WalkColScale.y = fabsf(WalkColScale.y);
+		WalkColTrans->SetLocalScale(WalkColScale);
+
+		float4 GroundColScale = GroundColTrans->GetLocalScale();
+		GroundColScale.x = fabsf(GroundColScale.x);
+		GroundColScale.y = fabsf(GroundColScale.y);
+		GroundColTrans->SetLocalScale(GroundColScale);
+	}
+		break;
+	default:
+		break;
+	}
+}
+
+void PlayerBaseSkull::CreateColDebugRender()
+{
+	{
+		std::shared_ptr<CollisionDebugRender> GroundDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
+
+		GroundDebugRender->SetColor(CollisionDebugRender::DebugColor::Red);
+		GroundDebugRender->SetTargetCollision(GroundCol);
+		GroundDebugRender->GetTransform()->SetParent(GroundCol->GetTransform(), false);	
+		GroundDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
+	}
+
+	{
+		std::shared_ptr<CollisionDebugRender> JumpColDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
+
+		JumpColDebugRender->SetColor(CollisionDebugRender::DebugColor::Red);
+		JumpColDebugRender->SetTargetCollision(JumpCol);
+		JumpColDebugRender->GetTransform()->SetParent(JumpCol->GetTransform(), false);
+		JumpColDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
+	}
+
+	{
+		std::shared_ptr<CollisionDebugRender> WalkDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
+
+		WalkDebugRender->SetColor(CollisionDebugRender::DebugColor::Green);
+		WalkDebugRender->SetTargetCollision(WalkCol);
+		WalkDebugRender->GetTransform()->SetParent(WalkCol->GetTransform(), false);
+		WalkDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
+	}
+
 }

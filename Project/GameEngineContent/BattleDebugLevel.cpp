@@ -130,7 +130,7 @@ void BattleDebugLevel::LevelChangeStart()
 
 	GameEngineActorGUIPtr->On();
 	GameEngineActorGUIPtr->SetTarget(DebugSkull->GetTransform());
-	GameEngineActorGUIPtr->EditorGui(std::bind(&Rigidbody2D::ShowGUI, DebugSkull->GetRigidbody()));
+	GameEngineActorGUIPtr->EditorGui(std::bind(&Rigidbody2D::ShowGUI, DebugSkull->GetDashRigidbody()));
 }
 
 void BattleDebugLevel::LevelChangeEnd()

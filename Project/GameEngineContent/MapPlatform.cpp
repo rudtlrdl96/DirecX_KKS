@@ -5,7 +5,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
-#include "MapPlatformDebugRender.h"
+#include "CollisionDebugRender.h"
 
 
 MapPlatform::MapPlatform()
@@ -63,8 +63,29 @@ void MapPlatform::PlatformDebugOn()
 		return;
 	}
 
-	std::shared_ptr<MapPlatformDebugRender> DebugRender = GetLevel()->CreateActor<MapPlatformDebugRender>();
-	DebugRender->SetTargetPlatform(this);
+	std::shared_ptr<CollisionDebugRender> DebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
+	
+	DebugRender->SetColorCallback(std::bind([this]()
+		{
+			if (nullptr == this)
+			{
+				return CollisionDebugRender::DebugColor::Green;
+			}
+
+			if (MetaData.Type == PlatformType::Normal)
+			{
+				return CollisionDebugRender::DebugColor::Green;
+			}
+
+			if (MetaData.Type == PlatformType::Half)
+			{
+				return CollisionDebugRender::DebugColor::Red;
+			}
+
+			return CollisionDebugRender::DebugColor::Red;
+		}));
+	
+	DebugRender->SetTargetCollision(PlatformCol);
 	DebugRender->GetTransform()->SetParent(GetTransform());
 	DebugRender->GetTransform()->SetLocalPosition(float4::Zero);
 

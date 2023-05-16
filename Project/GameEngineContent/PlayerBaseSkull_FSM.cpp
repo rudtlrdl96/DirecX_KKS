@@ -14,7 +14,7 @@ void PlayerBaseSkull::Idle_Enter()
 
 void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 {
-	if (false == IsGround())
+	if (nullptr == PlatformColCheck(GroundCol, true))
 	{
 		PlayerFSM.ChangeState("Fall");
 		return;
@@ -30,6 +30,16 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
+		if (true == GameEngineInput::IsPress("PlayerMove_Down"))
+		{
+			if (nullptr == PlatformColCheck(GroundCol))
+			{
+				FallCooldown = 0.2f;
+				PlayerFSM.ChangeState("Fall");
+				return;
+			}
+		}
+
 		PlayerFSM.ChangeState("Jump");
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
@@ -67,10 +77,15 @@ void PlayerBaseSkull::Jump_Enter()
 
 void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 {
-	// 충돌 체크 들어가야함
-	JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
-	GetTransform()->AddLocalPosition(JumpDir * _DeltaTime);
-
+	if (nullptr == PlatformColCheck(JumpCol))
+	{
+		JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
+		GetTransform()->AddLocalPosition(JumpDir * _DeltaTime);
+	}
+	else 
+	{
+		JumpDir.y = -1.0f;
+	}
 
 	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
@@ -86,17 +101,23 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
-		ViewDir = ActorViewDir::Left;
+		SetViewDir(ActorViewDir::Left);
 
-		float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
-		GetTransform()->AddLocalPosition(MoveDir);
+		if (nullptr == PlatformColCheck(WalkCol))
+		{
+			float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
+			GetTransform()->AddLocalPosition(MoveDir);
+		}
 	}
 	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
-		ViewDir = ActorViewDir::Right;
+		SetViewDir(ActorViewDir::Right);
 
-		float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
-		GetTransform()->AddLocalPosition(MoveDir);
+		if (nullptr == PlatformColCheck(WalkCol))
+		{
+			float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
+			GetTransform()->AddLocalPosition(MoveDir);
+		}
 	}
 
 	if (JumpDir.y < 0)
@@ -115,7 +136,7 @@ void PlayerBaseSkull::Walk_Enter()
 
 void PlayerBaseSkull::Walk_Update(float _DeltaTime) 
 {
-	if (false == IsGround())
+	if (nullptr == PlatformColCheck(GroundCol, true))
 	{
 		PlayerFSM.ChangeState("Fall");
 		return;
@@ -123,8 +144,17 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
+		if (true == GameEngineInput::IsPress("PlayerMove_Down"))
+		{
+			if (nullptr == PlatformColCheck(GroundCol))
+			{
+				FallCooldown = 0.2f;
+				PlayerFSM.ChangeState("Fall");
+				return;
+			}
+		}
+
 		PlayerFSM.ChangeState("Jump");
-		return;
 	}
 
 	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
@@ -135,17 +165,23 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
-		ViewDir = ActorViewDir::Left;
+		SetViewDir(ActorViewDir::Left);
 
-		float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
-		GetTransform()->AddLocalPosition(MoveDir);
+		if (nullptr == PlatformColCheck(WalkCol))
+		{
+			float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
+			GetTransform()->AddLocalPosition(MoveDir);
+		}
 	}
 	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
-		ViewDir = ActorViewDir::Right;
+		SetViewDir(ActorViewDir::Right);
 
-		float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
-		GetTransform()->AddLocalPosition(MoveDir);
+		if (nullptr == PlatformColCheck(WalkCol))
+		{
+			float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
+			GetTransform()->AddLocalPosition(MoveDir);
+		}
 	}
 	else
 	{
@@ -166,10 +202,10 @@ void PlayerBaseSkull::Dash_Enter()
 	switch (ViewDir)
 	{
 	case ActorViewDir::Left:
-		PlayerRigidbody.SetVelocity(float4::Left * DashVelocity);
+		DashRigidbody.SetVelocity(float4::Left * DashVelocity);
 		break;
 	case ActorViewDir::Right:
-		PlayerRigidbody.SetVelocity(float4::Right * DashVelocity);
+		DashRigidbody.SetVelocity(float4::Right * DashVelocity);
 		break;
 	default:
 		break;
@@ -195,29 +231,29 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
-			ViewDir = ActorViewDir::Left;
+			SetViewDir(ActorViewDir::Left);
 		}
-		else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
-			ViewDir = ActorViewDir::Right;
+			SetViewDir(ActorViewDir::Right);
 		}
 
 		switch (ViewDir)
 		{
 		case ActorViewDir::Left:
-			PlayerRigidbody.SetVelocity(float4::Left * DashVelocity);
+			DashRigidbody.SetVelocity(float4::Left * DashVelocity);
 			break;
 		case ActorViewDir::Right:
-			PlayerRigidbody.SetVelocity(float4::Right * DashVelocity);
+			DashRigidbody.SetVelocity(float4::Right * DashVelocity);
 			break;
 		default:
 			break;
 		}
 	}
 
-	if (5.0f > PlayerRigidbody.GetVelocity().Size())
+	if (5.0f > DashRigidbody.GetVelocity().Size())
 	{
-		if (false == IsGround())
+		if (nullptr == PlatformColCheck(GroundCol))
 		{
 			PlayerFSM.ChangeState("Fall");
 			return;
@@ -225,12 +261,10 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
-			ViewDir = ActorViewDir::Left;
 			PlayerFSM.ChangeState("Walk");
 		}
 		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
-			ViewDir = ActorViewDir::Right;
 			PlayerFSM.ChangeState("Walk");
 		}
 		else 
@@ -243,6 +277,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 void PlayerBaseSkull::Dash_End()
 {
 }
+
 
 void PlayerBaseSkull::Fall_Enter() 
 {
@@ -274,28 +309,47 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
-		ViewDir = ActorViewDir::Left;
-		float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
-		GetTransform()->AddLocalPosition(MoveDir);
+		SetViewDir(ActorViewDir::Left);
 
+		if (nullptr == PlatformColCheck(WalkCol))
+		{
+			float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
+			GetTransform()->AddLocalPosition(MoveDir);
+		}
 	}
 	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
-		ViewDir = ActorViewDir::Right;
-		float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
-		GetTransform()->AddLocalPosition(MoveDir);
+		SetViewDir(ActorViewDir::Right);
+
+		if (nullptr == PlatformColCheck(WalkCol))
+		{
+			float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
+			GetTransform()->AddLocalPosition(MoveDir);
+		}
 	}
 
-	if (true == IsGround())
-	{
+	bool IsHalfCheck = 0.0f >= FallCooldown;
+	
+	std::shared_ptr<GameEngineCollision> GroundColPtr = PlatformColCheck(GroundCol, IsHalfCheck);
+
+	if (nullptr != GroundColPtr)
+	{	
+		GameEngineTransform* PlayerTrans = GetTransform();
+		float4 CurPos = PlayerTrans->GetWorldPosition();
+
+		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
+		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+		PlayerTrans->SetWorldPosition(CurPos);
+		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
+
 		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
-			ViewDir = ActorViewDir::Left;
 			PlayerFSM.ChangeState("Walk");
+
 		}
 		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
-			ViewDir = ActorViewDir::Right;
 			PlayerFSM.ChangeState("Walk");
 		}
 		else

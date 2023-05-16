@@ -51,6 +51,8 @@ public:
 	void PlatformDebugOff();
 
 protected:
+	void Start() override;
+	void Update(float _DeltaTime) override;
 
 private:
 	std::vector<std::shared_ptr<StaticObject>> StaticObjectActors;

@@ -163,7 +163,7 @@ void AnimationCollisionToolGUI::SetRenderer(std::shared_ptr<class GameEngineSpri
 	SpriteRender = _Render;
 }
 
-void AnimationCollisionToolGUI::SetCol(std::shared_ptr<class DebugCollisionRender> _Render)
+void AnimationCollisionToolGUI::SetCol(std::shared_ptr<DebugCollisionRender> _Render)
 {
 	ColRender = _Render;
 }
