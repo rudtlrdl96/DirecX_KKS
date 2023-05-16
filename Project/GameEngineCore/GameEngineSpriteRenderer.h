@@ -1,7 +1,6 @@
 #pragma once
 #include "GameEngineRenderer.h"
 #include "GameEngineSprite.h"
-#include "EngineContentRenderingStruct.h"
 #include <map>
 
 class AnimationInfo : public std::enable_shared_from_this<AnimationInfo>
@@ -64,6 +63,11 @@ public:
 	std::vector<float> FrameTime = std::vector<float>();
 };
 
+struct ColorOption
+{
+	float4 MulColor;
+	float4 PlusColor;
+};
 
 // Ό³Έν :
 class GameEngineSpriteRenderer : public GameEngineRenderer
@@ -136,11 +140,10 @@ public:
 		CurAnimation->PauseOff();
 	}
 
-
-	void SetAtlasConstantBuffer();
-
 	ColorOption ColorOptionValue;
 
+
+	void SetAtlasConstantBuffer();
 
 	void SetAnimationUpdateEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event);
 

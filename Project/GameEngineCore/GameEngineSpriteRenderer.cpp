@@ -332,11 +332,6 @@ void GameEngineSpriteRenderer::Render(float _Delta)
 	GameEngineRenderer::Render(_Delta);
 }
 
-void GameEngineSpriteRenderer::SetAtlasConstantBuffer()
-{
-	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
-}
-
 void GameEngineSpriteRenderer::SetAnimationUpdateEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event) 
 {
 	std::shared_ptr<AnimationInfo>  Info =  FindAnimation(_AnimationName);
@@ -359,6 +354,11 @@ void GameEngineSpriteRenderer::SetAnimationStartEvent(const std::string_view& _A
 	}
 
 	Info->StartEventFunction[_Frame] = _Event;
+}
+
+void GameEngineSpriteRenderer::SetAtlasConstantBuffer()
+{
+	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
 }
 
 std::string GameEngineSpriteRenderer::GetTexName()

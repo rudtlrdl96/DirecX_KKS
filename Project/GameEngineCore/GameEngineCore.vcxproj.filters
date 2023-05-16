@@ -29,9 +29,6 @@
     <ClInclude Include="GameEngineCollision.h">
       <Filter>Object\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineUpdateObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineObjectBase.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -139,12 +136,6 @@
     <ClInclude Include="GameEngineSprite.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineTileMapRenderer.h">
-      <Filter>Object\Rendering\Component\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineContentRenderingStruct.h">
-      <Filter>Object\Rendering\Component\2D</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineCore.cpp" />
@@ -174,9 +165,6 @@
     </ClCompile>
     <ClCompile Include="GameEngineCollision.cpp">
       <Filter>Object\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineUpdateObject.cpp">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineObjectBase.cpp">
       <Filter>Object</Filter>
@@ -280,9 +268,6 @@
     </ClCompile>
     <ClCompile Include="GameEngineSprite.cpp">
       <Filter>Resources\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineTileMapRenderer.cpp">
-      <Filter>Object\Rendering\Component\2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
