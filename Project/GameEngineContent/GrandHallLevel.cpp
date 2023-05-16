@@ -22,14 +22,14 @@ void GrandHallLevel::Start()
 	{
 		DirectoryPath.Move("Background");
 		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_GrandHall_Background_0");
-		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_GrandHall_Background_1");
+		//BattleAreaPtr->LoadBackground(DirectoryPath, "DB_GrandHall_Background_1");
 		DirectoryPath.MoveParent();
 	}
 
 	{
 		DirectoryPath.Move("Map");
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_GrandHall_BossEntrance_Map");
-		BattleAreaPtr->LoadMap(DirectoryPath, "DB_GrandHall_BossRoom_Map");
+		//BattleAreaPtr->LoadMap(DirectoryPath, "DB_GrandHall_BossRoom_Map");
 		DirectoryPath.MoveParent();
 	}
 
