@@ -50,7 +50,7 @@ void ShaderDebugLevel::Start()
 
 	CaptureTest = CreateActor<CaptureRenderer>();
 	CaptureTest->GetTransform()->SetLocalPosition(float4(300, 0, 0, 1));
-	CaptureTest->SetTexture("Opening_SObject (57).png");
+	CaptureTest->SetTexture("Opening_SObject (57).png", float4(0.0f, 0.0f, 1.0f, 1.0f));
 	CaptureTest->SetLoop(true);
 	CaptureTest->SetWaitTime(1.0f);
 	CaptureTest->Play(float4(0.95f, 0.2f, 1.0f, 1.0f), float4(0.95f, 0.2f, 1.0f, 0.0f), 0.3f);

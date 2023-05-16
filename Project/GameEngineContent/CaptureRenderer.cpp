@@ -9,7 +9,7 @@ CaptureRenderer::~CaptureRenderer()
 {
 }
 
-void CaptureRenderer::SetTexture(const std::string_view& _TextureName, const float4& _TextureSize /*= float4::Zero*/)
+void CaptureRenderer::SetTexture(const std::string_view& _TextureName, const float4& _AtlasData, float _ScaleRatio /*= 1.0f*/)
 {
 	if (nullptr == CaptureRender)
 	{
@@ -17,25 +17,11 @@ void CaptureRenderer::SetTexture(const std::string_view& _TextureName, const flo
 		return;
 	}
 
-	CaptureRender->SetTexture(_TextureName);
+	CaptureRender->SetScaleToTexture(_TextureName);	
+	float4 TetxureScale = CaptureRender->GetTransform()->GetLocalScale();
+	CaptureRender->GetTransform()->SetLocalScale(TetxureScale * _ScaleRatio);
 
-	if (float4::Zero == _TextureSize)
-	{
-		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(_TextureName);
-
-		if (nullptr == FindTex)
-		{
-			MsgAssert_Rtti<CaptureRenderer>(" - 존재 하지 않는 텍스쳐를 세팅하려 했습니다.");
-			return;
-		}
-
-		float4 TexSize = { static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()), 1.0f };
-		CaptureRender->GetTransform()->SetLocalScale(TexSize);
-	}
-	else
-	{
-		CaptureRender->GetTransform()->SetLocalScale(_TextureSize);
-	}
+	AtlasData = _AtlasData;
 }
 
 void CaptureRenderer::Play(const float4& _StartColor, const float4& _EndColor, float _Time)
@@ -60,7 +46,7 @@ void CaptureRenderer::Start()
 {
 	CaptureRender = CreateComponent<GameEngineSpriteRenderer>();
 	CaptureRender->SetPipeLine("2DTexture_Capture");
-	CaptureRender->SetAtlasConstantBuffer();
+	CaptureRender->GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
 	CaptureRender->GetShaderResHelper().SetConstantBufferLink("CaptureBuffer", Buffer);
 	CaptureRender->SetTexture("Empty.png");
 	CaptureRender->Off();

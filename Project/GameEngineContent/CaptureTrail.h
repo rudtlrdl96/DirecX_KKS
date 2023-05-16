@@ -14,7 +14,7 @@ public:
 	
 	void SetTime(float _Time);
 	void SetColor(const float4& _StartColor, const float4& _EndColor);
-	void PlayTrail(const std::string_view& _TextureName, const float4& _Size = float4::Zero);
+	void PlayTrail(const std::string_view& _TextureName, const float4& _AtlasData, bool _IsFlipX, float _ScaleRatio = 1.0f);
 
 protected:
 	void Update(float _DeltaTime) override;

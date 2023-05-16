@@ -41,7 +41,7 @@ void DebugTrailActor::Update(float _DeltaTime)
 {	
 	if (0.15f < GetLiveTime())
 	{	
-		Trail->PlayTrail("Opening_SObject (57).png");
+		Trail->PlayTrail("Opening_SObject (57).png", float4(0.0f, 0.0f, 1.0f, 1.0f), false);
 		ResetLiveTime();
 	}
 

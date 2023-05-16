@@ -23,7 +23,7 @@ void CaptureTrail::SetColor(const float4& _StartColor, const float4& _EndColor)
 	EndColor = _EndColor;
 }
 
-void CaptureTrail::PlayTrail(const std::string_view& _TextureName, const float4& _Size /*= float4::Zero*/)
+void CaptureTrail::PlayTrail(const std::string_view& _TextureName, const float4& _AtlasData, bool _IsFlipX, float _ScaleRatio /*= 1.0f*/)
 {
 	if (0 == WaitRenders.size())
 	{
@@ -34,9 +34,18 @@ void CaptureTrail::PlayTrail(const std::string_view& _TextureName, const float4&
 	std::shared_ptr<CaptureRenderer> WaitRender = WaitRenders.back();
 	WaitRenders.pop_back();
 
-	WaitRender->SetTexture(_TextureName, _Size);
+	WaitRender->SetTexture(_TextureName, _AtlasData, _ScaleRatio);
 	WaitRender->Play(StartColor, EndColor, Time);
 	WaitRender->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition());
+
+	if (true == _IsFlipX)
+	{
+		WaitRender->GetTransform()->SetLocalNegativeScaleX();
+	}
+	else
+	{
+		WaitRender->GetTransform()->SetLocalPositiveScaleX();
+	}
 
 	PlayRenders.push_back(WaitRender);
 }

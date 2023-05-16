@@ -12,7 +12,7 @@ public:
 	CaptureRenderer& operator=(const CaptureRenderer& _Other) = delete;
 	CaptureRenderer& operator=(CaptureRenderer&& _Other) noexcept = delete;
 
-	void SetTexture(const std::string_view& _TextureName, const float4& _TextureSize = float4::Zero);
+	void SetTexture(const std::string_view& _TextureName, const float4& _AtlasData, float _ScaleRatio = 1.0f);
 	void Play(const float4& _StartColor, const float4& _EndColor, float _Time);
 	
 	inline void SetLoop(bool _IsLoop)
@@ -39,6 +39,8 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> CaptureRender = nullptr;
 
 	CaptureBuffer Buffer;
+
+	float4 AtlasData = float4(0.0f, 0.0f, 1.0f, 1.0f);
 
 	float4 StartColor = float4::Zero;
 	float4 EndColor = float4::Zero;

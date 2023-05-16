@@ -4,6 +4,8 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
+#include "CaptureTrail.h"
+
 void PlayerBaseSkull::Idle_Enter()
 {
 	SkullRenderer->ChangeAnimation("Idle");
@@ -222,14 +224,28 @@ void PlayerBaseSkull::Dash_Enter()
 	DashCombo = false;
 
 	JumpDir = float4::Zero;
+
+	DashTrailCoolTime = 0.0f;
 }
 
 void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 {
 	if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
+		DoubleJump = false;
 		PlayerFSM.ChangeState("Jump");
 		return;
+	}
+
+	DashTrailCoolTime -= _DeltaTime;
+
+	if (0.0f >= DashTrailCoolTime)
+	{
+		DashTrailCoolTime += 0.07f;
+		DashTrail->PlayTrail(PlayerDashTextureName,
+			SkullRenderer->GetAtlasData(),
+			(ActorViewDir::Left == ViewDir),
+			SkullRenderer->GetScaleRatio());
 	}
 
 	if (false == DashCombo && GameEngineInput::IsDown("PlayerMove_Dash"))

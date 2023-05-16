@@ -87,6 +87,11 @@ public:
 		ScaleRatio = _Ratio;
 	}
 
+	inline float GetScaleRatio() const
+	{
+		return ScaleRatio;
+	}
+
 	void SetFlipX();
 	void SetFlipY();
 
@@ -114,6 +119,11 @@ public:
 	float4 GetAtlasData()
 	{
 		return AtlasData;
+	}
+
+	inline std::shared_ptr<GameEngineSprite> GetSprite() const
+	{
+		return Sprite;
 	}
 
 	void SetAtlasConstantBuffer();

@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 
 #include "CollisionDebugRender.h"
+#include "CaptureTrail.h"
 
 PlayerBaseSkull::PlayerBaseSkull()
 {
@@ -105,6 +106,12 @@ void PlayerBaseSkull::Start()
 	WalkCol->GetTransform()->SetLocalPosition(float4(20, 30, 0));
 	WalkCol->GetTransform()->SetLocalScale(float4(10, 58, 1));
 
+	DashTrail = GetLevel()->CreateActor<CaptureTrail>();
+	DashTrail->GetTransform()->SetParent(GetTransform());
+	DashTrail->SetTime(0.5f);
+	DashTrail->SetColor(float4(0.0f, 0.0f, 0.0f, 0.7f), float4::Null);
+
+	//DashTrail->GetTransform()->SetLocalPosition(float4(0, 0, 1));
 }
 
 void PlayerBaseSkull::Update(float _DeltaTime)

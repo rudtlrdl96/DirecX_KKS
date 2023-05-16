@@ -23,7 +23,7 @@ public:
 protected:	
 	std::shared_ptr<GameEngineSpriteRenderer> SkullRenderer = nullptr;
 
-	//std::vector<AttackMetaData> 
+	std::string PlayerDashTextureName = "";
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -79,6 +79,8 @@ private:
 	Rigidbody2D DashRigidbody;
 	ClassFSM<PlayerBaseSkull> PlayerFSM;
 	
+	std::shared_ptr<class CaptureTrail> DashTrail = nullptr;
+
 	std::shared_ptr<class GameEngineCollision> WalkCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> GroundCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> JumpCol = nullptr;
@@ -94,6 +96,7 @@ private:
 
 	bool CanDash = false;
 	float DashCoolTime = 0.0f;
+	float DashTrailCoolTime = 0.0f;
 
 	float DashVelocity = 3000.0f;
 	bool DashCombo = false;

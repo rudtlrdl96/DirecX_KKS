@@ -91,6 +91,8 @@ void BoneSkull::TextureLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Intro_2.png").GetFullPath(), 5, 4);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Normal_Getskull.png").GetFullPath(), 7, 7);
 	}
+
+	PlayerDashTextureName = "BronSkull_Dash.png";
 }
 
 void BoneSkull::CreateAnimation()
