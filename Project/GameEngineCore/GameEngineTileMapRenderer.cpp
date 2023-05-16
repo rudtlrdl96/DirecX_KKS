@@ -58,9 +58,10 @@ void GameEngineTileMapRenderer::SetTile(int _X, int _Y, const std::string_view& 
 	}
 
 
-	// 인덱스 오버는 만들어주세요
+	// 인덱스 오버
 	if (true == IsOver(_X, _Y))
 	{
+		MsgAssert("타일맵 크기를 초과해 접근하려 했습니다");
 		return;
 	}
 
@@ -73,12 +74,12 @@ void GameEngineTileMapRenderer::SetTile(int _X, int _Y, const std::string_view& 
 
 bool GameEngineTileMapRenderer::IsOver(int _X, int _Y) const
 {
-	if (MapCount.ix() <= _X)
+	if (0 > _X || MapCount.ix() <= _X)
 	{
 		return true;
 	}
 
-	if (MapCount.iy() <= _Y)
+	if (0 > _Y || MapCount.iy() <= _Y)
 	{
 		return true;
 	}

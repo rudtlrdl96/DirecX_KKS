@@ -37,5 +37,4 @@ void TilemapDebugActor::Start()
 			TilemapRender->SetTile(x, y, "BoxCol.png", 0);
 		}
 	}
-
 }
