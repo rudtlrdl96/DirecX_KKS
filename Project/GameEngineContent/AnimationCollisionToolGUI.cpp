@@ -24,7 +24,7 @@ void AnimationCollisionToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel> _Le
 		return;
 	}
 
-	if (true == ImGui::Button("Sprite Load", ImVec2(120, 35)))
+	if (true == ImGui::Button("Sprite Load"))
 	{
 		std::string Path = ContentFunc::GetOpenFilePath();
 
@@ -53,7 +53,21 @@ void AnimationCollisionToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel> _Le
 
 			SpriteRender->ChangeAnimation(SpriteAnimationName, ShowFrame, true);
 			SpriteRender->SetAnimPauseOn();
+
+			ColMetaDatas.Clear();
 		}
+	}
+
+	if (true == ImGui::Button("Data Save"))
+	{
+		Save();
+	}
+
+	ImGui::SameLine();
+
+	if (true == ImGui::Button("Data Load"))
+	{
+		Load();
 	}
 
 	ImGui::InputFloat("RenderScaleRatio", &RenderScale);
@@ -167,4 +181,64 @@ void AnimationCollisionToolGUI::SetRenderer(std::shared_ptr<class GameEngineSpri
 void AnimationCollisionToolGUI::SetCol(std::shared_ptr<AttackColRender> _Render)
 {
 	ColRender = _Render;
+}
+
+void AnimationCollisionToolGUI::Save()
+{
+	std::string Path = ContentFunc::GetSaveFilePath();
+
+	if ("" == Path)
+	{
+		return;
+	}
+
+	GameEngineSerializer SaveSerializer;
+	SaveSerializer.BufferResize(2048);
+
+	ColMetaDatas.SaveBin(SaveSerializer);
+
+	GameEngineFile SaveFile = GameEngineFile(Path);
+	SaveFile.SaveBin(SaveSerializer);
+}
+
+void AnimationCollisionToolGUI::Load()
+{
+	std::string Path = ContentFunc::GetOpenFilePath();
+
+	if ("" == Path)
+	{
+		return;
+	}
+
+	ColMetaDatas.Clear();
+
+	GameEngineFile LoadFile = GameEngineFile(Path);
+
+	GameEngineSerializer LoadSerializer;
+	LoadSerializer.BufferResize(2048);
+	LoadFile.LoadBin(LoadSerializer);
+
+	ColMetaDatas.LoadBin(LoadSerializer);
+
+	SpriteAnimationName = ColMetaDatas.GetSpriteName();
+	std::shared_ptr<GameEngineSprite> FindSprite = GameEngineSprite::Find(SpriteAnimationName);
+
+	if (nullptr == FindSprite)
+	{
+		MsgAssert_Rtti<AnimationCollisionToolGUI>(" - 로드되지 않은 시트를 사용하려 했습니다");
+		return;
+	}
+
+	std::shared_ptr<AnimationInfo> FindAnimInfo = SpriteRender->FindAnimation(SpriteAnimationName);
+
+	if (nullptr == FindAnimInfo)
+	{
+		FindAnimInfo = SpriteRender->CreateAnimation({ .AnimationName = SpriteAnimationName, .SpriteName = SpriteAnimationName, .ScaleToTexture = true });
+		EndFrame = static_cast<UINT>(FindAnimInfo->EndFrame);
+	}
+
+	ShowFrame = 0;
+
+	SpriteRender->ChangeAnimation(SpriteAnimationName, ShowFrame, true);
+	SpriteRender->SetAnimPauseOn();
 }

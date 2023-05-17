@@ -34,4 +34,7 @@ private:
 	UINT ShowFrame = 0;
 	UINT StartFrame = 0;
 	UINT EndFrame = 0;
+
+	void Save();
+	void Load();
 };
