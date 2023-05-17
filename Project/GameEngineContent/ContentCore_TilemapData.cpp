@@ -23,7 +23,7 @@ void ContentCore::TileDataLoad()
 
 		for (UINT i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			std::shared_ptr<GameEngineSprite> Tex = GameEngineSprite::LoadSheet(Files[i].GetFullPath(), 1, 1);
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = i, .Grade = LevelArea::None });
 		}
@@ -40,7 +40,7 @@ void ContentCore::TileDataLoad()
 
 		for (UINT i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			std::shared_ptr<GameEngineSprite> Tex = GameEngineSprite::LoadSheet(Files[i].GetFullPath(), 1, 1);
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 1000 + i, .Grade = LevelArea::Opening });
 		}
@@ -57,7 +57,7 @@ void ContentCore::TileDataLoad()
 
 		for (UINT i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			std::shared_ptr<GameEngineSprite> Tex = GameEngineSprite::LoadSheet(Files[i].GetFullPath(), 1, 1);
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 2000 + i, .Grade = LevelArea::Castle});
 		}
@@ -73,7 +73,7 @@ void ContentCore::TileDataLoad()
 	
 		for (UINT i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			std::shared_ptr<GameEngineSprite> Tex = GameEngineSprite::LoadSheet(Files[i].GetFullPath(), 1, 1);
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 3000 + i, .Grade = LevelArea::ForestOfHamory });
 		}
@@ -89,7 +89,7 @@ void ContentCore::TileDataLoad()
 	
 		for (UINT i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			std::shared_ptr<GameEngineSprite> Tex = GameEngineSprite::LoadSheet(Files[i].GetFullPath(), 1, 1);
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 4000 + i, .Grade = LevelArea::GrandHall });
 		}
@@ -105,7 +105,7 @@ void ContentCore::TileDataLoad()
 
 		for (UINT i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			std::shared_ptr<GameEngineSprite> Tex = GameEngineSprite::LoadSheet(Files[i].GetFullPath(), 1, 1);
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 5000 + i, .Grade = LevelArea::HolyCourtyard });
 		}
@@ -122,7 +122,7 @@ void ContentCore::TileDataLoad()
 
 		for (UINT i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			std::shared_ptr<GameEngineSprite> Tex = GameEngineSprite::LoadSheet(Files[i].GetFullPath(), 1, 1);
 			std::string Name = Tex->GetNameToString();
 			TileLoad({ .Name = Name, .Index = 6000 + i, .Grade = LevelArea::Shop });
 		}

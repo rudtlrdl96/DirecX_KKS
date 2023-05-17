@@ -2,6 +2,8 @@
 #include "BaseContentActor.h"
 #include "TileMetaData.h"
 
+#include <GameEngineCore/GameEngineTileMapRenderer.h>
+
 class TilemapMetaData
 {
 public:
@@ -68,14 +70,15 @@ public:
 	void SaveBin_TileMetaData(TileMetaData _Meta, GameEngineSerializer& _SaveSerializer);
 
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
-	TileMetaData LoadBin_TileMetaData(GameEngineSerializer& _SaveSerializer);
+	static UINT LoadBin_TileMetaData(GameEngineSerializer& _LoadSerializer);
 
 	void ShowGUI() override;
 
 protected:
 	
 private:
-	std::vector<std::vector<std::vector<std::shared_ptr<class TileActor>>>> TilemapDatas;
+	std::vector<std::shared_ptr<GameEngineTileMapRenderer>> TilemapRenders;
+	std::vector<std::vector<std::vector<TileMetaData>>> TilemapDatas;
 	
 	UINT Gui_TilemapCurDepth = 0;
 	UINT Gui_TilemapDepthCount = 0;
@@ -83,9 +86,6 @@ private:
 
 	int2 TilemapSize = int2::Zero;
 	float4 TileScale = float4::Zero;
-
-	void CreateTile(UINT _Depth, UINT _X, UINT _Y);
-	void ReleseTile(UINT _Depth, UINT _X, UINT _Y);
 
 	void Push_Tilemap_Up(UINT _Depth);
 	void Push_Tilemap_Down(UINT _Depth);

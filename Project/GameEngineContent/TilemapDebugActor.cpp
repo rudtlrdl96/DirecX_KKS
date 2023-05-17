@@ -28,7 +28,7 @@ void TilemapDebugActor::Start()
 
 	TilemapRender = CreateComponent<GameEngineTileMapRenderer>();
 
-	TilemapRender->CreateTileMap(10, 10, float4(64, 64, 1));
+	TilemapRender->CreateTileMap(50, 100, float4(64, 64, 1));
 
 	float4 TilemapCount = TilemapRender->GetCount();
 
