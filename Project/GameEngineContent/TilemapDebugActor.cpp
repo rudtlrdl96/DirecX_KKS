@@ -11,7 +11,7 @@ TilemapDebugActor::~TilemapDebugActor()
 
 void TilemapDebugActor::Start()
 {
-	if (nullptr == GameEngineSprite::Find(""))
+	if (nullptr == GameEngineSprite::Find("TilemapDebugTex_Red.png"))
 	{
 		GameEngineDirectory Path;
 
