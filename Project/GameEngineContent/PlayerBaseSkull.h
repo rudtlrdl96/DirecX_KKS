@@ -22,7 +22,10 @@ public:
 protected:	
 	std::shared_ptr<GameEngineSpriteRenderer> SkullRenderer = nullptr;
 
-	std::string PlayerDashTextureName = "";
+	std::vector<AnimationAttackMetaData> AnimColMeta_Attack;
+	std::vector<AnimationAttackMetaData> AnimColMeta_JumpAttack;
+	std::vector<AnimationAttackMetaData> AnimColMeta_SkillA;
+	std::vector<AnimationAttackMetaData> AnimColMeta_SkillB;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -36,9 +39,9 @@ protected:
 	virtual void Walk_Update(float _DeltaTime);
 	virtual void Walk_End();
 
-	virtual void Attack_Enter() {}
-	virtual void Attack_Update(float _DeltaTime) {}
-	virtual void Attack_End() {}
+	virtual void Attack_Enter();
+	virtual void Attack_Update(float _DeltaTime);
+	virtual void Attack_End();
 
 	virtual void JumpAttack_Enter() {}
 	virtual void JumpAttack_Update(float _DeltaTime) {}
@@ -70,9 +73,14 @@ protected:
 
 	virtual void TextureLoad() = 0;
 	virtual void CreateAnimation() = 0;
-
+	virtual void AnimationColLoad() = 0;
 
 	std::shared_ptr<class GameEngineCollision> PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf = false);
+
+	void Pushback_Attack(const AnimationAttackMetaData& _AnimData, float _InterTime);
+	void Pushback_JumpAttack(const AnimationAttackMetaData& _AnimData, float _InterTime);
+	void Pushback_SkillA(const AnimationAttackMetaData& _AnimData, float _InterTime);
+	void Pushback_SkillB(const AnimationAttackMetaData& _AnimData, float _InterTime);
 
 private:		
 	Rigidbody2D DashRigidbody;
@@ -94,7 +102,7 @@ private:
 	float FallCooldown = 0.0f;
 
 	bool CanDash = false;
-	float DashCoolTime = 0.0f;
+	float DashCoolTime = 1000.0f;
 	float DashTrailCoolTime = 0.0f;
 
 	float DashVelocity = 3000.0f;
@@ -103,7 +111,13 @@ private:
 	float WalkSpeed = 350.0f;
 	float MaxFallSpeed = 1400.0f;
 
+	UINT AttackComboCount = 0;
+	bool IsAttackCombo = false;
+
 	void SetViewDir(ActorViewDir _ViewDir);
 	void CreateColDebugRender();
+
+
+	void CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime);
 };
 

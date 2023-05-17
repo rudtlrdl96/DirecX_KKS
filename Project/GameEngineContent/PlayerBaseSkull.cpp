@@ -24,8 +24,7 @@ void PlayerBaseSkull::Start()
 
 	TextureLoad();
 	CreateAnimation();
-
-
+	AnimationColLoad();
 
 	if (nullptr == GameEngineSprite::Find("Player_DashSmokeEffect.png"))
 	{
@@ -79,14 +78,14 @@ void PlayerBaseSkull::Start()
 			float4::Zero,
 			0, 11,
 			0.04f,
-			1.5f});
+			2.0f});
 
 		EffectManager::CreateMetaData("PlayerJumpEffect", {
 			"Player_DoubleJumpEffect.png" ,
 			float4::Zero,
 			0, 9,
 			0.05f,
-			1.5f});
+			2.0f});
 
 	}
 
@@ -108,8 +107,8 @@ void PlayerBaseSkull::Start()
 
 	DashTrail = GetLevel()->CreateActor<CaptureTrail>();
 	DashTrail->GetTransform()->SetParent(GetTransform());
-	DashTrail->SetTime(0.5f);
-	DashTrail->SetColor(float4(0.0f, 0.0f, 0.0f, 0.7f), float4::Null);
+	DashTrail->SetTime(0.4f);
+	DashTrail->SetColor(float4(0.0f, 0.0f, 0.0f, 1.0f), float4::Null);
 
 	//DashTrail->GetTransform()->SetLocalPosition(float4(0, 0, 1));
 }
@@ -146,7 +145,7 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 		DashCoolTime += _DeltaTime;
 	}
 
-	if (DashCoolTime >= 0.7f)
+	if (DashCoolTime >= 0.9f)
 	{
 		CanDash = true;
 		DashCoolTime = 0.0f;
@@ -177,6 +176,30 @@ std::shared_ptr< GameEngineCollision> PlayerBaseSkull::PlatformColCheck(const st
 	}
 
 	return ReslutCol;
+}
+
+void PlayerBaseSkull::Pushback_Attack(const AnimationAttackMetaData& _AnimData, float _InterTime)
+{
+	CreateAttackAnim(_AnimData, _InterTime);
+	AnimColMeta_Attack.push_back(_AnimData);
+}
+
+void PlayerBaseSkull::Pushback_JumpAttack(const AnimationAttackMetaData& _AnimData, float _InterTime)
+{
+	CreateAttackAnim(_AnimData, _InterTime);
+	AnimColMeta_JumpAttack.push_back(_AnimData);
+}
+
+void PlayerBaseSkull::Pushback_SkillA(const AnimationAttackMetaData& _AnimData, float _InterTime)
+{
+	CreateAttackAnim(_AnimData, _InterTime);
+	AnimColMeta_SkillA.push_back(_AnimData);
+}
+
+void PlayerBaseSkull::Pushback_SkillB(const AnimationAttackMetaData& _AnimData, float _InterTime)
+{
+	CreateAttackAnim(_AnimData, _InterTime);
+	AnimColMeta_SkillB.push_back(_AnimData);
 }
 
 void PlayerBaseSkull::SetViewDir(ActorViewDir _ViewDir)
@@ -266,5 +289,17 @@ void PlayerBaseSkull::CreateColDebugRender()
 		WalkDebugRender->GetTransform()->SetParent(WalkCol->GetTransform(), false);
 		WalkDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
 	}
+
+}
+
+void PlayerBaseSkull::CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime)
+{
+	SkullRenderer->CreateAnimation({ 
+		.AnimationName = _AnimData.GetAnimationName().data(),
+		.SpriteName = _AnimData.GetSpriteName().data(),
+		.Start = _AnimData.GetStartFrame() ,
+		.End = _AnimData.GetEndFrame(),
+		.FrameInter = _InterTime,
+		.ScaleToTexture = true});
 
 }

@@ -28,7 +28,6 @@ std::shared_ptr<StaticObject> ObjectManager::CreateStaticObject(const SObjectMet
 	CreatePtr->GetTransform()->SetParent(this->GetTransform());
 	CreatePtr->Init(_Meta);
 	StaticObjectActors.push_back(CreatePtr);
-	CurrentStaticObjectIndex = static_cast<int>(StaticObjectActors.size() - 1);
 
 	return CreatePtr;
 }
@@ -40,7 +39,6 @@ std::shared_ptr<MapPlatform> ObjectManager::CreatePaltform(const MapPlatform::Pl
 	CreatePtr->GetTransform()->SetParent(this->GetTransform());
 	CreatePtr->Init(_MetaData);
 	MapPlatformActors.push_back(CreatePtr);
-	CurrentPlatformIndex = static_cast<int>(MapPlatformActors.size() - 1);
 
 	if (true == IsPlatformDebug)
 	{

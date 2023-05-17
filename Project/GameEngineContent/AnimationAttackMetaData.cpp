@@ -155,6 +155,9 @@ void AnimationAttackMetaData::Create(const std::string_view& _SpriteName, UINT _
 		return;
 	}
 
+	AnimStart = _Start;
+	AnimEnd = _End;
+
 	SpriteName = _SpriteName;
 	AttackMetaData.resize(AnimCount);
 }
@@ -175,7 +178,8 @@ void AnimationAttackMetaData::SaveBin(GameEngineSerializer& _SaveSerializer) con
 {
 	_SaveSerializer.Write(SpriteName);
 	_SaveSerializer.Write(AnimationName);
-
+	_SaveSerializer.Write(&AnimStart, sizeof(UINT));
+	_SaveSerializer.Write(&AnimEnd, sizeof(UINT));
 	_SaveSerializer.Write(static_cast<int>(AttackMetaData.size()));
 
 
@@ -191,6 +195,8 @@ void AnimationAttackMetaData::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 	_LoadSerializer.Read(SpriteName);
 	_LoadSerializer.Read(AnimationName);
+	_LoadSerializer.Read(&AnimStart, sizeof(UINT));
+	_LoadSerializer.Read(&AnimEnd, sizeof(UINT));
 
 	int Size = 0;
 	_LoadSerializer.Read(Size);

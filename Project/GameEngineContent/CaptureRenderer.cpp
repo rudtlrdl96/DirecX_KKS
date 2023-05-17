@@ -19,6 +19,10 @@ void CaptureRenderer::SetTexture(const std::string_view& _TextureName, const flo
 
 	CaptureRender->SetScaleToTexture(_TextureName);	
 	float4 TetxureScale = CaptureRender->GetTransform()->GetLocalScale();
+
+	TetxureScale.x *= _AtlasData.SizeX;
+	TetxureScale.y *= _AtlasData.SizeY;
+
 	CaptureRender->GetTransform()->SetLocalScale(TetxureScale * _ScaleRatio);
 
 	AtlasData = _AtlasData;

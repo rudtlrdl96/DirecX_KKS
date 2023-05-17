@@ -112,6 +112,11 @@ public:
 		return CurAnimation->CurFrame;
 	}
 
+	void SetAtlasData(const float4& _AtlasData)
+	{
+		AtlasData = _AtlasData;
+	}
+
 	float4 GetAtlasData()
 	{
 		return AtlasData;

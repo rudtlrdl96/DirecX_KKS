@@ -91,8 +91,6 @@ void BoneSkull::TextureLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Intro_2.png").GetFullPath(), 5, 4);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BornSkull_Normal_Getskull.png").GetFullPath(), 7, 7);
 	}
-
-	PlayerDashTextureName = "BronSkull_Dash.png";
 }
 
 void BoneSkull::CreateAnimation()
@@ -126,4 +124,20 @@ void BoneSkull::CreateAnimation()
 	SkullRenderer->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "BornSkull_Jump.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	SkullRenderer->CreateAnimation({ .AnimationName = "Jump_NoWeapon", .SpriteName = "BornSkull_Jump_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	SkullRenderer->CreateAnimation({ .AnimationName = "Jump_NoHead", .SpriteName = "BornSkull_Jump_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+}
+
+void BoneSkull::AnimationColLoad()
+{
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Data");
+		Path.Move("8_Player");
+		Path.Move("BoneSkull"); 
+		
+		Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("BoneSukll_AttackA").GetFullPath()), 0.1f);
+		Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("BoneSukll_AttackB").GetFullPath()), 0.1f);
+	}
 }

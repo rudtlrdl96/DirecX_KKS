@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include "ContentSpriteRenderer.h"
 #include "ClassFSM.h"
+#include "AnimationAttackMetaData.h"
 
 class BaseContentActor : public GameEngineActor
 {

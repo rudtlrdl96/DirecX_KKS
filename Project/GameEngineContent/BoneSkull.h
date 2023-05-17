@@ -17,5 +17,6 @@ protected:
 private:
 	void TextureLoad() override;
 	void CreateAnimation() override;
+	void AnimationColLoad() override;
 };
 

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "AnimationAttackMetaData.h"
 
 class ContentFunc
 {
@@ -19,6 +19,8 @@ public:
 	static std::string GetSaveFilePath();
 
 	static float4 ConvertFloat4(float _FloatArr[4]);
+
+	static AnimationAttackMetaData LoadAnimAttackMetaData(const std::string_view& _Path);
 
 protected:
 	

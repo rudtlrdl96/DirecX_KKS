@@ -109,6 +109,19 @@ float4 ContentFunc::ConvertFloat4(float _FloatArr[4])
     return float4(_FloatArr[0], _FloatArr[1], _FloatArr[2], _FloatArr[3]);
 }
 
+AnimationAttackMetaData ContentFunc::LoadAnimAttackMetaData(const std::string_view& _Path)
+{
+    AnimationAttackMetaData LoadData;
+    GameEngineFile LoadFile = GameEngineFile(_Path);
+
+    GameEngineSerializer LoadSerializer;
+    LoadSerializer.BufferResize(2048);
+    LoadFile.LoadBin(LoadSerializer);
+    LoadData.LoadBin(LoadSerializer);
+
+    return LoadData;
+}
+
 ContentFunc::ContentFunc()
 {
 }
