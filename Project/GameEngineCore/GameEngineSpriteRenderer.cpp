@@ -170,7 +170,7 @@ std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::FindAnimation(const std
 	return FindIter->second;
 }
 
-std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::CreateAnimation(const ContentAnimationParameter& _Paramter)
+std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::CreateAnimation(const AnimationParameter& _Paramter)
 {
 	if (nullptr != FindAnimation(_Paramter.AnimationName))
 	{

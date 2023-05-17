@@ -50,7 +50,7 @@ public:
 };
 
 
-class AnimationParameter
+class ContentAnimationParameter
 {
 public:
 	std::string_view AnimationName = "";
@@ -93,7 +93,7 @@ public:
 
 	std::shared_ptr<ContentAnimationInfo> FindAnimation(const std::string_view& _Name);
 
-	std::shared_ptr<ContentAnimationInfo> CreateAnimation(const AnimationParameter& _Paramter);
+	std::shared_ptr<ContentAnimationInfo> CreateAnimation(const ContentAnimationParameter& _Paramter);
 
 	void ChangeAnimation(const std::string_view& _Name, bool _Force, size_t _Frame = -1)
 	{

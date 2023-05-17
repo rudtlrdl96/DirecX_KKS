@@ -26,7 +26,7 @@ private:
 		IsPauseValue = true;
 	}
 
-	inline void PauseOff()
+	inline void PauseOff() 
 	{
 		IsPauseValue = false;
 	}
@@ -50,7 +50,7 @@ public:
 };
 
 
-class ContentAnimationParameter
+class AnimationParameter
 {
 public:
 	std::string_view AnimationName = "";
@@ -93,10 +93,10 @@ public:
 
 	std::shared_ptr<AnimationInfo> FindAnimation(const std::string_view& _Name);
 
-	std::shared_ptr<AnimationInfo> CreateAnimation(const ContentAnimationParameter& _Paramter);
+	std::shared_ptr<AnimationInfo> CreateAnimation(const AnimationParameter& _Paramter);
 
 	void ChangeAnimation(const std::string_view& _Name, bool _Force, size_t _Frame = -1)
-	{ 
+	{
 		ChangeAnimation(_Name, _Frame, _Force);
 	}
 
@@ -126,7 +126,7 @@ public:
 
 	void SetFrame(size_t _Frame);
 
-	void SetAnimPauseOn()
+	void SetAnimPauseOn() 
 	{
 		CurAnimation->PauseOn();
 	}

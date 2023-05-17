@@ -133,13 +133,6 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 
 	FallCooldown -= _DeltaTime;
 
-	if (nullptr == PlatformColCheck(WalkCol))
-	{
-		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
-
-		GetTransform()->AddLocalPosition(Velocity);
-	}
-
 	if (false == CanDash)
 	{
 		DashCoolTime += _DeltaTime;

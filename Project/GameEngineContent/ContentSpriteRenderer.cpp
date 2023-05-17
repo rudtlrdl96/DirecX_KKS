@@ -169,7 +169,7 @@ std::shared_ptr<ContentAnimationInfo> ContentSpriteRenderer::FindAnimation(const
 	return FindIter->second;
 }
 
-std::shared_ptr<ContentAnimationInfo> ContentSpriteRenderer::CreateAnimation(const AnimationParameter& _Paramter)
+std::shared_ptr<ContentAnimationInfo> ContentSpriteRenderer::CreateAnimation(const ContentAnimationParameter& _Paramter)
 {
 	if (nullptr != FindAnimation(_Paramter.AnimationName))
 	{

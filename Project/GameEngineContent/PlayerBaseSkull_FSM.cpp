@@ -79,6 +79,12 @@ void PlayerBaseSkull::Jump_Enter()
 
 void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 {
+	if (nullptr == PlatformColCheck(WalkCol))
+	{
+		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
+		GetTransform()->AddLocalPosition(Velocity);
+	}
+
 	if (nullptr == PlatformColCheck(JumpCol))
 	{
 		JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
@@ -140,6 +146,12 @@ void PlayerBaseSkull::Walk_Enter()
 
 void PlayerBaseSkull::Walk_Update(float _DeltaTime) 
 {
+	if (nullptr == PlatformColCheck(WalkCol))
+	{
+		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
+		GetTransform()->AddLocalPosition(Velocity);
+	}
+
 	if (nullptr == PlatformColCheck(GroundCol, true))
 	{
 		PlayerFSM.ChangeState("Fall");
@@ -241,6 +253,12 @@ void PlayerBaseSkull::Dash_Enter()
 
 void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 {
+	if (nullptr == PlatformColCheck(WalkCol))
+	{
+		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
+		GetTransform()->AddLocalPosition(Velocity);
+	}
+
 	if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		PlayerFSM.ChangeState("Jump");
@@ -337,6 +355,13 @@ void PlayerBaseSkull::Fall_Enter()
 
 void PlayerBaseSkull::Fall_Update(float _DeltaTime) 
 {
+
+	if (nullptr == PlatformColCheck(WalkCol))
+	{
+		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
+		GetTransform()->AddLocalPosition(Velocity);
+	}
+
 	if (true == SkullRenderer->FindAnimation("Fall")->IsEnd())
 	{
 		SkullRenderer->ChangeAnimation("FallRepeat");
@@ -431,6 +456,12 @@ void PlayerBaseSkull::Attack_Enter()
 
 void PlayerBaseSkull::Attack_Update(float _DeltaTime) 
 {
+	if (nullptr == PlatformColCheck(WalkCol))
+	{
+		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
+		GetTransform()->AddLocalPosition(Velocity);
+	}
+
 	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
 		PlayerFSM.ChangeState("Dash");
