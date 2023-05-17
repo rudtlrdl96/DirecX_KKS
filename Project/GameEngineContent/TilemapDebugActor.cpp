@@ -19,9 +19,11 @@ void TilemapDebugActor::Start()
 		Path.Move("Resources");
 		Path.Move("Texture");
 		Path.Move("0_Common");
+		Path.Move("DebugTex");
 
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoxCol.png").GetFullPath(), 1, 1);
-
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("TilemapDebugTex_Red.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("TilemapDebugTex_Green.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("TilemapDebugTex_Magenta.png").GetFullPath(), 1, 1);
 	}
 
 	TilemapRender = CreateComponent<GameEngineTileMapRenderer>();
@@ -34,7 +36,12 @@ void TilemapDebugActor::Start()
 	{
 		for (int x = 0; x < TilemapCount.ix(); x++)
 		{
-			TilemapRender->SetTile(x, y, "BoxCol.png", 0);
+			TilemapRender->SetTile(x, y, "TilemapDebugTex_Red.png", 0);
 		}
 	}
+
+	TilemapRender->SetTile(0, 0, "TilemapDebugTex_Green.png", 0);
+	TilemapRender->SetTile(3, 5, "TilemapDebugTex_Green.png", 0);
+	TilemapRender->SetTile(8, 2, "TilemapDebugTex_Magenta.png", 0);
+	TilemapRender->SetTile(2, 8, "TilemapDebugTex_Magenta.png", 0);
 }
