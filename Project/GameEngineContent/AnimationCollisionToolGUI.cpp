@@ -2,7 +2,7 @@
 #include "AnimationCollisionToolGUI.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineSprite.h>
-#include "DebugCollisionRender.h"
+#include "AttackColRender.h"
 
 AnimationCollisionToolGUI::AnimationCollisionToolGUI()
 {
@@ -37,21 +37,21 @@ void AnimationCollisionToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel> _Le
 
 			if (nullptr == FindSprite)
 			{
-				FindSprite = GameEngineSprite::LoadSheet(Path, LoadWitdhCount, LoadHeightCount);
+				MsgAssert_Rtti<AnimationCollisionToolGUI>(" - 로드되지 않은 시트를 사용하려 했습니다");
+				return;
 			}
 
 			std::shared_ptr<AnimationInfo> FindAnimInfo = SpriteRender->FindAnimation(SpriteAnimationName);
 
 			if (nullptr == FindAnimInfo)
 			{
-				FindAnimInfo = SpriteRender->CreateAnimation({.AnimationName = SpriteAnimationName, .SpriteName = SpriteAnimationName, .ScaleToTexture = true});
-			
-				EndIndex = static_cast<UINT>(FindAnimInfo->EndFrame);
+				FindAnimInfo = SpriteRender->CreateAnimation({.AnimationName = SpriteAnimationName, .SpriteName = SpriteAnimationName, .ScaleToTexture = true});			
+				EndFrame = static_cast<UINT>(FindAnimInfo->EndFrame);
 			}
 
-			ShowIndex = 0;
-			SpriteRender->ChangeAnimation(SpriteAnimationName, ShowIndex, true);
+			ShowFrame = 0;
 
+			SpriteRender->ChangeAnimation(SpriteAnimationName, ShowFrame, true);
 			SpriteRender->SetAnimPauseOn();
 		}
 	}
@@ -59,66 +59,69 @@ void AnimationCollisionToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel> _Le
 	ImGui::InputFloat("RenderScaleRatio", &RenderScale);
 	SpriteRender->SetScaleRatio(RenderScale);
 
-	ImGui::Text(std::string("Show Animation Index : " + std::to_string(ShowIndex)).data());
+	ImGui::Text(std::string("Show Animation Index : " + std::to_string(ShowFrame)).data());
 
-	int InputStart = StartIndex;
+	int InputStart = StartFrame;
 
 	ImGui::InputInt("Animation Start", &InputStart);
 
-	if (InputStart != StartIndex) 
+	if (InputStart != StartFrame)
 	{
 		if (InputStart < 0)
 		{
 			InputStart = 0;
 		}
 
-		StartIndex = static_cast<UINT>(InputStart);
+		StartFrame = static_cast<UINT>(InputStart);
 	}
 
-	int InputEnd = EndIndex;
+	int InputEnd = EndFrame;
 
 	ImGui::InputInt("Animation End", &InputEnd);
 
-	if (InputEnd != EndIndex)
+	if (InputEnd != EndFrame)
 	{
 		if (InputEnd < 0)
 		{
 			InputEnd = 0;
 		}
 
-		EndIndex = static_cast<UINT>(InputEnd);
+		EndFrame = static_cast<UINT>(InputEnd);
 	}
 
 	if (true == ImGui::Button("Prev", ImVec2(60, 30)))
 	{
-		if (StartIndex == ShowIndex)
+		if (StartFrame == ShowFrame)
 		{
-			ShowIndex = EndIndex;
+			ShowFrame = EndFrame;
 		}
 		else
 		{
-			--ShowIndex;
+			--ShowFrame;
 		}
 
-		SpriteRender->ChangeAnimation(SpriteAnimationName, ShowIndex, true);
+		SpriteRender->ChangeAnimation(SpriteAnimationName, ShowFrame, true);
+		SpriteRender->SetAnimPauseOn();
 	}
 
 	ImGui::SameLine();
 
 	if (true == ImGui::Button("Next", ImVec2(60, 30)))
 	{
-		if (EndIndex == ShowIndex)
+		if (EndFrame == ShowFrame)
 		{
-			ShowIndex = StartIndex;
+			ShowFrame = StartFrame;
 		}
 		else
 		{
-			++ShowIndex;
+			++ShowFrame;
 		}
 
-		SpriteRender->ChangeAnimation(SpriteAnimationName, ShowIndex, true);
+		SpriteRender->ChangeAnimation(SpriteAnimationName, ShowFrame, true);
+		SpriteRender->SetAnimPauseOn();
 	}
 
+	ImGui::Spacing();
 	ImGui::Spacing();
 
 	if (nullptr == ColRender)
@@ -127,35 +130,33 @@ void AnimationCollisionToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel> _Le
 		return;
 	}
 
-	ImGui::Combo("ColType", &ColComboIndex, ColTypeComboText, IM_ARRAYSIZE(ColTypeComboText));
-
-	switch (ColComboIndex)
+	if (true == ImGui::Button("Create AnimCol Data"))
 	{
-	case 0: // Box
-		ColRender->SetColType(DeubgColType::Box);
-		break;
-	case 1: // Sphere
-		ColRender->SetColType(DeubgColType::Sphere);
-		break;
-	default:
-		break;
+		ColMetaDatas.Create(SpriteAnimationName, StartFrame, EndFrame);
 	}
 
+	ImGui::SameLine();
 
-	float InputColCenter[4] = { ColCenterPos.x, ColCenterPos.y, ColCenterPos.z, ColCenterPos.w};
+	if (true == ImGui::Button("Clear AnimCol Data"))
+	{
+		ColMetaDatas.Clear();
+	}
 
-	ImGui::DragFloat4("ColCenter", InputColCenter);
-	ColCenterPos = ContentFunc::ConvertFloat4(InputColCenter);
+	if (0 == ColMetaDatas.AttackMetaData.size())
+	{
+		ColRender->DrawColData({});
+		return;
+	}
+	else
+	{
+		int Frame = ShowFrame - ColMetaDatas.AnimStart;
 
-	ColRender->GetTransform()->SetLocalPosition(ColCenterPos);
-
-	float InputColSize[4] = { ColSize.x, ColSize.y , ColSize.z ,ColSize.w };
-
-	ImGui::DragFloat4("ColSize", InputColSize);
-	ColSize = ContentFunc::ConvertFloat4(InputColSize);
-
-	ColRender->SetSize(ColSize);
-
+		if (0 <= Frame && ColMetaDatas.AttackMetaData.size() > Frame)
+		{
+			ColMetaDatas.ShowGUI(Frame);
+			ColRender->DrawColData(ColMetaDatas.AttackMetaData[Frame]);
+		}
+	}
 }
 
 void AnimationCollisionToolGUI::SetRenderer(std::shared_ptr<class GameEngineSpriteRenderer> _Render)
@@ -163,7 +164,7 @@ void AnimationCollisionToolGUI::SetRenderer(std::shared_ptr<class GameEngineSpri
 	SpriteRender = _Render;
 }
 
-void AnimationCollisionToolGUI::SetCol(std::shared_ptr<DebugCollisionRender> _Render)
+void AnimationCollisionToolGUI::SetCol(std::shared_ptr<AttackColRender> _Render)
 {
 	ColRender = _Render;
 }

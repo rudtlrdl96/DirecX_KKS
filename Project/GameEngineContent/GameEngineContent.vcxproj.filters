@@ -271,9 +271,6 @@
     <Filter Include="4_Level\DebugLevel\Tool\AttackColTool">
       <UniqueIdentifier>{b6a3eb4d-4dee-4bca-88b4-25c6aac1441c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Debug\MapTool">
-      <UniqueIdentifier>{d794b95d-468a-4fc2-b724-c2cf83402d41}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1_Class\Battle">
       <UniqueIdentifier>{9154380d-edbd-443f-b9c6-1e3544cb89f8}</UniqueIdentifier>
     </Filter>
@@ -306,6 +303,9 @@
     </Filter>
     <Filter Include="3_Component\Renderer">
       <UniqueIdentifier>{8bf0b896-7e80-4916-8d00-b56c5cdc8cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Debug\Tool">
+      <UniqueIdentifier>{d794b95d-468a-4fc2-b724-c2cf83402d41}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -502,7 +502,7 @@
       <Filter>1_Class\Shader\ShaderBuffer</Filter>
     </ClInclude>
     <ClInclude Include="TilemapPallet.h">
-      <Filter>2_Actor\Debug\MapTool</Filter>
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
     <ClInclude Include="DebugBoxActor.h">
       <Filter>2_Actor\Debug\Common</Filter>
@@ -514,16 +514,16 @@
       <Filter>2_Actor\Debug\Common</Filter>
     </ClInclude>
     <ClInclude Include="MouseCursorFollowTex.h">
-      <Filter>2_Actor\Debug\MapTool</Filter>
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
     <ClInclude Include="TilemapHoverRenderActor.h">
-      <Filter>2_Actor\Debug\MapTool</Filter>
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
     <ClInclude Include="BrokenObject.h">
       <Filter>2_Actor\Map\Stage\Object\BrokenObject</Filter>
     </ClInclude>
     <ClInclude Include="TilemapOutlineRenderActor.h">
-      <Filter>2_Actor\Debug\MapTool</Filter>
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundToolLevel.h">
       <Filter>4_Level\DebugLevel\Tool\BackgroundTool</Filter>
@@ -556,7 +556,7 @@
       <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSpawnPointRenderer.h">
-      <Filter>2_Actor\Debug\MapTool</Filter>
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsDebugLevel.h">
       <Filter>4_Level\DebugLevel\Test\Physics</Filter>
@@ -570,7 +570,7 @@
     <ClInclude Include="AnimationColToolLevel.h">
       <Filter>4_Level\DebugLevel\Tool\AttackColTool</Filter>
     </ClInclude>
-    <ClInclude Include="AttackMetaData.h">
+    <ClInclude Include="AnimationAttackMetaData.h">
       <Filter>1_Class\Battle</Filter>
     </ClInclude>
     <ClInclude Include="MapParticleBase.h">
@@ -603,9 +603,6 @@
     <ClInclude Include="EffectActor.h">
       <Filter>2_Actor\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="DebugCollisionRender.h">
-      <Filter>2_Actor\Debug\MapTool</Filter>
-    </ClInclude>
     <ClInclude Include="AttackColToolAnimActor.h">
       <Filter>2_Actor\Debug</Filter>
     </ClInclude>
@@ -617,6 +614,9 @@
     </ClInclude>
     <ClInclude Include="ContentSpriteRenderer.h">
       <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackColRender.h">
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -816,7 +816,7 @@
       <Filter>1_Class\Shader\ShaderBuffer</Filter>
     </ClCompile>
     <ClCompile Include="TilemapPallet.cpp">
-      <Filter>2_Actor\Debug\MapTool</Filter>
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClCompile>
     <ClCompile Include="DebugBoxActor.cpp">
       <Filter>2_Actor\Debug\Common</Filter>
@@ -828,16 +828,16 @@
       <Filter>2_Actor\Debug\Common</Filter>
     </ClCompile>
     <ClCompile Include="MouseCursorFollowTex.cpp">
-      <Filter>2_Actor\Debug\MapTool</Filter>
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClCompile>
     <ClCompile Include="TilemapHoverRenderActor.cpp">
-      <Filter>2_Actor\Debug\MapTool</Filter>
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClCompile>
     <ClCompile Include="BrokenObject.cpp">
       <Filter>2_Actor\Map\Stage\Object\BrokenObject</Filter>
     </ClCompile>
     <ClCompile Include="TilemapOutlineRenderActor.cpp">
-      <Filter>2_Actor\Debug\MapTool</Filter>
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClCompile>
     <ClCompile Include="BackgroundToolLevel.cpp">
       <Filter>4_Level\DebugLevel\Tool\BackgroundTool</Filter>
@@ -894,7 +894,7 @@
       <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSpawnPointRenderer.cpp">
-      <Filter>2_Actor\Debug\MapTool</Filter>
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsDebugLevel.cpp">
       <Filter>4_Level\DebugLevel\Test\Physics</Filter>
@@ -908,7 +908,7 @@
     <ClCompile Include="AnimationColToolLevel.cpp">
       <Filter>4_Level\DebugLevel\Tool\AttackColTool</Filter>
     </ClCompile>
-    <ClCompile Include="AttackMetaData.cpp">
+    <ClCompile Include="AnimationAttackMetaData.cpp">
       <Filter>1_Class\Battle</Filter>
     </ClCompile>
     <ClCompile Include="MapParticleBase.cpp">
@@ -941,9 +941,6 @@
     <ClCompile Include="EffectActor.cpp">
       <Filter>2_Actor\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="DebugCollisionRender.cpp">
-      <Filter>2_Actor\Debug\MapTool</Filter>
-    </ClCompile>
     <ClCompile Include="AttackColToolAnimActor.cpp">
       <Filter>2_Actor\Debug</Filter>
     </ClCompile>
@@ -955,6 +952,9 @@
     </ClCompile>
     <ClCompile Include="ContentSpriteRenderer.cpp">
       <Filter>3_Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackColRender.cpp">
+      <Filter>2_Actor\Debug\Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

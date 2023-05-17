@@ -2,7 +2,7 @@
 #include "AnimationColToolLevel.h"
 #include "AnimationCollisionToolGUI.h"
 #include "AttackColToolAnimActor.h"
-#include "DebugCollisionRender.h"
+#include "AttackColRender.h"
 
 AnimationColToolLevel::AnimationColToolLevel()
 {
@@ -25,7 +25,7 @@ void AnimationColToolLevel::Start()
 	}
 
 	AnimRenderActor = CreateActor<AttackColToolAnimActor>();
-	ColRenderActor = CreateActor<DebugCollisionRender>();
+	ColRenderActor = CreateActor<AttackColRender>();
 }
 
 void AnimationColToolLevel::Update(float _DeltaTime)

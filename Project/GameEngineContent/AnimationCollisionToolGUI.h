@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineCoreWindow.h>
+#include "AnimationAttackMetaData.h"
 
 class AnimationCollisionToolGUI : public GameEngineCoreWindow
 {
@@ -16,28 +17,21 @@ public:
 	void OnGUI(std::shared_ptr<class GameEngineLevel> _Level, float _DeltaTime) override;
 
 	void SetRenderer(std::shared_ptr<class GameEngineSpriteRenderer> _Render);
-	void SetCol(std::shared_ptr<class DebugCollisionRender> _Render);
+	void SetCol(std::shared_ptr<class AttackColRender> _Render);
 
 protected:
 	
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> SpriteRender = nullptr;
-	std::shared_ptr<class DebugCollisionRender> ColRender = nullptr;
+	std::shared_ptr<class AttackColRender> ColRender = nullptr;
 
 	std::string SpriteAnimationName = "";
 
-	const char* ColTypeComboText[2] = { "Box", "Sphere"};
-	int ColComboIndex = 0;
+	AnimationAttackMetaData ColMetaDatas = AnimationAttackMetaData();
 
 	float RenderScale = 1.0f;
 
-	UINT LoadWitdhCount = 1;
-	UINT LoadHeightCount = 1;
-
-	UINT ShowIndex = 0;
-	UINT StartIndex = 0;
-	UINT EndIndex = 0;
-
-	float4 ColCenterPos = float4::Zero;
-	float4 ColSize = float4::Zero;
+	UINT ShowFrame = 0;
+	UINT StartFrame = 0;
+	UINT EndFrame = 0;
 };

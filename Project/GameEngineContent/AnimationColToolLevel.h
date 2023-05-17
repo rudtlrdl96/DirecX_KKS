@@ -23,6 +23,6 @@ private:
 	std::shared_ptr<class AnimationCollisionToolGUI> AnimationCollisionGUIPtr = nullptr;
 
 	std::shared_ptr<class AttackColToolAnimActor> AnimRenderActor = nullptr;
-	std::shared_ptr<class DebugCollisionRender> ColRenderActor = nullptr;
+	std::shared_ptr<class AttackColRender> ColRenderActor = nullptr;
 };
 

@@ -2,7 +2,6 @@
 #include "BaseContentActor.h"
 #include "ClassFSM.h"
 #include "Rigidbody2D.h"
-#include "AttackMetaData.h"
 
 class PlayerBaseSkull : public BaseContentActor
 {

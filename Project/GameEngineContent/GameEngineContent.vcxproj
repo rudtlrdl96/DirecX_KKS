@@ -28,7 +28,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="AttackColToolAnimActor.h" />
-    <ClInclude Include="AttackMetaData.h">
+    <ClInclude Include="AnimationAttackMetaData.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -142,7 +142,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="DebugCollisionRender.h" />
+    <ClInclude Include="AttackColRender.h" />
     <ClInclude Include="DebugRigidbodyTestActor.h">
       <SubType>
       </SubType>
@@ -430,7 +430,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="AttackColToolAnimActor.cpp" />
-    <ClCompile Include="AttackMetaData.cpp">
+    <ClCompile Include="AnimationAttackMetaData.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -554,7 +554,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="DebugCollisionRender.cpp" />
+    <ClCompile Include="AttackColRender.cpp" />
     <ClCompile Include="DebugRigidbodyTestActor.cpp">
       <SubType>
       </SubType>
