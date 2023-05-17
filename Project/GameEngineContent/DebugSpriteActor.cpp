@@ -14,18 +14,11 @@ void DebugSpriteActor::Start()
 {
 	if (false == GameEngineInput::IsKey("DebugMoveUp"))
 	{
-		GameEngineInput::CreateKey("DebugMoveUp", VK_UP);
-		GameEngineInput::CreateKey("DebugMoveDown", VK_DOWN);
-		GameEngineInput::CreateKey("DebugMoveLeft", VK_LEFT);
-		GameEngineInput::CreateKey("DebugMoveRight", VK_RIGHT);
+		GameEngineInput::CreateKey("DebugMoveUp", 'W');
+		GameEngineInput::CreateKey("DebugMoveDown", 'S');
+		GameEngineInput::CreateKey("DebugMoveLeft", 'A');
+		GameEngineInput::CreateKey("DebugMoveRight", 'D');
 		GameEngineInput::CreateKey("DebugBoost", VK_LSHIFT);
-
-		GameEngineInput::CreateKey("DebugRotX+", 'W');
-		GameEngineInput::CreateKey("DebugRotX-", 'S');
-		GameEngineInput::CreateKey("DebugRotY+", 'A');
-		GameEngineInput::CreateKey("DebugRotY-", 'D');
-		GameEngineInput::CreateKey("DebugRotZ+", 'Q');
-		GameEngineInput::CreateKey("DebugRotZ-", 'E');
 	}
 
 	SpriteRender = CreateComponent<GameEngineSpriteRenderer>();
@@ -54,38 +47,13 @@ void DebugSpriteActor::Update(float _DeltaTime)
 	{
 		GetTransform()->AddLocalPosition({ 0, -MoveDis, 0 });
 	}
-	else if (true == GameEngineInput::IsPress("DebugMoveLeft"))
+
+	if (true == GameEngineInput::IsPress("DebugMoveLeft"))
 	{
 		GetTransform()->AddLocalPosition({ -MoveDis, 0, 0 });
 	}
 	else if (true == GameEngineInput::IsPress("DebugMoveRight"))
 	{
 		GetTransform()->AddLocalPosition({ MoveDis, 0, 0 });
-	}
-
-	float RotDis = _DeltaTime * RotSpeed;
-	if (true == GameEngineInput::IsPress("DebugRotX+"))
-	{
-		GetTransform()->AddLocalRotation({ RotDis, 0, 0 });
-	}
-	else if (true == GameEngineInput::IsPress("DebugRotX-"))
-	{
-		GetTransform()->AddLocalRotation({ -RotDis, 0, 0 });
-	}
-	else if (true == GameEngineInput::IsPress("DebugRotY+"))
-	{
-		GetTransform()->AddLocalRotation({ 0, RotDis, 0 });
-	}
-	else if (true == GameEngineInput::IsPress("DebugRotY-"))
-	{
-		GetTransform()->AddLocalRotation({ 0, -RotDis, 0 });
-	}
-	else if (true == GameEngineInput::IsPress("DebugRotZ+"))
-	{
-		GetTransform()->AddLocalRotation({ 0, 0, RotDis });
-	}
-	else if (true == GameEngineInput::IsPress("DebugRotZ-"))
-	{
-		GetTransform()->AddLocalRotation({ 0, 0, -RotDis });
 	}
 }

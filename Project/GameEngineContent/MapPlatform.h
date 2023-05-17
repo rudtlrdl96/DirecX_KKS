@@ -44,10 +44,23 @@ public:
 		return MetaData;
 	}
 
+	inline void EmphasizeOn()
+	{
+		IsEmphasize = true;
+	}
+
+	inline void EmphasizeOff()
+	{
+		IsEmphasize = false;
+	}
+	
+
 protected:
 
 private:
 	PlatformMetaData MetaData = PlatformMetaData();
 	std::shared_ptr<class GameEngineCollision> PlatformCol = nullptr;
+
+	bool IsEmphasize = false;
 };
 

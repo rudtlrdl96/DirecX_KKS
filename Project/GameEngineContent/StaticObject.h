@@ -37,6 +37,9 @@ public:
 
 	void ShowGUI() override;
 
+	std::string GetTexName() const;
+	float4 GetTexWorldScale() const;
+
 protected:
 	void Start() override;
 

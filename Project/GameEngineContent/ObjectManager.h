@@ -59,15 +59,27 @@ private:
 	std::vector<std::shared_ptr<BrokenObject>> BrokenObjectActors;
 	std::vector<std::shared_ptr<MapPlatform>> MapPlatformActors;
 
+
+	/// <summary>
+	/// ImGUI
+	/// </summary>
+
+	std::shared_ptr<MapPlatform> CurrentEmphasizePlatform = nullptr;
+
 	int CurrentStaticObjectIndex = -1;
 	int CurrentPlatformIndex = -1;
 
 	bool IsPlatformDebug = false;
+
+	std::shared_ptr<ContentSpriteRenderer> OutlineRender = nullptr;
+	CaptureBuffer Buffer;
 
 	GuiType ShowGuiType = GuiType::None;
 
 	void Draw_SObject_GUI();
 	void Draw_BObject_GUI();
 	void Draw_Platform_GUI();
+
+	void EmphasizeCurrentPlatform();
 };
 

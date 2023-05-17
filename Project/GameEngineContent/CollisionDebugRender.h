@@ -10,6 +10,7 @@ public:
 		Green,
 		Blue,
 		Red,		
+		Magenta
 	};
 
 public:

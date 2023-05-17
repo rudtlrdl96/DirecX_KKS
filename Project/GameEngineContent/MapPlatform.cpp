@@ -72,6 +72,11 @@ void MapPlatform::PlatformDebugOn()
 				return CollisionDebugRender::DebugColor::Green;
 			}
 
+			if (true == IsEmphasize)
+			{
+				return CollisionDebugRender::DebugColor::Magenta;
+			}
+
 			if (MetaData.Type == PlatformType::Normal)
 			{
 				return CollisionDebugRender::DebugColor::Green;

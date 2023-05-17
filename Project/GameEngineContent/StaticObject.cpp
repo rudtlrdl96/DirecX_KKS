@@ -103,6 +103,28 @@ void StaticObject::ShowGUI()
 	}
 }
 
+std::string StaticObject::GetTexName() const
+{
+	if (nullptr == ImageRender)
+	{
+		MsgAssert_Rtti<StaticObject>(" - 랜더를 생성하지않고 텍스쳐 이름을 받아오려 했습니다");
+		return "";
+	}
+
+	return ImageRender->GetTexName();
+}
+
+float4 StaticObject::GetTexWorldScale() const
+{
+	if (nullptr == ImageRender)
+	{
+		MsgAssert_Rtti<StaticObject>(" - 랜더를 생성하지않고 텍스쳐 이름을 받아오려 했습니다");
+		return float4::Zero;
+	}
+
+	return ImageRender->GetTransform()->GetWorldScale();
+}
+
 void StaticObject::Start()
 {
 	ImageRender = CreateComponent<ContentSpriteRenderer>();

@@ -200,6 +200,14 @@ void ObjectManager::Start()
 		GameEngineInput::CreateKey("PlatformDebugSwtich", VK_F1);
 	}
 
+	OutlineRender = CreateComponent<ContentSpriteRenderer>();
+	OutlineRender->SetPipeLine("2DTexture_Capture");
+	OutlineRender->SetAtlasConstantBuffer();
+	OutlineRender->GetShaderResHelper().SetConstantBufferLink("CaptureBuffer", Buffer);
+	OutlineRender->Off();
+	OutlineRender->GetTransform()->SetLocalPosition(float4::Zero);
+
+	Buffer.Color = float4::Black;
 }
 
 void ObjectManager::Update(float _DeltaTime)
@@ -216,6 +224,7 @@ void ObjectManager::Update(float _DeltaTime)
 		}
 	}
 
+	EmphasizeCurrentPlatform();
 }
 
 void ObjectManager::Draw_SObject_GUI()
@@ -273,6 +282,23 @@ void ObjectManager::Draw_SObject_GUI()
 		{
 			CurrentStaticObjectIndex = -1;
 		}
+	}
+
+	if (0 <= CurrentStaticObjectIndex && StaticObjectActors.size() > CurrentStaticObjectIndex)
+	{
+		std::shared_ptr<StaticObject> SelectObject = StaticObjectActors[CurrentStaticObjectIndex];
+
+		std::string TexName = SelectObject->GetTexName();
+		OutlineRender->SetTexture(TexName);
+		OutlineRender->On();
+
+		GameEngineTransform* OutlineTrans = OutlineRender->GetTransform();
+		OutlineTrans->SetWorldPosition(SelectObject->GetTransform()->GetWorldPosition() + float4(0, 0, 0.1f));
+		OutlineTrans->SetWorldScale(SelectObject->GetTexWorldScale() * 1.1f);
+	}
+	else
+	{
+		OutlineRender->Off();
 	}
 }
 
@@ -340,5 +366,19 @@ void ObjectManager::Draw_Platform_GUI()
 		{
 			CurrentPlatformIndex = -1;
 		}
+	}
+}
+
+void ObjectManager::EmphasizeCurrentPlatform()
+{
+	if (nullptr != CurrentEmphasizePlatform)
+	{
+		CurrentEmphasizePlatform->EmphasizeOff();
+	}
+
+	if (0 <= CurrentPlatformIndex && MapPlatformActors.size() >CurrentPlatformIndex)
+	{
+		CurrentEmphasizePlatform = MapPlatformActors[CurrentPlatformIndex];
+		CurrentEmphasizePlatform->EmphasizeOn();
 	}
 }

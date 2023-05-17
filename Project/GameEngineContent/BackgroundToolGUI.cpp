@@ -105,6 +105,15 @@ void BackgroundToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _Del
 			SelectBackgroundIndex = static_cast<int>(BackDataRef[i].Data.Index);
 			IsCreateTrigger = true;
 		}
+
+		if (true == ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+			ImGui::TextUnformatted(BackDataRef[i].Data.Name.c_str());
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
+		}
 	}
 }
 

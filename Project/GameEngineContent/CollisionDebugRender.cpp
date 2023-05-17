@@ -68,6 +68,9 @@ void CollisionDebugRender::Update(float _DeltaTime)
 	case CollisionDebugRender::DebugColor::Red:
 		DebugBuffer.Color = float4(1.0f, -1.0f, -1.0f, 1.0f);
 		break;
+	case CollisionDebugRender::DebugColor::Magenta:
+		DebugBuffer.Color = float4(1.0f, -1.0f, 1.0f, 1.0f);
+		break;
 	default:
 		break;
 	}

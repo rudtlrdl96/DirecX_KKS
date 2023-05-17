@@ -59,6 +59,15 @@ void MapToolGUI::DrawGui_Tilemap()
 		{
 			SelectTileIndex = BufferTextureDatas[i].Data.Index;
 		}
+
+		if (true == ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+			ImGui::TextUnformatted(BufferTextureDatas[i].Data.Name.c_str());
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
+		}
 	}
 }
 
@@ -78,6 +87,15 @@ void MapToolGUI::DrawGui_SObject()
 		if (true == ImGui::ImageButton((void*)BufferTextureDatas[i].TexturePtr->GetSRV(), ImVec2(TileSize.x, TileSize.y)))
 		{
 			SelectSObjectMetaData = BufferTextureDatas[i].Data;
+		}
+
+		if (true == ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+			ImGui::TextUnformatted(BufferTextureDatas[i].Data.Name.c_str());
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
 		}
 	}
 }
