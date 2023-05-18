@@ -52,9 +52,8 @@ void MapToolLevel::Start()
 	TilemapOutLinePtr = CreateActor<TilemapOutlineRenderActor>();
 	TilemapPtr = CreateActor<Tilemap>();
 
-	TilemapPtr->SetDepth(2);
+	TilemapPtr->SetDepth(1);
 	TilemapPtr->ResizeTilemap(20, 20);
-
 	ObjectMgrPtr = CreateActor<ObjectManager>();
 	ObjectMgrPtr->PlatformDebugOn();
 

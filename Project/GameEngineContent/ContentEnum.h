@@ -8,6 +8,7 @@ enum class CollisionOrder
 	EnemyAttack,
 	Platform_Normal,
 	Platform_Half,
+	Platform_Wall,
 };
 
 enum class LevelArea

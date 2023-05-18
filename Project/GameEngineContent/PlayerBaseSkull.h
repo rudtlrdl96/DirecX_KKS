@@ -84,6 +84,14 @@ protected:
 	void Pushback_SkillA(const AnimationAttackMetaData& _AnimData, float _InterTime);
 	void Pushback_SkillB(const AnimationAttackMetaData& _AnimData, float _InterTime);
 
+
+	void SetViewDir(ActorViewDir _ViewDir);
+
+	inline ActorViewDir GetViewDir() const
+	{
+		return ViewDir;
+	}
+
 private:		
 	Rigidbody2D DashRigidbody;
 	Rigidbody2D AttackRigidbody;
@@ -127,7 +135,6 @@ private:
 	UINT SkillBCombo = 0;
 	bool IsSkillBCombo = false;
 	
-	void SetViewDir(ActorViewDir _ViewDir);
 	void CreateColDebugRender();
 	void CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime);
 };

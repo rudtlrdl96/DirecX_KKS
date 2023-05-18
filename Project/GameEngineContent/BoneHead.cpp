@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "BoneHead.h"
+#include <GameEngineCore/GameEngineCollision.h>
 
 BoneHead::BoneHead()
 {
@@ -7,6 +8,12 @@ BoneHead::BoneHead()
 
 BoneHead::~BoneHead()
 {
+}
+
+void BoneHead::ShotHead(ActorViewDir _Dir)
+{
+	Dir = _Dir;
+	ShotProgress = 0.0f;
 }
 
 void BoneHead::Start()
@@ -29,10 +36,33 @@ void BoneHead::Start()
 	Render->GetTransform()->SetLocalPosition(float4::Zero);
 	Render->SetScaleToTexture("Skul_Head.png");
 
-	float4 TextureScale = Render->GetTransform()->GetLocalScale();
-	Render->GetTransform()->SetLocalScale(TextureScale * 2.0f);
+	float4 TextureScale = Render->GetTransform()->GetLocalScale() * 2.0f;
+	Render->GetTransform()->SetLocalScale(TextureScale);
+
+	Collision = CreateComponent<GameEngineCollision>();
+	Collision->GetTransform()->SetLocalScale(TextureScale);
 }
 
 void BoneHead::Update(float _DeltaTime)
 {
+	ShotProgress += _DeltaTime;
+
+	if (ShotProgress < ShotTime)
+	{
+		GameEngineTransform* Trans = GetTransform();
+
+		switch (Dir)
+		{
+		case ActorViewDir::Left:
+			Trans->AddLocalPosition(float4::Left * ShotSpeed * _DeltaTime);
+			break;
+		case ActorViewDir::Right:
+			Trans->AddLocalPosition(float4::Right * ShotSpeed * _DeltaTime);
+			break;
+		default:
+			break;
+		}
+
+		Trans->AddLocalRotation(float4(0, 0, -RotSpeed * _DeltaTime));
+	}
 }

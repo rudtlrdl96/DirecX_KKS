@@ -11,6 +11,7 @@ public:
 	{
 		Normal, // 일반 플랫폼
 		Half,   // 아래에서는 위로 올라올 수 있지만 위에서는 아래로 못내려가는 플랫폼
+		Wall,   // 벽을 표현하기 위한 플랫폼
 	};
 
 	class PlatformMetaData

@@ -37,6 +37,7 @@ void Tilemap::SetDepth(UINT _DepthCount)
 			std::shared_ptr<GameEngineTileMapRenderer> NewRender = CreateComponent<GameEngineTileMapRenderer>();
 
 			NewRender->GetTransform()->SetLocalPosition(float4(0, -ContentConst::TileSize.hy(), Depth * 0.1f));
+			NewRender->CreateTileMap(TilemapSize.x, TilemapSize.y, ContentConst::TileSize);
 
 			const TileMetaData& EmptyData = ContentDatabase<TileMetaData, LevelArea>::GetData(0);
 
@@ -61,13 +62,36 @@ void Tilemap::ResizeTilemap(UINT _SizeX, UINT _SizeY)
 
 	for (size_t Depth = 0; Depth < TilemapDatas.size(); Depth++)
 	{
-		std::vector<std::vector<TileMetaData>>& DepthDatas = TilemapDatas[Depth];
+		std::vector<std::vector<TileMetaData>> CurData = TilemapDatas[Depth];
 
+		std::vector<std::vector<TileMetaData>>& DepthDatas = TilemapDatas[Depth];
 		DepthDatas.resize(TilemapSize.y);
+
+		int MinX = (TilemapSize.x > PrevTileSize.x) ? PrevTileSize.x : TilemapSize.x;
+		int MinY = (TilemapSize.y > PrevTileSize.y) ? PrevTileSize.y : TilemapSize.y;
+
+		for (size_t y = 0; y < MinY; y++)
+		{
+			for (size_t x = 0; x < MinX; x++)
+			{
+				DepthDatas[y][x] = CurData[y][x];
+			}
+		}
 
 		for (size_t y = 0; y < DepthDatas.size(); y++)
 		{
 			DepthDatas[y].resize(TilemapSize.x);
+		}
+
+		for (size_t y = 0; y < DepthDatas.size(); y++)
+		{
+			for (size_t x = 0; x < DepthDatas[y].size(); x++)
+			{
+				if ("" == DepthDatas[y][x].Name)
+				{
+					DepthDatas[y][x] = ContentDatabase<TileMetaData, LevelArea>::GetData(0);
+				}
+			}
 		}
 
 		std::shared_ptr<GameEngineTileMapRenderer>& DepthRender = TilemapRenders[Depth];
@@ -117,7 +141,7 @@ void Tilemap::ChangeData(int _Depth, UINT _X, UINT _Y, UINT Index)
 		
 	const TileMetaData& Data = ContentDatabase<TileMetaData, LevelArea>::GetData(Index);
 
-	TilemapRef[_Y][_X].Index = Data.Index;
+	TilemapRef[_Y][_X] = Data;
 	TileRender->SetTile(_X, _Y, Data.Name);
 }
 
@@ -142,7 +166,7 @@ void Tilemap::ChangeData(int _Depth, UINT _StartX, UINT _EndX, UINT _StartY, UIN
 		{
 			const TileMetaData& Data = ContentDatabase<TileMetaData, LevelArea>::GetData(Index);
 
-			TilemapRef[y][x].Index = Data.Index;
+			TilemapRef[y][x] = Data;
 			TileRender->SetTile(x, y, Data.Name);
 		}
 	}
@@ -182,7 +206,7 @@ void Tilemap::ChangeData(int _Depth, UINT _StartX, UINT _StartY, const std::vect
 
 			const TileMetaData& Data = ContentDatabase<TileMetaData, LevelArea>::GetData(_Indexs[y][x]);
 
-			TilemapRef[DrawY][DrawX].Index = Data.Index;
+			TilemapRef[DrawY][DrawX] = Data;
 			TileRender->SetTile(DrawX, DrawY, Data.Name);
 		}
 	}
@@ -199,6 +223,8 @@ void Tilemap::ClearTileMap()
 	TilemapRenders.clear();
 	TilemapDatas.clear();
 	TilemapSize = int2::Zero;
+
+	SetDepth(1);
 }
 
 bool Tilemap::IsOver(UINT _X, UINT _Y)
@@ -313,10 +339,13 @@ void Tilemap::LoadBin(GameEngineSerializer& _LoadSerializer)
 	_LoadSerializer.Read(DepthCount);
 	SetDepth(static_cast<UINT>(DepthCount));
 
-	_LoadSerializer.Read(TilemapSize.x);
-	_LoadSerializer.Read(TilemapSize.y);
+	int LoadSizeX = 0;
+	int LoadSizeY = 0;
 
-	ResizeTilemap(static_cast<UINT>(TilemapSize.x), static_cast<UINT>(TilemapSize.y));
+	_LoadSerializer.Read(LoadSizeX);
+	_LoadSerializer.Read(LoadSizeY);
+
+	ResizeTilemap(static_cast<UINT>(LoadSizeX), static_cast<UINT>(LoadSizeY));
 
 	for (UINT i = 0; i < static_cast<UINT>(DepthCount); i++)
 	{
@@ -428,148 +457,116 @@ void Tilemap::ShowGUI()
 
 void Tilemap::Push_Tilemap_Up(UINT _Depth)
 {
-	//if (_Depth >= TilemapDatas.size())
-	//{
-	//	return;
-	//}
-	//
-	//if (TilemapSize.x <= 0 || TilemapSize.y <= 0)
-	//{
-	//	return;
-	//}
-	//
-	//std::vector<std::vector<std::shared_ptr<TileActor>>>& TilemapRef = TilemapDatas[_Depth];
-	//
-	//for (int y = TilemapSize.y - 2; y >= 0; y--)
-	//{
-	//	for (int x = 0; x < TilemapSize.x; x++)
-	//	{
-	//		if (nullptr == TilemapRef[y][x])
-	//		{
-	//			ChangeData(_Depth, static_cast<UINT>(x), static_cast<UINT>(y + 1), 0);
-	//		}
-	//		else
-	//		{
-	//			ChangeData(_Depth, static_cast<UINT>(x), static_cast<UINT>(y + 1), TilemapRef[y][x]->GetTileIndex());
-	//		}
-	//
-	//	}
-	//}
-	//
-	//for (UINT x = 0; x < static_cast<UINT>(TilemapSize.x); x++)
-	//{
-	//	ChangeData(_Depth, x, 0, 0);
-	//}
+	if (_Depth >= TilemapDatas.size())
+	{
+		return;
+	}
+	
+	if (TilemapSize.x <= 0 || TilemapSize.y <= 0)
+	{
+		return;
+	}
+	
+	std::vector<std::vector<TileMetaData>>& TilemapRef = TilemapDatas[_Depth];
+	
+	for (int y = TilemapSize.y - 2; y >= 0; y--)
+	{
+		for (int x = 0; x < TilemapSize.x; x++)
+		{
+			ChangeData(_Depth, static_cast<UINT>(x), static_cast<UINT>(y + 1), TilemapRef[y][x].Index);	
+		}
+	}
+	
+	for (UINT x = 0; x < static_cast<UINT>(TilemapSize.x); x++)
+	{
+		ChangeData(_Depth, x, 0, 0);
+	}
 }
 
 void Tilemap::Push_Tilemap_Down(UINT _Depth)
 {
-	//if (_Depth >= TilemapDatas.size())
-	//{
-	//	return;
-	//}
-	//
-	//if (TilemapSize.x <= 0 || TilemapSize.y <= 0)
-	//{
-	//	return;
-	//}
-	//
-	//std::vector<std::vector<std::shared_ptr<TileActor>>>& TilemapRef = TilemapDatas[_Depth];
-	//
-	//for (int y = 1; y < TilemapSize.y; y++)
-	//{
-	//	for (int x = 0; x < TilemapSize.x; x++)
-	//	{
-	//		if (nullptr == TilemapRef[y][x])
-	//		{
-	//			ChangeData(_Depth, static_cast<UINT>(x), static_cast<UINT>(y - 1), 0);
-	//		}
-	//		else
-	//		{
-	//			ChangeData(_Depth, static_cast<UINT>(x), static_cast<UINT>(y - 1), TilemapRef[y][x]->GetTileIndex());
-	//		}
-	//
-	//	}
-	//}
-	//
-	//UINT EmptyIndexY = static_cast<UINT>(TilemapSize.y - 1);
-	//
-	//for (UINT x = 0; x < static_cast<UINT>(TilemapSize.x); x++)
-	//{
-	//	ChangeData(_Depth, x, EmptyIndexY, 0);
-	//}
+	if (_Depth >= TilemapDatas.size())
+	{
+		return;
+	}
+	
+	if (TilemapSize.x <= 0 || TilemapSize.y <= 0)
+	{
+		return;
+	}
+
+	std::vector<std::vector<TileMetaData>>& TilemapRef = TilemapDatas[_Depth];
+	
+	for (int y = 1; y < TilemapSize.y; y++)
+	{
+		for (int x = 0; x < TilemapSize.x; x++)
+		{
+			ChangeData(_Depth, static_cast<UINT>(x), static_cast<UINT>(y - 1), TilemapRef[y][x].Index);	
+		}
+	}
+	
+	UINT EmptyIndexY = static_cast<UINT>(TilemapSize.y - 1);
+	
+	for (UINT x = 0; x < static_cast<UINT>(TilemapSize.x); x++)
+	{
+		ChangeData(_Depth, x, EmptyIndexY, 0);
+	}
 }
 
 void Tilemap::Push_Tilemap_Left(UINT _Depth)
 {
-	//if (_Depth >= TilemapDatas.size())
-	//{
-	//	return;
-	//}
-	//
-	//if (TilemapSize.x <= 0 || TilemapSize.y <= 0)
-	//{
-	//	return;
-	//}
-	//
-	//std::vector<std::vector<std::shared_ptr<TileActor>>>& TilemapRef = TilemapDatas[_Depth];
-	//
-	//for (int y = 0; y < TilemapSize.y; y++)
-	//{
-	//	for (int x = 1; x < TilemapSize.x; x++)
-	//	{
-	//		if (nullptr == TilemapRef[y][x])
-	//		{
-	//			ChangeData(_Depth, static_cast<UINT>(x - 1), static_cast<UINT>(y), 0);
-	//		}
-	//		else
-	//		{
-	//			ChangeData(_Depth, static_cast<UINT>(x - 1), static_cast<UINT>(y), TilemapRef[y][x]->GetTileIndex());
-	//		}
-	//
-	//	}
-	//}
-	//
-	//UINT EmptyIndexX = static_cast<UINT>(TilemapSize.x - 1);
-	//
-	//for (UINT y = 0; y < static_cast<UINT>(TilemapSize.y); y++)
-	//{
-	//	ChangeData(_Depth, EmptyIndexX, y, 0);
-	//}
+	if (_Depth >= TilemapDatas.size())
+	{
+		return;
+	}
+	
+	if (TilemapSize.x <= 0 || TilemapSize.y <= 0)
+	{
+		return;
+	}
+
+	std::vector<std::vector<TileMetaData>>& TilemapRef = TilemapDatas[_Depth];
+	
+	for (int y = 0; y < TilemapSize.y; y++)
+	{
+		for (int x = 1; x < TilemapSize.x; x++)
+		{
+			ChangeData(_Depth, static_cast<UINT>(x - 1), static_cast<UINT>(y), TilemapRef[y][x].Index);	
+		}
+	}
+	
+	UINT EmptyIndexX = static_cast<UINT>(TilemapSize.x - 1);
+	
+	for (UINT y = 0; y < static_cast<UINT>(TilemapSize.y); y++)
+	{
+		ChangeData(_Depth, EmptyIndexX, y, 0);
+	}
 }
 
 void Tilemap::Push_Tilemap_Right(UINT _Depth)
 {
-	//if (_Depth >= TilemapDatas.size())
-	//{
-	//	return;
-	//}
-	//
-	//if (TilemapSize.x <= 0 || TilemapSize.y <= 0)
-	//{
-	//	return;
-	//}
-	//
-	//std::vector<std::vector<std::shared_ptr<TileActor>>>& TilemapRef = TilemapDatas[_Depth];
-	//
-	//for (int y = 0; y < TilemapSize.y; y++)
-	//{
-	//	for (int x = TilemapSize.x - 2; x >= 0; x--)
-	//	{
-	//		if (nullptr == TilemapRef[y][x])
-	//		{
-	//			ChangeData(_Depth, static_cast<UINT>(x + 1), static_cast<UINT>(y), 0);
-	//		}
-	//		else
-	//		{
-	//			ChangeData(_Depth, static_cast<UINT>(x + 1), static_cast<UINT>(y), TilemapRef[y][x]->GetTileIndex());
-	//		}
-	//
-	//	}
-	//}
-	//
-	//for (UINT y = 0; y < static_cast<UINT>(TilemapSize.y); y++)
-	//{
-	//	ChangeData(_Depth, 0, y, 0);
-	//}
+	if (_Depth >= TilemapDatas.size())
+	{
+		return;
+	}
+	
+	if (TilemapSize.x <= 0 || TilemapSize.y <= 0)
+	{
+		return;
+	}
+
+	std::vector<std::vector<TileMetaData>>& TilemapRef = TilemapDatas[_Depth];
+	
+	for (int y = 0; y < TilemapSize.y; y++)
+	{
+		for (int x = TilemapSize.x - 2; x >= 0; x--)
+		{
+			ChangeData(_Depth, static_cast<UINT>(x + 1), static_cast<UINT>(y), TilemapRef[y][x].Index);	
+		}
+	}
+	
+	for (UINT y = 0; y < static_cast<UINT>(TilemapSize.y); y++)
+	{
+		ChangeData(_Depth, 0, y, 0);
+	}
 }

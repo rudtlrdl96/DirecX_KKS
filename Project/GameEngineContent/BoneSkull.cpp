@@ -26,6 +26,7 @@ void BoneSkull::Skill_SlotA_Update(float _DeltaTime)
 
 	if (false == HeadActor->IsUpdate() && 1 == SkullRenderer->GetCurrentFrame())
 	{
+		HeadActor->ShotHead(GetViewDir());
 		HeadActor->GetTransform()->SetLocalPosition(GetTransform()->GetLocalPosition() + float4(8, 50));
 		HeadActor->On();
 	}
@@ -34,7 +35,7 @@ void BoneSkull::Skill_SlotA_Update(float _DeltaTime)
 void BoneSkull::Skill_SlotB_Enter()
 {
 	HeadActor->Off();
-	GetTransform()->SetLocalPosition(HeadActor->GetTransform()->GetLocalPosition());
+	GetTransform()->SetLocalPosition(HeadActor->GetTransform()->GetLocalPosition() - float4(0, 50));
 
 	PlayerBaseSkull::Skill_SlotB_Enter();
 }
