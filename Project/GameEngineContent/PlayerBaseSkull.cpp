@@ -56,6 +56,7 @@ void PlayerBaseSkull::Start()
 		GameEngineInput::CreateKey("PlayerMove_Jump", 'C');
 		GameEngineInput::CreateKey("PlayerMove_Skill_A", 'A');
 		GameEngineInput::CreateKey("PlayerMove_Skill_B", 'S');
+		GameEngineInput::CreateKey("PlayerMove_Switch", VK_SPACE);
 
 		GameEngineInput::CreateKey("PlayerCollisionDebugSwitch", VK_F2);
 	}
@@ -208,26 +209,52 @@ std::shared_ptr< GameEngineCollision> PlayerBaseSkull::PlatformColCheck(const st
 
 void PlayerBaseSkull::Pushback_Attack(const AnimationAttackMetaData& _AnimData, float _InterTime)
 {
-	CreateAttackAnim(_AnimData, _InterTime);
+	if (nullptr == SkullRenderer->FindAnimation(_AnimData.GetAnimationName()))
+	{
+		CreateAttackAnim(_AnimData, _InterTime);
+	}
+
 	AnimColMeta_Attack.push_back(_AnimData);
 }
 
 void PlayerBaseSkull::Pushback_JumpAttack(const AnimationAttackMetaData& _AnimData, float _InterTime)
 {
-	CreateAttackAnim(_AnimData, _InterTime);
+	if (nullptr == SkullRenderer->FindAnimation(_AnimData.GetAnimationName()))
+	{
+		CreateAttackAnim(_AnimData, _InterTime);
+	}
+
 	AnimColMeta_JumpAttack.push_back(_AnimData);
 }
 
 void PlayerBaseSkull::Pushback_SkillA(const AnimationAttackMetaData& _AnimData, float _InterTime)
 {
-	CreateAttackAnim(_AnimData, _InterTime);
+	if (nullptr == SkullRenderer->FindAnimation(_AnimData.GetAnimationName()))
+	{
+		CreateAttackAnim(_AnimData, _InterTime);
+	}
+
 	AnimColMeta_SkillA.push_back(_AnimData);
 }
 
 void PlayerBaseSkull::Pushback_SkillB(const AnimationAttackMetaData& _AnimData, float _InterTime)
 {
-	CreateAttackAnim(_AnimData, _InterTime);
+	if (nullptr == SkullRenderer->FindAnimation(_AnimData.GetAnimationName()))
+	{
+		CreateAttackAnim(_AnimData, _InterTime);
+	}
+
 	AnimColMeta_SkillB.push_back(_AnimData);
+}
+
+void PlayerBaseSkull::Pushback_Switch(const AnimationAttackMetaData& _AnimData, float _InterTime)
+{
+	if (nullptr == SkullRenderer->FindAnimation(_AnimData.GetAnimationName()))
+	{
+		CreateAttackAnim(_AnimData, _InterTime);	
+	}
+
+	AnimColMeta_Switch.push_back(_AnimData);
 }
 
 void PlayerBaseSkull::SetViewDir(ActorViewDir _ViewDir)

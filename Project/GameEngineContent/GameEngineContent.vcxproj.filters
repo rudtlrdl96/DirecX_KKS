@@ -621,6 +621,9 @@
     <ClInclude Include="BoneHead.h">
       <Filter>2_Actor\Player\Skull\BoneSkull</Filter>
     </ClInclude>
+    <ClInclude Include="ChiefGuard.h">
+      <Filter>2_Actor\Player\Skull\ChiefGuard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -961,6 +964,9 @@
     </ClCompile>
     <ClCompile Include="BoneHead.cpp">
       <Filter>2_Actor\Player\Skull\BoneSkull</Filter>
+    </ClCompile>
+    <ClCompile Include="ChiefGuard.cpp">
+      <Filter>2_Actor\Player\Skull\ChiefGuard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

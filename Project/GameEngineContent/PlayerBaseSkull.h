@@ -26,6 +26,7 @@ protected:
 	std::vector<AnimationAttackMetaData> AnimColMeta_JumpAttack;
 	std::vector<AnimationAttackMetaData> AnimColMeta_SkillA;
 	std::vector<AnimationAttackMetaData> AnimColMeta_SkillB;
+	std::vector<AnimationAttackMetaData> AnimColMeta_Switch;
 
 	std::string AnimNamePlusText = "";
 
@@ -61,9 +62,9 @@ protected:
 	virtual void Dash_Update(float _DeltaTime);
 	virtual void Dash_End();
 
-	virtual void Switch_Enter() {}
-	virtual void Switch_Update(float _DeltaTime) {}
-	virtual void Switch_End() {}
+	virtual void Switch_Enter();
+	virtual void Switch_Update(float _DeltaTime);
+	virtual void Switch_End();
 
 	virtual void Skill_SlotA_Enter();
 	virtual void Skill_SlotA_Update(float _DeltaTime);
@@ -83,6 +84,7 @@ protected:
 	void Pushback_JumpAttack(const AnimationAttackMetaData& _AnimData, float _InterTime);
 	void Pushback_SkillA(const AnimationAttackMetaData& _AnimData, float _InterTime);
 	void Pushback_SkillB(const AnimationAttackMetaData& _AnimData, float _InterTime);
+	void Pushback_Switch(const AnimationAttackMetaData& _AnimData, float _InterTime);
 
 
 	void SetViewDir(ActorViewDir _ViewDir);
@@ -130,10 +132,8 @@ private:
 	bool IsJumpAttackCombo = false;
 
 	UINT SkillACombo = 0;
-	bool IsSkillACombo = false;
-
 	UINT SkillBCombo = 0;
-	bool IsSkillBCombo = false;
+	UINT SwitchCombo = 0;
 	
 	void CreateColDebugRender();
 	void CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime);
