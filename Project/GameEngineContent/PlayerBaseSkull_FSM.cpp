@@ -522,6 +522,13 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 		IsAttackCombo = true;
 	}
 
+	if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
+	{
+		JumpDir = float4::Up * JumpPower;
+		PlayerFSM.ChangeState("Jump");
+		return;
+	}
+
 	if (true == SkullRenderer->IsAnimationEnd())
 	{
 		AttackRigidbody.SetVelocity(float4::Zero);
