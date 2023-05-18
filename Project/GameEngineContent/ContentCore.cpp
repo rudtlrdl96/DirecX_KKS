@@ -105,7 +105,7 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<AnimationColToolLevel>("AnimationColTool");
 	GameEngineCore::CreateLevel<TilemapDebugLevel>("TilemapDebugLevel");
 
-	GameEngineCore::ChangeLevel("TilemapDebugLevel");
+	GameEngineCore::ChangeLevel("Title");
 
 }
 

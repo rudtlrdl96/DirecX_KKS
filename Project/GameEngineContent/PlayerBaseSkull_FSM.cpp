@@ -8,7 +8,7 @@
 
 void PlayerBaseSkull::Idle_Enter()
 {
-	SkullRenderer->ChangeAnimation("Idle");
+	SkullRenderer->ChangeAnimation("Idle" + AnimNamePlusText);
 	JumpDir = float4::Zero;
 	CanJump = true;
 	DoubleJump = true;
@@ -42,6 +42,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 			}
 		}
 
+		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
@@ -73,8 +74,7 @@ void PlayerBaseSkull::Idle_End()
 void PlayerBaseSkull::Jump_Enter()
 {
 	CanJump = false;
-	JumpDir = float4::Up * JumpPower;
-	SkullRenderer->ChangeAnimation("Jump");
+	SkullRenderer->ChangeAnimation("Jump" + AnimNamePlusText);
 }
 
 void PlayerBaseSkull::Jump_Update(float _DeltaTime)
@@ -109,6 +109,12 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 		DoubleJump = false;
 	}
 
+	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	{
+		PlayerFSM.ChangeState("JumpAttack" + AnimNamePlusText);
+		return;
+	}
+
 	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		SetViewDir(ActorViewDir::Left);
@@ -138,7 +144,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 
 void PlayerBaseSkull::Walk_Enter() 
 {
-	SkullRenderer->ChangeAnimation("Walk");
+	SkullRenderer->ChangeAnimation("Walk" + AnimNamePlusText);
 	JumpDir = float4::Zero;
 	CanJump = true;
 	DoubleJump = true;
@@ -170,6 +176,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 			}
 		}
 
+		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
 	}
 
@@ -224,7 +231,7 @@ void PlayerBaseSkull::Dash_Enter()
 		(ActorViewDir::Left == ViewDir),
 		SkullRenderer->GetScaleRatio());
 
-	SkullRenderer->ChangeAnimation("Dash");
+	SkullRenderer->ChangeAnimation("Dash" + AnimNamePlusText);
 
 	EffectManager::PlayEffect({ 
 		.EffectName = "PlayerDashEffect",
@@ -261,7 +268,18 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 	if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
+		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
+		return;
+	}
+
+	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
+	{
+		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition() });
+
+		JumpDir = float4::Up * JumpPower;
+		PlayerFSM.ChangeState("Jump");
+		DoubleJump = false;
 		return;
 	}
 
@@ -269,7 +287,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 	{
 		if (nullptr == PlatformColCheck(GroundCol))
 		{
-			//JumpAttack
+			PlayerFSM.ChangeState("JumpAttack");
 		}
 		else
 		{
@@ -350,7 +368,7 @@ void PlayerBaseSkull::Dash_End()
 
 void PlayerBaseSkull::Fall_Enter() 
 {
-	SkullRenderer->ChangeAnimation("Fall");
+	SkullRenderer->ChangeAnimation("Fall" + AnimNamePlusText);
 }
 
 void PlayerBaseSkull::Fall_Update(float _DeltaTime) 
@@ -364,7 +382,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 
 	if (true == SkullRenderer->FindAnimation("Fall")->IsEnd())
 	{
-		SkullRenderer->ChangeAnimation("FallRepeat");
+		SkullRenderer->ChangeAnimation("FallRepeat" + AnimNamePlusText);
 	}
 
 	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
@@ -377,6 +395,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition() });
 
+		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
 		DoubleJump = false;
 		return;
@@ -385,6 +404,12 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
 	GetTransform()->AddLocalPosition(JumpDir * _DeltaTime);
 
+	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	{
+		PlayerFSM.ChangeState("JumpAttack" + AnimNamePlusText);
+		return; 
+	}
+	
 	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		SetViewDir(ActorViewDir::Left);
@@ -449,17 +474,41 @@ void PlayerBaseSkull::Attack_Enter()
 		MsgAssert_Rtti<PlayerBaseSkull>(" - 스컬의 공격 정보가 없습니다");
 	}
 
+	AttackRigidbody.SetVelocity(float4::Zero);
+
+	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+	{
+		SetViewDir(ActorViewDir::Left);
+		AttackRigidbody.AddVelocity(float4::Left * 230.0f);
+	}
+	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+	{
+		SetViewDir(ActorViewDir::Right);
+		AttackRigidbody.AddVelocity(float4::Right * 230.0f);
+	}
+
 	IsAttackCombo = false;
 	AttackComboCount = 0;
-	SkullRenderer->ChangeAnimation(AnimColMeta_Attack[AttackComboCount].GetAnimationName());
+	SkullRenderer->ChangeAnimation(AnimColMeta_Attack[AttackComboCount].GetAnimationName() + AnimNamePlusText);
 }
 
 void PlayerBaseSkull::Attack_Update(float _DeltaTime) 
 {
+	if (nullptr == PlatformColCheck(GroundCol, true))
+	{
+		PlayerFSM.ChangeState("Fall");
+		return;
+	}
+
+	AttackRigidbody.UpdateForce(_DeltaTime);
+
 	if (nullptr == PlatformColCheck(WalkCol))
 	{
-		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
-		GetTransform()->AddLocalPosition(Velocity);
+		float4 DashVelocity = DashRigidbody.GetVelocity() * _DeltaTime;
+		GetTransform()->AddLocalPosition(DashVelocity);
+
+		float4 AttackVelocity = AttackRigidbody.GetVelocity() * _DeltaTime;
+		GetTransform()->AddLocalPosition(AttackVelocity);
 	}
 
 	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
@@ -475,6 +524,19 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 
 	if (true == SkullRenderer->IsAnimationEnd())
 	{
+		AttackRigidbody.SetVelocity(float4::Zero);
+
+		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		{
+			SetViewDir(ActorViewDir::Left);
+			AttackRigidbody.AddVelocity(float4::Left * 230.0f);
+		}
+		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		{
+			SetViewDir(ActorViewDir::Right);
+			AttackRigidbody.AddVelocity(float4::Right * 230.0f);
+		}
+
 		if (true == IsAttackCombo)
 		{
 			++AttackComboCount;
@@ -485,7 +547,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 			}
 
 			IsAttackCombo = false;
-			SkullRenderer->ChangeAnimation(AnimColMeta_Attack[AttackComboCount].GetAnimationName());
+			SkullRenderer->ChangeAnimation(AnimColMeta_Attack[AttackComboCount].GetAnimationName() + AnimNamePlusText);
 		}
 		else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
@@ -505,3 +567,120 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 }
 
 void PlayerBaseSkull::Attack_End() {}
+
+
+void PlayerBaseSkull::JumpAttack_Enter()
+{
+	if (0 == AnimColMeta_JumpAttack.size())
+	{
+		MsgAssert_Rtti<PlayerBaseSkull>(" - 스컬의 점프 공격 정보가 없습니다");
+	}
+
+	IsJumpAttackCombo = false;
+	JumpAttackCombo = 0;
+	SkullRenderer->ChangeAnimation(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName() + AnimNamePlusText);
+}
+
+void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
+{
+	if (nullptr == PlatformColCheck(WalkCol))
+	{
+		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		{
+			SetViewDir(ActorViewDir::Left);
+			GetTransform()->AddLocalPosition(float4::Left * WalkSpeed * _DeltaTime);
+		}
+		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		{
+			SetViewDir(ActorViewDir::Right);
+			GetTransform()->AddLocalPosition(float4::Right * WalkSpeed * _DeltaTime);
+		}
+	}
+
+	if (nullptr == PlatformColCheck(JumpCol))
+	{
+		JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
+		GetTransform()->AddLocalPosition(JumpDir * _DeltaTime);
+	}
+	else
+	{
+		JumpDir.y = -1.0f;
+	}
+
+	std::shared_ptr<GameEngineCollision> GroundColPtr = PlatformColCheck(GroundCol, true);
+
+	if (JumpDir.y <= 0.0f && nullptr != GroundColPtr)
+	{
+		GameEngineTransform* PlayerTrans = GetTransform();
+		float4 CurPos = PlayerTrans->GetWorldPosition();
+
+		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
+		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+		PlayerTrans->SetWorldPosition(CurPos);
+		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
+
+		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		{
+			PlayerFSM.ChangeState("Walk");
+
+		}
+		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		{
+			PlayerFSM.ChangeState("Walk");
+		}
+		else
+		{
+			PlayerFSM.ChangeState("Idle");
+		}
+	}
+
+	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
+	{
+		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition() });
+
+		JumpDir = float4::Up * JumpPower;
+		DoubleJump = false;
+	}
+
+	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
+	{
+		PlayerFSM.ChangeState("Dash");
+		return;
+	}
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	{
+		IsJumpAttackCombo = true;
+	}
+
+	if (true == SkullRenderer->IsAnimationEnd())
+	{	
+		if (true == IsJumpAttackCombo)
+		{
+			++JumpAttackCombo;
+
+			if (JumpAttackCombo >= AnimColMeta_JumpAttack.size())
+			{
+				JumpAttackCombo = 0;
+			}
+
+			IsJumpAttackCombo = false;
+			SkullRenderer->ChangeAnimation(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName() + AnimNamePlusText);
+		}
+		else if (JumpDir.y <= 0.0f)
+		{
+			PlayerFSM.ChangeState("Jump");
+
+		}
+		else
+		{
+			PlayerFSM.ChangeState("Fall");
+		}
+	}
+}
+
+void PlayerBaseSkull::JumpAttack_End()
+{
+	
+}

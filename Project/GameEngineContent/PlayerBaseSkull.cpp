@@ -92,6 +92,10 @@ void PlayerBaseSkull::Start()
 	DashRigidbody.SetActiveGravity(false);
 	DashRigidbody.SetMaxSpeed(1050);
 	DashRigidbody.SetFricCoeff(3500);
+	
+	AttackRigidbody.SetActiveGravity(false);
+	AttackRigidbody.SetMaxSpeed(300);
+	AttackRigidbody.SetFricCoeff(600);
 
 	GroundCol = CreateComponent<GameEngineCollision>();
 	GroundCol->GetTransform()->SetLocalPosition(float4(0.0f, -2.0f, 1.0f));

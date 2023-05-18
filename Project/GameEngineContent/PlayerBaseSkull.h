@@ -27,6 +27,8 @@ protected:
 	std::vector<AnimationAttackMetaData> AnimColMeta_SkillA;
 	std::vector<AnimationAttackMetaData> AnimColMeta_SkillB;
 
+	std::string AnimNamePlusText = "";
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	
@@ -43,9 +45,9 @@ protected:
 	virtual void Attack_Update(float _DeltaTime);
 	virtual void Attack_End();
 
-	virtual void JumpAttack_Enter() {}
-	virtual void JumpAttack_Update(float _DeltaTime) {}
-	virtual void JumpAttack_End() {}
+	virtual void JumpAttack_Enter();
+	virtual void JumpAttack_Update(float _DeltaTime);
+	virtual void JumpAttack_End();
 
 	virtual void Jump_Enter();
 	virtual void Jump_Update(float _DeltaTime);
@@ -84,6 +86,8 @@ protected:
 
 private:		
 	Rigidbody2D DashRigidbody;
+	Rigidbody2D AttackRigidbody;
+
 	ClassFSM<PlayerBaseSkull> PlayerFSM;
 	
 	std::shared_ptr<class CaptureTrail> DashTrail = nullptr;
@@ -114,10 +118,11 @@ private:
 	UINT AttackComboCount = 0;
 	bool IsAttackCombo = false;
 
+	UINT JumpAttackCombo = 0;
+	bool IsJumpAttackCombo = false;
+	
 	void SetViewDir(ActorViewDir _ViewDir);
 	void CreateColDebugRender();
-
-
 	void CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime);
 };
 
