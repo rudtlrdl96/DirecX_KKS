@@ -95,7 +95,7 @@ void PlayerBaseSkull::Start()
 			float4::Zero,
 			0, 6,
 			0.05f,
-			1.5f });
+			2.0f });
 
 		EffectManager::CreateMetaData("HitSkul", {
 			"HitSkul.png" ,

@@ -65,6 +65,7 @@ public:
 
 	void ShowGUI();
 
+
 protected:
 
 private:
