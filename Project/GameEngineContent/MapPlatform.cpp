@@ -48,19 +48,6 @@ void MapPlatform::Init(const PlatformMetaData& _MetaData)
 		}
 	}
 		break;
-
-	case PlatformType::Wall:
-	{
-		if (nullptr == PlatformCol)
-		{
-			PlatformCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Wall);
-		}
-		else
-		{
-			PlatformCol->SetOrder((int)CollisionOrder::Platform_Wall);
-		}
-	}
-	break;
 	default:
 		MsgAssert_Rtti<MapPlatform>(" - 잘못된 플랫폼 타입입니다.");
 		break;
@@ -100,11 +87,6 @@ void MapPlatform::PlatformDebugOn()
 				return CollisionDebugRender::DebugColor::Red;
 			}
 
-			if (MetaData.Type == PlatformType::Wall)
-			{
-				return CollisionDebugRender::DebugColor::Blue;
-			}
-
 			return CollisionDebugRender::DebugColor::Red;
 		}));
 	
@@ -122,7 +104,7 @@ void MapPlatform::PlatformDebugOff()
 
 void MapPlatform::ShowGUI()
 {
-	const char* AreaComboText[2] = { "Normal" ,"Half" };
+	const char* AreaComboText[2] = { "Normal" ,"Half"};
 	int CurrentPlatformTypeIndex = static_cast<int>(MetaData.Type);
 
 	ImGui::Combo("PlatformType", &CurrentPlatformTypeIndex, AreaComboText, IM_ARRAYSIZE(AreaComboText));

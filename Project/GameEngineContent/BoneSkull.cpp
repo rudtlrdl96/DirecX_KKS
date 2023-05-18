@@ -1,7 +1,10 @@
 #include "PrecompileHeader.h"
 #include "BoneSkull.h"
-#include "BoneHead.h"
+
 #include <GameEngineCore/GameEngineLevel.h>
+
+#include "BoneHead.h"
+#include "EffectManager.h"
 
 BoneSkull::BoneSkull()
 {
@@ -35,7 +38,17 @@ void BoneSkull::Skill_SlotA_Update(float _DeltaTime)
 void BoneSkull::Skill_SlotB_Enter()
 {
 	HeadActor->Off();
-	GetTransform()->SetLocalPosition(HeadActor->GetTransform()->GetLocalPosition() - float4(0, 50));
+
+	GameEngineTransform* PlayerTrans = GetTransform();
+	GameEngineTransform* HeadTrans = HeadActor->GetTransform();
+
+	float4 PlayerPos = PlayerTrans->GetWorldPosition();
+	float4 HeadPos = HeadTrans->GetWorldPosition();
+
+	PlayerTrans->SetLocalPosition(HeadPos - float4(0, 50));
+
+	EffectManager::PlayEffect({"SkullAppearance", PlayerPos});
+	EffectManager::PlayEffect({"SkullAppearance", HeadPos - float4(0, 50) });
 
 	PlayerBaseSkull::Skill_SlotB_Enter();
 }

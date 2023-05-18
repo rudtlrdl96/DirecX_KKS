@@ -39,6 +39,9 @@ void PlayerBaseSkull::Start()
 
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Player_DashSmokeEffect.png").GetFullPath(), 6, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Player_DoubleJumpEffect.png").GetFullPath(), 5, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkul.png").GetFullPath(), 5, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitNormal.png").GetFullPath(), 6, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SkullAppearance.png").GetFullPath(), 7, 1);
 	}
 
 	if (false == GameEngineInput::IsKey("PlayerMove_Left"))
@@ -87,6 +90,26 @@ void PlayerBaseSkull::Start()
 			0.05f,
 			2.0f});
 
+		EffectManager::CreateMetaData("SkullAppearance", {
+			"SkullAppearance.png" ,
+			float4::Zero,
+			0, 6,
+			0.05f,
+			1.5f });
+
+		EffectManager::CreateMetaData("HitSkul", {
+			"HitSkul.png" ,
+			float4::Zero,
+			0, 9,
+			0.05f,
+			2.0f });
+
+		EffectManager::CreateMetaData("HitNormal", {
+			"HitNormal.png" ,
+			float4::Zero,
+			0, 11,
+			0.05f,
+			2.0f });
 	}
 
 	DashRigidbody.SetActiveGravity(false);

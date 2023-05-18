@@ -107,7 +107,7 @@ private:
 
 	const char* AreaComboText[7] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop"};
 	const char* MapToolComboText[7] = {"Tilemap" ,"SObject", "BObject", "Platform", "Event", "Particle", "Light"};
-	const char* PlatformTypeCombo[3] = {"Normal" ,"Half", "Wall"};
+	const char* PlatformTypeCombo[2] = {"Normal" ,"Half"};
 	
 	float4 TileSize = float4::Zero;
 

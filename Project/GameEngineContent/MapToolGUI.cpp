@@ -112,7 +112,7 @@ void MapToolGUI::DrawGui_Platform()
 
 	BasePlatformType = static_cast<MapPlatform::PlatformType>(CurrentPlatformTypeIndex);
 
-	if (BasePlatformType < MapPlatform::PlatformType::Normal || BasePlatformType > MapPlatform::PlatformType::Wall)
+	if (BasePlatformType < MapPlatform::PlatformType::Normal || BasePlatformType > MapPlatform::PlatformType::Half)
 	{
 		MsgAssert_Rtti<MapToolGUI>(" - 잘못된 Platform 타입이 입력되었습니다");
 	}

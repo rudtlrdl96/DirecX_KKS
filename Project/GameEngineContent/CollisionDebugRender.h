@@ -8,8 +8,8 @@ public:
 	enum class DebugColor
 	{
 		Green,
-		Blue,
-		Red,		
+		Black,
+		Red,
 		Magenta
 	};
 

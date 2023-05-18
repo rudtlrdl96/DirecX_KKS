@@ -803,6 +803,13 @@ void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
 
 	if (true == SkullRenderer->IsAnimationEnd()) // + Skill CooltimeCheck
 	{
+		if (nullptr == PlatformColCheck(GroundCol, true))
+		{
+			JumpDir.y = 0.0f;
+			PlayerFSM.ChangeState("Fall");
+			return;
+		}
+
 		if (true == IsSkillACombo)
 		{
 			++SkillACombo;
@@ -858,6 +865,13 @@ void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
 
 	if (true == SkullRenderer->IsAnimationEnd()) // + Skill CooltimeCheck
 	{
+		if (nullptr == PlatformColCheck(GroundCol, true))
+		{
+			JumpDir.y = 0.0f;
+			PlayerFSM.ChangeState("Fall");
+			return;
+		}
+
 		if (true == IsSkillBCombo)
 		{
 			++SkillBCombo;
