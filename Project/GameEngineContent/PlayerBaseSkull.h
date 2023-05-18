@@ -20,7 +20,7 @@ public:
 	}
 
 protected:	
-	std::shared_ptr<GameEngineSpriteRenderer> SkullRenderer = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> SkullRenderer = nullptr;
 
 	std::vector<AnimationAttackMetaData> AnimColMeta_Attack;
 	std::vector<AnimationAttackMetaData> AnimColMeta_JumpAttack;

@@ -22,6 +22,14 @@ void ContentAnimationInfo::Reset()
 
 void ContentAnimationInfo::Update(float _DeltaTime)
 {
+	if (true == IsEndValue)
+	{
+		if (true == Loop)
+		{
+			CurFrame = 0;
+		}
+	}
+
 	IsEndValue = false;
 
 	// 1;
@@ -55,16 +63,9 @@ void ContentAnimationInfo::Update(float _DeltaTime)
 		if (FrameIndex.size() <= CurFrame)
 		{
 			IsEndValue = true;
-
-			if (true == Loop)
-			{
-				CurFrame = 0;
-			}
-			else
-			{
-				--CurFrame;
-			}
+			--CurFrame;
 		}
+
 		CurTime += FrameTime[CurFrame];
 
 		// 0 ~ 9
@@ -300,13 +301,6 @@ void ContentSpriteRenderer::Update(float _Delta)
 	if (nullptr != CurAnimation)
 	{
 		CurAnimation->Update(_Delta);
-	}
-}
-
-void ContentSpriteRenderer::Render(float _Delta)
-{
-	if (nullptr != CurAnimation)
-	{
 		const SpriteInfo& Info = CurAnimation->CurSpriteInfo();
 
 		GetShaderResHelper().SetTexture("DiffuseTex", Info.Texture);
@@ -326,8 +320,12 @@ void ContentSpriteRenderer::Render(float _Delta)
 
 			GetTransform()->SetLocalScale(Scale);
 		}
-
 	}
+}
+
+void ContentSpriteRenderer::Render(float _Delta)
+{
+
 	GameEngineRenderer::Render(_Delta);
 }
 

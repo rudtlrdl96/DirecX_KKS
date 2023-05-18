@@ -18,7 +18,7 @@ PlayerBaseSkull::~PlayerBaseSkull()
 
 void PlayerBaseSkull::Start()
 {
-	SkullRenderer = CreateComponent<GameEngineSpriteRenderer>();
+	SkullRenderer = CreateComponent<ContentSpriteRenderer>();
 	SkullRenderer->GetTransform()->SetLocalPosition(float4::Zero);
 	SkullRenderer->SetScaleRatio(2.0f);
 
@@ -42,6 +42,7 @@ void PlayerBaseSkull::Start()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkul.png").GetFullPath(), 5, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitNormal.png").GetFullPath(), 6, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SkullAppearance.png").GetFullPath(), 7, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("LandSmoke.png").GetFullPath(), 7, 3);
 	}
 
 	if (false == GameEngineInput::IsKey("PlayerMove_Left"))
@@ -109,6 +110,13 @@ void PlayerBaseSkull::Start()
 			float4::Zero,
 			0, 11,
 			0.05f,
+			2.0f });
+
+		EffectManager::CreateMetaData("LandSmoke", {
+			"LandSmoke.png" ,
+			float4::Zero,
+			0, 20,
+			0.03f,
 			2.0f });
 	}
 
