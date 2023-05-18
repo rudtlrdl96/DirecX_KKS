@@ -38,6 +38,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 			{
 				FallCooldown = 0.2f;
 				PlayerFSM.ChangeState("Fall");
+				CanJump = false;
 				return;
 			}
 		}
@@ -45,15 +46,17 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
+	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))  // + Skill CooltimeCheck
 	{
 		// CoolTime Check
-		//PlayerFSM.ChangeState("Skill_A");
+		PlayerFSM.ChangeState("Skill_A");
+		return;
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
+	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))  // + Skill CooltimeCheck
 	{
 		// CoolTime Check
-		//PlayerFSM.ChangeState("Skill_B");
+		PlayerFSM.ChangeState("Skill_B");
+		return;
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Left"))
 	{
@@ -115,7 +118,19 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 		return;
 	}
 
-	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_A");
+		return;
+	}
+	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_B");
+		return;
+	}
+	else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		SetViewDir(ActorViewDir::Left);
 
@@ -170,6 +185,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 		{
 			if (nullptr == PlatformColCheck(GroundCol))
 			{
+				CanJump = false;
 				FallCooldown = 0.2f;
 				PlayerFSM.ChangeState("Fall");
 				return;
@@ -178,6 +194,19 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 
 		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
+	}
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_A");
+		return;
+	}
+	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_B");
+		return;
 	}
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
@@ -268,6 +297,18 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 	if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
+		if (nullptr == PlatformColCheck(GroundCol, true))
+		{
+			EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition() });
+
+			JumpDir = float4::Up * JumpPower;
+			PlayerFSM.ChangeState("Jump");
+
+			CanJump = false;
+			DoubleJump = false;
+			return;
+		}
+
 		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
 		return;
@@ -283,7 +324,17 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 		return;
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_A");
+	}
+	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_B");
+	}
+	else if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		if (nullptr == PlatformColCheck(GroundCol))
 		{
@@ -306,6 +357,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 			(ActorViewDir::Left == ViewDir),
 			SkullRenderer->GetScaleRatio());
 	}
+
 
 	if (false == DashCombo && GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
@@ -391,6 +443,12 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 		return;
 	}
 
+	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	{
+		PlayerFSM.ChangeState("JumpAttack" + AnimNamePlusText);
+		return;
+	}
+
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition() });
@@ -404,13 +462,19 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
 	GetTransform()->AddLocalPosition(JumpDir * _DeltaTime);
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))  // + Skill CooltimeCheck
 	{
-		PlayerFSM.ChangeState("JumpAttack" + AnimNamePlusText);
-		return; 
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_A");
+		return;
 	}
-	
-	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_B");
+		return;
+	}
+	else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		SetViewDir(ActorViewDir::Left);
 
@@ -522,7 +586,19 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 		IsAttackCombo = true;
 	}
 
-	if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
+	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_A");
+		return;
+	}
+	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_B");
+		return;
+	}
+	else if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
@@ -614,6 +690,19 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 		JumpDir.y = -1.0f;
 	}
 
+	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_A");
+		return;
+	}
+	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))  // + Skill CooltimeCheck
+	{
+		// CoolTime Check
+		PlayerFSM.ChangeState("Skill_B");
+		return;
+	}
+
 	std::shared_ptr<GameEngineCollision> GroundColPtr = PlatformColCheck(GroundCol, true);
 
 	if (JumpDir.y <= 0.0f && nullptr != GroundColPtr)
@@ -690,4 +779,114 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 void PlayerBaseSkull::JumpAttack_End()
 {
 	
+}
+
+void PlayerBaseSkull::Skill_SlotA_Enter()
+{
+	if (0 == AnimColMeta_SkillA.size())
+	{
+		MsgAssert_Rtti<PlayerBaseSkull>(" - 스컬의 스킬A 정보가 없습니다");
+	}
+
+	IsSkillACombo = false;
+	SkillACombo = 0;
+	SkullRenderer->ChangeAnimation(AnimColMeta_SkillA[SkillACombo].GetAnimationName() + AnimNamePlusText);
+}
+
+void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
+{
+	if (nullptr == PlatformColCheck(WalkCol))
+	{
+		float4 DashVelocity = DashRigidbody.GetVelocity() * _DeltaTime;
+		GetTransform()->AddLocalPosition(DashVelocity);
+	}
+
+	if (true == SkullRenderer->IsAnimationEnd()) // + Skill CooltimeCheck
+	{
+		if (true == IsSkillACombo)
+		{
+			++SkillACombo;
+
+			if (SkillACombo >= AnimColMeta_SkillA.size())
+			{
+				SkillACombo = 0;
+			}
+
+			IsSkillACombo = false;
+			SkullRenderer->ChangeAnimation(AnimColMeta_SkillA[SkillACombo].GetAnimationName() + AnimNamePlusText);
+		}
+		else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		{
+			PlayerFSM.ChangeState("Walk");
+
+		}
+		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		{
+			PlayerFSM.ChangeState("Walk");
+		}
+		else
+		{
+			PlayerFSM.ChangeState("Idle");
+		}
+	}
+}
+
+void PlayerBaseSkull::Skill_SlotA_End()
+{
+
+}
+
+void PlayerBaseSkull::Skill_SlotB_Enter()
+{
+	if (0 == AnimColMeta_SkillB.size())
+	{
+		MsgAssert_Rtti<PlayerBaseSkull>(" - 스컬의 스킬A 정보가 없습니다");
+	}
+
+	IsSkillBCombo = false;
+	SkillBCombo = 0;
+	SkullRenderer->ChangeAnimation(AnimColMeta_SkillB[SkillBCombo].GetAnimationName() + AnimNamePlusText);
+}
+
+void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
+{
+	if (nullptr == PlatformColCheck(WalkCol))
+	{
+		float4 DashVelocity = DashRigidbody.GetVelocity() * _DeltaTime;
+		GetTransform()->AddLocalPosition(DashVelocity);
+	}
+
+	if (true == SkullRenderer->IsAnimationEnd()) // + Skill CooltimeCheck
+	{
+		if (true == IsSkillBCombo)
+		{
+			++SkillBCombo;
+
+			if (SkillBCombo >= AnimColMeta_SkillB.size())
+			{
+				SkillBCombo = 0;
+			}
+
+			IsSkillBCombo = false;
+			SkullRenderer->ChangeAnimation(AnimColMeta_SkillB[SkillBCombo].GetAnimationName() + AnimNamePlusText);
+		}
+		else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		{
+			PlayerFSM.ChangeState("Walk");
+
+		}
+		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		{
+			PlayerFSM.ChangeState("Walk");
+		}
+		else
+		{
+			PlayerFSM.ChangeState("Idle");
+		}
+	}
+}
+
+void PlayerBaseSkull::Skill_SlotB_End()
+{
+
 }

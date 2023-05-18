@@ -65,13 +65,13 @@ protected:
 	virtual void Switch_Update(float _DeltaTime) {}
 	virtual void Switch_End() {}
 
-	virtual void Skill_SlotA_Enter() {}
-	virtual void Skill_SlotA_Update(float _DeltaTime) {}
-	virtual void Skill_SlotA_End() {}
+	virtual void Skill_SlotA_Enter();
+	virtual void Skill_SlotA_Update(float _DeltaTime);
+	virtual void Skill_SlotA_End();
 
-	virtual void Skill_SlotB_Enter() {}
-	virtual void Skill_SlotB_Update(float _DeltaTime) {}
-	virtual void Skill_SlotB_End() {}
+	virtual void Skill_SlotB_Enter();
+	virtual void Skill_SlotB_Update(float _DeltaTime);
+	virtual void Skill_SlotB_End();
 
 	virtual void TextureLoad() = 0;
 	virtual void CreateAnimation() = 0;
@@ -120,6 +120,12 @@ private:
 
 	UINT JumpAttackCombo = 0;
 	bool IsJumpAttackCombo = false;
+
+	UINT SkillACombo = 0;
+	bool IsSkillACombo = false;
+
+	UINT SkillBCombo = 0;
+	bool IsSkillBCombo = false;
 	
 	void SetViewDir(ActorViewDir _ViewDir);
 	void CreateColDebugRender();

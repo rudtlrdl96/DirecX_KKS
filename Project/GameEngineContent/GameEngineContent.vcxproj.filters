@@ -618,6 +618,9 @@
     <ClInclude Include="AttackColRender.h">
       <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
+    <ClInclude Include="BoneHead.h">
+      <Filter>2_Actor\Player\Skull\BoneSkull</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -955,6 +958,9 @@
     </ClCompile>
     <ClCompile Include="AttackColRender.cpp">
       <Filter>2_Actor\Debug\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneHead.cpp">
+      <Filter>2_Actor\Player\Skull\BoneSkull</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
