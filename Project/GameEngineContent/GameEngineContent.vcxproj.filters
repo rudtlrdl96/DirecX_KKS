@@ -642,6 +642,9 @@
     <ClInclude Include="BaseMonster.h">
       <Filter>2_Actor\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="FPSCheckGUI.h">
+      <Filter>5_GUI\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -994,6 +997,9 @@
     </ClCompile>
     <ClCompile Include="BaseMonster.cpp">
       <Filter>2_Actor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCheckGUI.cpp">
+      <Filter>5_GUI\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

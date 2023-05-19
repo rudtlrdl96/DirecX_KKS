@@ -35,6 +35,8 @@ void CastleLevel::Start()
 
 	MainStageName = "DB_Castle_Map";
 	MainBackgroundName = "DB_Castle_Background";
+
+
 }
 
 void CastleLevel::Update(float _DeltaTime)
@@ -50,4 +52,5 @@ void CastleLevel::LevelChangeStart()
 	MainCamCtrl.SetMaxHeight(128 + GameEngineWindow::GetScreenSize().y);
 
 	MainCamCtrl.SetMaxWidth(D3D11_FLOAT32_MAX);
+
 }

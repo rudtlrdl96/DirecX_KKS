@@ -973,7 +973,7 @@ void PlayerBaseSkull::Switch_Enter()
 	}
 
 	SwitchCombo = 0;
-	SkullRenderer->ChangeAnimation(AnimColMeta_Switch[SwitchCombo].GetAnimationName() + AnimNamePlusText);
+	SkullRenderer->ChangeAnimation(AnimColMeta_Switch[SwitchCombo].GetAnimationName());
 }
 
 void PlayerBaseSkull::Switch_Update(float _DeltaTime)
@@ -990,7 +990,7 @@ void PlayerBaseSkull::Switch_Update(float _DeltaTime)
 
 		if (AnimColMeta_Switch.size() > SwitchCombo)
 		{
-			SkullRenderer->ChangeAnimation(AnimColMeta_Switch[SwitchCombo].GetAnimationName() + AnimNamePlusText);
+			SkullRenderer->ChangeAnimation(AnimColMeta_Switch[SwitchCombo].GetAnimationName());
 		}
 		else
 		{

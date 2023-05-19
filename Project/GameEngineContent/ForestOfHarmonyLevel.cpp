@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "ForestOfHarmonyLevel.h"
 #include "MultiBackground.h"
+#include "FPSCheckGUI.h"
 
 ForestOfHarmonyLevel::ForestOfHarmonyLevel()
 {
@@ -52,9 +53,20 @@ void ForestOfHarmonyLevel::Start()
 
 	MainStageName = "DB_ForestOfHarmony_Stage0_0_Map";
 	MainBackgroundName = "DB_ForestOfHarmony_Background_01";
+	GameEngineGUI::GUIWindowCreate<FPSCheckGUI>("FPS_GUI");
+	FPS_GUI = GameEngineGUI::FindGUIWindowConvert<FPSCheckGUI>("FPS_GUI");
+	FPS_GUI->Off();
+
 }
 
 void ForestOfHarmonyLevel::Update(float _DeltaTime)
 {
 	BattleLevel::Update(_DeltaTime);
+}
+
+void ForestOfHarmonyLevel::LevelChangeStart()
+{
+	BattleLevel::LevelChangeStart();
+	FPS_GUI->Reset();
+	FPS_GUI->On();
 }

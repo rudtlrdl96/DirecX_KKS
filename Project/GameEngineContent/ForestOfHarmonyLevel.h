@@ -16,7 +16,10 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	void LevelChangeStart() override;
+
 private:
+	std::shared_ptr<class FPSCheckGUI> FPS_GUI = nullptr;
 
 };
 

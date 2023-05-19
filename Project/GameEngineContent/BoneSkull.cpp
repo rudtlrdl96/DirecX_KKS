@@ -104,6 +104,8 @@ void BoneSkull::Switch_Update(float _DeltaTime)
 
 		PlayerTrans->SetWorldPosition(CurPos);
 		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
+
+		JumpDir.y = 0.0f;
 	}
 
 	switch (GetViewDir())
