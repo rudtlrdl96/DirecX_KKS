@@ -9,7 +9,7 @@
 
 void PlayerBaseSkull::Idle_Enter()
 {
-	SkullRenderer->ChangeAnimation("Idle" + AnimNamePlusText);
+	SkullRenderer->ChangeAnimation(std::string("Idle" + AnimNamePlusText));
 	JumpDir = float4::Zero;
 	CanJump = true;
 	DoubleJump = true;
@@ -85,7 +85,7 @@ void PlayerBaseSkull::Idle_End()
 void PlayerBaseSkull::Jump_Enter()
 {
 	CanJump = false;
-	SkullRenderer->ChangeAnimation("Jump" + AnimNamePlusText);
+	SkullRenderer->ChangeAnimation(std::string("Jump" + AnimNamePlusText));
 }
 
 void PlayerBaseSkull::Jump_Update(float _DeltaTime)
@@ -130,7 +130,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
-		PlayerFSM.ChangeState("JumpAttack" + AnimNamePlusText);
+		PlayerFSM.ChangeState("JumpAttack");
 		return;
 	}
 
@@ -175,7 +175,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 
 void PlayerBaseSkull::Walk_Enter() 
 {
-	SkullRenderer->ChangeAnimation("Walk" + AnimNamePlusText);
+	SkullRenderer->ChangeAnimation(std::string("Walk" + AnimNamePlusText));
 	JumpDir = float4::Zero;
 	CanJump = true;
 	DoubleJump = true;
@@ -480,7 +480,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
-		PlayerFSM.ChangeState("JumpAttack" + AnimNamePlusText);
+		PlayerFSM.ChangeState("JumpAttack");
 		return;
 	}
 
@@ -587,7 +587,7 @@ void PlayerBaseSkull::Attack_Enter()
 
 	IsAttackCombo = false;
 	AttackComboCount = 0;
-	SkullRenderer->ChangeAnimation(AnimColMeta_Attack[AttackComboCount].GetAnimationName() + AnimNamePlusText);
+	SkullRenderer->ChangeAnimation(std::string(AnimColMeta_Attack[AttackComboCount].GetAnimationName() + AnimNamePlusText));
 }
 
 void PlayerBaseSkull::Attack_Update(float _DeltaTime) 

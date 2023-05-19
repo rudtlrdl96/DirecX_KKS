@@ -3,6 +3,13 @@
 
 class BoneSkull : public PlayerBaseSkull
 {
+private:
+	enum class BoneSkullState
+	{
+		Normal,
+		NoHead,
+		NoWeapon
+	};
 public:
 	BoneSkull();
 	~BoneSkull();
@@ -12,9 +19,12 @@ public:
 	BoneSkull& operator=(const BoneSkull& _Other) = delete;
 	BoneSkull& operator=(BoneSkull&& _Other) noexcept = delete;
 
+	void SetBoneSkullState(BoneSkullState _State);
+
 protected:
 	void Start() override;
 
+	void Skill_SlotA_Enter() override;
 	void Skill_SlotA_Update(float _DeltaTime) override;
 	void Skill_SlotB_Enter() override;
 
@@ -28,7 +38,10 @@ private:
 	void CreateAnimation() override;
 	void AnimationColLoad() override;
 
+
 	std::shared_ptr<class BoneHead> HeadActor = nullptr;
+
+	BoneSkullState State = BoneSkullState::Normal;
 
 };
 

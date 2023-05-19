@@ -313,6 +313,9 @@
     <Filter Include="2_Actor\Projectile">
       <UniqueIdentifier>{96b7ce4f-974a-43cf-b2ed-2554fd1bbd31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Monster">
+      <UniqueIdentifier>{9a8187fb-9295-4b1f-a266-729064c4934c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -635,6 +638,9 @@
     </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>2_Actor\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseMonster.h">
+      <Filter>2_Actor\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -985,6 +991,9 @@
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>2_Actor\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseMonster.cpp">
+      <Filter>2_Actor\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
