@@ -13,6 +13,8 @@ public:
 	ChiefGuard& operator=(ChiefGuard&& _Other) noexcept = delete;
 
 protected:
+	void Start() override;
+
 	void Skill_SlotA_Enter() override;
 	void Skill_SlotA_Update(float _DeltaTime) override;
 	void Skill_SlotA_End() override;
@@ -30,6 +32,8 @@ private:
 	void CreateAnimation() override;
 	void AnimationColLoad() override;
 
+	std::shared_ptr<class GameEngineCollision> FlashCol = nullptr;
+
 	bool IsProjecTileShot = false;
 	bool IsSkillAFlash = false;
 
@@ -43,5 +47,6 @@ private:
 
 	float FlashProgress = 0.0f;
 	float FlashSpeed = 30.0f;
+
 };
 

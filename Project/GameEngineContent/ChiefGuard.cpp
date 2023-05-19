@@ -2,6 +2,7 @@
 #include "ChiefGuard.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include  "Projectile.h"
 
@@ -11,6 +12,13 @@ ChiefGuard::ChiefGuard()
 
 ChiefGuard::~ChiefGuard()
 {
+}
+
+void ChiefGuard::Start()
+{
+	PlayerBaseSkull::Start();
+
+	FlashCol = CreateComponent<GameEngineCollision>();
 }
 
 void ChiefGuard::Skill_SlotA_Enter()
