@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include "CaptureTrail.h"
+#include "Player.h"
 
 void PlayerBaseSkull::Idle_Enter()
 {
@@ -16,6 +17,13 @@ void PlayerBaseSkull::Idle_Enter()
 
 void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 {
+	IsSwitchValue = false;
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	{
+		IsSwitchValue = true;
+	}
+
 	if (nullptr == PlatformColCheck(GroundCol, true))
 	{
 		PlayerFSM.ChangeState("Fall");
@@ -82,16 +90,23 @@ void PlayerBaseSkull::Jump_Enter()
 
 void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 {
+	IsSwitchValue = false;
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	{
+		IsSwitchValue = true;
+	}
+
 	if (nullptr == PlatformColCheck(WalkCol))
 	{
 		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
-		GetTransform()->AddLocalPosition(Velocity);
+		PlayerTrans->AddLocalPosition(Velocity);
 	}
 
 	if (nullptr == PlatformColCheck(JumpCol))
 	{
 		JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
-		GetTransform()->AddLocalPosition(JumpDir * _DeltaTime);
+		PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
 	}
 	else 
 	{
@@ -104,9 +119,10 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 		return;
 	}
 
+
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
-		EffectManager::PlayEffect({.EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition()});
+		EffectManager::PlayEffect({.EffectName = "PlayerJumpEffect", .Postion = PlayerTrans->GetWorldPosition()});
 
 		JumpDir = float4::Up * JumpPower;
 		DoubleJump = false;
@@ -137,7 +153,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 		if (nullptr == PlatformColCheck(WalkCol))
 		{
 			float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
-			GetTransform()->AddLocalPosition(MoveDir);
+			PlayerTrans->AddLocalPosition(MoveDir);
 		}
 	}
 	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
@@ -147,7 +163,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 		if (nullptr == PlatformColCheck(WalkCol))
 		{
 			float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
-			GetTransform()->AddLocalPosition(MoveDir);
+			PlayerTrans->AddLocalPosition(MoveDir);
 		}
 	}
 
@@ -167,10 +183,16 @@ void PlayerBaseSkull::Walk_Enter()
 
 void PlayerBaseSkull::Walk_Update(float _DeltaTime) 
 {
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	{
+		IsSwitchValue = true;
+	}
+
 	if (nullptr == PlatformColCheck(WalkCol))
 	{
 		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
-		GetTransform()->AddLocalPosition(Velocity);
+		PlayerTrans->AddLocalPosition(Velocity);
 	}
 
 	if (nullptr == PlatformColCheck(GroundCol, true))
@@ -228,7 +250,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 		if (nullptr == PlatformColCheck(WalkCol))
 		{
 			float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
-			GetTransform()->AddLocalPosition(MoveDir);
+			PlayerTrans->AddLocalPosition(MoveDir);
 		}
 	}
 	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
@@ -238,7 +260,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 		if (nullptr == PlatformColCheck(WalkCol))
 		{
 			float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
-			GetTransform()->AddLocalPosition(MoveDir);
+			PlayerTrans->AddLocalPosition(MoveDir);
 		}
 	}
 	else
@@ -264,7 +286,7 @@ void PlayerBaseSkull::Dash_Enter()
 
 	EffectManager::PlayEffect({ 
 		.EffectName = "PlayerDashEffect",
-		.Postion = GetTransform()->GetWorldPosition(), 
+		.Postion = PlayerTrans->GetWorldPosition(),
 		.FlipX = ViewDir == ActorViewDir::Left});
 
 	switch (ViewDir)
@@ -289,17 +311,24 @@ void PlayerBaseSkull::Dash_Enter()
 
 void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 {
+	IsSwitchValue = false;
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	{
+		IsSwitchValue = true;
+	}
+
 	if (nullptr == PlatformColCheck(WalkCol))
 	{
 		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
-		GetTransform()->AddLocalPosition(Velocity);
+		PlayerTrans->AddLocalPosition(Velocity);
 	}
 
 	if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		if (nullptr == PlatformColCheck(GroundCol, true))
 		{
-			EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition() });
+			EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = PlayerTrans->GetWorldPosition() });
 
 			JumpDir = float4::Up * JumpPower;
 			PlayerFSM.ChangeState("Jump");
@@ -316,7 +345,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
-		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition() });
+		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = PlayerTrans->GetWorldPosition() });
 
 		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
@@ -372,7 +401,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 		EffectManager::PlayEffect({
 			.EffectName = "PlayerDashEffect",
-			.Postion = GetTransform()->GetWorldPosition(),
+			.Postion = PlayerTrans->GetWorldPosition(),
 			.FlipX = ViewDir == ActorViewDir::Left });
 
 		DashCombo = true;
@@ -425,11 +454,17 @@ void PlayerBaseSkull::Fall_Enter()
 
 void PlayerBaseSkull::Fall_Update(float _DeltaTime) 
 {
+	IsSwitchValue = false;
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	{
+		IsSwitchValue = true;
+	}
 
 	if (nullptr == PlatformColCheck(WalkCol))
 	{
 		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
-		GetTransform()->AddLocalPosition(Velocity);
+		PlayerTrans->AddLocalPosition(Velocity);
 	}
 
 	if (true == SkullRenderer->FindAnimation("Fall")->IsEnd())
@@ -451,7 +486,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
-		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition() });
+		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = PlayerTrans->GetWorldPosition() });
 
 		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
@@ -460,7 +495,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	}
 
 	JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
-	GetTransform()->AddLocalPosition(JumpDir * _DeltaTime);
+	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))  // + Skill CooltimeCheck
 	{
@@ -481,7 +516,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 		if (nullptr == PlatformColCheck(WalkCol))
 		{
 			float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
-			GetTransform()->AddLocalPosition(MoveDir);
+			PlayerTrans->AddLocalPosition(MoveDir);
 		}
 	}
 	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
@@ -491,7 +526,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 		if (nullptr == PlatformColCheck(WalkCol))
 		{
 			float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
-			GetTransform()->AddLocalPosition(MoveDir);
+			PlayerTrans->AddLocalPosition(MoveDir);
 		}
 	}
 
@@ -501,7 +536,6 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 
 	if (nullptr != GroundColPtr)
 	{	
-		GameEngineTransform* PlayerTrans = GetTransform();
 		float4 CurPos = PlayerTrans->GetWorldPosition();
 
 		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
@@ -558,6 +592,13 @@ void PlayerBaseSkull::Attack_Enter()
 
 void PlayerBaseSkull::Attack_Update(float _DeltaTime) 
 {
+	IsSwitchValue = false;
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	{
+		IsSwitchValue = true;
+	}
+
 	if (nullptr == PlatformColCheck(GroundCol, true))
 	{
 		PlayerFSM.ChangeState("Fall");
@@ -569,10 +610,10 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 	if (nullptr == PlatformColCheck(WalkCol))
 	{
 		float4 DashVelocity = DashRigidbody.GetVelocity() * _DeltaTime;
-		GetTransform()->AddLocalPosition(DashVelocity);
+		PlayerTrans->AddLocalPosition(DashVelocity);
 
 		float4 AttackVelocity = AttackRigidbody.GetVelocity() * _DeltaTime;
-		GetTransform()->AddLocalPosition(AttackVelocity);
+		PlayerTrans->AddLocalPosition(AttackVelocity);
 	}
 
 	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
@@ -666,10 +707,17 @@ void PlayerBaseSkull::JumpAttack_Enter()
 
 void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 {
+	IsSwitchValue = false;
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	{
+		IsSwitchValue = true;
+	}
+
 	if (nullptr == PlatformColCheck(WalkCol))
 	{
 		float4 Velocity = DashRigidbody.GetVelocity() * _DeltaTime;
-		GetTransform()->AddLocalPosition(Velocity);
+		PlayerTrans->AddLocalPosition(Velocity);
 	}
 
 	if (nullptr == PlatformColCheck(WalkCol))
@@ -677,19 +725,19 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
 			SetViewDir(ActorViewDir::Left);
-			GetTransform()->AddLocalPosition(float4::Left * WalkSpeed * _DeltaTime);
+			PlayerTrans->AddLocalPosition(float4::Left * WalkSpeed * _DeltaTime);
 		}
 		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
 			SetViewDir(ActorViewDir::Right);
-			GetTransform()->AddLocalPosition(float4::Right * WalkSpeed * _DeltaTime);
+			PlayerTrans->AddLocalPosition(float4::Right * WalkSpeed * _DeltaTime);
 		}
 	}
 
 	if (nullptr == PlatformColCheck(JumpCol))
 	{
 		JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
-		GetTransform()->AddLocalPosition(JumpDir * _DeltaTime);
+		PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
 	}
 	else
 	{
@@ -713,7 +761,6 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 
 	if (JumpDir.y <= 0.0f && nullptr != GroundColPtr)
 	{
-		GameEngineTransform* PlayerTrans = GetTransform();
 		float4 CurPos = PlayerTrans->GetWorldPosition();
 
 		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
@@ -739,7 +786,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
-		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = GetTransform()->GetWorldPosition() });
+		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = PlayerTrans->GetWorldPosition() });
 
 		JumpDir = float4::Up * JumpPower;
 		DoubleJump = false;
@@ -800,10 +847,17 @@ void PlayerBaseSkull::Skill_SlotA_Enter()
 
 void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
 {
+	IsSwitchValue = false;
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	{
+		IsSwitchValue = true;
+	}
+
 	if (nullptr == PlatformColCheck(WalkCol))
 	{
 		float4 DashVelocity = DashRigidbody.GetVelocity() * _DeltaTime;
-		GetTransform()->AddLocalPosition(DashVelocity);
+		PlayerTrans->AddLocalPosition(DashVelocity);
 	}
 
 	if (true == SkullRenderer->IsAnimationEnd()) // + Skill CooltimeCheck
@@ -859,10 +913,17 @@ void PlayerBaseSkull::Skill_SlotB_Enter()
 
 void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
 {
+	IsSwitchValue = false;
+
+	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	{
+		IsSwitchValue = true;
+	}
+
 	if (nullptr == PlatformColCheck(WalkCol))
 	{
 		float4 DashVelocity = DashRigidbody.GetVelocity() * _DeltaTime;
-		GetTransform()->AddLocalPosition(DashVelocity);
+		PlayerTrans->AddLocalPosition(DashVelocity);
 	}
 
 	if (true == SkullRenderer->IsAnimationEnd()) // + Skill CooltimeCheck
@@ -917,6 +978,12 @@ void PlayerBaseSkull::Switch_Enter()
 
 void PlayerBaseSkull::Switch_Update(float _DeltaTime)
 {
+	if (nullptr == PlatformColCheck(WalkCol))
+	{
+		float4 DashVelocity = DashRigidbody.GetVelocity() * _DeltaTime;
+		PlayerTrans->AddLocalPosition(DashVelocity);
+	}
+
 	if (true == SkullRenderer->IsAnimationEnd()) // + Skill CooltimeCheck
 	{
 		++SwitchCombo;

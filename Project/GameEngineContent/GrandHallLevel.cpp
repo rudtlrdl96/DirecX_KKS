@@ -33,10 +33,8 @@ void GrandHallLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
-	BattleAreaPtr->ChangeBackground("DB_GrandHall_Background_0");
-	BattleAreaPtr->ChangeMap("DB_GrandHall_BossEntrance_Map");
-	BattleAreaPtr->SetCameraLock(MainCamCtrl);
-	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
+	MainStageName = "DB_GrandHall_BossEntrance_Map";
+	MainBackgroundName = "DB_GrandHall_Background_0";
 }
 
 void GrandHallLevel::Update(float _DeltaTime)

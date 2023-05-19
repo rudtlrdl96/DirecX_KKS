@@ -7,6 +7,7 @@
 
 #include "CollisionDebugRender.h"
 #include "CaptureTrail.h"
+#include "Player.h"
 
 PlayerBaseSkull::PlayerBaseSkull()
 {
@@ -16,13 +17,32 @@ PlayerBaseSkull::~PlayerBaseSkull()
 {
 }
 
+void PlayerBaseSkull::SetPlayer(std::shared_ptr<class Player> _ParentPlayer)
+{
+
+	if (nullptr == _ParentPlayer)
+	{
+		MsgAssert_Rtti<PlayerBaseSkull>(" - nullptr 플레이어 포인터가 들어왔습니다");
+		return;
+	}
+
+	PlayerTrans = _ParentPlayer->GetTransform();
+}
+
 void PlayerBaseSkull::Start()
 {
+	DataLoad();
+	TextureLoad();
+
 	SkullRenderer = CreateComponent<ContentSpriteRenderer>();
+	SkullRenderer->SetPipeLine("2DTexture_ColorLight");
+	SkullRenderer->SetAtlasConstantBuffer();
+	SkullRenderer->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	SkullRenderer->GetTransform()->SetLocalPosition(float4::Zero);
 	SkullRenderer->SetScaleRatio(2.0f);
 
-	TextureLoad();
+	Buffer.Color = float4::Zero;
+
 	CreateAnimation();
 	AnimationColLoad();
 
@@ -37,12 +57,19 @@ void PlayerBaseSkull::Start()
 		Path.Move("Player");
 		Path.Move("Effect");
 
+		// 공용
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Player_DashSmokeEffect.png").GetFullPath(), 6, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Player_DoubleJumpEffect.png").GetFullPath(), 5, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkul.png").GetFullPath(), 5, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitNormal.png").GetFullPath(), 6, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SkullAppearance.png").GetFullPath(), 7, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("LandSmoke.png").GetFullPath(), 7, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SwitchEffect.png").GetFullPath(), 5, 4);
+
+		// 경비대장
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FireProjectile.png").GetFullPath(), 4, 6);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlashCut.png").GetFullPath(), 1, 8);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FireSlash.png").GetFullPath(), 11, 2);
 	}
 
 	if (false == GameEngineInput::IsKey("PlayerMove_Left"))
@@ -119,6 +146,34 @@ void PlayerBaseSkull::Start()
 			0, 20,
 			0.03f,
 			2.0f });
+
+		EffectManager::CreateMetaData("SwitchEffect", {
+			"SwitchEffect.png" ,
+			float4::Zero,
+			0, 19,
+			0.03f,
+			2.0f });
+
+		EffectManager::CreateMetaData("FireProjectile", {
+			"FireProjectile.png" ,
+			float4::Zero,
+			0, 23,
+			0.03f,
+			2.0f });
+
+		EffectManager::CreateMetaData("FlashCut", {
+			"FlashCut.png" ,
+			float4::Zero,
+			0, 7,
+			0.025f,
+			1.5f });		
+		
+		EffectManager::CreateMetaData("FireSlash", {
+			"FireSlash.png" ,
+			float4::Zero,
+			0, 21,
+			0.03f,
+			2.0f });
 	}
 
 	DashRigidbody.SetActiveGravity(false);
@@ -145,6 +200,11 @@ void PlayerBaseSkull::Start()
 	DashTrail->GetTransform()->SetParent(GetTransform());
 	DashTrail->SetTime(0.4f);
 	DashTrail->SetColor(float4(0.0f, 0.0f, 0.0f, 1.0f), float4::Null);
+
+	EffectCaptureTrail = GetLevel()->CreateActor<CaptureTrail>();
+	EffectCaptureTrail->GetTransform()->SetParent(GetTransform());
+	EffectCaptureTrail->SetTime(0.4f);
+	EffectCaptureTrail->SetColor(float4(0.0f, 0.0f, 0.0f, 1.0f), float4::Null);
 
 	//DashTrail->GetTransform()->SetLocalPosition(float4(0, 0, 1));
 }
@@ -178,6 +238,17 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 	{
 		CanDash = true;
 		DashCoolTime = 0.0f;
+	}
+
+	RenderEffectProgress += _DeltaTime * RenderEffectSpeed;
+
+	if (1.0f > RenderEffectProgress)
+	{
+		Buffer.Color = float4::LerpClamp(RenderEffectStartColor, RenderEffectEndColor, RenderEffectProgress);
+	}
+	else
+	{
+		Buffer.Color = float4::Zero;
 	}
 }
 
@@ -357,4 +428,24 @@ void PlayerBaseSkull::CreateAttackAnim(const AnimationAttackMetaData& _AnimData,
 		.FrameInter = _InterTime,
 		.ScaleToTexture = true});
 
+}
+
+
+void PlayerBaseSkull::RendererEffect(const float4& _StartColor, const float4& _EndColor, float _Speed)
+{
+	RenderEffectProgress = 0.0f;
+	RenderEffectSpeed = _Speed;
+	RenderEffectStartColor = _StartColor;
+	RenderEffectEndColor = _EndColor;
+}
+
+void PlayerBaseSkull::CaptureRenderTex(const float4& _StartColor, const float4& _EndColor, float _Speed)
+{
+	EffectCaptureTrail->SetColor(_StartColor, _EndColor);
+	EffectCaptureTrail->SetTime(1.0f / _Speed);
+
+	EffectCaptureTrail->PlayTrail(SkullRenderer->GetTexName(),
+		SkullRenderer->GetAtlasData(),
+		(ActorViewDir::Left == ViewDir),
+		SkullRenderer->GetScaleRatio());
 }

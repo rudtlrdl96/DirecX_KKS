@@ -2,9 +2,12 @@
 #include "BaseContentActor.h"
 #include "ClassFSM.h"
 #include "Rigidbody2D.h"
+#include "SkullData.h"
 
 class PlayerBaseSkull : public BaseContentActor
 {
+	friend class Player;
+
 public:
 	PlayerBaseSkull();
 	~PlayerBaseSkull();
@@ -19,8 +22,14 @@ public:
 		return &DashRigidbody;
 	}
 
+	void SetPlayer(std::shared_ptr<class Player> _ParentPlayer);
+
 protected:	
+	GameEngineTransform* PlayerTrans = nullptr;
+
 	std::shared_ptr<ContentSpriteRenderer> SkullRenderer = nullptr;
+
+	ColorBuffer Buffer;
 
 	std::vector<AnimationAttackMetaData> AnimColMeta_Attack;
 	std::vector<AnimationAttackMetaData> AnimColMeta_JumpAttack;
@@ -28,7 +37,22 @@ protected:
 	std::vector<AnimationAttackMetaData> AnimColMeta_SkillB;
 	std::vector<AnimationAttackMetaData> AnimColMeta_Switch;
 
+	ClassFSM<PlayerBaseSkull> PlayerFSM;
+
+	std::shared_ptr<class CaptureTrail> DashTrail = nullptr;
+	std::shared_ptr<class CaptureTrail> EffectCaptureTrail = nullptr;
+
+	std::shared_ptr<class GameEngineCollision> WalkCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> GroundCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> JumpCol = nullptr;
+
+	Rigidbody2D DashRigidbody;
+	Rigidbody2D AttackRigidbody;
+
+	SkullData Data = SkullData();
+
 	std::string AnimNamePlusText = "";
+	float4 JumpDir = float4::Zero;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -74,6 +98,7 @@ protected:
 	virtual void Skill_SlotB_Update(float _DeltaTime);
 	virtual void Skill_SlotB_End();
 
+	virtual void DataLoad() = 0;
 	virtual void TextureLoad() = 0;
 	virtual void CreateAnimation() = 0;
 	virtual void AnimationColLoad() = 0;
@@ -94,21 +119,14 @@ protected:
 		return ViewDir;
 	}
 
-private:		
-	Rigidbody2D DashRigidbody;
-	Rigidbody2D AttackRigidbody;
+	inline bool IsSwitch() const
+	{
+		return IsSwitchValue;
+	}
 
-	ClassFSM<PlayerBaseSkull> PlayerFSM;
-	
-	std::shared_ptr<class CaptureTrail> DashTrail = nullptr;
-
-	std::shared_ptr<class GameEngineCollision> WalkCol = nullptr;
-	std::shared_ptr<class GameEngineCollision> GroundCol = nullptr;
-	std::shared_ptr<class GameEngineCollision> JumpCol = nullptr;
-
+private:	
 	ActorViewDir ViewDir = ActorViewDir::Right;
 
-	float4 JumpDir = float4::Zero;
 	float JumpPower = 700.0f;
 	bool CanJump = false;
 	bool DoubleJump = false;
@@ -135,7 +153,18 @@ private:
 	UINT SkillBCombo = 0;
 	UINT SwitchCombo = 0;
 	
+	bool IsSwitchValue = false;
+
+	float RenderEffectProgress = 0.0f;
+	float RenderEffectSpeed = 0.0f;
+
+	float4 RenderEffectStartColor = float4::Zero;
+	float4 RenderEffectEndColor = float4::Zero;
+
+
 	void CreateColDebugRender();
 	void CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime);
+	void RendererEffect(const float4& _StartColor, const float4& _EndColor, float _Speed);
+	void CaptureRenderTex(const float4& _StartColor, const float4& _EndColor, float _Speed);
 };
 

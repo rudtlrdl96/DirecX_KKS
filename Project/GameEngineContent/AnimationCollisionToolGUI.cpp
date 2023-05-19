@@ -193,7 +193,7 @@ void AnimationCollisionToolGUI::Save()
 	}
 
 	GameEngineSerializer SaveSerializer;
-	SaveSerializer.BufferResize(2048);
+	SaveSerializer.BufferResize(4096);
 
 	ColMetaDatas.SaveBin(SaveSerializer);
 
@@ -215,7 +215,7 @@ void AnimationCollisionToolGUI::Load()
 	GameEngineFile LoadFile = GameEngineFile(Path);
 
 	GameEngineSerializer LoadSerializer;
-	LoadSerializer.BufferResize(2048);
+	LoadSerializer.BufferResize(4096);
 	LoadFile.LoadBin(LoadSerializer);
 
 	ColMetaDatas.LoadBin(LoadSerializer);

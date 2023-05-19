@@ -14,16 +14,21 @@ public:
 	BattleLevel& operator=(BattleLevel&& _Other) noexcept = delete;
 
 protected:
+	std::string MainStageName = "";
+	std::string MainBackgroundName = "";
+
+	std::shared_ptr<class Player> MainPlayer = nullptr;
+	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 	void SetPosDebugActor(const float4& _Pos);
 
-	std::shared_ptr<class BoneSkull> DebugActor = nullptr;
-	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
-
 	void LevelChangeStart() override;
 	void LevelChangeEnd() override;
+
+	void ChangeStage();
 
 private:
 

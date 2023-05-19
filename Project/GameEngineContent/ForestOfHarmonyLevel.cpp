@@ -50,10 +50,8 @@ void ForestOfHarmonyLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
-	BattleAreaPtr->ChangeBackground("DB_ForestOfHarmony_Background_01");
-	BattleAreaPtr->ChangeMap("DB_ForestOfHarmony_Stage0_0_Map");
-	BattleAreaPtr->SetCameraLock(MainCamCtrl);
-	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
+	MainStageName = "DB_ForestOfHarmony_Stage0_0_Map";
+	MainBackgroundName = "DB_ForestOfHarmony_Background_01";
 }
 
 void ForestOfHarmonyLevel::Update(float _DeltaTime)

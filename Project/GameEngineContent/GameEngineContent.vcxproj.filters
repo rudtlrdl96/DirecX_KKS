@@ -73,21 +73,6 @@
     <Filter Include="2_Actor\Player\Skull\Minotaurus\Legandary">
       <UniqueIdentifier>{bd5d0109-1054-41d2-ae45-ad846c998baf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Player\Skull\Wolf">
-      <UniqueIdentifier>{59676618-25b2-4fc4-a1ad-083d9df730f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\Player\Skull\Wolf\Rare">
-      <UniqueIdentifier>{6d6f0935-ac6c-4c94-b711-4924dad61efe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\Player\Skull\Wolf\Unique">
-      <UniqueIdentifier>{c549aa68-b8da-415d-800a-79153744ea1d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\Player\Skull\Wolf\Normal">
-      <UniqueIdentifier>{d80fbc1e-af7e-4c46-9df1-a4cd0c41428a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\Player\Skull\Wolf\Lagandary">
-      <UniqueIdentifier>{fe04da4f-51de-4304-a945-f2d04a946fb5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\Player\Skull\Alchemist">
       <UniqueIdentifier>{db4c0849-8663-4610-82b1-0baec5e95bdd}</UniqueIdentifier>
     </Filter>
@@ -307,6 +292,27 @@
     <Filter Include="2_Actor\Debug\Tool">
       <UniqueIdentifier>{d794b95d-468a-4fc2-b724-c2cf83402d41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Player\Skull\Minotaurus\Wolf">
+      <UniqueIdentifier>{59676618-25b2-4fc4-a1ad-083d9df730f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Player\Skull\Minotaurus\Wolf\Rare">
+      <UniqueIdentifier>{6d6f0935-ac6c-4c94-b711-4924dad61efe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Player\Skull\Minotaurus\Wolf\Unique">
+      <UniqueIdentifier>{c549aa68-b8da-415d-800a-79153744ea1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Player\Skull\Minotaurus\Wolf\Normal">
+      <UniqueIdentifier>{d80fbc1e-af7e-4c46-9df1-a4cd0c41428a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Player\Skull\Minotaurus\Wolf\Lagandary">
+      <UniqueIdentifier>{fe04da4f-51de-4304-a945-f2d04a946fb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Player">
+      <UniqueIdentifier>{4a6571ce-42b8-4201-b410-950192f0e032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Projectile">
+      <UniqueIdentifier>{96b7ce4f-974a-43cf-b2ed-2554fd1bbd31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -362,9 +368,6 @@
     </ClInclude>
     <ClInclude Include="TileMetaData.h">
       <Filter>1_Class\Base\Data\Tile</Filter>
-    </ClInclude>
-    <ClInclude Include="BattleDebugLevel.h">
-      <Filter>4_Level\DebugLevel\Test\Battle</Filter>
     </ClInclude>
     <ClInclude Include="TileActor.h">
       <Filter>2_Actor\Map\Stage\Tile</Filter>
@@ -624,6 +627,15 @@
     <ClInclude Include="ChiefGuard.h">
       <Filter>2_Actor\Player\Skull\ChiefGuard</Filter>
     </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>1_Class\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>2_Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>2_Actor\Projectile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -679,9 +691,6 @@
     </ClCompile>
     <ClCompile Include="TileMetaData.cpp">
       <Filter>1_Class\Base\Data\Tile</Filter>
-    </ClCompile>
-    <ClCompile Include="BattleDebugLevel.cpp">
-      <Filter>4_Level\DebugLevel\Test\Battle</Filter>
     </ClCompile>
     <ClCompile Include="TileActor.cpp">
       <Filter>2_Actor\Map\Stage\Tile</Filter>
@@ -967,6 +976,15 @@
     </ClCompile>
     <ClCompile Include="ChiefGuard.cpp">
       <Filter>2_Actor\Player\Skull\ChiefGuard</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>1_Class\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>2_Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>2_Actor\Projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -3,11 +3,9 @@
 
 #include "EffectManager.h"
 
-// Debug
-#include "BoneSkull.h"
-
 // Game
 #include "BattleArea.h"
+#include "Player.h"
 
 BattleLevel::BattleLevel()
 {
@@ -22,10 +20,7 @@ void BattleLevel::Start()
 	ContentLevel::Start();
 
 	float4 HalfWindowSize = GameEngineWindow::GetScreenSize().half();
-
 	BattleAreaPtr = CreateActor<BattleArea>();
-	DebugActor = CreateActor<BoneSkull>();
-	MainCamCtrl.SetLookatTarget(DebugActor);
 }
 
 void BattleLevel::Update(float _DeltaTime)
@@ -36,15 +31,39 @@ void BattleLevel::Update(float _DeltaTime)
 
 void BattleLevel::SetPosDebugActor(const float4& _Pos)
 {
-	DebugActor->GetTransform()->SetLocalPosition(_Pos);
+	MainPlayer->GetTransform()->SetLocalPosition(_Pos);
 }
 
 void BattleLevel::LevelChangeStart()
 {
 	EffectManager::SetLevel(DynamicThis<GameEngineLevel>());
+
+	if (nullptr == MainPlayer)
+	{
+		MainPlayer = CreateActor<Player>();
+		MainPlayer->SetInventoryData();
+
+		MainCamCtrl.SetLookatTarget(MainPlayer);
+	}
+
+	ChangeStage();
 }
 
 void BattleLevel::LevelChangeEnd()
 {
+	if (nullptr != MainPlayer)
+	{
+		MainPlayer->Death();
+		MainPlayer = nullptr;
+	}
+
 	EffectManager::SetLevel(nullptr);
+}
+
+void BattleLevel::ChangeStage()
+{
+	BattleAreaPtr->ChangeBackground(MainBackgroundName);
+	BattleAreaPtr->ChangeMap(MainStageName);
+	BattleAreaPtr->SetCameraLock(MainCamCtrl);
+	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
 }

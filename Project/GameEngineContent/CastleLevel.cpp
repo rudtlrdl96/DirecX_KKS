@@ -33,18 +33,21 @@ void CastleLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
-	BattleAreaPtr->ChangeBackground("DB_Castle_Background");
-	BattleAreaPtr->ChangeMap("DB_Castle_Map");
-	BattleAreaPtr->SetCameraLock(MainCamCtrl);
-	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
-
-	MainCamCtrl.SetMinHeight(128);
-	MainCamCtrl.SetMaxHeight(128 + GameEngineWindow::GetScreenSize().y);
-
-	MainCamCtrl.SetMaxWidth(D3D11_FLOAT32_MAX);
+	MainStageName = "DB_Castle_Map";
+	MainBackgroundName = "DB_Castle_Background";
 }
 
 void CastleLevel::Update(float _DeltaTime)
 {
 	BattleLevel::Update(_DeltaTime);
+}
+
+void CastleLevel::LevelChangeStart()
+{
+	BattleLevel::LevelChangeStart();
+
+	MainCamCtrl.SetMinHeight(128);
+	MainCamCtrl.SetMaxHeight(128 + GameEngineWindow::GetScreenSize().y);
+
+	MainCamCtrl.SetMaxWidth(D3D11_FLOAT32_MAX);
 }

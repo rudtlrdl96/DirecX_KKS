@@ -40,16 +40,14 @@ void OpeningLevel::Start()
 	{
 		DirectoryPath.Move("Map");
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_01_Map");
-		//BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_02_Map");
-		//BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_03_Map");
-		//BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_04_Map");
+		BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_02_Map");
+		BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_03_Map");
+		BattleAreaPtr->LoadMap(DirectoryPath, "DB_Opening_04_Map");
 		DirectoryPath.MoveParent();
 	}
 
-	BattleAreaPtr->ChangeBackground("DB_Opening_Background", float4(0, 128, 0));
-	BattleAreaPtr->ChangeMap("DB_Opening_01_Map");
-	BattleAreaPtr->SetCameraLock(MainCamCtrl);
-	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
+	MainStageName = "DB_Opening_01_Map";
+	MainBackgroundName = "DB_Opening_Background";
 }
 
 void OpeningLevel::Update(float _DeltaTime)

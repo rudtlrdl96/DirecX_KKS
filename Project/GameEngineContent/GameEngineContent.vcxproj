@@ -53,10 +53,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="BattleDebugLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="BattleLevel.h">
       <SubType>
       </SubType>
@@ -207,6 +203,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="InventoryDebugLevel.h">
       <SubType>
       </SubType>
@@ -287,7 +287,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PlayerSpawnPointRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -463,10 +471,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="BattleDebugLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="BattleLevel.cpp">
       <SubType>
       </SubType>
@@ -627,6 +631,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="InventoryDebugLevel.cpp">
       <SubType>
       </SubType>
@@ -707,8 +715,16 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayerBaseSkull_FSM.cpp" />
     <ClCompile Include="PlayerSpawnPointRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
       <SubType>
       </SubType>
     </ClCompile>

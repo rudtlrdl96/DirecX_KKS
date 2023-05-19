@@ -17,7 +17,13 @@ protected:
 
 	void Skill_SlotA_Update(float _DeltaTime) override;
 	void Skill_SlotB_Enter() override;
+
+	void Switch_Enter() override;
+	void Switch_Update(float _DeltaTime) override;
+	void Switch_End() override;
+
 private:
+	void DataLoad() override;
 	void TextureLoad() override;
 	void CreateAnimation() override;
 	void AnimationColLoad() override;

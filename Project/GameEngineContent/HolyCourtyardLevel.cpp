@@ -38,10 +38,9 @@ void HolyCourtyardLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
-	BattleAreaPtr->ChangeBackground("DB_HolyCourtyard_Background_1");
-	BattleAreaPtr->ChangeMap("DB_HoluCourtyard_BossEntranceFade_Map");
-	BattleAreaPtr->SetCameraLock(MainCamCtrl);
-	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
+
+	MainStageName = "DB_HoluCourtyard_BossEntranceFade_Map";
+	MainBackgroundName = "DB_HolyCourtyard_Background_1";
 }
 
 void HolyCourtyardLevel::Update(float _DeltaTime)

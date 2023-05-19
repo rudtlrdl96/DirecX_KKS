@@ -30,9 +30,11 @@
 #include "ShopLevel.h"
 #include "EndingLogoLevel.h"
 
+// Game Class
+#include "Inventory.h"
+
 // Debug Level
 #include "ShaderDebugLevel.h"
-#include "BattleDebugLevel.h"
 #include "InventoryDebugLevel.h"
 #include "PhysicsDebugLevel.h"
 #include "MapToolLevel.h"
@@ -97,13 +99,15 @@ void ContentCore::CoreLoading()
 	
 	// DebugLevel Create
 	GameEngineCore::CreateLevel<ShaderDebugLevel>("ShaderDebug");
-	GameEngineCore::CreateLevel<BattleDebugLevel>("BattleDebug");
 	GameEngineCore::CreateLevel<InventoryDebugLevel>("InventoryDebug");
 	GameEngineCore::CreateLevel<PhysicsDebugLevel>("PhysicsDebug");
 	GameEngineCore::CreateLevel<MapToolLevel>("MapTool");
 	GameEngineCore::CreateLevel<BackgroundToolLevel>("BackgroundTool");
 	GameEngineCore::CreateLevel<AnimationColToolLevel>("AnimationColTool");
 	GameEngineCore::CreateLevel<TilemapDebugLevel>("TilemapDebugLevel");
+
+	Inventory::SetMainSkull(ContentDatabase<SkullData, SkullGrade>::GetData(0)); // 기본 리틀본
+	Inventory::SetSubSkull(ContentDatabase<SkullData, SkullGrade>::GetData(203)); // 기본 리틀본
 
 	GameEngineCore::ChangeLevel("Title");
 

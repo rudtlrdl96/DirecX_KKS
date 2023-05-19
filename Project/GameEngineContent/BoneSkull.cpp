@@ -2,6 +2,7 @@
 #include "BoneSkull.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "BoneHead.h"
 #include "EffectManager.h"
@@ -30,7 +31,7 @@ void BoneSkull::Skill_SlotA_Update(float _DeltaTime)
 	if (false == HeadActor->IsUpdate() && 1 == SkullRenderer->GetCurrentFrame())
 	{
 		HeadActor->ShotHead(GetViewDir());
-		HeadActor->GetTransform()->SetLocalPosition(GetTransform()->GetLocalPosition() + float4(8, 50));
+		HeadActor->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(8, 50));
 		HeadActor->On();
 	}
 }
@@ -39,13 +40,12 @@ void BoneSkull::Skill_SlotB_Enter()
 {
 	HeadActor->Off();
 
-	GameEngineTransform* PlayerTrans = GetTransform();
 	GameEngineTransform* HeadTrans = HeadActor->GetTransform();
 
 	float4 PlayerPos = PlayerTrans->GetWorldPosition();
 	float4 HeadPos = HeadTrans->GetWorldPosition();
 
-	PlayerTrans->SetLocalPosition(HeadPos - float4(0, 50));
+	PlayerTrans->SetWorldPosition(HeadPos - float4(0, 50));
 
 	EffectManager::PlayEffect({"SkullAppearance", PlayerPos});
 	EffectManager::PlayEffect({"SkullAppearance", HeadPos - float4(0, 50) });
@@ -54,88 +54,58 @@ void BoneSkull::Skill_SlotB_Enter()
 	PlayerBaseSkull::Skill_SlotB_Enter();
 }
 
+void BoneSkull::Switch_Enter()
+{
+	PlayerBaseSkull::Switch_Enter();
+	DashRigidbody.SetVelocity(float4::Zero);
+	JumpDir.y = 0;
+}
+
+void BoneSkull::Switch_Update(float _DeltaTime)
+{
+	JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
+	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
+
+	std::shared_ptr<GameEngineCollision> GroundColPtr = PlatformColCheck(GroundCol, true);
+
+	if (nullptr != GroundColPtr)
+	{
+		float4 CurPos = PlayerTrans->GetWorldPosition();
+
+		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
+		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+		PlayerTrans->SetWorldPosition(CurPos);
+		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
+	}
+
+	switch (GetViewDir())
+	{
+	case ActorViewDir::Left:
+		DashRigidbody.SetVelocity(float4::Left * 175.0f);
+		break;
+	case ActorViewDir::Right:
+		DashRigidbody.SetVelocity(float4::Right * 175.0f);
+		break;
+	default:
+		break;
+	}
+
+	PlayerBaseSkull::Switch_Update(_DeltaTime);
+}
+
+void BoneSkull::Switch_End()
+{
+	DashRigidbody.SetVelocity(float4::Zero);
+}
+
+void BoneSkull::DataLoad()
+{
+	Data = ContentDatabase<SkullData, SkullGrade>::GetData(0); // 0 == ¸®Æ²º»
+}
+
 void BoneSkull::TextureLoad()
 {
-	if (nullptr == GameEngineTexture::Find("BoneSkull_Idle.png"))
-	{
-		GameEngineDirectory Path;
-
-		Path.MoveParentToDirectory("Resources");
-		Path.Move("Resources");
-		Path.Move("Texture");
-		Path.Move("0_Common");
-		Path.Move("Player");
-		Path.Move("BoneSkull");
-		Path.Move("Sheet");
-
-		// Idle Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Idle.png").GetFullPath(), 4, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Idle_NoHead.png").GetFullPath(), 4, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Idle_NoWeapon.png").GetFullPath(), 4, 1);
-
-		// Walk Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Walk.png").GetFullPath(), 8, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Walk_NoHead.png").GetFullPath(), 8, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Walk_NoWeapon.png").GetFullPath(), 8, 1);
-
-		// Dash Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Dash.png").GetFullPath(), 1, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Dash_NoHead.png").GetFullPath(), 1, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Dash_NoWeapon.png").GetFullPath(), 1, 1);
-
-		// FallEnter Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Fall.png").GetFullPath(), 2, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Fall_NoHead.png").GetFullPath(), 2, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Fall_NoWeapon.png").GetFullPath(), 2, 1);
-
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Normal_FallDead.png").GetFullPath(), 3, 1);
-
-		// FallRepeat Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_FallRepeat.png").GetFullPath(), 3, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_FallRepeat_NoHead.png").GetFullPath(), 3, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_FallRepeat_NoWeapon.png").GetFullPath(), 3, 1);
-
-		// Jump Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Jump.png").GetFullPath(),2, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Jump_NoHead.png").GetFullPath(), 2, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Jump_NoWeapon.png").GetFullPath(), 2, 1);
-
-		// AttackA Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_AttackA.png").GetFullPath(), 5, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_AttackA_NoHead.png").GetFullPath(), 5, 1);
-		
-		// AttackB Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_AttackB.png").GetFullPath(), 4, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_AttackB_NoHead.png").GetFullPath(), 4, 1);
-		
-		// JumpAttack Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_JumpAttack.png").GetFullPath(), 4, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_JumpAttack_NoHead.png").GetFullPath(), 4, 1);
-		
-		// SkillA Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Skill.png").GetFullPath(), 4, 1);
-
-		// SkillB Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_SkillReborn.png").GetFullPath(), 9, 1);
-
-		// Skull Switch
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Switch.png").GetFullPath(), 7, 1);
-			
-		// Reborn
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Normal_Reborn2Field.png").GetFullPath(), 22, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Normal_RebornCastle.png").GetFullPath(), 6, 5);
-
-		// Story Animation
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Wait.png").GetFullPath(), 8, 6);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_Getbone.png").GetFullPath(), 10, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_DeadLoop.png").GetFullPath(), 1, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Getscroll.png").GetFullPath(), 6, 9);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_Idle.png").GetFullPath(), 1, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_0.png").GetFullPath(), 5, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_1.png").GetFullPath(), 5, 11);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_2.png").GetFullPath(), 5, 4);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Normal_Getskull.png").GetFullPath(), 7, 7);
-	}
 }
 
 void BoneSkull::CreateAnimation()
@@ -190,7 +160,8 @@ void BoneSkull::AnimationColLoad()
 
 		AnimationAttackMetaData SwitchMeta = ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("BoneSukll_Switch").GetFullPath());
 
-		Pushback_Switch(SwitchMeta, 0.05f);
-		Pushback_Switch(SwitchMeta, 0.05f);
+		Pushback_Switch(SwitchMeta, 0.06f);
+		Pushback_Switch(SwitchMeta, 0.06f);
+		Pushback_Switch(SwitchMeta, 0.06f);
 	}
 }

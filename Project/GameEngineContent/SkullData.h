@@ -12,7 +12,7 @@ class SkullData
 {
 public:
 	std::string Name = "";
-	size_t Index = 0;
+	size_t Index = static_cast<size_t>(-1);
 
 	SkullGrade Grade;
 

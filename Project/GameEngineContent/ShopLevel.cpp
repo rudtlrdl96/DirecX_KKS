@@ -32,10 +32,8 @@ void ShopLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
-	BattleAreaPtr->ChangeBackground("DB_Shop_Background");
-	BattleAreaPtr->ChangeMap("DB_Shop_Map");
-	BattleAreaPtr->SetCameraLock(MainCamCtrl);
-	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
+	MainStageName = "DB_Shop_Map";
+	MainBackgroundName = "DB_Shop_Background";
 }
 
 void ShopLevel::Update(float _DeltaTime)
