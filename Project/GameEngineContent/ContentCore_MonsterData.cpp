@@ -100,5 +100,51 @@ void ContentCore::MonsterDataLoad()
 	std::vector<MonsterData> SubBossDatas;
 	ContentDatabase<MonsterData, MonsterArea>::CopyGradeDatas(MonsterArea::SubBoss, SubBossDatas);
 
+	GameEngineDirectory Path;
+	Path.MoveParentToDirectory("Resources");
+	Path.Move("Resources");
+	Path.Move("Texture");
+
+	{
+		Path.Move("1_Opening");
+		Path.Move("Monster");
+
+		// Ä®·¹¿Â ½Åº´
+		{
+			Path.Move("CarleonRecruit");
+			Path.Move("Sheet");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonRecruit_Attack.png").GetFullPath(), 5, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonRecruit_Dead.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonRecruit_Hit1.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonRecruit_Hit2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonRecruit_Idle.png").GetFullPath(), 6, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonRecruit_Walk.png").GetFullPath(), 8, 1);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
+
+		// Ä®·¹¿Â ±Ã¼ö
+		{
+			Path.Move("CarleonArcher");
+			Path.Move("Sheet");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonArcher_Attack.png").GetFullPath(), 4, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonArcher_Dead.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonArcher_Hit1.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonArcher_Hit2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonArcher_Idle.png").GetFullPath(), 5, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonArcher_Walk.png").GetFullPath(), 6, 1);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
+	}
+
+	{
+	
+	}
+
 	int a = 0;
 }

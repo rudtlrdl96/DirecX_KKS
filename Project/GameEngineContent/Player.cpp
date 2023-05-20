@@ -1,9 +1,12 @@
 #include "PrecompileHeader.h"
 #include "Player.h"
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
+#include <GameEnginePlatform/GameEngineInput.h>
+
+#include "CollisionDebugRender.h"
 
 #include "Inventory.h"
-
 #include "BoneSkull.h"
 #include "ChiefGuard.h"
 
@@ -32,8 +35,29 @@ void Player::SetInventoryData()
 	MainSkull->On();
 }
 
+void Player::Start()
+{
+	PlayerBodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);
+	PlayerBodyCol->GetTransform()->SetLocalPosition(float4(0.0f, 30.0f, 1.0f));
+	PlayerBodyCol->GetTransform()->SetWorldScale(float4(30.0f, 60.0f, 1.0f));
+	PlayerBodyCol->GetTransform()->SetWorldRotation(float4::Zero);
+}
+
 void Player::Update(float _DeltaTime)
 {
+	if (true == GameEngineInput::IsDown("PlayerCollisionDebugSwitch"))
+	{
+		if (true == IsDebug())
+		{
+			DebugOff();
+		}
+		else
+		{
+			DebugOn();
+			CreateColDebugRender();
+		}
+	}
+
 	if (nullptr == MainSkull)
 	{
 		MsgAssert_Rtti<Player>(" - 메인 스컬이 존재하지 않습니다.");
@@ -42,6 +66,8 @@ void Player::Update(float _DeltaTime)
 
 	if (nullptr != SubSkull && true == MainSkull->IsSwitch())
 	{
+		DebugOff();
+
 		ActorViewDir Dir = MainSkull->GetViewDir();
 
 		EffectManager::PlayEffect({.EffectName = "SwitchEffect", 
@@ -51,9 +77,11 @@ void Player::Update(float _DeltaTime)
  		SubSkull->PlayerFSM.ChangeState("Switch");
 		SubSkull->SetViewDir(Dir);
 		SubSkull->On();
+		SubSkull->DebugOff();
 
 		MainSkull->CaptureRenderTex(float4(0.85f, 0.2f, 0.92f, 1.0f), float4(0.85f, 0.2f, 0.92f, 0.0f), 1.5f);
 		MainSkull->Off();
+		MainSkull->DebugOff();
 		MainSkull->IsSwitchValue = false;
 
 		Inventory::SwapSkull();
@@ -101,4 +129,14 @@ std::shared_ptr<PlayerBaseSkull> Player::CreateNewSkull(size_t _Index)
 	}
 
 	return NewSkull;
+}
+
+void Player::CreateColDebugRender()
+{
+	std::shared_ptr<CollisionDebugRender> BodyDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
+
+	BodyDebugRender->SetColor(CollisionDebugRender::DebugColor::Magenta);
+	BodyDebugRender->SetTargetCollision(PlayerBodyCol);
+	BodyDebugRender->GetTransform()->SetParent(PlayerBodyCol->GetTransform(), false);
+	BodyDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
 }

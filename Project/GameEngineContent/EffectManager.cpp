@@ -53,7 +53,12 @@ std::shared_ptr<EffectActor> EffectManager::PlayEffect(const EffectParameter& _P
 	}
 
 	std::shared_ptr<EffectActor> NewEffectActor = CurLevel->CreateActor<EffectActor>();
-	NewEffectActor->Init(FindIter->second, _Parameter.Triger, _Parameter.Time);
+
+	EffectMetaData Data = FindIter->second;
+
+	Data.ScaleRatio *= _Parameter.Scale;
+
+	NewEffectActor->Init(Data, _Parameter.Triger, _Parameter.Time);
 	NewEffectActor->GetTransform()->SetLocalPosition(_Parameter.Postion);
 
 	if (true == _Parameter.FlipX)

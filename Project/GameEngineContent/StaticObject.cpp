@@ -128,8 +128,7 @@ float4 StaticObject::GetTexWorldScale() const
 void StaticObject::Start()
 {
 	ImageRender = CreateComponent<ContentSpriteRenderer>();
-	ImageRender->SetPipeLine("2DTexture_ColorLight");
-	ImageRender->SetAtlasConstantBuffer();
+	ImageRender->PipeSetting("2DTexture_ColorLight");
 	ImageRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	ImageRender->Off();
 }

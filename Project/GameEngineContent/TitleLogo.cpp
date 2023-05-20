@@ -39,8 +39,7 @@ void TitleLogo::SetLogo(const std::string_view& _TexName, float _IntroTime, floa
 void TitleLogo::Start()
 {
 	LogoRender = CreateComponent<ContentSpriteRenderer>();
-	LogoRender->SetPipeLine("2DTexture_ColorLight");
-	LogoRender->SetAtlasConstantBuffer();
+	LogoRender->PipeSetting("2DTexture_ColorLight");
 	LogoRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	LogoRender->SetTexture("Empty.png");
 

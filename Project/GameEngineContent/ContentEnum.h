@@ -2,10 +2,11 @@
 
 enum class CollisionOrder
 {
+	Unknown,
 	Player,
 	PlayerAttack,
-	Enemy,
-	EnemyAttack,
+	Monster,
+	MonsterAttack,
 	Platform_Normal,
 	Platform_Half,
 };

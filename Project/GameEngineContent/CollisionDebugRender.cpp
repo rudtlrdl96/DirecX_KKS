@@ -17,8 +17,7 @@ void CollisionDebugRender::SetTargetCollision(std::shared_ptr<GameEngineCollisio
 void CollisionDebugRender::Start()
 {
 	DebugRender = CreateComponent<ContentSpriteRenderer>();
-	DebugRender->SetPipeLine("2DTexture_ColorLight");
-	DebugRender->SetAtlasConstantBuffer();
+	DebugRender->PipeSetting("2DTexture_ColorLight");
 	DebugRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", DebugBuffer);
 	DebugRender->SetTexture("BoxCol.png");
 }
@@ -60,16 +59,16 @@ void CollisionDebugRender::Update(float _DeltaTime)
 	switch (Color)
 	{
 	case CollisionDebugRender::DebugColor::Green:
-		DebugBuffer.Color = float4(-1.0f, 1.0f, -1.0f, 1.0f);
+		DebugBuffer.Color = float4(-1.0f, 1.0f, -1.0f, 0.7f);
 		break;
 	case CollisionDebugRender::DebugColor::Black:
-		DebugBuffer.Color = float4(-1.0f, -1.0f, -1.0f, 1.0f);
+		DebugBuffer.Color = float4(-1.0f, -1.0f, -1.0f, 0.7f);
 		break;
 	case CollisionDebugRender::DebugColor::Red:
-		DebugBuffer.Color = float4(1.0f, -1.0f, -1.0f, 1.0f);
+		DebugBuffer.Color = float4(1.0f, -1.0f, -1.0f, 0.7f);
 		break;
 	case CollisionDebugRender::DebugColor::Magenta:
-		DebugBuffer.Color = float4(1.0f, -1.0f, 1.0f, 1.0f);
+		DebugBuffer.Color = float4(1.0f, -1.0f, 1.0f, 0.7f);
 		break;
 	default:
 		break;

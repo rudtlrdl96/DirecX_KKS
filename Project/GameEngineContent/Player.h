@@ -16,12 +16,17 @@ public:
 	void SetInventoryData();
 
 protected:	
+	void Start() override;
 	void Update(float _DeltaTime);
 
 private:
+	std::shared_ptr<class GameEngineCollision> PlayerBodyCol = nullptr;
+
 	std::shared_ptr<PlayerBaseSkull> MainSkull = nullptr;
 	std::shared_ptr<PlayerBaseSkull> SubSkull = nullptr;
 
 	std::shared_ptr<PlayerBaseSkull> CreateNewSkull(size_t _Index);
+
+	void CreateColDebugRender();
 };
 

@@ -6,6 +6,7 @@
 
 #include "CaptureTrail.h"
 #include "Player.h"
+#include "BaseMonster.h"
 
 void PlayerBaseSkull::Idle_Enter()
 {
@@ -588,10 +589,66 @@ void PlayerBaseSkull::Attack_Enter()
 	IsAttackCombo = false;
 	AttackComboCount = 0;
 	SkullRenderer->ChangeAnimation(std::string(AnimColMeta_Attack[AttackComboCount].GetAnimationName() + AnimNamePlusText));
+
+	AttackAnimIndex = static_cast<size_t>(-1);
 }
 
 void PlayerBaseSkull::Attack_Update(float _DeltaTime) 
 {
+	if(AttackAnimIndex != SkullRenderer->GetCurrentFrame())
+	{
+		AttackAnimIndex = SkullRenderer->GetCurrentFrame();
+		AttackColBuffers.clear();
+	}
+
+	const AttackColMetaData& Data = AnimColMeta_Attack[AttackComboCount].GetAttackMetaData(static_cast<UINT>(AttackAnimIndex));
+
+	if (0 < Data.ColMetaDatas.size())
+	{
+		GameEngineTransform* ColTrans = AttackCol->GetTransform();
+
+		std::map<UINT, BaseMonster*> CurFrameColDatas;
+
+		for (size_t i = 0; i < Data.ColMetaDatas.size(); i++)
+		{
+			ColTrans->SetLocalPosition(Data.ColMetaDatas[i].LocalCenter);
+			ColTrans->SetWorldScale(Data.ColMetaDatas[i].LocalSize);
+
+			std::vector<std::shared_ptr<GameEngineCollision>> Cols;
+
+			AttackCol->CollisionAll(
+				(int)CollisionOrder::Monster,
+				ColType::AABBBOX2D,
+				ColType::AABBBOX2D,
+				Cols);
+
+			for (size_t n = 0; n < Cols.size(); n++)
+			{
+				BaseMonster* CastPtr = reinterpret_cast<BaseMonster*>(Cols[n]->GetActor());
+
+				if (nullptr == CastPtr)
+				{
+					MsgAssert_Rtti<PlayerBaseSkull>(" - 베이스 몬스터가 아닌 다른 클래스가 Monster Collision에 들어갔습니다");
+				}
+				else
+				{					
+					CurFrameColDatas[CastPtr->GetActorCode()] = CastPtr;
+				}
+			}
+
+		}
+
+		for (const std::pair<UINT, BaseMonster*>& MonsterRef : CurFrameColDatas)
+		{
+			if (nullptr == AttackColBuffers[MonsterRef.second->GetActorCode()])
+			{
+				MonsterRef.second->HitMonster(ViewDir);
+			}
+
+			AttackColBuffers[MonsterRef.second->GetActorCode()] = MonsterRef.second;
+		}
+	}
+
 	IsSwitchValue = false;
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))

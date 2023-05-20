@@ -127,8 +127,7 @@ void Background::CreateLeftRender()
 	RenderSize.z = 1;
 
 	LeftRender = CreateComponent<ContentSpriteRenderer>();
-	LeftRender->SetPipeLine("2DTexture_Background");
-	LeftRender->SetAtlasConstantBuffer();
+	LeftRender->PipeSetting("2DTexture_Background", false);
 	LeftRender->GetShaderResHelper().SetConstantBufferLink("TextureMoveBuffer", Buffer);
 	LeftRender->SetTexture(MetaData.Name);
 	LeftRender->GetTransform()->SetLocalPosition(float4(-RenderSize.x, 0));
@@ -146,8 +145,7 @@ void Background::CreateRightRedner()
 	RenderSize.z = 1;
 
 	RightRender = CreateComponent<ContentSpriteRenderer>();
-	RightRender->SetPipeLine("2DTexture_Background");
-	RightRender->SetAtlasConstantBuffer();
+	RightRender->PipeSetting("2DTexture_Background", false);
 	RightRender->GetShaderResHelper().SetConstantBufferLink("TextureMoveBuffer", Buffer);
 	RightRender->SetTexture(MetaData.Name);
 	RightRender->GetTransform()->SetLocalPosition(float4(RenderSize.x, 0));
@@ -215,8 +213,7 @@ BackgroundMetaData Background::LoadBin(GameEngineSerializer& _LoadSerializer)
 void Background::Start()
 {
 	BackRender = CreateComponent<ContentSpriteRenderer>();
-	BackRender->SetPipeLine("2DTexture_Background");
-	BackRender->SetAtlasConstantBuffer();
+	BackRender->PipeSetting("2DTexture_Background", false);
 	BackRender->GetShaderResHelper().SetConstantBufferLink("TextureMoveBuffer", Buffer);
 	BackRender->Off();
 	BackRender->GetTransform()->SetLocalPosition(float4::Zero);

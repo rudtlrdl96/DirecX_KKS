@@ -35,8 +35,7 @@ void PlayerBaseSkull::Start()
 	TextureLoad();
 
 	SkullRenderer = CreateComponent<ContentSpriteRenderer>();
-	SkullRenderer->SetPipeLine("2DTexture_ColorLight");
-	SkullRenderer->SetAtlasConstantBuffer();
+	SkullRenderer->PipeSetting("2DTexture_ColorLight");
 	SkullRenderer->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	SkullRenderer->GetTransform()->SetLocalPosition(float4::Zero);
 	SkullRenderer->SetScaleRatio(2.0f);
@@ -184,20 +183,23 @@ void PlayerBaseSkull::Start()
 	AttackRigidbody.SetMaxSpeed(300);
 	AttackRigidbody.SetFricCoeff(600);
 
-	GroundCol = CreateComponent<GameEngineCollision>();
+	GroundCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	GroundCol->GetTransform()->SetLocalPosition(float4(0.0f, -2.0f, 1.0f));
 	GroundCol->GetTransform()->SetWorldScale(float4(30.0f, 5.0f, 1.0f));	
 	GroundCol->GetTransform()->SetWorldRotation(float4::Zero);	
 	
-	JumpCol = CreateComponent<GameEngineCollision>();
+	JumpCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	JumpCol->GetTransform()->SetLocalPosition(float4(0.0f, 66.0f, 1.0f));
 	JumpCol->GetTransform()->SetWorldScale(float4(30.0f, 5.0f, 1.0f));
 	JumpCol->GetTransform()->SetWorldRotation(float4::Zero);
 
-	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);
+	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	WalkCol->GetTransform()->SetLocalPosition(float4(20, 30, 0));
 	WalkCol->GetTransform()->SetWorldScale(float4(10, 58, 1));
 	WalkCol->GetTransform()->SetWorldRotation(float4::Zero);
+
+	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
+	AttackCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	DashTrail = GetLevel()->CreateActor<CaptureTrail>();
 	DashTrail->GetTransform()->SetParent(GetTransform());

@@ -45,6 +45,7 @@ protected:
 	std::shared_ptr<class GameEngineCollision> WalkCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> GroundCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> JumpCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> AttackCol = nullptr;
 
 	Rigidbody2D DashRigidbody;
 	Rigidbody2D AttackRigidbody;
@@ -125,9 +126,13 @@ protected:
 	}
 
 private:	
+
+	size_t AttackAnimIndex = static_cast<size_t>(-1);
+	std::map<UINT, class BaseMonster*> AttackColBuffers;
+
 	ActorViewDir ViewDir = ActorViewDir::Right;
 
-	float JumpPower = 700.0f;
+	float JumpPower = 800.0f;
 	bool CanJump = false;
 	bool DoubleJump = false;
 
@@ -160,7 +165,6 @@ private:
 
 	float4 RenderEffectStartColor = float4::Zero;
 	float4 RenderEffectEndColor = float4::Zero;
-
 
 	void CreateColDebugRender();
 	void CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime);

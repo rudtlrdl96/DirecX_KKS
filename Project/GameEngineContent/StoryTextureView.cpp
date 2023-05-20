@@ -167,22 +167,19 @@ void StoryTextureView::Reset()
 void StoryTextureView::Start()
 {
 	BackgroundTextureRender = CreateComponent<ContentSpriteRenderer>();
-	BackgroundTextureRender->SetPipeLine("2DTexture_Fade");
-	BackgroundTextureRender->SetAtlasConstantBuffer();
+	BackgroundTextureRender->PipeSetting("2DTexture_Fade");
 	BackgroundTextureRender->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", BackTexBuffer);
 	BackgroundTextureRender->SetTexture("Empty.png");
 	BackgroundTextureRender->GetTransform()->SetWorldPosition({ 0, 0, 100 });
 
 	SubTextureRender = CreateComponent<ContentSpriteRenderer>();
-	SubTextureRender->SetPipeLine("2DTexture_Fade");
-	SubTextureRender->SetAtlasConstantBuffer();
+	SubTextureRender->PipeSetting("2DTexture_Fade");
 	SubTextureRender->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", SubTexBuffer);
 	SubTextureRender->SetTexture("Empty.png");
 	SubTextureRender->GetTransform()->SetWorldPosition({ 0, 0, 0});
 
 	MainTextureRender = CreateComponent<ContentSpriteRenderer>();
-	MainTextureRender->SetPipeLine("2DTexture_Fade");
-	MainTextureRender->SetAtlasConstantBuffer();
+	MainTextureRender->PipeSetting("2DTexture_Fade");
 	MainTextureRender->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", MainTexBuffer);
 	MainTextureRender->SetTexture("Empty.png");	
 	MainTextureRender->GetTransform()->SetWorldPosition({0, 0, -100});

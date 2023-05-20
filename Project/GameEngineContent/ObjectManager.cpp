@@ -199,8 +199,7 @@ void ObjectManager::Start()
 	}
 
 	OutlineRender = CreateComponent<ContentSpriteRenderer>();
-	OutlineRender->SetPipeLine("2DTexture_Capture");
-	OutlineRender->SetAtlasConstantBuffer();
+	OutlineRender->PipeSetting("2DTexture_Capture");
 	OutlineRender->GetShaderResHelper().SetConstantBufferLink("CaptureBuffer", Buffer);
 	OutlineRender->Off();
 	OutlineRender->GetTransform()->SetLocalPosition(float4::Zero);

@@ -1,7 +1,12 @@
 #include "PrecompileHeader.h"
 #include "ForestOfHarmonyLevel.h"
+
+#include <GameEnginePlatform/GameEngineInput.h>
+
 #include "MultiBackground.h"
 #include "FPSCheckGUI.h"
+
+#include "CarleonRecruit.h"
 
 ForestOfHarmonyLevel::ForestOfHarmonyLevel()
 {
@@ -13,6 +18,11 @@ ForestOfHarmonyLevel::~ForestOfHarmonyLevel()
 
 void ForestOfHarmonyLevel::Start()
 {
+	if (false == GameEngineInput::IsKey("MonsterSpawn"))
+	{
+		GameEngineInput::CreateKey("MonsterSpawn", 'T');
+	}
+
 	BattleLevel::Start();
 
 	GameEngineDirectory DirectoryPath;
@@ -62,6 +72,12 @@ void ForestOfHarmonyLevel::Start()
 void ForestOfHarmonyLevel::Update(float _DeltaTime)
 {
 	BattleLevel::Update(_DeltaTime);
+
+	if (true == GameEngineInput::IsDown("MonsterSpawn"))
+	{
+		std::shared_ptr<CarleonRecruit> NewMonster = CreateActor<CarleonRecruit>();
+		NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
+	}
 }
 
 void ForestOfHarmonyLevel::LevelChangeStart()

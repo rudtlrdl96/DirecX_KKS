@@ -92,21 +92,6 @@ ContentSpriteRenderer::~ContentSpriteRenderer()
 void ContentSpriteRenderer::Start()
 {
 	GameEngineRenderer::Start();
-
-	SetPipeLine("2DTexture");
-
-	AtlasData.x = 0.0f;
-	AtlasData.y = 0.0f;
-	AtlasData.z = 1.0f;
-	AtlasData.w = 1.0f;
-
-	ColorOptionValue.MulColor = float4::One;
-	ColorOptionValue.PlusColor = float4::Null;
-
-	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
-	GetShaderResHelper().SetConstantBufferLink("ColorOption", ColorOptionValue);
-
-	// AtlasData
 }
 
 void ContentSpriteRenderer::SetTexture(const std::string_view& _Name)
@@ -357,14 +342,24 @@ void ContentSpriteRenderer::SetAnimationStartEvent(const std::string_view& _Anim
 	Info->StartEventFunction[_Frame] = _Event;
 }
 
-void ContentSpriteRenderer::SetAtlasConstantBuffer()
-{
-	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
-}
-
 std::string ContentSpriteRenderer::GetTexName()
 {
 	GameEngineTextureSetter* Tex = GetShaderResHelper().GetTextureSetter("DiffuseTex");
 	std::string Name = Tex->Res->GetNameToString();
 	return Name;
+}
+
+void ContentSpriteRenderer::PipeSetting(const std::string_view _PipeName, bool _IsAtlasData /*= true*/)
+{
+	SetPipeLine(_PipeName);
+
+	AtlasData.x = 0.0f;
+	AtlasData.y = 0.0f;
+	AtlasData.z = 1.0f;
+	AtlasData.w = 1.0f;
+
+	if (true == _IsAtlasData)
+	{
+		GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
+	}
 }

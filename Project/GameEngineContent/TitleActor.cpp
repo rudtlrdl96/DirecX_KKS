@@ -23,8 +23,7 @@ void TitleActor::TitleOn(float _LogoWaitTime, float _LogoFadeSpeed)
 void TitleActor::Start()
 {
 	TextureRender = CreateComponent<ContentSpriteRenderer>();
-	TextureRender->SetPipeLine("2DTexture_ColorLight");
-	TextureRender->SetAtlasConstantBuffer();
+	TextureRender->PipeSetting("2DTexture_ColorLight");
 	TextureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", BackTexBuffer);
 	TextureRender->SetTexture("DarkMirror_Title_Art_1.png");
 	TextureRender->GetTransform()->SetWorldScale(GameEngineWindow::GetScreenSize());
@@ -41,8 +40,7 @@ void TitleActor::Start()
 	LogoSize *= 0.7f;
 
 	LogoRender = CreateComponent<ContentSpriteRenderer>();
-	LogoRender->SetPipeLine("2DTexture_ColorLight");
-	LogoRender->SetAtlasConstantBuffer();
+	LogoRender->PipeSetting("2DTexture_ColorLight");
 	LogoRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", LogoBuffer);
 	LogoRender->SetTexture("Title_Logo2.png");
 	LogoRender->GetTransform()->SetWorldScale(LogoSize);

@@ -316,6 +316,15 @@
     <Filter Include="2_Actor\Monster">
       <UniqueIdentifier>{9a8187fb-9295-4b1f-a266-729064c4934c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Monster\Opening">
+      <UniqueIdentifier>{856dee12-e4bd-4011-b9a6-b95a63f19421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Monster\ForestOfHarmony">
+      <UniqueIdentifier>{923adf6d-88cf-47d7-b4e7-20caefdf0c6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Particle\Monster">
+      <UniqueIdentifier>{6853f8af-b8f0-4fbe-a8ab-b170858eac0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -644,6 +653,15 @@
     </ClInclude>
     <ClInclude Include="FPSCheckGUI.h">
       <Filter>5_GUI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CarleonRecruit.h">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="CarleonArcher.h">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="HitParticle.h">
+      <Filter>2_Actor\Map\Stage\Particle\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1000,6 +1018,18 @@
     </ClCompile>
     <ClCompile Include="FPSCheckGUI.cpp">
       <Filter>5_GUI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseMonster_FSM.cpp">
+      <Filter>2_Actor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CarleonRecruit.cpp">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="CarleonArcher.cpp">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="HitParticle.cpp">
+      <Filter>2_Actor\Map\Stage\Particle\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

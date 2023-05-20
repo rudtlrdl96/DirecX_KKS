@@ -93,6 +93,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CarleonArcher.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CarleonRecruit.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CastleLevel.h">
       <SubType>
       </SubType>
@@ -200,6 +208,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GrandHallLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HitParticle.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -479,6 +491,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BaseMonster_FSM.cpp" />
     <ClCompile Include="BattleArea.cpp">
       <SubType>
       </SubType>
@@ -516,6 +529,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="CaptureTrail.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CarleonArcher.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CarleonRecruit.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -636,6 +657,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GrandHallLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HitParticle.cpp">
       <SubType>
       </SubType>
     </ClCompile>

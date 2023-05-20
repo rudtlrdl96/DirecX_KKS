@@ -25,7 +25,7 @@ public:
 	float Attack = 0.0f;
 	float AttackSpeed = 1.0f;
 
-	float MoveSpeed = 50.0f;
+	float MoveSpeed = 250.0f;
 	float CastingSpeed = 1.0f;
 
 	float SkillCoolDown = 0.0f;
