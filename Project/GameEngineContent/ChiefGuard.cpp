@@ -19,6 +19,9 @@ void ChiefGuard::Start()
 	PlayerBaseSkull::Start();
 
 	FlashCol = CreateComponent<GameEngineCollision>();
+	float4 ColSize = float4(FlashMoveX, 58, 1);
+	FlashCol->GetTransform()->SetWorldScale(ColSize);
+	FlashCol->GetTransform()->SetWorldRotation(float4::Zero);
 }
 
 void ChiefGuard::Skill_SlotA_Enter()
@@ -54,12 +57,12 @@ void ChiefGuard::Skill_SlotA_Update(float _DeltaTime)
 		switch (GetViewDir())
 		{
 		case ActorViewDir::Left: 
-			FlashPos += float4(-225, 0);
-			FlashEnd = FlashStart + float4(-450, 0);
+			FlashPos += float4(-FlashMoveX * 0.5f, 0);
+			FlashEnd = GetFlashPostion(ActorViewDir::Left);
 			break;
 		case ActorViewDir::Right:
-			FlashPos += float4(225, 0);
-			FlashEnd = FlashStart + float4(450, 0);
+			FlashPos += float4(FlashMoveX * 0.5f, 0);
+			FlashEnd = GetFlashPostion(ActorViewDir::Right);
 			break;
 		default:
 			break;
@@ -178,12 +181,29 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 		switch (GetViewDir())
 		{
 		case ActorViewDir::Left:
-			FlashPos += float4(-225 * Flip, 0);
-			FlashEnd = FlashStart + float4(-450 * Flip, 0);
+			FlashPos += float4(-FlashMoveX  * 0.5f * Flip, 0);
+
+			if (Flip > 0.0f)
+			{
+				FlashEnd = GetFlashPostion(ActorViewDir::Left);
+			}
+			else
+			{
+				FlashEnd = GetFlashPostion(ActorViewDir::Right);
+			}
+
 			break;
 		case ActorViewDir::Right:
-			FlashPos += float4(225 * Flip, 0);
-			FlashEnd = FlashStart + float4(450 * Flip, 0);
+			FlashPos += float4(FlashMoveX * 0.5f * Flip, 0);
+
+			if (Flip > 0.0f)
+			{
+				FlashEnd = GetFlashPostion(ActorViewDir::Right);
+			}
+			else
+			{
+				FlashEnd = GetFlashPostion(ActorViewDir::Left);
+			}
 			break;
 		default:
 			break;
@@ -240,4 +260,84 @@ void ChiefGuard::AnimationColLoad()
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_SkillA").GetFullPath()), 0.045f);
 	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_SkillB").GetFullPath()), 0.09f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_Switch").GetFullPath()), 0.1f);
+}
+
+float4 ChiefGuard::GetFlashPostion(ActorViewDir _Dir)
+{
+	float4 Result = float4::Zero;
+
+	GameEngineTransform* ColTrans = FlashCol->GetTransform();
+
+	float4 ColCenterWorldPos = PlayerTrans->GetWorldPosition();
+
+	switch (_Dir)
+	{
+	case ActorViewDir::Left:
+		ColCenterWorldPos += float4(-FlashMoveX * 0.5f, 32);
+		break;
+	case ActorViewDir::Right:
+		ColCenterWorldPos += float4(FlashMoveX * 0.5f, 32);
+		break;
+	default:
+		break;
+	}
+
+	ColTrans->SetWorldPosition(ColCenterWorldPos);
+
+	std::vector<std::shared_ptr<GameEngineCollision>> PlatformDatas;
+
+	if (true == FlashCol->CollisionAll(CollisionOrder::Platform_Normal, ColType::AABBBOX2D, ColType::AABBBOX2D, PlatformDatas))
+	{
+		float4 PlayerPos = PlayerTrans->GetWorldPosition();
+		float NearDis = D3D10_FLOAT32_MAX;
+
+		for (size_t i = 0; i < PlatformDatas.size(); i++)
+		{
+			GameEngineTransform* PlatformTrans = PlatformDatas[i]->GetTransform();
+
+			float4 PlatformColPos = PlatformTrans->GetWorldPosition();
+			float4 PlatformSize = PlatformTrans->GetWorldScale();
+
+			switch (_Dir)
+			{
+			case ActorViewDir::Left:
+				PlatformColPos.x += PlatformSize.hx() + 30;
+				break;
+			case ActorViewDir::Right:
+				PlatformColPos.x -= PlatformSize.hx() + 30;
+				break;
+			default:
+				break;
+			}
+
+			float PlatformDis = (PlatformColPos - PlayerPos).Size();
+
+			if (NearDis >= PlatformDis)
+			{
+				Result = PlatformColPos;
+				NearDis = PlatformDis;
+			}
+		}
+
+	}
+	else
+	{
+		Result = PlayerTrans->GetWorldPosition();
+
+		switch (_Dir)
+		{
+		case ActorViewDir::Left:
+			Result -= float4(FlashMoveX, 0);
+			break;
+		case ActorViewDir::Right:
+			Result += float4(FlashMoveX, 0);
+			break;
+		default:
+			break;
+		}
+	}
+
+	Result.y = PlayerTrans->GetWorldPosition().y;
+
+	return Result;
 }

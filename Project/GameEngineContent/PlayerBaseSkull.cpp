@@ -186,15 +186,18 @@ void PlayerBaseSkull::Start()
 
 	GroundCol = CreateComponent<GameEngineCollision>();
 	GroundCol->GetTransform()->SetLocalPosition(float4(0.0f, -2.0f, 1.0f));
-	GroundCol->GetTransform()->SetLocalScale(float4(30.0f, 5.0f, 1.0f));	
+	GroundCol->GetTransform()->SetWorldScale(float4(30.0f, 5.0f, 1.0f));	
+	GroundCol->GetTransform()->SetWorldRotation(float4::Zero);	
 	
 	JumpCol = CreateComponent<GameEngineCollision>();
 	JumpCol->GetTransform()->SetLocalPosition(float4(0.0f, 66.0f, 1.0f));
-	JumpCol->GetTransform()->SetLocalScale(float4(30.0f, 5.0f, 1.0f));
+	JumpCol->GetTransform()->SetWorldScale(float4(30.0f, 5.0f, 1.0f));
+	JumpCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);
 	WalkCol->GetTransform()->SetLocalPosition(float4(20, 30, 0));
-	WalkCol->GetTransform()->SetLocalScale(float4(10, 58, 1));
+	WalkCol->GetTransform()->SetWorldScale(float4(10, 58, 1));
+	WalkCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	DashTrail = GetLevel()->CreateActor<CaptureTrail>();
 	DashTrail->GetTransform()->SetParent(GetTransform());
@@ -333,53 +336,19 @@ void PlayerBaseSkull::SetViewDir(ActorViewDir _ViewDir)
 	ViewDir = _ViewDir;
 
 	GameEngineTransform* WalkColTrans = WalkCol->GetTransform();
-	GameEngineTransform* GroundColTrans = GroundCol->GetTransform();
-	GameEngineTransform* JumpColTrans = JumpCol->GetTransform();
 
 	switch (ViewDir)
 	{
 	case ActorViewDir::Left:
 	{
 		GetTransform()->SetLocalNegativeScaleX();
-
-		float4 GroundColScale = GroundColTrans->GetLocalScale();
-		GroundColScale.x = fabsf(GroundColScale.x);
-		GroundColScale.y = -fabsf(GroundColScale.y);
-		GroundColTrans->SetLocalScale(GroundColScale);
-
-		float4 JumpColScale = JumpColTrans->GetLocalScale();
-		JumpColScale.x = fabsf(JumpColScale.x);
-		JumpColScale.y = -fabsf(JumpColScale.y);
-		JumpColTrans->SetLocalScale(JumpColScale);
-
-		float4 WalkColScale = WalkColTrans->GetLocalScale();
-		WalkColScale.x = fabsf(WalkColScale.x);
-		WalkColScale.y = -fabsf(WalkColScale.y);
-		WalkColTrans->SetLocalScale(WalkColScale);
-
+		WalkColTrans->SetLocalPosition(float4(-20, 30, 0));
 	}
 		break;
 	case ActorViewDir::Right:
 	{
 		GetTransform()->SetLocalPositiveScaleX();
-
-
-		float4 GroundColScale = GroundColTrans->GetLocalScale();
-		GroundColScale.x = fabsf(GroundColScale.x);
-		GroundColScale.y = fabsf(GroundColScale.y);
-		GroundColTrans->SetLocalScale(GroundColScale);
-
-		float4 JumpColScale = JumpColTrans->GetLocalScale();
-		JumpColScale.x = fabsf(JumpColScale.x);
-		JumpColScale.y = fabsf(JumpColScale.y);
-		JumpColTrans->SetLocalScale(JumpColScale);
-
-		float4 WalkColScale = WalkColTrans->GetLocalScale();
-		WalkColScale.x = fabsf(WalkColScale.x);
-		WalkColScale.y = fabsf(WalkColScale.y);
-		WalkColTrans->SetLocalScale(WalkColScale);
-
-
+		WalkColTrans->SetLocalPosition(float4(20, 30, 0));
 	}
 		break;
 	default:

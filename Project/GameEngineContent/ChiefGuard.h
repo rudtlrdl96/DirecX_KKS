@@ -25,7 +25,6 @@ protected:
 	void Switch_Enter() override;
 	void Switch_Update(float _DeltaTime) override;
 
-
 private:
 	void DataLoad() override;
 	void TextureLoad() override;
@@ -45,8 +44,12 @@ private:
 	float4 FlashStart = float4::Zero;
 	float4 FlashEnd = float4::Zero;
 
+	float FlashMoveX = 450.0f;
+
 	float FlashProgress = 0.0f;
-	float FlashSpeed = 30.0f;
+	float FlashSpeed = 20.0f;
+
+	float4 GetFlashPostion(ActorViewDir _Dir);
 
 };
 

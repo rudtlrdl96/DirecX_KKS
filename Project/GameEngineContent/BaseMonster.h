@@ -13,11 +13,18 @@ public:
 	BaseMonster& operator=(BaseMonster&& _Other) noexcept = delete;
 
 protected:
+	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
+	
 	void Start() override;
 
-	virtual void Wait_Enter() {}
-	virtual void Wait_Update(float _DeltaTime) {}
-	virtual void Wait_End() {}
+	virtual void Idle_Enter() {}
+	virtual void Idle_Update(float _DeltaTime) {}
+	virtual void Idle_End() {}
+
+
+	virtual void Walk_Enter() {}
+	virtual void Walk_Update(float _DeltaTime) {}
+	virtual void Walk_End() {}
 
 	virtual void Chasing_Enter() {}
 	virtual void Chasing_Update(float _DeltaTime) {}
@@ -39,5 +46,8 @@ private:
 	ClassFSM<BaseMonster> MonsterFsm;
 
 	std::vector<AnimationAttackMetaData> AttackMetaDatas;
+
+	std::shared_ptr<class GameEngineCollision> FindCol = nullptr;
+
 };
 

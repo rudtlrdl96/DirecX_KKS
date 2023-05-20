@@ -54,16 +54,20 @@ void ContentAnimationInfo::Update(float _DeltaTime)
 	{
 		++CurFrame;
 
-
-		if (StartEventFunction.end() != StartEventFunction.find(CurFrameIndex))
-		{
-			StartEventFunction[CurFrameIndex]();
-		}
-
 		if (FrameIndex.size() <= CurFrame)
 		{
 			IsEndValue = true;
 			--CurFrame;
+		}
+		else
+		{
+			CurFrameIndex = FrameIndex[CurFrame];
+
+			//Start콜백이 있다면 콜백을 호출
+			if (StartEventFunction.end() != StartEventFunction.find(CurFrameIndex))
+			{
+				StartEventFunction[CurFrameIndex]();
+			}
 		}
 
 		CurTime += FrameTime[CurFrame];

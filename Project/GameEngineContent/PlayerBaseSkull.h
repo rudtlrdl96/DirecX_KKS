@@ -112,7 +112,7 @@ protected:
 	void Pushback_Switch(const AnimationAttackMetaData& _AnimData, float _InterTime);
 
 
-	void SetViewDir(ActorViewDir _ViewDir);
+	virtual void SetViewDir(ActorViewDir _ViewDir);
 
 	inline ActorViewDir GetViewDir() const
 	{
