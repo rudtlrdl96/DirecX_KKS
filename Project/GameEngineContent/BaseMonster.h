@@ -14,13 +14,8 @@ public:
 	BaseMonster& operator=(const BaseMonster& _Other) = delete;
 	BaseMonster& operator=(BaseMonster&& _Other) noexcept = delete;
 
-	inline void HitMonster(ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
-	{
-		HitDir = _HitDir;
-		IsHit = true;
-		IsStiffen = _IsStiffen;
-		IsPush = _IsPush;
-	}
+	void HitMonster(ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush);
+
 
 protected:
 	std::shared_ptr<GameEngineActor> PlayerActor = nullptr;
@@ -79,6 +74,10 @@ protected:
 	bool IsHit = false;
 	bool IsStiffen = false;
 	bool IsPush = false;
+
+	bool IsHitEffectOn = false;
+	float HitEffectProgress = 0.0f;
+	float HitEffectSpeed = 7.5f;
 
 	bool IsSpuerArmor = false;
 	float HitWaitTime = 0.0f;

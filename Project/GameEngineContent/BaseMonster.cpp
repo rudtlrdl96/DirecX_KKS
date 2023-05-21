@@ -14,6 +14,16 @@ BaseMonster::~BaseMonster()
 {
 }
 
+void BaseMonster::HitMonster(ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
+{
+	HitDir = _HitDir;
+	IsHit = true;
+	IsHitEffectOn = true;
+	IsStiffen = _IsStiffen;
+	IsPush = _IsPush;
+	HitEffectProgress = 0.0f;
+}
+
 void BaseMonster::Start()
 {
 	if (false == GameEngineInput::IsKey("MonsterDebugOn"))
@@ -80,6 +90,26 @@ void BaseMonster::Update(float _DeltaTime)
 
 	MonsterFsm.Update(_DeltaTime);
 	IsHit = false;
+
+	if (true == IsHitEffectOn)
+	{
+		HitEffectProgress += _DeltaTime * HitEffectSpeed;
+
+		if (0.5f >= HitEffectProgress)
+		{
+			Buffer.Color = float4::LerpClamp(float4(0, 0, 0, 1), float4(1, 1, 1, 1), HitEffectProgress * 2.0f);
+		}
+		else
+		{
+			Buffer.Color = float4::LerpClamp(float4(1, 1, 1, 1), float4(0, 0, 0, 1), (HitEffectProgress * 2.0f) - 1.0f);
+		}
+		
+		if (1.0f <= HitEffectProgress)
+		{
+			IsHitEffectOn = false;
+			HitEffectProgress = 0.0f;
+		}
+	}
 }
 
 
@@ -287,22 +317,45 @@ void BaseMonster::HitEffect()
 {
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
-	switch (HitDir)
+	if (true == IsPush)
 	{
-	case ActorViewDir::Left:
-		EffectManager::PlayEffect({ .EffectName = "HitSkul",
-			.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-50, -40), Rand.RandomFloat(25, 70), 0),
-			.Scale = 0.6f,
-			.FlipX = true });
-		break;
-	case ActorViewDir::Right:
-		EffectManager::PlayEffect({ .EffectName = "HitSkul",
-			.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(40, 50), Rand.RandomFloat(25, 70), 0),
-			.Scale = 0.6f,
-			.FlipX = false });
-		break;
-	default:
-		break;
+		switch (HitDir)
+		{
+		case ActorViewDir::Left:
+			EffectManager::PlayEffect({ .EffectName = "HitSkul",
+				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-50, -40), Rand.RandomFloat(25, 70), 0),
+				.Scale = 0.6f,
+				.FlipX = true });
+			break;
+		case ActorViewDir::Right:
+			EffectManager::PlayEffect({ .EffectName = "HitSkul",
+				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(40, 50), Rand.RandomFloat(25, 70), 0),
+				.Scale = 0.6f,
+				.FlipX = false });
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		switch (HitDir)
+		{
+		case ActorViewDir::Left:
+			EffectManager::PlayEffect({ .EffectName = "HitSkul",
+				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-30, -20), Rand.RandomFloat(25, 70), 0),
+				.Scale = 0.6f,
+				.FlipX = true });
+			break;
+		case ActorViewDir::Right:
+			EffectManager::PlayEffect({ .EffectName = "HitSkul",
+				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
+				.Scale = 0.6f,
+				.FlipX = false });
+			break;
+		default:
+			break;
+		}
 	}
 }
 
