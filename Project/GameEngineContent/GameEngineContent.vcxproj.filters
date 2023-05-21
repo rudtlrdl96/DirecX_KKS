@@ -663,6 +663,12 @@
     <ClInclude Include="HitParticle.h">
       <Filter>2_Actor\Map\Stage\Particle\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="ColEnterCheck.h">
+      <Filter>1_Class\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimAttackCheck.h">
+      <Filter>1_Class\Battle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1030,6 +1036,12 @@
     </ClCompile>
     <ClCompile Include="HitParticle.cpp">
       <Filter>2_Actor\Map\Stage\Particle\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ColEnterCheck.cpp">
+      <Filter>1_Class\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimAttackCheck.cpp">
+      <Filter>1_Class\Battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

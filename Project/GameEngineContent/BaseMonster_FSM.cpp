@@ -14,9 +14,8 @@ void BaseMonster::Idle_Enter()
 
 void BaseMonster::Idle_Update(float _DeltaTime) 
 {
-	if (false == IsSpuerArmor && true == IsHit)
+	if (true == HitCheck())
 	{
-		MonsterFsm.ChangeState("Hit");
 		return;
 	}
 
@@ -91,9 +90,8 @@ void BaseMonster::Walk_Enter()
 
 void BaseMonster::Walk_Update(float _DeltaTime) 
 {
-	if (false == IsSpuerArmor && true == IsHit)
+	if (true == HitCheck())
 	{
-		MonsterFsm.ChangeState("Hit");
 		return;
 	}
 
@@ -149,9 +147,8 @@ void BaseMonster::Chasing_Enter()
 
 void BaseMonster::Chasing_Update(float _DeltaTime) 
 {
-	if (false == IsSpuerArmor && true == IsHit)
+	if (true == HitCheck())
 	{
-		MonsterFsm.ChangeState("Hit");
 		return;
 	}
 
@@ -222,9 +219,8 @@ void BaseMonster::Attack_Enter()
 
 void BaseMonster::Attack_Update(float _DeltaTime)
 {
-	if (false == IsSpuerArmor && true == IsHit)
+	if (true == HitCheck())
 	{
-		MonsterFsm.ChangeState("Hit");
 		return;
 	}
 
@@ -293,21 +289,32 @@ void BaseMonster::Hit_Update(float _DeltaTime)
 	{
 		if (0 == HitAnimIndex)
 		{
-			Render->ChangeAnimation("Hit2");
-			HitAnimIndex = 1;
-			HitStiffen();
+			HitEffect();
+
+			if (false == IsSpuerArmor && true == IsStiffen)
+			{
+				Render->ChangeAnimation("Hit2");
+				HitAnimIndex = 1;
+				HitStiffen();
+				HitWaitTime = 0.0f;
+			}
 		}
 		else if(1 == HitAnimIndex)
 		{
-			Render->ChangeAnimation("Hit1");
-			HitAnimIndex = 0;
-			HitStiffen();
+			HitEffect();
+
+			if (false == IsSpuerArmor && true == IsStiffen)
+			{
+				Render->ChangeAnimation("Hit1");
+				HitAnimIndex = 0;
+				HitStiffen();
+				HitWaitTime = 0.0f;
+			}
 		}
 
-		HitWaitTime = 0.0f;
 	}
 
-	if (0.6f <= HitWaitTime)
+	if (0.5f <= HitWaitTime)
 	{
 		MonsterFsm.ChangeState("Idle");
 	}

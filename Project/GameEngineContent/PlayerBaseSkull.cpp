@@ -8,6 +8,7 @@
 #include "CollisionDebugRender.h"
 #include "CaptureTrail.h"
 #include "Player.h"
+#include "BaseMonster.h"
 
 PlayerBaseSkull::PlayerBaseSkull()
 {
@@ -210,6 +211,15 @@ void PlayerBaseSkull::Start()
 	EffectCaptureTrail->GetTransform()->SetParent(GetTransform());
 	EffectCaptureTrail->SetTime(0.4f);
 	EffectCaptureTrail->SetColor(float4(0.0f, 0.0f, 0.0f, 1.0f), float4::Null);
+
+	AttackEnterCheck.SetCol(AttackCol);
+	AttackEnterCheck.SetRender(SkullRenderer);
+
+	AttackEnterCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)
+		{			
+			std::shared_ptr<BaseMonster> CastPtr = std::static_pointer_cast<BaseMonster>(_Ptr);
+			CastPtr->HitMonster(GetViewDir(), _Data.IsStiffen, _Data.IsPush);
+		});
 
 	//DashTrail->GetTransform()->SetLocalPosition(float4(0, 0, 1));
 }

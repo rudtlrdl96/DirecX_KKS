@@ -27,6 +27,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="AnimAttackCheck.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="AttackColToolAnimActor.h" />
     <ClInclude Include="AnimationAttackMetaData.h">
       <SubType>
@@ -114,6 +118,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ClassFSM.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ColEnterCheck.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -465,6 +473,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="AnimAttackCheck.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="AttackColToolAnimActor.cpp" />
     <ClCompile Include="AnimationAttackMetaData.cpp">
       <SubType>
@@ -553,6 +565,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ClassFSM.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ColEnterCheck.cpp">
       <SubType>
       </SubType>
     </ClCompile>

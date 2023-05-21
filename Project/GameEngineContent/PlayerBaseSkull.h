@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 #include "ClassFSM.h"
+#include "AnimAttackCheck.h"
 #include "Rigidbody2D.h"
 #include "SkullData.h"
 
@@ -125,11 +126,9 @@ protected:
 		return IsSwitchValue;
 	}
 
+
 private:	
-
-	size_t AttackAnimIndex = static_cast<size_t>(-1);
-	std::map<UINT, class BaseMonster*> AttackColBuffers;
-
+	AnimAttackCheck AttackEnterCheck;
 	ActorViewDir ViewDir = ActorViewDir::Right;
 
 	float JumpPower = 800.0f;

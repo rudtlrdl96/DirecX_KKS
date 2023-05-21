@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include  "Projectile.h"
+#include "BaseMonster.h"
 
 ChiefGuard::ChiefGuard()
 {
@@ -53,6 +54,37 @@ void ChiefGuard::Skill_SlotA_Update(float _DeltaTime)
 
 		FlashStart = PlayerTrans->GetWorldPosition();
 		float4 FlashPos = FlashStart + float4(0, 30);
+
+		GameEngineTransform* ColTrans = FlashCol->GetTransform();
+
+		switch (GetViewDir())
+		{
+		case ActorViewDir::Left:
+			ColTrans->SetWorldPosition(FlashStart + float4(-FlashMoveX * 0.5f, 30, 0));
+			break;
+		case ActorViewDir::Right:
+			ColTrans->SetWorldPosition(FlashStart + float4(FlashMoveX * 0.5f, 30, 0));
+			break;
+		default:
+			break;
+		}
+
+		std::vector<std::shared_ptr<GameEngineCollision>> ColsDatas;
+
+		FlashCol->CollisionAll((int)CollisionOrder::Monster, ColType::AABBBOX2D, ColType::AABBBOX2D, ColsDatas);
+
+		for (size_t i = 0; i < ColsDatas.size(); i++)
+		{
+			std::shared_ptr<BaseMonster> HitEnemy = ColsDatas[i]->GetActor()->DynamicThis<BaseMonster>();
+
+			if (nullptr == HitEnemy)
+			{
+				MsgAssert_Rtti<ChiefGuard>(" - BaseMonster를 상속받은 클래스만 CollisionOrder::Monster에 들어갈 수 있습니다");
+				return;
+			}
+
+			HitEnemy->HitMonster(GetViewDir(), true, true);
+		}
 
 		switch (GetViewDir())
 		{
@@ -176,6 +208,76 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 		if (6 == SkullRenderer->GetCurrentFrame())
 		{
 			IsFlash_2 = true;
+		}
+
+		GameEngineTransform* ColTrans = FlashCol->GetTransform();
+
+		switch (GetViewDir())
+		{
+		case ActorViewDir::Left:
+			if (Flip > 0.0f)
+			{
+				ColTrans->SetWorldPosition(FlashStart + float4(-FlashMoveX * 0.5f, 30, 0));
+			}
+			else
+			{
+				ColTrans->SetWorldPosition(FlashStart + float4(FlashMoveX * 0.5f, 30, 0));
+			}
+			break;
+		case ActorViewDir::Right:
+			if (Flip > 0.0f)
+			{
+				ColTrans->SetWorldPosition(FlashStart + float4(FlashMoveX * 0.5f, 30, 0));
+			}
+			else
+			{
+				ColTrans->SetWorldPosition(FlashStart + float4(-FlashMoveX * 0.5f, 30, 0));
+			}
+			break;
+		default:
+			break;
+		}
+
+		std::vector<std::shared_ptr<GameEngineCollision>> ColsDatas;
+
+		FlashCol->CollisionAll((int)CollisionOrder::Monster, ColType::AABBBOX2D, ColType::AABBBOX2D, ColsDatas);
+
+		for (size_t i = 0; i < ColsDatas.size(); i++)
+		{
+			std::shared_ptr<BaseMonster> HitEnemy = ColsDatas[i]->GetActor()->DynamicThis<BaseMonster>();
+
+			if (nullptr == HitEnemy)
+			{
+				MsgAssert_Rtti<ChiefGuard>(" - BaseMonster를 상속받은 클래스만 CollisionOrder::Monster에 들어갈 수 있습니다");
+				return;
+			}
+
+			switch (GetViewDir())
+			{
+			case ActorViewDir::Left:
+				if (Flip > 0.0f)
+				{
+					HitEnemy->HitMonster(ActorViewDir::Left, true, true);
+				}
+				else
+				{
+					HitEnemy->HitMonster(ActorViewDir::Right, true, true);
+				}
+				break;
+			case ActorViewDir::Right:
+				if (Flip > 0.0f)
+				{
+					HitEnemy->HitMonster(ActorViewDir::Right, true, true);
+				}
+				else
+				{
+					HitEnemy->HitMonster(ActorViewDir::Left, true, true);
+				}
+				
+				break;
+			default:
+				break;
+			}
 		}
 
 		switch (GetViewDir())

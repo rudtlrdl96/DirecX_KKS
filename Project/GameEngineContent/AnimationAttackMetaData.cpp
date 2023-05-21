@@ -43,8 +43,11 @@ void ColMetaData::ShowGUI()
 
 void AttackColMetaData::SaveBin(GameEngineSerializer& _SaveSerializer) const
 {
-	_SaveSerializer.Write(static_cast<int>(ColMetaDatas.size()));
+	_SaveSerializer.Write(&AttackRatio, sizeof(float));
+	_SaveSerializer.Write(&IsStiffen, sizeof(bool));
+	_SaveSerializer.Write(&IsPush, sizeof(bool));
 
+	_SaveSerializer.Write(static_cast<int>(ColMetaDatas.size()));
 	for (size_t i = 0; i < ColMetaDatas.size(); i++)
 	{
 		ColMetaDatas[i].SaveBin(_SaveSerializer);
@@ -53,8 +56,11 @@ void AttackColMetaData::SaveBin(GameEngineSerializer& _SaveSerializer) const
 
 void AttackColMetaData::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
-	int Size = 0;
+	_LoadSerializer.Read(&AttackRatio, sizeof(float));
+	_LoadSerializer.Read(&IsStiffen, sizeof(bool));
+	_LoadSerializer.Read(&IsPush, sizeof(bool));
 
+	int Size = 0;
 	_LoadSerializer.Read(Size);
 	ColMetaDatas.resize(Size);
 
@@ -68,6 +74,12 @@ void AttackColMetaData::ShowGUI()
 {
 	int Count = static_cast<int>(ColMetaDatas.size());
 
+	ImGui::DragFloat("Attack Ratio", &AttackRatio, 0.01f);
+
+	ImGui::Checkbox("IsStiffen", &IsStiffen);
+	ImGui::Checkbox("IsPush", &IsPush);
+
+	ImGui::Spacing();
 	ImGui::InputInt("ColCount", &Count);
 
 	if (0 > Count)

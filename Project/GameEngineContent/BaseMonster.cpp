@@ -268,27 +268,59 @@ void BaseMonster::EffectLoadCheck()
 	}
 }
 
-void BaseMonster::HitStiffen()
+bool BaseMonster::HitCheck()
+{
+	if (true == IsHit)
+	{
+		HitEffect();
+
+		if (false == IsSpuerArmor && true == IsStiffen)
+		{
+			MonsterFsm.ChangeState("Hit");
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void BaseMonster::HitEffect()
 {
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
 	switch (HitDir)
 	{
 	case ActorViewDir::Left:
-		HitRigidbody.SetVelocity(float4::Left * 300.0f);
-
 		EffectManager::PlayEffect({ .EffectName = "HitSkul",
-			.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-50, 40), Rand.RandomFloat(25, 70), 0),
+			.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-50, -40), Rand.RandomFloat(25, 70), 0),
 			.Scale = 0.6f,
 			.FlipX = true });
 		break;
 	case ActorViewDir::Right:
-		HitRigidbody.SetVelocity(float4::Right * 300.0f);
-
 		EffectManager::PlayEffect({ .EffectName = "HitSkul",
 			.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(40, 50), Rand.RandomFloat(25, 70), 0),
 			.Scale = 0.6f,
 			.FlipX = false });
+		break;
+	default:
+		break;
+	}
+}
+
+void BaseMonster::HitStiffen()
+{
+	if (false == IsPush)
+	{
+		return;
+	}
+
+	switch (HitDir)
+	{
+	case ActorViewDir::Left:
+		HitRigidbody.SetVelocity(float4::Left * 200.0f);
+		break;
+	case ActorViewDir::Right:
+		HitRigidbody.SetVelocity(float4::Right * 200.0f);
 		break;
 	default:
 		break;

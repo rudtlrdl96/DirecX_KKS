@@ -18,6 +18,10 @@ class AttackColMetaData
 {
 	friend class AnimationAttackMetaData;
 public:
+	float AttackRatio = 1.0f;
+	bool IsStiffen = false;
+	bool IsPush = false;
+
 	std::vector<ColMetaData> ColMetaDatas;
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;

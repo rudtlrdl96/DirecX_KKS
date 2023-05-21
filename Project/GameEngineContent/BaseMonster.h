@@ -14,10 +14,12 @@ public:
 	BaseMonster& operator=(const BaseMonster& _Other) = delete;
 	BaseMonster& operator=(BaseMonster&& _Other) noexcept = delete;
 
-	inline void HitMonster(ActorViewDir _HitDir)
+	inline void HitMonster(ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
 	{
 		HitDir = _HitDir;
 		IsHit = true;
+		IsStiffen = _IsStiffen;
+		IsPush = _IsPush;
 	}
 
 protected:
@@ -70,7 +72,11 @@ protected:
 	UINT HitAnimIndex = 0;
 
 	ActorViewDir HitDir = ActorViewDir::Right;
+
 	bool IsHit = false;
+	bool IsStiffen = false;
+	bool IsPush = false;
+
 	bool IsSpuerArmor = false;
 	float HitWaitTime = 0.0f;
 
@@ -112,7 +118,9 @@ private:
 	void Turn(bool _Force = false);
 	void CreateColDebugRender();
 	void EffectLoadCheck();
-	void HitStiffen();
 
+	bool HitCheck();
+	void HitEffect();
+	void HitStiffen();
 };
 
