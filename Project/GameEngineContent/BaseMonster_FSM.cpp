@@ -213,8 +213,6 @@ void BaseMonster::Attack_Enter()
 
 	AttackCheckFrame = 0;
 	CurPauseTime = 0.0f;
-
-	AttackRigidbody.SetVelocity(float4::Zero);
 }
 
 void BaseMonster::Attack_Update(float _DeltaTime)
@@ -279,9 +277,12 @@ void BaseMonster::Hit_Enter()
 void BaseMonster::Hit_Update(float _DeltaTime) 
 {
 	HitWaitTime += _DeltaTime;
-
 	HitRigidbody.UpdateForce(_DeltaTime);
-	GetTransform()->AddLocalPosition(HitRigidbody.GetVelocity() * _DeltaTime);
+
+	if (nullptr == PlatformColCheck(WalkCol) && nullptr == PlatformColCheck(BackCol))
+	{
+		GetTransform()->AddLocalPosition(HitRigidbody.GetVelocity() * _DeltaTime);
+	}
 
 	Fall(_DeltaTime);
 

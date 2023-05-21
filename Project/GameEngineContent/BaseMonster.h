@@ -30,6 +30,7 @@ protected:
 
 	std::shared_ptr<class GameEngineCollision> BodyCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> WalkCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> BackCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> WalkFallCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> GroundCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> FindCol = nullptr;
@@ -63,6 +64,8 @@ protected:
 
 
 	float4 LocalWalkColPos = float4::Zero;
+	float4 LocalBackColPos = float4::Zero;
+
 	float4 LocalWalkFallColPos = float4::Zero;
 	float4 LocalFindColPos = float4::Zero;
 	float4 LocalChasingColPos = float4::Zero;
@@ -122,5 +125,6 @@ private:
 	bool HitCheck();
 	void HitEffect();
 	void HitStiffen();
+
 };
 

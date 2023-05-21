@@ -80,7 +80,14 @@ void CarleonRecruit::SetColData()
 		ColTrans->SetLocalPosition(LocalWalkColPos);
 		ColTrans->SetWorldScale(float4(10, 80, 1));
 	}
+	{		
+		GameEngineTransform* ColTrans = BackCol->GetTransform();
 
+		LocalBackColPos = float4(-32, 42, 0);
+
+		ColTrans->SetLocalPosition(LocalBackColPos);
+		ColTrans->SetWorldScale(float4(10, 80, 1));		
+	}
 	{
 		GameEngineTransform* ColTrans = WalkFallCol->GetTransform();
 

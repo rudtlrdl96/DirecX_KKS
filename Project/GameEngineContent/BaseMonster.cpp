@@ -39,9 +39,12 @@ void BaseMonster::Start()
 	FindCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	ChasingCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	BackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	GroundCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	WalkFallCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 
+	HitRigidbody.SetMaxSpeed(300.0f);
+	HitRigidbody.SetFricCoeff(1000.0f);
 
 	DataLoad();
 	TextureLoad();
@@ -96,14 +99,10 @@ void BaseMonster::SetViewDir(ActorViewDir _Dir, bool _Force /*= false*/)
 		GetTransform()->SetLocalNegativeScaleX();
 
 		LocalWalkColPos.x = -fabsf(LocalWalkColPos.x);
+		LocalBackColPos.x = fabsf(LocalBackColPos.x);
 		LocalWalkFallColPos.x = -fabsf(LocalWalkFallColPos.x);
 		LocalFindColPos.x = -fabsf(LocalFindColPos.x);
 		LocalChasingColPos.x = -fabsf(LocalChasingColPos.x);
-
-		WalkCol->GetTransform()->SetLocalPosition(LocalWalkColPos);
-		WalkFallCol->GetTransform()->SetLocalPosition(LocalWalkFallColPos);
-		FindCol->GetTransform()->SetLocalPosition(LocalFindColPos);
-		ChasingCol->GetTransform()->SetLocalPosition(LocalChasingColPos);
 	}
 		break;
 	case ActorViewDir::Right:
@@ -111,23 +110,23 @@ void BaseMonster::SetViewDir(ActorViewDir _Dir, bool _Force /*= false*/)
 		GetTransform()->SetLocalPositiveScaleX();
 
 		LocalWalkColPos.x = fabsf(LocalWalkColPos.x);
+		LocalBackColPos.x = -fabsf(LocalBackColPos.x);
 		LocalWalkFallColPos.x = fabsf(LocalWalkFallColPos.x);
 		LocalFindColPos.x = fabsf(LocalFindColPos.x);
 		LocalChasingColPos.x = fabsf(LocalChasingColPos.x);
-
-		WalkCol->GetTransform()->SetLocalPosition(LocalWalkColPos);
-		WalkFallCol->GetTransform()->SetLocalPosition(LocalWalkFallColPos);
-		FindCol->GetTransform()->SetLocalPosition(LocalFindColPos);
-		ChasingCol->GetTransform()->SetLocalPosition(LocalChasingColPos);
 	}
 		break;
 	default:
 		break;
 	}
 
+	WalkCol->GetTransform()->SetLocalPosition(LocalWalkColPos);
+	BackCol->GetTransform()->SetLocalPosition(LocalBackColPos);
+	WalkFallCol->GetTransform()->SetLocalPosition(LocalWalkFallColPos);
+	FindCol->GetTransform()->SetLocalPosition(LocalFindColPos);
+	ChasingCol->GetTransform()->SetLocalPosition(LocalChasingColPos);
+
 	TurnCoolTime = 0.5f;
-	HitRigidbody.SetMaxSpeed(300.0f);
-	HitRigidbody.SetFricCoeff(1000.0f);
 }
 
 
