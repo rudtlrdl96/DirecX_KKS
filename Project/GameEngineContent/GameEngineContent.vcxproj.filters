@@ -322,8 +322,8 @@
     <Filter Include="2_Actor\Monster\ForestOfHarmony">
       <UniqueIdentifier>{923adf6d-88cf-47d7-b4e7-20caefdf0c6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Map\Stage\Particle\Monster">
-      <UniqueIdentifier>{6853f8af-b8f0-4fbe-a8ab-b170858eac0c}</UniqueIdentifier>
+    <Filter Include="2_Actor\Monster\Particle">
+      <UniqueIdentifier>{8b581822-80db-4f3e-bae5-0b5813218bef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -660,14 +660,14 @@
     <ClInclude Include="CarleonArcher.h">
       <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
     </ClInclude>
-    <ClInclude Include="HitParticle.h">
-      <Filter>2_Actor\Map\Stage\Particle\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="ColEnterCheck.h">
       <Filter>1_Class\Battle</Filter>
     </ClInclude>
     <ClInclude Include="AnimAttackCheck.h">
       <Filter>1_Class\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="HitParticle.h">
+      <Filter>2_Actor\Monster\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1034,14 +1034,14 @@
     <ClCompile Include="CarleonArcher.cpp">
       <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
     </ClCompile>
-    <ClCompile Include="HitParticle.cpp">
-      <Filter>2_Actor\Map\Stage\Particle\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="ColEnterCheck.cpp">
       <Filter>1_Class\Battle</Filter>
     </ClCompile>
     <ClCompile Include="AnimAttackCheck.cpp">
       <Filter>1_Class\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="HitParticle.cpp">
+      <Filter>2_Actor\Monster\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

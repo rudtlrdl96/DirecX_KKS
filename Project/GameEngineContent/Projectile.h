@@ -10,6 +10,8 @@ public:
 	float4 Dir = float4::Up;
 	float Speed = 100.0f;
 	float LiveTime = 1.0f;
+
+	std::function<void()> ColEvent = nullptr;
 };
 
 class Projectile : public BaseContentActor

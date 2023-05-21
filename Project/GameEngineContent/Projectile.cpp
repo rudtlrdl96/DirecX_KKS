@@ -50,8 +50,6 @@ void Projectile::Update(float _DeltaTime)
 		return;
 	}
 
-
-
 	float RotZ = 0.0f;
 
 	if (float4::Right != Dir)

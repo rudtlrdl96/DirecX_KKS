@@ -11,6 +11,9 @@ HitParticle::~HitParticle()
 
 void HitParticle::Init(const float4& _Dir, float _Power, float _LiveTime)
 {
+	ParticleRigid.SetVelocity(_Dir.NormalizeReturn() * _Power);
+
+	LiveTime = _LiveTime;
 }
 
 void HitParticle::Start()
@@ -24,7 +27,10 @@ void HitParticle::Start()
 	Render->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	Render->SetScaleToTexture("BaseHitParticle.png");
 
-	Buffer.Color = float4(0, 0, 0);
+	float4 TexScale = Render->GetTransform()->GetLocalScale();
+	Render->GetTransform()->SetLocalScale(TexScale * 2.0f);
+
+	Buffer.Color = float4(1, 1, 1, 1);
 }
 
 void HitParticle::Update(float _DeltaTime)
@@ -42,5 +48,4 @@ void HitParticle::Update(float _DeltaTime)
 
 	float4 Velocity = ParticleRigid.GetVelocity() * _DeltaTime;
 	GetTransform()->AddLocalPosition(Velocity);
-
 }

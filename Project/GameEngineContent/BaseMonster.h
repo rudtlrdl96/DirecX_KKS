@@ -78,6 +78,7 @@ protected:
 	bool IsHitEffectOn = false;
 	float HitEffectProgress = 0.0f;
 	float HitEffectSpeed = 7.5f;
+	float HitParticleCoolTime = 0.0f;
 
 	bool IsSpuerArmor = false;
 	float HitWaitTime = 0.0f;

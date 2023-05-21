@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 
 #include "CollisionDebugRender.h"
+#include "HitParticle.h"
 
 BaseMonster::BaseMonster()
 {
@@ -68,6 +69,8 @@ void BaseMonster::Start()
 
 void BaseMonster::Update(float _DeltaTime)
 {
+	HitParticleCoolTime += _DeltaTime;
+
 	if (true == GameEngineInput::IsDown("MonsterDebugOn"))
 	{
 		if (false == IsDebug())
@@ -317,45 +320,73 @@ void BaseMonster::HitEffect()
 {
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
-	if (true == IsPush)
+	if (0.2f <= HitParticleCoolTime)
 	{
-		switch (HitDir)
+		HitParticleCoolTime = 0.0f;
+
+		for (size_t i = 0; i < 8; i++)
 		{
-		case ActorViewDir::Left:
+			std::shared_ptr<HitParticle> NewParticle = GetLevel()->CreateActor<HitParticle>();
+
+			float4 RandPos = float4(Rand.RandomFloat(-30, 30), Rand.RandomFloat(-30, 30), -1);
+
+			NewParticle->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + RandPos);
+
+			float4 RandDir = float4(1.0f, 0.0f, 0.0f);
+
+			switch (HitDir)
+			{
+			case ActorViewDir::Left:
+				RandDir.RotaitonZDeg(Rand.RandomFloat(110, 140));
+				NewParticle->Init(RandDir, Rand.RandomFloat(750, 1000), 1.0f);
+				break;
+			case ActorViewDir::Right:
+				RandDir.RotaitonZDeg(Rand.RandomFloat(40, 70));
+				NewParticle->Init(RandDir, Rand.RandomFloat(750, 1000), 1.0f);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	switch (HitDir)
+	{
+	case ActorViewDir::Left:
+
+		if (true == IsPush)
+		{
 			EffectManager::PlayEffect({ .EffectName = "HitSkul",
 				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-50, -40), Rand.RandomFloat(25, 70), 0),
 				.Scale = 0.6f,
 				.FlipX = true });
-			break;
-		case ActorViewDir::Right:
-			EffectManager::PlayEffect({ .EffectName = "HitSkul",
-				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(40, 50), Rand.RandomFloat(25, 70), 0),
-				.Scale = 0.6f,
-				.FlipX = false });
-			break;
-		default:
-			break;
 		}
-	}
-	else
-	{
-		switch (HitDir)
+		else
 		{
-		case ActorViewDir::Left:
 			EffectManager::PlayEffect({ .EffectName = "HitSkul",
 				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-30, -20), Rand.RandomFloat(25, 70), 0),
 				.Scale = 0.6f,
 				.FlipX = true });
-			break;
-		case ActorViewDir::Right:
+		}
+		break;
+	case ActorViewDir::Right:
+		if (true == IsPush)
+		{
 			EffectManager::PlayEffect({ .EffectName = "HitSkul",
-				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
+				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(40, 50), Rand.RandomFloat(25, 70), 0),
 				.Scale = 0.6f,
 				.FlipX = false });
-			break;
-		default:
-			break;
 		}
+		else
+		{
+			EffectManager::PlayEffect({ .EffectName = "HitSkul",
+					.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
+					.Scale = 0.6f,
+					.FlipX = false });
+		}
+		break;
+	default:
+		break;
 	}
 }
 
