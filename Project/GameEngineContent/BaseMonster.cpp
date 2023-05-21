@@ -69,6 +69,8 @@ void BaseMonster::Start()
 
 void BaseMonster::Update(float _DeltaTime)
 {
+	AttackWaitTime += _DeltaTime;
+	TurnCoolTime -= _DeltaTime;
 	HitParticleCoolTime += _DeltaTime;
 
 	if (true == GameEngineInput::IsDown("MonsterDebugOn"))
@@ -88,8 +90,6 @@ void BaseMonster::Update(float _DeltaTime)
 	{
 		PlayerActor = nullptr;
 	}
-
-	TurnCoolTime -= _DeltaTime;
 
 	MonsterFsm.Update(_DeltaTime);
 	IsHit = false;

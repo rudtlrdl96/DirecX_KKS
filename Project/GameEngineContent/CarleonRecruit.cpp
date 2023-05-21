@@ -12,6 +12,7 @@ CarleonRecruit::~CarleonRecruit()
 
 void CarleonRecruit::DataLoad()
 {
+	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(0); // 0 = Ä®·¹¿Â ½Åº´
 }
 
 void CarleonRecruit::TextureLoad()
@@ -29,8 +30,8 @@ void CarleonRecruit::LoadAnimation()
 
 void CarleonRecruit::AnimationAttackMetaDataLoad()
 {
-	AnimPauseTimes[0] = 0.3f;
-	AnimPauseTimes[7] = 1.0f;
+	AnimPauseTimes[0] = 0.5f;
+	AnimPauseTimes[4] = 0.5f;
 
 	AttackRigidbody.SetMaxSpeed(300.0f);
 	AttackRigidbody.SetFricCoeff(1000.0f);

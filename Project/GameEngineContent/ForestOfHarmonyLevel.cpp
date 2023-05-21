@@ -2,11 +2,12 @@
 #include "ForestOfHarmonyLevel.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
-#include "MultiBackground.h"
+// Debug¿ë ÃßÈÄ »èÁ¦
 #include "FPSCheckGUI.h"
-
 #include "CarleonRecruit.h"
+#include "CarleonArcher.h"
 
 ForestOfHarmonyLevel::ForestOfHarmonyLevel()
 {
@@ -75,8 +76,27 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("MonsterSpawn"))
 	{
-		std::shared_ptr<CarleonRecruit> NewMonster = CreateActor<CarleonRecruit>();
-		NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
+		GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+
+		switch (MainRand.RandomInt(0, 1))
+		{
+		case 0: // Ä®·¹¿Â ½Åº´
+		{
+			std::shared_ptr<CarleonRecruit> NewMonster = CreateActor<CarleonRecruit>();
+			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
+		}
+			break;
+		case 1: // Ä®·¹¿Â ±Ã¼ö
+		{
+			std::shared_ptr<CarleonArcher> NewMonster = CreateActor<CarleonArcher>();
+			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
+		}
+			break;
+		default:
+			break;
+		}
+
+
 	}
 }
 

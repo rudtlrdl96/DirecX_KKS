@@ -1,7 +1,7 @@
 #pragma once
+#include "BaseMonster.h"
 
-
-class CarleonArcher
+class CarleonArcher : public BaseMonster
 {
 public:
 	CarleonArcher();
@@ -13,9 +13,17 @@ public:
 	CarleonArcher& operator=(CarleonArcher&& _Other) noexcept = delete;
 
 protected:
-	
+	void DataLoad() override;
+	void TextureLoad() override;
+	void LoadAnimation() override;
+	void AnimationAttackMetaDataLoad() override;
+	void SetColData() override;
+
+	void Attack_Enter() override;
+	void Attack_Update(float _DeltaTime) override;
+
 private:
-
-
+	bool IsAttackSign = false;
+	bool IsAttackShot = false;
 };
 

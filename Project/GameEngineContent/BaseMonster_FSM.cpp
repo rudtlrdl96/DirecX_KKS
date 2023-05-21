@@ -14,7 +14,17 @@ void BaseMonster::Idle_Enter()
 
 void BaseMonster::Idle_Update(float _DeltaTime) 
 {
+	if (true == Fall(_DeltaTime))
+	{
+		return;
+	}
+
 	if (true == HitCheck())
+	{
+		return;
+	}
+
+	if (AttackWaitTime < AttackWaitEndTime)
 	{
 		return;
 	}
@@ -23,7 +33,6 @@ void BaseMonster::Idle_Update(float _DeltaTime)
 	{
 		ChasingWaitTime += _DeltaTime;
 
-		Fall(_DeltaTime);
 
 		if (ChasingWaitTime >= 0.5f)
 		{
@@ -49,11 +58,6 @@ void BaseMonster::Idle_Update(float _DeltaTime)
 	if (nullptr != PlayerActor)
 	{
 		MonsterFsm.ChangeState("Chasing");
-		return;
-	}
-
-	if (true == Fall(_DeltaTime))
-	{
 		return;
 	}
 
@@ -262,7 +266,7 @@ void BaseMonster::Attack_Update(float _DeltaTime)
 
 void BaseMonster::Attack_End() 
 {
-
+	AttackWaitTime = 0.0f;
 }
 
 void BaseMonster::Hit_Enter() 
