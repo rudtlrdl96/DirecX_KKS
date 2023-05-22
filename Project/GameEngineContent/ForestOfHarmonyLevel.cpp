@@ -79,7 +79,7 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("MonsterSpawn"))
 	{
-		std::shared_ptr<Ent> NewMonster = CreateActor<Ent>();
+		std::shared_ptr<RootEnt> NewMonster = CreateActor<RootEnt>();
 		NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
 
 		//GameEngineRandom& MainRand = GameEngineRandom::MainRandom;

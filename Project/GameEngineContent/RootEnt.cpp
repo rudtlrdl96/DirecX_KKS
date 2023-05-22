@@ -10,6 +10,16 @@ RootEnt::~RootEnt()
 {
 }
 
+void RootEnt::Update(float _DeltaTime)
+{
+	BaseMonster::Update(_DeltaTime);
+
+	if (nullptr != SignEffectActor && true == SignEffectActor->IsDeath())
+	{
+		SignEffectActor = nullptr;
+	}
+}
+
 void RootEnt::DataLoad()
 {
 	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(102); // 102 = »Ñ¸® ¿£Æ®
@@ -19,6 +29,43 @@ void RootEnt::DataLoad()
 
 void RootEnt::TextureLoad()
 {
+	if (nullptr == GameEngineSprite::Find("RootEntAttackSign.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("Monster");
+
+		{
+			Path.Move("RootEnt");
+			Path.Move("Effect");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEntAttackSign.png").GetFullPath(), 8, 3);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEntAttackEffect.png").GetFullPath(), 9, 1);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
+
+		EffectManager::CreateMetaData("RootEntAttackSign", {
+			.SpriteName = "RootEntAttackSign.png",
+			.AnimStart = 0,
+			.AnimEnd = 22,
+			.AnimIter = 0.045f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("RootEntAttackEffect", {
+			.SpriteName = "RootEntAttackEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 8,
+			.AnimIter = 0.03f,
+			.ScaleRatio = 2.0f,
+			});
+	}
 }
 
 void RootEnt::LoadAnimation()
@@ -121,6 +168,16 @@ void RootEnt::SetColData()
 	LoadFindEffectPos = float4(0, 100, 0);
 }
 
+void RootEnt::Hit_Enter()
+{
+	BaseMonster::Hit_Enter();
+
+	if (nullptr != SignEffectActor)
+	{
+		SignEffectActor->Death();
+	}
+}
+
 void RootEnt::Hit_End()
 {
 	AttackWaitTime = 1.5f;
@@ -130,9 +187,34 @@ void RootEnt::Hit_End()
 void RootEnt::Attack_Enter()
 {
 	BaseMonster::Attack_Enter();
+
+	IsAttackSign = false;
+	IsAttackEffect = false;
+
+	AttackPos = PlayerActor->GetTransform()->GetWorldPosition() + float4(0, 0, -100.0f);
 }
 
 void RootEnt::Attack_Update(float _DeltaTime)
 {
 	BaseMonster::Attack_Update(_DeltaTime);
+
+	if (false == IsAttackSign && 0 == Render->GetCurrentFrame())
+	{
+		IsAttackSign = true;
+
+		SignEffectActor = EffectManager::PlayEffect({
+			.EffectName = "RootEntAttackSign",
+			.Postion = AttackPos,
+		});
+	}
+
+	if (false == IsAttackEffect && 3 == Render->GetCurrentFrame())
+	{
+		IsAttackEffect = true;
+
+		EffectManager::PlayEffect({
+			.EffectName = "RootEntAttackEffect",
+			.Postion = AttackPos + float4(0, -15, 0),
+			});
+	}
 }
