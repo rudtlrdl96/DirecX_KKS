@@ -15,6 +15,11 @@ public:
 
 	float4 GetMousePos() const;
 
+	inline CameraController& GetCamCtrl()
+	{
+		return MainCamCtrl;
+	}
+
 protected:
 	CameraController MainCamCtrl;
 

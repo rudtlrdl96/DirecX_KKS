@@ -82,7 +82,7 @@ protected:
 	float HitEffectSpeed = 7.5f;
 	float HitParticleCoolTime = 0.0f;
 
-	bool IsSpuerArmor = false;
+	bool IsSuperArmor = false;
 	float HitWaitTime = 0.0f;
 
 	void Start() override;
@@ -117,7 +117,7 @@ protected:
 
 	void SetViewDir(ActorViewDir _Dir, bool _Force = false);
 	std::shared_ptr<class GameEngineCollision> PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf = false);
-private:
+	
 	bool Walk(float _DeltaTime);
 	bool Fall(float _DeltaTime);
 	void Turn(bool _Force = false);
@@ -127,6 +127,5 @@ private:
 	bool HitCheck();
 	void HitEffect();
 	void HitStiffen();
-
 };
 

@@ -8,6 +8,7 @@
 #include "FPSCheckGUI.h"
 #include "CarleonRecruit.h"
 #include "CarleonArcher.h"
+#include "CarleonManAtArms.h"
 
 ForestOfHarmonyLevel::ForestOfHarmonyLevel()
 {
@@ -76,25 +77,33 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("MonsterSpawn"))
 	{
-		GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+		std::shared_ptr<CarleonManAtArms> NewMonster = CreateActor<CarleonManAtArms>();
+		NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
 
-		switch (MainRand.RandomInt(0, 1))
-		{
-		case 0: // Ä®·¹¿Â ½Åº´
-		{
-			std::shared_ptr<CarleonRecruit> NewMonster = CreateActor<CarleonRecruit>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
-		}
-			break;
-		case 1: // Ä®·¹¿Â ±Ã¼ö
-		{
-			std::shared_ptr<CarleonArcher> NewMonster = CreateActor<CarleonArcher>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
-		}
-			break;
-		default:
-			break;
-		}
+		//GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+		//
+		//switch (MainRand.RandomInt(0, 2))
+		//{
+		//case 0: // Ä®·¹¿Â ½Åº´
+		//{
+		//	std::shared_ptr<CarleonRecruit> NewMonster = CreateActor<CarleonRecruit>();
+		//	NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
+		//}
+		//	break;
+		//case 1: // Ä®·¹¿Â ±Ã¼ö
+		//{
+		//	std::shared_ptr<CarleonArcher> NewMonster = CreateActor<CarleonArcher>();
+		//	NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
+		//}
+		//case 2: // Ä®·¹¿Â Áßº¸º´
+		//{
+		//	std::shared_ptr<CarleonManAtArms> NewMonster = CreateActor<CarleonManAtArms>();
+		//	NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
+		//}
+		//	break;
+		//default:
+		//	break;
+		//}
 
 
 	}

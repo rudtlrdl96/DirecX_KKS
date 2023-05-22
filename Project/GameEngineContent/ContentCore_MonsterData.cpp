@@ -140,11 +140,30 @@ void ContentCore::MonsterDataLoad()
 
 			Path.MoveParent();
 			Path.MoveParent();
-		}
+		}		
+	
+		Path.MoveParent();
+		Path.MoveParent();
 	}
 
 	{
-	
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("Monster");
+
+		// 칼레온 중보병
+		{
+			Path.Move("CarleonManAtArms");
+			Path.Move("Sheet");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonManAtArms_Attack.png").GetFullPath(), 8, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonManAtArms_Tackle.png").GetFullPath(), 3, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonManAtArms_Dead.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonManAtArms_Idle.png").GetFullPath(), 5, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("CarleonManAtArms_Walk.png").GetFullPath(), 8, 1);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
 	}
 
 	int a = 0;

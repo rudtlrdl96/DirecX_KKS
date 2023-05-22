@@ -654,12 +654,6 @@
     <ClInclude Include="FPSCheckGUI.h">
       <Filter>5_GUI\Common</Filter>
     </ClInclude>
-    <ClInclude Include="CarleonRecruit.h">
-      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
-    </ClInclude>
-    <ClInclude Include="CarleonArcher.h">
-      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
-    </ClInclude>
     <ClInclude Include="ColEnterCheck.h">
       <Filter>1_Class\Battle</Filter>
     </ClInclude>
@@ -668,6 +662,15 @@
     </ClInclude>
     <ClInclude Include="HitParticle.h">
       <Filter>2_Actor\Monster\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="CarleonRecruit.h">
+      <Filter>2_Actor\Monster\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="CarleonArcher.h">
+      <Filter>2_Actor\Monster\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="CarleonManAtArms.h">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1028,12 +1031,6 @@
     <ClCompile Include="BaseMonster_FSM.cpp">
       <Filter>2_Actor\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="CarleonRecruit.cpp">
-      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
-    </ClCompile>
-    <ClCompile Include="CarleonArcher.cpp">
-      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
-    </ClCompile>
     <ClCompile Include="ColEnterCheck.cpp">
       <Filter>1_Class\Battle</Filter>
     </ClCompile>
@@ -1042,6 +1039,15 @@
     </ClCompile>
     <ClCompile Include="HitParticle.cpp">
       <Filter>2_Actor\Monster\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CarleonArcher.cpp">
+      <Filter>2_Actor\Monster\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="CarleonRecruit.cpp">
+      <Filter>2_Actor\Monster\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="CarleonManAtArms.cpp">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

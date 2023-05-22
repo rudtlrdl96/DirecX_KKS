@@ -53,7 +53,7 @@ void CarleonArcher::TextureLoad()
 			.SpriteName = "AttackSign_Archer.png",
 			.AnimStart = 0,
 			.AnimEnd = 18,
-			.AnimIter = 0.02f,
+			.AnimIter = 0.025f,
 			.ScaleRatio = 2.0f,
 			});
 	}

@@ -290,13 +290,13 @@ void BaseMonster::Hit_Update(float _DeltaTime)
 
 	Fall(_DeltaTime);
 
-	if (false == IsSpuerArmor && true == IsHit)
+	if (false == IsSuperArmor && true == IsHit)
 	{
 		if (0 == HitAnimIndex)
 		{
 			HitEffect();
 
-			if (false == IsSpuerArmor && true == IsStiffen)
+			if (false == IsSuperArmor && true == IsStiffen)
 			{
 				Render->ChangeAnimation("Hit2");
 				HitAnimIndex = 1;
@@ -308,7 +308,7 @@ void BaseMonster::Hit_Update(float _DeltaTime)
 		{
 			HitEffect();
 
-			if (false == IsSpuerArmor && true == IsStiffen)
+			if (false == IsSuperArmor && true == IsStiffen)
 			{
 				Render->ChangeAnimation("Hit1");
 				HitAnimIndex = 0;

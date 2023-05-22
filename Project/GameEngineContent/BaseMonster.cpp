@@ -306,7 +306,7 @@ bool BaseMonster::HitCheck()
 	{
 		HitEffect();
 
-		if (false == IsSpuerArmor && true == IsStiffen)
+		if (false == IsSuperArmor && true == IsStiffen)
 		{
 			MonsterFsm.ChangeState("Hit");
 			return true;
