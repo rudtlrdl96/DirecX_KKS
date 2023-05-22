@@ -126,7 +126,7 @@ void CarleonManAtArms::SetColData()
 		GameEngineTransform* ColTrans = GroundCol->GetTransform();
 
 		ColTrans->SetLocalPosition(float4(0, -3, 0));
-		ColTrans->SetWorldScale(float4(80, 6, 1));
+		ColTrans->SetWorldScale(float4(70, 6, 1));
 	}
 
 	{

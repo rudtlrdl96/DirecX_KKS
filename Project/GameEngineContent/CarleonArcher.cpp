@@ -13,6 +13,15 @@ CarleonArcher::CarleonArcher()
 CarleonArcher::~CarleonArcher()
 {
 }
+void CarleonArcher::Update(float _DeltaTime)
+{
+	if (nullptr != SignEffectActor && SignEffectActor->IsDeath())
+	{
+		SignEffectActor = nullptr;
+	}
+
+	BaseMonster::Update(_DeltaTime);
+}
 void CarleonArcher::DataLoad()
 {
 	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(1); // 1 = Ä®·¹¿Â ¾ÆÃÄ
@@ -159,6 +168,16 @@ void CarleonArcher::SetColData()
 	LoadFindEffectPos = float4(0, 100, 0);
 }
 
+void CarleonArcher::Hit_Enter()
+{
+	BaseMonster::Hit_Enter();
+
+	if (nullptr != SignEffectActor)
+	{
+		SignEffectActor->Death();
+	}
+}
+
 void CarleonArcher::Attack_Enter()
 {
 	BaseMonster::Attack_Enter();
@@ -188,7 +207,7 @@ void CarleonArcher::Attack_Update(float _DeltaTime)
 			break;
 		}
 
-		EffectManager::PlayEffect({
+		SignEffectActor = EffectManager::PlayEffect({
 			.EffectName = "AttackSign_Archer",
 			.Postion = EffectPos});
 

@@ -13,16 +13,22 @@ public:
 	CarleonArcher& operator=(CarleonArcher&& _Other) noexcept = delete;
 
 protected:
+	void Update(float _DeltaTime) override;
+
 	void DataLoad() override;
 	void TextureLoad() override;
 	void LoadAnimation() override;
 	void AnimationAttackMetaDataLoad() override;
 	void SetColData() override;
 
+	void Hit_Enter() override;
+
 	void Attack_Enter() override;
 	void Attack_Update(float _DeltaTime) override;
 
 private:
+	std::shared_ptr<EffectActor> SignEffectActor = nullptr;
+
 	bool IsAttackSign = false;
 	bool IsAttackShot = false;
 };

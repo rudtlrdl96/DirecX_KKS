@@ -142,6 +142,27 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 			break;
 		}
 
+		std::function<void(std::shared_ptr<BaseContentActor>)> Ptr = [Dir, this](std::shared_ptr<BaseContentActor> _Actor)
+		{
+			std::shared_ptr<BaseMonster> ColMonster = _Actor->DynamicThis<BaseMonster>();
+
+			if (nullptr == ColMonster)
+			{
+				MsgAssert_Rtti<BaseMonster>(" - BaseMonster를 상속받은 클래스만 MonsterCol Order로 설정할 수 있습니다");
+				return;
+			}
+
+			if (Dir.x > 0)
+			{
+				ColMonster->HitMonster(ActorViewDir::Right, true, true);
+			}
+			else
+			{
+				ColMonster->HitMonster(ActorViewDir::Left, true, true);
+			}
+
+		};
+
 		EffectManager::PlayEffect({ .EffectName = "FireSlash",
 			.Postion = PlayerTrans->GetWorldPosition() + float4(15 * Dir.x, 5),
 			.FlipX = GetViewDir() == ActorViewDir::Left });
@@ -150,8 +171,11 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 			.EffectName = "FireProjectile",
 			.Pos = PlayerTrans->GetWorldPosition() + float4(0, 30, 0),
 			.Dir = Dir,
+			.ColScale = float4(70, 70, 1),
+			.ColOrder = (int)CollisionOrder::Monster,
 			.Speed = 1200.0f,
-			.LiveTime = 2.0f
+			.LiveTime = 2.0f,
+			.EnterEvent = Ptr,
 			});
 	}
 }

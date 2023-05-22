@@ -2,6 +2,8 @@
 #include "BoneHead.h"
 #include <GameEngineCore/GameEngineCollision.h>
 
+#include "BaseMonster.h"
+
 BoneHead::BoneHead()
 {
 }
@@ -49,9 +51,26 @@ void BoneHead::Update(float _DeltaTime)
 
 	if (false == IsMoveEnd)
 	{
-		if (nullptr != Collision->Collision(CollisionOrder::Platform_Normal, ColType::SPHERE2D, ColType::AABBBOX2D))
+		if (nullptr != Collision->Collision(CollisionOrder::Platform_Normal, ColType::AABBBOX2D, ColType::AABBBOX2D))
 		{
 			ShotProgress += 1000.0f;
+		}
+
+		std::shared_ptr<GameEngineCollision> MonsterCol = Collision->Collision(CollisionOrder::Monster, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		if (nullptr != MonsterCol)
+		{
+			ShotProgress += 1000.0f;
+
+			std::shared_ptr<BaseMonster> MonsterPtr = MonsterCol->GetActor()->DynamicThis<BaseMonster>();
+
+			if (nullptr == MonsterPtr)
+			{
+				MsgAssert_Rtti<BoneHead>(" - BaseMonster를 상속받은 클래스만 MonsterCol Order로 설정할 수 있습니다");
+				return;
+			}
+
+			MonsterPtr->HitMonster(Dir, true, true);
 		}
 	}
 
