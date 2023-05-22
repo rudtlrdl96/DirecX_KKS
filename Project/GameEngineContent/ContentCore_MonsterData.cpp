@@ -196,6 +196,22 @@ void ContentCore::MonsterDataLoad()
 			Path.MoveParent();
 			Path.MoveParent();
 		}
+
+		// 숲지기(자이언트 엔트)
+		{
+			Path.Move("GiganticEnt");
+			Path.Move("Sheet");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GiganticEnt_Idle.png").GetFullPath(), 5, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GiganticEnt_MeleeAttack.png").GetFullPath(), 7, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GiganticEnt_RangeAttack.png").GetFullPath(), 4, 1);
+			//GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Dead.png").GetFullPath(), 1, 1);
+			//GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Hit1.png").GetFullPath(), 1, 1);
+			//GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Hit2.png").GetFullPath(), 1, 1);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
 	}
 
 	int a = 0;
