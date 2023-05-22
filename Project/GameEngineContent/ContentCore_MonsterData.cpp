@@ -164,6 +164,38 @@ void ContentCore::MonsterDataLoad()
 			Path.MoveParent();
 			Path.MoveParent();
 		}
+
+		// 엔트
+		{
+			Path.Move("Ent");
+			Path.Move("Sheet");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Ent_Attack.png").GetFullPath(), 4, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Ent_Dead.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Ent_Hit1.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Ent_Hit2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Ent_Idle.png").GetFullPath(), 5, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Ent_Walk.png").GetFullPath(), 6, 1);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
+
+		// 뿌리 엔트
+		{
+			Path.Move("RootEnt");
+			Path.Move("Sheet");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Attack.png").GetFullPath(), 8, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Dead.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Hit1.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Hit2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Idle.png").GetFullPath(), 5, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Walk.png").GetFullPath(), 6, 1);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
 	}
 
 	int a = 0;

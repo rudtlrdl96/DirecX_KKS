@@ -672,6 +672,12 @@
     <ClInclude Include="CarleonManAtArms.h">
       <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
     </ClInclude>
+    <ClInclude Include="Ent.h">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="RootEnt.h">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1047,6 +1053,12 @@
       <Filter>2_Actor\Monster\Opening</Filter>
     </ClCompile>
     <ClCompile Include="CarleonManAtArms.cpp">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="Ent.cpp">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="RootEnt.cpp">
       <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
     </ClCompile>
   </ItemGroup>
