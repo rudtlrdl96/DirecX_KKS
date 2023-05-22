@@ -54,9 +54,10 @@ bool AnimAttackCheck::Update()
 
 			Col->CollisionAll(
 				(int)CollisionOrder::Monster,
+				Cols,
 				ColType::AABBBOX2D,
-				ColType::AABBBOX2D,
-				Cols);
+				ColType::AABBBOX2D
+				);
 
 			ColCheck.AddCollision(Cols, Data);
 		}

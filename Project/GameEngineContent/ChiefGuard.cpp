@@ -71,7 +71,7 @@ void ChiefGuard::Skill_SlotA_Update(float _DeltaTime)
 
 		std::vector<std::shared_ptr<GameEngineCollision>> ColsDatas;
 
-		FlashCol->CollisionAll((int)CollisionOrder::Monster, ColType::AABBBOX2D, ColType::AABBBOX2D, ColsDatas);
+		FlashCol->CollisionAll((int)CollisionOrder::Monster, ColsDatas, ColType::AABBBOX2D, ColType::AABBBOX2D);
 
 		for (size_t i = 0; i < ColsDatas.size(); i++)
 		{
@@ -264,7 +264,7 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 
 		std::vector<std::shared_ptr<GameEngineCollision>> ColsDatas;
 
-		FlashCol->CollisionAll((int)CollisionOrder::Monster, ColType::AABBBOX2D, ColType::AABBBOX2D, ColsDatas);
+		FlashCol->CollisionAll((int)CollisionOrder::Monster, ColsDatas, ColType::AABBBOX2D, ColType::AABBBOX2D );
 
 		for (size_t i = 0; i < ColsDatas.size(); i++)
 		{
@@ -412,7 +412,7 @@ float4 ChiefGuard::GetFlashPostion(ActorViewDir _Dir)
 
 	std::vector<std::shared_ptr<GameEngineCollision>> PlatformDatas;
 
-	if (true == FlashCol->CollisionAll(CollisionOrder::Platform_Normal, ColType::AABBBOX2D, ColType::AABBBOX2D, PlatformDatas))
+	if (true == FlashCol->CollisionAll(CollisionOrder::Platform_Normal, PlatformDatas, ColType::AABBBOX2D, ColType::AABBBOX2D))
 	{
 		float4 PlayerPos = PlayerTrans->GetWorldPosition();
 		float NearDis = D3D10_FLOAT32_MAX;

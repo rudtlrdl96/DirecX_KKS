@@ -128,6 +128,11 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 					}
 				}
 
+				//if (true == GetLevel()->IsCameraOver(WorldPos))
+				//{
+				//	continue;
+				//}
+
 				TileTransData.WorldViewProjectionMatrix = TileTransData.WorldViewProjectionMatrix * TransData.View * TransData.Projection;
 
 				GetShaderResHelper().SetConstantBufferLink("TransformData", TileTransData);

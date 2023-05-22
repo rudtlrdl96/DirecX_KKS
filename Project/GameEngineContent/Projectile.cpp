@@ -80,7 +80,7 @@ void Projectile::Update(float _DeltaTime)
 		return;
 	}
 
-	if (true == ProjectileCol->CollisionAll(ColOrder, ColType::SPHERE2D, ColType::AABBBOX2D, ColDatas))
+	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ColType::SPHERE2D, ColType::AABBBOX2D))
 	{
 
 		for (size_t i = 0; i < ColDatas.size(); i++)

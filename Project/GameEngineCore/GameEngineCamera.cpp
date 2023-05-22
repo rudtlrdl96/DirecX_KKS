@@ -156,6 +156,28 @@ void GameEngineCamera::Render(float _DeltaTime)
 	{
 		std::list<std::shared_ptr<GameEngineRenderer>>& RenderGroup = RenderGroupStartIter->second;
 
+		int Order = RenderGroupStartIter->first;
+		std::map<int, SortType>::iterator SortIter = SortValues.find(Order);
+
+		if (SortIter != SortValues.end() && SortIter->second != SortType::None)
+		{
+			if (SortIter->second == SortType::ZSort)
+			{
+				for (std::shared_ptr<GameEngineRenderer>& Render : RenderGroup)
+				{
+					Render->CalSortZ(this);
+				}
+
+				// 퀵소트 내일
+				RenderGroup.sort([](std::shared_ptr<GameEngineRenderer>& _Left, std::shared_ptr<GameEngineRenderer>& _Right)
+					{
+						return _Left->CalZ > _Right->CalZ;
+					});
+			}
+
+			// 정렬을 하겠다는 뜻으로 본다.
+		}
+
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator StartRenderer = RenderGroup.begin();
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator EndRenderer = RenderGroup.end();
 
@@ -233,6 +255,11 @@ void GameEngineCamera::PushRenderer(std::shared_ptr<GameEngineRenderer> _Render)
 
 bool GameEngineCamera::IsView(const TransformData& _TransData)
 {
+	if (true == IsFreeCamera())
+	{
+		return true;
+	}
+
 	// Width, Height, Near, Far;
 
 	switch (ProjectionType)
@@ -252,8 +279,7 @@ bool GameEngineCamera::IsView(const TransformData& _TransData)
 
 		DirectX::BoundingSphere Sphere;
 		Sphere.Center = _TransData.WorldPosition.DirectFloat3;
-		Sphere.Radius = _TransData.WorldPosition.MaxFloat() * 0.5f; // 원래 코드
-		Sphere.Radius = _TransData.WorldScale.MaxFloat() * 0.5f;    // 수정할 코드
+		Sphere.Radius = _TransData.WorldScale.MaxFloat() * 0.5f;
 
 		bool IsCal = Box.Intersects(Sphere);
 
@@ -278,7 +304,7 @@ void GameEngineCamera::Release()
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator StartRenderer = RenderGroup.begin();
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator EndRenderer = RenderGroup.end();
 
-		for (; StartRenderer != EndRenderer; )
+		for (; StartRenderer != EndRenderer;)
 		{
 			std::shared_ptr<GameEngineRenderer>& Render = *StartRenderer;
 

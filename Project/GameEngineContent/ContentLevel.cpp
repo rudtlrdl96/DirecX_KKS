@@ -30,8 +30,10 @@ void ContentLevel::Start()
 {
 	GameEngineLevel::Start();
 
+
 	MainCam = GetMainCamera();
 	MainCamCtrl.Start(MainCam);
+	MainCam->SetSortType(0, SortType::ZSort);
 	MainCam->GetTransform()->SetLocalPosition({0, 0, -5000});
 	MainCam->GetTransform()->SetLocalRotation(float4::Zero);
 }
