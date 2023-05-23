@@ -4,6 +4,7 @@ class ColorBuffer
 {
 public:
 	float4 Color = float4::Zero;
+	float4 OutlineColor = float4::Null;
 };
 
 class CaptureBuffer

@@ -17,6 +17,7 @@ void BoneHead::ShotHead(ActorViewDir _Dir)
 {
 	Dir = _Dir;
 	ShotProgress = 0.0f;
+	ShotLiveTime = 0.0f;
 }
 
 void BoneHead::Start()
@@ -50,6 +51,7 @@ void BoneHead::Start()
 void BoneHead::Update(float _DeltaTime)
 {
 	ShotProgress += _DeltaTime;
+	ShotLiveTime += _DeltaTime;
 
 	if (false == IsMoveEnd)
 	{

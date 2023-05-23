@@ -50,9 +50,12 @@ void BoneSkull::Start()
 
 void BoneSkull::Update(float _DeltaTime)
 {
+
+	PlayerBaseSkull::Update(_DeltaTime);
+
 	if (true == HeadActor->IsUpdate())
 	{
-		if (0.1f <= HeadActor->ShotProgress)
+		if (1.0f <= HeadActor->ShotLiveTime)
 		{
 			if (nullptr != HeadPickupCol->Collision((int)CollisionOrder::BoneHead, ColType::AABBBOX2D, ColType::AABBBOX2D))
 			{
@@ -66,14 +69,17 @@ void BoneSkull::Update(float _DeltaTime)
 			HeadReturn();
 		}
 	}
-
-	PlayerBaseSkull::Update(_DeltaTime);
 }
 
 void BoneSkull::Skill_SlotA_Enter()
 {
 	PlayerBaseSkull::Skill_SlotA_Enter();
 	SetBoneSkullState(BoneSkullState::NoHead);
+
+	HeadActor->ShotLiveTime = 0.0f;
+	HeadActor->Off();
+
+	CurSkillATime = 0.0f;
 }
 
 void BoneSkull::Skill_SlotA_Update(float _DeltaTime)
@@ -255,15 +261,6 @@ void BoneSkull::HeadReturn()
 		break;
 	case PlayerBaseSkull::PlayerFSM_State::Attack:
 		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_Attack[AttackComboCount].GetAnimationName()), Frame);
-		break;
-	case PlayerBaseSkull::PlayerFSM_State::SkillA:
-		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_SkillA[SkillACombo].GetAnimationName()), Frame);
-		break;
-	case PlayerBaseSkull::PlayerFSM_State::SkillB:
-		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_SkillB[SkillBCombo].GetAnimationName()), Frame);
-		break;
-	case PlayerBaseSkull::PlayerFSM_State::Switch:
-		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_Switch[SwitchCombo].GetAnimationName()), Frame);
 		break;
 	case PlayerBaseSkull::PlayerFSM_State::Dash:
 		SkullRenderer->ChangeAnimation("Dash", Frame);

@@ -28,6 +28,8 @@ private:
 	float ShotSpeed = 800.0f;
 	float RotSpeed = 360.0f;
 
+	float ShotLiveTime = 0.0f;
+
 	bool IsMoveEnd = false;
 
 	ActorViewDir Dir = ActorViewDir::Left;

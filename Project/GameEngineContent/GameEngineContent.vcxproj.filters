@@ -681,6 +681,9 @@
     <ClInclude Include="GiantEnt.h">
       <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
     </ClInclude>
+    <ClInclude Include="BlossomEnt.h">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1068,6 +1071,9 @@
       <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
     </ClCompile>
     <ClCompile Include="GiantEnt_FSM.cpp">
+      <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="BlossomEnt.cpp">
       <Filter>2_Actor\Monster\ForestOfHarmony</Filter>
     </ClCompile>
   </ItemGroup>

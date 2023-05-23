@@ -70,6 +70,7 @@ OutPut Texture_VS(Input _Value)
 cbuffer ColorBuffer : register(b1)
 {
     float4 OutColor;
+    float4 OutlineColor;
 }
 
 Texture2D DiffuseTex : register(t0);
@@ -77,10 +78,25 @@ SamplerState WRAPSAMPLER : register(s0);
 
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
-    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, _Value.UV.xy);
+    
+    float2 Uv = _Value.UV.xy;
+    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, Uv);
     
     Color.xyz += OutColor.xyz;
     Color *= OutColor.a;
+    
+    if (Color.a == 0)
+    {
+        float4 pixelUp = DiffuseTex.Sample(WRAPSAMPLER, Uv + float2(0, 0.001f));
+        float4 pixelDown = DiffuseTex.Sample(WRAPSAMPLER, Uv - float2(0, 0.001f));
+        float4 pixelRight = DiffuseTex.Sample(WRAPSAMPLER, Uv + float2(0.0005f, 0));
+        float4 pixelLeft = DiffuseTex.Sample(WRAPSAMPLER, Uv - float2(0.0005f, 0));
+                		 
+        if (pixelUp.a != 0 || pixelDown.a != 0 || pixelRight.a != 0 || pixelLeft.a != 0)
+        {
+            Color += OutlineColor;
+        }
+    }
     
     return Color;
 }

@@ -11,6 +11,7 @@
 #include "CarleonManAtArms.h"
 #include "Ent.h"
 #include "RootEnt.h"
+#include "BlossomEnt.h"
 #include "GiantEnt.h"
 
 ForestOfHarmonyLevel::ForestOfHarmonyLevel()
@@ -80,7 +81,7 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("MonsterSpawn"))
 	{
-		std::shared_ptr<GiantEnt> NewMonster = CreateActor<GiantEnt>();
+		std::shared_ptr<BlossomEnt> NewMonster = CreateActor<BlossomEnt>();
 		NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-10.0f, -1.0f)));
 
 		//GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
@@ -120,6 +121,12 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 		//case 6: // 숲지기 (자이언트 엔트)
 		//{
 		//	std::shared_ptr<GiantEnt> NewMonster = CreateActor<GiantEnt>();
+		//	NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
+		//	break;
+		//}
+		//case 7: // 꽃 엔트
+		//{
+		//	std::shared_ptr<BlossomEnt> NewMonster = CreateActor<BlossomEnt>();
 		//	NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
 		//	break;
 		//}

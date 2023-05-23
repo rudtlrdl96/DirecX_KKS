@@ -197,6 +197,21 @@ void ContentCore::MonsterDataLoad()
 			Path.MoveParent();
 		}
 
+		// 꽃 엔트
+		{
+			Path.Move("BlossomEnt");
+			Path.Move("Sheet");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("BlossomEnt_Attack.png").GetFullPath(), 10, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("BlossomEnt_Hit1.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("BlossomEnt_Hit2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("BlossomEnt_Idle.png").GetFullPath(), 5, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("BlossomEnt_Walk.png").GetFullPath(), 6, 1);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
+
 		// 숲지기(자이언트 엔트)
 		{
 			Path.Move("GiganticEnt");
