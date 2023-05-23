@@ -13,6 +13,7 @@ public:
 	RootEnt& operator=(RootEnt&& _Other) noexcept = delete;
 
 protected:
+	void Start() override;
 	void Update(float _DeltaTime) override;
 
 	void DataLoad() override;
@@ -33,6 +34,10 @@ private:
 
 	float4 AttackPos = float4::Zero;
 
+	std::vector<std::shared_ptr<GameEngineCollision>> PlatformCols;
+
+	std::shared_ptr<class GameEngineCollision> FloorCheckCol = nullptr;
 	std::shared_ptr<EffectActor> SignEffectActor = nullptr;
+
 };
 

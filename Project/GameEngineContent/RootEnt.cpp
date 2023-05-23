@@ -10,6 +10,21 @@ RootEnt::~RootEnt()
 {
 }
 
+void RootEnt::Start()
+{
+	BaseMonster::Start();
+
+	FloorCheckCol = CreateComponent<GameEngineCollision>();
+
+	GameEngineTransform* ColTrans = FloorCheckCol->GetTransform();
+
+	ColTrans->SetLocalPosition(float4(0, -500, 0));
+	ColTrans->SetWorldScale(float4(10, 1000, 1));
+	ColTrans->SetWorldRotation(float4::Zero);
+
+	PlatformCols.reserve(8);
+}
+
 void RootEnt::Update(float _DeltaTime)
 {
 	BaseMonster::Update(_DeltaTime);
@@ -191,7 +206,51 @@ void RootEnt::Attack_Enter()
 	IsAttackSign = false;
 	IsAttackEffect = false;
 
-	AttackPos = PlayerActor->GetTransform()->GetWorldPosition() + float4(0, 0, -100.0f);
+	AttackPos = PlayerActor->GetTransform()->GetWorldPosition() + float4(0, 0, -10.0f);
+
+	float HighY = -100000.0f;
+
+	GameEngineTransform* FloorColTrans = FloorCheckCol->GetTransform();
+
+	FloorColTrans->SetWorldPosition(AttackPos + float4(0, -FloorColTrans->GetWorldScale().hy()));
+
+	PlatformCols.clear();
+
+	if (true == FloorCheckCol->CollisionAll((int)CollisionOrder::Platform_Normal, PlatformCols, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	{
+		for (size_t i = 0; i < PlatformCols.size(); i++)
+		{
+			GameEngineTransform* ColTrans = PlatformCols[i]->GetTransform();
+
+			float ColY = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+			if (HighY < ColY)
+			{
+				HighY = ColY;
+				AttackPos.y = HighY;
+			}
+		}
+	}
+
+	PlatformCols.clear();
+
+	if (true == FloorCheckCol->CollisionAll((int)CollisionOrder::Platform_Half, PlatformCols, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	{
+		for (size_t i = 0; i < PlatformCols.size(); i++)
+		{
+			GameEngineTransform* ColTrans = PlatformCols[i]->GetTransform();
+
+			float ColY = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+			if (HighY < ColY)
+			{
+				HighY = ColY;
+				AttackPos.y = HighY;
+			}
+		}
+	}
+
+	PlatformCols.clear();
 }
 
 void RootEnt::Attack_Update(float _DeltaTime)
