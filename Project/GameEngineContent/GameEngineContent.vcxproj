@@ -207,6 +207,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="FlameWizard.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ForestOfHarmonyLevel.h">
       <SubType>
       </SubType>
@@ -681,6 +685,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="FadeActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FlameWizard.cpp">
       <SubType>
       </SubType>
     </ClCompile>

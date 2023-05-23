@@ -220,9 +220,39 @@ void ContentCore::MonsterDataLoad()
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GiganticEnt_Idle.png").GetFullPath(), 5, 1);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GiganticEnt_MeleeAttack.png").GetFullPath(), 7, 1);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GiganticEnt_RangeAttack.png").GetFullPath(), 4, 1);
-			//GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Dead.png").GetFullPath(), 1, 1);
-			//GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Hit1.png").GetFullPath(), 1, 1);
-			//GameEngineSprite::LoadSheet(Path.GetPlusFileName("RootEnt_Hit2.png").GetFullPath(), 1, 1);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
+
+
+		// È­¿° ¸¶¹ý»ç
+		{
+			Path.Move("FlameWizard");
+			Path.Move("Sheet");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_Attack.png").GetFullPath(), 8, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_Hit1.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_Hit2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_Idle.png").GetFullPath(), 5, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_TeleportIn.png").GetFullPath(), 8, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_TeleportOut.png").GetFullPath(), 5, 1);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
+
+		// ºù°á ¸¶¹ý»ç
+		{
+			Path.Move("GlacialWizard");
+			Path.Move("Sheet");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GlacialWizard_Attack.png").GetFullPath(), 8, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GlacialWizard_Hit1.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GlacialWizard_Hit2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GlacialWizard_Idle.png").GetFullPath(), 5, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GlacialWizard_TeleportIn.png").GetFullPath(), 8, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GlacialWizard_TeleportOut.png").GetFullPath(), 5, 1);
 
 			Path.MoveParent();
 			Path.MoveParent();
