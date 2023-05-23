@@ -57,6 +57,7 @@ void BoneSkull::Update(float _DeltaTime)
 	{
 		if (1.0f <= HeadActor->ShotLiveTime)
 		{
+
 			if (nullptr != HeadPickupCol->Collision((int)CollisionOrder::BoneHead, ColType::AABBBOX2D, ColType::AABBBOX2D))
 			{
 				HeadReturn();
