@@ -142,7 +142,7 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 			break;
 		}
 
-		std::function<void(std::shared_ptr<BaseContentActor>)> Ptr = [Dir, this](std::shared_ptr<BaseContentActor> _Actor)
+		std::function<void(std::shared_ptr<BaseContentActor>, const ProjectileHitParameter& _Parameter)> Ptr = [Dir, this](std::shared_ptr<BaseContentActor> _Actor, const ProjectileHitParameter& _Parameter)
 		{
 			std::shared_ptr<BaseMonster> ColMonster = _Actor->DynamicThis<BaseMonster>();
 

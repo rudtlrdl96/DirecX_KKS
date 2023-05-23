@@ -16,7 +16,7 @@ void CarleonManAtArms::DataLoad()
 	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(106); // 106 = 칼레온 중보병
 
 	IsSuperArmor = true;
-	AttackWaitEndTime = 1.5f;
+	AttackWaitEndTime = 2.0f;
 	TacklePauseTimes[0] = 0.5f;
 	TacklePauseTimes[1] = 0.6f;
 	TacklePauseTimes[2] = 0.4f;

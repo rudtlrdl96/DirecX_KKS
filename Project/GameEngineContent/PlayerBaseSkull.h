@@ -7,8 +7,22 @@
 
 class PlayerBaseSkull : public BaseContentActor
 {
+public:
 	friend class Player;
 
+	enum class PlayerFSM_State
+	{
+		Idle,
+		Walk,
+		Fall,
+		Jump,
+		JumpAttack,
+		Attack,
+		SkillA,
+		SkillB,
+		Switch,
+		Dash,
+	};
 public:
 	PlayerBaseSkull();
 	~PlayerBaseSkull();
@@ -25,12 +39,14 @@ public:
 
 	void SetPlayer(std::shared_ptr<class Player> _ParentPlayer);
 
-protected:	
+protected:
 	GameEngineTransform* PlayerTrans = nullptr;
 
 	std::shared_ptr<ContentSpriteRenderer> SkullRenderer = nullptr;
 
 	ColorBuffer Buffer;
+
+	PlayerFSM_State FsmState = PlayerFSM_State::Idle;
 
 	std::vector<AnimationAttackMetaData> AnimColMeta_Attack;
 	std::vector<AnimationAttackMetaData> AnimColMeta_JumpAttack;
@@ -55,6 +71,22 @@ protected:
 
 	std::string AnimNamePlusText = "";
 	float4 JumpDir = float4::Zero;
+
+
+	float CurSkillATime = 1000.0f;
+	float SkillACoolTime = 5.0f;
+	float CurSkillBTime = 1000.0f;
+	float SkillBCoolTime = 5.0f;
+
+	UINT AttackComboCount = 0;
+	bool IsAttackCombo = false;
+
+	UINT JumpAttackCombo = 0;
+	bool IsJumpAttackCombo = false;
+
+	UINT SkillACombo = 0;
+	UINT SkillBCombo = 0;
+	UINT SwitchCombo = 0;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -146,17 +178,7 @@ private:
 
 	float WalkSpeed = 350.0f;
 	float MaxFallSpeed = 1400.0f;
-
-	UINT AttackComboCount = 0;
-	bool IsAttackCombo = false;
-
-	UINT JumpAttackCombo = 0;
-	bool IsJumpAttackCombo = false;
-
-	UINT SkillACombo = 0;
-	UINT SkillBCombo = 0;
-	UINT SwitchCombo = 0;
-	
+		
 	bool IsSwitchValue = false;
 
 	float RenderEffectProgress = 0.0f;

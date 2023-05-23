@@ -43,7 +43,10 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> EffectRender = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> EffectRender = nullptr;
+
+	ColorBuffer Buffer;
+
 	EffectDeathTrigger DeathTrigger = EffectDeathTrigger::Time;
 	float DeathTime = 0.0f;
 

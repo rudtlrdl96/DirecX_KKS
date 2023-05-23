@@ -11,7 +11,9 @@ EffectActor::~EffectActor()
 
 void EffectActor::Start()
 {
-	EffectRender = CreateComponent<GameEngineSpriteRenderer>();
+	EffectRender = CreateComponent<ContentSpriteRenderer>();
+	EffectRender->PipeSetting("2DTexture_ColorLight");
+	EffectRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	EffectRender->SetTexture("Empty.png");
 	EffectRender->Off();
 }

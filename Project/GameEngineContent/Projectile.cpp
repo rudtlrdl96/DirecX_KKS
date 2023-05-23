@@ -40,9 +40,13 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 	Speed = _Parameter.Speed;
 	ColOrder = _Parameter.ColOrder;
 
+	IsColDeath = _Parameter.IsColDeath;
+
+	HitParameter = _Parameter.HitParameter;
+
 	EnterEvent = _Parameter.EnterEvent;
 	UpdateEvent = _Parameter.UpdateEvent;
-
+	DeathEvent = _Parameter.DeathEvent;
 
 	On();
 }
@@ -58,9 +62,17 @@ void Projectile::Update(float _DeltaTime)
 {
 	if (GetLiveTime() >= LiveTime)
 	{
+		if (nullptr != DeathEvent)
+		{
+			DeathEvent(GetTransform()->GetWorldPosition());
+		}
+
 		Death();
 		return;
 	}
+
+	HitParameter.ProjectilePos = GetTransform()->GetWorldPosition();
+
 
 	float RotZ = 0.0f;
 
@@ -74,11 +86,6 @@ void Projectile::Update(float _DeltaTime)
 	Trans->SetLocalRotation(float4(0, 0, RotZ));
 
 	ColDatas.clear();
-
-	if (nullptr == UpdateEvent && nullptr == EnterEvent)
-	{
-		return;
-	}
 
 	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ColType::SPHERE2D, ColType::AABBBOX2D))
 	{
@@ -97,15 +104,25 @@ void Projectile::Update(float _DeltaTime)
 			{
 				if (nullptr == ColBuffers[ActorPtr->GetActorCode()])
 				{
-					EnterEvent(ActorPtr);
+					EnterEvent(ActorPtr, HitParameter);
 					ColBuffers[ActorPtr->GetActorCode()] = ActorPtr;
 				}
 			}
 
 			if (nullptr != UpdateEvent)
 			{
-				UpdateEvent(ActorPtr);
+				UpdateEvent(ActorPtr, HitParameter);
 			}
+		}
+	}
+
+
+	if (true == IsColDeath)
+	{
+		if (0 != ColDatas.size())
+		{
+			Death();
+			return;
 		}
 	}
 }

@@ -203,6 +203,9 @@ bool BaseMonster::Fall(float _DeltaTime)
 		GameEngineTransform* ColTrans = ColPlatform->GetTransform();
 		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
 
+		GameEngineTransform* GroundTrans = GroundCol->GetTransform();
+		CurPos.y -= GroundTrans->GetLocalPosition().y + GroundTrans->GetWorldScale().hy();
+
 		GetTransform()->SetWorldPosition(CurPos);
 		GetTransform()->SetLocalPosition(GetTransform()->GetLocalPosition());
 		FallDir.y = 0;

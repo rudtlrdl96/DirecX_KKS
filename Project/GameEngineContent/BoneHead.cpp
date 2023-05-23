@@ -2,6 +2,7 @@
 #include "BoneHead.h"
 #include <GameEngineCore/GameEngineCollision.h>
 
+#include "BoneSkull.h"
 #include "BaseMonster.h"
 
 BoneHead::BoneHead()
@@ -38,10 +39,11 @@ void BoneHead::Start()
 	Render->GetTransform()->SetLocalPosition(float4::Zero);
 	Render->SetScaleToTexture("Skul_Head.png");
 
+
 	float4 TextureScale = Render->GetTransform()->GetLocalScale() * 2.0f;
 	Render->GetTransform()->SetLocalScale(TextureScale);
 
-	Collision = CreateComponent<GameEngineCollision>();
+	Collision = CreateComponent<GameEngineCollision>((int)CollisionOrder::BoneHead);
 	Collision->GetTransform()->SetLocalScale(TextureScale);
 }
 

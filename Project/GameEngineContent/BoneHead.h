@@ -3,6 +3,7 @@
 
 class BoneHead : public BaseContentActor
 {
+	friend class BoneSkull;
 public:
 	BoneHead();
 	~BoneHead();

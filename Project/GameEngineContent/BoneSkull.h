@@ -3,6 +3,7 @@
 
 class BoneSkull : public PlayerBaseSkull
 {
+	friend class BoneHead;
 private:
 	enum class BoneSkullState
 	{
@@ -23,6 +24,7 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _DeltaTime) override;
 
 	void Skill_SlotA_Enter() override;
 	void Skill_SlotA_Update(float _DeltaTime) override;
@@ -33,15 +35,18 @@ protected:
 	void Switch_End() override;
 
 private:
+	BoneSkullState State = BoneSkullState::Normal;
+	std::shared_ptr<class GameEngineCollision> HeadPickupCol = nullptr;
+	std::shared_ptr<class BoneHead> HeadActor = nullptr;
+
+	
 	void DataLoad() override;
 	void TextureLoad() override;
 	void CreateAnimation() override;
 	void AnimationColLoad() override;
 
+	void HeadReturn();
 
-	std::shared_ptr<class BoneHead> HeadActor = nullptr;
-
-	BoneSkullState State = BoneSkullState::Normal;
 
 };
 

@@ -9,6 +9,7 @@ enum class CollisionOrder
 	MonsterAttack,
 	Platform_Normal,
 	Platform_Half,
+	BoneHead
 };
 
 enum class LevelArea

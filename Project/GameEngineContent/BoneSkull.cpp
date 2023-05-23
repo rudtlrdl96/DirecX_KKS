@@ -42,6 +42,32 @@ void BoneSkull::Start()
 	HeadActor = GetLevel()->CreateActor<BoneHead>();
 	HeadActor->Off();
 
+	HeadPickupCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	HeadPickupCol->GetTransform()->SetLocalPosition(float4(0.0f, 30.0f, 1.0f));
+	HeadPickupCol->GetTransform()->SetWorldScale(float4(30.0f, 60.0f, 1.0f));
+	HeadPickupCol->GetTransform()->SetWorldRotation(float4::Zero);
+}
+
+void BoneSkull::Update(float _DeltaTime)
+{
+	if (true == HeadActor->IsUpdate())
+	{
+		if (0.1f <= HeadActor->ShotProgress)
+		{
+			if (nullptr != HeadPickupCol->Collision((int)CollisionOrder::BoneHead, ColType::AABBBOX2D, ColType::AABBBOX2D))
+			{
+				HeadReturn();
+				return;
+			}
+		}		
+
+		if (CurSkillATime >= SkillACoolTime)
+		{
+			HeadReturn();
+		}
+	}
+
+	PlayerBaseSkull::Update(_DeltaTime);
 }
 
 void BoneSkull::Skill_SlotA_Enter()
@@ -64,8 +90,7 @@ void BoneSkull::Skill_SlotA_Update(float _DeltaTime)
 
 void BoneSkull::Skill_SlotB_Enter()
 {
-	HeadActor->Off();
-	SetBoneSkullState(BoneSkullState::Normal);
+	HeadReturn();
 
 	GameEngineTransform* HeadTrans = HeadActor->GetTransform();
 
@@ -74,11 +99,13 @@ void BoneSkull::Skill_SlotB_Enter()
 
 	PlayerTrans->SetWorldPosition(HeadPos - float4(0, 50));
 
-	EffectManager::PlayEffect({"SkullAppearance", PlayerPos});
-	EffectManager::PlayEffect({"SkullAppearance", HeadPos - float4(0, 50) });
-	EffectManager::PlayEffect({"LandSmoke", HeadPos - float4(0, 50) });
+	EffectManager::PlayEffect({ "SkullAppearance", PlayerPos });
+	EffectManager::PlayEffect({ "SkullAppearance", HeadPos - float4(0, 50) });
+	EffectManager::PlayEffect({ "LandSmoke", HeadPos - float4(0, 50) });
 
 	PlayerBaseSkull::Skill_SlotB_Enter();
+
+
 }
 
 void BoneSkull::Switch_Enter()
@@ -200,4 +227,50 @@ void BoneSkull::AnimationColLoad()
 		Pushback_Switch(SwitchMeta, 0.06f);
 		Pushback_Switch(SwitchMeta, 0.06f);
 	}
+}
+
+void BoneSkull::HeadReturn()
+{
+	HeadActor->Off();
+	SetBoneSkullState(BoneSkullState::Normal);
+
+	size_t Frame = SkullRenderer->GetCurrentFrame();
+
+	switch (FsmState)
+	{
+	case PlayerBaseSkull::PlayerFSM_State::Idle:
+		SkullRenderer->ChangeAnimation("Idle", Frame);
+		break;
+	case PlayerBaseSkull::PlayerFSM_State::Walk:
+		SkullRenderer->ChangeAnimation("Walk", Frame);
+		break;
+	case PlayerBaseSkull::PlayerFSM_State::Fall:
+		SkullRenderer->ChangeAnimation("Fall", Frame);
+		break;
+	case PlayerBaseSkull::PlayerFSM_State::Jump:
+		SkullRenderer->ChangeAnimation("Jump", Frame);
+		break;
+	case PlayerBaseSkull::PlayerFSM_State::JumpAttack:
+		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName()), Frame);
+		break;
+	case PlayerBaseSkull::PlayerFSM_State::Attack:
+		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_Attack[AttackComboCount].GetAnimationName()), Frame);
+		break;
+	case PlayerBaseSkull::PlayerFSM_State::SkillA:
+		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_SkillA[SkillACombo].GetAnimationName()), Frame);
+		break;
+	case PlayerBaseSkull::PlayerFSM_State::SkillB:
+		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_SkillB[SkillBCombo].GetAnimationName()), Frame);
+		break;
+	case PlayerBaseSkull::PlayerFSM_State::Switch:
+		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_Switch[SwitchCombo].GetAnimationName()), Frame);
+		break;
+	case PlayerBaseSkull::PlayerFSM_State::Dash:
+		SkullRenderer->ChangeAnimation("Dash", Frame);
+		break;
+	default:
+		break;
+	}
+
+	CurSkillATime = 1000.0f;
 }

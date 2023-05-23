@@ -255,6 +255,9 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 		DashCoolTime = 0.0f;
 	}
 
+	CurSkillATime += _DeltaTime;
+	CurSkillBTime += _DeltaTime;
+
 	RenderEffectProgress += _DeltaTime * RenderEffectSpeed;
 
 	if (1.0f > RenderEffectProgress)

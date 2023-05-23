@@ -31,7 +31,10 @@ void BattleLevel::Update(float _DeltaTime)
 
 void BattleLevel::SetPosDebugActor(const float4& _Pos)
 {
-	MainPlayer->GetTransform()->SetLocalPosition(_Pos);
+	float4 SpawnPos = _Pos;
+	SpawnPos.z = -50.0f;
+
+	MainPlayer->GetTransform()->SetLocalPosition(SpawnPos);
 }
 
 void BattleLevel::LevelChangeStart()
@@ -42,7 +45,6 @@ void BattleLevel::LevelChangeStart()
 	{
 		MainPlayer = CreateActor<Player>();
 		MainPlayer->SetInventoryData();
-
 		MainCamCtrl.SetLookatTarget(MainPlayer);
 	}
 

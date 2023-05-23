@@ -55,6 +55,9 @@ void CaptureTrail::Update(float _DeltaTime)
 	std::list<std::shared_ptr<CaptureRenderer>>::iterator LoopIter = PlayRenders.begin();
 	std::list<std::shared_ptr<CaptureRenderer>>::iterator EndIter = PlayRenders.end();
 
+	float TrailZ = GetTransform()->GetWorldPosition().z;
+	int CountCheck = 1;
+
 	while (LoopIter != EndIter)
 	{
 		if (false == (*LoopIter)->IsPlaying())
@@ -64,7 +67,16 @@ void CaptureTrail::Update(float _DeltaTime)
 		}
 		else
 		{
+			GameEngineTransform* RenderTrans = (*LoopIter)->GetTransform();
+
+			float4 RenderPos = RenderTrans->GetWorldPosition();
+			RenderPos.z = TrailZ + (CountCheck * 0.1f);
+			RenderTrans->SetWorldPosition(RenderPos);
+
+			++CountCheck;
 			++LoopIter;
 		}
 	}
+
+	
 }
