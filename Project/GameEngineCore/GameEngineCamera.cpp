@@ -237,7 +237,7 @@ void GameEngineCamera::CameraTransformUpdate()
 	Box.Extents.z = Far * 0.6f;
 	Box.Extents.x = Width * 0.6f;
 	Box.Extents.y = Height * 0.6f;
-	Box.Orientation = GetTransform()->GetWorldQuaternion().DirectFloat4;
+	//Box.Orientation = GetTransform()->GetWorldQuaternion().DirectFloat4;
 
 }
 

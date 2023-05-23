@@ -87,7 +87,7 @@ private:
 	std::map<int, std::list<std::shared_ptr<GameEngineRenderer>>> Renderers;
 	std::map<int, SortType> SortValues;
 
-	DirectX::BoundingOrientedBox Box;
+	DirectX::BoundingBox Box;
 
 	bool FreeCamera = false;
 
