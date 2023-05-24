@@ -6,6 +6,7 @@
 
 #include "CollisionDebugRender.h"
 #include "HitParticle.h"
+#include "HealthBar.h"
 
 BaseMonster::BaseMonster()
 {
@@ -27,6 +28,26 @@ void BaseMonster::HitMonster(ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush
 
 void BaseMonster::Start()
 {
+	HealthBarPtr = GetLevel()->CreateActor<HealthBar>();
+
+	if (nullptr == GameEngineTexture::Find("EnemyHpBar.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("UI");
+
+		GameEngineTexture::Load(Path.GetPlusFileName("EnemyHpBar.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("EnemyHpFrame.png").GetFullPath());
+	}
+
+	HealthBarPtr->GetTransform()->SetParent(GetTransform());
+	HealthBarPtr->GetTransform()->SetLocalPosition(float4(0, -10, -10));
+	HealthBarPtr->SetTexture("EnemyHpFrame.png", "EnemyHpBar.png");
+
 	if (false == GameEngineInput::IsKey("MonsterDebugOn"))
 	{
 		GameEngineInput::CreateKey("MonsterDebugOn", VK_F3);
@@ -72,6 +93,8 @@ void BaseMonster::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("MonsterDebugOn"))
 	{
+
+
 		if (false == IsDebug())
 		{
 			DebugOn();
@@ -80,6 +103,10 @@ void BaseMonster::Update(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsDown("MonsterDebugOff"))
 	{
+		static float Test = 1.0f;
+		Test -= 0.01f;
+		HealthBarPtr->UpdateBar(Test);
+
 		DebugOff();
 	}
 

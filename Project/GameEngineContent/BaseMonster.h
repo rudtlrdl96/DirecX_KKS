@@ -37,6 +37,7 @@ public:
 	}
 
 protected:
+	std::shared_ptr<class HealthBar> HealthBarPtr = nullptr;
 	std::shared_ptr<GameEngineActor> PlayerActor = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> BodyCol = nullptr;

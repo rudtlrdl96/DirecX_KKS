@@ -1,6 +1,5 @@
 #include "PrecompileHeader.h"
 #include "HealthBar.h"
-#include "ContentUIRender.h"
 
 HealthBar::HealthBar()
 {
@@ -20,14 +19,20 @@ void HealthBar::SetTexture(const std::string_view& _FrameName, const std::string
 
 void HealthBar::Start()
 {
-	BarRedner = CreateComponent<ContentUIRender>();
+	BarRedner = CreateComponent<ContentSpriteRenderer>();
 	BarRedner->PipeSetting("2DTexture_ProgressUI");
 	BarRedner->GetShaderResHelper().SetConstantBufferLink("ProgressBuffer", BarBuffer);
+	BarRedner->GetTransform()->SetLocalPosition(float4(0, 0, 0.0f));
 	BarRedner->Off();
 
-	FrameRedner = CreateComponent<ContentUIRender>();
-	FrameRedner->PipeSetting("2DTexture_ProgressUI");
+	FrameRedner = CreateComponent<ContentSpriteRenderer>();
+	FrameRedner->PipeSetting("2DTexture_ColorLight");
 	FrameRedner->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", FrameBuffer);
 	FrameRedner->GetTransform()->SetLocalPosition(float4(0, 0, 0.01f));
 	FrameRedner->Off();
+}
+
+void HealthBar::UpdateBar(float _Progress)
+{
+	BarBuffer.ColorProgress.SizeX = _Progress;
 }

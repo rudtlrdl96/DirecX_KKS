@@ -16,8 +16,8 @@ public:
 class ProgressBuffer
 {
 public:
-	float4 OutColor;
-	float4 ColorProgress;
+	float4 OutColor = float4::Zero;
+	float4 ColorProgress = float4(0, 0, 1, 1);
 };
 
 class CaptureBuffer

@@ -13,13 +13,14 @@ public:
 	HealthBar& operator=(HealthBar&& _Other) noexcept = delete;
 
 	void SetTexture(const std::string_view& _FrameName, const std::string_view& _BarName);
+	void UpdateBar(float _Progress);
 
 protected:
 	void Start() override;
-	
+
 private:
-	std::shared_ptr<class ContentUIRender> BarRedner = nullptr;
-	std::shared_ptr<class ContentUIRender> FrameRedner = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> BarRedner = nullptr;
+	std::shared_ptr<ContentSpriteRenderer> FrameRedner = nullptr;
 
 	ProgressBuffer BarBuffer = ProgressBuffer();
 	ColorBuffer FrameBuffer = ColorBuffer();
