@@ -13,6 +13,13 @@ public:
 	float4 OutlineColor = float4::Null;
 };
 
+class ProgressBuffer
+{
+public:
+	float4 OutColor;
+	float4 ColorProgress;
+};
+
 class CaptureBuffer
 {
 public:

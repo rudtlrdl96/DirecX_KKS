@@ -328,6 +328,9 @@
     <Filter Include="2_Actor\BattleActor\Player\Capture">
       <UniqueIdentifier>{1ee9704a-d7ba-47d3-b257-56db50907bde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\UI\Monster">
+      <UniqueIdentifier>{13deb7f3-bf4a-4b24-8249-50653a820410}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -701,6 +704,9 @@
     </ClInclude>
     <ClInclude Include="ContentUIRender.h">
       <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>2_Actor\UI\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1108,6 +1114,9 @@
     </ClCompile>
     <ClCompile Include="ContentUIRender.cpp">
       <Filter>3_Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>2_Actor\UI\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

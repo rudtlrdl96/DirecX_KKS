@@ -272,6 +272,18 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetBlendState("AlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_ProgressUI");
+
+		Pipe->SetVertexBuffer("Rect");
+		Pipe->SetIndexBuffer("Rect");
+		Pipe->SetVertexShader("ProgressUI.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("ProgressUI.hlsl");
+		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
 }
 
 

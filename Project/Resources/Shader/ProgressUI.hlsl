@@ -44,13 +44,21 @@ struct OutPut
     float4 UV : TEXCOORD;
 };
 
+cbuffer AtlasData : register(b1)
+{
+    float2 FramePos;
+    float2 FrameScale;
+}
+
+
 OutPut Texture_VS(Input _Value)
 {
     OutPut OutPutValue = (OutPut) 0;
 	
     _Value.Pos.w = 1.0f;
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
-    OutPutValue.UV = _Value.UV;
+    OutPutValue.UV.x = (_Value.UV.x * FrameScale.x) + FramePos.x;
+    OutPutValue.UV.y = (_Value.UV.y * FrameScale.y) + FramePos.y;
     
     return OutPutValue;
 }
