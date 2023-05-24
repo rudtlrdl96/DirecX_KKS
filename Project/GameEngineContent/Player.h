@@ -21,6 +21,9 @@ protected:
 	void Update(float _DeltaTime);
 
 private:
+	float SwitchCoolTime = 5.0f;
+	float SwitchCoolEndTime = 5.0f;
+
 	std::shared_ptr<class GameEngineCollision> PlayerBodyCol = nullptr;
 
 	std::shared_ptr<PlayerBaseSkull> MainSkull = nullptr;

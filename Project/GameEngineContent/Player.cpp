@@ -45,15 +45,7 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime)
 {
-	if (nullptr != MainSkull)
-	{
-		MainSkull->CoolTimeCheck(_DeltaTime);
-	}
-
-	if (nullptr != SubSkull)
-	{
-		SubSkull->CoolTimeCheck(_DeltaTime);
-	}
+	SwitchCoolTime += _DeltaTime;
 
 	if (true == GameEngineInput::IsDown("PlayerCollisionDebugSwitch"))
 	{
@@ -74,8 +66,9 @@ void Player::Update(float _DeltaTime)
 		return;
 	}
 
-	if (nullptr != SubSkull && true == MainSkull->IsSwitch())
+	if (nullptr != SubSkull && true == MainSkull->IsSwitch() && SwitchCoolTime >= SwitchCoolEndTime)
 	{
+		SwitchCoolTime = 0.0f;
 		DebugOff();
 
 		ActorViewDir Dir = MainSkull->GetViewDir();
@@ -101,6 +94,18 @@ void Player::Update(float _DeltaTime)
 		std::shared_ptr<PlayerBaseSkull> TempPtr = MainSkull;
 		MainSkull = SubSkull;
 		SubSkull = TempPtr;
+	}
+
+	if (nullptr != MainSkull)
+	{
+		MainSkull->CoolTimeCheck(_DeltaTime);
+		MainSkull->IsSwitchValue = false;
+	}
+
+	if (nullptr != SubSkull)
+	{
+		SubSkull->CoolTimeCheck(_DeltaTime);
+		SubSkull->IsSwitchValue = false;
 	}
 }
 
