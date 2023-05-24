@@ -231,7 +231,8 @@ void ContentCore::MonsterDataLoad()
 			Path.Move("FlameWizard");
 			Path.Move("Sheet");
 
-			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_Attack.png").GetFullPath(), 8, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_AttackEnter.png").GetFullPath(), 3, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_AttackLoop.png").GetFullPath(), 5, 1);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_Hit1.png").GetFullPath(), 1, 1);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_Hit2.png").GetFullPath(), 1, 1);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlameWizard_Idle.png").GetFullPath(), 5, 1);

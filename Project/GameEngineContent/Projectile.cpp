@@ -36,6 +36,8 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 	}
 
 	Dir = _Parameter.Dir.NormalizeReturn();
+
+	WaitTime = _Parameter.WaitTime;
 	LiveTime = _Parameter.LiveTime;
 	Speed = _Parameter.Speed;
 	ColOrder = _Parameter.ColOrder;
@@ -60,6 +62,13 @@ void Projectile::Start()
 
 void Projectile::Update(float _DeltaTime)
 {
+	if (GetLiveTime() <= WaitTime)
+	{
+		return;
+	}
+
+	IsWaitEndValue = true;
+
 	if (GetLiveTime() >= LiveTime)
 	{
 		if (nullptr != DeathEvent)

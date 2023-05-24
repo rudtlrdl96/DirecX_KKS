@@ -27,6 +27,7 @@ public:
 
 	float Speed = 100.0f;
 	float LiveTime = 1.0f;
+	float WaitTime = 0.0f;
 
 	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> EnterEvent = nullptr;
 	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> UpdateEvent = nullptr;
@@ -46,6 +47,11 @@ public:
 
 	void ShotProjectile(const ProjectileParameter& _Parameter);
 
+	inline bool IsWaitEnd() const
+	{
+		return  IsWaitEndValue;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -60,7 +66,9 @@ private:
 	int ColOrder = -1;
 
 	bool IsColDeath = false;
+	bool IsWaitEndValue = false;
 
+	float WaitTime = 0.0f;
 	float LiveTime = 1.0f;
 	float Speed = 100.0f;
 

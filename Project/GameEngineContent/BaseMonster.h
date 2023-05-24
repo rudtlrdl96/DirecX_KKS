@@ -16,6 +16,25 @@ public:
 
 	void HitMonster(ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush);
 
+	std::shared_ptr<ContentSpriteRenderer> GetRender()
+	{
+		return Render;
+	}
+
+	void ChangeFSM(const std::string_view& _FsmName)
+	{
+		MonsterFsm.ChangeState(_FsmName);
+	}
+
+	inline void FadeOn()
+	{
+		Buffer.Color.a = 0.0f;
+	}
+
+	inline void FadeOff()
+	{
+		Buffer.Color.a = 1.0f;
+	}
 
 protected:
 	std::shared_ptr<GameEngineActor> PlayerActor = nullptr;

@@ -196,17 +196,10 @@ void GiantEnt::ShotProjectile(float _Deg)
 			.IsColDeath = true,
 			.Speed = 700.0f,
 			.LiveTime = 1.0f,
-			.EnterEvent = &PlayerHit,
-			.DeathEvent = &ProjectileEndEffect,
+			.EnterEvent = PlayerHit,
+			.DeathEvent = ProjectileEndEffect,
 			});
 	}
-}
-
-void GiantEnt::PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, const ProjectileHitParameter& _Parameter)
-{
-	int a = 0;
-
-	ProjectileEndEffect(_Parameter.ProjectilePos);
 }
 
 void GiantEnt::ProjectileEndEffect(const float4& _EndPos)
@@ -215,4 +208,9 @@ void GiantEnt::ProjectileEndEffect(const float4& _EndPos)
 	.EffectName = "GiantEntProjectileEffect",
 	.Postion = _EndPos,
 		});
+}
+
+void GiantEnt::PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, const ProjectileHitParameter& _Parameter)
+{
+	ProjectileEndEffect(_Parameter.ProjectilePos);
 }
