@@ -38,7 +38,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<ContentSpriteRenderer> MainRenderer = nullptr;
+	std::shared_ptr<class ContentUIRender> MainRenderer = nullptr;
 
 	FadeState State = FadeState::Wait;
 	FadeBuffer Buffer;

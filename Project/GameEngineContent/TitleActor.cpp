@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "TitleActor.h"
+#include "ContentUIRender.h"
 
 TitleActor::TitleActor()
 {
@@ -22,7 +23,7 @@ void TitleActor::TitleOn(float _LogoWaitTime, float _LogoFadeSpeed)
 
 void TitleActor::Start()
 {
-	TextureRender = CreateComponent<ContentSpriteRenderer>();
+	TextureRender = CreateComponent<ContentUIRender>();
 	TextureRender->PipeSetting("2DTexture_ColorLight");
 	TextureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", BackTexBuffer);
 	TextureRender->SetTexture("DarkMirror_Title_Art_1.png");
@@ -39,7 +40,7 @@ void TitleActor::Start()
 	float4 LogoSize = {static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight())};
 	LogoSize *= 0.7f;
 
-	LogoRender = CreateComponent<ContentSpriteRenderer>();
+	LogoRender = CreateComponent<ContentUIRender>();
 	LogoRender->PipeSetting("2DTexture_ColorLight");
 	LogoRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", LogoBuffer);
 	LogoRender->SetTexture("Title_Logo2.png");

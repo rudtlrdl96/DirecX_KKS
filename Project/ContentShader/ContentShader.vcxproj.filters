@@ -7,5 +7,6 @@
     <FxCompile Include="..\Resources\Shader\TextureMoveShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\FadeShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\ProgressUI.hlsl" />
+    <FxCompile Include="..\Resources\Shader\OutlineColorShader.hlsl" />
   </ItemGroup>
 </Project>

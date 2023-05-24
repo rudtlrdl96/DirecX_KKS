@@ -260,6 +260,18 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetBlendState("AlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Outline");
+
+		Pipe->SetVertexBuffer("Rect");
+		Pipe->SetIndexBuffer("Rect");
+		Pipe->SetVertexShader("OutlineColorShader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("OutlineColorShader.hlsl");
+		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
 }
 
 

@@ -37,9 +37,9 @@ protected:
 private:
 	StoryViewState State = StoryViewState::None;
 
-	std::shared_ptr<ContentSpriteRenderer> BackgroundTextureRender = nullptr;
-	std::shared_ptr<ContentSpriteRenderer> MainTextureRender = nullptr;
-	std::shared_ptr<ContentSpriteRenderer> SubTextureRender = nullptr;
+	std::shared_ptr<class ContentUIRender> BackgroundTextureRender = nullptr;
+	std::shared_ptr<class ContentUIRender> MainTextureRender = nullptr;
+	std::shared_ptr<class ContentUIRender> SubTextureRender = nullptr;
 
 	std::string MainTextureName = "Empty.png";
 	std::string SubTextureName = "Empty.png";

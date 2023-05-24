@@ -16,7 +16,7 @@ protected:
 	void Start() override;
 
 private:
-	std::shared_ptr<ContentSpriteRenderer> PopupFrameRender = nullptr;
-	float4 PopupFrameColor = float4::Zero;
+	std::shared_ptr<class ContentUIRender> PopupFrameRender = nullptr;
+	ColorBuffer Buffer = ColorBuffer();
 };
 

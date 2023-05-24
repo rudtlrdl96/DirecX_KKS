@@ -16,10 +16,10 @@ protected:
 	void Start() override;
 
 private:
-	std::shared_ptr<ContentSpriteRenderer> SlotFrameRender = nullptr;
-	std::shared_ptr<ContentSpriteRenderer> SlotImageRender = nullptr;
+	std::shared_ptr<class ContentUIRender> SlotFrameRender = nullptr;
+	std::shared_ptr<class ContentUIRender> SlotImageRender = nullptr;
 
-	ColorBuffer SlotFrameBuffer;
-	ColorBuffer SlotImageBuffer;
+	ColorBuffer SlotFrameBuffer = ColorBuffer();
+	ColorBuffer SlotImageBuffer = ColorBuffer();
 };
 

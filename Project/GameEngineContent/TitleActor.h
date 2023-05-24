@@ -24,8 +24,8 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<ContentSpriteRenderer> TextureRender = nullptr;
-	std::shared_ptr<ContentSpriteRenderer> LogoRender = nullptr;
+	std::shared_ptr<class ContentUIRender> TextureRender = nullptr;
+	std::shared_ptr<class ContentUIRender> LogoRender = nullptr;
 
 	float WaitTime = 1.0f;
 	float ProgressTime = 0.0f;

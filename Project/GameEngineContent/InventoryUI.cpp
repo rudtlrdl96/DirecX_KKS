@@ -4,6 +4,8 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
 
+#include "ContentUIRender.h"
+
 #include "InventorySlot.h"
 #include "InventoryItemPopup.h"
 #include "InventoryQuintessencePopup.h"
@@ -20,7 +22,7 @@ InventoryUI::~InventoryUI()
 
 void InventoryUI::Start()
 {
-	InventoryBackRender = CreateComponent<ContentSpriteRenderer>();
+	InventoryBackRender = CreateComponent<ContentUIRender>();
 	InventoryBackRender->PipeSetting("2DTexture_ColorLight");
 	InventoryBackRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", BackFrameTex);
 	InventoryBackRender->SetTexture("Inventory_Background.png");
@@ -28,7 +30,7 @@ void InventoryUI::Start()
 	InventoryBackRender->GetTransform()->SetLocalPosition(float4::Zero);
 	BackFrameTex.Color.w = 0.5f;
 
-	MainFrameRender = CreateComponent<ContentSpriteRenderer>();
+	MainFrameRender = CreateComponent<ContentUIRender>();
 	MainFrameRender->PipeSetting("2DTexture_ColorLight");
 	MainFrameRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", MainFrameTex);
 	MainFrameRender->SetTexture("Inventory_Main_Frame.png");

@@ -699,6 +699,9 @@
     <ClInclude Include="BattleActor.h">
       <Filter>2_Actor\BattleActor</Filter>
     </ClInclude>
+    <ClInclude Include="ContentUIRender.h">
+      <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1102,6 +1105,9 @@
     </ClCompile>
     <ClCompile Include="BattleActor.cpp">
       <Filter>2_Actor\BattleActor</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentUIRender.cpp">
+      <Filter>3_Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,8 @@ protected:
 	void Start() override;
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> TextureRenderer = nullptr;
+	std::shared_ptr<class ContentUIRender> TextureRenderer = nullptr;
 
+	ColorBuffer Buffer;
 };
 

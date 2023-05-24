@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "InventoryQuintessencePopup.h"
+#include "ContentUIRender.h"
 
 InventoryQuintessencePopup::InventoryQuintessencePopup()
 {
@@ -23,11 +24,11 @@ void InventoryQuintessencePopup::Start()
 	TexSize.x *= 2.0f;
 	TexSize.y *= 1.975f;
 
-	PopupFrameRender = CreateComponent<ContentSpriteRenderer>();
+	PopupFrameRender = CreateComponent<ContentUIRender>();
 	PopupFrameRender->PipeSetting("2DTexture_ColorLight");
-	PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupFrameColor);
+	PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	PopupFrameRender->SetTexture("Inventory_Quintessence_Frame.png");
 	PopupFrameRender->GetTransform()->SetLocalScale(TexSize);
 
-	PopupFrameColor.w = 1.21f;
+	Buffer.Color.w = 1.21f;
 }

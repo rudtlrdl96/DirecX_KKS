@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "InventorySlot.h"
+#include "ContentUIRender.h"
 
 InventorySlot::InventorySlot()
 {
@@ -13,7 +14,7 @@ void InventorySlot::Start()
 {
 	float4 FrameSize = { 53, 53 };
 		
-	SlotFrameRender = CreateComponent<ContentSpriteRenderer>();
+	SlotFrameRender = CreateComponent<ContentUIRender>();
 	SlotFrameRender->PipeSetting("2DTexture_ColorLight");
 	SlotFrameRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", SlotFrameBuffer);
 	SlotFrameRender->SetTexture("Inventory_Deactivate.png");
@@ -21,7 +22,7 @@ void InventorySlot::Start()
 	SlotFrameRender->GetTransform()->SetLocalPosition(float4::Zero);
 	SlotFrameBuffer.Color.w = 1.34f;
 
-	SlotImageRender = CreateComponent<ContentSpriteRenderer>();
+	SlotImageRender = CreateComponent<ContentUIRender>();
 	SlotImageRender->PipeSetting("2DTexture_ColorLight");
 	SlotImageRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", SlotImageBuffer);
 	SlotImageRender->SetTexture("Empty.png");

@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "TitleLogo.h"
+#include "ContentUIRender.h"
 
 TitleLogo::TitleLogo()
 {
@@ -38,7 +39,7 @@ void TitleLogo::SetLogo(const std::string_view& _TexName, float _IntroTime, floa
 
 void TitleLogo::Start()
 {
-	LogoRender = CreateComponent<ContentSpriteRenderer>();
+	LogoRender = CreateComponent<ContentUIRender>();
 	LogoRender->PipeSetting("2DTexture_ColorLight");
 	LogoRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	LogoRender->SetTexture("Empty.png");

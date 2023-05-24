@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "BlackBackground.h"
+#include "ContentUIRender.h"
 
 BlackBackground::BlackBackground()
 {
@@ -21,7 +22,9 @@ void BlackBackground::SetRenderSize(const float4& _Size)
 
 void BlackBackground::Start()
 {
-	TextureRenderer = CreateComponent<GameEngineSpriteRenderer>();
+	TextureRenderer = CreateComponent<ContentUIRender>();
+	TextureRenderer->PipeSetting("2DTexture_ColorLight");
+	TextureRenderer->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	TextureRenderer->GetTransform()->SetWorldPosition({ 0, 0, 10000, 1 });
 	TextureRenderer->GetTransform()->SetLocalScale(GameEngineWindow::GetScreenSize());
 	TextureRenderer->SetTexture("FadeImage.png");

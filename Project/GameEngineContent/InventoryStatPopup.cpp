@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "InventoryStatPopup.h"
+#include "ContentUIRender.h"
 
 InventoryStatPopup::InventoryStatPopup()
 {
@@ -24,7 +25,7 @@ void InventoryStatPopup::Start()
 		TexSize.x *= 2.0f;
 		TexSize.y *= 2.0f;
 
-		PopupFrameRender = CreateComponent<ContentSpriteRenderer>();
+		PopupFrameRender = CreateComponent<ContentUIRender>();
 		PopupFrameRender->PipeSetting("2DTexture_ColorLight");
 		PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupFrameColor);
 		PopupFrameRender->SetTexture("Inventory_Stat_Frame.png");
@@ -46,7 +47,7 @@ void InventoryStatPopup::Start()
 		TexSize.x *= 2.1f;
 		TexSize.y *= 2.0f;
 
-		PopupBackRender = CreateComponent<ContentSpriteRenderer>();
+		PopupBackRender = CreateComponent<ContentUIRender>();
 		PopupBackRender->PipeSetting("2DTexture_ColorLight");
 		PopupBackRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupBackColor);
 		PopupBackRender->SetTexture("Inventory_Stat_Back.png");

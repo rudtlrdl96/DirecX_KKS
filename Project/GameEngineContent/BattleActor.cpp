@@ -15,8 +15,8 @@ BattleActor::~BattleActor()
 void BattleActor::Start()
 {
 	Render = CreateComponent<ContentSpriteRenderer>();
-	Render->PipeSetting("2DTexture_ColorLight");
-	Render->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
+	Render->PipeSetting("2DTexture_Outline");
+	Render->GetShaderResHelper().SetConstantBufferLink("OutlineColorBuffer", Buffer);
 	Render->GetTransform()->SetLocalPosition(float4::Zero);
 	Render->SetScaleRatio(2.0f);
 	

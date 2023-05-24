@@ -15,7 +15,7 @@ public:
 
 protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
-	ColorBuffer Buffer = ColorBuffer();
+	OutlineColorBuffer Buffer = OutlineColorBuffer();
 
 	ActorViewDir HitDir = ActorViewDir::Right;
 	Rigidbody2D HitRigidbody;
