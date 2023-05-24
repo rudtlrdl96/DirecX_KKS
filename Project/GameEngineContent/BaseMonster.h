@@ -1,9 +1,9 @@
 #pragma once
-#include "BaseContentActor.h"
+#include "BattleActor.h"
 #include "Rigidbody2D.h"
 #include "MonsterData.h"
 
-class BaseMonster : public BaseContentActor
+class BaseMonster : public BattleActor
 {
 public:
 	BaseMonster();
@@ -38,9 +38,6 @@ public:
 
 protected:
 	std::shared_ptr<GameEngineActor> PlayerActor = nullptr;
-	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
-
-	ColorBuffer Buffer = ColorBuffer();
 
 	std::shared_ptr<class GameEngineCollision> BodyCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> WalkCol = nullptr;
@@ -53,7 +50,6 @@ protected:
 	ActorViewDir Dir = ActorViewDir::Right;
 
 	Rigidbody2D AttackRigidbody;
-	Rigidbody2D HitRigidbody;
 	MonsterData Data = MonsterData();
 
 	ClassFSM<BaseMonster> MonsterFsm;
@@ -61,6 +57,7 @@ protected:
 
 	size_t AttackCheckFrame = 0;
 	std::map<size_t, float> AnimPauseTimes;
+
 	float CurPauseTime = 0.0f;
 	float AttackWaitTime = 1000.0f;
 	float AttackWaitEndTime = 0.0f;
@@ -90,18 +87,9 @@ protected:
 
 	UINT HitAnimIndex = 0;
 
-	ActorViewDir HitDir = ActorViewDir::Right;
-
-	bool IsHit = false;
-	bool IsStiffen = false;
-	bool IsPush = false;
-
-	bool IsHitEffectOn = false;
-	float HitEffectProgress = 0.0f;
-	float HitEffectSpeed = 7.5f;
-	float HitParticleCoolTime = 0.0f;
-
 	bool IsSuperArmor = false;
+	bool IsStiffen = false;
+
 	float HitWaitTime = 0.0f;
 
 	void Start() override;
@@ -144,7 +132,5 @@ protected:
 	void EffectLoadCheck();
 
 	bool HitCheck();
-	void HitEffect();
-	void HitStiffen();
 };
 

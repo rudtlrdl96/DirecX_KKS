@@ -10,7 +10,7 @@
 
 void PlayerBaseSkull::Idle_Enter()
 {
-	SkullRenderer->ChangeAnimation(std::string("Idle" + AnimNamePlusText));
+	Render->ChangeAnimation(std::string("Idle" + AnimNamePlusText));
 	JumpDir = float4::Zero;
 	CanJump = true;
 	DoubleJump = true;
@@ -92,7 +92,7 @@ void PlayerBaseSkull::Idle_End()
 void PlayerBaseSkull::Jump_Enter()
 {
 	CanJump = false;
-	SkullRenderer->ChangeAnimation(std::string("Jump" + AnimNamePlusText));
+	Render->ChangeAnimation(std::string("Jump" + AnimNamePlusText));
 	FsmState = PlayerFSM_State::Jump;
 }
 
@@ -187,7 +187,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 
 void PlayerBaseSkull::Walk_Enter() 
 {
-	SkullRenderer->ChangeAnimation(std::string("Walk" + AnimNamePlusText));
+	Render->ChangeAnimation(std::string("Walk" + AnimNamePlusText));
 	JumpDir = float4::Zero;
 	CanJump = true;
 	DoubleJump = true;
@@ -294,12 +294,12 @@ void PlayerBaseSkull::Walk_End()
 
 void PlayerBaseSkull::Dash_Enter()
 {
-	DashTrail->PlayTrail(SkullRenderer->GetTexName(),
-		SkullRenderer->GetAtlasData(),
+	DashTrail->PlayTrail(Render->GetTexName(),
+		Render->GetAtlasData(),
 		(ActorViewDir::Left == ViewDir),
-		SkullRenderer->GetScaleRatio());
+		Render->GetScaleRatio());
 
-	SkullRenderer->ChangeAnimation("Dash" + AnimNamePlusText);
+	Render->ChangeAnimation("Dash" + AnimNamePlusText);
 
 	EffectManager::PlayEffect({ 
 		.EffectName = "PlayerDashEffect",
@@ -403,10 +403,10 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 	if (0.0f >= DashTrailCoolTime)
 	{
 		DashTrailCoolTime += 0.05f;
-		DashTrail->PlayTrail(SkullRenderer->GetTexName(),
-			SkullRenderer->GetAtlasData(),
+		DashTrail->PlayTrail(Render->GetTexName(),
+			Render->GetAtlasData(),
 			(ActorViewDir::Left == ViewDir),
-			SkullRenderer->GetScaleRatio());
+			Render->GetScaleRatio());
 	}
 
 
@@ -471,7 +471,7 @@ void PlayerBaseSkull::Dash_End()
 
 void PlayerBaseSkull::Fall_Enter() 
 {
-	SkullRenderer->ChangeAnimation("Fall" + AnimNamePlusText);
+	Render->ChangeAnimation("Fall" + AnimNamePlusText);
 	FsmState = PlayerFSM_State::Fall;
 }
 
@@ -490,9 +490,9 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 		PlayerTrans->AddLocalPosition(Velocity);
 	}
 
-	if (true == SkullRenderer->FindAnimation("Fall")->IsEnd())
+	if (true == Render->FindAnimation("Fall")->IsEnd())
 	{
-		SkullRenderer->ChangeAnimation("FallRepeat" + AnimNamePlusText);
+		Render->ChangeAnimation("FallRepeat" + AnimNamePlusText);
 	}
 
 	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
@@ -614,7 +614,7 @@ void PlayerBaseSkull::Attack_Enter()
 
 	IsAttackCombo = false;
 	AttackComboCount = 0;
-	SkullRenderer->ChangeAnimation(std::string(AnimColMeta_Attack[AttackComboCount].GetAnimationName() + AnimNamePlusText));
+	Render->ChangeAnimation(std::string(AnimColMeta_Attack[AttackComboCount].GetAnimationName() + AnimNamePlusText));
 
 	AttackEnterCheck.SetColData(AnimColMeta_Attack[AttackComboCount]);
 	FsmState = PlayerFSM_State::Attack;
@@ -682,7 +682,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 		return;
 	}
 
-	if (true == SkullRenderer->IsAnimationEnd())
+	if (true == Render->IsAnimationEnd())
 	{
 		AttackRigidbody.SetVelocity(float4::Zero);
 
@@ -707,7 +707,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 			}
 
 			IsAttackCombo = false;
-			SkullRenderer->ChangeAnimation(AnimColMeta_Attack[AttackComboCount].GetAnimationName() + AnimNamePlusText);
+			Render->ChangeAnimation(AnimColMeta_Attack[AttackComboCount].GetAnimationName() + AnimNamePlusText);
 			AttackEnterCheck.SetColData(AnimColMeta_Attack[AttackComboCount]);
 		}
 		else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
@@ -742,7 +742,7 @@ void PlayerBaseSkull::JumpAttack_Enter()
 
 	IsJumpAttackCombo = false;
 	JumpAttackCombo = 0;
-	SkullRenderer->ChangeAnimation(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName() + AnimNamePlusText);
+	Render->ChangeAnimation(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName() + AnimNamePlusText);
 	AttackEnterCheck.SetColData(AnimColMeta_JumpAttack[JumpAttackCombo]);
 	FsmState = PlayerFSM_State::JumpAttack;
 }
@@ -851,7 +851,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 		IsJumpAttackCombo = true;
 	}
 
-	if (true == SkullRenderer->IsAnimationEnd())
+	if (true == Render->IsAnimationEnd())
 	{	
 		if (true == IsJumpAttackCombo)
 		{
@@ -863,7 +863,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 			}
 
 			IsJumpAttackCombo = false;
-			SkullRenderer->ChangeAnimation(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName() + AnimNamePlusText);
+			Render->ChangeAnimation(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName() + AnimNamePlusText);
 			AttackEnterCheck.SetColData(AnimColMeta_JumpAttack[JumpAttackCombo]);
 		}
 		else if (JumpDir.y <= 0.0f)
@@ -891,7 +891,7 @@ void PlayerBaseSkull::Skill_SlotA_Enter()
 	}
 
 	SkillACombo = 0;
-	SkullRenderer->ChangeAnimation(AnimColMeta_SkillA[SkillACombo].GetAnimationName() + AnimNamePlusText);
+	Render->ChangeAnimation(AnimColMeta_SkillA[SkillACombo].GetAnimationName() + AnimNamePlusText);
 	AttackEnterCheck.SetColData(AnimColMeta_SkillA[SkillACombo]);
 
 	CurSkillATime = 0.0f;
@@ -915,14 +915,14 @@ void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
 		PlayerTrans->AddLocalPosition(DashVelocity);
 	}
 
-	if (true == SkullRenderer->IsAnimationEnd()) // + Skill CooltimeCheck
+	if (true == Render->IsAnimationEnd()) // + Skill CooltimeCheck
 	{	
 
 		++SkillACombo;
 
 		if (AnimColMeta_SkillA.size() > SkillACombo)
 		{
-			SkullRenderer->ChangeAnimation(AnimColMeta_SkillA[SkillACombo].GetAnimationName() + AnimNamePlusText);
+			Render->ChangeAnimation(AnimColMeta_SkillA[SkillACombo].GetAnimationName() + AnimNamePlusText);
 			AttackEnterCheck.SetColData(AnimColMeta_SkillA[SkillACombo]);
 		}
 		else
@@ -964,7 +964,7 @@ void PlayerBaseSkull::Skill_SlotB_Enter()
 	}
 
 	SkillBCombo = 0;
-	SkullRenderer->ChangeAnimation(AnimColMeta_SkillB[SkillBCombo].GetAnimationName() + AnimNamePlusText);
+	Render->ChangeAnimation(AnimColMeta_SkillB[SkillBCombo].GetAnimationName() + AnimNamePlusText);
 	AttackEnterCheck.SetColData(AnimColMeta_SkillB[SkillBCombo]);
 
 	CurSkillBTime = 0.0f;
@@ -986,13 +986,13 @@ void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
 		PlayerTrans->AddLocalPosition(DashVelocity);
 	}
 
-	if (true == SkullRenderer->IsAnimationEnd()) // + Skill CooltimeCheck
+	if (true == Render->IsAnimationEnd()) // + Skill CooltimeCheck
 	{
 		++SkillBCombo;
 
 		if (AnimColMeta_SkillB.size() > SkillBCombo)
 		{
-			SkullRenderer->ChangeAnimation(AnimColMeta_SkillB[SkillBCombo].GetAnimationName() + AnimNamePlusText);
+			Render->ChangeAnimation(AnimColMeta_SkillB[SkillBCombo].GetAnimationName() + AnimNamePlusText);
 			AttackEnterCheck.SetColData(AnimColMeta_SkillB[SkillBCombo]);
 		}
 		else
@@ -1034,7 +1034,7 @@ void PlayerBaseSkull::Switch_Enter()
 	}
 
 	SwitchCombo = 0;
-	SkullRenderer->ChangeAnimation(AnimColMeta_Switch[SwitchCombo].GetAnimationName());
+	Render->ChangeAnimation(AnimColMeta_Switch[SwitchCombo].GetAnimationName());
 	AttackEnterCheck.SetColData(AnimColMeta_Switch[SwitchCombo]);
 	FsmState = PlayerFSM_State::Switch;
 }
@@ -1049,13 +1049,13 @@ void PlayerBaseSkull::Switch_Update(float _DeltaTime)
 		PlayerTrans->AddLocalPosition(DashVelocity);
 	}
 
-	if (true == SkullRenderer->IsAnimationEnd()) // + Skill CooltimeCheck
+	if (true == Render->IsAnimationEnd()) // + Skill CooltimeCheck
 	{
 		++SwitchCombo;
 
 		if (AnimColMeta_Switch.size() > SwitchCombo)
 		{
-			SkullRenderer->ChangeAnimation(AnimColMeta_Switch[SwitchCombo].GetAnimationName());
+			Render->ChangeAnimation(AnimColMeta_Switch[SwitchCombo].GetAnimationName());
 		}
 		else
 		{

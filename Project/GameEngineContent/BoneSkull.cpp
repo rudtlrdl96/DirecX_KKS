@@ -50,7 +50,6 @@ void BoneSkull::Start()
 
 void BoneSkull::Update(float _DeltaTime)
 {
-
 	PlayerBaseSkull::Update(_DeltaTime);
 
 	if (true == HeadActor->IsUpdate())
@@ -72,6 +71,11 @@ void BoneSkull::Update(float _DeltaTime)
 	}
 }
 
+void BoneSkull::SwitchEnd()
+{
+	HeadReturn();
+}
+
 void BoneSkull::Skill_SlotA_Enter()
 {
 	PlayerBaseSkull::Skill_SlotA_Enter();
@@ -87,7 +91,7 @@ void BoneSkull::Skill_SlotA_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Skill_SlotA_Update(_DeltaTime);
 
-	if (false == HeadActor->IsUpdate() && 1 == SkullRenderer->GetCurrentFrame())
+	if (false == HeadActor->IsUpdate() && 1 == Render->GetCurrentFrame())
 	{
 		HeadActor->ShotHead(GetViewDir());
 		HeadActor->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(8, 50));
@@ -174,41 +178,41 @@ void BoneSkull::TextureLoad()
 void BoneSkull::CreateAnimation()
 {
 	//Idle Animation
-	SkullRenderer->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "BoneSkull_Idle.png", .FrameInter = 0.15f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "Idle_NoHead", .SpriteName = "BoneSkull_Idle_NoHead.png", .FrameInter = 0.15f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "Idle_NoWeapon", .SpriteName = "BoneSkull_Idle_NoWeapon.png", .FrameInter = 0.15f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "BoneSkull_Idle.png", .FrameInter = 0.15f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Idle_NoHead", .SpriteName = "BoneSkull_Idle_NoHead.png", .FrameInter = 0.15f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Idle_NoWeapon", .SpriteName = "BoneSkull_Idle_NoWeapon.png", .FrameInter = 0.15f, .ScaleToTexture = true });
 
 	//Walk Animation
-	SkullRenderer->CreateAnimation({ .AnimationName = "Walk", .SpriteName = "BoneSkull_Walk.png", .FrameInter = 0.08f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "Walk_NoHead", .SpriteName = "BoneSkull_Walk_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "Walk_NoWeapon", .SpriteName = "BoneSkull_Walk_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Walk", .SpriteName = "BoneSkull_Walk.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Walk_NoHead", .SpriteName = "BoneSkull_Walk_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Walk_NoWeapon", .SpriteName = "BoneSkull_Walk_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 
 	//Dash Animation
-	SkullRenderer->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "BoneSkull_Dash.png", .FrameInter = 0.08f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "Dash_NoHead", .SpriteName = "BoneSkull_Dash_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "Dash_NoWeapon", .SpriteName = "BoneSkull_Dash_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "BoneSkull_Dash.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Dash_NoHead", .SpriteName = "BoneSkull_Dash_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Dash_NoWeapon", .SpriteName = "BoneSkull_Dash_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 
 	// Fall
-	SkullRenderer->CreateAnimation({ .AnimationName = "Fall", .SpriteName = "BoneSkull_Fall.png", .FrameInter = 0.08f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "Fall_NoHead", .SpriteName = "BoneSkull_Fall_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "Fall_NoWeapon", .SpriteName = "BoneSkull_Fall_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Fall", .SpriteName = "BoneSkull_Fall.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Fall_NoHead", .SpriteName = "BoneSkull_Fall_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Fall_NoWeapon", .SpriteName = "BoneSkull_Fall_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 
 	// Fall Repeat
-	SkullRenderer->CreateAnimation({ .AnimationName = "FallRepeat", .SpriteName = "BoneSkull_FallRepeat.png", .FrameInter = 0.08f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "FallRepeat_NoHead", .SpriteName = "BoneSkull_FallRepeat_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "FallRepeat_NoWeapon", .SpriteName = "BoneSkull_FallRepeat_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "FallRepeat", .SpriteName = "BoneSkull_FallRepeat.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "FallRepeat_NoHead", .SpriteName = "BoneSkull_FallRepeat_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "FallRepeat_NoWeapon", .SpriteName = "BoneSkull_FallRepeat_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 
 	// Jump
-	SkullRenderer->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "BoneSkull_Jump.png", .FrameInter = 0.08f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "Jump_NoHead", .SpriteName = "BoneSkull_Jump_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
-	SkullRenderer->CreateAnimation({ .AnimationName = "Jump_NoWeapon", .SpriteName = "BoneSkull_Jump_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "BoneSkull_Jump.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Jump_NoHead", .SpriteName = "BoneSkull_Jump_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Jump_NoWeapon", .SpriteName = "BoneSkull_Jump_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	
 	// AttackA NoHead
-	SkullRenderer->CreateAnimation({ .AnimationName = "AttackA_NoHead", .SpriteName = "BoneSkull_AttackA_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "AttackA_NoHead", .SpriteName = "BoneSkull_AttackA_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });
 	// AttackB NoHead
-	SkullRenderer->CreateAnimation({ .AnimationName = "AttackB_NoHead", .SpriteName = "BoneSkull_AttackB_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });	
+	Render->CreateAnimation({ .AnimationName = "AttackB_NoHead", .SpriteName = "BoneSkull_AttackB_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });	
 	// JumpAttack NoHead
-	SkullRenderer->CreateAnimation({ .AnimationName = "JumpAttack_NoHead", .SpriteName = "BoneSkull_JumpAttack_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "JumpAttack_NoHead", .SpriteName = "BoneSkull_JumpAttack_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });
 }
 
 void BoneSkull::AnimationColLoad()
@@ -241,30 +245,30 @@ void BoneSkull::HeadReturn()
 	HeadActor->Off();
 	SetBoneSkullState(BoneSkullState::Normal);
 
-	size_t Frame = SkullRenderer->GetCurrentFrame();
+	size_t Frame = Render->GetCurrentFrame();
 
 	switch (FsmState)
 	{
 	case PlayerBaseSkull::PlayerFSM_State::Idle:
-		SkullRenderer->ChangeAnimation("Idle", Frame);
+		Render->ChangeAnimation("Idle", Frame);
 		break;
 	case PlayerBaseSkull::PlayerFSM_State::Walk:
-		SkullRenderer->ChangeAnimation("Walk", Frame);
+		Render->ChangeAnimation("Walk", Frame);
 		break;
 	case PlayerBaseSkull::PlayerFSM_State::Fall:
-		SkullRenderer->ChangeAnimation("Fall", Frame);
+		Render->ChangeAnimation("Fall", Frame);
 		break;
 	case PlayerBaseSkull::PlayerFSM_State::Jump:
-		SkullRenderer->ChangeAnimation("Jump", Frame);
+		Render->ChangeAnimation("Jump", Frame);
 		break;
 	case PlayerBaseSkull::PlayerFSM_State::JumpAttack:
-		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName()), Frame);
+		Render->ChangeAnimation(std::string(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName()), Frame);
 		break;
 	case PlayerBaseSkull::PlayerFSM_State::Attack:
-		SkullRenderer->ChangeAnimation(std::string(AnimColMeta_Attack[AttackComboCount].GetAnimationName()), Frame);
+		Render->ChangeAnimation(std::string(AnimColMeta_Attack[AttackComboCount].GetAnimationName()), Frame);
 		break;
 	case PlayerBaseSkull::PlayerFSM_State::Dash:
-		SkullRenderer->ChangeAnimation("Dash", Frame);
+		Render->ChangeAnimation("Dash", Frame);
 		break;
 	default:
 		break;

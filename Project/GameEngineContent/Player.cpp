@@ -45,6 +45,16 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime)
 {
+	if (nullptr != MainSkull)
+	{
+		MainSkull->CoolTimeCheck(_DeltaTime);
+	}
+
+	if (nullptr != SubSkull)
+	{
+		SubSkull->CoolTimeCheck(_DeltaTime);
+	}
+
 	if (true == GameEngineInput::IsDown("PlayerCollisionDebugSwitch"))
 	{
 		if (true == IsDebug())
@@ -76,11 +86,13 @@ void Player::Update(float _DeltaTime)
 
  		SubSkull->PlayerFSM.ChangeState("Switch");
 		SubSkull->SetViewDir(Dir);
+		SubSkull->SwitchEnter();
 		SubSkull->On();
 		SubSkull->DebugOff();
 
 		MainSkull->CaptureRenderTex(float4(0.85f, 0.2f, 0.92f, 1.0f), float4(0.85f, 0.2f, 0.92f, 0.0f), 1.5f);
 		MainSkull->Off();
+		MainSkull->SwitchEnd();
 		MainSkull->DebugOff();
 		MainSkull->IsSwitchValue = false;
 

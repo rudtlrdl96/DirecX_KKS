@@ -32,16 +32,10 @@ void PlayerBaseSkull::SetPlayer(std::shared_ptr<class Player> _ParentPlayer)
 
 void PlayerBaseSkull::Start()
 {
+	BattleActor::Start();
+
 	DataLoad();
 	TextureLoad();
-
-	SkullRenderer = CreateComponent<ContentSpriteRenderer>();
-	SkullRenderer->PipeSetting("2DTexture_ColorLight");
-	SkullRenderer->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
-	SkullRenderer->GetTransform()->SetLocalPosition(float4::Zero);
-	SkullRenderer->SetScaleRatio(2.0f);
-
-	Buffer.Color = float4::Zero;
 
 	CreateAnimation();
 	AnimationColLoad();
@@ -213,7 +207,7 @@ void PlayerBaseSkull::Start()
 	EffectCaptureTrail->SetColor(float4(0.0f, 0.0f, 0.0f, 1.0f), float4::Null);
 
 	AttackEnterCheck.SetCol(AttackCol);
-	AttackEnterCheck.SetRender(SkullRenderer);
+	AttackEnterCheck.SetRender(Render);
 
 	AttackEnterCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)
 		{			
@@ -241,24 +235,6 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 
 	PlayerFSM.Update(_DeltaTime);
 	DashRigidbody.UpdateForce(_DeltaTime);
-
-	FallCooldown -= _DeltaTime;
-
-	if (false == CanDash)
-	{
-		DashCoolTime += _DeltaTime;
-	}
-
-	if (DashCoolTime >= 0.9f)
-	{
-		CanDash = true;
-		DashCoolTime = 0.0f;
-	}
-
-	CurSkillATime += _DeltaTime;
-	CurSkillBTime += _DeltaTime;
-
-	RenderEffectProgress += _DeltaTime * RenderEffectSpeed;
 
 	if (1.0f > RenderEffectProgress)
 	{
@@ -298,7 +274,7 @@ std::shared_ptr< GameEngineCollision> PlayerBaseSkull::PlatformColCheck(const st
 
 void PlayerBaseSkull::Pushback_Attack(const AnimationAttackMetaData& _AnimData, float _InterTime)
 {
-	if (nullptr == SkullRenderer->FindAnimation(_AnimData.GetAnimationName()))
+	if (nullptr == Render->FindAnimation(_AnimData.GetAnimationName()))
 	{
 		CreateAttackAnim(_AnimData, _InterTime);
 	}
@@ -308,7 +284,7 @@ void PlayerBaseSkull::Pushback_Attack(const AnimationAttackMetaData& _AnimData, 
 
 void PlayerBaseSkull::Pushback_JumpAttack(const AnimationAttackMetaData& _AnimData, float _InterTime)
 {
-	if (nullptr == SkullRenderer->FindAnimation(_AnimData.GetAnimationName()))
+	if (nullptr == Render->FindAnimation(_AnimData.GetAnimationName()))
 	{
 		CreateAttackAnim(_AnimData, _InterTime);
 	}
@@ -318,7 +294,7 @@ void PlayerBaseSkull::Pushback_JumpAttack(const AnimationAttackMetaData& _AnimDa
 
 void PlayerBaseSkull::Pushback_SkillA(const AnimationAttackMetaData& _AnimData, float _InterTime)
 {
-	if (nullptr == SkullRenderer->FindAnimation(_AnimData.GetAnimationName()))
+	if (nullptr == Render->FindAnimation(_AnimData.GetAnimationName()))
 	{
 		CreateAttackAnim(_AnimData, _InterTime);
 	}
@@ -328,7 +304,7 @@ void PlayerBaseSkull::Pushback_SkillA(const AnimationAttackMetaData& _AnimData, 
 
 void PlayerBaseSkull::Pushback_SkillB(const AnimationAttackMetaData& _AnimData, float _InterTime)
 {
-	if (nullptr == SkullRenderer->FindAnimation(_AnimData.GetAnimationName()))
+	if (nullptr == Render->FindAnimation(_AnimData.GetAnimationName()))
 	{
 		CreateAttackAnim(_AnimData, _InterTime);
 	}
@@ -338,7 +314,7 @@ void PlayerBaseSkull::Pushback_SkillB(const AnimationAttackMetaData& _AnimData, 
 
 void PlayerBaseSkull::Pushback_Switch(const AnimationAttackMetaData& _AnimData, float _InterTime)
 {
-	if (nullptr == SkullRenderer->FindAnimation(_AnimData.GetAnimationName()))
+	if (nullptr == Render->FindAnimation(_AnimData.GetAnimationName()))
 	{
 		CreateAttackAnim(_AnimData, _InterTime);	
 	}
@@ -369,6 +345,29 @@ void PlayerBaseSkull::SetViewDir(ActorViewDir _ViewDir)
 	default:
 		break;
 	}
+}
+
+void PlayerBaseSkull::CoolTimeCheck(float _DeltaTime)
+{
+
+	FallCooldown -= _DeltaTime;
+
+	if (false == CanDash)
+	{
+		DashCoolTime += _DeltaTime;
+	}
+
+	if (DashCoolTime >= 0.9f)
+	{
+		CanDash = true;
+		DashCoolTime = 0.0f;
+	}
+
+	CurSkillATime += _DeltaTime;
+	CurSkillBTime += _DeltaTime;
+
+	RenderEffectProgress += _DeltaTime * RenderEffectSpeed;
+
 }
 
 void PlayerBaseSkull::CreateColDebugRender()
@@ -404,7 +403,7 @@ void PlayerBaseSkull::CreateColDebugRender()
 
 void PlayerBaseSkull::CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime)
 {
-	SkullRenderer->CreateAnimation({ 
+	Render->CreateAnimation({
 		.AnimationName = _AnimData.GetAnimationName().data(),
 		.SpriteName = _AnimData.GetSpriteName().data(),
 		.Start = _AnimData.GetStartFrame() ,
@@ -428,8 +427,8 @@ void PlayerBaseSkull::CaptureRenderTex(const float4& _StartColor, const float4& 
 	EffectCaptureTrail->SetColor(_StartColor, _EndColor);
 	EffectCaptureTrail->SetTime(1.0f / _Speed);
 
-	EffectCaptureTrail->PlayTrail(SkullRenderer->GetTexName(),
-		SkullRenderer->GetAtlasData(),
+	EffectCaptureTrail->PlayTrail(Render->GetTexName(),
+		Render->GetAtlasData(),
 		(ActorViewDir::Left == ViewDir),
-		SkullRenderer->GetScaleRatio());
+		Render->GetScaleRatio());
 }

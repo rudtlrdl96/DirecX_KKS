@@ -260,8 +260,6 @@ void BaseMonster::Attack_Update(float _DeltaTime)
 		MonsterFsm.ChangeState("Idle");
 		return;
 	}
-
-
 }
 
 void BaseMonster::Attack_End() 

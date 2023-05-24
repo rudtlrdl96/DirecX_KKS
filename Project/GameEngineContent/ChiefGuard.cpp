@@ -47,7 +47,7 @@ void ChiefGuard::Skill_SlotA_Update(float _DeltaTime)
 		}
 	}
 
-	if (false == IsFlash && 19 == SkullRenderer->GetCurrentFrame())
+	if (false == IsFlash && 19 == Render->GetCurrentFrame())
 	{
 		IsFlash = true;
 		FlashProgress = 0.0f;
@@ -122,7 +122,7 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Skill_SlotB_Update(_DeltaTime);
 
-	if (false == IsProjecTileShot && 6 == SkullRenderer->GetCurrentFrame())
+	if (false == IsProjecTileShot && 6 == Render->GetCurrentFrame())
 	{
 		IsProjecTileShot = true;
 
@@ -206,9 +206,9 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 	}
 
 	if (false == IsFlash && 
-		((false == IsFlash_0 && 0 == SkullRenderer->GetCurrentFrame()) ||
-		 (false == IsFlash_1 && 3 == SkullRenderer->GetCurrentFrame()) || 
-		 (false == IsFlash_2 && 6 == SkullRenderer->GetCurrentFrame())))
+		((false == IsFlash_0 && 0 == Render->GetCurrentFrame()) ||
+		 (false == IsFlash_1 && 3 == Render->GetCurrentFrame()) || 
+		 (false == IsFlash_2 && 6 == Render->GetCurrentFrame())))
 	{
 		IsFlash = true;
 		FlashProgress = 0.0f;
@@ -218,18 +218,18 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 
 		float Flip = 1.0f;
 
-		if (0 == SkullRenderer->GetCurrentFrame())
+		if (0 == Render->GetCurrentFrame())
 		{
 			IsFlash_0 = true;
 		}
 
-		if (3 == SkullRenderer->GetCurrentFrame())
+		if (3 == Render->GetCurrentFrame())
 		{
 			IsFlash_1 = true;
 			Flip = -1.0f;
 		}
 
-		if (6 == SkullRenderer->GetCurrentFrame())
+		if (6 == Render->GetCurrentFrame())
 		{
 			IsFlash_2 = true;
 		}
@@ -356,17 +356,17 @@ void ChiefGuard::TextureLoad()
 void ChiefGuard::CreateAnimation()
 {
 	//Idle Animation
-	SkullRenderer->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "ChiefGuard_Unique_Idle.png", .FrameInter = 0.15f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "ChiefGuard_Unique_Idle.png", .FrameInter = 0.15f, .ScaleToTexture = true });
 	//Walk Animation
-	SkullRenderer->CreateAnimation({ .AnimationName = "Walk", .SpriteName = "ChiefGuard_Unique_Walk.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Walk", .SpriteName = "ChiefGuard_Unique_Walk.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	//Dash Animation
-	SkullRenderer->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "ChiefGuard_Unique_Dash.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "ChiefGuard_Unique_Dash.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	// Fall
-	SkullRenderer->CreateAnimation({ .AnimationName = "Fall", .SpriteName = "ChiefGuard_Unique_Fall.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Fall", .SpriteName = "ChiefGuard_Unique_Fall.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	// Fall Repeat
-	SkullRenderer->CreateAnimation({ .AnimationName = "FallRepeat", .SpriteName = "ChiefGuard_Unique_FallRepeat.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "FallRepeat", .SpriteName = "ChiefGuard_Unique_FallRepeat.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	// Jump
-	SkullRenderer->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "ChiefGuard_Unique_Jump.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "ChiefGuard_Unique_Jump.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 }
 
 void ChiefGuard::AnimationColLoad()

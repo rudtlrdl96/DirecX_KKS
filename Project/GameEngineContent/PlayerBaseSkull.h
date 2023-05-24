@@ -1,11 +1,11 @@
 #pragma once
-#include "BaseContentActor.h"
+#include "BattleActor.h"
 #include "ClassFSM.h"
 #include "AnimAttackCheck.h"
 #include "Rigidbody2D.h"
 #include "SkullData.h"
 
-class PlayerBaseSkull : public BaseContentActor
+class PlayerBaseSkull : public BattleActor
 {
 public:
 	friend class Player;
@@ -41,10 +41,6 @@ public:
 
 protected:
 	GameEngineTransform* PlayerTrans = nullptr;
-
-	std::shared_ptr<ContentSpriteRenderer> SkullRenderer = nullptr;
-
-	ColorBuffer Buffer;
 
 	PlayerFSM_State FsmState = PlayerFSM_State::Idle;
 
@@ -158,6 +154,9 @@ protected:
 		return IsSwitchValue;
 	}
 
+	virtual void SwitchEnter() {}
+	virtual void SwitchEnd() {}
+	virtual void CoolTimeCheck(float _DeltaTime);
 
 private:	
 	AnimAttackCheck AttackEnterCheck;

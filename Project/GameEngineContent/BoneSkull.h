@@ -26,6 +26,8 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	void SwitchEnd() override;
+
 	void Skill_SlotA_Enter() override;
 	void Skill_SlotA_Update(float _DeltaTime) override;
 	void Skill_SlotB_Enter() override;

@@ -15,6 +15,7 @@ public:
 
 	void SetInventoryData();
 
+
 protected:	
 	void Start() override;
 	void Update(float _DeltaTime);
