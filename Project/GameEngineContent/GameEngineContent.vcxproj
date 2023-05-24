@@ -235,6 +235,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GlacialWizard.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GrandHallLevel.h">
       <SubType>
       </SubType>
@@ -344,6 +348,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Projectile.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RigidProjectile.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -717,6 +725,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GiantEnt_FSM.cpp" />
+    <ClCompile Include="GlacialWizard.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GrandHallLevel.cpp">
       <SubType>
       </SubType>
@@ -827,6 +839,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RigidProjectile.cpp">
       <SubType>
       </SubType>
     </ClCompile>

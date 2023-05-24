@@ -14,6 +14,7 @@
 #include "BlossomEnt.h"
 #include "GiantEnt.h"
 #include "FlameWizard.h"
+#include "GlacialWizard.h"
 
 ForestOfHarmonyLevel::ForestOfHarmonyLevel()
 {
@@ -82,12 +83,12 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("MonsterSpawn"))
 	{
-		std::shared_ptr<FlameWizard> NewMonster = CreateActor<FlameWizard>();
+		std::shared_ptr<GlacialWizard> NewMonster = CreateActor<GlacialWizard>();
 		NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-10.0f, -1.0f)));
 
 		//GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
 		//
-		//switch (MainRand.RandomInt(0, 7))
+		//switch (MainRand.RandomInt(0, 9))
 		//{
 		//case 0: // Ä®·¹¿Â ½Åº´
 		//{
@@ -134,6 +135,12 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 		//case 8: // È­¿° ¸¶¹ý»ç
 		//{
 		//	std::shared_ptr<FlameWizard> NewMonster = CreateActor<FlameWizard>();
+		//	NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
+		//	break;
+		//}
+		//case 9: // ºù°á ¸¶¹ý»ç
+		//{
+		//	std::shared_ptr<GlacialWizard> NewMonster = CreateActor<GlacialWizard>();
 		//	NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
 		//	break;
 		//}

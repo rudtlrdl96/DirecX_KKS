@@ -1,66 +1,22 @@
 #include "PrecompileHeader.h"
-#include "Projectile.h"
-#include <GameEngineCore/GameEngineCollision.h>
+#include "RigidProjectile.h"
 
-#include "EffectManager.h"
-
-Projectile::Projectile()
-{
-	ColDatas.reserve(8);
-}
-
-Projectile::~Projectile()
+RigidProjectile::RigidProjectile()
 {
 }
 
-void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
+RigidProjectile::~RigidProjectile()
 {
-	GameEngineTransform* Trans = GetTransform();
-
-	Trans->SetLocalPosition(_Parameter.Pos);
-
-	ProjectileCol->GetTransform()->SetLocalScale(_Parameter.ColScale);
-
-	if ("" != _Parameter.EffectName)
-	{
-		std::shared_ptr<EffectActor> NewEffect = EffectManager::PlayEffect({
-			.EffectName = _Parameter.EffectName,
-			.Postion = _Parameter.Pos,
-			.Triger = EffectDeathTrigger::Time,
-			.Time = _Parameter.LiveTime,
-			.FlipX = false,
-			});
-
-		NewEffect->GetTransform()->SetParent(GetTransform());
-		NewEffect->GetTransform()->SetLocalPosition(float4::Zero);
-	}
-
-	Dir = _Parameter.Dir.NormalizeReturn();
-
-	WaitTime = _Parameter.WaitTime;
-	LiveTime = _Parameter.LiveTime;
-	Speed = _Parameter.Speed;
-	ColOrder = _Parameter.ColOrder;
-
-	IsColDeath = _Parameter.IsColDeath;
-
-	HitParameter = _Parameter.HitParameter;
-
-	EnterEvent = _Parameter.EnterEvent;
-	UpdateEvent = _Parameter.UpdateEvent;
-	DeathEvent = _Parameter.DeathEvent;
-
-	On();
 }
 
-void Projectile::Start()
+void RigidProjectile::InitRigd(float _MaxSpeed, float _FricCoeff, float _Mass /*= 1.0f*/)
 {
-	ProjectileCol = CreateComponent<GameEngineCollision>();
-
-	Off();
+	ProjectileRigidbody.SetMaxSpeed(_MaxSpeed);
+	ProjectileRigidbody.SetFricCoeff(_FricCoeff);
+	ProjectileRigidbody.SetMass(_Mass);
 }
 
-void Projectile::Update(float _DeltaTime)
+void RigidProjectile::Update(float _DeltaTime)
 {
 	if (GetLiveTime() >= LiveTime)
 	{
@@ -91,7 +47,10 @@ void Projectile::Update(float _DeltaTime)
 	}
 
 	IsWaitEndValue = true;
-	Trans->AddLocalPosition(Dir * _DeltaTime * Speed);
+
+	ProjectileRigidbody.AddForce(Dir * Speed);
+	ProjectileRigidbody.UpdateForce(_DeltaTime);
+	Trans->AddLocalPosition(ProjectileRigidbody.GetVelocity() * _DeltaTime);
 
 	ColDatas.clear();
 	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ColType::SPHERE2D, ColType::AABBBOX2D))

@@ -53,10 +53,6 @@ public:
 	}
 
 protected:
-	void Start() override;
-	void Update(float _DeltaTime) override;
-
-private:
 	std::shared_ptr<class GameEngineCollision> ProjectileCol = nullptr;
 
 	ProjectileHitParameter HitParameter;
@@ -78,4 +74,7 @@ private:
 
 	std::vector<std::shared_ptr<GameEngineCollision>> ColDatas;
 	std::map<UINT, std::shared_ptr<BaseContentActor>> ColBuffers;
+
+	void Start() override;
+	void Update(float _DeltaTime) override;
 };
