@@ -52,6 +52,8 @@ protected:
 	Rigidbody2D AttackRigidbody;
 	MonsterData Data = MonsterData();
 
+	float HP = 0;
+
 	ClassFSM<BaseMonster> MonsterFsm;
 	AnimationAttackMetaData AnimColMeta_Attack;
 

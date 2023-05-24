@@ -60,6 +60,7 @@ void BaseMonster::Start()
 	SetColData();
 	EffectLoadCheck();
 
+	HP = Data.HP;
 	MonsterFsm.ChangeState("Idle");
 }
 
