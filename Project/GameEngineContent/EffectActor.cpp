@@ -9,6 +9,16 @@ EffectActor::~EffectActor()
 {
 }
 
+void EffectActor::PauseOn()
+{
+	EffectRender->SetAnimPauseOn();
+}
+
+void EffectActor::PauseOff()
+{
+	EffectRender->SetAnimPauseOff();
+}
+
 void EffectActor::Start()
 {
 	EffectRender = CreateComponent<ContentSpriteRenderer>();

@@ -32,6 +32,31 @@ void RootEnt::Update(float _DeltaTime)
 	if (nullptr != SignEffectActor && true == SignEffectActor->IsDeath())
 	{
 		SignEffectActor = nullptr;
+	}	
+	
+	if (nullptr != AttackEffectActor)
+	{
+		if (true == AttackEffectActor->IsDeath())
+		{
+			AttackEffectActor = nullptr;
+			return;
+		}
+
+		if (false == IsAttackEffectPause && 3 == AttackEffectActor->GetCurrentFrame())
+		{
+			IsAttackEffectPause = true;
+			AttackEffectActor->PauseOn();
+		}
+		
+		if (true == IsAttackEffectPause)
+		{
+			EffectStopTime += _DeltaTime;
+
+			if (EffectStopTime >= 1.0f)
+			{
+				AttackEffectActor->PauseOff();
+			}
+		}
 	}
 }
 
@@ -70,7 +95,7 @@ void RootEnt::TextureLoad()
 			.AnimStart = 0,
 			.AnimEnd = 22,
 			.AnimIter = 0.045f,
-			.ScaleRatio = 2.0f,
+			.ScaleRatio = 1.5f,
 			});
 
 		EffectManager::CreateMetaData("RootEntAttackEffect", {
@@ -78,7 +103,7 @@ void RootEnt::TextureLoad()
 			.AnimStart = 0,
 			.AnimEnd = 8,
 			.AnimIter = 0.03f,
-			.ScaleRatio = 2.0f,
+			.ScaleRatio = 1.5f,
 			});
 	}
 }
@@ -270,10 +295,13 @@ void RootEnt::Attack_Update(float _DeltaTime)
 	if (false == IsAttackEffect && 3 == Render->GetCurrentFrame())
 	{
 		IsAttackEffect = true;
+		IsAttackEffectPause = false;
 
-		EffectManager::PlayEffect({
+		AttackEffectActor = EffectManager::PlayEffect({
 			.EffectName = "RootEntAttackEffect",
 			.Postion = AttackPos + float4(0, -15, 0),
 			});
+
+		EffectStopTime = 0.0f;
 	}
 }

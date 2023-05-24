@@ -38,6 +38,14 @@ public:
 	EffectActor& operator=(const EffectActor& _Other) = delete;
 	EffectActor& operator=(EffectActor&& _Other) noexcept = delete;
 
+	void PauseOn();
+	void PauseOff();
+
+	inline size_t GetCurrentFrame() const
+	{
+		return EffectRender->GetCurrentFrame();
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

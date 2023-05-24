@@ -31,13 +31,16 @@ protected:
 private:
 	bool IsAttackSign = false;
 	bool IsAttackEffect = false;
+	bool IsAttackEffectPause = false;
 
 	float4 AttackPos = float4::Zero;
+
+	float EffectStopTime = 0.0f;
 
 	std::vector<std::shared_ptr<GameEngineCollision>> PlatformCols;
 
 	std::shared_ptr<class GameEngineCollision> FloorCheckCol = nullptr;
 	std::shared_ptr<EffectActor> SignEffectActor = nullptr;
-
+	std::shared_ptr<EffectActor> AttackEffectActor = nullptr;
 };
 
