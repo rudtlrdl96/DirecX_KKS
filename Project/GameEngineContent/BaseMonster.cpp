@@ -21,6 +21,8 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 {
 	HP -= _Damage;
 
+	HealthBarActiveTime = 3.0f;
+
 	HitDir = _HitDir;
 	IsHit = true;
 	IsHitEffectOn = true;
@@ -45,12 +47,13 @@ void BaseMonster::Start()
 		Path.Move("UI");
 
 		GameEngineTexture::Load(Path.GetPlusFileName("EnemyHpBar.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("EnemySubBar.png").GetFullPath());
 		GameEngineTexture::Load(Path.GetPlusFileName("EnemyHpFrame.png").GetFullPath());
 	}
 
 	HealthBarPtr->GetTransform()->SetParent(GetTransform());
-	HealthBarPtr->GetTransform()->SetLocalPosition(float4(0, -10, -10));
-	HealthBarPtr->SetTexture("EnemyHpFrame.png", "EnemyHpBar.png");
+	HealthBarPtr->GetTransform()->SetLocalPosition(float4(0, -15, -10));
+	HealthBarPtr->SetTexture("EnemyHpFrame.png", "EnemyHpBar.png", "EnemySubBar.png");
 
 	if (false == GameEngineInput::IsKey("MonsterDebugOn"))
 	{
@@ -98,11 +101,22 @@ void BaseMonster::Update(float _DeltaTime)
 		return;
 	}
 
+	HealthBarActiveTime -= _DeltaTime;
+
+	if (0.0f < HealthBarActiveTime)
+	{
+		HealthBarPtr->On();
+	}
+	else
+	{
+		HealthBarPtr->Off();
+	}
+
 	AttackWaitTime += _DeltaTime;
 	TurnCoolTime -= _DeltaTime;
 	HitParticleCoolTime += _DeltaTime;
 
-	HealthBarPtr->UpdateBar(HP / Data.HP);
+	HealthBarPtr->UpdateBar(HP / Data.HP, _DeltaTime);
 
 
 	if (true == GameEngineInput::IsDown("MonsterDebugOn"))

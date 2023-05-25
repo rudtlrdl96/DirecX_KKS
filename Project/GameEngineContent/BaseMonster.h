@@ -64,6 +64,7 @@ protected:
 	size_t AttackCheckFrame = 0;
 	std::map<size_t, float> AnimPauseTimes;
 
+	float HealthBarActiveTime = 0.0f;
 	float CurPauseTime = 0.0f;
 	float AttackWaitTime = 1000.0f;
 	float AttackWaitEndTime = 0.0f;
