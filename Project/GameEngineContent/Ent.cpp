@@ -147,6 +147,45 @@ void Ent::SetColData()
 	LoadFindEffectPos = float4(0, 100, 0);
 }
 
+void Ent::DeathPartLoad()
+{
+	DeathPartScale = 2.0f;
+
+	DeadPartNames.reserve(8);
+	DeadPartNames.push_back("Parts_Ent01.png");
+	DeadPartNames.push_back("Parts_Ent02.png");
+	DeadPartNames.push_back("Parts_Ent03.png");
+	DeadPartNames.push_back("Parts_Ent04.png");
+	DeadPartNames.push_back("Parts_Ent05.png");
+	DeadPartNames.push_back("Parts_Ent06.png");
+	DeadPartNames.push_back("Parts_Ent07.png");
+	DeadPartNames.push_back("Parts_Ent08.png");
+
+	if (nullptr == GameEngineTexture::Find("Parts_Ent01.png"))
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("Monster");
+		Path.Move("Ent");
+		Path.Move("DeadPart");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> LoadTex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+			if (nullptr == LoadTex)
+			{
+				MsgAssert_Rtti<Ent>(" - 알 수 없는 이유로 DeadPart 텍스쳐 로드를 실패했습니다");
+			}
+		}
+	}
+}
+
 void Ent::Attack_Enter()
 {
 	BaseMonster::Attack_Enter();

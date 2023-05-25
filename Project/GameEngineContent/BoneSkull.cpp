@@ -40,6 +40,7 @@ void BoneSkull::Start()
 	PlayerBaseSkull::Start();
 
 	HeadActor = GetLevel()->CreateActor<BoneHead>();
+	HeadActor->SetParentSkull(this);
 	HeadActor->Off();
 
 	HeadPickupCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);

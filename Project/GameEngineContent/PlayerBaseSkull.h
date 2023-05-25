@@ -23,6 +23,13 @@ public:
 		Switch,
 		Dash,
 	};
+
+	enum class AttackType
+	{
+		MeleeAttack,
+		MagicAttack,
+	};
+
 public:
 	PlayerBaseSkull();
 	~PlayerBaseSkull();
@@ -37,9 +44,14 @@ public:
 		return &DashRigidbody;
 	}
 
+	float GetMeleeAttackDamage() const;
+	float GetMagicAttackDamage() const;
+
+
 	void SetPlayer(std::shared_ptr<class Player> _ParentPlayer);
 
 protected:
+	class Player* ParentPlayer = nullptr;
 	GameEngineTransform* PlayerTrans = nullptr;
 
 	PlayerFSM_State FsmState = PlayerFSM_State::Idle;
@@ -68,6 +80,7 @@ protected:
 	std::string AnimNamePlusText = "";
 	float4 JumpDir = float4::Zero;
 
+	AttackType AttackTypeValue = AttackType::MeleeAttack;
 
 	float CurSkillATime = 1000.0f;
 	float SkillACoolTime = 5.0f;
@@ -161,6 +174,7 @@ protected:
 private:	
 	AnimAttackCheck AttackEnterCheck;
 	ActorViewDir ViewDir = ActorViewDir::Right;
+
 
 	float JumpPower = 800.0f;
 	bool CanJump = false;

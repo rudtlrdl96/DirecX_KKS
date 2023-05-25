@@ -18,6 +18,16 @@ PlayerBaseSkull::~PlayerBaseSkull()
 {
 }
 
+float PlayerBaseSkull::GetMeleeAttackDamage() const
+{
+	return ParentPlayer->GetMeleeAttack() * Data.MeleeAttack;
+}
+
+float PlayerBaseSkull::GetMagicAttackDamage() const
+{
+	return ParentPlayer->GetMagicAttack() * Data.MagicAttack;
+}
+
 void PlayerBaseSkull::SetPlayer(std::shared_ptr<class Player> _ParentPlayer)
 {
 
@@ -27,6 +37,7 @@ void PlayerBaseSkull::SetPlayer(std::shared_ptr<class Player> _ParentPlayer)
 		return;
 	}
 
+	ParentPlayer = _ParentPlayer.get();
 	PlayerTrans = _ParentPlayer->GetTransform();
 }
 
@@ -212,7 +223,18 @@ void PlayerBaseSkull::Start()
 	AttackEnterCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)
 		{			
 			std::shared_ptr<BaseMonster> CastPtr = std::static_pointer_cast<BaseMonster>(_Ptr);
-			CastPtr->HitMonster(GetViewDir(), _Data.IsStiffen, _Data.IsPush);
+
+			switch (AttackTypeValue)
+			{
+			case PlayerBaseSkull::AttackType::MeleeAttack:
+				CastPtr->HitMonster(GetMeleeAttackDamage(), GetViewDir(), _Data.IsStiffen, _Data.IsPush);
+				break;
+			case PlayerBaseSkull::AttackType::MagicAttack:
+				CastPtr->HitMonster(GetMagicAttackDamage(), GetViewDir(), _Data.IsStiffen, _Data.IsPush);
+				break;
+			default:
+				break;
+			}
 		});
 
 	//DashTrail->GetTransform()->SetLocalPosition(float4(0, 0, 1));

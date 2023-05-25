@@ -18,12 +18,12 @@ protected:
 	void LoadAnimation() override;
 	void AnimationAttackMetaDataLoad() override;
 	void SetColData() override;
+	void DeathPartLoad() override;
 
 	void Attack_Enter() override;
 	void Attack_Update(float _DeltaTime) override;
 
 private:
 	bool IsAttackMove = false;
-
 };
 

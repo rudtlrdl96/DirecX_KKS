@@ -315,6 +315,45 @@ void FlameWizard::SetColData()
 	LoadFindEffectPos = float4(0, 100, 0);
 }
 
+void FlameWizard::DeathPartLoad()
+{
+	DeathPartScale = 2.0f;
+
+	DeadPartNames.reserve(8);
+	DeadPartNames.push_back("Parts_FlameWizard01.png");
+	DeadPartNames.push_back("Parts_FlameWizard02.png");
+	DeadPartNames.push_back("Parts_FlameWizard03.png");
+	DeadPartNames.push_back("Parts_FlameWizard04.png");
+	DeadPartNames.push_back("Parts_FlameWizard05.png");
+	DeadPartNames.push_back("Parts_FlameWizard06.png");
+	DeadPartNames.push_back("Parts_FlameWizard07.png");
+	DeadPartNames.push_back("Parts_FlameWizard08.png");
+
+	if (nullptr == GameEngineTexture::Find("Parts_FlameWizard01.png"))
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("Monster");
+		Path.Move("FlameWizard");
+		Path.Move("DeadPart");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> LoadTex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+			if (nullptr == LoadTex)
+			{
+				MsgAssert_Rtti<FlameWizard>(" - 알 수 없는 이유로 DeadPart 텍스쳐 로드를 실패했습니다");
+			}
+		}
+	}
+}
+
 void FlameWizard::Idle_Update(float _DeltaTime)
 {
 

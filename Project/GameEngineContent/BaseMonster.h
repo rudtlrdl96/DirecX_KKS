@@ -5,6 +5,9 @@
 
 class BaseMonster : public BattleActor
 {
+protected:
+	std::vector<std::string> DeadPartNames;
+
 public:
 	BaseMonster();
 	~BaseMonster();
@@ -14,7 +17,7 @@ public:
 	BaseMonster& operator=(const BaseMonster& _Other) = delete;
 	BaseMonster& operator=(BaseMonster&& _Other) noexcept = delete;
 
-	void HitMonster(ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush);
+	void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush);
 
 	std::shared_ptr<ContentSpriteRenderer> GetRender()
 	{
@@ -78,6 +81,8 @@ protected:
 	float RandIdleTime = 0.0f;
 	float RandWalkTime = 0.0f;
 
+	float4 DeathEffectLocalPos = float4::Zero;
+	float DeathPartScale = 2.0f;
 
 	float4 LocalWalkColPos = float4::Zero;
 	float4 LocalBackColPos = float4::Zero;
@@ -102,7 +107,6 @@ protected:
 	virtual void Idle_Update(float _DeltaTime);
 	virtual void Idle_End();
 
-
 	virtual void Walk_Enter();
 	virtual void Walk_Update(float _DeltaTime);
 	virtual void Walk_End();
@@ -124,6 +128,7 @@ protected:
 	virtual void LoadAnimation() = 0;
 	virtual void AnimationAttackMetaDataLoad() = 0;
 	virtual void SetColData() = 0;
+	virtual void DeathPartLoad() {}
 
 	void SetViewDir(ActorViewDir _Dir, bool _Force = false);
 	std::shared_ptr<class GameEngineCollision> PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf = false);
@@ -135,5 +140,6 @@ protected:
 	void EffectLoadCheck();
 
 	bool HitCheck();
+	void MonsterDeath();
 };
 

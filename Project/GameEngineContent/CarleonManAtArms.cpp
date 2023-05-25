@@ -122,6 +122,8 @@ void CarleonManAtArms::AnimationAttackMetaDataLoad()
 
 void CarleonManAtArms::SetColData()
 {
+	DeathEffectLocalPos = float4(0, 80, -0.1f);
+
 	{
 		GameEngineTransform* ColTrans = GroundCol->GetTransform();
 
@@ -180,6 +182,45 @@ void CarleonManAtArms::SetColData()
 	}
 
 	LoadFindEffectPos = float4(0, 150, 0);
+}
+
+void CarleonManAtArms::DeathPartLoad()
+{
+	DeathPartScale = 2.0f;
+
+	DeadPartNames.reserve(8);
+	DeadPartNames.push_back("Parts_CaerleonManAtArms01.png");
+	DeadPartNames.push_back("Parts_CaerleonManAtArms02.png");
+	DeadPartNames.push_back("Parts_CaerleonManAtArms03.png");
+	DeadPartNames.push_back("Parts_CaerleonManAtArms04.png");
+	DeadPartNames.push_back("Parts_CaerleonManAtArms05.png");
+	DeadPartNames.push_back("Parts_CaerleonManAtArms06.png");
+	DeadPartNames.push_back("Parts_CaerleonManAtArms07.png");
+	DeadPartNames.push_back("Parts_CaerleonManAtArms08.png");
+
+	if (nullptr == GameEngineTexture::Find("Parts_CaerleonManAtArms01.png"))
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("Monster");
+		Path.Move("CarleonManAtArms");
+		Path.Move("DeadPart");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> LoadTex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+			if (nullptr == LoadTex)
+			{
+				MsgAssert_Rtti<CarleonManAtArms>(" - 알 수 없는 이유로 DeadPart 텍스쳐 로드를 실패했습니다");
+			}
+		}
+	}
 }
 
 void CarleonManAtArms::Attack_Enter()

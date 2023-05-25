@@ -208,6 +208,46 @@ void RootEnt::SetColData()
 	LoadFindEffectPos = float4(0, 100, 0);
 }
 
+void RootEnt::DeathPartLoad()
+{
+	DeathPartScale = 1.4f;
+
+	DeadPartNames.reserve(8);
+	DeadPartNames.push_back("Parts_RootEnd01.png");
+	DeadPartNames.push_back("Parts_RootEnd02.png");
+	DeadPartNames.push_back("Parts_RootEnd03.png");
+	DeadPartNames.push_back("Parts_RootEnd04.png");
+	DeadPartNames.push_back("Parts_RootEnd05.png");
+	DeadPartNames.push_back("Parts_RootEnd06.png");
+	DeadPartNames.push_back("Parts_RootEnd07.png");
+	DeadPartNames.push_back("Parts_RootEnd08.png");
+
+	if (nullptr == GameEngineTexture::Find("Parts_RootEnd01.png"))
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("Monster");
+		Path.Move("RootEnt");
+		Path.Move("DeadPart");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> LoadTex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+			if (nullptr == LoadTex)
+			{
+				MsgAssert_Rtti<RootEnt>(" - 알 수 없는 이유로 DeadPart 텍스쳐 로드를 실패했습니다");
+			}
+		}
+	}
+
+}
+
 void RootEnt::Hit_Enter()
 {
 	BaseMonster::Hit_Enter();

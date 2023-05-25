@@ -115,6 +115,8 @@ void GiantEnt::AnimationAttackMetaDataLoad()
 
 void GiantEnt::SetColData()
 {
+	DeathEffectLocalPos = float4(0, 80, -0.1f);
+
 	{
 		GameEngineTransform* ColTrans = GroundCol->GetTransform();
 
@@ -173,6 +175,49 @@ void GiantEnt::SetColData()
 	}
 
 	LoadFindEffectPos = float4(0, 150, 0);
+}
+
+void GiantEnt::DeathPartLoad()
+{
+	DeathPartScale = 2.0f;
+
+	DeadPartNames.reserve(11);
+	DeadPartNames.push_back("Parts_GiganticEnt01.png");
+	DeadPartNames.push_back("Parts_GiganticEnt02.png");
+	DeadPartNames.push_back("Parts_GiganticEnt03.png");
+	DeadPartNames.push_back("Parts_GiganticEnt04.png");
+	DeadPartNames.push_back("Parts_GiganticEnt05.png");
+	DeadPartNames.push_back("Parts_GiganticEnt06.png");
+	DeadPartNames.push_back("Parts_GiganticEnt07.png");
+	DeadPartNames.push_back("Parts_GiganticEnt08.png");
+	DeadPartNames.push_back("Parts_GiganticEnt09.png");
+	DeadPartNames.push_back("Parts_GiganticEnt10.png");
+	DeadPartNames.push_back("Parts_GiganticEnt11.png");
+
+	if (nullptr == GameEngineTexture::Find("Parts_GiganticEnt01.png"))
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("Monster");
+		Path.Move("GiganticEnt");
+		Path.Move("DeadPart");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> LoadTex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+			if (nullptr == LoadTex)
+			{
+				MsgAssert_Rtti<GiantEnt>(" - 알 수 없는 이유로 DeadPart 텍스쳐 로드를 실패했습니다");
+			}
+		}
+	}
+
 }
 
 

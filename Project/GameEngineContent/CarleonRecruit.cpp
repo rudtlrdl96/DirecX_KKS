@@ -119,6 +119,41 @@ void CarleonRecruit::SetColData()
 	LoadFindEffectPos = float4(0, 100, 0);
 }
 
+void CarleonRecruit::DeathPartLoad()
+{
+	DeadPartNames.reserve(6);
+	DeadPartNames.push_back("Parts_CaerleonRecruit01.png");
+	DeadPartNames.push_back("Parts_CaerleonRecruit02.png");
+	DeadPartNames.push_back("Parts_CaerleonRecruit03.png");
+	DeadPartNames.push_back("Parts_CaerleonRecruit04.png");
+	DeadPartNames.push_back("Parts_CaerleonRecruit05.png");
+	DeadPartNames.push_back("Parts_CaerleonRecruit06.png");
+
+	if (nullptr == GameEngineTexture::Find("Parts_CaerleonRecruit01.png"))
+	{	
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("1_Opening");
+		Path.Move("Monster");
+		Path.Move("CarleonRecruit");
+		Path.Move("DeadPart");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> LoadTex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+			if (nullptr == LoadTex)
+			{
+				MsgAssert_Rtti<CarleonRecruit>(" - 알 수 없는 이유로 DeadPart 텍스쳐 로드를 실패했습니다");
+			}
+		}
+	}
+}
+
 void CarleonRecruit::Attack_Enter()
 {
 	BaseMonster::Attack_Enter();	

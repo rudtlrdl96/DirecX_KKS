@@ -168,6 +168,40 @@ void CarleonArcher::SetColData()
 	LoadFindEffectPos = float4(0, 100, 0);
 }
 
+void CarleonArcher::DeathPartLoad()
+{
+	DeadPartNames.reserve(5);
+	DeadPartNames.push_back("Parts_CaerleonArcher01.png");
+	DeadPartNames.push_back("Parts_CaerleonArcher02.png");
+	DeadPartNames.push_back("Parts_CaerleonArcher03.png");
+	DeadPartNames.push_back("Parts_CaerleonArcher04.png");
+	DeadPartNames.push_back("Parts_CaerleonArcher05.png");
+
+	if (nullptr == GameEngineTexture::Find("Parts_CaerleonArcher01.png"))
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("1_Opening");
+		Path.Move("Monster");
+		Path.Move("CarleonArcher");
+		Path.Move("DeadPart");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> LoadTex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+			if (nullptr == LoadTex)
+			{
+				MsgAssert_Rtti<CarleonArcher>(" - 알 수 없는 이유로 DeadPart 텍스쳐 로드를 실패했습니다");
+			}
+		}
+	}
+}
+
 void CarleonArcher::Hit_Enter()
 {
 	BaseMonster::Hit_Enter();

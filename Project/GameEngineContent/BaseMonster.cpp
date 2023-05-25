@@ -7,6 +7,7 @@
 #include "CollisionDebugRender.h"
 #include "HitParticle.h"
 #include "HealthBar.h"
+#include "DeadPartParticle.h"
 
 BaseMonster::BaseMonster()
 {
@@ -16,8 +17,10 @@ BaseMonster::~BaseMonster()
 {
 }
 
-void BaseMonster::HitMonster(ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
+void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
 {
+	HP -= _Damage;
+
 	HitDir = _HitDir;
 	IsHit = true;
 	IsHitEffectOn = true;
@@ -29,6 +32,7 @@ void BaseMonster::HitMonster(ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush
 void BaseMonster::Start()
 {
 	HealthBarPtr = GetLevel()->CreateActor<HealthBar>();
+	DeathEffectLocalPos = float4(0, 50, -5.0f);
 
 	if (nullptr == GameEngineTexture::Find("EnemyHpBar.png"))
 	{
@@ -80,6 +84,7 @@ void BaseMonster::Start()
 	AnimationAttackMetaDataLoad();
 	SetColData();
 	EffectLoadCheck();
+	DeathPartLoad();
 
 	HP = Data.HP;
 	MonsterFsm.ChangeState("Idle");
@@ -87,14 +92,21 @@ void BaseMonster::Start()
 
 void BaseMonster::Update(float _DeltaTime)
 {
+	if (HP <= 0.0f)
+	{
+		MonsterDeath();
+		return;
+	}
+
 	AttackWaitTime += _DeltaTime;
 	TurnCoolTime -= _DeltaTime;
 	HitParticleCoolTime += _DeltaTime;
 
+	HealthBarPtr->UpdateBar(HP / Data.HP);
+
+
 	if (true == GameEngineInput::IsDown("MonsterDebugOn"))
 	{
-
-
 		if (false == IsDebug())
 		{
 			DebugOn();
@@ -103,10 +115,6 @@ void BaseMonster::Update(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsDown("MonsterDebugOff"))
 	{
-		static float Test = 1.0f;
-		Test -= 0.01f;
-		HealthBarPtr->UpdateBar(Test);
-
 		DebugOff();
 	}
 
@@ -312,6 +320,7 @@ void BaseMonster::EffectLoadCheck()
 		Path.Move("Effect");
 
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FindPlayerSightEffect.png").GetFullPath(), 5, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MonsterDeathEffect.png").GetFullPath(), 3, 2);
 	
 		EffectManager::CreateMetaData("FindPlayer", { 
 			.SpriteName = "FindPlayerSightEffect.png",
@@ -319,6 +328,13 @@ void BaseMonster::EffectLoadCheck()
 			.AnimEnd = 14,
 			.AnimIter = 0.025f,
 			.ScaleRatio = 2.0f});
+
+		EffectManager::CreateMetaData("MonsterDeath", {
+			.SpriteName = "MonsterDeathEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 5,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });
 
 		Path.MoveParent();
 		Path.Move("Particle");
@@ -341,6 +357,32 @@ bool BaseMonster::HitCheck()
 	}
 
 	return false;
+}
+
+void BaseMonster::MonsterDeath()
+{
+	Death();
+
+	EffectManager::PlayEffect({
+		.EffectName = "MonsterDeath",
+		.Postion = GetTransform()->GetWorldPosition() + DeathEffectLocalPos });
+
+	for (size_t i = 0; i < DeadPartNames.size(); i++)
+	{
+		std::shared_ptr<DeadPartParticle> DeadPart = GetLevel()->CreateActor<DeadPartParticle>();
+
+		GameEngineTransform* PartTrans = DeadPart->GetTransform();
+
+		GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+
+		float4 Dir = float4::Up;
+		Dir.RotaitonZDeg(MainRand.RandomFloat(-20, 20));
+		DeadPart->Init(DeadPartNames[i], Dir, MainRand.RandomFloat(700.0f, 900.0f), 1.0f);
+		PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + DeathEffectLocalPos);
+
+		PartTrans->SetWorldScale(PartTrans->GetWorldScale() * DeathPartScale);
+	}
+
 }
 
 bool BaseMonster::Walk(float _DeltaTime)

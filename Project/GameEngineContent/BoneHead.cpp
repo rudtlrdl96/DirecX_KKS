@@ -2,6 +2,8 @@
 #include "BoneHead.h"
 #include <GameEngineCore/GameEngineCollision.h>
 
+#include "PlayerBaseSkull.h"
+
 #include "BoneSkull.h"
 #include "BaseMonster.h"
 
@@ -50,6 +52,11 @@ void BoneHead::Start()
 
 void BoneHead::Update(float _DeltaTime)
 {
+	if (nullptr == ParentSkull)
+	{
+		MsgAssert_Rtti<BoneHead>(" - 부모를 설정하지 않았습니다");
+	}
+
 	ShotProgress += _DeltaTime;
 	ShotLiveTime += _DeltaTime;
 
@@ -74,7 +81,7 @@ void BoneHead::Update(float _DeltaTime)
 				return;
 			}
 
-			MonsterPtr->HitMonster(Dir, true, true);
+			MonsterPtr->HitMonster(ParentSkull->GetMagicAttackDamage(), Dir, true, true);
 		}
 	}
 

@@ -83,7 +83,7 @@ void ChiefGuard::Skill_SlotA_Update(float _DeltaTime)
 				return;
 			}
 
-			HitEnemy->HitMonster(GetViewDir(), true, true);
+			HitEnemy->HitMonster(GetMagicAttackDamage(), GetViewDir(), true, true);
 		}
 
 		switch (GetViewDir())
@@ -154,11 +154,32 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 
 			if (Dir.x > 0)
 			{
-				ColMonster->HitMonster(ActorViewDir::Right, true, true);
+				switch (AttackTypeValue)
+				{
+				case PlayerBaseSkull::AttackType::MeleeAttack:
+					ColMonster->HitMonster(GetMeleeAttackDamage(), ActorViewDir::Right, true, true);
+					break;
+				case PlayerBaseSkull::AttackType::MagicAttack:
+					ColMonster->HitMonster(GetMagicAttackDamage(), ActorViewDir::Right, true, true);
+					break;
+				default:
+					break;
+				}
+
 			}
 			else
 			{
-				ColMonster->HitMonster(ActorViewDir::Left, true, true);
+				switch (AttackTypeValue)
+				{
+				case PlayerBaseSkull::AttackType::MeleeAttack:
+					ColMonster->HitMonster(GetMeleeAttackDamage(), ActorViewDir::Left, true, true);
+					break;
+				case PlayerBaseSkull::AttackType::MagicAttack:
+					ColMonster->HitMonster(GetMagicAttackDamage(), ActorViewDir::Left, true, true);
+					break;
+				default:
+					break;
+				}
 			}
 
 		};
@@ -281,21 +302,21 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 			case ActorViewDir::Left:
 				if (Flip > 0.0f)
 				{
-					HitEnemy->HitMonster(ActorViewDir::Left, true, true);
+					HitEnemy->HitMonster(GetMeleeAttackDamage(), ActorViewDir::Left, true, true);
 				}
 				else
 				{
-					HitEnemy->HitMonster(ActorViewDir::Right, true, true);
+					HitEnemy->HitMonster(GetMagicAttackDamage(), ActorViewDir::Right, true, true);
 				}
 				break;
 			case ActorViewDir::Right:
 				if (Flip > 0.0f)
 				{
-					HitEnemy->HitMonster(ActorViewDir::Right, true, true);
+					HitEnemy->HitMonster(GetMeleeAttackDamage(), ActorViewDir::Right, true, true);
 				}
 				else
 				{
-					HitEnemy->HitMonster(ActorViewDir::Left, true, true);
+					HitEnemy->HitMonster(GetMagicAttackDamage(), ActorViewDir::Left, true, true);
 				}
 				
 				break;

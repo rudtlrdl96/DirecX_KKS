@@ -178,6 +178,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentVertex.h" />
+    <ClInclude Include="DeadPartParticle.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="DebugBoxActor.h">
       <SubType>
       </SubType>
@@ -679,6 +683,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentVertex.cpp" />
+    <ClCompile Include="DeadPartParticle.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="DebugBoxActor.cpp">
       <SubType>
       </SubType>

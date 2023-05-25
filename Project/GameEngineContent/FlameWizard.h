@@ -23,6 +23,7 @@ protected:
 	void LoadAnimation() override;
 	void AnimationAttackMetaDataLoad() override;
 	void SetColData() override;
+	void DeathPartLoad() override;
 
 	void Idle_Update(float _DeltaTime) override;
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "PlayerBaseSkull.h"
 
 class BoneHead : public BaseContentActor
 {
@@ -13,6 +14,11 @@ public:
 	BoneHead& operator=(const BoneHead& _Other) = delete;
 	BoneHead& operator=(BoneHead&& _Other) noexcept = delete;
 
+	inline void SetParentSkull(PlayerBaseSkull* _Parent)
+	{
+		ParentSkull = _Parent;
+	}
+
 	void ShotHead(ActorViewDir _Dir);
 
 protected:
@@ -20,6 +26,8 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	PlayerBaseSkull* ParentSkull = nullptr;
+
 	std::shared_ptr<GameEngineSpriteRenderer> Render = nullptr;
 	std::shared_ptr<class GameEngineCollision> Collision = nullptr;
 

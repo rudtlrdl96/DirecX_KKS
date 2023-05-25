@@ -21,6 +21,7 @@ protected:
 	void LoadAnimation() override;
 	void AnimationAttackMetaDataLoad() override;
 	void SetColData() override;
+	void DeathPartLoad() override;
 
 	void Hit_Enter() override;
 	void Hit_End() override;
