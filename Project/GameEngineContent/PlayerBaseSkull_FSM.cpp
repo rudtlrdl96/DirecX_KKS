@@ -59,7 +59,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > SkillACoolTime)
+		if (CurSkillATime > GetSkillAEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_A");		
 			return;
@@ -67,7 +67,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > SkillBCoolTime)
+		if (CurSkillBTime > GetSkillBEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -144,7 +144,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > SkillACoolTime)
+		if (CurSkillATime > GetSkillAEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -152,7 +152,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B")) 
 	{
-		if (CurSkillBTime > SkillBCoolTime)
+		if (CurSkillBTime > GetSkillBEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -233,7 +233,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > SkillACoolTime)
+		if (CurSkillATime > GetSkillAEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -241,7 +241,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > SkillBCoolTime)
+		if (CurSkillBTime > GetSkillBEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -373,14 +373,14 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > SkillACoolTime)
+		if (CurSkillATime > GetSkillAEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 		}
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > SkillBCoolTime)
+		if (CurSkillBTime > GetSkillBEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 		}
@@ -522,7 +522,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A")) 
 	{
-		if (CurSkillATime > SkillACoolTime)
+		if (CurSkillATime > GetSkillAEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -530,7 +530,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B")) 
 	{
-		if (CurSkillBTime > SkillBCoolTime)
+		if (CurSkillBTime > GetSkillBEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -661,7 +661,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > SkillACoolTime)
+		if (CurSkillATime > GetSkillAEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -669,7 +669,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > SkillBCoolTime)
+		if (CurSkillBTime > GetSkillBEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -790,7 +790,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > SkillACoolTime)
+		if (CurSkillATime > GetSkillAEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -798,7 +798,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > SkillBCoolTime)
+		if (CurSkillBTime > GetSkillBEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;

@@ -6,7 +6,10 @@
 
 #include "CollisionDebugRender.h"
 
+#include "PlayerStateFrame.h"
 #include "Inventory.h"
+#include "BaseQuintessence.h"
+
 #include "BoneSkull.h"
 #include "ChiefGuard.h"
 
@@ -41,6 +44,9 @@ void Player::Start()
 	PlayerBodyCol->GetTransform()->SetLocalPosition(float4(0.0f, 30.0f, 1.0f));
 	PlayerBodyCol->GetTransform()->SetWorldScale(float4(30.0f, 60.0f, 1.0f));
 	PlayerBodyCol->GetTransform()->SetWorldRotation(float4::Zero);
+
+	StateFrame = GetLevel()->CreateActor<PlayerStateFrame>();
+	StateFrame->SetParentPlayer(this);
 }
 
 void Player::Update(float _DeltaTime)

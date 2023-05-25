@@ -331,6 +331,12 @@
     <Filter Include="2_Actor\UI\Monster">
       <UniqueIdentifier>{13deb7f3-bf4a-4b24-8249-50653a820410}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\UI\Player">
+      <UniqueIdentifier>{d2ea1b63-d420-4636-9378-986baa298b8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Player\Quintessence">
+      <UniqueIdentifier>{e66796b3-403b-460d-9264-b314ef3ba735}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -710,6 +716,18 @@
     </ClInclude>
     <ClInclude Include="DeadPartParticle.h">
       <Filter>2_Actor\BattleActor\Monster\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateFrame.h">
+      <Filter>2_Actor\UI\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseQuintessence.h">
+      <Filter>2_Actor\BattleActor\Player\Quintessence</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressUI.h">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressUI_Circle.h">
+      <Filter>2_Actor\UI\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1123,6 +1141,18 @@
     </ClCompile>
     <ClCompile Include="DeadPartParticle.cpp">
       <Filter>2_Actor\BattleActor\Monster\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateFrame.cpp">
+      <Filter>2_Actor\UI\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseQuintessence.cpp">
+      <Filter>2_Actor\BattleActor\Player\Quintessence</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressUI.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressUI_Circle.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

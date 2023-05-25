@@ -19,6 +19,12 @@ public:
 	float4 OutColor = float4::Zero;
 	float4 ColorProgress = float4(0, 0, 1, 1);
 };
+class ProgressCircleBuffer
+{
+public:
+	float4 OutColor = float4::Zero;
+	float Progress = 0.0f;
+};
 
 class CaptureBuffer
 {

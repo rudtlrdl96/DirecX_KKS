@@ -63,11 +63,10 @@ OutPut Texture_VS(Input _Value)
     return OutPutValue;
 }
 
-cbuffer ProgressBuffer : register(b1)
+cbuffer ProgressCircleBuffer : register(b1)
 {
     float4 OutColor;    
-    float2 ColorProgressStart;
-    float2 ColorProgressEnd;    
+    float Progress;
 }
 
 Texture2D DiffuseTex : register(t0);
@@ -81,15 +80,23 @@ float4 Texture_PS(OutPut _Value) : SV_Target0
     Color.xyz += OutColor.xyz;
     Color *= OutColor.a;
     
-    if (Uv.x < ColorProgressStart.x || Uv.x > ColorProgressEnd.x)
+    
+    float2 UvDir = normalize(Uv - float2(0.5f, 0.5f));
+    
+    float DotProgress;
+    float2 UpDir = float2(0, 1);
+    
+    DotProgress = dot(UpDir, UvDir);
+     
+    if (UvDir.x < 0)
     {
-        Color.a = 0;
+        DotProgress += 0.5f;
     }
     
-    if (Uv.y < ColorProgressStart.y || Uv.y > ColorProgressEnd.y)
+    if (DotProgress < Progress)
     {
         Color.a = 0;
     }
-                
+                    
     return Color;
 }

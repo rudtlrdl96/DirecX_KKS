@@ -25,6 +25,44 @@ void ContentCore::SkullDataLoad()
 	LoadSkull({ .Name = "미노타우로스 3세", .Index = 301, .Grade = SkullGrade::Legendary });
 	LoadSkull({ .Name = "검은 연금술사", .Index = 302, .Grade = SkullGrade::Legendary });
 
+	if (nullptr == GameEngineTexture::Find("BoneSkull_Idle.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Player");
+
+		{
+			Path.Move("SkullImage");
+
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+		
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineTexture::Load(Files[i].GetFullPath());
+			}
+
+			Path.MoveParent();
+		}
+
+
+		{
+			Path.Move("Skill");
+
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineTexture::Load(Files[i].GetFullPath());
+			}
+
+			Path.MoveParent();
+		}
+	}
+
 	// 리틀본 텍스쳐 로드
 	if (nullptr == GameEngineTexture::Find("BoneSkull_Idle.png"))
 	{
@@ -35,6 +73,7 @@ void ContentCore::SkullDataLoad()
 		Path.Move("Texture");
 		Path.Move("0_Common");
 		Path.Move("Player");
+		Path.Move("Skull");
 		Path.Move("BoneSkull");
 		Path.Move("Sheet");
 
@@ -117,6 +156,7 @@ void ContentCore::SkullDataLoad()
 		Path.Move("Texture");
 		Path.Move("0_Common");
 		Path.Move("Player");
+		Path.Move("Skull");
 		Path.Move("ChiefGuard");
 		Path.Move("Sheet");
 

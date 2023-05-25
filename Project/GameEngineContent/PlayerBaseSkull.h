@@ -50,9 +50,71 @@ public:
 
 	void SetPlayer(std::shared_ptr<class Player> _ParentPlayer);
 
+	std::string GetTexName_MainSkullUI()
+	{
+		return TexName_MainSkullUI;
+	}
+
+	std::string GetTexName_SubSkullUI()
+	{
+		return TexName_SubSkullUI;
+	}
+
+	std::string GetTexName_InventoryUI()
+	{
+		return TexName_InventoryUI;
+	}	
+
+	std::string GetTexName_SkillA()
+	{
+		return TexName_SkillA;
+	}
+
+	std::string GetTexName_SkillB()
+	{
+		return TexName_SkillB;
+	}
+
+	bool IsActiveSkillA() const
+	{
+		return IsActiveSkillA_Value;
+	}
+
+	bool IsActiveSkillB() const
+	{
+		return IsActiveSkillB_Value;
+	}
+
+	float GetCurSkillATime() const
+	{
+		return CurSkillATime;
+	}
+
+	float GetCurSkillBTime() const
+	{
+		return CurSkillBTime;
+	}
+
+	float GetSkillAEndTime() const
+	{
+		return SkillACoolTime;
+	}
+
+	float GetSkillBEndTime() const
+	{
+		return SkillBCoolTime;
+	}
+
 protected:
 	class Player* ParentPlayer = nullptr;
 	GameEngineTransform* PlayerTrans = nullptr;
+
+	std::string TexName_MainSkullUI = "";
+	std::string TexName_SubSkullUI = "";
+	std::string TexName_InventoryUI = "";
+
+	std::string TexName_SkillA = "";
+	std::string TexName_SkillB = "";
 
 	PlayerFSM_State FsmState = PlayerFSM_State::Idle;
 
@@ -81,6 +143,9 @@ protected:
 	float4 JumpDir = float4::Zero;
 
 	AttackType AttackTypeValue = AttackType::MeleeAttack;
+
+	bool IsActiveSkillA_Value = true;
+	bool IsActiveSkillB_Value = true;
 
 	float CurSkillATime = 1000.0f;
 	float SkillACoolTime = 5.0f;
@@ -174,7 +239,6 @@ protected:
 private:	
 	AnimAttackCheck AttackEnterCheck;
 	ActorViewDir ViewDir = ActorViewDir::Right;
-
 
 	float JumpPower = 800.0f;
 	bool CanJump = false;

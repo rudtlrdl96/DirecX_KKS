@@ -2,8 +2,10 @@
 #include "BaseContentActor.h"
 #include "PlayerBaseSkull.h"
 
+
 class Player : public BaseContentActor
 {
+	friend class PlayerStateFrame;
 public:
 	Player();
 	~Player();
@@ -37,7 +39,9 @@ private:
 	float MagicAttack = 10.0f;
 	float HP = 100.0f;
 
+	std::shared_ptr<class BaseQuintessence> Quintessence = nullptr;
 	std::shared_ptr<class GameEngineCollision> PlayerBodyCol = nullptr;
+	std::shared_ptr<class PlayerStateFrame> StateFrame = nullptr;
 
 	std::shared_ptr<PlayerBaseSkull> MainSkull = nullptr;
 	std::shared_ptr<PlayerBaseSkull> SubSkull = nullptr;

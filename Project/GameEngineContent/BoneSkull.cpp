@@ -65,7 +65,7 @@ void BoneSkull::Update(float _DeltaTime)
 			}
 		}		
 
-		if (CurSkillATime >= SkillACoolTime)
+		if (CurSkillATime >= GetSkillAEndTime())
 		{
 			HeadReturn();
 		}
@@ -174,6 +174,12 @@ void BoneSkull::DataLoad()
 
 void BoneSkull::TextureLoad()
 {
+	TexName_MainSkullUI = "Skul_UI_MainSkull.png";
+	TexName_SubSkullUI = "Skul_UI_SubSkull.png";
+	TexName_InventoryUI = "Skul_UI_Inventory.png";
+
+	TexName_SkillA = "SkullThrowing.png";
+	TexName_SkillB = "Rebone.png";
 }
 
 void BoneSkull::CreateAnimation()

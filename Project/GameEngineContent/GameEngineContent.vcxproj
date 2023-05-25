@@ -57,6 +57,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BaseQuintessence.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BattleActor.h">
       <SubType>
       </SubType>
@@ -359,7 +363,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerStateFrame.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PlayerSpawnPointRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ProgressUI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ProgressUI_Circle.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -552,6 +568,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BaseMonster_FSM.cpp" />
+    <ClCompile Include="BaseQuintessence.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BattleActor.cpp">
       <SubType>
       </SubType>
@@ -866,7 +886,19 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayerBaseSkull_FSM.cpp" />
+    <ClCompile Include="PlayerStateFrame.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayerSpawnPointRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ProgressUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ProgressUI_Circle.cpp">
       <SubType>
       </SubType>
     </ClCompile>

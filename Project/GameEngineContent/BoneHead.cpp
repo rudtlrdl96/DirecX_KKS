@@ -32,6 +32,7 @@ void BoneHead::Start()
 		Path.Move("Texture");
 		Path.Move("0_Common");
 		Path.Move("Player");
+		Path.Move("Skull");
 		Path.Move("BoneSkull");
 		Path.Move("Skill");
 

@@ -36,6 +36,11 @@ void ContentLevel::Start()
 	MainCam->SetSortType(0, SortType::ZSort);
 	MainCam->GetTransform()->SetLocalPosition({0, 0, -5000});
 	MainCam->GetTransform()->SetLocalRotation(float4::Zero);
+
+	std::shared_ptr<GameEngineCamera> UICam = GetCamera(100);
+	UICam->SetProjectionType(CameraType::Orthogonal);
+	UICam->SetSortType(0, SortType::ZSort);
+	UICam->GetTransform()->SetLocalPosition({ 0, 0, -5000 });
 }
 
 void ContentLevel::Update(float _DeltaTime)

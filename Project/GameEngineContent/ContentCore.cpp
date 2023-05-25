@@ -8,6 +8,7 @@
 #include <GameEngineCore/GameEngineVertexBuffer.h>
 #include <GameEngineCore/GameEngineIndexBuffer.h>
 #include <GameEngineCore/GameEngineGUI.h>
+#include <GameEngineCore/GameEngineBlend.h>
 
 // Vertext
 #include "ContentVertex.h"
@@ -53,6 +54,7 @@ ContentCore::~ContentCore()
 void ContentCore::CoreLoading()
 {
 	VertextBufferCreate();
+	BlendCreate();
 	ShaderCreate();
 	ContentPipeLineCreate();
 
@@ -183,6 +185,10 @@ void ContentCore::VertextBufferCreate()
 
 }
 
+void ContentCore::BlendCreate()
+{
+}
+
 void ContentCore::ShaderCreate()
 {
 	GameEngineDirectory NewDir;
@@ -281,6 +287,18 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("ProgressUI.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ProgressUI.hlsl");
+		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_ProgressUI_Circle");
+
+		Pipe->SetVertexBuffer("Rect");
+		Pipe->SetIndexBuffer("Rect");
+		Pipe->SetVertexShader("ProgressUI_Circle.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("ProgressUI_Circle.hlsl");
 		Pipe->SetBlendState("AlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}

@@ -19,6 +19,7 @@ protected:
 
 private:
 	static void VertextBufferCreate();
+	static void BlendCreate();
 	static void ShaderCreate();
 	static void ContentPipeLineCreate();
 
