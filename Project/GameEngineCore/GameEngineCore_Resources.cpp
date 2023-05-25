@@ -159,7 +159,7 @@ void GameEngineCore::CoreResourcesInit()
 		Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 
-		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_MAX;
+		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_SRC_ALPHA;
 		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
 
@@ -248,12 +248,18 @@ void GameEngineCore::CoreResourcesInit()
 
 		std::vector<GameEngineFile> Files = NewDir.GetAllFile({ ".hlsl", ".fx" });
 
-		// 쉐이더 자동컴파일
-		GameEngineVertexShader::Load(Files[0].GetFullPath(), "Merge_VS");
-		GameEnginePixelShader::Load(Files[0].GetFullPath(), "Merge_PS");
+		// std::string FileString = Files[0].GetString();
 
-		GameEngineVertexShader::Load(Files[1].GetFullPath(), "Texture_VS");
-		GameEnginePixelShader::Load(Files[1].GetFullPath(), "Texture_PS");
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			GameEngineShader::AutoCompile(Files[i]);
+		}
+
+		//GameEngineVertexShader::Load(Files[0].GetFullPath(), "Merge_VS");
+		//GameEnginePixelShader::Load(Files[0].GetFullPath(), "Merge_PS");
+
+		//GameEngineVertexShader::Load(Files[1].GetFullPath(), "Texture_VS");
+		//GameEnginePixelShader::Load(Files[1].GetFullPath(), "Texture_PS");
 	}
 
 

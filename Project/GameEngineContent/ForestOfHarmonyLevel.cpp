@@ -120,25 +120,25 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
 			break;
 		}
-		case 6: // 숲지기 (자이언트 엔트)
+		case 5: // 숲지기 (자이언트 엔트)
 		{
 			std::shared_ptr<GiantEnt> NewMonster = CreateActor<GiantEnt>();
 			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
 			break;
 		}
-		case 7: // 꽃 엔트
+		case 6: // 꽃 엔트
 		{
 			std::shared_ptr<BlossomEnt> NewMonster = CreateActor<BlossomEnt>();
 			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
 			break;
 		}
-		case 8: // 화염 마법사
+		case 7: // 화염 마법사
 		{
 			std::shared_ptr<FlameWizard> NewMonster = CreateActor<FlameWizard>();
 			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));
 			break;
 		}
-		case 9: // 빙결 마법사
+		case 8: // 빙결 마법사
 		{
 			std::shared_ptr<GlacialWizard> NewMonster = CreateActor<GlacialWizard>();
 			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, -100));

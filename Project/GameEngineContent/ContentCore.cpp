@@ -187,6 +187,24 @@ void ContentCore::VertextBufferCreate()
 
 void ContentCore::BlendCreate()
 {
+	{
+		D3D11_BLEND_DESC Desc = { 0, };
+
+		Desc.AlphaToCoverageEnable = false;
+		Desc.IndependentBlendEnable = false;
+
+		Desc.RenderTarget[0].BlendEnable = true;
+		Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		Desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+
+		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_MAX;
+		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_SRC_ALPHA;
+		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
+
+		GameEngineBlend::Create("ContentAlphaBlend", Desc);
+	}
 }
 
 void ContentCore::ShaderCreate()
@@ -215,7 +233,7 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("ContentShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ContentShader.hlsl");
-		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
 
@@ -227,7 +245,7 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("ColorShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ColorShader.hlsl");
-		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
 
@@ -239,7 +257,7 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("CaptureShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("CaptureShader.hlsl");
-		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
 
@@ -251,7 +269,7 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("TextureMoveShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("TextureMoveShader.hlsl");
-		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
 
@@ -263,7 +281,7 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("FadeShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("FadeShader.hlsl");
-		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
 
@@ -275,7 +293,7 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("OutlineColorShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("OutlineColorShader.hlsl");
-		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
 
@@ -287,7 +305,7 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("ProgressUI.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ProgressUI.hlsl");
-		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
 
@@ -299,7 +317,7 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("ProgressUI_Circle.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ProgressUI_Circle.hlsl");
-		Pipe->SetBlendState("AlphaBlend");
+		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
 }
