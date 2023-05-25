@@ -144,6 +144,9 @@ protected:
 
 	AttackType AttackTypeValue = AttackType::MeleeAttack;
 
+	bool IsLockSkillA = false;
+	bool IsLockSkillB = false;
+
 	bool IsActiveSkillA_Value = true;
 	bool IsActiveSkillB_Value = true;
 

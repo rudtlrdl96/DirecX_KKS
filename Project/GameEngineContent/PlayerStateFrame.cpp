@@ -6,7 +6,7 @@
 #include "PlayerBaseSkull.h"
 #include "GameEngineActorGUI.h"
 
-#include "ProgressUI.h"
+#include "ProgressUI_Circle.h"
 
 PlayerStateFrame::PlayerStateFrame()
 {
@@ -43,7 +43,7 @@ void PlayerStateFrame::Start()
 
 	RenderCreate(MainFrame, float4(0, 0, 5.0f), "Player_MainFrame.png");
 
-	Progress_Switch = GetLevel()->CreateActor<ProgressUI>();
+	Progress_Switch = GetLevel()->CreateActor<ProgressUI_Circle>();
 	Progress_Switch->GetTransform()->SetParent(GetTransform());
 	Progress_Switch->InitValue(float4(43.5f, 43.5f, 1), float4(0, 0, 0, 0.7f));
 	Progress_Switch->InitProgressType(ProgressType::Circle, FillType::Down);
@@ -52,7 +52,7 @@ void PlayerStateFrame::Start()
 	RenderCreate(TexRender_MainSkull, float4(-72.5f, 9.5f, 4.9f), "Empty.png");
 	RenderCreate(TexRender_MainSkillA, float4(-31.5f, 6.5f, 4.8f), "Empty.png");
 
-	Progress_MainSkillA = GetLevel()->CreateActor<ProgressUI>();
+	Progress_MainSkillA = GetLevel()->CreateActor<ProgressUI_Circle>();
 	Progress_MainSkillA->GetTransform()->SetParent(GetTransform());
 	Progress_MainSkillA->InitValue(float4(25.0f, 25.0f, 1), float4(0, 0, 0, 0.7f));
 	Progress_MainSkillA->InitProgressType(ProgressType::Box, FillType::Down);
@@ -61,7 +61,7 @@ void PlayerStateFrame::Start()
 	RenderCreate(MainSkillBFrame, float4(0, 0, 4.0f), "Player_MainSkillB_Frame.png");
 	RenderCreate(TexRender_MainSkillB, float4(0.5f, 6.5f, 3.9f), "Empty.png");
 
-	Progress_MainSkillB = GetLevel()->CreateActor<ProgressUI>();
+	Progress_MainSkillB = GetLevel()->CreateActor<ProgressUI_Circle>();
 	Progress_MainSkillB->GetTransform()->SetParent(GetTransform());
 	Progress_MainSkillB->InitValue(float4(25.0f, 25.0f, 1), float4(0, 0, 0, 0.7f));
 	Progress_MainSkillB->InitProgressType(ProgressType::Box, FillType::Down);
@@ -72,7 +72,7 @@ void PlayerStateFrame::Start()
 	RenderCreate(SubSkillFrame_A, float4(0, 0, 2.0f), "Player_SubSkillA_Frame.png");
 	RenderCreate(TexRender_SubSkillA, float4(28, 1, 1.9f), "Empty.png");
 
-	Progress_SubSkillA = GetLevel()->CreateActor<ProgressUI>();
+	Progress_SubSkillA = GetLevel()->CreateActor<ProgressUI_Circle>();
 	Progress_SubSkillA->GetTransform()->SetParent(GetTransform());
 	Progress_SubSkillA->InitValue(float4(17.0f, 17.0f, 1), float4(0, 0, 0, 0.7f));
 	Progress_SubSkillA->InitProgressType(ProgressType::Box, FillType::Down);
@@ -81,7 +81,7 @@ void PlayerStateFrame::Start()
 	RenderCreate(SubSkillFrame_B, float4(0, 0, 1.0f), "Player_SubSkillB_Frame.png");
 	RenderCreate(TexRender_SubSkillB, float4(51, 1, 0.9f), "Empty.png");
 
-	Progress_SubSkillB = GetLevel()->CreateActor<ProgressUI>();
+	Progress_SubSkillB = GetLevel()->CreateActor<ProgressUI_Circle>();
 	Progress_SubSkillB->GetTransform()->SetParent(GetTransform());
 	Progress_SubSkillB->InitValue(float4(17.0f, 17.0f, 1), float4(0, 0, 0, 0.7f));
 	Progress_SubSkillB->InitProgressType(ProgressType::Box, FillType::Down);

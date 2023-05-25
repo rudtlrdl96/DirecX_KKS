@@ -80,23 +80,30 @@ float4 Texture_PS(OutPut _Value) : SV_Target0
     Color.xyz += OutColor.xyz;
     Color *= OutColor.a;
     
+    Uv -= float2(0.5f, 0.5f);    
     
-    float2 UvDir = normalize(Uv - float2(0.5f, 0.5f));
+    if (Uv.x < 0)
+    {
+        Uv.y = -Uv.y;
+    }
     
-    float DotProgress;
-    float2 UpDir = float2(0, 1);
+    float2 UvDir = normalize(Uv);    
+    float2 DotDir = float2(0, -1);    
     
-    DotProgress = dot(UpDir, UvDir);
-     
+    float DotCos = acos(dot(DotDir, UvDir));
+        
     if (UvDir.x < 0)
     {
-        DotProgress += 0.5f;
+        DotCos += 3.14f;
     }
     
-    if (DotProgress < Progress)
+    if (DotCos < Progress * 6.28f)
     {
-        Color.a = 0;
+        Color.a = 0.0f;
+        return Color;
     }
-                    
+    
+
+    
     return Color;
 }

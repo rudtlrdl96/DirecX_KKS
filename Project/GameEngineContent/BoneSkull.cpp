@@ -69,7 +69,14 @@ void BoneSkull::Update(float _DeltaTime)
 		{
 			HeadReturn();
 		}
+
+		IsLockSkillB = false;
 	}
+	else
+	{
+		IsLockSkillB = true;
+	}
+
 }
 
 void BoneSkull::SwitchEnd()
