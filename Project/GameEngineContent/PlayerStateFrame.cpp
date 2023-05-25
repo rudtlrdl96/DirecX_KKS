@@ -7,6 +7,8 @@
 #include "GameEngineActorGUI.h"
 
 #include "ProgressUI_Circle.h"
+#include "PlayerHealthBar.h"
+#include "PlayerState.h"
 
 PlayerStateFrame::PlayerStateFrame()
 {
@@ -39,6 +41,11 @@ void PlayerStateFrame::Start()
 		GameEngineTexture::Load(Path.GetPlusFileName("Player_SubSkillA_Frame.png").GetFullPath());
 		GameEngineTexture::Load(Path.GetPlusFileName("Player_SubSkillB_Frame.png").GetFullPath());
 		GameEngineTexture::Load(Path.GetPlusFileName("Player_SubSkull_Frame.png").GetFullPath());
+			
+		GameEngineTexture::Load(Path.GetPlusFileName("PlayerHealthBar.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("PlayerSubBar.png").GetFullPath());
+	
+	
 	}
 
 	RenderCreate(MainFrame, float4(0, 0, 5.0f), "Player_MainFrame.png");
@@ -92,9 +99,15 @@ void PlayerStateFrame::Start()
 	GetTransform()->SetWorldScale(float4(2.0f, 2.0f, 2.0f));
 	GetTransform()->SetWorldPosition(float4(-439, -293, 0));
 
+	HealthBarPtr = GetLevel()->CreateActor<PlayerHealthBar>();
+	HealthBarPtr->GetTransform()->SetParent(GetTransform());
+	HealthBarPtr->GetTransform()->SetLocalPosition(float4(1, -16, 0));
+	HealthBarPtr->SetTexture("PlayerHealthBar.png", "PlayerSubBar.png");
+	HealthBarPtr->SetScale(1.325f);
+
 	ActorGui = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 	
-	ActorGui->SetTarget(Progress_SubSkillA->GetTransform(), {});
+	ActorGui->SetTarget(HealthBarPtr->GetTransform(), {});
 	ActorGui->On();
 }
 
@@ -114,6 +127,8 @@ void PlayerStateFrame::Update(float _DeltaTime)
 
 	TexRender_MainSkull->SetScaleToTexture(ParentPlayer->MainSkull->GetTexName_MainSkullUI());
 	TexRender_MainSkull->On();
+
+	HealthBarPtr->UpdateBar(PlayerState::HP / PlayerState::MaxHP, _DeltaTime);
 
 	{
 		float SwitchProgress = ParentPlayer->SwitchCoolTime / ParentPlayer->SwitchCoolEndTime;
@@ -166,10 +181,6 @@ void PlayerStateFrame::Update(float _DeltaTime)
 		SubSkillFrame_B->On();
 
 		TexRender_SubSkull->SetScaleToTexture(ParentPlayer->SubSkull->GetTexName_SubSkullUI());
-
-
-
-
 
 		if (true == ParentPlayer->SubSkull->IsActiveSkillA())
 		{

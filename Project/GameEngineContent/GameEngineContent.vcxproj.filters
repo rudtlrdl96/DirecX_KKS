@@ -729,6 +729,12 @@
     <ClInclude Include="ProgressUI_Circle.h">
       <Filter>2_Actor\UI\Common</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>1_Class\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHealthBar.h">
+      <Filter>2_Actor\UI\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1153,6 +1159,12 @@
     </ClCompile>
     <ClCompile Include="ProgressUI_Circle.cpp">
       <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>1_Class\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHealthBar.cpp">
+      <Filter>2_Actor\UI\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

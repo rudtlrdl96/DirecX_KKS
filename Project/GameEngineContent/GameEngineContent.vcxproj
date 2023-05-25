@@ -363,6 +363,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerHealthBar.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PlayerStateFrame.h">
       <SubType>
       </SubType>
@@ -886,6 +894,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayerBaseSkull_FSM.cpp" />
+    <ClCompile Include="PlayerHealthBar.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayerStateFrame.cpp">
       <SubType>
       </SubType>

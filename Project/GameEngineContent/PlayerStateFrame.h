@@ -21,6 +21,8 @@ protected:
 private:
 	class Player* ParentPlayer = nullptr;
 
+	std::shared_ptr<class PlayerHealthBar> HealthBarPtr = nullptr;
+
 	std::shared_ptr<class ContentUIRender> MainFrame = nullptr;
 	std::shared_ptr<class ContentUIRender> TexRender_MainSkull = nullptr;
 	std::shared_ptr<class ContentUIRender> TexRender_MainSkillA = nullptr;
