@@ -214,6 +214,8 @@ void ChiefGuard::Switch_Enter()
 
 void ChiefGuard::Switch_Update(float _DeltaTime)
 {
+	HitRigidbody.SetVelocity(float4::Zero);
+
 	if (true == IsFlash)
 	{
 		FlashProgress += _DeltaTime * FlashSpeed;
@@ -372,6 +374,24 @@ void ChiefGuard::DataLoad()
 
 void ChiefGuard::TextureLoad()
 {
+	if (nullptr == GameEngineTexture::Find("ChiefGuard_DeadParts01.png"))
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Player");
+		Path.Move("Skull");
+		Path.Move("ChiefGuard");
+		Path.Move("DeadPart");
+
+		GameEngineTexture::Load(Path.GetPlusFileName("ChiefGuard_DeadParts01.png").GetFullPath());
+	}
+
+	DeadPartNames.reserve(1);
+	DeadPartNames.push_back("ChiefGuard_DeadParts01.png");
+
 	TexName_MainSkullUI = "ChiefGuard_UI_MainSkull.png.png";
 	TexName_SubSkullUI = "ChiefGuard_UI_SubSkull.png";
 	TexName_InventoryUI = "ChiefGuard_UI_Inventory.png";

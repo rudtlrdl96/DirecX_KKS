@@ -24,6 +24,23 @@ public:
 
 	static std::shared_ptr<class GameEngineCollision> PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf = false);
 
+	template<typename TYPE>
+	static TYPE Lerp(TYPE _Start, TYPE _End, float _Progress)
+	{
+		if (0 > _Progress)
+		{
+			_Progress = 0.0f;
+		}
+
+		if (1 < _Progress)
+		{
+			_Progress = 1.0f;
+		}
+	
+		// V0 + t * (V1 - V0)
+		return _Start + _Progress * (_End - _Start);
+	}
+
 protected:
 	
 private:

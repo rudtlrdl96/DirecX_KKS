@@ -80,14 +80,14 @@ public:
 		SortValues[_Index] = _Sort;
 	}
 
-	inline void SetWitdh(float _Witdh)
+	void SetZoomRatio(float _Value)
 	{
-		Width = _Witdh;
+		ZoomRatio = _Value;
 	}
 
-	inline void SetHeight(float _Height)
+	void AddZoomRatio(float _Value) 
 	{
-		Height = _Height;
+		ZoomRatio -= _Value;
 	}
 
 protected:
@@ -100,6 +100,8 @@ private:
 	DirectX::BoundingBox Box;
 
 	bool FreeCamera = false;
+
+	float ZoomRatio = 1.0f;
 
 	float4x4 View;
 	float4x4 Projection;

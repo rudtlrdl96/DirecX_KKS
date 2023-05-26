@@ -18,6 +18,7 @@ bool AnimAttackCheck::Update()
 	else if(true == Render->IsDeath())
 	{
 		Render = nullptr;
+		return false;
 	}
 
 	if (true == Render->IsAnimationEnd())

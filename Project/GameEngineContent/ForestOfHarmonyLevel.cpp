@@ -83,8 +83,10 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("MonsterSpawn"))
 	{
+		float4 RandSpawnPos = float4(GameEngineRandom::MainRandom.RandomFloat(400.0f, 800.0f), 400, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f));
+
 		//std::shared_ptr<GlacialWizard> NewMonster = CreateActor<GlacialWizard>();
-		//NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f)));
+		//NewMonster->GetTransform()->SetLocalPosition(RandSpawnPos);
 
 		GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
 		
@@ -93,55 +95,55 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 		case 0: // Ä®·¹¿Â ½Åº´
 		{
 			std::shared_ptr<CarleonRecruit> NewMonster = CreateActor<CarleonRecruit>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f)));
+			NewMonster->GetTransform()->SetLocalPosition(RandSpawnPos);
 			break;
 		}
 		case 1: // Ä®·¹¿Â ±Ã¼ö
 		{
 			std::shared_ptr<CarleonArcher> NewMonster = CreateActor<CarleonArcher>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f)));
+			NewMonster->GetTransform()->SetLocalPosition(RandSpawnPos);
 			break;
 		}
 		case 2: // Ä®·¹¿Â Áßº¸º´
 		{
 			std::shared_ptr<CarleonManAtArms> NewMonster = CreateActor<CarleonManAtArms>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f)));
+			NewMonster->GetTransform()->SetLocalPosition(RandSpawnPos);
 			break;
 		}
 		case 3: // ¿£Æ®
 		{
 			std::shared_ptr<Ent> NewMonster = CreateActor<Ent>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f)));
+			NewMonster->GetTransform()->SetLocalPosition(RandSpawnPos);
 			break;
 		}
 		case 4: // »Ñ¸® ¿£Æ®
 		{
 			std::shared_ptr<RootEnt> NewMonster = CreateActor<RootEnt>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f)));
+			NewMonster->GetTransform()->SetLocalPosition(RandSpawnPos);
 			break;
 		}
 		case 5: // ½£Áö±â (ÀÚÀÌ¾ðÆ® ¿£Æ®)
 		{
 			std::shared_ptr<GiantEnt> NewMonster = CreateActor<GiantEnt>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f)));
+			NewMonster->GetTransform()->SetLocalPosition(RandSpawnPos);
 			break;
 		}
 		case 6: // ²É ¿£Æ®
 		{
 			std::shared_ptr<BlossomEnt> NewMonster = CreateActor<BlossomEnt>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f)));
+			NewMonster->GetTransform()->SetLocalPosition(RandSpawnPos);
 			break;
 		}
 		case 7: // È­¿° ¸¶¹ý»ç
 		{
 			std::shared_ptr<FlameWizard> NewMonster = CreateActor<FlameWizard>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f)));
+			NewMonster->GetTransform()->SetLocalPosition(RandSpawnPos);
 			break;
 		}
 		case 8: // ºù°á ¸¶¹ý»ç
 		{
 			std::shared_ptr<GlacialWizard> NewMonster = CreateActor<GlacialWizard>();
-			NewMonster->GetTransform()->SetLocalPosition(float4(400, 500, GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f)));
+			NewMonster->GetTransform()->SetLocalPosition(RandSpawnPos);
 			break;
 		}
 		default:

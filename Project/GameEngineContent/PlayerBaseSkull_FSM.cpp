@@ -907,6 +907,7 @@ void PlayerBaseSkull::Skill_SlotA_Enter()
 
 void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
 {
+	HitRigidbody.SetVelocity(float4::Zero);
 	AttackEnterCheck.Update();
 
 	IsSwitchValue = false;
@@ -980,6 +981,7 @@ void PlayerBaseSkull::Skill_SlotB_Enter()
 
 void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
 {
+	HitRigidbody.SetVelocity(float4::Zero);
 	IsSwitchValue = false;
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))

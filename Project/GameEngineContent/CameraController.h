@@ -91,6 +91,9 @@ private:
 	float LerpMoveSpeed = 0.0f;
 	float LerpMoveProgress = 0.0f;
 
+	float StartScale = 1.0f;
+	float EndScale = 0.5f;
+
 	int ShakeCount = 0;
 	float ShakeSpeed = 0.0f;
 	float ShakeMinDistance = 0.0f;
@@ -108,8 +111,6 @@ private:
 	bool IsScaleRatio = false;
 
 	float CurScaleProgress = 0.0f;
-	float4 StartScale = float4::Zero;
-	float4 EndScale = float4::Zero;
 	float ScaleSpeed = 1.0f;
 
 	void CalShakeValue();
