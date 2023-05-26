@@ -116,7 +116,7 @@ void BoneSkull::Skill_SlotB_Enter()
 	float4 PlayerPos = PlayerTrans->GetWorldPosition();
 	float4 HeadPos = HeadTrans->GetWorldPosition();
 
-	PlayerTrans->SetWorldPosition(HeadPos - float4(0, 50));
+	PlayerTrans->SetWorldPosition(HeadPos - float4(0, 15));
 
 	EffectManager::PlayEffect({ "SkullAppearance", PlayerPos });
 	EffectManager::PlayEffect({ "SkullAppearance", HeadPos - float4(0, 50) });

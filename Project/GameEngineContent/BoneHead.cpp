@@ -21,6 +21,7 @@ void BoneHead::ShotHead(ActorViewDir _Dir)
 	ShotProgress = 0.0f;
 	ShotLiveTime = 0.0f;
 
+	IsActorHit = false;
 	HeadRigid.SetVelocity(float4::Zero);
 	HeadRigid.SetActiveGravity(true);
 }
@@ -79,6 +80,7 @@ void BoneHead::Update(float _DeltaTime)
 		if (nullptr != Collision->Collision(CollisionOrder::Platform_Normal, ColType::AABBBOX2D, ColType::AABBBOX2D))
 		{
 			ShotProgress += 1000.0f;
+			IsActorHit = true;
 		}
 
 		std::shared_ptr<GameEngineCollision> MonsterCol = Collision->Collision(CollisionOrder::Monster, ColType::AABBBOX2D, ColType::AABBBOX2D);
@@ -86,6 +88,7 @@ void BoneHead::Update(float _DeltaTime)
 		if (nullptr != MonsterCol)
 		{
 			ShotProgress += 1000.0f;
+			IsActorHit = true;
 
 			std::shared_ptr<BaseMonster> MonsterPtr = MonsterCol->GetActor()->DynamicThis<BaseMonster>();
 
@@ -124,11 +127,25 @@ void BoneHead::Update(float _DeltaTime)
 
 		GameEngineTransform* Trans = GetTransform();
 		float4 HeadVelocity = HeadRigid.GetVelocity();
+		
+		float VelocitySize = HeadVelocity.Size();
 
-		if (5.0f >= HeadVelocity.Size())
+		if (0.1f >= VelocitySize)
 		{
 			HeadRigid.SetActiveGravity(false);
 			return;
+		}
+
+		switch (Dir)
+		{
+		case ActorViewDir::Left:
+			Trans->AddLocalRotation(float4(0, 0, -VelocitySize * _DeltaTime));
+			break;
+		case ActorViewDir::Right:
+			Trans->AddLocalRotation(float4(0, 0, VelocitySize * _DeltaTime));
+			break;
+		default:
+			break;
 		}
 
 		Trans->AddLocalPosition(HeadVelocity * _DeltaTime);
@@ -138,17 +155,35 @@ void BoneHead::Update(float _DeltaTime)
 			PlayEndEffect();
 			IsMoveEnd = true;
 
-			switch (Dir)
+			if (true == IsActorHit)
 			{
-			case ActorViewDir::Left:
-				HeadRigid.SetVelocity(float4(300, 500));
-				break;
-			case ActorViewDir::Right:
-				HeadRigid.SetVelocity(float4(-300, 500));
-				break;
-			default:
-				break;
+				switch (Dir)
+				{
+				case ActorViewDir::Left:
+					HeadRigid.SetVelocity(float4(300, 500));
+					break;
+				case ActorViewDir::Right:
+					HeadRigid.SetVelocity(float4(-300, 500));
+					break;
+				default:
+					break;
+				}
 			}
+			else
+			{
+				switch (Dir)
+				{
+				case ActorViewDir::Left:
+					HeadRigid.SetVelocity(float4(100, 200));
+					break;
+				case ActorViewDir::Right:
+					HeadRigid.SetVelocity(float4(-100, 200));
+					break;
+				default:
+					break;
+				}
+			}
+		
 		}
 	}
 }
