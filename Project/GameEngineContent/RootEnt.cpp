@@ -9,6 +9,10 @@ RootEnt::RootEnt()
 
 RootEnt::~RootEnt()
 {
+	if (nullptr != AttackEffectActor)
+	{
+		AttackEffectActor->PauseOff();
+	}
 }
 
 void RootEnt::Start()
