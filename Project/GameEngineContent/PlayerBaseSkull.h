@@ -221,8 +221,6 @@ protected:
 	virtual void CreateAnimation() = 0;
 	virtual void AnimationColLoad() = 0;
 
-	std::shared_ptr<class GameEngineCollision> PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf = false);
-
 	void Pushback_Attack(const AnimationAttackMetaData& _AnimData, float _InterTime);
 	void Pushback_JumpAttack(const AnimationAttackMetaData& _AnimData, float _InterTime);
 	void Pushback_SkillA(const AnimationAttackMetaData& _AnimData, float _InterTime);

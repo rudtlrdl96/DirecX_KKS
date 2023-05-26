@@ -107,7 +107,7 @@ void BaseMonster::Walk_Update(float _DeltaTime)
 		return;
 	}
 
-	if (nullptr == PlatformColCheck(WalkFallCol))
+	if (nullptr == ContentFunc::PlatformColCheck(WalkFallCol))
 	{
 		Turn(true);
 	}
@@ -253,7 +253,7 @@ void BaseMonster::Attack_Update(float _DeltaTime)
 		Render->SetAnimPauseOff();
 	}
 
-	if (nullptr == PlatformColCheck(WalkCol))
+	if (nullptr == ContentFunc::PlatformColCheck(WalkCol))
 	{
 		float4 Velocity = AttackRigidbody.GetVelocity() * _DeltaTime;
 		GetTransform()->AddLocalPosition(Velocity);
@@ -286,7 +286,7 @@ void BaseMonster::Hit_Update(float _DeltaTime)
 	HitWaitTime += _DeltaTime;
 	HitRigidbody.UpdateForce(_DeltaTime);
 
-	if (nullptr == PlatformColCheck(WalkCol) && nullptr == PlatformColCheck(BackCol))
+	if (nullptr == ContentFunc::PlatformColCheck(WalkCol) && nullptr == ContentFunc::PlatformColCheck(BackCol))
 	{
 		GetTransform()->AddLocalPosition(HitRigidbody.GetVelocity() * _DeltaTime);
 	}

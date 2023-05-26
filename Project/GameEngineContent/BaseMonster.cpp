@@ -243,39 +243,12 @@ void BaseMonster::SetViewDir(ActorViewDir _Dir, bool _Force /*= false*/)
 	TurnCoolTime = 0.5f;
 }
 
-
-std::shared_ptr<class GameEngineCollision> BaseMonster::PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf /*= false*/)
-{
-	std::shared_ptr<GameEngineCollision> ReslutCol = nullptr;
-
-	ReslutCol = _Col->Collision(CollisionOrder::Platform_Normal, ColType::AABBBOX2D, ColType::AABBBOX2D);
-
-	if (nullptr != ReslutCol)
-	{
-		return ReslutCol;
-	}
-
-	if (false == _IsHalf)
-	{
-		return ReslutCol;
-	}
-
-	ReslutCol = _Col->Collision(CollisionOrder::Platform_Half, ColType::AABBBOX2D, ColType::AABBBOX2D);
-
-	if (nullptr != ReslutCol)
-	{
-		return ReslutCol;
-	}
-
-	return ReslutCol;
-}
-
 bool BaseMonster::Fall(float _DeltaTime)
 {
 	FallDir.y += _DeltaTime * ContentConst::Gravity_f;
 	GetTransform()->AddLocalPosition(FallDir * _DeltaTime);
 
-	std::shared_ptr<GameEngineCollision> ColPlatform = PlatformColCheck(GroundCol, true);
+	std::shared_ptr<GameEngineCollision> ColPlatform = ContentFunc::PlatformColCheck(GroundCol, true);
 
 	if (nullptr != ColPlatform)
 	{

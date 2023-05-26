@@ -137,8 +137,7 @@ protected:
 	virtual void DeathPartLoad() {}
 
 	void SetViewDir(ActorViewDir _Dir, bool _Force = false);
-	std::shared_ptr<class GameEngineCollision> PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf = false);
-	
+
 	bool Walk(float _DeltaTime);
 	bool Fall(float _DeltaTime);
 	void Turn(bool _Force = false);

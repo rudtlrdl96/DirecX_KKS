@@ -352,7 +352,7 @@ void CarleonManAtArms::Attack_Update(float _DeltaTime)
 			Render->SetAnimPauseOff();
 		}
 
-		if (nullptr == PlatformColCheck(WalkCol))
+		if (nullptr == ContentFunc::PlatformColCheck(WalkCol))
 		{
 			float4 Velocity = AttackRigidbody.GetVelocity() * _DeltaTime;
 			GetTransform()->AddLocalPosition(Velocity);

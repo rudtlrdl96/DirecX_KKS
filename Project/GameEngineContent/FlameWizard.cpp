@@ -101,8 +101,8 @@ void TeleportOut_Enter(BaseMonster* _this)
 		TeleportPos.z = MonsterPos.z;
 		MonsterTrans->SetWorldPosition(TeleportPos);
 
-		std::shared_ptr<GameEngineCollision> GroundCol = CastingPtr->PlatformColCheck(CastingPtr->GroundCol, true);
-		std::shared_ptr<GameEngineCollision> BodyCol = CastingPtr->PlatformColCheck(CastingPtr->BodyCol, true);
+		std::shared_ptr<GameEngineCollision> GroundCol = ContentFunc::PlatformColCheck(CastingPtr->GroundCol, true);
+		std::shared_ptr<GameEngineCollision> BodyCol = ContentFunc::PlatformColCheck(CastingPtr->BodyCol, true);
 
 		if (nullptr == GroundCol || nullptr != BodyCol)
 		{

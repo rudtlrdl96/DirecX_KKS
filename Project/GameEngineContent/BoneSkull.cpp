@@ -139,7 +139,7 @@ void BoneSkull::Switch_Update(float _DeltaTime)
 	JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
 	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
 
-	std::shared_ptr<GameEngineCollision> GroundColPtr = PlatformColCheck(GroundCol, true);
+	std::shared_ptr<GameEngineCollision> GroundColPtr = ContentFunc::PlatformColCheck(GroundCol, true);
 
 	if (nullptr != GroundColPtr)
 	{

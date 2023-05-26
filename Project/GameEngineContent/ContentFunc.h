@@ -22,6 +22,8 @@ public:
 
 	static AnimationAttackMetaData LoadAnimAttackMetaData(const std::string_view& _Path);
 
+	static std::shared_ptr<class GameEngineCollision> PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf = false);
+
 protected:
 	
 private:

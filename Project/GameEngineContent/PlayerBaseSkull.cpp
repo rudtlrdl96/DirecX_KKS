@@ -292,22 +292,22 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 
 	if (0 < HitVelocity.x)
 	{
-		if (ViewDir == ActorViewDir::Left && nullptr != PlatformColCheck(BackCol))
+		if (ViewDir == ActorViewDir::Left && nullptr != ContentFunc::PlatformColCheck(BackCol))
 		{
 			HitVelocity.x = 0.0f;
 		}
-		else if(nullptr != PlatformColCheck(WalkCol))
+		else if(nullptr != ContentFunc::PlatformColCheck(WalkCol))
 		{
 			HitVelocity.x = 0.0f;
 		}
 	}
 	else 
 	{
-		if (ViewDir == ActorViewDir::Left && nullptr != PlatformColCheck(WalkCol))
+		if (ViewDir == ActorViewDir::Left && nullptr != ContentFunc::PlatformColCheck(WalkCol))
 		{
 			HitVelocity.x = 0.0f;
 		}
-		else if (nullptr != PlatformColCheck(BackCol))
+		else if (nullptr != ContentFunc::PlatformColCheck(BackCol))
 		{
 			HitVelocity.x = 0.0f;
 		}
@@ -320,7 +320,7 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 
 	if (0 < HitVelocity.y)
 	{
-		if (nullptr != PlatformColCheck(JumpCol))
+		if (nullptr != ContentFunc::PlatformColCheck(JumpCol))
 		{
 			HitVelocity.y = 0.0f;
 			HitRigidbody.SetVelocity(HitVelocity);
@@ -328,7 +328,7 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 	}
 	else
 	{
-		if (nullptr != PlatformColCheck(GroundCol, true))
+		if (nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 		{
 			HitRigidbody.SetVelocity(float4::Zero);
 		}
@@ -365,32 +365,6 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 	PlayerFSM.Update(_DeltaTime);
 	DashRigidbody.UpdateForce(_DeltaTime);
 
-}
-
-std::shared_ptr< GameEngineCollision> PlayerBaseSkull::PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf /*= false*/)
-{
-	std::shared_ptr<GameEngineCollision> ReslutCol = nullptr;
-
-	ReslutCol = _Col->Collision(CollisionOrder::Platform_Normal, ColType::AABBBOX2D, ColType::AABBBOX2D);
-
-	if (nullptr != ReslutCol)
-	{
-		return ReslutCol;
-	}
-
-	if (false == _IsHalf)
-	{
-		return ReslutCol;
-	}
-
-	ReslutCol = _Col->Collision(CollisionOrder::Platform_Half, ColType::AABBBOX2D, ColType::AABBBOX2D);
-
-	if (nullptr != ReslutCol)
-	{
-		return ReslutCol;
-	}
-
-	return ReslutCol;
 }
 
 void PlayerBaseSkull::Pushback_Attack(const AnimationAttackMetaData& _AnimData, float _InterTime)

@@ -8,6 +8,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/imgui.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 float4 ContentFunc::GetMousePos(std::shared_ptr<GameEngineCamera> _MainCam)
 {
@@ -21,6 +22,32 @@ float4 ContentFunc::GetMousePos(std::shared_ptr<GameEngineCamera> _MainCam)
 	return Result;
 }
 
+
+std::shared_ptr<class GameEngineCollision> ContentFunc::PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf /*= false*/)
+{
+    std::shared_ptr<GameEngineCollision> ReslutCol = nullptr;
+
+    ReslutCol = _Col->Collision(CollisionOrder::Platform_Normal, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+    if (nullptr != ReslutCol)
+    {
+        return ReslutCol;
+    }
+
+    if (false == _IsHalf)
+    {
+        return ReslutCol;
+    }
+
+    ReslutCol = _Col->Collision(CollisionOrder::Platform_Half, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+    if (nullptr != ReslutCol)
+    {
+        return ReslutCol;
+    }
+
+    return ReslutCol;
+}
 
 void ContentFunc::ImGuiHelpMarker(const std::string_view& _Text)
 {
