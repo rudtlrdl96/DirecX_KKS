@@ -307,5 +307,5 @@ void CarleonArcher::PlayerHit(std::shared_ptr<BaseContentActor> _HitActor, const
 		return;
 	}
 
-	CastringPtr->HitPlayer(_Parameter.Attack, ActorViewDir::Right, false);
+	CastringPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 300.0f + float4(0, 300, 0));
 }

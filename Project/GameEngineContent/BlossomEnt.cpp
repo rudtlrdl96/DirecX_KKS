@@ -245,7 +245,7 @@ void BlossomEnt::Attack_Update(float _DeltaTime)
 				.AddSetZ = -10.0f });
 
 
-			CastingPtr->HitPlayer(Data.Attack, Dir, false);
+			CastingPtr->HitPlayer(Data.Attack, float4::Zero);
 
 			AttackCoolTime = 1.0f;
 		}

@@ -73,6 +73,7 @@ protected:
 	float CurPauseTime = 0.0f;
 	float AttackWaitTime = 1000.0f;
 	float AttackWaitEndTime = 0.0f;
+	float AttakPushRatio = 1.0f;
 
 	float TurnCoolTime = 0.0f;
 	float4 FallDir = float4::Zero;

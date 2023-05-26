@@ -180,14 +180,6 @@ void BaseMonster::Chasing_Update(float _DeltaTime)
 		SetViewDir(ActorViewDir::Right);
 	}
 
-	if (false == Walk(_DeltaTime))
-	{
-		PlayerActor = nullptr;
-		Turn(true);
-		MonsterFsm.ChangeState("Walk");
-		return;
-	}
-
 	std::shared_ptr<GameEngineCollision> ResultCol = nullptr;
 
 	ResultCol = ChasingCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
@@ -198,6 +190,15 @@ void BaseMonster::Chasing_Update(float _DeltaTime)
 		MonsterFsm.ChangeState("Attack");
 		return;
 	}
+
+	if (false == Walk(_DeltaTime))
+	{
+		PlayerActor = nullptr;
+		Turn(true);
+		MonsterFsm.ChangeState("Walk");
+		return;
+	}
+
 }
 
 void BaseMonster::Chasing_End() 

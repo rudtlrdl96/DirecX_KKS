@@ -384,5 +384,5 @@ void GlacialWizard::PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor,
 		return;
 	}
 
-	CastringPtr->HitPlayer(_Parameter.Attack, ActorViewDir::Right, false);
+	CastringPtr->HitPlayer(_Parameter.Attack, float4(_Parameter.AttackDir.x, 1.0f) * 300.0f);
 }

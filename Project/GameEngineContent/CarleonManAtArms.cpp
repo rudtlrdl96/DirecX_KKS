@@ -244,11 +244,14 @@ void CarleonManAtArms::Attack_Enter()
 		AttackCheckFrame = 0;
 		CurPauseTime = 0.0f;
 		AttackCheck.SetColData(AnimColMeta_Tackle);
+
+		AttakPushRatio = 2.0f;
 	}
 	else
 	{
 		BaseMonster::Attack_Enter();	
 		AttackCheck.SetColData(AnimColMeta_Attack);
+		AttakPushRatio = 1.0f;
 	}
 }
 

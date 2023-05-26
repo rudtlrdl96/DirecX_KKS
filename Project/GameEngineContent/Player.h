@@ -27,7 +27,7 @@ public:
 		return MagicAttack;
 	}
 
-	void HitPlayer(float _Damage, ActorViewDir _HitDir, bool _IsPush);
+	void HitPlayer(float _Damage, const float4& _HitForce);
 
 protected:	
 	void Start() override;

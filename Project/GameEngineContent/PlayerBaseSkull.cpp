@@ -212,6 +212,11 @@ void PlayerBaseSkull::Start()
 	WalkCol->GetTransform()->SetWorldScale(float4(10, 58, 1));
 	WalkCol->GetTransform()->SetWorldRotation(float4::Zero);
 
+	BackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	BackCol->GetTransform()->SetLocalPosition(float4(-20, 30, 0));
+	BackCol->GetTransform()->SetWorldScale(float4(10, 58, 1));
+	BackCol->GetTransform()->SetWorldRotation(float4::Zero);
+
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
 	AttackCol->GetTransform()->SetWorldRotation(float4::Zero);
 
@@ -245,11 +250,64 @@ void PlayerBaseSkull::Start()
 			}
 		});
 
+	HitRigidbody.SetMaxSpeed(600.0f);
+	HitRigidbody.SetFricCoeff(1000.0f);
+
 	//DashTrail->GetTransform()->SetLocalPosition(float4(0, 0, 1));
 }
 
 void PlayerBaseSkull::Update(float _DeltaTime)
 {
+	HitRigidbody.UpdateForce(_DeltaTime);
+	float4 HitVelocity = HitRigidbody.GetVelocity();
+
+	if (0 < HitVelocity.x)
+	{
+		if (ViewDir == ActorViewDir::Left && nullptr != PlatformColCheck(BackCol))
+		{
+			HitVelocity.x = 0.0f;
+		}
+		else if(nullptr != PlatformColCheck(WalkCol))
+		{
+			HitVelocity.x = 0.0f;
+		}
+	}
+	else 
+	{
+		if (ViewDir == ActorViewDir::Left && nullptr != PlatformColCheck(WalkCol))
+		{
+			HitVelocity.x = 0.0f;
+		}
+		else if (nullptr != PlatformColCheck(BackCol))
+		{
+			HitVelocity.x = 0.0f;
+		}
+	}
+
+	if (true == IsFallEnd)
+	{
+		HitVelocity.y = 0.0f;
+		HitRigidbody.SetVelocity(HitVelocity);
+	}
+
+	if (0 < HitVelocity.y)
+	{
+		if (nullptr != PlatformColCheck(JumpCol))
+		{
+			HitVelocity.y = 0.0f;
+			HitRigidbody.SetVelocity(HitVelocity);
+		}
+	}
+	else
+	{
+		if (nullptr != PlatformColCheck(GroundCol, true))
+		{
+			HitVelocity.y = 0.0f;
+			HitRigidbody.SetVelocity(float4::Zero);
+		}
+	}
+
+	PlayerTrans->AddLocalPosition(HitVelocity * _DeltaTime);
 
 	if (1.0f > RenderEffectProgress)
 	{
@@ -274,6 +332,8 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 			CreateColDebugRender();
 		}
 	}
+
+	IsFallEnd = false;
 
 	PlayerFSM.Update(_DeltaTime);
 	DashRigidbody.UpdateForce(_DeltaTime);

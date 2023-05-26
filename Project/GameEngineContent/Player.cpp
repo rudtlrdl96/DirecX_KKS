@@ -40,7 +40,7 @@ void Player::SetInventoryData()
 	MainSkull->On();
 }
 
-void Player::HitPlayer(float _Damage, ActorViewDir _HitDir, bool _IsPush)
+void Player::HitPlayer(float _Damage, const float4& _HitForce)
 {
 	if (nullptr == MainSkull)
 	{
@@ -65,10 +65,9 @@ void Player::HitPlayer(float _Damage, ActorViewDir _HitDir, bool _IsPush)
 
 	HitFade->Active();
 
+	MainSkull->HitRigidbody.AddVelocity(_HitForce);
 	MainSkull->IsHit = true;
 	MainSkull->IsHitEffectOn = true;
-	MainSkull->HitDir = _HitDir;
-	MainSkull->IsPush = _IsPush;
 	MainSkull->HitEffect();
 	MainSkull->HitStiffen();
 }

@@ -130,6 +130,7 @@ protected:
 	std::shared_ptr<class CaptureTrail> EffectCaptureTrail = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> WalkCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> BackCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> GroundCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> JumpCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> AttackCol = nullptr;
@@ -143,6 +144,8 @@ protected:
 	float4 JumpDir = float4::Zero;
 
 	AttackType AttackTypeValue = AttackType::MeleeAttack;
+
+	bool IsFallEnd = false;
 
 	bool IsLockSkillA = false;
 	bool IsLockSkillB = false;

@@ -565,7 +565,9 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	std::shared_ptr<GameEngineCollision> GroundColPtr = PlatformColCheck(GroundCol, IsHalfCheck);
 
 	if (nullptr != GroundColPtr)
-	{	
+	{
+		IsFallEnd = true;
+
 		float4 CurPos = PlayerTrans->GetWorldPosition();
 
 		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();

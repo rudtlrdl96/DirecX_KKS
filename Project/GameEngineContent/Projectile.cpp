@@ -77,6 +77,7 @@ void Projectile::Update(float _DeltaTime)
 
 	HitParameter.ProjectilePos = GetTransform()->GetWorldPosition();
 	HitParameter.Attack = Damage;
+	HitParameter.AttackDir = Dir;
 
 	float RotZ = 0.0f;
 

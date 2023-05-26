@@ -109,7 +109,17 @@ void BaseMonster::Start()
 				.Postion = CastPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
 				.AddSetZ = -10.0f});
 
-			CastPtr->HitPlayer(Data.Attack, Dir, false);
+			switch (Dir)
+			{
+			case ActorViewDir::Left:
+				CastPtr->HitPlayer(Data.Attack, float4(-300, 500) * AttakPushRatio);
+				break;
+			case ActorViewDir::Right:
+				CastPtr->HitPlayer(Data.Attack, float4(300, 500) * AttakPushRatio);
+				break;
+			default:
+				break;
+			}
 		});
 
 	AttackCheck.SetColData(AnimColMeta_Attack);

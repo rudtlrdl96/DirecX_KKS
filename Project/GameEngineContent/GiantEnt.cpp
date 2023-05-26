@@ -268,5 +268,5 @@ void GiantEnt::PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, cons
 		return;
 	}
 
-	CastringPtr->HitPlayer(_Parameter.Attack, ActorViewDir::Right, false);
+	CastringPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 300.0f);
 }

@@ -7,6 +7,7 @@ class ProjectileHitParameter
 public:
 	float Attack = 0.0f;
 	float4 ProjectilePos = float4::Zero;
+	float4 AttackDir = float4::Zero;
 };
 
 class ProjectileParameter

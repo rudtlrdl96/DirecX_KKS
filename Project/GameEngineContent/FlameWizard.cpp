@@ -594,5 +594,5 @@ void FlameWizard::PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, c
 		return;
 	}
 
-	CastringPtr->HitPlayer(_Parameter.Attack, ActorViewDir::Right, false);
+	CastringPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 200.0f);
 }
