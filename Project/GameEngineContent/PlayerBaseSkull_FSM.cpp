@@ -318,6 +318,8 @@ void PlayerBaseSkull::Dash_Enter()
 		break;
 	}
 
+	DashAvoidance = true;
+
 	CanDash = false;
 	DashCombo = false;
 
@@ -466,6 +468,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 void PlayerBaseSkull::Dash_End()
 {
+	DashAvoidance = false;
 }
 
 

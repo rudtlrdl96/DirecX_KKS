@@ -735,6 +735,9 @@
     <ClInclude Include="PlayerHealthBar.h">
       <Filter>2_Actor\UI\Player</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerHitFade.h">
+      <Filter>2_Actor\UI\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1164,6 +1167,9 @@
       <Filter>1_Class\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerHealthBar.cpp">
+      <Filter>2_Actor\UI\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHitFade.cpp">
       <Filter>2_Actor\UI\Player</Filter>
     </ClCompile>
   </ItemGroup>

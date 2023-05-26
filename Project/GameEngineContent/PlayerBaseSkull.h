@@ -254,6 +254,7 @@ private:
 	float DashTrailCoolTime = 0.0f;
 
 	float DashVelocity = 3000.0f;
+	bool DashAvoidance = false;
 	bool DashCombo = false;
 
 	float WalkSpeed = 350.0f;

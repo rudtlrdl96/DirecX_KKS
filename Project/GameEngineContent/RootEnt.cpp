@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "RootEnt.h"
 #include <GameEngineCore/GameEngineCollision.h>
+#include "Player.h"
 
 RootEnt::RootEnt()
 {
@@ -46,6 +47,33 @@ void RootEnt::Update(float _DeltaTime)
 		{
 			IsAttackEffectPause = true;
 			AttackEffectActor->PauseOn();
+
+			GameEngineTransform* Trans = AttackCol->GetTransform();
+
+			Trans->SetWorldPosition(AttackEffectActor->GetTransform()->GetWorldPosition());
+			Trans->AddWorldPosition(float4(0, 50, 0));
+			Trans->SetWorldScale(float4(150, 100, 1));
+
+			std::shared_ptr<GameEngineCollision> ColPtr = AttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+			if (nullptr != ColPtr)
+			{
+				std::shared_ptr<Player> CastingPtr = ColPtr->GetActor()->DynamicThis<Player>();
+
+				if (nullptr == CastingPtr)
+				{
+					MsgAssert_Rtti<RootEnt>(" - Player 클래스만 Player Col Order를 가질 수 있습니다");
+					return;
+				}
+
+
+				EffectManager::PlayEffect({
+					.EffectName = "HitNormal",
+					.Postion = CastingPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
+					.AddSetZ = -10.0f });
+
+				CastingPtr->HitPlayer(Data.Attack, Dir, false);
+			}
 		}
 		
 		if (true == IsAttackEffectPause)

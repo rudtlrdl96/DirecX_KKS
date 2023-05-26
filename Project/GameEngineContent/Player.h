@@ -27,6 +27,8 @@ public:
 		return MagicAttack;
 	}
 
+	void HitPlayer(float _Damage, ActorViewDir _HitDir, bool _IsPush);
+
 protected:	
 	void Start() override;
 	void Update(float _DeltaTime);
@@ -38,6 +40,8 @@ private:
 	float MeleeAttack = 10.0f;
 	float MagicAttack = 10.0f;
 	float HP = 100.0f;
+
+	std::shared_ptr<class PlayerHitFade> HitFade = nullptr;
 
 	std::shared_ptr<class BaseQuintessence> Quintessence = nullptr;
 	std::shared_ptr<class GameEngineCollision> PlayerBodyCol = nullptr;

@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include "Projectile.h"
+#include "Player.h"
 
 FlameWizard::FlameWizard()
 {
@@ -564,6 +565,7 @@ void FlameWizard::CreateProjectile(float _WaitTime)
 		.ColScale = float4(50, 50, 1),
 		.ColOrder = (int)CollisionOrder::Player,
 		.IsColDeath = true,
+		.Damage = Data.Attack,
 		.Speed = 500.0f,
 		.LiveTime = 2.0f + _WaitTime,
 		.WaitTime = _WaitTime,
@@ -584,4 +586,13 @@ void FlameWizard::ProjectileEndEffect(const float4& _EndPos)
 void FlameWizard::PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, const ProjectileHitParameter& _Parameter)
 {
 	ProjectileEndEffect(_Parameter.ProjectilePos);
+
+	std::shared_ptr<Player> CastringPtr = _HitActor->DynamicThis<Player>();
+
+	if (nullptr == CastringPtr)
+	{
+		return;
+	}
+
+	CastringPtr->HitPlayer(_Parameter.Attack, ActorViewDir::Right, false);
 }

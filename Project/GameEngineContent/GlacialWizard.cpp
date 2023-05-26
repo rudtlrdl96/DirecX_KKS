@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include "RigidProjectile.h"
+#include "Player.h"
 
 GlacialWizard::GlacialWizard()
 {
@@ -350,6 +351,7 @@ void GlacialWizard::Attack_Update(float _DeltaTime)
 			.ColScale = float4(30, 80, 1),
 			.ColOrder = (int)CollisionOrder::Player,
 			.IsColDeath = true,
+			.Damage = Data.Attack,
 			.Speed = 3000.0f,
 			.LiveTime = 2.0f,
 			.WaitTime = 0.3f,
@@ -374,4 +376,13 @@ void GlacialWizard::ProjectileEndEffect(const float4& _EndPos)
 void GlacialWizard::PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, const ProjectileHitParameter& _Parameter)
 {
 	ProjectileEndEffect(_Parameter.ProjectilePos);
+
+	std::shared_ptr<Player> CastringPtr = _HitActor->DynamicThis<Player>();
+
+	if (nullptr == CastringPtr)
+	{
+		return;
+	}
+
+	CastringPtr->HitPlayer(_Parameter.Attack, ActorViewDir::Right, false);
 }

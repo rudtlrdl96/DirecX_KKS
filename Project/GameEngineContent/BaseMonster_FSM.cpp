@@ -217,10 +217,14 @@ void BaseMonster::Attack_Enter()
 
 	AttackCheckFrame = 0;
 	CurPauseTime = 0.0f;
+
+	AttackCheck.Reset();
 }
 
 void BaseMonster::Attack_Update(float _DeltaTime)
 {
+	AttackCheck.Update();
+
 	if (true == HitCheck())
 	{
 		return;

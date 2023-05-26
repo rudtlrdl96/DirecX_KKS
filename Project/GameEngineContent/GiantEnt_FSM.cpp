@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "GiantEnt.h"
 #include <GameEngineCore/GameEngineCollision.h>
+#include "ContentLevel.h"
 
 void GiantEnt::Idle_Update(float _DeltaTime)
 {
@@ -131,6 +132,13 @@ void GiantEnt::Attack_Update(float _DeltaTime)
 				.EffectName = "GaintEntStampEffect",
 				.Postion = GetTransform()->GetWorldPosition(),
 				});
+
+			std::shared_ptr<ContentLevel> ContentLevelPtr = GetLevel()->DynamicThis<ContentLevel>();
+
+			if (nullptr != ContentLevelPtr)
+			{
+				ContentLevelPtr->GetCamCtrl().CameraShake(5, 50, 3);
+			}
 		}
 
 	}

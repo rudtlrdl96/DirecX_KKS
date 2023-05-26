@@ -243,10 +243,12 @@ void CarleonManAtArms::Attack_Enter()
 
 		AttackCheckFrame = 0;
 		CurPauseTime = 0.0f;
+		AttackCheck.SetColData(AnimColMeta_Tackle);
 	}
 	else
 	{
 		BaseMonster::Attack_Enter();	
+		AttackCheck.SetColData(AnimColMeta_Attack);
 	}
 }
 
@@ -358,10 +360,13 @@ void CarleonManAtArms::Attack_Update(float _DeltaTime)
 			MonsterFsm.ChangeState("Idle");
 			return;
 		}
+
+		AttackCheck.Update();
 	}
 	else
 	{
 		BaseMonster::Attack_Update(_DeltaTime);
+
 
 		if (false == IsAttackStempEffect && 3 == Render->GetCurrentFrame())
 		{

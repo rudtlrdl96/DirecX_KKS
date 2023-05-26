@@ -32,5 +32,8 @@ private:
 
 	bool IsAttackSign = false;
 	bool IsAttackShot = false;
+
+	static void ProjectileEndEffect(const float4& _EndPos);
+	static void PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, const class ProjectileHitParameter& _Parameter);
 };
 

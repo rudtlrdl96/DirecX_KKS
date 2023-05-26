@@ -6,7 +6,9 @@ class EffectParameter
 public:
 	const std::string_view& EffectName = "";
 	float4 Postion = float4::Zero;
+	float AddSetZ = 0.0f;
 	float Scale = 1.0f;
+
 	EffectDeathTrigger Triger = EffectDeathTrigger::AnimEnd;
 	float Time = 0.0f;
 

@@ -26,6 +26,6 @@ protected:
 
 private:
 	bool IsAttackStart = false;
-
+	float AttackCoolTime = 0.0f;
 };
 

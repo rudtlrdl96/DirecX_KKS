@@ -6,6 +6,8 @@
 
 #include "CollisionDebugRender.h"
 
+#include "PlayerHitFade.h"
+#include "PlayerState.h"
 #include "PlayerStateFrame.h"
 #include "Inventory.h"
 #include "BaseQuintessence.h"
@@ -38,6 +40,33 @@ void Player::SetInventoryData()
 	MainSkull->On();
 }
 
+void Player::HitPlayer(float _Damage, ActorViewDir _HitDir, bool _IsPush)
+{
+	if (nullptr == MainSkull)
+	{
+		MsgAssert_Rtti<Player>(" - 스컬 데이터가 존재하지 않는데 플레이어를 공격하려 했습니다");
+		return;
+	}
+
+
+	if (true == MainSkull->DashAvoidance)
+	{
+		return;
+	}
+
+	PlayerState::HP -= _Damage;
+
+
+	HitFade->Active();
+
+	MainSkull->IsHit = true;
+	MainSkull->IsHitEffectOn = true;
+	MainSkull->HitDir = _HitDir;
+	MainSkull->IsPush = _IsPush;
+	MainSkull->HitEffect();
+	MainSkull->HitStiffen();
+}
+
 void Player::Start()
 {
 	PlayerBodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);
@@ -47,11 +76,18 @@ void Player::Start()
 
 	StateFrame = GetLevel()->CreateActor<PlayerStateFrame>();
 	StateFrame->SetParentPlayer(this);
+
+	HitFade = GetLevel()->CreateActor<PlayerHitFade>();
 }
 
 void Player::Update(float _DeltaTime)
 {
 	SwitchCoolTime += _DeltaTime;
+
+	if (PlayerState::HP <= 0.0f)
+	{
+		int a = 0; // 플레이어 사망
+	}
 
 	if (true == GameEngineInput::IsDown("PlayerCollisionDebugSwitch"))
 	{
@@ -150,6 +186,8 @@ std::shared_ptr<PlayerBaseSkull> Player::CreateNewSkull(size_t _Index)
 		NewSkull->SetPlayer(DynamicThis<Player>());
 		NewSkull->Off();
 	}
+
+	NewSkull->GetTransform()->SetLocalPosition(float4(0, 0, 0));
 
 	return NewSkull;
 }

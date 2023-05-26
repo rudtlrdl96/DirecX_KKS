@@ -53,7 +53,7 @@ bool AnimAttackCheck::Update()
 			std::vector<std::shared_ptr<GameEngineCollision>> Cols;
 
 			Col->CollisionAll(
-				(int)CollisionOrder::Monster,
+				Order,
 				Cols,
 				ColType::AABBBOX2D,
 				ColType::AABBBOX2D

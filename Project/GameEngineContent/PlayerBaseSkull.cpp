@@ -67,6 +67,7 @@ void PlayerBaseSkull::Start()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Player_DoubleJumpEffect.png").GetFullPath(), 5, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkul.png").GetFullPath(), 5, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitNormal.png").GetFullPath(), 6, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkeletonSword.png").GetFullPath(), 5, 3);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SkullAppearance.png").GetFullPath(), 7, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("LandSmoke.png").GetFullPath(), 7, 3);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SwitchEffect.png").GetFullPath(), 5, 4);
@@ -143,7 +144,14 @@ void PlayerBaseSkull::Start()
 			float4::Zero,
 			0, 11,
 			0.05f,
-			2.0f });
+			1.5f });
+
+		EffectManager::CreateMetaData("HitSkeletonSword", {
+			"HitSkeletonSword.png" ,
+			float4::Zero,
+			0, 14,
+			0.04f,
+			1.5f });
 
 		EffectManager::CreateMetaData("LandSmoke", {
 			"LandSmoke.png" ,
@@ -217,7 +225,7 @@ void PlayerBaseSkull::Start()
 	EffectCaptureTrail->SetTime(0.4f);
 	EffectCaptureTrail->SetColor(float4(0.0f, 0.0f, 0.0f, 1.0f), float4::Null);
 
-	AttackEnterCheck.SetCol(AttackCol);
+	AttackEnterCheck.SetCol(AttackCol, (UINT)CollisionOrder::Monster);
 	AttackEnterCheck.SetRender(Render);
 
 	AttackEnterCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)
@@ -242,6 +250,18 @@ void PlayerBaseSkull::Start()
 
 void PlayerBaseSkull::Update(float _DeltaTime)
 {
+
+	if (1.0f > RenderEffectProgress)
+	{
+		Buffer.Color = float4::LerpClamp(RenderEffectStartColor, RenderEffectEndColor, RenderEffectProgress);
+	}
+	else
+	{
+		Buffer.Color = float4::Zero;
+	}
+
+	BattleActor::Update(_DeltaTime);
+
 	if (true == GameEngineInput::IsDown("PlayerCollisionDebugSwitch"))
 	{
 		if (true == IsDebug())
@@ -258,14 +278,6 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 	PlayerFSM.Update(_DeltaTime);
 	DashRigidbody.UpdateForce(_DeltaTime);
 
-	if (1.0f > RenderEffectProgress)
-	{
-		Buffer.Color = float4::LerpClamp(RenderEffectStartColor, RenderEffectEndColor, RenderEffectProgress);
-	}
-	else
-	{
-		Buffer.Color = float4::Zero;
-	}
 }
 
 std::shared_ptr< GameEngineCollision> PlayerBaseSkull::PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf /*= false*/)

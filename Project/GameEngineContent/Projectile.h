@@ -5,8 +5,7 @@
 class ProjectileHitParameter
 {
 public:
-	int Attack = 0;
-
+	float Attack = 0.0f;
 	float4 ProjectilePos = float4::Zero;
 };
 
@@ -24,6 +23,8 @@ public:
 	int ColOrder = -1;
 
 	bool IsColDeath = false;
+
+	float Damage = 1.0f;
 
 	float Speed = 100.0f;
 	float LiveTime = 1.0f;
@@ -63,6 +64,8 @@ protected:
 
 	bool IsColDeath = false;
 	bool IsWaitEndValue = false;
+
+	float Damage = 1.0f;
 
 	float WaitTime = 0.0f;
 	float LiveTime = 1.0f;

@@ -2,6 +2,7 @@
 #include "BattleActor.h"
 #include "Rigidbody2D.h"
 #include "MonsterData.h"
+#include "AnimAttackCheck.h"
 
 class BaseMonster : public BattleActor
 {
@@ -55,6 +56,10 @@ protected:
 
 	Rigidbody2D AttackRigidbody;
 	MonsterData Data = MonsterData();
+
+	AnimAttackCheck AttackCheck;
+
+	std::shared_ptr<class GameEngineCollision> AttackCol = nullptr;
 
 	float HP = 0;
 

@@ -491,6 +491,7 @@ float4 ChiefGuard::GetFlashPostion(ActorViewDir _Dir)
 	}
 
 	Result.y = PlayerTrans->GetWorldPosition().y;
+	Result.z = -25.0f;
 
 	return Result;
 }

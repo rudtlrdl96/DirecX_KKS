@@ -32,7 +32,7 @@ void BattleLevel::Update(float _DeltaTime)
 void BattleLevel::SetPosDebugActor(const float4& _Pos)
 {
 	float4 SpawnPos = _Pos;
-	SpawnPos.z = -50.0f;
+	SpawnPos.z = -25.0f;
 
 	MainPlayer->GetTransform()->SetLocalPosition(SpawnPos);
 }

@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "BlossomEnt.h"
 #include <GameEngineCore/GameEngineCollision.h>
+#include "Player.h"
 
 BlossomEnt::BlossomEnt()
 {
@@ -43,7 +44,7 @@ void BlossomEnt::TextureLoad()
 			.SpriteName = "BlossomEntAttackEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 27,
-			.AnimIter = 0.05f,
+			.AnimIter = 0.07f,
 			.ScaleRatio = 1.5f,
 			});
 	}
@@ -144,7 +145,7 @@ void BlossomEnt::SetColData()
 		ColTrans->SetLocalPosition(LocalChasingColPos);
 		ColTrans->SetWorldScale(float4(50, 100, 1));
 	}
-
+	
 	LoadFindEffectPos = float4(0, 100, 0);
 }
 
@@ -194,6 +195,7 @@ void BlossomEnt::Attack_Enter()
 	IsSuperArmor = true;
 
 	Buffer.OutlineColor = float4(1.0f, 1.0f, -1.0f, 1.0f);
+	AttackCoolTime = 0.3f;
 }
 
 void BlossomEnt::Attack_Update(float _DeltaTime)
@@ -203,11 +205,51 @@ void BlossomEnt::Attack_Update(float _DeltaTime)
 	if (false == IsAttackStart && 9 == Render->GetCurrentFrame())
 	{
 		IsAttackStart = true;
-
+		
 		EffectManager::PlayEffect({
 			.EffectName = "BlossomEntAttackEffect",
-			.Postion = GetTransform()->GetWorldPosition() + float4(0, 45, -0.1f)
+			.Postion = GetTransform()->GetWorldPosition() + float4(0, 55, -0.1f)
 			});
+	}
+
+	if (9 == Render->GetCurrentFrame())
+	{
+		AttackCoolTime -= _DeltaTime;
+
+		if (0.0f < AttackCoolTime)
+		{
+			return;
+		}
+
+		GameEngineTransform* ColTrans = AttackCol->GetTransform();
+
+
+		ColTrans->SetLocalPosition(float4(5, 55, 0));
+		ColTrans->SetLocalScale(float4(250, 135, 1));
+
+		std::shared_ptr<GameEngineCollision> ColPtr = AttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+		 
+		if (nullptr != ColPtr)
+		{
+			std::shared_ptr<Player> CastingPtr = ColPtr->GetActor()->DynamicThis<Player>();
+
+			if (nullptr == CastingPtr)
+			{
+				MsgAssert_Rtti<BlossomEnt>(" - 플레이어만 Player Col Order를 가질 수 있습니다");
+				return;
+			}
+
+			EffectManager::PlayEffect({
+				.EffectName = "HitNormal",
+				.Postion = CastingPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
+				.AddSetZ = -10.0f });
+
+
+			CastingPtr->HitPlayer(Data.Attack, Dir, false);
+
+			AttackCoolTime = 1.0f;
+		}
+
 	}
 }
 

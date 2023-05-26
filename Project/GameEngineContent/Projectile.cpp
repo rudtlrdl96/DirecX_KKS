@@ -35,6 +35,8 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 		NewEffect->GetTransform()->SetLocalPosition(float4::Zero);
 	}
 
+	Damage = _Parameter.Damage;
+
 	Dir = _Parameter.Dir.NormalizeReturn();
 
 	WaitTime = _Parameter.WaitTime;
@@ -74,6 +76,7 @@ void Projectile::Update(float _DeltaTime)
 	}
 
 	HitParameter.ProjectilePos = GetTransform()->GetWorldPosition();
+	HitParameter.Attack = Damage;
 
 	float RotZ = 0.0f;
 

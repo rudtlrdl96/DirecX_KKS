@@ -8,6 +8,7 @@
 #include "HitParticle.h"
 #include "HealthBar.h"
 #include "DeadPartParticle.h"
+#include "Player.h"
 
 BaseMonster::BaseMonster()
 {
@@ -88,6 +89,30 @@ void BaseMonster::Start()
 	SetColData();
 	EffectLoadCheck();
 	DeathPartLoad();
+
+	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+
+	AttackCheck.SetCol(AttackCol, (UINT)CollisionOrder::Player);
+	AttackCheck.SetRender(Render);
+	AttackCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)
+		{
+			std::shared_ptr <Player> CastPtr = std::static_pointer_cast<Player>(_Ptr);
+
+			if (nullptr == CastPtr)
+			{
+				MsgAssert_Rtti<BaseMonster>(" - 플레이어만 Player Col Order를 가질 수 있습니다.");
+				return;
+			}
+
+			EffectManager::PlayEffect({
+				.EffectName = "HitNormal",
+				.Postion = CastPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
+				.AddSetZ = -10.0f});
+
+			CastPtr->HitPlayer(Data.Attack, Dir, false);
+		});
+
+	AttackCheck.SetColData(AnimColMeta_Attack);
 
 	HP = Data.HP;
 	MonsterFsm.ChangeState("Idle");

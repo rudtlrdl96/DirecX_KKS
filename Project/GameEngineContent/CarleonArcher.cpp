@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 
 #include "Projectile.h"
+#include "Player.h"
 
 CarleonArcher::CarleonArcher()
 {
@@ -255,32 +256,56 @@ void CarleonArcher::Attack_Update(float _DeltaTime)
 		std::shared_ptr<Projectile> ShotArrow = GetLevel()->CreateActor<Projectile>();
 		float4 EffectPos = GetTransform()->GetWorldPosition();
 
+		float4 ShotDir;
+
 		switch (Dir)
 		{
 		case ActorViewDir::Left:
 			EffectPos += float4(-60, 53, -0.1f);
-
-			ShotArrow->ShotProjectile({
-				.EffectName = "CaerleonArcher_Projectile",
-				.Pos = EffectPos,
-				.Dir = float4::Left,
-				.Speed = 1000.0f,
-				.LiveTime = 2.0f,
-				});
+			ShotDir = float4::Left;
 			break;
 		case ActorViewDir::Right:
+			ShotDir = float4::Right;
 			EffectPos += float4(60, 53, -0.1f);
-
-			ShotArrow->ShotProjectile({
-				.EffectName = "CaerleonArcher_Projectile",
-				.Pos = EffectPos,
-				.Dir = float4::Right,
-				.Speed = 1000.0f,
-				.LiveTime = 2.0f,
-				});
 			break;
 		default:
 			break;
 		}
+
+		ShotArrow->ShotProjectile({
+			.EffectName = "CaerleonArcher_Projectile",
+			.Pos = EffectPos,
+			.Dir = ShotDir,
+			.ColScale = float4(40, 20),
+			.ColOrder = (int)CollisionOrder::Player,
+			.IsColDeath = true,
+			.Damage = Data.Attack,
+			.Speed = 1000.0f,
+			.LiveTime = 2.0f,
+			.EnterEvent = &PlayerHit,
+			.DeathEvent = &ProjectileEndEffect
+			});
 	}
+}
+
+void CarleonArcher::ProjectileEndEffect(const float4& _EndPos)
+{
+	EffectManager::PlayEffect({
+	.EffectName = "HitSkeletonSword",
+	.Postion = _EndPos,
+		});
+}
+
+void CarleonArcher::PlayerHit(std::shared_ptr<BaseContentActor> _HitActor, const ProjectileHitParameter& _Parameter)
+{
+	ProjectileEndEffect(_Parameter.ProjectilePos);
+
+	std::shared_ptr<Player> CastringPtr = _HitActor->DynamicThis<Player>();
+
+	if (nullptr == CastringPtr)
+	{
+		return;
+	}
+
+	CastringPtr->HitPlayer(_Parameter.Attack, ActorViewDir::Right, false);
 }

@@ -30,6 +30,7 @@ void RigidProjectile::Update(float _DeltaTime)
 	}
 
 	HitParameter.ProjectilePos = GetTransform()->GetWorldPosition();
+	HitParameter.Attack = Damage;
 
 	float RotZ = 0.0f;
 
