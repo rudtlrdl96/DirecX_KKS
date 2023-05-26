@@ -22,6 +22,7 @@ void BoneHead::ShotHead(ActorViewDir _Dir)
 	ShotLiveTime = 0.0f;
 
 	HeadRigid.SetVelocity(float4::Zero);
+	HeadRigid.SetActiveGravity(true);
 }
 
 void BoneHead::Start()
@@ -52,9 +53,15 @@ void BoneHead::Start()
 	Collision = CreateComponent<GameEngineCollision>((int)CollisionOrder::BoneHead);
 	Collision->GetTransform()->SetLocalScale(TextureScale);
 
-	HeadRigid.SetMaxSpeed(600.0f);
+	BounceCollision = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+
+	HeadRigid.SetMaxSpeed(800.0f);
 	HeadRigid.SetFricCoeff(50.0f);
 	HeadRigid.SetActiveGravity(true);
+	HeadRigid.BounceSetting(GetTransform(), BounceCollision);
+
+	HeadRigid.SetColWitdh(TextureScale.x);
+	HeadRigid.SetColHeight(TextureScale.y);
 }
 
 void BoneHead::Update(float _DeltaTime)
@@ -118,6 +125,12 @@ void BoneHead::Update(float _DeltaTime)
 		GameEngineTransform* Trans = GetTransform();
 		float4 HeadVelocity = HeadRigid.GetVelocity();
 
+		if (5.0f >= HeadVelocity.Size())
+		{
+			HeadRigid.SetActiveGravity(false);
+			return;
+		}
+
 		Trans->AddLocalPosition(HeadVelocity * _DeltaTime);
 
 		if (false == IsMoveEnd)
@@ -128,10 +141,10 @@ void BoneHead::Update(float _DeltaTime)
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				HeadRigid.SetVelocity(float4(400, 800));
+				HeadRigid.SetVelocity(float4(300, 500));
 				break;
 			case ActorViewDir::Right:
-				HeadRigid.SetVelocity(float4(-400, 800));
+				HeadRigid.SetVelocity(float4(-300, 500));
 				break;
 			default:
 				break;

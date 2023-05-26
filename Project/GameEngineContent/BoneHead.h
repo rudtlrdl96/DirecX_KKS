@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 #include "PlayerBaseSkull.h"
+#include "BounceRigidbody2D.h"
 
 class BoneHead : public BaseContentActor
 {
@@ -30,8 +31,9 @@ private:
 
 	std::shared_ptr<GameEngineSpriteRenderer> Render = nullptr;
 	std::shared_ptr<class GameEngineCollision> Collision = nullptr;
+	std::shared_ptr<class GameEngineCollision> BounceCollision = nullptr;
 
-	Rigidbody2D HeadRigid;
+	BounceRigidbody2D HeadRigid;
 
 	float ShotProgress = 0.0f;
 	float ShotTime = 1.25f;

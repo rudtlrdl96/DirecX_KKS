@@ -738,6 +738,9 @@
     <ClInclude Include="PlayerHitFade.h">
       <Filter>2_Actor\UI\Player</Filter>
     </ClInclude>
+    <ClInclude Include="BounceRigidbody2D.h">
+      <Filter>1_Class\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1171,6 +1174,9 @@
     </ClCompile>
     <ClCompile Include="PlayerHitFade.cpp">
       <Filter>2_Actor\UI\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BounceRigidbody2D.cpp">
+      <Filter>1_Class\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

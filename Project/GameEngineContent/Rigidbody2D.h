@@ -61,14 +61,13 @@ public:
 		Gravity = _Gravity;
 	}
 
-	void UpdateForce(float _DeltaTime);
+	virtual void UpdateForce(float _DeltaTime);
 
 	void ShowGUI();
 
 
 protected:
-
-private:
+	
 	float4 ForceVector = float4::Zero;
 	float4 Accel = float4::Zero;
 	float4 Velocity = float4::Zero;

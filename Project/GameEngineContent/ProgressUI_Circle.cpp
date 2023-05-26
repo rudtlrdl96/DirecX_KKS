@@ -31,6 +31,8 @@ void ProgressUI_Circle::Start()
 	ProgressRender->PipeSetting("2DTexture_ProgressUI_Circle");
 	ProgressRender->GetShaderResHelper().SetConstantBufferLink("ProgressCircleBuffer", Buffer);
 	ProgressRender->Off();
+
+	Buffer.OutColor.a = 0.7f;
 }
 
 void ProgressUI_Circle::UpdateProgress(float _Progress)
