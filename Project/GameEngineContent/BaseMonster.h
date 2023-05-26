@@ -6,9 +6,6 @@
 
 class BaseMonster : public BattleActor
 {
-protected:
-	std::vector<std::string> DeadPartNames;
-
 public:
 	BaseMonster();
 	~BaseMonster();
@@ -41,6 +38,8 @@ public:
 	}
 
 protected:
+	std::vector<std::string> DeadPartNames;
+
 	std::shared_ptr<class HealthBar> HealthBarPtr = nullptr;
 	std::shared_ptr<GameEngineActor> PlayerActor = nullptr;
 

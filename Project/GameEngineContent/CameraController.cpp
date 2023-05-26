@@ -28,6 +28,21 @@ void CameraController::Start(std::shared_ptr<GameEngineCamera> _MainCam)
 
 void CameraController::Update(float _DeltaTime)
 {
+	if (true == IsScaleRatio)
+	{
+		CurScaleProgress += _DeltaTime * ScaleSpeed;
+
+		float4 CurSize = float4::LerpClamp(StartScale, EndScale, CurScaleProgress);
+
+		MainCamera->SetWitdh(CurSize.x);
+		MainCamera->SetHeight(CurSize.y);
+
+		if (1.0f <= CurScaleProgress)
+		{
+			IsScaleRatio = false;
+		}
+	}
+
 	if (true == MainCamera->IsFreeCamera())
 	{
 		return;
@@ -180,6 +195,31 @@ void CameraController::SetLookatTarget(std::shared_ptr<GameEngineActor> _Target)
 {
 	LookAtTarget = _Target;
 	CamType = CamCtrlType::LookAt;
+}
+
+void CameraController::ResetScale()
+{
+	IsScaleRatio = false;
+
+	CurScaleProgress = 0.0f;
+	StartScale = float4::Zero;
+	EndScale = float4::Zero;
+	ScaleSpeed = 1.0f;
+
+	float4 WindowSize = GameEngineWindow::GetScreenSize();
+
+	MainCamera->SetWitdh(WindowSize.x);
+	MainCamera->SetHeight(WindowSize.y);
+}
+
+void CameraController::EffectScaleRatio(float _Start, float _End, float _Speed)
+{
+	IsScaleRatio = true;
+
+	CurScaleProgress = 0.0f; 
+	StartScale = GameEngineWindow::GetScreenSize() * _Start;
+	EndScale = GameEngineWindow::GetScreenSize() * _End;
+	ScaleSpeed = _Speed;
 }
 
 void CameraController::CalShakeValue()

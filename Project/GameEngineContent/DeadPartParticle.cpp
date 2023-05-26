@@ -59,3 +59,8 @@ void DeadPartParticle::Update(float _DeltaTime)
 	GetTransform()->AddLocalPosition(Velocity);
 	GetTransform()->AddWorldRotation(RandRot * _DeltaTime);
 }
+
+void DeadPartParticle::LevelChangeEnd()
+{
+	Death();
+}

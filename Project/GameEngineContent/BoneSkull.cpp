@@ -181,6 +181,34 @@ void BoneSkull::DataLoad()
 
 void BoneSkull::TextureLoad()
 {
+	if (nullptr == GameEngineTexture::Find("Skul_DeatParts01.png"))
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Player");
+		Path.Move("Skull");
+		Path.Move("BoneSKull");
+		Path.Move("DeadPart");
+
+		GameEngineTexture::Load(Path.GetPlusFileName("Skul_DeatParts01.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("Skul_DeatParts02.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("Skul_DeatParts03.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("Skul_DeatParts04.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("Skul_DeatParts05.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("Skul_DeatParts06.png").GetFullPath());
+	}
+
+	DeadPartNames.reserve(6);
+	DeadPartNames.push_back("Skul_DeatParts01.png");
+	DeadPartNames.push_back("Skul_DeatParts02.png");
+	DeadPartNames.push_back("Skul_DeatParts03.png");
+	DeadPartNames.push_back("Skul_DeatParts04.png");
+	DeadPartNames.push_back("Skul_DeatParts05.png");
+	DeadPartNames.push_back("Skul_DeatParts06.png");
+
 	TexName_MainSkullUI = "Skul_UI_MainSkull.png";
 	TexName_SubSkullUI = "Skul_UI_SubSkull.png";
 	TexName_InventoryUI = "Skul_UI_Inventory.png";

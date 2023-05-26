@@ -20,6 +20,10 @@ void BoneHead::ShotHead(ActorViewDir _Dir)
 	Dir = _Dir;
 	ShotProgress = 0.0f;
 	ShotLiveTime = 0.0f;
+
+	HeadRigid.SetMaxSpeed(500.0f);
+	HeadRigid.SetFricCoeff(1000.0f);
+	HeadRigid.SetActiveGravity(true);
 }
 
 void BoneHead::Start()

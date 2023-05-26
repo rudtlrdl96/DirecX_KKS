@@ -9,6 +9,7 @@
 #include "CaptureTrail.h"
 #include "Player.h"
 #include "BaseMonster.h"
+#include "DeadPartParticle.h"
 
 PlayerBaseSkull::PlayerBaseSkull()
 {
@@ -39,6 +40,34 @@ void PlayerBaseSkull::SetPlayer(std::shared_ptr<class Player> _ParentPlayer)
 
 	ParentPlayer = _ParentPlayer.get();
 	PlayerTrans = _ParentPlayer->GetTransform();
+}
+
+std::shared_ptr<GameEngineActor> PlayerBaseSkull::SkullDeath()
+{
+	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
+
+	std::shared_ptr<GameEngineActor> ReturnActor = nullptr;
+
+	for (size_t i = 0; i < DeadPartNames.size(); i++)
+	{
+		std::shared_ptr<DeadPartParticle> NewDeadPart = GetLevel()->CreateActor<DeadPartParticle>();
+
+		if (nullptr == ReturnActor)
+		{
+			ReturnActor = NewDeadPart;
+		}
+
+		NewDeadPart->GetTransform()->SetWorldPosition(PlayerTrans->GetWorldPosition() + float4(0, 40, -0.1f));
+
+		float4 RandDir = float4(Rand.RandomFloat(-0.8f, 0.8f), 1.0f);
+		RandDir.Normalize();
+		NewDeadPart->Init(DeadPartNames[i], RandDir, 500.0f, 1.5f);
+
+		float4 Scale = NewDeadPart->GetTransform()->GetWorldScale();
+		NewDeadPart->GetTransform()->SetWorldScale(Scale * 2.0f);
+	}
+
+	return ReturnActor;
 }
 
 void PlayerBaseSkull::Start()
@@ -286,8 +315,7 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 
 	if (true == IsFallEnd)
 	{
-		HitVelocity.y = 0.0f;
-		HitRigidbody.SetVelocity(HitVelocity);
+		HitRigidbody.SetVelocity(float4::Zero);
 	}
 
 	if (0 < HitVelocity.y)
@@ -302,7 +330,6 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 	{
 		if (nullptr != PlatformColCheck(GroundCol, true))
 		{
-			HitVelocity.y = 0.0f;
 			HitRigidbody.SetVelocity(float4::Zero);
 		}
 	}

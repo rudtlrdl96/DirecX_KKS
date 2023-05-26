@@ -15,6 +15,8 @@
 #include "BoneSkull.h"
 #include "ChiefGuard.h"
 
+#include "ContentLevel.h"
+
 Player::Player()
 {
 }
@@ -92,7 +94,28 @@ void Player::Update(float _DeltaTime)
 
 	if (PlayerState::HP <= 0.0f)
 	{
-		int a = 0; // 플레이어 사망
+		std::shared_ptr<ContentLevel> CastingLevel = GetLevel()->DynamicThis<ContentLevel>();
+
+		if (nullptr == CastingLevel) 
+		{ 
+			return;
+		}
+
+		CameraController& CamCtrl = CastingLevel->GetCamCtrl();
+
+		CamCtrl.EffectScaleRatio(1.0f, 0.7f, 1.5f);
+
+		GameEngineTime::GlobalTime.SetTimeScale(0.1f);
+		std::shared_ptr<GameEngineActor> HeadPart = MainSkull->SkullDeath();
+		
+		if (nullptr != HeadPart)
+		{
+			CamCtrl.SetLookatTarget(HeadPart);
+		}
+		
+		StateFrame->Death();
+		Death();
+		return;
 	}
 
 	if (true == GameEngineInput::IsDown("PlayerCollisionDebugSwitch"))

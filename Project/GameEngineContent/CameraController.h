@@ -63,6 +63,9 @@ public:
 
 	void SetLookatTarget(std::shared_ptr<class GameEngineActor> _Target);
 
+	void ResetScale();
+	void EffectScaleRatio(float _Start, float _End, float _Speed);
+
 protected:
 	
 private:
@@ -101,6 +104,13 @@ private:
 
 	float4 LastCameraPos = float4::Zero;
 	Quaternion LastCameraRot = Quaternion::Zero;
+
+	bool IsScaleRatio = false;
+
+	float CurScaleProgress = 0.0f;
+	float4 StartScale = float4::Zero;
+	float4 EndScale = float4::Zero;
+	float ScaleSpeed = 1.0f;
 
 	void CalShakeValue();
 };

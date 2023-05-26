@@ -80,6 +80,16 @@ public:
 		SortValues[_Index] = _Sort;
 	}
 
+	inline void SetWitdh(float _Witdh)
+	{
+		Width = _Witdh;
+	}
+
+	inline void SetHeight(float _Height)
+	{
+		Height = _Height;
+	}
+
 protected:
 	void Start() override;
 

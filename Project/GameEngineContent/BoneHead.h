@@ -31,15 +31,16 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> Render = nullptr;
 	std::shared_ptr<class GameEngineCollision> Collision = nullptr;
 
+	Rigidbody2D HeadRigid;
+
 	float ShotProgress = 0.0f;
 	float ShotTime = 1.25f;
 	float ShotSpeed = 800.0f;
-	float RotSpeed = 360.0f;
+	float RotSpeed = 720.0f;
 
 	float ShotLiveTime = 0.0f;
 
 	bool IsMoveEnd = false;
-
 	ActorViewDir Dir = ActorViewDir::Left;
 
 	void PlayEndEffect();

@@ -507,7 +507,7 @@ void FlameWizard::Attack_Update(float _DeltaTime)
 		return;
 	}
 
-	if (nullptr == PlayerActor && true == PlayerActor->IsDeath())
+	if (nullptr == PlayerActor || true == PlayerActor->IsDeath())
 	{
 		MonsterFsm.ChangeState("Idle");
 		return;

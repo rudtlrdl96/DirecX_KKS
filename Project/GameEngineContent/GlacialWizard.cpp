@@ -330,6 +330,11 @@ void GlacialWizard::Attack_Update(float _DeltaTime)
 {
 	BaseMonster::Attack_Update(_DeltaTime);
 
+	if (nullptr == PlayerActor || true == PlayerActor->IsDeath())
+	{
+		return;
+	}
+
 	if (false == IsProjectileShot && 4 == Render->GetCurrentFrame())
 	{
 		IsProjectileShot = true;

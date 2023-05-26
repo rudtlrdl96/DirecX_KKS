@@ -49,8 +49,6 @@ private:
 
 	ColorBuffer Buffer;
 
-	std::shared_ptr<class GameEngineActorGUI> ActorGui = nullptr;
-
 	void RenderCreate(std::shared_ptr<class ContentUIRender>& _Render, const float4& _LocalPos, const std::string_view& _TextureName = "Empty.png");
 
 };

@@ -1,10 +1,11 @@
 #include "PrecompileHeader.h"
 #include "PlayerStateFrame.h"
-#include "ContentUIRender.h"
 
+#include <GameEngineCore/GameEngineLevel.h>
+
+#include "ContentUIRender.h"
 #include "Player.h"
 #include "PlayerBaseSkull.h"
-#include "GameEngineActorGUI.h"
 
 #include "ProgressUI_Circle.h"
 #include "PlayerHealthBar.h"
@@ -104,11 +105,6 @@ void PlayerStateFrame::Start()
 	HealthBarPtr->GetTransform()->SetLocalPosition(float4(1, -16, 0));
 	HealthBarPtr->SetTexture("PlayerHealthBar.png", "PlayerSubBar.png");
 	HealthBarPtr->SetScale(1.325f);
-
-	ActorGui = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	
-	ActorGui->SetTarget(HealthBarPtr->GetTransform(), {});
-	ActorGui->On();
 }
 
 void PlayerStateFrame::Update(float _DeltaTime)

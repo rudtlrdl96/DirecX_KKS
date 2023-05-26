@@ -105,7 +105,11 @@ public:
 		return SkillBCoolTime;
 	}
 
+	std::shared_ptr<GameEngineActor> SkullDeath();
+
 protected:
+	std::vector<std::string> DeadPartNames;
+
 	class Player* ParentPlayer = nullptr;
 	GameEngineTransform* PlayerTrans = nullptr;
 
