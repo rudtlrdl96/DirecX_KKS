@@ -40,6 +40,8 @@ private:
 	float MeleeAttack = 10.0f;
 	float MagicAttack = 10.0f;
 	float HP = 100.0f;
+	
+	float HitWaitTime = 0.0f;
 
 	std::shared_ptr<class PlayerHitFade> HitFade = nullptr;
 

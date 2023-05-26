@@ -48,6 +48,11 @@ void Player::HitPlayer(float _Damage, ActorViewDir _HitDir, bool _IsPush)
 		return;
 	}
 
+	if (0.0f < HitWaitTime)
+	{
+		return;
+	}
+
 
 	if (true == MainSkull->DashAvoidance)
 	{
@@ -56,6 +61,7 @@ void Player::HitPlayer(float _Damage, ActorViewDir _HitDir, bool _IsPush)
 
 	PlayerState::HP -= _Damage;
 
+	HitWaitTime = 0.1f;
 
 	HitFade->Active();
 
@@ -82,6 +88,7 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime)
 {
+	HitWaitTime -= _DeltaTime;
 	SwitchCoolTime += _DeltaTime;
 
 	if (PlayerState::HP <= 0.0f)
