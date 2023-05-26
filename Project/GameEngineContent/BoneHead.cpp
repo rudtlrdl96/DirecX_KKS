@@ -21,9 +21,7 @@ void BoneHead::ShotHead(ActorViewDir _Dir)
 	ShotProgress = 0.0f;
 	ShotLiveTime = 0.0f;
 
-	HeadRigid.SetMaxSpeed(500.0f);
-	HeadRigid.SetFricCoeff(1000.0f);
-	HeadRigid.SetActiveGravity(true);
+	HeadRigid.SetVelocity(float4::Zero);
 }
 
 void BoneHead::Start()
@@ -53,6 +51,10 @@ void BoneHead::Start()
 
 	Collision = CreateComponent<GameEngineCollision>((int)CollisionOrder::BoneHead);
 	Collision->GetTransform()->SetLocalScale(TextureScale);
+
+	HeadRigid.SetMaxSpeed(600.0f);
+	HeadRigid.SetFricCoeff(50.0f);
+	HeadRigid.SetActiveGravity(true);
 }
 
 void BoneHead::Update(float _DeltaTime)
@@ -111,10 +113,29 @@ void BoneHead::Update(float _DeltaTime)
 	}
 	else
 	{
+		HeadRigid.UpdateForce(_DeltaTime);
+
+		GameEngineTransform* Trans = GetTransform();
+		float4 HeadVelocity = HeadRigid.GetVelocity();
+
+		Trans->AddLocalPosition(HeadVelocity * _DeltaTime);
+
 		if (false == IsMoveEnd)
 		{
 			PlayEndEffect();
 			IsMoveEnd = true;
+
+			switch (Dir)
+			{
+			case ActorViewDir::Left:
+				HeadRigid.SetVelocity(float4(400, 800));
+				break;
+			case ActorViewDir::Right:
+				HeadRigid.SetVelocity(float4(-400, 800));
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }

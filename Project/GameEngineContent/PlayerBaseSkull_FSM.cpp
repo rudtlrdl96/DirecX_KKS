@@ -318,6 +318,8 @@ void PlayerBaseSkull::Dash_Enter()
 		break;
 	}
 
+	HitRigidbody.SetVelocity(float4::Zero);
+
 	DashAvoidance = true;
 
 	CanDash = false;
