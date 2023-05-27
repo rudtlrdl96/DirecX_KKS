@@ -59,7 +59,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 		{
 			if (nullptr == ContentFunc::PlatformColCheck(GroundCol))
 			{
-				FallCooldown = 0.2f;
+				FallCooldown = 0.1f;
 				PlayerFSM.ChangeState("Fall");
 				CanJump = false;
 				return;
@@ -233,7 +233,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 			if (nullptr == ContentFunc::PlatformColCheck(GroundCol))
 			{
 				CanJump = false;
-				FallCooldown = 0.2f;
+				FallCooldown = 0.1f;
 				PlayerFSM.ChangeState("Fall");
 				return;
 			}

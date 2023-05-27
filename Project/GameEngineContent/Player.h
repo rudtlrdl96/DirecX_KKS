@@ -33,6 +33,8 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime);
 
+	void LevelChangeEnd() override;
+
 private:
 	float SwitchCoolTime = 5.0f;
 	float SwitchCoolEndTime = 5.0f;

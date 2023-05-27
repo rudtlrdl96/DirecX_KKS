@@ -60,6 +60,7 @@ void BattleLevel::LevelChangeEnd()
 	{
 		MainPlayer->Death();
 		MainPlayer = nullptr;
+		MainCamCtrl.SetLookatTarget(nullptr);
 	}
 
 	EffectManager::SetLevel(nullptr);

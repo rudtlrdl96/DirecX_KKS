@@ -23,6 +23,17 @@ Player::Player()
 
 Player::~Player()
 {
+	if (nullptr != StateFrame)
+	{
+		StateFrame->Death();
+		StateFrame = nullptr;
+	}
+
+	if (nullptr != HitFade)
+	{
+		HitFade->Death();
+		HitFade = nullptr;
+	}
 }
 
 void Player::SetInventoryData()
@@ -181,6 +192,21 @@ void Player::Update(float _DeltaTime)
 	{
 		SubSkull->CoolTimeCheck(_DeltaTime);
 		SubSkull->IsSwitchValue = false;
+	}
+}
+
+void Player::LevelChangeEnd()
+{
+	if (nullptr != StateFrame)
+	{
+		StateFrame->Death();
+		StateFrame = nullptr;
+	}
+
+	if (nullptr != HitFade)
+	{
+		HitFade->Death();
+		HitFade = nullptr;
 	}
 }
 

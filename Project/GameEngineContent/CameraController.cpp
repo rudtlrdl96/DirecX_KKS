@@ -192,7 +192,15 @@ void CameraController::CameraShake(float _ShakeDis, float _ShakeSpeed, int _Shak
 void CameraController::SetLookatTarget(std::shared_ptr<GameEngineActor> _Target)
 {
 	LookAtTarget = _Target;
-	CamType = CamCtrlType::LookAt;
+
+	if (nullptr == LookAtTarget)
+	{
+		CamType = CamCtrlType::None;
+	}
+	else
+	{
+		CamType = CamCtrlType::LookAt;
+	}
 }
 
 void CameraController::ResetScale()
