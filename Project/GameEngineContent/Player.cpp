@@ -31,7 +31,11 @@ void Player::SetInventoryData()
 	const SkullData& SubData = Inventory::GetSubSkull();
 
 	MainSkull = CreateNewSkull(MainData.Index);
-	SubSkull = CreateNewSkull(SubData.Index);
+
+	if (static_cast<size_t>(-1) != SubData.Index)
+	{
+		SubSkull = CreateNewSkull(SubData.Index);
+	}
 
 	if (nullptr == MainSkull)
 	{

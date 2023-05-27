@@ -27,10 +27,22 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 		IsSwitchValue = true;
 	}
 
-	if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
+	std::shared_ptr<GameEngineCollision> Ground = ContentFunc::PlatformColCheck(GroundCol, true);
+
+	if (nullptr == Ground)
 	{
 		PlayerFSM.ChangeState("Fall");
 		return;
+	}
+	else
+	{
+		float4 CurPos = PlayerTrans->GetWorldPosition();
+
+		GameEngineTransform* ColTrans = Ground->GetTransform();
+		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+		PlayerTrans->SetWorldPosition(CurPos);
+		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
 	}
 
 	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))

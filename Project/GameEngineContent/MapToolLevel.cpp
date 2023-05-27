@@ -37,10 +37,6 @@ void MapToolLevel::Start()
 		GameEngineInput::CreateKey("ToolActive", VK_LBUTTON);
 		GameEngineInput::CreateKey("ToolDisable", VK_RBUTTON);
 
-
-		GameEngineInput::CreateKey("TempSizeUp", VK_OEM_PLUS);
-		GameEngineInput::CreateKey("TempSizeDown", VK_OEM_MINUS);
-
 		GameEngineInput::CreateKey("CameraMoveUp", 'W');
 		GameEngineInput::CreateKey("CameraMoveDown", 'S');
 		GameEngineInput::CreateKey("CameraMoveLeft", 'A');
@@ -242,16 +238,6 @@ void MapToolLevel::CameraMoveFunction(float _DeltaTime)
 	if (GameEngineInput::IsPress("CameraMoveBoost"))
 	{
 		CurFrameCameraSpeed *= 2.0f;
-	}
-
-	if (GameEngineInput::IsDown("TempSizeUp"))
-	{
-		TilemapPtr->ResizeTilemap(TilemapPtr->SizeX() + 1, TilemapPtr->SizeY() + 1);
-	}
-
-	if (GameEngineInput::IsDown("TempSizeDown"))
-	{
-		TilemapPtr->ResizeTilemap(TilemapPtr->SizeX() - 1, TilemapPtr->SizeY() - 1);
 	}
 
 	if (GameEngineInput::IsPress("CameraMoveUp"))

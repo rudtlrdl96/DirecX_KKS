@@ -119,7 +119,7 @@ void BoneSkull::Skill_SlotB_Enter()
 	PlayerTrans->SetWorldPosition(HeadPos - float4(0, 15));
 
 	EffectManager::PlayEffect({ "SkullAppearance", PlayerPos });
-	EffectManager::PlayEffect({ "SkullAppearance", HeadPos - float4(0, 50) });
+	EffectManager::PlayEffect({ "SkullAppearance", HeadPos - float4(0, 0) });
 	EffectManager::PlayEffect({ "LandSmoke", HeadPos - float4(0, 50) });
 
 	PlayerBaseSkull::Skill_SlotB_Enter();
