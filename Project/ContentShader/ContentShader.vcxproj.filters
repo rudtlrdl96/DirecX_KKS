@@ -9,5 +9,6 @@
     <FxCompile Include="..\Resources\Shader\ProgressUI.hlsl" />
     <FxCompile Include="..\Resources\Shader\OutlineColorShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\ProgressUI_Circle.hlsl" />
+    <FxCompile Include="..\Resources\Shader\ObjectColorShader.hlsl" />
   </ItemGroup>
 </Project>

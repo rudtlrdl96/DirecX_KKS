@@ -253,6 +253,8 @@ void ObjectManager::Draw_SObject_GUI()
 		}
 
 		CreateStaticObject(StaticObjectActors[CurrentStaticObjectIndex]->GetMetaData());
+
+		CurrentStaticObjectIndex = StaticObjectActors.size() - 1;
 	}
 
 	if (true == ImGui::Button("Remove", ImVec2(70, 25)))

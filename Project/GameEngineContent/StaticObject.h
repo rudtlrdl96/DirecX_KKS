@@ -15,6 +15,7 @@ public:
 
 	float4 Size = float4(100, 100, 0, 0);
 	float4 Color = float4::Zero;
+	float4 LightColor = float4::One;
 };
 
 class StaticObject : public BaseContentActor
@@ -48,7 +49,7 @@ private:
 
 	std::shared_ptr<ContentSpriteRenderer> ImageRender = nullptr;
 
-	ColorBuffer Buffer;
+	ObjectColorBuffer Buffer;
 
 #if _DEBUG
 	static std::shared_ptr<StaticObject> FocusStaticObject;

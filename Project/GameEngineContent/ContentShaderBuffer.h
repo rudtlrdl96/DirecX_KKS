@@ -6,6 +6,13 @@ public:
 	float4 Color = float4::Zero;
 };
 
+class ObjectColorBuffer
+{
+public:
+	float4 Color = float4::Zero;
+	float4 LightColor = float4::One;
+};
+
 class OutlineColorBuffer
 {
 public:
