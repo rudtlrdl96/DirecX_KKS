@@ -48,8 +48,8 @@ void CastleLevel::LevelChangeStart()
 {
 	BattleLevel::LevelChangeStart();
 
-	MainCamCtrl.SetMinHeight(128);
-	MainCamCtrl.SetMaxHeight(128 + GameEngineWindow::GetScreenSize().y);
+	MainCamCtrl.SetMinHeight(64);
+	MainCamCtrl.SetMaxHeight(64 + GameEngineWindow::GetScreenSize().y);
 
 	MainCamCtrl.SetMaxWidth(D3D11_FLOAT32_MAX);
 

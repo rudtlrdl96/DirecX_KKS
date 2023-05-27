@@ -83,6 +83,7 @@ SObjectMetaData StaticObject::LoadBin(GameEngineSerializer& _LoadSerializer)
 	_LoadSerializer.Read(&LoadMetaData.Scale, sizeof(float4));
 	_LoadSerializer.Read(&LoadMetaData.Size, sizeof(float4));
 	_LoadSerializer.Read(&LoadMetaData.Color, sizeof(float4));
+	_LoadSerializer.Read(&LoadMetaData.LightColor, sizeof(float4));
 	
 	return LoadMetaData;
 }

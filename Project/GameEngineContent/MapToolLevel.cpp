@@ -331,7 +331,8 @@ void MapToolLevel::Update_SObject(float _DeltaTime)
 		SObjectMetaData NewObjectMetaData = MapToolGuiPtr->GetSelectSObject();
 		NewObjectMetaData.Pos = TestMousePos;
 
-		ObjectMgrPtr->CreateStaticObject(NewObjectMetaData);
+		ObjectMgrPtr->CreateStaticObject(NewObjectMetaData); 
+		ObjectMgrPtr->SelectLastStaticObject();
 	}
 }
 
@@ -370,6 +371,7 @@ void MapToolLevel::Update_Platfrom(float _DeltaTime)
 				1);
 
 			ObjectMgrPtr->CreatePaltform(NewMetaData);
+			ObjectMgrPtr->SelectLastPlatform();
 		}	
 	}
 }

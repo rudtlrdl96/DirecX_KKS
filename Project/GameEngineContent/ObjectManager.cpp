@@ -191,6 +191,16 @@ void ObjectManager::PlatformDebugOff()
 	}
 }
 
+void ObjectManager::SelectLastStaticObject()
+{
+	CurrentStaticObjectIndex = StaticObjectActors.size() - 1;
+}
+
+void ObjectManager::SelectLastPlatform()
+{
+	CurrentPlatformIndex = MapPlatformActors.size() - 1;
+}
+
 void ObjectManager::Start()
 {
 	if (false == GameEngineInput::IsKey("PlatformDebugSwtich"))
@@ -224,6 +234,15 @@ void ObjectManager::Update(float _DeltaTime)
 	EmphasizeCurrentPlatform();
 }
 
+void ObjectManager::PushAllStaticObject(const float4& _AddPos)
+{
+	for (size_t i = 0; i < StaticObjectActors.size(); i++)
+	{
+		StaticObjectActors[i]->GetTransform()->AddLocalPosition(_AddPos);
+	}
+
+}
+
 void ObjectManager::Draw_SObject_GUI()
 {
 	if (ImGui::BeginListBox("Static Object ListBox"))
@@ -254,7 +273,7 @@ void ObjectManager::Draw_SObject_GUI()
 
 		CreateStaticObject(StaticObjectActors[CurrentStaticObjectIndex]->GetMetaData());
 
-		CurrentStaticObjectIndex = StaticObjectActors.size() - 1;
+		SelectLastStaticObject();
 	}
 
 	if (true == ImGui::Button("Remove", ImVec2(70, 25)))
@@ -281,6 +300,35 @@ void ObjectManager::Draw_SObject_GUI()
 		{
 			CurrentStaticObjectIndex = -1;
 		}
+	}
+
+	float ArrowButtonSize = ImGui::GetFrameHeight();
+
+	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
+	ImGui::SameLine();
+	if (true == ImGui::ArrowButton("StaticObject Push Up ArrowButton", ImGuiDir_Up))
+	{
+		PushAllStaticObject(float4(0, 64, 0));
+	}
+
+	if (true == ImGui::ArrowButton("StaticObject Push Left ArrowButton", ImGuiDir_Left))
+	{
+		PushAllStaticObject(float4(-64, 0, 0));
+	}
+
+	ImGui::SameLine();
+	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
+	ImGui::SameLine();
+	if (true == ImGui::ArrowButton("StaticObject Push Right ArrowButton", ImGuiDir_Right))
+	{
+		PushAllStaticObject(float4(-64, 0, 0));
+	}
+
+	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
+	ImGui::SameLine();
+	if (true == ImGui::ArrowButton("StaticObject Push Down ArrowButton", ImGuiDir_Down))
+	{
+		PushAllStaticObject(float4(0, -64, 0));
 	}
 
 	if (0 <= CurrentStaticObjectIndex && StaticObjectActors.size() > CurrentStaticObjectIndex)
@@ -339,6 +387,7 @@ void ObjectManager::Draw_Platform_GUI()
 		}
 
 		CreatePaltform(MapPlatformActors[CurrentPlatformIndex]->GetMetaData());
+		SelectLastPlatform();
 	}
 
 	if (true == ImGui::Button("Remove", ImVec2(70, 25)))

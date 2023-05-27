@@ -50,6 +50,9 @@ public:
 	void PlatformDebugOn();
 	void PlatformDebugOff();
 
+	void SelectLastStaticObject();
+	void SelectLastPlatform();
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -75,6 +78,8 @@ private:
 	CaptureBuffer Buffer;
 
 	GuiType ShowGuiType = GuiType::None;
+
+	void PushAllStaticObject(const float4& _AddPos);
 
 	void Draw_SObject_GUI();
 	void Draw_BObject_GUI();
