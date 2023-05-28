@@ -151,12 +151,23 @@ void MultiBackground::ShowGUI()
 			BackPtr->ReleaseRightRender();
 		}
 
-		float4 ShaderColor = BufferRef.OutColor;
-		float ShaderArrColor[4] = { ShaderColor.x, ShaderColor.y, ShaderColor.z, ShaderColor.w };
-		ImGui::ColorEdit4("Color", ShaderArrColor, ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_AlphaBar);
-		float4 ResultColor = ContentFunc::ConvertFloat4(ShaderArrColor);
+		{
+			float4 ShaderColor = BufferRef.OutColor;
+			float ShaderArrColor[4] = { ShaderColor.x, ShaderColor.y, ShaderColor.z, ShaderColor.w };
+			ImGui::ColorEdit4("Color", ShaderArrColor, ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_AlphaBar);
+			float4 ResultColor = ContentFunc::ConvertFloat4(ShaderArrColor);
 
-		BufferRef.OutColor = ResultColor;
+			BufferRef.OutColor = ResultColor;
+		}
+		
+		{
+			float4 ShaderColor = BufferRef.LightColor;
+			float ShaderArrColor[4] = { ShaderColor.x, ShaderColor.y, ShaderColor.z, ShaderColor.w };
+			ImGui::ColorEdit4("LightColor", ShaderArrColor, ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_AlphaBar);
+			float4 ResultColor = ContentFunc::ConvertFloat4(ShaderArrColor);
+
+			BufferRef.LightColor = ResultColor;
+		}
 
 		float BackScale = MetaDataRef.TextureScale;
 		ImGui::DragFloat("Scale", &BackScale, 0.01f);

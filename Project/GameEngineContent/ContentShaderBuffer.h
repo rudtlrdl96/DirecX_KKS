@@ -49,6 +49,7 @@ class TextureMoveBuffer
 {
 public:    
 	float4 OutColor = float4::Zero;
+	float4 LightColor = float4::One;
 	float4 Uv = float4::Zero;
 };
 

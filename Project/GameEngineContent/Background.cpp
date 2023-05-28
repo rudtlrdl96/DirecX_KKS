@@ -43,6 +43,7 @@ void Background::Init(const BackgroundMetaData& _MetaData)
 	}
 
 	Buffer.OutColor = MetaData.Color;
+	Buffer.LightColor = MetaData.LightColor;
 	Buffer.Uv = float4::Zero;
 
 	GetTransform()->SetLocalPosition(MetaData.Center);
@@ -177,6 +178,7 @@ void Background::ReleaseRightRender()
 void Background::SaveBin(GameEngineSerializer& _SaveSerializer)
 {
 	MetaData.Color = Buffer.OutColor;
+	MetaData.LightColor = Buffer.LightColor;
 
 	_SaveSerializer.Write(MetaData.Name);
 	_SaveSerializer.Write(&MetaData.Index, sizeof(UINT));
@@ -189,6 +191,7 @@ void Background::SaveBin(GameEngineSerializer& _SaveSerializer)
 	_SaveSerializer.Write(&MetaData.TextureSize, sizeof(float4));
 	_SaveSerializer.Write(&MetaData.TextureScale, sizeof(float));
 	_SaveSerializer.Write(&MetaData.Color, sizeof(float4));
+	_SaveSerializer.Write(&MetaData.LightColor, sizeof(float4));
 }
 
 BackgroundMetaData Background::LoadBin(GameEngineSerializer& _LoadSerializer)
@@ -206,6 +209,7 @@ BackgroundMetaData Background::LoadBin(GameEngineSerializer& _LoadSerializer)
 	_LoadSerializer.Read((void*)&LoadMetaData.TextureSize, sizeof(float4));
 	_LoadSerializer.Read((void*)&LoadMetaData.TextureScale, sizeof(float));
 	_LoadSerializer.Read((void*)&LoadMetaData.Color, sizeof(float4));
+	_LoadSerializer.Read((void*)&LoadMetaData.LightColor, sizeof(float4));
 
 	return LoadMetaData;
 }

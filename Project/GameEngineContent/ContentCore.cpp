@@ -109,7 +109,7 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<TilemapDebugLevel>("TilemapDebugLevel");
 
 	Inventory::SetMainSkull(ContentDatabase<SkullData, SkullGrade>::GetData(0)); // 기본 리틀본
-	//Inventory::SetSubSkull(ContentDatabase<SkullData, SkullGrade>::GetData(203)); // 디버그용 경비대장
+	Inventory::SetSubSkull(ContentDatabase<SkullData, SkullGrade>::GetData(203)); // 디버그용 경비대장
 
 	GameEngineCore::ChangeLevel("Title");
 

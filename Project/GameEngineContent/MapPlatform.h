@@ -6,6 +6,7 @@
 class MapPlatform : public BaseContentActor
 {
 	friend class MapPlatformDebugRender;
+	friend class ObjectManager;
 public:
 	enum class PlatformType
 	{

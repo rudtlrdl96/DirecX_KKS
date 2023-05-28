@@ -243,6 +243,15 @@ void ObjectManager::PushAllStaticObject(const float4& _AddPos)
 
 }
 
+void ObjectManager::PushAllPlatform(const float4& _AddPos)
+{
+	for (size_t i = 0; i < MapPlatformActors.size(); i++)
+	{
+		MapPlatformActors[i]->GetTransform()->AddLocalPosition(_AddPos);
+		MapPlatformActors[i]->MetaData.Pos = MapPlatformActors[i]->GetTransform()->GetLocalPosition();
+	}
+}
+
 void ObjectManager::Draw_SObject_GUI()
 {
 	if (ImGui::BeginListBox("Static Object ListBox"))
@@ -308,12 +317,12 @@ void ObjectManager::Draw_SObject_GUI()
 	ImGui::SameLine();
 	if (true == ImGui::ArrowButton("StaticObject Push Up ArrowButton", ImGuiDir_Up))
 	{
-		PushAllStaticObject(float4(0, 64, 0));
+		PushAllStaticObject(float4(0, ContentConst::TileSize.y, 0));
 	}
 
 	if (true == ImGui::ArrowButton("StaticObject Push Left ArrowButton", ImGuiDir_Left))
 	{
-		PushAllStaticObject(float4(-64, 0, 0));
+		PushAllStaticObject(float4(-ContentConst::TileSize.x, 0, 0));
 	}
 
 	ImGui::SameLine();
@@ -321,14 +330,14 @@ void ObjectManager::Draw_SObject_GUI()
 	ImGui::SameLine();
 	if (true == ImGui::ArrowButton("StaticObject Push Right ArrowButton", ImGuiDir_Right))
 	{
-		PushAllStaticObject(float4(-64, 0, 0));
+		PushAllStaticObject(float4(ContentConst::TileSize.x, 0, 0));
 	}
 
 	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
 	ImGui::SameLine();
 	if (true == ImGui::ArrowButton("StaticObject Push Down ArrowButton", ImGuiDir_Down))
 	{
-		PushAllStaticObject(float4(0, -64, 0));
+		PushAllStaticObject(float4(0, -ContentConst::TileSize.y, 0));
 	}
 
 	if (0 <= CurrentStaticObjectIndex && StaticObjectActors.size() > CurrentStaticObjectIndex)
@@ -414,6 +423,35 @@ void ObjectManager::Draw_Platform_GUI()
 		{
 			CurrentPlatformIndex = -1;
 		}
+	}
+
+	float ArrowButtonSize = ImGui::GetFrameHeight();
+
+	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
+	ImGui::SameLine();
+	if (true == ImGui::ArrowButton("StaticObject Push Up ArrowButton", ImGuiDir_Up))
+	{
+		PushAllPlatform(float4(0, ContentConst::TileSize.y, 0));
+	}
+
+	if (true == ImGui::ArrowButton("StaticObject Push Left ArrowButton", ImGuiDir_Left))
+	{
+		PushAllPlatform(float4(-ContentConst::TileSize.x, 0, 0));
+	}
+
+	ImGui::SameLine();
+	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
+	ImGui::SameLine();
+	if (true == ImGui::ArrowButton("StaticObject Push Right ArrowButton", ImGuiDir_Right))
+	{
+		PushAllPlatform(float4(ContentConst::TileSize.x, 0, 0));
+	}
+
+	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
+	ImGui::SameLine();
+	if (true == ImGui::ArrowButton("StaticObject Push Down ArrowButton", ImGuiDir_Down))
+	{
+		PushAllPlatform(float4(0, -ContentConst::TileSize.y, 0));
 	}
 }
 

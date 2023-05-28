@@ -53,6 +53,7 @@ struct OutPut
 cbuffer TextureMoveBuffer : register(b1)
 {
     float4 OutColor;
+    float4 LightColor;
     float4 OutUv;
 }
 
@@ -75,6 +76,9 @@ float4 Texture_PS(OutPut _Value) : SV_Target0
     float4 Color = DiffuseTex.Sample(WRAPSAMPLER, _Value.UV.xy);
     
     Color.xyz += OutColor.xyz;
+    Color.xyz *= LightColor.xyz;
+    Color.xyz *= LightColor.a;
+
     Color *= OutColor.a;
     
     return Color;
