@@ -39,8 +39,14 @@ void HolyCourtyardLevel::Start()
 	}
 
 
-	MainStageName = "DB_HoluCourtyard_BossEntranceFade_Map";
-	MainBackgroundName = "DB_HolyCourtyard_Background_1";
+	StageNameInfos.reserve(2);
+
+	StageNameInfos.push_back({ "DB_HoluCourtyard_BossEntranceFade_Map", "DB_BossPahse0_Background_1" });
+	StageNameInfos.push_back({ "DB_HoluCourtyard_BossPhase0_Map", "DB_HolyCourtyard_Background_2" });
+
+	CurStageIndex = 0;
+	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 }
 
 void HolyCourtyardLevel::Update(float _DeltaTime)

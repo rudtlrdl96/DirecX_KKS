@@ -22,19 +22,25 @@ void GrandHallLevel::Start()
 	{
 		DirectoryPath.Move("Background");
 		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_GrandHall_Background_0");
-		//BattleAreaPtr->LoadBackground(DirectoryPath, "DB_GrandHall_Background_1");
+		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_GrandHall_Background_1");
 		DirectoryPath.MoveParent();
 	}
 
 	{
 		DirectoryPath.Move("Map");
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_GrandHall_BossEntrance_Map");
-		//BattleAreaPtr->LoadMap(DirectoryPath, "DB_GrandHall_BossRoom_Map");
+		BattleAreaPtr->LoadMap(DirectoryPath, "DB_GrandHall_BossRoom_Map");
 		DirectoryPath.MoveParent();
 	}
 
-	MainStageName = "DB_GrandHall_BossEntrance_Map";
-	MainBackgroundName = "DB_GrandHall_Background_0";
+	StageNameInfos.reserve(2);
+
+	StageNameInfos.push_back({ "DB_GrandHall_BossEntrance_Map", "DB_GrandHall_Background_0" });
+	StageNameInfos.push_back({ "DB_GrandHall_BossRoom_Map", "DB_GrandHall_Background_1" });
+
+	CurStageIndex = 0;
+	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 }
 
 void GrandHallLevel::Update(float _DeltaTime)

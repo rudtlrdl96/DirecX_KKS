@@ -22,7 +22,7 @@ public:
 	float TextureScale = 1.0f;
 
 	float4 Color = float4::Zero;
-	float4 LightColor = float4::Zero;
+	float4 LightColor = float4::One;
 };
 
 class Background : public BaseContentActor

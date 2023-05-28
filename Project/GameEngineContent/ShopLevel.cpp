@@ -32,8 +32,13 @@ void ShopLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
-	MainStageName = "DB_Shop_Map";
-	MainBackgroundName = "DB_Shop_Background";
+	StageNameInfos.reserve(1);
+
+	StageNameInfos.push_back({ "DB_Shop_Map", "DB_Shop_Background" });
+
+	CurStageIndex = 0;
+	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 }
 
 void ShopLevel::Update(float _DeltaTime)

@@ -1,9 +1,9 @@
 #include "PrecompileHeader.h"
 #include "BattleLevel.h"
 
-#include "EffectManager.h"
+#include <GameEnginePlatform/GameEngineInput.h>
 
-// Game
+#include "EffectManager.h"
 #include "BattleArea.h"
 #include "Player.h"
 
@@ -17,6 +17,12 @@ BattleLevel::~BattleLevel()
 
 void BattleLevel::Start()
 {
+	if (false == GameEngineInput::IsKey("LevelMovePrev"))
+	{
+		GameEngineInput::CreateKey("LevelMovePrev", '1');
+		GameEngineInput::CreateKey("LevelMoveNext", '2');
+	}
+
 	ContentLevel::Start();
 
 	float4 HalfWindowSize = GameEngineWindow::GetScreenSize().half();
@@ -27,6 +33,15 @@ void BattleLevel::Update(float _DeltaTime)
 {
 	ContentLevel::Update(_DeltaTime);
 	BattleAreaPtr->UpdateBackground(_DeltaTime, MainCamCtrl.GetCameraPos());
+
+	if (true == GameEngineInput::IsDown("LevelMovePrev"))
+	{
+		MovePrevStage();
+	}
+	else if (true == GameEngineInput::IsDown("LevelMoveNext"))
+	{
+		MoveNextStage();
+	}
 }
 
 void BattleLevel::SetPosDebugActor(const float4& _Pos)
@@ -73,4 +88,38 @@ void BattleLevel::ChangeStage()
 	BattleAreaPtr->ChangeMap(MainStageName);
 	BattleAreaPtr->SetCameraLock(MainCamCtrl);
 	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
+}
+
+void BattleLevel::MovePrevStage()
+{
+	if (0 < CurStageIndex)
+	{
+		--CurStageIndex;
+	}
+	else
+	{
+		CurStageIndex = 0;
+	}
+
+	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+
+	ChangeStage();
+}
+
+void BattleLevel::MoveNextStage()
+{
+	++CurStageIndex;
+
+	if (StageNameInfos.size() <= CurStageIndex)
+	{
+		AreaClear();
+		CurStageIndex = static_cast<UINT>(StageNameInfos.size() - 1);
+	}
+	else
+	{
+		MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+		MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+		ChangeStage();
+	}
 }

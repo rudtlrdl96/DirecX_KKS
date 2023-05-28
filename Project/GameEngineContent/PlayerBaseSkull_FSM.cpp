@@ -623,12 +623,12 @@ void PlayerBaseSkull::Attack_Enter()
 	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		SetViewDir(ActorViewDir::Left);
-		AttackRigidbody.AddVelocity(float4::Left * 230.0f);
+		AttackRigidbody.AddVelocity(float4::Left * AttackMoveDis);
 	}
 	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
 		SetViewDir(ActorViewDir::Right);
-		AttackRigidbody.AddVelocity(float4::Right * 230.0f);
+		AttackRigidbody.AddVelocity(float4::Right * AttackMoveDis);
 	}
 
 	IsAttackCombo = false;
@@ -708,12 +708,12 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
 			SetViewDir(ActorViewDir::Left);
-			AttackRigidbody.AddVelocity(float4::Left * 230.0f);
+			AttackRigidbody.AddVelocity(float4::Left * AttackMoveDis);
 		}
 		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
 			SetViewDir(ActorViewDir::Right);
-			AttackRigidbody.AddVelocity(float4::Right * 230.0f);
+			AttackRigidbody.AddVelocity(float4::Right * AttackMoveDis);
 		}
 
 		if (true == IsAttackCombo)

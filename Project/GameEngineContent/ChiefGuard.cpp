@@ -426,10 +426,10 @@ void ChiefGuard::AnimationColLoad()
 	Path.Move("8_Player");
 	Path.Move("ChiefGuard");
 
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_AttackA").GetFullPath()), 0.08f);
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_AttackB").GetFullPath()), 0.08f);
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_AttackC").GetFullPath()), 0.1f);
-	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_JumpAttack").GetFullPath()), 0.1f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_AttackA").GetFullPath()), 0.07f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_AttackB").GetFullPath()), 0.07f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_AttackC").GetFullPath()), 0.085f);
+	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_JumpAttack").GetFullPath()), 0.07f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_SkillA").GetFullPath()), 0.045f);
 	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_SkillB").GetFullPath()), 0.09f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_Switch").GetFullPath()), 0.1f);

@@ -33,10 +33,12 @@ void CastleLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
-	MainStageName = "DB_Castle_Map";
-	MainBackgroundName = "DB_Castle_Background";
+	StageNameInfos.reserve(1);
+	StageNameInfos.push_back({ "DB_Castle_Map", "DB_Castle_Background" });
 
-
+	CurStageIndex = 0;
+	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 }
 
 void CastleLevel::Update(float _DeltaTime)

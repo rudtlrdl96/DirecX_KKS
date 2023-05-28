@@ -4,6 +4,13 @@
 
 class BattleLevel : public ContentLevel
 {
+private:
+	class LoadStageInfo
+	{
+	public:
+		std::string LoadMapName = "";
+		std::string LoadBackgroundName = "";
+	};
 public:
 	BattleLevel();
 	~BattleLevel();
@@ -14,6 +21,9 @@ public:
 	BattleLevel& operator=(BattleLevel&& _Other) noexcept = delete;
 
 protected:
+	std::vector<LoadStageInfo> StageNameInfos;
+	UINT CurStageIndex = 0;
+
 	std::string MainStageName = "";
 	std::string MainBackgroundName = "";
 
@@ -29,9 +39,11 @@ protected:
 	void LevelChangeEnd() override;
 
 	void ChangeStage();
+	void MovePrevStage();
+	void MoveNextStage();
 
 private:
-
+	virtual void AreaClear() {}
 
 };
 

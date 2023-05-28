@@ -164,6 +164,7 @@ protected:
 
 	UINT AttackComboCount = 0;
 	bool IsAttackCombo = false;
+	float AttackMoveDis = 700.0f;
 
 	UINT JumpAttackCombo = 0;
 	bool IsJumpAttackCombo = false;
