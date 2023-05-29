@@ -13,7 +13,7 @@ CarleonManAtArms::~CarleonManAtArms()
 
 void CarleonManAtArms::DataLoad()
 {
-	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(106); // 106 = 칼레온 중보병
+	Data = ContentDatabase<MonsterData, LevelArea>::GetData(106); // 106 = 칼레온 중보병
 
 	IsSuperArmor = true;
 	AttackWaitEndTime = 2.0f;

@@ -13,7 +13,7 @@ BlossomEnt::~BlossomEnt()
 
 void BlossomEnt::DataLoad()
 {
-	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(101); // 101 = ²É ¿£Æ®
+	Data = ContentDatabase<MonsterData, LevelArea>::GetData(101); // 101 = ²É ¿£Æ®
 
 	AttackWaitEndTime = 2.0f;
 }

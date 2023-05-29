@@ -94,7 +94,7 @@ void RootEnt::Update(float _DeltaTime)
 
 void RootEnt::DataLoad()
 {
-	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(102); // 102 = »Ñ¸® ¿£Æ®
+	Data = ContentDatabase<MonsterData, LevelArea>::GetData(102); // 102 = »Ñ¸® ¿£Æ®
 
 	AttackWaitEndTime = 2.0f;
 }

@@ -25,7 +25,7 @@ void CarleonArcher::Update(float _DeltaTime)
 }
 void CarleonArcher::DataLoad()
 {
-	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(1); // 1 = 칼레온 아쳐
+	Data = ContentDatabase<MonsterData, LevelArea>::GetData(1); // 1 = 칼레온 아쳐
 	AttackWaitEndTime = 2.0f;
 }
 

@@ -1,23 +1,12 @@
 #pragma once
 
-enum class MonsterArea
-{
-	None,			// 디버깅용 None
-	Opning,			// 오프닝 조화의 숲
-	ForestOfHamory,	// 조화의 숲
-	GrandHall,		// 그랜드 홀
-	SacredGrounds,	// 성역
-	MianBoss,		// 메인보스
-	SubBoss,		// 서브보스 (모험가)
-};	
-
 class MonsterData
 {
 public:
 	std::string Name = "";
 	std::string ImageName = "";
 	size_t Index = 0;
-	MonsterArea Grade = MonsterArea::None;
+	LevelArea Grade = LevelArea::None;
 
 	float HP = 0;
 	float DamageReduction = 0.0f;

@@ -172,7 +172,7 @@ void FlameWizard::Update(float _DeltaTime)
 
 void FlameWizard::DataLoad()
 {
-	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(108); // 108 = È­¿° ¸¶¹ý»ç
+	Data = ContentDatabase<MonsterData, LevelArea>::GetData(108); // 108 = È­¿° ¸¶¹ý»ç
 
 	AttackWaitEndTime = 2.0f;
 }

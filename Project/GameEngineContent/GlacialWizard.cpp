@@ -15,7 +15,7 @@ GlacialWizard::~GlacialWizard()
 
 void GlacialWizard::DataLoad()
 {
-	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(109); // 109 = ºù°á ¸¶¹ý»ç
+	Data = ContentDatabase<MonsterData, LevelArea>::GetData(109); // 109 = ºù°á ¸¶¹ý»ç
 
 	AttackWaitEndTime = 2.0f;
 }

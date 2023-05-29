@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineCoreWindow.h>
 #include "TileMetaData.h"
+#include "MonsterData.h"
 #include "MapToolLevel.h"
 #include "ObjectManager.h"
 #include "ParticleManager.h"
@@ -28,6 +29,19 @@ private:
 		std::shared_ptr<class GameEngineTexture> TexturePtr = nullptr;
 
 		MapTool_SObjectData(const SObjectMetaData& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
+			Data(_Data),
+			TexturePtr(_TexturePtr)
+		{
+		}
+	};
+
+	class MapTool_MonsterData
+	{
+	public:
+		MonsterData Data;
+		std::shared_ptr<class GameEngineTexture> TexturePtr = nullptr;
+
+		MapTool_MonsterData(const MonsterData& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
 			Data(_Data),
 			TexturePtr(_TexturePtr)
 		{
@@ -95,8 +109,10 @@ protected:
 private:
 	std::map<LevelArea, std::vector<MapTool_TilemapData>> TileTexDatas;
 	std::map<LevelArea, std::vector<MapTool_SObjectData>> SObjectTexDatas;
+	std::map<LevelArea, std::vector<MapTool_MonsterData>> MonsterTexDatas;
 
 	LevelArea CurShowAreaTile = LevelArea::None;
+
 	MapToolLevel::MapToolState MapToolType = MapToolLevel::MapToolState::Tilemap;
 	MapPlatform::PlatformType BasePlatformType = MapPlatform::PlatformType::Normal;
 

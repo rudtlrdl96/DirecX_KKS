@@ -197,6 +197,31 @@ void MapToolGUI::DrawGui_Light()
 
 void MapToolGUI::DrawGui_Monster()
 {
+	//const std::vector<MapTool_MonsterData>& BufferTextureDatas = MonsterTexDatas[CurShowMonsterArea];
+	//
+	//ImGui::Spacing();
+	//
+	//for (size_t i = 0; i < BufferTextureDatas.size(); i++)
+	//{
+	//	if (0 != i % 4)
+	//	{
+	//		ImGui::SameLine();
+	//	}
+	//
+	//	if (true == ImGui::ImageButton((void*)BufferTextureDatas[i].TexturePtr->GetSRV(), ImVec2(TileSize.x, TileSize.y)))
+	//	{
+	//		SelectSObjectMetaData = BufferTextureDatas[i].Data;
+	//	}
+	//
+	//	if (true == ImGui::IsItemHovered())
+	//	{
+	//		ImGui::BeginTooltip();
+	//		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+	//		ImGui::TextUnformatted(BufferTextureDatas[i].Data.Name.c_str());
+	//		ImGui::PopTextWrapPos();
+	//		ImGui::EndTooltip();
+	//	}
+	//}
 }
 
 void MapToolGUI::Callback_Object()

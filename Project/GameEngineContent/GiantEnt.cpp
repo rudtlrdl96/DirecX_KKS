@@ -15,7 +15,7 @@ GiantEnt::~GiantEnt()
 
 void GiantEnt::DataLoad()
 {
-	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(103); // 103 = 숲지기(자이언트 엔트)
+	Data = ContentDatabase<MonsterData, LevelArea>::GetData(103); // 103 = 숲지기(자이언트 엔트)
 
 	IsSuperArmor = true;
 	AttackWaitEndTime = 2.0f;

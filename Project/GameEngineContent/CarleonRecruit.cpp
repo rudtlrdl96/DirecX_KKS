@@ -12,7 +12,7 @@ CarleonRecruit::~CarleonRecruit()
 
 void CarleonRecruit::DataLoad()
 {
-	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(0); // 0 = Ä®·¹¿Â ½Åº´
+	Data = ContentDatabase<MonsterData, LevelArea>::GetData(0); // 0 = Ä®·¹¿Â ½Åº´
 }
 
 void CarleonRecruit::TextureLoad()

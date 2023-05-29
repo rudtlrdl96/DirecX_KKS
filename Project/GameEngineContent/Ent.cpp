@@ -12,7 +12,7 @@ Ent::~Ent()
 
 void Ent::DataLoad()
 {
-	Data = ContentDatabase<MonsterData, MonsterArea>::GetData(100); // 100 = 엔트
+	Data = ContentDatabase<MonsterData, LevelArea>::GetData(100); // 100 = 엔트
 }
 
 void Ent::TextureLoad()
