@@ -32,6 +32,13 @@ void Tilemap::SetDepth(UINT _DepthCount)
 
 	for (size_t Depth = 0; Depth < TilemapRenders.size(); Depth++)
 	{
+		TilemapDatas[Depth].resize(TilemapSize.y);
+
+		for (size_t y = 0; y < TilemapDatas[Depth].size(); y++)
+		{
+			TilemapDatas[Depth][y].resize(TilemapSize.x);
+		}
+
 		if (nullptr == TilemapRenders[Depth])
 		{
 			std::shared_ptr<GameEngineTileMapRenderer> NewRender = CreateComponent<GameEngineTileMapRenderer>();
