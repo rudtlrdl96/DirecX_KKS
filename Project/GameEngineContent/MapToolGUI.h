@@ -129,6 +129,7 @@ private:
 
 	UINT SelectTileIndex = 0;
 	SObjectMetaData SelectSObjectMetaData;
+	MonsterData SelectMonsterMetaData;
 
 	ParticleAreaMetaData ParticleAreaMapMetaData;
 	
@@ -143,6 +144,7 @@ private:
 
 	void TileDatasLoad(LevelArea _Area);
 	void SObjectDatasLoad(LevelArea _Area);
+	void MonsterDatasLoad(LevelArea _Area);
 	
 	void DrawGui_Tilemap();
 	void DrawGui_SObject();

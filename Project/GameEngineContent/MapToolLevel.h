@@ -61,6 +61,7 @@ private:
 	void Update_Platfrom(float _DeltaTime);
 	void Update_Event(float _DeltaTime);
 	void Update_Particle(float _DeltaTime);
+	void Update_Monster(float _DeltaTime);
 
 
 };

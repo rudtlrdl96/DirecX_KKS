@@ -12,7 +12,7 @@ public:
 		None,
 		SObject,
 		BObject,
-		Platform
+		Platform,
 	};
 
 public:

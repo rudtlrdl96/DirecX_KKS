@@ -340,6 +340,9 @@
     <Filter Include="6_PostEffect">
       <UniqueIdentifier>{85015818-efc6-413e-8a7f-3ca120b359d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\Monster">
+      <UniqueIdentifier>{11f890f1-ddcc-4f80-814d-65f4cfd7ac4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -743,6 +746,9 @@
     </ClInclude>
     <ClInclude Include="BounceRigidbody2D.h">
       <Filter>1_Class\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterManager.h">
+      <Filter>2_Actor\Map\Stage\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1180,6 +1186,9 @@
     </ClCompile>
     <ClCompile Include="BounceRigidbody2D.cpp">
       <Filter>1_Class\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterManager.cpp">
+      <Filter>2_Actor\Map\Stage\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

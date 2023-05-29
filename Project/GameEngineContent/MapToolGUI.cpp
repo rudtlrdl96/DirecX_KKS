@@ -197,31 +197,31 @@ void MapToolGUI::DrawGui_Light()
 
 void MapToolGUI::DrawGui_Monster()
 {
-	//const std::vector<MapTool_MonsterData>& BufferTextureDatas = MonsterTexDatas[CurShowMonsterArea];
-	//
-	//ImGui::Spacing();
-	//
-	//for (size_t i = 0; i < BufferTextureDatas.size(); i++)
-	//{
-	//	if (0 != i % 4)
-	//	{
-	//		ImGui::SameLine();
-	//	}
-	//
-	//	if (true == ImGui::ImageButton((void*)BufferTextureDatas[i].TexturePtr->GetSRV(), ImVec2(TileSize.x, TileSize.y)))
-	//	{
-	//		SelectSObjectMetaData = BufferTextureDatas[i].Data;
-	//	}
-	//
-	//	if (true == ImGui::IsItemHovered())
-	//	{
-	//		ImGui::BeginTooltip();
-	//		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-	//		ImGui::TextUnformatted(BufferTextureDatas[i].Data.Name.c_str());
-	//		ImGui::PopTextWrapPos();
-	//		ImGui::EndTooltip();
-	//	}
-	//}
+	const std::vector<MapTool_MonsterData>& BufferTextureDatas = MonsterTexDatas[CurShowAreaTile];
+	
+	ImGui::Spacing();
+	
+	for (size_t i = 0; i < BufferTextureDatas.size(); i++)
+	{
+		if (0 != i % 4)
+		{
+			ImGui::SameLine();
+		}
+	
+		if (true == ImGui::ImageButton((void*)BufferTextureDatas[i].TexturePtr->GetSRV(), ImVec2(TileSize.x, TileSize.y)))
+		{
+			SelectMonsterMetaData = BufferTextureDatas[i].Data;
+		}
+	
+		if (true == ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+			ImGui::TextUnformatted(GameEngineString::AnsiToUTF8(BufferTextureDatas[i].Data.Name).c_str());
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
+		}
+	}
 }
 
 void MapToolGUI::Callback_Object()
@@ -268,6 +268,7 @@ void MapToolGUI::Start()
 	{
 		TileDatasLoad(LoadLevel);
 		SObjectDatasLoad(LoadLevel);
+		MonsterDatasLoad(LoadLevel);
 
 		int NextLevel = static_cast<int>(LoadLevel) + 1;
 		LoadLevel = static_cast<LevelArea>(NextLevel);
@@ -376,7 +377,6 @@ void MapToolGUI::TileDatasLoad(LevelArea _Area)
 
 void MapToolGUI::SObjectDatasLoad(LevelArea _Area)
 {
-
 	std::vector<MapTool_SObjectData>& BufferTextureDatas = SObjectTexDatas[_Area];
 
 	std::vector<SObjectMetaData> CopyDatas;
@@ -394,5 +394,27 @@ void MapToolGUI::SObjectDatasLoad(LevelArea _Area)
 		}
 
 		BufferTextureDatas.push_back(MapTool_SObjectData(CopyDatas[i], FindTex));
+	}
+}
+
+void MapToolGUI::MonsterDatasLoad(LevelArea _Area)
+{
+	std::vector<MapTool_MonsterData>& BufferTextureDatas = MonsterTexDatas[_Area];
+
+	std::vector<MonsterData> CopyDatas;
+	ContentDatabase<MonsterData, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
+
+	BufferTextureDatas.reserve(CopyDatas.size());
+
+	for (size_t i = 0; i < CopyDatas.size(); i++)
+	{
+		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(CopyDatas[i].ImageName);
+
+		if (nullptr == FindTex)
+		{
+			MsgAssert_Rtti<MapToolGUI>(" - 타일 데이터의 텍스쳐를 찾을 수 없습니다");
+		}
+
+		BufferTextureDatas.push_back(MapTool_MonsterData(CopyDatas[i], FindTex));
 	}
 }

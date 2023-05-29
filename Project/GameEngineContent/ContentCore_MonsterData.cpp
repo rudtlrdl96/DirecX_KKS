@@ -104,6 +104,23 @@ void ContentCore::MonsterDataLoad()
 	Path.Move("Texture");
 
 	{
+		Path.Move("0_Common");
+		Path.Move("Monster");
+		Path.Move("Preview");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (UINT i = 0; i < Files.size(); i++)
+		{
+			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+		}
+
+		Path.MoveParent();
+		Path.MoveParent();
+		Path.MoveParent();
+	}
+
+	{
 		Path.Move("1_Opening");
 		Path.Move("Monster");
 

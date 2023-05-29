@@ -129,6 +129,7 @@ void MapToolLevel::Update(float _DeltaTime)
 	case MapToolState::Light:
 		break;
 	case MapToolState::Monster:
+		Update_Monster(_DeltaTime);
 		break;
 	default:
 		break;
@@ -411,4 +412,33 @@ void MapToolLevel::Update_Particle(float _DeltaTime)
 			ParticleMgrPtr->CreateMapParticleArea(NewMetaData);
 		}
 	}
+}
+
+void MapToolLevel::Update_Monster(float _DeltaTime)
+{
+	//ObjectMgrPtr->SetGuiType(ObjectManager::GuiType::Monster);
+	//
+	//std::shared_ptr<BaseContentActor> GetActorPtr = ObjectMgrPtr->GetSelectSObject();
+	//
+	//if (nullptr == GetActorPtr)
+	//{
+	//	ActorGUIPtr->SetTarget(nullptr);
+	//}
+	//else
+	//{
+	//	ActorGUIPtr->SetTarget(GetActorPtr->GetTransform(), { std::bind(&BaseContentActor::ShowGUI, GetActorPtr) });
+	//}
+	//
+	//
+	//if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
+	//{
+	//	float4 TestMousePos = GetMousePos();
+	//	TestMousePos.z = 0;
+	//
+	//	SObjectMetaData NewObjectMetaData = MapToolGuiPtr->GetSelectSObject();
+	//	NewObjectMetaData.Pos = TestMousePos;
+	//
+	//	ObjectMgrPtr->CreateStaticObject(NewObjectMetaData);
+	//	ObjectMgrPtr->SelectLastStaticObject();
+	//}
 }
