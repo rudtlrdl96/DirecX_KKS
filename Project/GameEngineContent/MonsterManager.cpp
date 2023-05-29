@@ -2,6 +2,7 @@
 #include "MonsterManager.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineGUI.h>
 
 #include "CarleonRecruit.h"
 #include "CarleonArcher.h"
@@ -13,7 +14,7 @@
 #include "FlameWizard.h"
 #include "GlacialWizard.h"
 
-void MonsterSpawnMetaData::MonsterSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent)
+std::shared_ptr<BaseMonster> MonsterSpawnMetaData::MonsterSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent)
 {
 	std::shared_ptr<BaseMonster> NewMonster = nullptr;
 
@@ -71,11 +72,13 @@ void MonsterSpawnMetaData::MonsterSpawn(GameEngineLevel* _SpawnLevel, GameEngine
 	if (nullptr == NewMonster)
 	{
 		MsgAssert_Rtti<MonsterSpawnMetaData>("아직 존재하지 않은 몬스터를 소환하려 했습니다");
-		return;
+		return nullptr;
 	}
 
 	NewMonster->GetTransform()->SetParent(_Parent);
 	NewMonster->GetTransform()->SetLocalPosition(SpawnPos);
+
+	return NewMonster;
 }
 
 void MonsterSpawnMetaData::SaveBin(GameEngineSerializer& _SaveSerializer) const
@@ -90,7 +93,22 @@ void MonsterSpawnMetaData::LoadBin(GameEngineSerializer& _LoadSerializer)
 	_LoadSerializer.Read(&SpawnPos, sizeof(float4));
 }
 
-void MonsterGroupMetaData::WaveSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent)
+void MonsterSpawnMetaData::ShowGUI()
+{
+	// Todo : 몬스터 인덱스 변경 기능
+	ImGui::Text(("Monster Index : " + std::to_string(Index)).data());
+
+	float InputSpawnPos[4] = { SpawnPos.x, SpawnPos.y, SpawnPos.z, SpawnPos.w };
+
+	ImGui::DragFloat4("Spawn Postion", InputSpawnPos);
+
+	SpawnPos.x = InputSpawnPos[0];
+	SpawnPos.y = InputSpawnPos[1];
+	SpawnPos.z = InputSpawnPos[2];
+	SpawnPos.w = InputSpawnPos[3];
+}
+
+void MonsterGroupMetaData::WaveSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent, std::vector<std::shared_ptr<BaseMonster>>& _WaveGroup)
 {
 	if (true == IsSpawnEnd)
 	{
@@ -102,7 +120,7 @@ void MonsterGroupMetaData::WaveSpawn(GameEngineLevel* _SpawnLevel, GameEngineTra
 
 	for (size_t i = 0; i < SpawnMonsters.size(); i++)
 	{
-		SpawnMonsters[i].MonsterSpawn(_SpawnLevel, _Parent);
+		_WaveGroup.push_back(SpawnMonsters[i].MonsterSpawn(_SpawnLevel, _Parent));
 	}
 }
 
@@ -144,6 +162,35 @@ void MonsterGroupMetaData::LoadBin(GameEngineSerializer& _LoadSerializer)
 	}
 }
 
+void MonsterGroupMetaData::ShowGUI()
+{
+	if (ImGui::BeginListBox("Monster ListBox"))
+	{
+		for (int n = 0; n < SpawnMonsters.size(); n++)
+		{
+			const bool is_selected = (GUI_SelectMonster == n);
+
+			if (ImGui::Selectable((std::string("Group : ") + std::to_string(n)).data(), is_selected))
+			{
+				GUI_SelectMonster = n;
+			}
+
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+
+		ImGui::EndListBox();
+	}
+
+	if (GUI_SelectMonster >= SpawnMonsters.size())
+	{
+		return;
+	}
+
+	SpawnMonsters[GUI_SelectMonster].ShowGUI();
+}
+
 MonsterManager::MonsterManager()
 {
 }
@@ -176,6 +223,7 @@ void MonsterManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 	int WaveSize = 0;
 	_LoadSerializer.Read(&WaveSize, sizeof(int));
 
+	MonsterActors.resize(WaveSize);
 	WaveDatas.resize(WaveSize);
 
 	for (size_t i = 0; i < WaveDatas.size(); i++)
@@ -190,11 +238,44 @@ void MonsterManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 			WaveDatas[i][j].LoadBin(_LoadSerializer);
 		}
 	}
-
 }
 
 void MonsterManager::ShowGUI()
 {
+	ImGui::Text(("WaveCount : " + std::to_string(WaveDatas.size())).data());
+	ImGui::InputInt("WaveNumber", &GUI_SelectWave);
+
+	// Todo : AddWave
+	// Todo : RemoveWave
+
+	if (0 > GUI_SelectWave || WaveDatas.size() >= GUI_SelectWave)
+	{
+		return;
+	}
+
+	// Todo : AddGroup
+	// Todo : RemoveGroup
+
+	if (ImGui::BeginListBox("Group ListBox"))
+	{
+		for (int n = 0; n < WaveDatas[GUI_SelectWave].size(); n++)
+		{
+			const bool is_selected = (GUI_SelectGroup == n);
+
+			if (ImGui::Selectable((std::string("Group : ") + std::to_string(n)).data(), is_selected))
+			{
+				GUI_SelectGroup = n;
+			}
+
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+
+		ImGui::EndListBox();
+	}
+
+	WaveDatas[GUI_SelectWave][GUI_SelectGroup].ShowGUI();
 }
 
 void MonsterManager::Start()
@@ -279,12 +360,12 @@ void MonsterManager::Update(float _DeltaTime)
 
 				if (nullptr != WaveCollision->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
 				{
-					SpawnRef[CurWave].WaveSpawn(GetLevel(), GetTransform());
+					SpawnRef[CurWave].WaveSpawn(GetLevel(), GetTransform(), MonsterActors[CurWave]);
 				}
 			}
 			else
 			{
-				SpawnRef[CurWave].WaveSpawn(GetLevel(), GetTransform());
+				SpawnRef[CurWave].WaveSpawn(GetLevel(), GetTransform(), MonsterActors[CurWave]);
 			}
 		}
 	}

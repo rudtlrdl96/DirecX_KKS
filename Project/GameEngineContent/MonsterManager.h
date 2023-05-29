@@ -8,10 +8,13 @@ public:
 	size_t Index = 0;
 	float4 SpawnPos = float4::Zero;
 
-	void MonsterSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent);
+	std::shared_ptr<BaseMonster> MonsterSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
+
+	// GUI
+	void ShowGUI();
 };
 
 class MonsterGroupMetaData
@@ -26,12 +29,16 @@ public:
 	float4 ColScale = float4::Zero;
 
 	std::vector<MonsterSpawnMetaData> SpawnMonsters;
-		
-	void WaveSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent);
+	
+	void WaveSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent, std::vector<std::shared_ptr<BaseMonster>>& _WaveGroup);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
 
+	// GUI
+	UINT GUI_SelectMonster = 0;
+
+	void ShowGUI();
 };
 
 
@@ -49,6 +56,7 @@ public:
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
 
+	// GUI
 	void ShowGUI();
 
 protected:
@@ -62,4 +70,11 @@ private:
 	std::shared_ptr<GameEngineCollision> WaveCollision = nullptr;
 
 	UINT CurWave = 0;
+
+	//void AddWave();
+	//void RemoveGroup();
+
+	// GUI
+	int GUI_SelectWave = 0;
+	int GUI_SelectGroup = 0;
 };
