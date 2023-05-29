@@ -237,13 +237,13 @@ void PlayerBaseSkull::Start()
 	JumpCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	WalkCol->GetTransform()->SetLocalPosition(float4(20, 30, 0));
-	WalkCol->GetTransform()->SetWorldScale(float4(10, 58, 1));
+	WalkCol->GetTransform()->SetLocalPosition(float4(20, 31, 0));
+	WalkCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	WalkCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	BackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	BackCol->GetTransform()->SetLocalPosition(float4(-20, 30, 0));
-	BackCol->GetTransform()->SetWorldScale(float4(10, 58, 1));
+	BackCol->GetTransform()->SetLocalPosition(float4(-20, 31, 0));
+	BackCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	BackCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
