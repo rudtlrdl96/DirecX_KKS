@@ -195,6 +195,10 @@ void MapToolGUI::DrawGui_Light()
 {
 }
 
+void MapToolGUI::DrawGui_Monster()
+{
+}
+
 void MapToolGUI::Callback_Object()
 {
 
@@ -282,9 +286,9 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 
 	MapToolType = (MapToolLevel::MapToolState)CurrentMapToolStateIndex;
 
-	if (MapToolType < MapToolLevel::MapToolState::Tilemap || MapToolType > MapToolLevel::MapToolState::Light)
+	if (MapToolType < MapToolLevel::MapToolState::Tilemap || MapToolType > MapToolLevel::MapToolState::Monster)
 	{
-		MsgAssert_Rtti<MapToolGUI>(" - 잘못된 MappTool 타입이 입력되었습니다");
+		MsgAssert_Rtti<MapToolGUI>(" - 잘못된 MapTool 타입이 입력되었습니다");
 	}
 
 	switch (MapToolType)
@@ -314,6 +318,9 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 		break;
 	case MapToolLevel::MapToolState::Light:
 		DrawGui_Light();
+		break;
+	case MapToolLevel::MapToolState::Monster:
+		DrawGui_Monster();
 		break;
 	default:
 		break;

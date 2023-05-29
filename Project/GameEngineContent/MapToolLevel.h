@@ -12,7 +12,8 @@ public:
 		Platform,
 		Event,
 		Particle,
-		Light
+		Light,
+		Monster
 	};
 public:
 	MapToolLevel();

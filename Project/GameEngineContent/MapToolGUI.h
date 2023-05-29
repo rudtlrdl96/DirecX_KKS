@@ -106,7 +106,7 @@ private:
 	std::vector<std::function<void()>> ParticleManagerCallback;
 
 	const char* AreaComboText[7] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop"};
-	const char* MapToolComboText[7] = {"Tilemap" ,"SObject", "BObject", "Platform", "Event", "Particle", "Light"};
+	const char* MapToolComboText[8] = {"Tilemap" ,"SObject", "BObject", "Platform", "Event", "Particle", "Light", "Monster"};
 	const char* PlatformTypeCombo[2] = {"Normal" ,"Half"};
 	
 	float4 TileSize = float4::Zero;
@@ -135,6 +135,7 @@ private:
 	void DrawGui_Event();
 	void DrawGui_Particle();
 	void DrawGui_Light();
+	void DrawGui_Monster();
 
 	void Callback_Object();
 	void Callback_Event();

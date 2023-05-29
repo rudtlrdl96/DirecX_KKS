@@ -128,6 +128,8 @@ void MapToolLevel::Update(float _DeltaTime)
 		break;
 	case MapToolState::Light:
 		break;
+	case MapToolState::Monster:
+		break;
 	default:
 		break;
 	}
