@@ -34,6 +34,5 @@ protected:
 	void HitEffect();
 	void HitStiffen();
 private:
-
 };
 
