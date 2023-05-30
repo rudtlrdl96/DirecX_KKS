@@ -193,12 +193,12 @@ void ObjectManager::PlatformDebugOff()
 
 void ObjectManager::SelectLastStaticObject()
 {
-	CurrentStaticObjectIndex = StaticObjectActors.size() - 1;
+	CurrentStaticObjectIndex = static_cast<int>(StaticObjectActors.size() - 1);
 }
 
 void ObjectManager::SelectLastPlatform()
 {
-	CurrentPlatformIndex = MapPlatformActors.size() - 1;
+	CurrentPlatformIndex = static_cast<int>(MapPlatformActors.size() - 1);
 }
 
 void ObjectManager::Start()
