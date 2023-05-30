@@ -101,6 +101,11 @@ public:
 		ParticleManagerCallback.push_back(_FunctionPtr);
 	}
 
+	inline void Pushback_MonsterManagerCallback(std::function<void()> _FunctionPtr)
+	{
+		MonsterManagerCallback.push_back(_FunctionPtr);
+	}
+
 	bool CheckSaveTrigger();
 	bool CheckLoadTrigger();
 
@@ -120,6 +125,7 @@ private:
 	std::vector<std::function<void()>> ObjectManagerCallback;
 	std::vector<std::function<void()>> EventManagerCallback;
 	std::vector<std::function<void()>> ParticleManagerCallback;
+	std::vector<std::function<void()>> MonsterManagerCallback;
 
 	const char* AreaComboText[7] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop"};
 	const char* MapToolComboText[8] = {"Tilemap" ,"SObject", "BObject", "Platform", "Event", "Particle", "Light", "Monster"};
@@ -158,5 +164,6 @@ private:
 	void Callback_Object();
 	void Callback_Event();
 	void Callback_Particle();
+	void Callback_Monster();
 };
 

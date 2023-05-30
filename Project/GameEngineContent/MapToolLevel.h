@@ -36,6 +36,7 @@ private:
 	std::shared_ptr<class ObjectManager> ObjectMgrPtr = nullptr;
 	std::shared_ptr<class GameEventManager> EventMgrPtr = nullptr;
 	std::shared_ptr<class ParticleManager> ParticleMgrPtr = nullptr;
+	std::shared_ptr<class MonsterManager> MonsterMgrPtr = nullptr;
 
 	std::shared_ptr<class TilemapPallet> TilePalletPtr = nullptr;
 	std::shared_ptr<class MapToolGUI> MapToolGuiPtr = nullptr;

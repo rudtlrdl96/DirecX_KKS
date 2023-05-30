@@ -31,9 +31,6 @@ void BattleLevel::Start()
 
 void BattleLevel::Update(float _DeltaTime)
 {
-	ContentLevel::Update(_DeltaTime);
-	BattleAreaPtr->UpdateBackground(_DeltaTime, MainCamCtrl.GetCameraPos());
-
 	if (true == GameEngineInput::IsDown("LevelMovePrev"))
 	{
 		MovePrevStage();
@@ -42,9 +39,12 @@ void BattleLevel::Update(float _DeltaTime)
 	{
 		MoveNextStage();
 	}
+
+	ContentLevel::Update(_DeltaTime);
+	BattleAreaPtr->UpdateBackground(_DeltaTime, MainCamCtrl.GetCameraPos());
 }
 
-void BattleLevel::SetPosDebugActor(const float4& _Pos)
+void BattleLevel::SetPlayerPos(const float4& _Pos)
 {
 	float4 SpawnPos = _Pos;
 	SpawnPos.z = -25.0f;
@@ -87,7 +87,11 @@ void BattleLevel::ChangeStage()
 	BattleAreaPtr->ChangeBackground(MainBackgroundName);
 	BattleAreaPtr->ChangeMap(MainStageName);
 	BattleAreaPtr->SetCameraLock(MainCamCtrl);
-	SetPosDebugActor(BattleAreaPtr->GetSpawnPoint());
+
+	float4 SpawnPos = BattleAreaPtr->GetSpawnPoint();
+
+	SetPlayerPos(SpawnPos);
+	MainCamCtrl.SetCameraPos(SpawnPos);
 }
 
 void BattleLevel::MovePrevStage()

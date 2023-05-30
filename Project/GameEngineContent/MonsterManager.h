@@ -59,6 +59,11 @@ public:
 	// GUI
 	void ShowGUI();
 
+	inline void SetMapToolManager()
+	{
+		IsMapTool = true;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime);
@@ -71,10 +76,16 @@ private:
 
 	UINT CurWave = 0;
 
-	//void AddWave();
-	//void RemoveGroup();
+	void InsertWave(int _Index);
+	void RemoveWave(int _Index);
+
+	void InsertGroup(int _Index);
+	void RemoveGroup(int _Index);
 
 	// GUI
 	int GUI_SelectWave = 0;
 	int GUI_SelectGroup = 0;
+
+	bool IsMapTool = false;
+
 };

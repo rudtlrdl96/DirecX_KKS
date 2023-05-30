@@ -61,6 +61,7 @@ public:
 		MaxHeight = _Value;
 	}
 
+	void SetCameraPos(const float4& _Pos);
 	void SetLookatTarget(std::shared_ptr<class GameEngineActor> _Target);
 
 	void ResetScale();

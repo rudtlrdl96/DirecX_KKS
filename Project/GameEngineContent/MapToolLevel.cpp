@@ -11,6 +11,7 @@
 #include "ObjectManager.h"
 #include "GameEventManager.h"
 #include "ParticleManager.h"
+#include "MonsterManager.h"
 
 #include "TilemapPallet.h"
 #include "TilemapHoverRenderActor.h"
@@ -57,6 +58,9 @@ void MapToolLevel::Start()
 
 	ParticleMgrPtr = CreateActor<ParticleManager>();
 
+	MonsterMgrPtr = CreateActor<MonsterManager>();
+	MonsterMgrPtr->SetMapToolManager();
+
 	TilePalletPtr = CreateActor<TilemapPallet>();
 	TilePalletPtr->SetPencleIndex(1000);
 
@@ -71,6 +75,7 @@ void MapToolLevel::Start()
 	MapToolGuiPtr->Pushback_TilemapCallback(std::bind(&Tilemap::ShowGUI, TilemapPtr));
 	MapToolGuiPtr->Pushback_EventManagerCallback(std::bind(&GameEventManager::ShowGUI, EventMgrPtr));
 	MapToolGuiPtr->Pushback_ParticleManagerCallback(std::bind(& ParticleManager::ShowGUI, ParticleMgrPtr));
+	MapToolGuiPtr->Pushback_MonsterManagerCallback(std::bind(& MonsterManager::ShowGUI, MonsterMgrPtr));
 
 	ActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 
@@ -83,6 +88,7 @@ void MapToolLevel::Start()
 	TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
 
 	PlayerSpawnRender = CreateActor<PlayerSpawnPointRenderer>();
+
 }
 
 void MapToolLevel::Update(float _DeltaTime)

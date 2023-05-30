@@ -164,6 +164,29 @@ void MonsterGroupMetaData::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 void MonsterGroupMetaData::ShowGUI()
 {
+	ImGui::Checkbox("Is Collision", &IsCollision);
+
+	if (true == IsCollision)
+	{
+		float InputColCenter[4] = { ColCenter.x, ColCenter.y, ColCenter.z, ColCenter.w };
+
+		ImGui::DragFloat4("Collision Center", InputColCenter);
+
+		ColCenter.x = InputColCenter[0];
+		ColCenter.y = InputColCenter[1];
+		ColCenter.z = InputColCenter[2];
+		ColCenter.w = InputColCenter[3];
+
+		float InputColScale[4] = { ColScale.x, ColScale.y, ColScale.z, ColScale.w };
+
+		ImGui::DragFloat4("Collision Scale", InputColScale);
+
+		ColScale.x = InputColScale[0];
+		ColScale.y = InputColScale[1];
+		ColScale.z = InputColScale[2];
+		ColScale.w = InputColScale[3];
+	}
+
 	if (ImGui::BeginListBox("Monster ListBox"))
 	{
 		for (int n = 0; n < SpawnMonsters.size(); n++)
@@ -242,19 +265,86 @@ void MonsterManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 void MonsterManager::ShowGUI()
 {
+	ImGui::Text("Wave");
+
+	ImGui::Spacing();
 	ImGui::Text(("WaveCount : " + std::to_string(WaveDatas.size())).data());
 	ImGui::InputInt("WaveNumber", &GUI_SelectWave);
 
-	// Todo : AddWave
-	// Todo : RemoveWave
+	static int InsertWaveIndex = 0;
 
-	if (0 > GUI_SelectWave || WaveDatas.size() >= GUI_SelectWave)
+	if (true == ImGui::Button("Insert Wave", ImVec2(100, 24)))
+	{
+		InsertWave(InsertWaveIndex);
+	}
+
+	ImGui::SameLine();
+
+	ImGui::InputInt("Insert Wave Index", &InsertWaveIndex);
+
+	static int RemoveWaveIndex = 0;
+
+	if (true == ImGui::Button("Remove Wave", ImVec2(100, 24)))
+	{
+		RemoveWave(RemoveWaveIndex);
+	}
+
+	ImGui::SameLine();
+
+	ImGui::InputInt("Remove Wave Index", &RemoveWaveIndex);
+
+	if (0 > GUI_SelectWave)
+	{
+		GUI_SelectWave = 0;
+		return;
+	}
+
+	if (WaveDatas.size() <= GUI_SelectWave)
+	{
+		if (0 != WaveDatas.size())
+		{
+			GUI_SelectWave = static_cast<int>(WaveDatas.size() - 1);
+		}
+		else
+		{
+			GUI_SelectWave = 0;
+		}
+
+		return;
+	}
+
+	ImGui::Spacing();
+	ImGui::Text("Group");
+	ImGui::Spacing();
+	ImGui::Text(("GroupCount : " + std::to_string(WaveDatas[GUI_SelectWave].size())).data());
+
+	static int InsertGroupIndex = 0;
+
+	if (true == ImGui::Button("Insert Group", ImVec2(100, 24)))
+	{
+		InsertGroup(InsertGroupIndex);
+	}
+
+	ImGui::SameLine();
+
+	ImGui::InputInt("Insert Group Index", &InsertGroupIndex);
+
+	static int RemoveGroupIndex = 0;
+
+	if (true == ImGui::Button("Remove Group", ImVec2(100, 24)))
+	{
+		RemoveGroup(RemoveGroupIndex);
+	}
+
+	ImGui::SameLine();
+
+	ImGui::InputInt("Remove Group Index", &RemoveGroupIndex);
+
+	if (0 == WaveDatas[GUI_SelectWave].size())
 	{
 		return;
 	}
 
-	// Todo : AddGroup
-	// Todo : RemoveGroup
 
 	if (ImGui::BeginListBox("Group ListBox"))
 	{
@@ -286,6 +376,11 @@ void MonsterManager::Start()
 
 void MonsterManager::Update(float _DeltaTime)
 {
+	if (true == IsMapTool)
+	{
+		return;
+	}
+
 	std::vector<std::vector<std::shared_ptr<BaseMonster>>>::iterator WaveLoopIter = MonsterActors.begin();
 	std::vector<std::vector<std::shared_ptr<BaseMonster>>>::iterator WaveEndIter = MonsterActors.end();
 
@@ -369,4 +464,80 @@ void MonsterManager::Update(float _DeltaTime)
 			}
 		}
 	}
+}
+
+void MonsterManager::InsertWave(int _Index)
+{
+	if (0 > _Index)
+	{
+		_Index = 0;
+	}
+
+	if (WaveDatas.size() < _Index)
+	{
+		WaveDatas.push_back(std::vector<MonsterGroupMetaData>());
+	}
+	else
+	{
+		WaveDatas.insert(WaveDatas.begin() + _Index, std::vector<MonsterGroupMetaData>());
+	}
+}
+
+void MonsterManager::RemoveWave(int _Index)
+{
+	if (0 == WaveDatas.size())
+	{
+		return;
+	}
+
+	if (0 > _Index)
+	{
+		_Index = 0;
+	}
+
+	if (WaveDatas.size() <= _Index)
+	{
+		_Index = static_cast<int>(WaveDatas.size() - 1);
+	}
+
+	WaveDatas.erase(WaveDatas.begin() + _Index);
+}
+
+void MonsterManager::InsertGroup(int _Index)
+{
+	if (0 > _Index)
+	{
+		_Index = 0;
+	}
+
+	if (WaveDatas[GUI_SelectWave].size() < _Index)
+	{
+		WaveDatas[GUI_SelectWave].push_back(MonsterGroupMetaData());
+	}
+	else
+	{
+		WaveDatas[GUI_SelectWave].insert(WaveDatas[GUI_SelectWave].begin() + _Index, MonsterGroupMetaData());
+	}
+
+}
+
+void MonsterManager::RemoveGroup(int _Index)
+{
+	if (0 == WaveDatas[GUI_SelectWave].size())
+	{
+		return;
+	}
+
+	if (0 > _Index)
+	{
+		_Index = 0;
+	}
+
+	if (WaveDatas[GUI_SelectWave].size() <= _Index)
+	{
+		_Index = static_cast<int>(WaveDatas[GUI_SelectWave].size() - 1);
+	}
+
+	WaveDatas[GUI_SelectWave].erase(WaveDatas[GUI_SelectWave].begin() + _Index);
+
 }

@@ -258,6 +258,17 @@ void MapToolGUI::Callback_Particle()
 	}
 }
 
+void MapToolGUI::Callback_Monster()
+{
+	for (size_t i = 0; i < MonsterManagerCallback.size(); i++)
+	{
+		if (nullptr != MonsterManagerCallback[i])
+		{
+			MonsterManagerCallback[i]();
+		}
+	}
+}
+
 void MapToolGUI::Start()
 {
 	ImGui::SetWindowSize(GetName().data(), ImVec2(150, 500));
@@ -346,6 +357,7 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 		DrawGui_Light();
 		break;
 	case MapToolLevel::MapToolState::Monster:
+		Callback_Monster();
 		DrawGui_Monster();
 		break;
 	default:

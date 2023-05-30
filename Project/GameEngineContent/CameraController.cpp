@@ -189,6 +189,11 @@ void CameraController::CameraShake(float _ShakeDis, float _ShakeSpeed, int _Shak
 	CalShakeValue();
 }
 
+void CameraController::SetCameraPos(const float4& _Pos)
+{
+	MainCamera->GetTransform()->SetWorldPosition(_Pos);
+}
+
 void CameraController::SetLookatTarget(std::shared_ptr<GameEngineActor> _Target)
 {
 	LookAtTarget = _Target;

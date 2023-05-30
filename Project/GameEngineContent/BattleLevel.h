@@ -33,7 +33,7 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
-	void SetPosDebugActor(const float4& _Pos);
+	void SetPlayerPos(const float4& _Pos);
 
 	void LevelChangeStart() override;
 	void LevelChangeEnd() override;
