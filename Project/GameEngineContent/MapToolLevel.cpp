@@ -210,7 +210,7 @@ void MapToolLevel::Save()
 	ObjectMgrPtr->SaveBin(SaveSerializer);
 	EventMgrPtr->SaveBin(SaveSerializer);
 	ParticleMgrPtr->SaveBin(SaveSerializer);
-	//MonsterMgrPtr->LoadBin(SaveSerializer);
+	MonsterMgrPtr->SaveBin(SaveSerializer);
 
 	GameEngineFile SaveFile = GameEngineFile(Path);
 	SaveFile.SaveBin(SaveSerializer);
@@ -235,7 +235,7 @@ void MapToolLevel::Load()
 	ObjectMgrPtr->LoadBin(LoadSerializer);
 	EventMgrPtr->LoadBin(LoadSerializer);
 	ParticleMgrPtr->LoadBin(LoadSerializer);
-	//MonsterMgrPtr->LoadBin(LoadSerializer);
+	MonsterMgrPtr->LoadBin(LoadSerializer);
 
 	TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
 }
