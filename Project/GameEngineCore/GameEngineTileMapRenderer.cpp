@@ -102,8 +102,12 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 
 	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetMainCamera();
 
+	bool IsDrawY = false;
+
 	for (size_t y = 0; y < Tiles.size(); y++)
 	{
+		bool IsDrawX = false;
+
 		for (size_t x = 0; x < Tiles[y].size(); x++)
 		{
 			GameEngineSprite* Sprite = Tiles[y][x].Sprite;
@@ -124,9 +128,17 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 
 					if (false == Camera->IsView(TileTransData))
 					{
+						if (true == IsDrawX)
+						{
+							break;
+						}
+
 						continue;
 					}
 				}
+
+				IsDrawY = true;
+				IsDrawX = true;
 
 				//if (true == GetLevel()->IsCameraOver(WorldPos))
 				//{
@@ -145,6 +157,11 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 			}
 
 			GameEngineRenderer::Render(_Delta);
+		}
+
+		if (true == IsDrawY && false == IsDrawX)
+		{
+			break;
 		}
 	}
 
