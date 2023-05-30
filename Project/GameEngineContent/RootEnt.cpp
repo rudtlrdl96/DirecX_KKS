@@ -234,7 +234,7 @@ void RootEnt::SetColData()
 		LocalChasingColPos = float4(0, 50, 0);
 
 		ColTrans->SetLocalPosition(LocalChasingColPos);
-		ColTrans->SetWorldScale(float4(1000, 300, 1));
+		ColTrans->SetWorldScale(float4(1000, 500, 1));
 	}
 
 	LoadFindEffectPos = float4(0, 100, 0);

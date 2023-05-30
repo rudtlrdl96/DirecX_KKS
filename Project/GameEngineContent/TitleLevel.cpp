@@ -91,7 +91,7 @@ void TitleLevel::Update(float _DeltaTime)
 
 			Fade->FadeIn([]()
 				{
-					GameEngineCore::ChangeLevel("Castle");
+					GameEngineCore::ChangeLevel("Opening");
 				});
 
 		}

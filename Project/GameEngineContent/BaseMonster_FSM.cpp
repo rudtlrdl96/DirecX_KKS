@@ -193,6 +193,7 @@ void BaseMonster::Chasing_Update(float _DeltaTime)
 
 	if (nullptr == ContentFunc::PlatformColCheck(WalkFallCol, true))
 	{
+		Turn(true);
 		return;
 	}
 
