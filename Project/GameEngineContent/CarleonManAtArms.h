@@ -13,6 +13,8 @@ public:
 	CarleonManAtArms& operator=(CarleonManAtArms&& _Other) noexcept = delete;
 		
 protected:
+	void Start() override;
+
 	void DataLoad() override;
 	void TextureLoad() override;
 	void LoadAnimation() override;

@@ -9,16 +9,16 @@ HealthBar::~HealthBar()
 {
 }
 
-void HealthBar::SetTexture(const std::string_view& _FrameName, const std::string_view& _BarName, const std::string_view& _SubBarName)
+void HealthBar::SetTexture(const std::string_view& _FrameName, const std::string_view& _BarName, const std::string_view& _SubBarName, const float4& _ScaleRatio /*= float4::One*/)
 {
 	BarRedner->SetScaleToTexture(_BarName);
-	BarRedner->GetTransform()->SetWorldScale(BarRedner->GetTransform()->GetWorldScale() * 1.5f);
+	BarRedner->GetTransform()->SetWorldScale(BarRedner->GetTransform()->GetWorldScale() * _ScaleRatio);
 
 	SubBarRedner->SetScaleToTexture(_SubBarName);
-	SubBarRedner->GetTransform()->SetWorldScale(SubBarRedner->GetTransform()->GetWorldScale() * 1.5f);
+	SubBarRedner->GetTransform()->SetWorldScale(SubBarRedner->GetTransform()->GetWorldScale() * _ScaleRatio);
 
 	FrameRedner->SetScaleToTexture(_FrameName);
-	FrameRedner->GetTransform()->SetWorldScale(FrameRedner->GetTransform()->GetWorldScale() * 1.5f);
+	FrameRedner->GetTransform()->SetWorldScale(FrameRedner->GetTransform()->GetWorldScale() * _ScaleRatio);
 
 	BarRedner->On();
 	SubBarRedner->On();

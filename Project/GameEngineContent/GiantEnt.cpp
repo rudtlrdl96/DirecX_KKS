@@ -13,6 +13,12 @@ GiantEnt::~GiantEnt()
 {
 }
 
+void GiantEnt::Start()
+{
+	HealthBarScale = float4(1.5f, 1.5f, 1.5f, 1.0f);
+	BaseMonster::Start();
+}
+
 void GiantEnt::DataLoad()
 {
 	Data = ContentDatabase<MonsterData, LevelArea>::GetData(103); // 103 = 숲지기(자이언트 엔트)

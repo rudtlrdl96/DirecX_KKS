@@ -12,7 +12,7 @@ public:
 	HealthBar& operator=(const HealthBar& _Other) = delete;
 	HealthBar& operator=(HealthBar&& _Other) noexcept = delete;
 
-	void SetTexture(const std::string_view& _FrameName, const std::string_view& _BarName, const std::string_view& _SubBarName);
+	void SetTexture(const std::string_view& _FrameName, const std::string_view& _BarName, const std::string_view& _SubBarName, const float4& _ScaleRatio = float4::One);
 	void UpdateBar(float _Progress, float _DeltaTime);
 
 protected:

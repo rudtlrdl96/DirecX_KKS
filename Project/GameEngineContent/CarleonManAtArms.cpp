@@ -11,6 +11,12 @@ CarleonManAtArms::~CarleonManAtArms()
 {
 }
 
+void CarleonManAtArms::Start()
+{
+	HealthBarScale = float4(1.5f, 1.5f, 1.5f, 1.0f);
+	BaseMonster::Start();
+}
+
 void CarleonManAtArms::DataLoad()
 {
 	Data = ContentDatabase<MonsterData, LevelArea>::GetData(106); // 106 = 칼레온 중보병

@@ -41,6 +41,8 @@ protected:
 	std::vector<std::string> DeadPartNames;
 
 	std::shared_ptr<class HealthBar> HealthBarPtr = nullptr;
+	float4 HealthBarScale = float4(1.0f, 1.5f, 1.5f, 1.0f);
+
 	std::shared_ptr<GameEngineActor> PlayerActor = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> HitFindCol = nullptr;

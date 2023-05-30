@@ -65,7 +65,7 @@ void BaseMonster::Start()
 
 	HealthBarPtr->GetTransform()->SetParent(GetTransform());
 	HealthBarPtr->GetTransform()->SetLocalPosition(float4(0, -15, -10));
-	HealthBarPtr->SetTexture("EnemyHpFrame.png", "EnemyHpBar.png", "EnemySubBar.png");
+	HealthBarPtr->SetTexture("EnemyHpFrame.png", "EnemyHpBar.png", "EnemySubBar.png", HealthBarScale);
 	HealthBarPtr->Off();
 
 	if (false == GameEngineInput::IsKey("MonsterDebugOn"))
