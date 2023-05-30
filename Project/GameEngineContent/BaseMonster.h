@@ -16,7 +16,7 @@ public:
 	BaseMonster& operator=(BaseMonster&& _Other) noexcept = delete;
 
 	void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush);
-
+	
 	std::shared_ptr<ContentSpriteRenderer> GetRender()
 	{
 		return Render;
@@ -43,6 +43,7 @@ protected:
 	std::shared_ptr<class HealthBar> HealthBarPtr = nullptr;
 	std::shared_ptr<GameEngineActor> PlayerActor = nullptr;
 
+	std::shared_ptr<class GameEngineCollision> HitFindCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> BodyCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> WalkCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> BackCol = nullptr;
@@ -59,6 +60,10 @@ protected:
 	AnimAttackCheck AttackCheck;
 
 	std::shared_ptr<class GameEngineCollision> AttackCol = nullptr;
+
+	bool IsAppear = false;
+
+	std::shared_ptr<EffectActor> AppearEffect = nullptr;
 
 	float HP = 0;
 

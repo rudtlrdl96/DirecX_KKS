@@ -20,6 +20,17 @@ BaseMonster::~BaseMonster()
 
 void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
 {
+	if (nullptr == PlayerActor)
+	{
+		std::shared_ptr<GameEngineCollision> ColPtr = HitFindCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		if (nullptr != ColPtr)
+		{
+			PlayerActor = ColPtr->GetActor()->DynamicThis<GameEngineActor>();
+		}
+	}
+
+
 	HP -= _Damage;
 
 	HealthBarActiveTime = 3.0f;
@@ -55,6 +66,7 @@ void BaseMonster::Start()
 	HealthBarPtr->GetTransform()->SetParent(GetTransform());
 	HealthBarPtr->GetTransform()->SetLocalPosition(float4(0, -15, -10));
 	HealthBarPtr->SetTexture("EnemyHpFrame.png", "EnemyHpBar.png", "EnemySubBar.png");
+	HealthBarPtr->Off();
 
 	if (false == GameEngineInput::IsKey("MonsterDebugOn"))
 	{
@@ -71,6 +83,7 @@ void BaseMonster::Start()
 	MonsterFsm.AddFSM("Attack", &BaseMonster::Attack_Enter, &BaseMonster::Attack_Update, &BaseMonster::Attack_End);
 	MonsterFsm.AddFSM("Hit", &BaseMonster::Hit_Enter, &BaseMonster::Hit_Update, &BaseMonster::Hit_End);
 	
+	HitFindCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	BodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Monster);
 	FindCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	ChasingCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
@@ -78,6 +91,8 @@ void BaseMonster::Start()
 	BackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	GroundCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	WalkFallCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+
+	HitFindCol->GetTransform()->SetLocalScale(float4(400, 300, 1));
 
 	HitRigidbody.SetMaxSpeed(300.0f);
 	HitRigidbody.SetFricCoeff(1000.0f);
@@ -126,10 +141,35 @@ void BaseMonster::Start()
 
 	HP = Data.HP;
 	MonsterFsm.ChangeState("Idle");
+
+	IsAppear = true;
+
+	Render->Off();
+	BodyCol->Off();
 }
 
 void BaseMonster::Update(float _DeltaTime)
 {
+	if (true == IsAppear)
+	{
+		if (nullptr == AppearEffect)
+		{
+			AppearEffect = EffectManager::PlayEffect({
+				.EffectName = "MonsterAppear",
+				.Postion = GetTransform()->GetWorldPosition() + float4(0, 50, 0) });
+		}
+
+		if (5 == AppearEffect->GetCurrentFrame())
+		{
+			AppearEffect = nullptr;
+			IsAppear = false;
+			Render->On();
+			BodyCol->On();
+		}
+
+		return;
+	}
+
 	if (HP <= 0.0f)
 	{
 		MonsterDeath();
@@ -343,6 +383,7 @@ void BaseMonster::EffectLoadCheck()
 
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FindPlayerSightEffect.png").GetFullPath(), 5, 3);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MonsterDeathEffect.png").GetFullPath(), 3, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MonsterAppear.png").GetFullPath(), 11, 1);
 	
 		EffectManager::CreateMetaData("FindPlayer", { 
 			.SpriteName = "FindPlayerSightEffect.png",
@@ -355,6 +396,13 @@ void BaseMonster::EffectLoadCheck()
 			.SpriteName = "MonsterDeathEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 5,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("MonsterAppear", {
+			.SpriteName = "MonsterAppear.png",
+			.AnimStart = 0,
+			.AnimEnd = 10,
 			.AnimIter = 0.04f,
 			.ScaleRatio = 2.0f });
 

@@ -13,6 +13,7 @@ public:
 	MonsterGroupRender& operator=(MonsterGroupRender&& _Other) noexcept = delete;
 
 	void ShowGroup(const class MonsterGroupMetaData& _GroupMetaData);
+	void OffRender();
 
 protected:
 	void Start() override;

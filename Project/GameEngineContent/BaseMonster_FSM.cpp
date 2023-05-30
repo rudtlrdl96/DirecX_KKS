@@ -107,7 +107,7 @@ void BaseMonster::Walk_Update(float _DeltaTime)
 		return;
 	}
 
-	if (nullptr == ContentFunc::PlatformColCheck(WalkFallCol))
+	if (nullptr == ContentFunc::PlatformColCheck(WalkFallCol, true))
 	{
 		Turn(true);
 	}
@@ -188,6 +188,11 @@ void BaseMonster::Chasing_Update(float _DeltaTime)
 	{
 		PlayerActor = ResultCol->GetActor()->DynamicThis<GameEngineActor>();
 		MonsterFsm.ChangeState("Attack");
+		return;
+	}
+
+	if (nullptr == ContentFunc::PlatformColCheck(WalkFallCol, true))
+	{
 		return;
 	}
 

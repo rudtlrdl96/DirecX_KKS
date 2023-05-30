@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineGUI.h>
 
 #include "MonsterGroupRender.h"
+#include "ScaleDebugRender.h"
 
 #include "CarleonRecruit.h"
 #include "CarleonArcher.h"
@@ -201,7 +202,7 @@ void MonsterGroupMetaData::ShowGUI()
 		{
 			const bool is_selected = (GUI_SelectMonster == n);
 
-			if (ImGui::Selectable((std::string("Group : ") + std::to_string(n)).data(), is_selected))
+			if (ImGui::Selectable((std::string("Monster : ") + std::to_string(n)).data(), is_selected))
 			{
 				GUI_SelectMonster = n;
 			}
@@ -217,6 +218,29 @@ void MonsterGroupMetaData::ShowGUI()
 	if (GUI_SelectMonster >= SpawnMonsters.size())
 	{
 		return;
+	}
+
+	if (true == ImGui::Button("Copy Monster"))
+	{
+		SpawnMonsters.push_back(
+			{SpawnMonsters[GUI_SelectMonster].Index, SpawnMonsters[GUI_SelectMonster].SpawnPos});
+	
+		GUI_SelectMonster = static_cast<UINT>(SpawnMonsters.size() - 1);
+	}
+
+	if (true == ImGui::Button("Remove Monster"))
+	{
+		SpawnMonsters.erase(SpawnMonsters.begin() + GUI_SelectMonster);
+
+		if (GUI_SelectMonster >= SpawnMonsters.size())
+		{
+			GUI_SelectMonster = static_cast<UINT>(SpawnMonsters.size() - 1);
+		}
+
+		if (GUI_SelectMonster >= SpawnMonsters.size())
+		{
+			return;
+		}
 	}
 
 	SpawnMonsters[GUI_SelectMonster].ShowGUI();
@@ -251,6 +275,24 @@ void MonsterManager::SaveBin(GameEngineSerializer& _SaveSerializer) const
 
 void MonsterManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
+	for (size_t i = 0; i < MonsterActors.size(); i++)
+	{
+		for (size_t j = 0; j < MonsterActors[i].size(); j++)
+		{
+			MonsterActors[i][j]->Death();
+			MonsterActors[i][j] = nullptr;
+		}
+
+	}
+
+	if (nullptr != GUI_GroupRenders)
+	{
+		GUI_GroupRenders->OffRender();
+	}
+
+	MonsterActors.clear();
+	WaveDatas.clear();
+
 	int WaveSize = 0;
 	_LoadSerializer.Read(&WaveSize, sizeof(int));
 
@@ -276,6 +318,13 @@ void MonsterManager::ShowGUI()
 	if (nullptr == GUI_GroupRenders)
 	{
 		GUI_GroupRenders = GetLevel()->CreateActor<MonsterGroupRender>();
+		GUI_GroupRenders->GetTransform()->SetParent(GetTransform());
+	}
+
+	if (nullptr == GUI_GroupColRender)
+	{
+		GUI_GroupColRender = GetLevel()->CreateActor<ScaleDebugRender>();
+		GUI_GroupColRender->GetTransform()->SetParent(GetTransform());
 	}
 
 	ImGui::Text("Wave");
@@ -309,6 +358,8 @@ void MonsterManager::ShowGUI()
 	if (0 > GUI_SelectWave)
 	{
 		GUI_SelectWave = 0;
+		GUI_GroupRenders->OffRender();
+		GUI_GroupColRender->Off();
 		return;
 	}
 
@@ -323,6 +374,8 @@ void MonsterManager::ShowGUI()
 			GUI_SelectWave = 0;
 		}
 
+		GUI_GroupRenders->OffRender();
+		GUI_GroupColRender->Off();
 		return;
 	}
 
@@ -355,6 +408,8 @@ void MonsterManager::ShowGUI()
 
 	if (0 == WaveDatas[GUI_SelectWave].size())
 	{
+		GUI_GroupRenders->OffRender();
+		GUI_GroupColRender->Off();
 		return;
 	}
 
@@ -378,8 +433,27 @@ void MonsterManager::ShowGUI()
 		ImGui::EndListBox();
 	}
 
+	if (GUI_SelectGroup >= WaveDatas[GUI_SelectWave].size())
+	{
+		GUI_SelectGroup = static_cast<int>(WaveDatas[GUI_SelectWave].size() - 1);
+	}
+
 	GUI_GroupRenders->ShowGroup(WaveDatas[GUI_SelectWave][GUI_SelectGroup]);
 	WaveDatas[GUI_SelectWave][GUI_SelectGroup].ShowGUI();
+
+	if (true == WaveDatas[GUI_SelectWave][GUI_SelectGroup].IsCollision)
+	{
+		GameEngineTransform* ScaleTrans =  GUI_GroupColRender->GetTransform();
+
+		ScaleTrans->SetLocalPosition(WaveDatas[GUI_SelectWave][GUI_SelectGroup].ColCenter);
+		ScaleTrans->SetLocalScale(WaveDatas[GUI_SelectWave][GUI_SelectGroup].ColScale);
+
+		GUI_GroupColRender->On();
+	}
+	else
+	{
+		GUI_GroupColRender->Off();
+	}
 }
 
 void MonsterManager::Start()
@@ -402,9 +476,8 @@ void MonsterManager::Update(float _DeltaTime)
 	while (WaveLoopIter != WaveEndIter)
 	{
 		std::vector<std::shared_ptr<BaseMonster>>::iterator MonsterLoopIter = WaveLoopIter->begin();
-		std::vector<std::shared_ptr<BaseMonster>>::iterator MonsterEndIter = WaveLoopIter->end();
 
-		while (MonsterLoopIter != MonsterEndIter)
+		while (MonsterLoopIter != WaveLoopIter->end())
 		{
 			std::shared_ptr<BaseMonster> MonsterPtr = (*MonsterLoopIter);
 
@@ -419,7 +492,7 @@ void MonsterManager::Update(float _DeltaTime)
 			}
 		}
 
-		++MonsterLoopIter;
+		++WaveLoopIter;
 	}
 
 	// 다음 웨이브 체크
@@ -455,26 +528,26 @@ void MonsterManager::Update(float _DeltaTime)
 
 		for (size_t i = 0; i < SpawnRef.size(); i++)
 		{
-			if (true == SpawnRef[CurWave].IsSpawnEnd)
+			if (true == SpawnRef[i].IsSpawnEnd)
 			{
 				continue;
 			}
 
-			if (true == SpawnRef[CurWave].IsCollision)
+			if (true == SpawnRef[i].IsCollision)
 			{
 				GameEngineTransform* ColTrans = WaveCollision->GetTransform();
 
-				ColTrans->SetWorldPosition(SpawnRef[CurWave].ColCenter);
-				ColTrans->SetWorldScale(SpawnRef[CurWave].ColScale);
+				ColTrans->SetWorldPosition(SpawnRef[i].ColCenter);
+				ColTrans->SetWorldScale(SpawnRef[i].ColScale);
 
 				if (nullptr != WaveCollision->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
 				{
-					SpawnRef[CurWave].WaveSpawn(GetLevel(), GetTransform(), MonsterActors[CurWave]);
+					SpawnRef[i].WaveSpawn(GetLevel(), GetTransform(), MonsterActors[CurWave]);
 				}
 			}
 			else
 			{
-				SpawnRef[CurWave].WaveSpawn(GetLevel(), GetTransform(), MonsterActors[CurWave]);
+				SpawnRef[i].WaveSpawn(GetLevel(), GetTransform(), MonsterActors[CurWave]);
 			}
 		}
 	}

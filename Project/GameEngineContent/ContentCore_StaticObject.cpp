@@ -192,8 +192,11 @@ void ContentCore::CommonTextureLoad()
 	Path.Move("0_Common");
 
 	{
+		Path.Move("DebugTex");
 		GameEngineTexture::Load(Path.GetPlusFileName("BoxCol.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("ScaleCol.png").GetFullPath());
 		GameEngineTexture::Load(Path.GetPlusFileName("SphereCol.png").GetFullPath());
+		Path.MoveParent();
 	}
 
 	Path.Move("UI");

@@ -26,5 +26,6 @@ private:
 	std::shared_ptr<class ObjectManager> ObjectManagerPtr = nullptr;
 	std::shared_ptr<class GameEventManager> EventManagerPtr = nullptr;
 	std::shared_ptr<class ParticleManager> ParticleMgrPtr = nullptr;
+	std::shared_ptr<class MonsterManager> MonsterManagerPtr = nullptr;
 };
 

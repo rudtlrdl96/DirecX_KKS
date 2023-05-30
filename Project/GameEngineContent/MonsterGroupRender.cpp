@@ -46,11 +46,12 @@ void MonsterGroupRender::ShowGroup(const MonsterGroupMetaData& _GroupMetaData)
 		MonsterRenders[i]->Off();
 	}
 
-	for (size_t i = 0; i < MonsterRenders.size(); i++)
+	for (size_t i = 0; i < _GroupMetaData.SpawnMonsters.size(); i++)
 	{
 		const MonsterData& Data =ContentDatabase<MonsterData, LevelArea>::GetData(_GroupMetaData.SpawnMonsters[i].Index);
 		MonsterRenders[i]->SetScaleToTexture(Data.ImageName);
 		MonsterRenders[i]->GetTransform()->SetLocalPosition(_GroupMetaData.SpawnMonsters[i].SpawnPos);
+		MonsterRenders[i]->On();
 	}
 
 	OutlienActiveIndex = static_cast<size_t>(_GroupMetaData.GUI_SelectMonster);
@@ -62,6 +63,14 @@ void MonsterGroupRender::ShowGroup(const MonsterGroupMetaData& _GroupMetaData)
 	else
 	{
 		OutlienActiveIndex = static_cast<size_t>(-1);
+	}
+}
+
+void MonsterGroupRender::OffRender()
+{
+	for (size_t i = 0; i < MonsterRenders.size(); i++)
+	{
+		MonsterRenders[i]->Off();
 	}
 }
 
