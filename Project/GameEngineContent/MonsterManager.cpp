@@ -4,6 +4,8 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineGUI.h>
 
+#include "MonsterGroupRender.h"
+
 #include "CarleonRecruit.h"
 #include "CarleonArcher.h"
 #include "CarleonManAtArms.h"
@@ -122,6 +124,12 @@ void MonsterGroupMetaData::WaveSpawn(GameEngineLevel* _SpawnLevel, GameEngineTra
 	{
 		_WaveGroup.push_back(SpawnMonsters[i].MonsterSpawn(_SpawnLevel, _Parent));
 	}
+}
+
+void MonsterGroupMetaData::AddMonster(size_t _Index, const float4& _Pos)
+{
+	SpawnMonsters.push_back({ _Index, _Pos });
+	GUI_SelectMonster = static_cast<UINT>(SpawnMonsters.size() - 1);
 }
 
 void MonsterGroupMetaData::SaveBin(GameEngineSerializer& _SaveSerializer) const
@@ -265,6 +273,11 @@ void MonsterManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 void MonsterManager::ShowGUI()
 {
+	if (nullptr == GUI_GroupRenders)
+	{
+		GUI_GroupRenders = GetLevel()->CreateActor<MonsterGroupRender>();
+	}
+
 	ImGui::Text("Wave");
 
 	ImGui::Spacing();
@@ -365,6 +378,7 @@ void MonsterManager::ShowGUI()
 		ImGui::EndListBox();
 	}
 
+	GUI_GroupRenders->ShowGroup(WaveDatas[GUI_SelectWave][GUI_SelectGroup]);
 	WaveDatas[GUI_SelectWave][GUI_SelectGroup].ShowGUI();
 }
 
@@ -540,4 +554,19 @@ void MonsterManager::RemoveGroup(int _Index)
 
 	WaveDatas[GUI_SelectWave].erase(WaveDatas[GUI_SelectWave].begin() + _Index);
 
+}
+
+void MonsterManager::AddMonster(size_t _Index, const float4& _Pos)
+{
+	if (0 > GUI_SelectWave || WaveDatas.size() <= GUI_SelectWave)
+	{
+		return;
+	}
+
+	if (0 > GUI_SelectGroup || WaveDatas[GUI_SelectWave].size() <= GUI_SelectGroup)
+	{
+		return;
+	}
+
+	WaveDatas[GUI_SelectWave][GUI_SelectGroup].AddMonster(_Index, _Pos);
 }

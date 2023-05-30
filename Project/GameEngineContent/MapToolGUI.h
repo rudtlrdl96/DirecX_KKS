@@ -81,6 +81,11 @@ public:
 		return BasePlatformType;
 	}
 
+	inline const MonsterData& GetMonsterData() const
+	{
+		return SelectMonsterMetaData;
+	}
+
 	inline void Pushback_TilemapCallback(std::function<void()> _FunctionPtr)
 	{
 		TilemapCallback.push_back(_FunctionPtr);

@@ -210,6 +210,7 @@ void MapToolLevel::Save()
 	ObjectMgrPtr->SaveBin(SaveSerializer);
 	EventMgrPtr->SaveBin(SaveSerializer);
 	ParticleMgrPtr->SaveBin(SaveSerializer);
+	//MonsterMgrPtr->LoadBin(SaveSerializer);
 
 	GameEngineFile SaveFile = GameEngineFile(Path);
 	SaveFile.SaveBin(SaveSerializer);
@@ -234,6 +235,7 @@ void MapToolLevel::Load()
 	ObjectMgrPtr->LoadBin(LoadSerializer);
 	EventMgrPtr->LoadBin(LoadSerializer);
 	ParticleMgrPtr->LoadBin(LoadSerializer);
+	//MonsterMgrPtr->LoadBin(LoadSerializer);
 
 	TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
 }
@@ -421,30 +423,19 @@ void MapToolLevel::Update_Particle(float _DeltaTime)
 }
 
 void MapToolLevel::Update_Monster(float _DeltaTime)
-{
-	//ObjectMgrPtr->SetGuiType(ObjectManager::GuiType::Monster);
-	//
-	//std::shared_ptr<BaseContentActor> GetActorPtr = ObjectMgrPtr->GetSelectSObject();
-	//
-	//if (nullptr == GetActorPtr)
-	//{
-	//	ActorGUIPtr->SetTarget(nullptr);
-	//}
-	//else
-	//{
-	//	ActorGUIPtr->SetTarget(GetActorPtr->GetTransform(), { std::bind(&BaseContentActor::ShowGUI, GetActorPtr) });
-	//}
-	//
-	//
-	//if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
-	//{
-	//	float4 TestMousePos = GetMousePos();
-	//	TestMousePos.z = 0;
-	//
-	//	SObjectMetaData NewObjectMetaData = MapToolGuiPtr->GetSelectSObject();
-	//	NewObjectMetaData.Pos = TestMousePos;
-	//
-	//	ObjectMgrPtr->CreateStaticObject(NewObjectMetaData);
-	//	ObjectMgrPtr->SelectLastStaticObject();
-	//}
+{		
+	if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
+	{
+		float4 WorldMousePos = GetMousePos();
+		WorldMousePos.z = GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f);
+	
+		const MonsterData& CreateMonsterData = MapToolGuiPtr->GetMonsterData();
+			
+		if ("" == CreateMonsterData.Name)
+		{
+			return;
+		}
+
+		MonsterMgrPtr->AddMonster(CreateMonsterData.Index, WorldMousePos);
+	}
 }

@@ -32,6 +32,8 @@ public:
 	
 	void WaveSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent, std::vector<std::shared_ptr<BaseMonster>>& _WaveGroup);
 
+	void AddMonster(size_t _Index, const float4& _Pos);
+
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
 
@@ -44,6 +46,7 @@ public:
 
 class MonsterManager : public BaseContentActor
 {
+	friend class MapToolLevel;
 public:
 	MonsterManager();
 	~MonsterManager();
@@ -82,10 +85,14 @@ private:
 	void InsertGroup(int _Index);
 	void RemoveGroup(int _Index);
 
+	void AddMonster(size_t _Index, const float4& _Pos);
+
 	// GUI
 	int GUI_SelectWave = 0;
 	int GUI_SelectGroup = 0;
 
-	bool IsMapTool = false;
+	bool IsMapTool = false;	
+
+	std::shared_ptr<class MonsterGroupRender> GUI_GroupRenders;
 
 };

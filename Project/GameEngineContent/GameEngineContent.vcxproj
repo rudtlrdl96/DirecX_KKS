@@ -339,6 +339,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="MonsterDebugRender.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MonsterGroupRender.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="MonsterManager.h">
       <SubType>
       </SubType>
@@ -878,6 +886,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MapToolLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MonsterDebugRender.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MonsterGroupRender.cpp">
       <SubType>
       </SubType>
     </ClCompile>

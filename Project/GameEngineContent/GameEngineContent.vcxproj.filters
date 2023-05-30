@@ -343,6 +343,15 @@
     <Filter Include="2_Actor\Map\Stage\Monster">
       <UniqueIdentifier>{11f890f1-ddcc-4f80-814d-65f4cfd7ac4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Debug\Tool\Monster">
+      <UniqueIdentifier>{fb4b6768-e61d-4a20-9087-4d004610a758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Debug\Tool\Battle">
+      <UniqueIdentifier>{5f60b1a5-05ed-4215-94c3-2d46e302deca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Debug\Tool\Map">
+      <UniqueIdentifier>{048d53cc-a54a-4ba0-add0-63c9c786064d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -534,9 +543,6 @@
     <ClInclude Include="ContentShaderBuffer.h">
       <Filter>1_Class\Shader\ShaderBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="TilemapPallet.h">
-      <Filter>2_Actor\Debug\Tool</Filter>
-    </ClInclude>
     <ClInclude Include="DebugBoxActor.h">
       <Filter>2_Actor\Debug\Common</Filter>
     </ClInclude>
@@ -549,14 +555,8 @@
     <ClInclude Include="MouseCursorFollowTex.h">
       <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
-    <ClInclude Include="TilemapHoverRenderActor.h">
-      <Filter>2_Actor\Debug\Tool</Filter>
-    </ClInclude>
     <ClInclude Include="BrokenObject.h">
       <Filter>2_Actor\Map\Stage\Object\BrokenObject</Filter>
-    </ClInclude>
-    <ClInclude Include="TilemapOutlineRenderActor.h">
-      <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundToolLevel.h">
       <Filter>4_Level\DebugLevel\Tool\BackgroundTool</Filter>
@@ -587,9 +587,6 @@
     </ClInclude>
     <ClInclude Include="GameEventManager.h">
       <Filter>2_Actor\Map\Stage\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSpawnPointRenderer.h">
-      <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsDebugLevel.h">
       <Filter>4_Level\DebugLevel\Test\Physics</Filter>
@@ -647,9 +644,6 @@
     </ClInclude>
     <ClInclude Include="ContentSpriteRenderer.h">
       <Filter>3_Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackColRender.h">
-      <Filter>2_Actor\Debug\Tool</Filter>
     </ClInclude>
     <ClInclude Include="BoneHead.h">
       <Filter>2_Actor\BattleActor\Player\Skull\BoneSkull</Filter>
@@ -749,6 +743,27 @@
     </ClInclude>
     <ClInclude Include="MonsterManager.h">
       <Filter>2_Actor\Map\Stage\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterGroupRender.h">
+      <Filter>2_Actor\Debug\Tool\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackColRender.h">
+      <Filter>2_Actor\Debug\Tool\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapPallet.h">
+      <Filter>2_Actor\Debug\Tool\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapHoverRenderActor.h">
+      <Filter>2_Actor\Debug\Tool\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapOutlineRenderActor.h">
+      <Filter>2_Actor\Debug\Tool\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSpawnPointRenderer.h">
+      <Filter>2_Actor\Debug\Tool\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterDebugRender.h">
+      <Filter>2_Actor\Debug\Tool\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -944,9 +959,6 @@
     <ClCompile Include="ContentShaderBuffer.cpp">
       <Filter>1_Class\Shader\ShaderBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="TilemapPallet.cpp">
-      <Filter>2_Actor\Debug\Tool</Filter>
-    </ClCompile>
     <ClCompile Include="DebugBoxActor.cpp">
       <Filter>2_Actor\Debug\Common</Filter>
     </ClCompile>
@@ -959,14 +971,8 @@
     <ClCompile Include="MouseCursorFollowTex.cpp">
       <Filter>2_Actor\Debug\Tool</Filter>
     </ClCompile>
-    <ClCompile Include="TilemapHoverRenderActor.cpp">
-      <Filter>2_Actor\Debug\Tool</Filter>
-    </ClCompile>
     <ClCompile Include="BrokenObject.cpp">
       <Filter>2_Actor\Map\Stage\Object\BrokenObject</Filter>
-    </ClCompile>
-    <ClCompile Include="TilemapOutlineRenderActor.cpp">
-      <Filter>2_Actor\Debug\Tool</Filter>
     </ClCompile>
     <ClCompile Include="BackgroundToolLevel.cpp">
       <Filter>4_Level\DebugLevel\Tool\BackgroundTool</Filter>
@@ -1021,9 +1027,6 @@
     </ClCompile>
     <ClCompile Include="GameEventManager.cpp">
       <Filter>2_Actor\Map\Stage\Event</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerSpawnPointRenderer.cpp">
-      <Filter>2_Actor\Debug\Tool</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsDebugLevel.cpp">
       <Filter>4_Level\DebugLevel\Test\Physics</Filter>
@@ -1081,9 +1084,6 @@
     </ClCompile>
     <ClCompile Include="ContentSpriteRenderer.cpp">
       <Filter>3_Component\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackColRender.cpp">
-      <Filter>2_Actor\Debug\Tool</Filter>
     </ClCompile>
     <ClCompile Include="BoneHead.cpp">
       <Filter>2_Actor\BattleActor\Player\Skull\BoneSkull</Filter>
@@ -1189,6 +1189,27 @@
     </ClCompile>
     <ClCompile Include="MonsterManager.cpp">
       <Filter>2_Actor\Map\Stage\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterGroupRender.cpp">
+      <Filter>2_Actor\Debug\Tool\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackColRender.cpp">
+      <Filter>2_Actor\Debug\Tool\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapHoverRenderActor.cpp">
+      <Filter>2_Actor\Debug\Tool\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapOutlineRenderActor.cpp">
+      <Filter>2_Actor\Debug\Tool\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapPallet.cpp">
+      <Filter>2_Actor\Debug\Tool\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSpawnPointRenderer.cpp">
+      <Filter>2_Actor\Debug\Tool\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDebugRender.cpp">
+      <Filter>2_Actor\Debug\Tool\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
