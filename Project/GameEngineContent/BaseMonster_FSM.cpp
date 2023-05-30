@@ -7,7 +7,7 @@ void BaseMonster::Idle_Enter()
 	Render->ChangeAnimation("Idle");
 	IdleToWalkTime = 0.0f;
 
-	RandIdleTime = GameEngineRandom::MainRandom.RandomFloat(1.5f, 2.5f);
+	RandIdleTime = GameEngineRandom::MainRandom.RandomFloat(0.5f, 1.0f);
 	ChasingWaitTime = 0.0f;
 	IsChasingWait = false;
 }

@@ -149,10 +149,10 @@ void GlacialWizard::SetColData()
 	{
 		GameEngineTransform* ColTrans = FindCol->GetTransform();
 
-		LocalFindColPos = float4(200, 50, 0);
+		LocalFindColPos = float4(0, 50, 0);
 
 		ColTrans->SetLocalPosition(LocalFindColPos);
-		ColTrans->SetWorldScale(float4(400, 100, 1));
+		ColTrans->SetWorldScale(float4(600, 600, 1));
 	}
 
 	{
