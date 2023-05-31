@@ -148,21 +148,6 @@
     <Filter Include="4_Level\DebugLevel\Tool\MapTool">
       <UniqueIdentifier>{e0381330-3519-4221-9cc1-b548154c8e2e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="4_Level\DebugLevel\Test">
-      <UniqueIdentifier>{bfbf03be-5dc1-478d-bd5e-5fb9086f129a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Level\DebugLevel\Test\Shader">
-      <UniqueIdentifier>{7cb2c9ef-5890-48c1-b03b-067809aa1cc2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Level\DebugLevel\Test\InventoryDebug">
-      <UniqueIdentifier>{720c127f-8be1-444e-9336-6b5662081fc3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Level\DebugLevel\Test\Battle">
-      <UniqueIdentifier>{9be16c7d-fa76-4cd7-81b1-cd038bf14c64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Level\DebugLevel\Test\Animation">
-      <UniqueIdentifier>{fa872e57-dff1-464a-8cf2-0a264bbc178d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="4_Level\DebugLevel\Tool\BackgroundTool">
       <UniqueIdentifier>{8361f90a-fd4a-40ff-95d1-8a8f40e91669}</UniqueIdentifier>
     </Filter>
@@ -202,12 +187,6 @@
     <Filter Include="2_Actor\Map\Stage\Event">
       <UniqueIdentifier>{0892b26d-e62c-4c40-8112-a891900164e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Map\Stage\Event\MonsterSpawnEvent">
-      <UniqueIdentifier>{dfd62202-f218-412b-a9e4-5bfb1e67b08f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Level\DebugLevel\Test\Physics">
-      <UniqueIdentifier>{fd7cad70-4e2d-4d33-b57d-67bab004333a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1_Class\Physics">
       <UniqueIdentifier>{3bde9a22-123c-453e-a705-244ff654373a}</UniqueIdentifier>
     </Filter>
@@ -237,9 +216,6 @@
     </Filter>
     <Filter Include="2_Actor\Effect">
       <UniqueIdentifier>{c4e835d6-193a-4cf4-b34b-61a63d7aca1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Level\DebugLevel\Test\Tilemap">
-      <UniqueIdentifier>{f73c1e26-bbc0-4cb8-8c6a-f19e1ee58c48}</UniqueIdentifier>
     </Filter>
     <Filter Include="2_Actor\Debug\Tilemap">
       <UniqueIdentifier>{768d03cb-951d-492e-a25d-6b7dac086fa8}</UniqueIdentifier>
@@ -387,9 +363,6 @@
     <ClInclude Include="BaseCommonData.h">
       <Filter>1_Class\Base\Data</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderDebugLevel.h">
-      <Filter>4_Level\DebugLevel\Test\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="ContentVertex.h">
       <Filter>1_Class\Shader\ContentVertex</Filter>
     </ClInclude>
@@ -516,9 +489,6 @@
     <ClInclude Include="InventoryUI.h">
       <Filter>2_Actor\UI\Inventory</Filter>
     </ClInclude>
-    <ClInclude Include="InventoryDebugLevel.h">
-      <Filter>4_Level\DebugLevel\Test\InventoryDebug</Filter>
-    </ClInclude>
     <ClInclude Include="InventorySlot.h">
       <Filter>2_Actor\UI\Inventory\InventorySlot</Filter>
     </ClInclude>
@@ -588,9 +558,6 @@
     <ClInclude Include="GameEventManager.h">
       <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsDebugLevel.h">
-      <Filter>4_Level\DebugLevel\Test\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="DebugRigidbodyTestActor.h">
       <Filter>2_Actor\Debug\Common</Filter>
     </ClInclude>
@@ -635,9 +602,6 @@
     </ClInclude>
     <ClInclude Include="AttackColToolAnimActor.h">
       <Filter>2_Actor\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="TilemapDebugLevel.h">
-      <Filter>4_Level\DebugLevel\Test\Tilemap</Filter>
     </ClInclude>
     <ClInclude Include="TilemapDebugActor.h">
       <Filter>2_Actor\Debug\Tilemap</Filter>
@@ -780,6 +744,9 @@
     <ClInclude Include="KeyActor.h">
       <Filter>2_Actor\UI\Common</Filter>
     </ClInclude>
+    <ClInclude Include="EventActor.h">
+      <Filter>2_Actor\Map\Stage\Event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -811,9 +778,6 @@
     </ClCompile>
     <ClCompile Include="BaseCommonData.cpp">
       <Filter>1_Class\Base\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderDebugLevel.cpp">
-      <Filter>4_Level\DebugLevel\Test\Shader</Filter>
     </ClCompile>
     <ClCompile Include="ContentVertex.cpp">
       <Filter>1_Class\Shader\ContentVertex</Filter>
@@ -944,9 +908,6 @@
     <ClCompile Include="InventoryUI.cpp">
       <Filter>2_Actor\UI\Inventory</Filter>
     </ClCompile>
-    <ClCompile Include="InventoryDebugLevel.cpp">
-      <Filter>4_Level\DebugLevel\Test\InventoryDebug</Filter>
-    </ClCompile>
     <ClCompile Include="InventorySlot.cpp">
       <Filter>2_Actor\UI\Inventory\InventorySlot</Filter>
     </ClCompile>
@@ -1040,9 +1001,6 @@
     <ClCompile Include="GameEventManager.cpp">
       <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsDebugLevel.cpp">
-      <Filter>4_Level\DebugLevel\Test\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="DebugRigidbodyTestActor.cpp">
       <Filter>2_Actor\Debug\Common</Filter>
     </ClCompile>
@@ -1087,9 +1045,6 @@
     </ClCompile>
     <ClCompile Include="AttackColToolAnimActor.cpp">
       <Filter>2_Actor\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="TilemapDebugLevel.cpp">
-      <Filter>4_Level\DebugLevel\Test\Tilemap</Filter>
     </ClCompile>
     <ClCompile Include="TilemapDebugActor.cpp">
       <Filter>2_Actor\Debug\Tilemap</Filter>
@@ -1237,6 +1192,9 @@
     </ClCompile>
     <ClCompile Include="KeyActor.cpp">
       <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="EventActor.cpp">
+      <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
