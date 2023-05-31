@@ -777,6 +777,9 @@
     <ClInclude Include="FieldNoteActor.h">
       <Filter>2_Actor\UI\Common</Filter>
     </ClInclude>
+    <ClInclude Include="KeyActor.h">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1230,6 +1233,9 @@
       <Filter>2_Actor\Map\Door</Filter>
     </ClCompile>
     <ClCompile Include="FieldNoteActor.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyActor.cpp">
       <Filter>2_Actor\UI\Common</Filter>
     </ClCompile>
   </ItemGroup>

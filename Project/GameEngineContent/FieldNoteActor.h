@@ -12,6 +12,8 @@ public:
 	FieldNoteActor& operator=(const FieldNoteActor& _Other) = delete;
 	FieldNoteActor& operator=(FieldNoteActor&& _Other) noexcept = delete;
 
+	void SetText(const std::string_view& _Text);
+
 protected:
 	void Start() override;
 
@@ -20,5 +22,9 @@ private:
 
 	std::shared_ptr<ContentSpriteRenderer> BackRender = nullptr;
 	ColorBuffer Buffer;
+
+	std::vector<std::shared_ptr<class KeyActor>> KeyActors;
+
+
 };
 

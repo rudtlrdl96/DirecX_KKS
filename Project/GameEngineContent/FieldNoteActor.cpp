@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "FieldNoteActor.h"
+#include "KeyActor.h"
 
 FieldNoteActor::FieldNoteActor()
 {
@@ -7,6 +8,13 @@ FieldNoteActor::FieldNoteActor()
 
 FieldNoteActor::~FieldNoteActor()
 {
+}
+
+void FieldNoteActor::SetText(const std::string_view& _Text)
+{
+	NoteText = _Text;
+
+
 }
 
 void FieldNoteActor::Start()
