@@ -28,8 +28,11 @@ protected:
 	std::string MainStageName = "";
 	std::string MainBackgroundName = "";
 
+	std::shared_ptr<class FadeActor> FadeActorPtr = nullptr;
 	std::shared_ptr<class Player> MainPlayer = nullptr;
 	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
+
+	bool IsLevelMove = false;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;

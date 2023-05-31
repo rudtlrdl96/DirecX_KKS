@@ -32,6 +32,16 @@ public:
 		FadeSpeed = _Speed;
 	}
 
+	inline void SetWaitTime(float _WaitTime)
+	{
+		WaitTime = _WaitTime;
+	}
+
+	inline bool IsFadeEnd() const
+	{
+		return IsFadeEndValue;
+	}
+
 protected:
 
 	void Start() override;
@@ -40,10 +50,14 @@ protected:
 private:
 	std::shared_ptr<class ContentUIRender> MainRenderer = nullptr;
 
+	bool IsFadeEndValue = false;
+
 	FadeState State = FadeState::Wait;
 	FadeBuffer Buffer;
 
 	float FadeSpeed = 1.0f;
+	float WaitTime = 0.0f;
+	float CurWaitTime = 0.0f;
 
 	std::function<void()> FadeEndCallback = nullptr;
 };

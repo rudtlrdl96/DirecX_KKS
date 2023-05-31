@@ -6,6 +6,7 @@
 #include "EffectManager.h"
 #include "BattleArea.h"
 #include "Player.h"
+#include "FadeActor.h"
 
 BattleLevel::BattleLevel()
 {
@@ -27,6 +28,8 @@ void BattleLevel::Start()
 
 	float4 HalfWindowSize = GameEngineWindow::GetScreenSize().half();
 	BattleAreaPtr = CreateActor<BattleArea>();
+
+	FadeActorPtr = CreateActor<FadeActor>();
 }
 
 void BattleLevel::Update(float _DeltaTime)
@@ -54,6 +57,10 @@ void BattleLevel::SetPlayerPos(const float4& _Pos)
 
 void BattleLevel::LevelChangeStart()
 {
+	FadeActorPtr->SetWaitTime(0.5f);
+	FadeActorPtr->SetSpeed(2.0f);
+	FadeActorPtr->FadeOut();
+
 	EffectManager::SetLevel(DynamicThis<GameEngineLevel>());
 
 	if (nullptr == MainPlayer)
@@ -96,6 +103,11 @@ void BattleLevel::ChangeStage()
 
 void BattleLevel::MovePrevStage()
 {
+	if (true == FadeActorPtr->IsFadeEnd())
+	{
+		return;
+	}
+
 	if (0 < CurStageIndex)
 	{
 		--CurStageIndex;
@@ -105,15 +117,29 @@ void BattleLevel::MovePrevStage()
 		CurStageIndex = 0;
 	}
 
-	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
-	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+	FadeActorPtr->SetWaitTime(0.0f);
+	FadeActorPtr->SetSpeed(3.0f);
+	FadeActorPtr->FadeIn([this]()
+		{
+			MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+			MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+			ChangeStage();
 
-	ChangeStage();
+			FadeActorPtr->SetWaitTime(0.3f);
+			FadeActorPtr->SetSpeed(3.0f);
+			FadeActorPtr->FadeOut();
+		});
 }
 
 void BattleLevel::MoveNextStage()
 {
+	if (true == FadeActorPtr->IsFadeEnd())
+	{
+		return;
+	}
+
 	++CurStageIndex;
+
 
 	if (StageNameInfos.size() <= CurStageIndex)
 	{
@@ -122,13 +148,36 @@ void BattleLevel::MoveNextStage()
 	}
 	else
 	{
-		MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
-		MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
-		ChangeStage();
+		FadeActorPtr->SetWaitTime(0.0f);
+		FadeActorPtr->SetSpeed(3.0f);
+		FadeActorPtr->FadeIn([this]()
+			{
+				MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+				MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+				ChangeStage();
+
+				FadeActorPtr->SetWaitTime(0.3f);
+				FadeActorPtr->SetSpeed(3.0f);
+				FadeActorPtr->FadeOut();
+			});	
 	}
 }
 
 void BattleLevel::MoveLevel(const std::string_view& _Level)
 {
-	GameEngineCore::ChangeLevel(_Level);
+	if (true == IsLevelMove)
+	{
+		return;
+	}
+
+	IsLevelMove = true;
+
+	FadeActorPtr->SetWaitTime(0.0f);
+	FadeActorPtr->SetSpeed(1.5f);
+	FadeActorPtr->FadeIn([this, _Level]()
+		{
+			GameEngineCore::ChangeLevel(_Level);
+			IsLevelMove = false;
+		});
+
 }

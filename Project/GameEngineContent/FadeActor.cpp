@@ -12,32 +12,41 @@ FadeActor::~FadeActor()
 
 void FadeActor::SetFade()
 {
+	IsFadeEndValue = false;
 	Buffer.Color.w = 1.0f;
 	State = FadeState::Wait;
 }
 
 void FadeActor::SetUnFade()
 {
+	IsFadeEndValue = false;
 	Buffer.Color.w = 0.0f;
 	State = FadeState::Wait;
 }
 
 void FadeActor::FadeIn(std::function<void()> _FadeEndCallback /*= nullptr*/)
 {
+	IsFadeEndValue = true;
 	Buffer.Color.w = 0.0f;
 	State = FadeState::FadeIn;
 	FadeEndCallback = _FadeEndCallback;
+
+	CurWaitTime = 0.0f;
 }
 
 void FadeActor::FadeOut(std::function<void()> _FadeEndCallback /*= nullptr*/)
 {
+	IsFadeEndValue = true;
 	Buffer.Color.w = 1.0f;
 	State = FadeState::FadeOut;
 	FadeEndCallback = _FadeEndCallback;
+
+	CurWaitTime = 0.0f;
 }
 
 void FadeActor::Reset()
 {
+	IsFadeEndValue = false;
 	State = FadeState::Wait;
 	Buffer.Color = float4(0, 0, 0, 1);
 	FadeSpeed = 1.0f;
@@ -55,6 +64,13 @@ void FadeActor::Start()
 
 void FadeActor::Update(float _DeltaTime)
 {
+	CurWaitTime += _DeltaTime;
+
+	if (CurWaitTime < WaitTime)
+	{
+		return;
+	}
+
 	switch (State)
 	{
 	case FadeActor::FadeState::FadeIn:
@@ -62,6 +78,8 @@ void FadeActor::Update(float _DeltaTime)
 
 		if (Buffer.Color.w >= 1.0f)
 		{
+			IsFadeEndValue = false;
+
 			Buffer.Color.w = 1.0f;
 			State = FadeState::Wait;
 
@@ -78,6 +96,8 @@ void FadeActor::Update(float _DeltaTime)
 
 		if (Buffer.Color.w <= 0.0f)
 		{
+			IsFadeEndValue = false;
+
 			Buffer.Color.w = 0;
 			State = FadeState::Wait;
 
