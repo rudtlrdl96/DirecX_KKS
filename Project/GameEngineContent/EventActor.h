@@ -13,7 +13,7 @@ public:
 	EventActor& operator=(EventActor&& _Other) noexcept = delete;
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
-	void LoadBin(GameEngineSerializer& _SaveSerializer);
+	void LoadBin(GameEngineSerializer& _LoadSerializer);
 
 	void ShowGUI() override;
 
@@ -23,7 +23,9 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineCollision> EventCol = nullptr;
-
+	
+	float4 ColCenter = float4::Zero;
+	float4 ColScale = float4::Zero;
 
 	bool ActiveEnterEvent = false;
 	std::string EnterEventName = "";
@@ -35,6 +37,5 @@ private:
 	std::string ExitEventName = "";
 
 	bool IsEventEnter = false;
-
 };
 

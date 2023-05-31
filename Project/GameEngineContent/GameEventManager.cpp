@@ -6,6 +6,7 @@
 
 #include "BaseDoor.h"
 #include "BattleLevel.h"
+#include "EventActor.h"
 
 // Static Start
 
@@ -181,6 +182,57 @@ void GameEventManager::ShowGUI()
 		}
 	}
 
+	// Event
+
+	ImGui::Spacing();
+	ImGui::Text("Event List");
+	ImGui::Spacing();
+
+	if (ImGui::BeginListBox("Event ListBox"))
+	{
+		for (int n = 0; n < EventActors.size(); n++)
+		{
+			const bool is_selected = (GUI_SelectEvent == n);
+
+			if (ImGui::Selectable((std::string("Event : ") + std::to_string(n)).data(), is_selected))
+			{
+				GUI_SelectEvent = n;
+			}
+
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+
+		ImGui::EndListBox();
+	}
+
+	if (true == ImGui::Button("Add Event", ImVec2(100, 24)))
+	{
+		std::shared_ptr<EventActor> NewEvent = GetLevel()->CreateActor<EventActor>();
+		EventActors.push_back(NewEvent);
+
+		GUI_SelectEvent = static_cast<int>(EventActors.size() - 1);
+	}
+
+	if (true == ImGui::Button("Remove Event", ImVec2(100, 24)))
+	{
+		if (0 <= GUI_SelectEvent && EventActors.size() > GUI_SelectEvent)
+		{
+			EventActors.erase(EventActors.begin() + GUI_SelectEvent);
+
+			if (GUI_SelectEvent >= EventActors.size())
+			{
+				GUI_SelectEvent = static_cast<int>(EventActors.size() - 1);
+			}
+		}
+	}
+
+	if (0 > GUI_SelectEvent || EventActors.size() <= GUI_SelectEvent)
+	{
+		return;
+	}
+
+	EventActors[GUI_SelectEvent]->ShowGUI();
 }
 
 void GameEventManager::DoorActive()
@@ -226,6 +278,8 @@ void GameEventManager::SetDoorLevel(std::shared_ptr<class BattleLevel> _Level)
 
 void GameEventManager::Start()
 {
+	EventActors.reserve(8);
+
 	if (nullptr == GameEngineTexture::Find("ForestOfHarmony_ClearBackground.png"))
 	{
 		GameEngineDirectory Path;

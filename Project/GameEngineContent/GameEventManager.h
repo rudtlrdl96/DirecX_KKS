@@ -45,8 +45,11 @@ public:
 protected:
 	void Start() override;
 	
-private:
+private:	
+	// Player
 	float4 SpawnPoint = float4::Zero;
+	
+	// Door
 	float4 DoorPoint = float4::Zero;
 		
 	LevelArea DoorArea = LevelArea::None;
@@ -58,9 +61,15 @@ private:
 	std::shared_ptr<ContentSpriteRenderer> ClearBackRender = nullptr;
 	ColorBuffer ClearBackBuffer;
 
+	// Event
+
+	std::vector<std::shared_ptr<class EventActor>> EventActors;
+
 	// ImGui
 	const char* DoorComboText[2] = { "Single" ,"Double" };
 	const char* AreaComboText[7] = { "None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop" };
+
+	int GUI_SelectEvent = 0;
 
 	void SetClearDoorType(ClearDoorType _Type);
 	void SetDoorType(DoorType _FirstType, DoorType _SecondType);
