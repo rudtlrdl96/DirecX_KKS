@@ -120,7 +120,9 @@ void Player::Update(float _DeltaTime)
 
 		CamCtrl.EffectScaleRatio(1.0f, 0.7f, 1.5f);
 
-		GameEngineTime::GlobalTime.SetTimeScale(0.1f);
+		GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(0.1f);
+		GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(0.1f);
+
 		std::shared_ptr<GameEngineActor> HeadPart = MainSkull->SkullDeath();
 		
 		if (nullptr != HeadPart)

@@ -73,7 +73,8 @@ void BattleLevel::LevelChangeStart()
 	ChangeStage();
 	MainCamCtrl.ResetScale();
 
-	GameEngineTime::GlobalTime.SetTimeScale(1.0f);
+	GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(1.0f);
+	GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(1.0f);
 }
 
 void BattleLevel::LevelChangeEnd()
@@ -86,7 +87,8 @@ void BattleLevel::LevelChangeEnd()
 	}
 
 	EffectManager::SetLevel(nullptr);
-	GameEngineTime::GlobalTime.SetTimeScale(1.0f);
+	GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(1.0f);
+	GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(1.0f);
 }
 
 void BattleLevel::ChangeStage()
