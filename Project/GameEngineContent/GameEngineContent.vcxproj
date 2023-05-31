@@ -231,6 +231,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="FieldNoteActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="FlameWizard.h">
       <SubType>
       </SubType>
@@ -785,6 +789,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="FadeActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FieldNoteActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>

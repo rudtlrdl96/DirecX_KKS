@@ -40,6 +40,7 @@ protected:
 	void Update(float _DeltaTime) override;
 		
 private:
+	std::shared_ptr<class FieldNoteActor> NoteActor = nullptr;
 	std::shared_ptr<ContentSpriteRenderer> DoorRender = nullptr;
 	ColorBuffer Buffer;
 

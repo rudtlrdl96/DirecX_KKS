@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include "BattleLevel.h"
+#include "FieldNoteActor.h"
 
 BaseDoor::BaseDoor()
 {
@@ -147,10 +148,17 @@ void BaseDoor::Start()
 	{
 		GameEngineInput::CreateKey("UseKey", 'F');
 	}
+
+	NoteActor = GetLevel()->CreateActor<FieldNoteActor>();
+	NoteActor->GetTransform()->SetParent(GetTransform());
+	NoteActor->GetTransform()->SetLocalPosition(float4(10, -140, -100.0f));
+	NoteActor->Off();
 }
 
 void BaseDoor::Update(float _DeltaTime)
 {
+	NoteActor->Off();
+
 	if (nullptr == LevelPtr)
 	{
 		return;
@@ -165,6 +173,8 @@ void BaseDoor::Update(float _DeltaTime)
 	{
 		return;
 	}
+
+	NoteActor->On();
 
 	if (true == GameEngineInput::IsDown("UseKey"))
 	{

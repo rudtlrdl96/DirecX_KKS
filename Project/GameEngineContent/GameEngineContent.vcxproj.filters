@@ -774,6 +774,9 @@
     <ClInclude Include="BaseDoor.h">
       <Filter>2_Actor\Map\Door</Filter>
     </ClInclude>
+    <ClInclude Include="FieldNoteActor.h">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1225,6 +1228,9 @@
     </ClCompile>
     <ClCompile Include="BaseDoor.cpp">
       <Filter>2_Actor\Map\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldNoteActor.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
