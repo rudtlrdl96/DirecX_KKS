@@ -56,3 +56,8 @@ void OpeningLevel::Update(float _DeltaTime)
 {
 	BattleLevel::Update(_DeltaTime);
 }
+
+void OpeningLevel::AreaClear()
+{
+	MoveLevel("Castle");
+}

@@ -352,6 +352,9 @@
     <Filter Include="2_Actor\Debug\Tool\Map">
       <UniqueIdentifier>{048d53cc-a54a-4ba0-add0-63c9c786064d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Door">
+      <UniqueIdentifier>{d1565de9-2ef4-4c41-a513-a6f68ae41b3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -767,6 +770,9 @@
     </ClInclude>
     <ClInclude Include="CollisionDebugRender.h">
       <Filter>2_Actor\Debug\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDoor.h">
+      <Filter>2_Actor\Map\Door</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1216,6 +1222,9 @@
     </ClCompile>
     <ClCompile Include="CollisionDebugRender.cpp">
       <Filter>2_Actor\Debug\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDoor.cpp">
+      <Filter>2_Actor\Map\Door</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

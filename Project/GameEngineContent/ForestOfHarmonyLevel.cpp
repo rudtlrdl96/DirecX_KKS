@@ -189,3 +189,8 @@ void ForestOfHarmonyLevel::LevelChangeStart()
 	FPS_GUI->Reset();
 	FPS_GUI->On();
 }
+
+void ForestOfHarmonyLevel::AreaClear()
+{
+	MoveLevel("GrandHall");
+}

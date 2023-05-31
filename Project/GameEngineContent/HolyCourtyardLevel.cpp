@@ -53,3 +53,8 @@ void HolyCourtyardLevel::Update(float _DeltaTime)
 {
 	BattleLevel::Update(_DeltaTime);
 }
+
+void HolyCourtyardLevel::AreaClear()
+{
+	int a = 0;
+}

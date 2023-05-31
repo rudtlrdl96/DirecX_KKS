@@ -16,6 +16,38 @@ void ContentCore::TileDataLoad()
 	Path.Move("Texture");
 
 	{
+		Path.Move("0_Common");
+		Path.Move("Door");
+		Path.Move("ForestOfHarmony");
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_BossIntroDoor_Active.png").GetFullPath(), 4, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_BossIntroDoor_Disable.png").GetFullPath(), 1, 1);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_EquipDoor_Active.png").GetFullPath(), 4, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_EquipDoor_Disable.png").GetFullPath(), 1, 1);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_MiddleBossDoor_Active.png").GetFullPath(), 4, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_MiddleBossDoor_Disable.png").GetFullPath(), 1, 1);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_NormalDoor_Active.png").GetFullPath(), 4, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_NormalDoor_Disable.png").GetFullPath(), 1, 1);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_ShopDoor_Active.png").GetFullPath(), 4, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_ShopDoor_Disable.png").GetFullPath(), 1, 1);
+		
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_SkullDoor_Active.png").GetFullPath(), 4, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_SkullDoor_Disable.png").GetFullPath(), 1, 1);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_MainBossDoor.png").GetFullPath(), 4, 2);		
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ForestOfHarmony_BrokenDoor.png").GetFullPath(), 1, 1);
+		
+
+		Path.MoveParent();
+		Path.MoveParent();
+		Path.MoveParent();
+	}
+
+	{
 		Path.Move("12_Debug");
 		Path.Move("Tile");
 

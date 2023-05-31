@@ -352,19 +352,11 @@ void BaseMonster::CreateColDebugRender()
 	}
 
 	{
-		std::shared_ptr<CollisionDebugRender> FindDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
-		FindDebugRender->SetColor(CollisionDebugRender::DebugColor::Black);
-		FindDebugRender->SetTargetCollision(FindCol);
-		FindDebugRender->GetTransform()->SetParent(FindCol->GetTransform(), false);
-		FindDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
-	}
-
-	{
-		std::shared_ptr<CollisionDebugRender> ChasingDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
-		ChasingDebugRender->SetColor(CollisionDebugRender::DebugColor::Red);
-		ChasingDebugRender->SetTargetCollision(ChasingCol);
-		ChasingDebugRender->GetTransform()->SetParent(ChasingCol->GetTransform(), false);
-		ChasingDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
+		std::shared_ptr<CollisionDebugRender> WalkFallDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
+		WalkFallDebugRender->SetColor(CollisionDebugRender::DebugColor::Magenta);
+		WalkFallDebugRender->SetTargetCollision(WalkFallCol);
+		WalkFallDebugRender->GetTransform()->SetParent(WalkFallCol->GetTransform(), false);
+		WalkFallDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
 	}
 }
 

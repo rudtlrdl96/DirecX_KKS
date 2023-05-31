@@ -16,7 +16,10 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	virtual void AreaClear() override;
+
 private:
+	
 
 };
 

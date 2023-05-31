@@ -47,3 +47,8 @@ void GrandHallLevel::Update(float _DeltaTime)
 {
 	BattleLevel::Update(_DeltaTime);
 }
+
+void GrandHallLevel::AreaClear()
+{
+	MoveLevel("HolyCourtyard");
+}

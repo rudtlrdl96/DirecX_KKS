@@ -16,6 +16,7 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	void AreaClear() override;
 private:
 
 

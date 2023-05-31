@@ -56,3 +56,8 @@ void CastleLevel::LevelChangeStart()
 	MainCamCtrl.SetMaxWidth(D3D11_FLOAT32_MAX);
 
 }
+
+void CastleLevel::AreaClear()
+{
+	MoveLevel("ForestOfHarmony");
+}

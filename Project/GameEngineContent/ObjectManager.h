@@ -61,8 +61,7 @@ private:
 	std::vector<std::shared_ptr<StaticObject>> StaticObjectActors;
 	std::vector<std::shared_ptr<BrokenObject>> BrokenObjectActors;
 	std::vector<std::shared_ptr<MapPlatform>> MapPlatformActors;
-
-
+	
 	/// <summary>
 	/// ImGUI
 	/// </summary>

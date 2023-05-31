@@ -4,6 +4,7 @@
 
 class BattleLevel : public ContentLevel
 {
+	friend class BaseDoor;
 private:
 	class LoadStageInfo
 	{
@@ -42,8 +43,10 @@ protected:
 	void MovePrevStage();
 	void MoveNextStage();
 
-private:
+	void MoveLevel(const std::string_view& _Level);
 	virtual void AreaClear() {}
+
+private:
 
 };
 

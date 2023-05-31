@@ -127,3 +127,8 @@ void BattleLevel::MoveNextStage()
 		ChangeStage();
 	}
 }
+
+void BattleLevel::MoveLevel(const std::string_view& _Level)
+{
+	GameEngineCore::ChangeLevel(_Level);
+}
