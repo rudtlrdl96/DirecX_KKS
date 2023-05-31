@@ -25,7 +25,7 @@ void BaseDoor::SetSprite(const std::string_view& _ActiveSprite, const std::strin
 		DoorRender->CreateAnimation({
 		.AnimationName = ActiveSpriteName,
 		.SpriteName = ActiveSpriteName,
-		.FrameInter = 0.05f,
+		.FrameInter = 0.1f,
 		.ScaleToTexture = true});
 	}
 
@@ -34,7 +34,7 @@ void BaseDoor::SetSprite(const std::string_view& _ActiveSprite, const std::strin
 		DoorRender->CreateAnimation({
 			.AnimationName = DisableSpriteName,
 			.SpriteName = DisableSpriteName,
-			.FrameInter = 0.05f,
+			.FrameInter = 0.1f,
 			.ScaleToTexture = true });
 	}
 

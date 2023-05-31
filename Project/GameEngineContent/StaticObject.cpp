@@ -28,6 +28,7 @@ void StaticObject::Init(const SObjectMetaData& _MetaData)
 		MsgAssert_Rtti<StaticObject>(" - 랜더 사이즈를 지정하지 않았습니다");
 	}
 
+
 	ImageRender->SetTexture(MetaData.Name);
 	MetaData.Size.z = 1;
 	ImageRender->GetTransform()->SetLocalScale(MetaData.Size);
@@ -148,5 +149,6 @@ void StaticObject::Start()
 	ImageRender = CreateComponent<ContentSpriteRenderer>();
 	ImageRender->PipeSetting("2DTexture_Object");
 	ImageRender->GetShaderResHelper().SetConstantBufferLink("ObjectColorBuffer", Buffer);
+	ImageRender->CameraCullingOn();
 	ImageRender->Off();
 }
