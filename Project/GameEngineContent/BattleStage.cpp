@@ -10,6 +10,7 @@
 #include "ParticleManager.h"
 #include "MonsterManager.h"
 
+#include "BattleLevel.h"
 
 BattleStage::BattleStage()
 {
@@ -26,6 +27,8 @@ void BattleStage::Init(GameEngineSerializer& _LoadSerializer)
 	EventManagerPtr->LoadBin(_LoadSerializer);
 	ParticleMgrPtr->LoadBin(_LoadSerializer);
 	MonsterManagerPtr->LoadBin(_LoadSerializer);
+	
+	EventManagerPtr->SetDoorLevel(GetLevel()->DynamicThis<BattleLevel>());
 }
 
 TilemapMetaData BattleStage::GetTilemapMetaData() const
@@ -56,4 +59,16 @@ void BattleStage::Start()
 
 	MonsterManagerPtr = LevelPtr->CreateActor<MonsterManager>();
 	MonsterManagerPtr->GetTransform()->SetParent(GetTransform());
+}
+
+void BattleStage::Update(float _DeltaTime)
+{
+	if (MonsterManagerPtr->IsSpawnEnd())
+	{
+		EventManagerPtr->DoorActive();
+	}
+	else
+	{
+		EventManagerPtr->DoorDisable();
+	}
 }

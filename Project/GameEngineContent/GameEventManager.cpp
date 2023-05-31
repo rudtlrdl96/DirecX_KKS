@@ -5,7 +5,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 
 #include "BaseDoor.h"
-
+#include "BattleLevel.h"
 
 GameEventManager::GameEventManager()
 {
@@ -18,9 +18,9 @@ GameEventManager::~GameEventManager()
 void GameEventManager::SaveBin(GameEngineSerializer& _SaveSerializer)
 {
 	_SaveSerializer.Write(&SpawnPoint, sizeof(float4));
-	//_SaveSerializer.Write(&DoorPoint, sizeof(float4));
-	//_SaveSerializer.Write(&DoorArea, sizeof(LevelArea));
-	//_SaveSerializer.Write(&DType, sizeof(ClearDoorType));
+	_SaveSerializer.Write(&DoorPoint, sizeof(float4));
+	_SaveSerializer.Write(&DoorArea, sizeof(LevelArea));
+	_SaveSerializer.Write(&DType, sizeof(ClearDoorType));
 
 	//float4 DoorPoint = float4::Zero;
 	//LevelArea DoorArea = LevelArea::None;
@@ -30,6 +30,11 @@ void GameEventManager::SaveBin(GameEngineSerializer& _SaveSerializer)
 void GameEventManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
 	_LoadSerializer.Read(&SpawnPoint, sizeof(float4));
+	_LoadSerializer.Read(&DoorPoint, sizeof(float4));
+	_LoadSerializer.Read(&DoorArea, sizeof(LevelArea));
+	_LoadSerializer.Read(&DType, sizeof(ClearDoorType));
+
+	SetClearDoorType(DType);
 }
 
 void GameEventManager::ShowGUI()
@@ -68,19 +73,31 @@ void GameEventManager::ShowGUI()
 			DoorPoint.z = InputFloat4[2];
 			DoorPoint.w = InputFloat4[3];
 					
-			ClearBackRender->GetTransform()->SetLocalPosition(DoorPoint);
+			ClearBackRender->GetTransform()->SetLocalPosition(DoorPoint + float4(0, -30, 0));
 
-			if (nullptr != FirstDoorActor)
+			if (DType == ClearDoorType::DoubleDoor)
 			{
-				float4 FirstDoorPos = DoorPoint + float4(-100, 0, 0);
-				FirstDoorActor->GetTransform()->SetLocalPosition(FirstDoorPos);
-			}
+				if (nullptr != FirstDoorActor)
+				{
+					float4 FirstDoorPos = DoorPoint + float4(-300, 0, -0.1f);
+					FirstDoorActor->GetTransform()->SetLocalPosition(FirstDoorPos);
+				}
 
-			if (nullptr != SecondDoorActor)
-			{
-				float4 SecondDoorPos = DoorPoint + float4(100, 0, 0);
-				SecondDoorActor->GetTransform()->SetLocalPosition(SecondDoorPos);
+				if (nullptr != SecondDoorActor)
+				{
+					float4 SecondDoorPos = DoorPoint + float4(300, 0, -0.1f);
+					SecondDoorActor->GetTransform()->SetLocalPosition(SecondDoorPos);
+				}
 			}
+			else
+			{
+				if (nullptr != FirstDoorActor)
+				{
+					float4 FirstDoorPos = DoorPoint + float4(0, 0, -0.1f);
+					FirstDoorActor->GetTransform()->SetLocalPosition(FirstDoorPos);
+				}
+			}
+	
 		}
 	}
 
@@ -122,6 +139,47 @@ void GameEventManager::ShowGUI()
 
 }
 
+void GameEventManager::DoorActive()
+{
+	if (nullptr != FirstDoorActor)
+	{
+		FirstDoorActor->ActiveOn();
+	}
+
+	if (nullptr != SecondDoorActor)
+	{
+		SecondDoorActor->ActiveOn();
+	}
+
+}
+
+void GameEventManager::DoorDisable()
+{
+	if (nullptr != FirstDoorActor)
+	{
+		FirstDoorActor->ActiveOff();
+	}
+
+	if (nullptr != SecondDoorActor)
+	{
+		SecondDoorActor->ActiveOff();
+	}
+}
+
+void GameEventManager::SetDoorLevel(std::shared_ptr<class BattleLevel> _Level)
+{
+	if (nullptr != FirstDoorActor)
+	{
+		FirstDoorActor->SetBattleLevel(_Level.get());
+	}
+
+	if (nullptr != SecondDoorActor)
+	{
+		SecondDoorActor->SetBattleLevel(_Level.get());
+	}
+
+}
+
 void GameEventManager::Start()
 {
 	if (nullptr == GameEngineTexture::Find("ForestOfHarmony_ClearBackground.png"))
@@ -142,6 +200,10 @@ void GameEventManager::Start()
 	ClearBackRender->PipeSetting("2DTexture_ColorLight");
 	ClearBackRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", ClearBackBuffer);
 	ClearBackRender->SetScaleToTexture("ForestOfHarmony_ClearBackground.png");
+	
+	float4 Scale = ClearBackRender->GetTransform()->GetLocalScale();
+	ClearBackRender->GetTransform()->SetLocalScale(Scale * 2.0f);
+
 	ClearBackRender->Off();
 
 	SetClearDoorType(ClearDoorType::SingleDoor);
@@ -165,15 +227,15 @@ void GameEventManager::SetClearDoorType(ClearDoorType _Type)
 
 	if (ClearDoorType::DoubleDoor == DType)
 	{
-		ClearBackRender->GetTransform()->SetLocalPosition(DoorPoint);
+		ClearBackRender->GetTransform()->SetLocalPosition(DoorPoint + float4(0, -30, 0));
 
 		FirstDoorActor = GetLevel()->CreateActor<BaseDoor>();
 		FirstDoorActor->GetTransform()->SetParent(GetTransform());
-		FirstDoorActor->GetTransform()->SetLocalPosition(DoorPoint + float4(-100, 0, 0));
+		FirstDoorActor->GetTransform()->SetLocalPosition(DoorPoint + float4(-300, 0, -0.1f));
 
 		SecondDoorActor = GetLevel()->CreateActor<BaseDoor>();
 		SecondDoorActor->GetTransform()->SetParent(GetTransform());
-		SecondDoorActor->GetTransform()->SetLocalPosition(DoorPoint + float4(100, 0, 0));
+		SecondDoorActor->GetTransform()->SetLocalPosition(DoorPoint + float4(300, 0, -0.1f));
 	
 		ClearBackRender->On();
 	}
@@ -181,7 +243,7 @@ void GameEventManager::SetClearDoorType(ClearDoorType _Type)
 	{
 		FirstDoorActor = GetLevel()->CreateActor<BaseDoor>();
 		FirstDoorActor->GetTransform()->SetParent(GetTransform());
-		FirstDoorActor->GetTransform()->SetLocalPosition(DoorPoint + float4(0, 0, 0));
+		FirstDoorActor->GetTransform()->SetLocalPosition(DoorPoint + float4(0, 0, -0.1f));
 
 		ClearBackRender->Off();
 	}

@@ -29,6 +29,11 @@ public:
 		return SpawnPoint;
 	}
 
+	void DoorActive();
+	void DoorDisable();
+
+	void SetDoorLevel(std::shared_ptr<class BattleLevel> _Level);
+
 protected:
 	void Start() override;
 	

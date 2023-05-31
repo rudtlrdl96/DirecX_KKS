@@ -24,7 +24,7 @@ public:
 	BaseDoor& operator=(const BaseDoor& _Other) = delete;
 	BaseDoor& operator=(BaseDoor&& _Other) noexcept = delete;
 
-	inline void SetBattleLevel(std::shared_ptr<class BattleLevel> _LevelPtr)
+	inline void SetBattleLevel(class BattleLevel* _LevelPtr)
 	{
 		LevelPtr = _LevelPtr;
 	}
@@ -46,7 +46,7 @@ private:
 	LevelArea Area = LevelArea::None;
 	DoorType Type = DoorType::Broken;
 
-	std::shared_ptr<class BattleLevel> LevelPtr = nullptr;
+	class BattleLevel* LevelPtr = nullptr;
 	std::shared_ptr<class GameEngineCollision> DoorCollision = nullptr;
 
 	std::string ActiveSpriteName = "";

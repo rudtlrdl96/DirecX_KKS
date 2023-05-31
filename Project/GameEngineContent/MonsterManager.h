@@ -67,6 +67,21 @@ public:
 		IsMapTool = true;
 	}
 
+	inline bool IsSpawnEnd() const
+	{
+		bool SpawnCheck = true;
+
+		for (size_t i = 0; i < MonsterActors.size(); i++)
+		{
+			if (0 != MonsterActors[i].size())
+			{
+				SpawnCheck = true;
+			}
+		}
+
+		return CurWave >= WaveDatas.size() && SpawnCheck;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime);

@@ -33,7 +33,7 @@ public:
 	void SetCameraLock(class CameraController& _CameraCtrl);
 
 protected:
-	
+
 private:
 	std::map<std::string, std::shared_ptr<MultiBackground>> BattleBackgroundDatas;
 	std::map<std::string, std::shared_ptr<BattleStage>> BattleStageDatas;

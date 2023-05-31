@@ -109,7 +109,7 @@ void BaseDoor::ActiveOn()
 
 	if (nullptr != DoorRender->FindAnimation(ActiveSpriteName))
 	{
-		DoorRender->ChangeAnimation(ActiveSpriteName);
+		DoorRender->ChangeAnimation(ActiveSpriteName, static_cast<size_t>(-1), false);
 	}
 
 	IsActiveDoor = true;
@@ -124,7 +124,7 @@ void BaseDoor::ActiveOff()
 
 	if (nullptr != DoorRender->FindAnimation(DisableSpriteName))
 	{
-		DoorRender->ChangeAnimation(DisableSpriteName);
+		DoorRender->ChangeAnimation(DisableSpriteName, static_cast<size_t>(-1), false);
 	}
 
 	IsActiveDoor = false;
@@ -132,13 +132,12 @@ void BaseDoor::ActiveOff()
 
 void BaseDoor::Start()
 {
-	GetTransform()->SetLocalScale(float4(2, 2, 2, 1));
-
 	DoorRender = CreateComponent<ContentSpriteRenderer>();
 	DoorRender->PipeSetting("2DTexture_ColorLight");
 	DoorRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	DoorRender->SetTexture("Empty.png");
 	DoorRender->GetTransform()->SetLocalPosition(float4::Zero);
+	DoorRender->SetScaleRatio(2.0f);
 
 	DoorCollision = CreateComponent<GameEngineCollision>();
 	DoorCollision->GetTransform()->SetLocalPosition(float4(0, 0, 0));
