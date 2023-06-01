@@ -2,7 +2,7 @@
 #include "BaseContentActor.h"
 #include "TileMetaData.h"
 
-class SObjectMetaData
+class ObjectMetaData
 {
 public:
 	std::string Name = "";
@@ -16,25 +16,27 @@ public:
 	float4 Size = float4(100, 100, 0, 0);
 	float4 Color = float4::Zero;
 	float4 LightColor = float4::One;
+
+
 };
 
-class StaticObject : public BaseContentActor
+class MapObject : public BaseContentActor
 {	
 public:
-	StaticObject();
-	~StaticObject();
+	MapObject();
+	~MapObject();
 
-	StaticObject(const StaticObject& _Other) = delete;
-	StaticObject(StaticObject&& _Other) noexcept = delete;
-	StaticObject& operator=(const StaticObject& _Other) = delete;
-	StaticObject& operator=(StaticObject&& _Other) noexcept = delete;
+	MapObject(const MapObject& _Other) = delete;
+	MapObject(MapObject&& _Other) noexcept = delete;
+	MapObject& operator=(const MapObject& _Other) = delete;
+	MapObject& operator=(MapObject&& _Other) noexcept = delete;
 
-	void Init(const SObjectMetaData& _MetaData);
+	void Init(const ObjectMetaData& _MetaData);
 
-	const SObjectMetaData& GetMetaData();
+	const ObjectMetaData& GetMetaData();
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
-	static SObjectMetaData LoadBin(GameEngineSerializer& _LoadSerializer);
+	static ObjectMetaData LoadBin(GameEngineSerializer& _LoadSerializer);
 
 	void ShowGUI() override;
 
@@ -45,14 +47,14 @@ protected:
 	void Start() override;
 
 private:
-	SObjectMetaData MetaData = SObjectMetaData();
+	ObjectMetaData MetaData = ObjectMetaData();
 
 	std::shared_ptr<ContentSpriteRenderer> ImageRender = nullptr;
 
 	ObjectColorBuffer Buffer;
 
 #if _DEBUG
-	static std::shared_ptr<StaticObject> FocusStaticObject;
+	static std::shared_ptr<MapObject> FocusMapObject;
 #endif
 
 };

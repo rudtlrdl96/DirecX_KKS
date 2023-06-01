@@ -1,8 +1,8 @@
 #include "PrecompileHeader.h"
 #include "ContentCore.h"
-#include "StaticObject.h"
+#include "MapObject.h"
 
-void ContentCore::StaticObjectLoad()
+void ContentCore::ObjectLoad()
 {
 	GameEngineDirectory Path;
 	Path.MoveParentToDirectory("Resources");
@@ -11,7 +11,7 @@ void ContentCore::StaticObjectLoad()
 
 	{
 		Path.Move("2_Castle");
-		Path.Move("StaticObject");
+		Path.Move("Object");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -26,7 +26,7 @@ void ContentCore::StaticObjectLoad()
 			}
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
+			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
 				{.Name = Name, .Index = i, .Grade = LevelArea::Castle, .Size = float4(Tex->GetWidth(), Tex->GetHeight())});
 		}
 
@@ -36,7 +36,7 @@ void ContentCore::StaticObjectLoad()
 
 	{
 		Path.Move("3_ForestOfHarmony");
-		Path.Move("StaticObject");
+		Path.Move("Object");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -52,7 +52,7 @@ void ContentCore::StaticObjectLoad()
 			}
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
+			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
 				{ .Name = Name, .Index = 1000 + i, .Grade = LevelArea::ForestOfHamory, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
@@ -62,7 +62,7 @@ void ContentCore::StaticObjectLoad()
 
 	{
 		Path.Move("4_GrandHall");
-		Path.Move("StaticObject");
+		Path.Move("Object");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -79,7 +79,7 @@ void ContentCore::StaticObjectLoad()
 
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
+			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
 				{ .Name = Name, .Index = 2000 + i, .Grade = LevelArea::GrandHall, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
@@ -89,7 +89,7 @@ void ContentCore::StaticObjectLoad()
 
 	{
 		Path.Move("5_HolyCourtyard");
-		Path.Move("StaticObject");
+		Path.Move("Object");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -104,7 +104,7 @@ void ContentCore::StaticObjectLoad()
 			}
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
+			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
 				{ .Name = Name, .Index = 3000 + i, .Grade = LevelArea::HolyCourtyard, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
@@ -114,7 +114,7 @@ void ContentCore::StaticObjectLoad()
 
 	{
 		Path.Move("1_Opening");
-		Path.Move("StaticObject");
+		Path.Move("Object");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -129,7 +129,7 @@ void ContentCore::StaticObjectLoad()
 			}
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
+			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
 				{ .Name = Name, .Index = 4000 + i, .Grade = LevelArea::Opening, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
@@ -139,7 +139,7 @@ void ContentCore::StaticObjectLoad()
 
 	{
 		Path.Move("7_Shop");
-		Path.Move("StaticObject");
+		Path.Move("Object");
 
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
@@ -154,7 +154,7 @@ void ContentCore::StaticObjectLoad()
 			}
 
 			std::string Name = Tex->GetNameToString();
-			ContentDatabase<SObjectMetaData, LevelArea>::InsertData(
+			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
 				{ .Name = Name, .Index = 5000 + i, .Grade = LevelArea::Shop, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 		}
 
@@ -162,23 +162,23 @@ void ContentCore::StaticObjectLoad()
 		Path.MoveParent();
 	}
 
-	std::vector<SObjectMetaData> Castle_SObject_Datas;
-	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Castle , Castle_SObject_Datas);
+	std::vector<ObjectMetaData> Castle_Object_Datas;
+	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Castle , Castle_Object_Datas);
 
-	std::vector<SObjectMetaData> Opening_SObject_Datas;
-	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Opening, Opening_SObject_Datas);
+	std::vector<ObjectMetaData> Opening_Object_Datas;
+	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Opening, Opening_Object_Datas);
 
-	std::vector<SObjectMetaData> ForestOfHarmony_SObject_Datas;
-	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestOfHarmony_SObject_Datas);
+	std::vector<ObjectMetaData> ForestOfHarmony_Object_Datas;
+	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestOfHarmony_Object_Datas);
 
-	std::vector<SObjectMetaData> GranHall_SObject_Datas;
-	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GranHall_SObject_Datas);
+	std::vector<ObjectMetaData> GranHall_Object_Datas;
+	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GranHall_Object_Datas);
 
-	std::vector<SObjectMetaData> HolyCourtyard_SObject_Datas;
-	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::HolyCourtyard, HolyCourtyard_SObject_Datas);
+	std::vector<ObjectMetaData> HolyCourtyard_Object_Datas;
+	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::HolyCourtyard, HolyCourtyard_Object_Datas);
 
-	std::vector<SObjectMetaData> Shop_SObject_Datas;
-	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Shop, Shop_SObject_Datas);
+	std::vector<ObjectMetaData> Shop_Object_Datas;
+	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Shop, Shop_Object_Datas);
 
 	int a = 0;
 }

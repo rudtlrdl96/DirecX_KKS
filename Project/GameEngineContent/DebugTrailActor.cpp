@@ -25,9 +25,9 @@ void DebugTrailActor::Start()
 	GetTransform()->SetLocalScale(float4::One);
 
 	MainRender = CreateComponent<GameEngineSpriteRenderer>();
-	std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find("Opening_SObject (57).png");
+	std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find("Opening_Object (57).png");
 	float4 Size = float4(static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()), 1.0f);
-	MainRender->SetTexture("Opening_SObject (57).png");
+	MainRender->SetTexture("Opening_Object (57).png");
 	MainRender->GetTransform()->SetLocalScale(Size);
 
 	Trail = GetLevel()->CreateActor<CaptureTrail>();
@@ -41,7 +41,7 @@ void DebugTrailActor::Update(float _DeltaTime)
 {	
 	if (0.15f < GetLiveTime())
 	{	
-		Trail->PlayTrail("Opening_SObject (57).png", float4(0.0f, 0.0f, 1.0f, 1.0f), false);
+		Trail->PlayTrail("Opening_Object (57).png", float4(0.0f, 0.0f, 1.0f, 1.0f), false);
 		ResetLiveTime();
 	}
 

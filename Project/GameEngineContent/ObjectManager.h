@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
-#include "StaticObject.h"
+#include "MapObject.h"
 #include "BrokenObject.h"
 #include "MapPlatform.h"
 
@@ -10,7 +10,7 @@ public:
 	enum class GuiType
 	{
 		None,
-		SObject,
+		Object,
 		BObject,
 		Platform,
 	};
@@ -24,7 +24,7 @@ public:
 	ObjectManager& operator=(const ObjectManager& _Other) = delete;
 	ObjectManager& operator=(ObjectManager&& _Other) noexcept = delete;
 
-	std::shared_ptr<StaticObject> CreateStaticObject(const SObjectMetaData& _MetaData);
+	std::shared_ptr<MapObject> CreateObject(const ObjectMetaData& _MetaData);
 	std::shared_ptr<MapPlatform> CreatePaltform(const MapPlatform::PlatformMetaData& _MetaData);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
@@ -37,20 +37,20 @@ public:
 		ShowGuiType = _ShowGuiType;
 	}
 
-	inline std::shared_ptr<BaseContentActor> GetSelectSObject() const
+	inline std::shared_ptr<BaseContentActor> GetSelectObject() const
 	{
-		if (CurrentStaticObjectIndex < 0 || CurrentStaticObjectIndex >= StaticObjectActors.size())
+		if (CurrentObjectIndex < 0 || CurrentObjectIndex >= ObjectActors.size())
 		{
 			return nullptr;
 		}
 
-		return StaticObjectActors[CurrentStaticObjectIndex];
+		return ObjectActors[CurrentObjectIndex];
 	}
 
 	void PlatformDebugOn();
 	void PlatformDebugOff();
 
-	void SelectLastStaticObject();
+	void SelectLastObject();
 	void SelectLastPlatform();
 
 protected:
@@ -58,7 +58,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::vector<std::shared_ptr<StaticObject>> StaticObjectActors;
+	std::vector<std::shared_ptr<MapObject>> ObjectActors;
 	std::vector<std::shared_ptr<BrokenObject>> BrokenObjectActors;
 	std::vector<std::shared_ptr<MapPlatform>> MapPlatformActors;
 	
@@ -68,7 +68,7 @@ private:
 
 	std::shared_ptr<MapPlatform> CurrentEmphasizePlatform = nullptr;
 
-	int CurrentStaticObjectIndex = -1;
+	int CurrentObjectIndex = -1;
 	int CurrentPlatformIndex = -1;
 
 	bool IsPlatformDebug = false;
@@ -78,10 +78,10 @@ private:
 
 	GuiType ShowGuiType = GuiType::None;
 
-	void PushAllStaticObject(const float4& _AddPos);
+	void PushAllObject(const float4& _AddPos);
 	void PushAllPlatform(const float4& _AddPos);
 
-	void Draw_SObject_GUI();
+	void Draw_Object_GUI();
 	void Draw_BObject_GUI();
 	void Draw_Platform_GUI();
 

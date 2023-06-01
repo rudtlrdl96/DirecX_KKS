@@ -441,7 +441,7 @@
     <ClInclude Include="BoneSkull.h">
       <Filter>2_Actor\BattleActor\Player\Skull\BoneSkull</Filter>
     </ClInclude>
-    <ClInclude Include="StaticObject.h">
+    <ClInclude Include="MapObject.h">
       <Filter>2_Actor\Map\Stage\Object\StaticObject</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
@@ -866,7 +866,7 @@
     <ClCompile Include="BoneSkull.cpp">
       <Filter>2_Actor\BattleActor\Player\Skull\BoneSkull</Filter>
     </ClCompile>
-    <ClCompile Include="StaticObject.cpp">
+    <ClCompile Include="MapObject.cpp">
       <Filter>2_Actor\Map\Stage\Object\StaticObject</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
@@ -977,7 +977,7 @@
     <ClCompile Include="ContentCore_SkullData.cpp">
       <Filter>0_Core\CoreLoad</Filter>
     </ClCompile>
-    <ClCompile Include="ContentCore_StaticObject.cpp">
+    <ClCompile Include="ContentCore_Object.cpp">
       <Filter>0_Core\CoreLoad</Filter>
     </ClCompile>
     <ClCompile Include="ContentCore_BackgroundData.cpp">

@@ -60,7 +60,7 @@ void ContentCore::CoreLoading()
 	QuintessenceDataLoad();
 	MonsterDataLoad();
 	TileDataLoad();
-	StaticObjectLoad();
+	ObjectLoad();
 	BackgroundDataLoad();
 
 	// Common Load

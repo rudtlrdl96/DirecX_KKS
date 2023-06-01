@@ -1,31 +1,31 @@
 #include "PrecompileHeader.h"
-#include "StaticObject.h"
+#include "MapObject.h"
 #include <GameEngineCore/imgui.h>
 
 #if _DEBUG
-std::shared_ptr<StaticObject> StaticObject::FocusStaticObject = nullptr;
+std::shared_ptr<MapObject> MapObject::FocusMapObject = nullptr;
 #endif
 
-StaticObject::StaticObject()
+MapObject::MapObject()
 {
 }
 
-StaticObject::~StaticObject()
+MapObject::~MapObject()
 {
 }
 
-void StaticObject::Init(const SObjectMetaData& _MetaData)
+void MapObject::Init(const ObjectMetaData& _MetaData)
 {
 	MetaData = _MetaData;
 
 	if ("" == MetaData.Name)
 	{
-		MsgAssert_Rtti<StaticObject>(" - 텍스쳐 이름을 지정하지 않았습니다");
+		MsgAssert_Rtti<MapObject>(" - 텍스쳐 이름을 지정하지 않았습니다");
 	}
 
 	if (MetaData.Size == float4::Zero)
 	{
-		MsgAssert_Rtti<StaticObject>(" - 랜더 사이즈를 지정하지 않았습니다");
+		MsgAssert_Rtti<MapObject>(" - 랜더 사이즈를 지정하지 않았습니다");
 	}
 
 
@@ -45,7 +45,7 @@ void StaticObject::Init(const SObjectMetaData& _MetaData)
 	ImageRender->On();
 }
 
-const SObjectMetaData& StaticObject::GetMetaData()
+const ObjectMetaData& MapObject::GetMetaData()
 {
 	MetaData.Pos = GetTransform()->GetLocalPosition();
 	MetaData.Rot = GetTransform()->GetLocalRotation();
@@ -56,7 +56,7 @@ const SObjectMetaData& StaticObject::GetMetaData()
 	return MetaData;
 }
 
-void StaticObject::SaveBin(GameEngineSerializer& _SaveSerializer)
+void MapObject::SaveBin(GameEngineSerializer& _SaveSerializer)
 {
 	GetMetaData();
 
@@ -72,9 +72,9 @@ void StaticObject::SaveBin(GameEngineSerializer& _SaveSerializer)
 
 }
 
-SObjectMetaData StaticObject::LoadBin(GameEngineSerializer& _LoadSerializer)
+ObjectMetaData MapObject::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
-	SObjectMetaData LoadMetaData = SObjectMetaData();
+	ObjectMetaData LoadMetaData = ObjectMetaData();
 
 	_LoadSerializer.Read(LoadMetaData.Name);
 	_LoadSerializer.Read(&LoadMetaData.Index, sizeof(size_t));
@@ -89,7 +89,7 @@ SObjectMetaData StaticObject::LoadBin(GameEngineSerializer& _LoadSerializer)
 	return LoadMetaData;
 }
 
-void StaticObject::ShowGUI()
+void MapObject::ShowGUI()
 {
 	ImGui::Spacing();
 
@@ -122,29 +122,29 @@ void StaticObject::ShowGUI()
 	}
 }
 
-std::string StaticObject::GetTexName() const
+std::string MapObject::GetTexName() const
 {
 	if (nullptr == ImageRender)
 	{
-		MsgAssert_Rtti<StaticObject>(" - 랜더를 생성하지않고 텍스쳐 이름을 받아오려 했습니다");
+		MsgAssert_Rtti<MapObject>(" - 랜더를 생성하지않고 텍스쳐 이름을 받아오려 했습니다");
 		return "";
 	}
 
 	return ImageRender->GetTexName();
 }
 
-float4 StaticObject::GetTexWorldScale() const
+float4 MapObject::GetTexWorldScale() const
 {
 	if (nullptr == ImageRender)
 	{
-		MsgAssert_Rtti<StaticObject>(" - 랜더를 생성하지않고 텍스쳐 이름을 받아오려 했습니다");
+		MsgAssert_Rtti<MapObject>(" - 랜더를 생성하지않고 텍스쳐 이름을 받아오려 했습니다");
 		return float4::Zero;
 	}
 
 	return ImageRender->GetTransform()->GetWorldScale();
 }
 
-void StaticObject::Start()
+void MapObject::Start()
 {
 	ImageRender = CreateComponent<ContentSpriteRenderer>();
 	ImageRender->PipeSetting("2DTexture_Object");

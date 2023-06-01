@@ -22,13 +22,13 @@ private:
 		}
 	};
 
-	class MapTool_SObjectData
+	class MapTool_ObjectData
 	{
 	public:
-		SObjectMetaData Data;
+		ObjectMetaData Data;
 		std::shared_ptr<class GameEngineTexture> TexturePtr = nullptr;
 
-		MapTool_SObjectData(const SObjectMetaData& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
+		MapTool_ObjectData(const ObjectMetaData& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
 			Data(_Data),
 			TexturePtr(_TexturePtr)
 		{
@@ -61,9 +61,9 @@ public:
 		return SelectTileIndex;
 	}
 
-	inline SObjectMetaData GetSelectSObject() const
+	inline ObjectMetaData GetSelectObject() const
 	{
-		return SelectSObjectMetaData;
+		return SelectObjectMetaData;
 	}
 
 	inline ParticleAreaMetaData GetNewParticleMetaData() const
@@ -118,7 +118,7 @@ protected:
 	
 private:
 	std::map<LevelArea, std::vector<MapTool_TilemapData>> TileTexDatas;
-	std::map<LevelArea, std::vector<MapTool_SObjectData>> SObjectTexDatas;
+	std::map<LevelArea, std::vector<MapTool_ObjectData>> ObjectTexDatas;
 	std::map<LevelArea, std::vector<MapTool_MonsterData>> MonsterTexDatas;
 
 	LevelArea CurShowAreaTile = LevelArea::None;
@@ -133,13 +133,13 @@ private:
 	std::vector<std::function<void()>> MonsterManagerCallback;
 
 	const char* AreaComboText[7] = {"None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop"};
-	const char* MapToolComboText[8] = {"Tilemap" ,"SObject", "BObject", "Platform", "Event", "Particle", "Light", "Monster"};
+	const char* MapToolComboText[8] = {"Tilemap" ,"Object", "BObject", "Platform", "Event", "Particle", "Light", "Monster"};
 	const char* PlatformTypeCombo[2] = {"Normal" ,"Half"};
 	
 	float4 TileSize = float4::Zero;
 
 	UINT SelectTileIndex = 0;
-	SObjectMetaData SelectSObjectMetaData;
+	ObjectMetaData SelectObjectMetaData;
 	MonsterData SelectMonsterMetaData;
 
 	ParticleAreaMetaData ParticleAreaMapMetaData;
@@ -154,11 +154,11 @@ private:
 	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
 
 	void TileDatasLoad(LevelArea _Area);
-	void SObjectDatasLoad(LevelArea _Area);
+	void ObjectDatasLoad(LevelArea _Area);
 	void MonsterDatasLoad(LevelArea _Area);
 	
 	void DrawGui_Tilemap();
-	void DrawGui_SObject();
+	void DrawGui_Object();
 	void DrawGui_BObject();
 	void DrawGui_Platform();
 	void DrawGui_Event();

@@ -12,9 +12,7 @@ public:
 	ContentCore& operator=(ContentCore&& _Other) noexcept = delete;
 
 	static void CoreLoading();
-	static void CoreEnd();
-
-
+	static void CoreEnd();	
 protected:
 
 private:
@@ -29,7 +27,7 @@ private:
 	static void QuintessenceDataLoad();
 	static void MonsterDataLoad();
 	static void TileDataLoad();
-	static void StaticObjectLoad();
+	static void ObjectLoad();
 	static void BackgroundDataLoad();
 
 	// Common Load

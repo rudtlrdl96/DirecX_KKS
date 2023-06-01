@@ -7,7 +7,7 @@ public:
 	enum class MapToolState
 	{
 		Tilemap,
-		SObject,
+		Object,
 		BObject,
 		Platform,
 		Event,
@@ -57,7 +57,7 @@ private:
 	void CameraMoveFunction(float _DeltaTime);
 
 	void Update_Tilemap(float _DeltaTime);
-	void Update_SObject(float _DeltaTime);
+	void Update_Object(float _DeltaTime);
 	void Update_BObject(float _DeltaTime);
 	void Update_Platfrom(float _DeltaTime);
 	void Update_Event(float _DeltaTime);

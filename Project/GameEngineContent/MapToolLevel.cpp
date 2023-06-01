@@ -110,9 +110,9 @@ void MapToolLevel::Update(float _DeltaTime)
 		Update_Tilemap(_DeltaTime);
 		break;
 	}
-	case MapToolState::SObject:
+	case MapToolState::Object:
 	{
-		Update_SObject(_DeltaTime);		
+		Update_Object(_DeltaTime);		
 		break;
 	}
 
@@ -318,11 +318,11 @@ void MapToolLevel::Update_Tilemap(float _DeltaTime)
 	}
 }
 
-void MapToolLevel::Update_SObject(float _DeltaTime)
+void MapToolLevel::Update_Object(float _DeltaTime)
 {
-	ObjectMgrPtr->SetGuiType(ObjectManager::GuiType::SObject);
+	ObjectMgrPtr->SetGuiType(ObjectManager::GuiType::Object);
 
-	std::shared_ptr<BaseContentActor> GetActorPtr = ObjectMgrPtr->GetSelectSObject();
+	std::shared_ptr<BaseContentActor> GetActorPtr = ObjectMgrPtr->GetSelectObject();
 
 	if (nullptr == GetActorPtr)
 	{
@@ -339,11 +339,11 @@ void MapToolLevel::Update_SObject(float _DeltaTime)
 		float4 TestMousePos = GetMousePos();
 		TestMousePos.z = 0;
 
-		SObjectMetaData NewObjectMetaData = MapToolGuiPtr->GetSelectSObject();
+		ObjectMetaData NewObjectMetaData = MapToolGuiPtr->GetSelectObject();
 		NewObjectMetaData.Pos = TestMousePos;
 
-		ObjectMgrPtr->CreateStaticObject(NewObjectMetaData); 
-		ObjectMgrPtr->SelectLastStaticObject();
+		ObjectMgrPtr->CreateObject(NewObjectMetaData); 
+		ObjectMgrPtr->SelectLastObject();
 	}
 }
 

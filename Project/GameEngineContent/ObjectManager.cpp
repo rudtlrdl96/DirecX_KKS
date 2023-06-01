@@ -7,7 +7,7 @@
 
 ObjectManager::ObjectManager()
 {
-	StaticObjectActors.reserve(32);
+	ObjectActors.reserve(32);
 	BrokenObjectActors.reserve(32);
 	MapPlatformActors.reserve(32);
 }
@@ -16,18 +16,18 @@ ObjectManager::~ObjectManager()
 {
 }
 
-std::shared_ptr<StaticObject> ObjectManager::CreateStaticObject(const SObjectMetaData& _Meta)
+std::shared_ptr<MapObject> ObjectManager::CreateObject(const ObjectMetaData& _Meta)
 {
 	if ("" == _Meta.Name)
 	{
 		return nullptr;
 	}
 
-	std::shared_ptr<StaticObject> CreatePtr = GetLevel()->CreateActor<StaticObject>();
+	std::shared_ptr<MapObject> CreatePtr = GetLevel()->CreateActor<MapObject>();
 	CreatePtr->SetName(_Meta.Name + " - " + std::to_string(CreatePtr->GetActorCode()));
 	CreatePtr->GetTransform()->SetParent(this->GetTransform());
 	CreatePtr->Init(_Meta);
-	StaticObjectActors.push_back(CreatePtr);
+	ObjectActors.push_back(CreatePtr);
 
 	return CreatePtr;
 }
@@ -50,9 +50,9 @@ std::shared_ptr<MapPlatform> ObjectManager::CreatePaltform(const MapPlatform::Pl
 
 void ObjectManager::SaveBin(GameEngineSerializer& _SaveSerializer) const
 {
-	_SaveSerializer.Write(static_cast<int>(StaticObjectActors.size()));
+	_SaveSerializer.Write(static_cast<int>(ObjectActors.size()));
 
-	for (const std::shared_ptr<StaticObject>& LoopRef : StaticObjectActors)
+	for (const std::shared_ptr<MapObject>& LoopRef : ObjectActors)
 	{ 
 		LoopRef->SaveBin(_SaveSerializer);
 	}	
@@ -76,28 +76,28 @@ void ObjectManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
 	// 정적 오브젝트 불러오기
 	{
-		for (size_t i = 0; i < StaticObjectActors.size(); i++)
+		for (size_t i = 0; i < ObjectActors.size(); i++)
 		{
-			if (nullptr == StaticObjectActors[i])
+			if (nullptr == ObjectActors[i])
 			{
 				continue;
 			}
 
-			StaticObjectActors[i]->Death();
-			StaticObjectActors[i] = nullptr;
+			ObjectActors[i]->Death();
+			ObjectActors[i] = nullptr;
 		}
 
-		StaticObjectActors.clear();
+		ObjectActors.clear();
 
-		int StaticObjectCount = 0;
-		_LoadSerializer.Read(StaticObjectCount);
+		int ObjectCount = 0;
+		_LoadSerializer.Read(ObjectCount);
 
-		StaticObjectActors.reserve(StaticObjectCount);
+		ObjectActors.reserve(ObjectCount);
 
-		for (int i = 0; i < StaticObjectCount; i++)
+		for (int i = 0; i < ObjectCount; i++)
 		{
-			SObjectMetaData LoadMetaData = StaticObject::LoadBin(_LoadSerializer);
-			CreateStaticObject(LoadMetaData);
+			ObjectMetaData LoadMetaData = MapObject::LoadBin(_LoadSerializer);
+			CreateObject(LoadMetaData);
 		}
 	}
 
@@ -156,8 +156,8 @@ void ObjectManager::ShowGUI()
 {
 	switch (ShowGuiType)
 	{
-	case ObjectManager::GuiType::SObject:
-		Draw_SObject_GUI();
+	case ObjectManager::GuiType::Object:
+		Draw_Object_GUI();
 		break;
 	case ObjectManager::GuiType::BObject:
 		Draw_BObject_GUI();
@@ -191,9 +191,9 @@ void ObjectManager::PlatformDebugOff()
 	}
 }
 
-void ObjectManager::SelectLastStaticObject()
+void ObjectManager::SelectLastObject()
 {
-	CurrentStaticObjectIndex = static_cast<int>(StaticObjectActors.size() - 1);
+	CurrentObjectIndex = static_cast<int>(ObjectActors.size() - 1);
 }
 
 void ObjectManager::SelectLastPlatform()
@@ -234,11 +234,11 @@ void ObjectManager::Update(float _DeltaTime)
 	EmphasizeCurrentPlatform();
 }
 
-void ObjectManager::PushAllStaticObject(const float4& _AddPos)
+void ObjectManager::PushAllObject(const float4& _AddPos)
 {
-	for (size_t i = 0; i < StaticObjectActors.size(); i++)
+	for (size_t i = 0; i < ObjectActors.size(); i++)
 	{
-		StaticObjectActors[i]->GetTransform()->AddLocalPosition(_AddPos);
+		ObjectActors[i]->GetTransform()->AddLocalPosition(_AddPos);
 	}
 
 }
@@ -252,17 +252,17 @@ void ObjectManager::PushAllPlatform(const float4& _AddPos)
 	}
 }
 
-void ObjectManager::Draw_SObject_GUI()
+void ObjectManager::Draw_Object_GUI()
 {
-	if (ImGui::BeginListBox("Static Object ListBox"))
+	if (ImGui::BeginListBox("Object ListBox"))
 	{
-		for (int n = 0; n < StaticObjectActors.size(); n++)
+		for (int n = 0; n < ObjectActors.size(); n++)
 		{
-			const bool is_selected = (CurrentStaticObjectIndex == n);
+			const bool is_selected = (CurrentObjectIndex == n);
 
-			if (ImGui::Selectable(StaticObjectActors[n]->GetName().data(), is_selected))
+			if (ImGui::Selectable(ObjectActors[n]->GetName().data(), is_selected))
 			{
-				CurrentStaticObjectIndex = n;
+				CurrentObjectIndex = n;
 			}
 
 			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
@@ -275,39 +275,39 @@ void ObjectManager::Draw_SObject_GUI()
 
 	if (true == ImGui::Button("Copy", ImVec2(70, 25)))
 	{
-		if (CurrentStaticObjectIndex < 0)
+		if (CurrentObjectIndex < 0)
 		{
 			return;
 		}
 
-		CreateStaticObject(StaticObjectActors[CurrentStaticObjectIndex]->GetMetaData());
+		CreateObject(ObjectActors[CurrentObjectIndex]->GetMetaData());
 
-		SelectLastStaticObject();
+		SelectLastObject();
 	}
 
 	if (true == ImGui::Button("Remove", ImVec2(70, 25)))
 	{
-		if (CurrentStaticObjectIndex < 0)
+		if (CurrentObjectIndex < 0)
 		{
 			return;
 		}
 
-		std::vector<std::shared_ptr<StaticObject>>::iterator EraseIter = StaticObjectActors.begin();
+		std::vector<std::shared_ptr<MapObject>>::iterator EraseIter = ObjectActors.begin();
 
-		EraseIter += CurrentStaticObjectIndex;
+		EraseIter += CurrentObjectIndex;
 
 		(*EraseIter)->Death();
 		(*EraseIter) = nullptr;
-		EraseIter = StaticObjectActors.erase(EraseIter);
+		EraseIter = ObjectActors.erase(EraseIter);
 
-		if (CurrentStaticObjectIndex >= StaticObjectActors.size())
+		if (CurrentObjectIndex >= ObjectActors.size())
 		{
-			CurrentStaticObjectIndex = static_cast<int>(StaticObjectActors.size() - 1);
+			CurrentObjectIndex = static_cast<int>(ObjectActors.size() - 1);
 		}
 
-		if (StaticObjectActors.size() <= 0)
+		if (ObjectActors.size() <= 0)
 		{
-			CurrentStaticObjectIndex = -1;
+			CurrentObjectIndex = -1;
 		}
 	}
 
@@ -315,34 +315,34 @@ void ObjectManager::Draw_SObject_GUI()
 
 	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
 	ImGui::SameLine();
-	if (true == ImGui::ArrowButton("StaticObject Push Up ArrowButton", ImGuiDir_Up))
+	if (true == ImGui::ArrowButton("Object Push Up ArrowButton", ImGuiDir_Up))
 	{
-		PushAllStaticObject(float4(0, ContentConst::TileSize.y, 0));
+		PushAllObject(float4(0, ContentConst::TileSize.y, 0));
 	}
 
-	if (true == ImGui::ArrowButton("StaticObject Push Left ArrowButton", ImGuiDir_Left))
+	if (true == ImGui::ArrowButton("Object Push Left ArrowButton", ImGuiDir_Left))
 	{
-		PushAllStaticObject(float4(-ContentConst::TileSize.x, 0, 0));
+		PushAllObject(float4(-ContentConst::TileSize.x, 0, 0));
 	}
 
 	ImGui::SameLine();
 	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
 	ImGui::SameLine();
-	if (true == ImGui::ArrowButton("StaticObject Push Right ArrowButton", ImGuiDir_Right))
+	if (true == ImGui::ArrowButton("Object Push Right ArrowButton", ImGuiDir_Right))
 	{
-		PushAllStaticObject(float4(ContentConst::TileSize.x, 0, 0));
+		PushAllObject(float4(ContentConst::TileSize.x, 0, 0));
 	}
 
 	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
 	ImGui::SameLine();
-	if (true == ImGui::ArrowButton("StaticObject Push Down ArrowButton", ImGuiDir_Down))
+	if (true == ImGui::ArrowButton("Object Push Down ArrowButton", ImGuiDir_Down))
 	{
-		PushAllStaticObject(float4(0, -ContentConst::TileSize.y, 0));
+		PushAllObject(float4(0, -ContentConst::TileSize.y, 0));
 	}
 
-	if (0 <= CurrentStaticObjectIndex && StaticObjectActors.size() > CurrentStaticObjectIndex)
+	if (0 <= CurrentObjectIndex && ObjectActors.size() > CurrentObjectIndex)
 	{
-		std::shared_ptr<StaticObject> SelectObject = StaticObjectActors[CurrentStaticObjectIndex];
+		std::shared_ptr<MapObject> SelectObject = ObjectActors[CurrentObjectIndex];
 
 		std::string TexName = SelectObject->GetTexName();
 		OutlineRender->SetTexture(TexName);
@@ -429,12 +429,12 @@ void ObjectManager::Draw_Platform_GUI()
 
 	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
 	ImGui::SameLine();
-	if (true == ImGui::ArrowButton("StaticObject Push Up ArrowButton", ImGuiDir_Up))
+	if (true == ImGui::ArrowButton("Object Push Up ArrowButton", ImGuiDir_Up))
 	{
 		PushAllPlatform(float4(0, ContentConst::TileSize.y, 0));
 	}
 
-	if (true == ImGui::ArrowButton("StaticObject Push Left ArrowButton", ImGuiDir_Left))
+	if (true == ImGui::ArrowButton("Object Push Left ArrowButton", ImGuiDir_Left))
 	{
 		PushAllPlatform(float4(-ContentConst::TileSize.x, 0, 0));
 	}
@@ -442,14 +442,14 @@ void ObjectManager::Draw_Platform_GUI()
 	ImGui::SameLine();
 	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
 	ImGui::SameLine();
-	if (true == ImGui::ArrowButton("StaticObject Push Right ArrowButton", ImGuiDir_Right))
+	if (true == ImGui::ArrowButton("Object Push Right ArrowButton", ImGuiDir_Right))
 	{
 		PushAllPlatform(float4(ContentConst::TileSize.x, 0, 0));
 	}
 
 	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
 	ImGui::SameLine();
-	if (true == ImGui::ArrowButton("StaticObject Push Down ArrowButton", ImGuiDir_Down))
+	if (true == ImGui::ArrowButton("Object Push Down ArrowButton", ImGuiDir_Down))
 	{
 		PushAllPlatform(float4(0, -ContentConst::TileSize.y, 0));
 	}

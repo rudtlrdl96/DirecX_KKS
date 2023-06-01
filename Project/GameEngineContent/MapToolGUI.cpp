@@ -4,7 +4,7 @@
 #include <GameEngineCore/GameEngineTexture.h>
 
 #include "TileMetaData.h"
-#include "StaticObject.h"
+#include "MapObject.h"
 #include "ObjectManager.h"
 
 MapToolGUI::MapToolGUI() :
@@ -71,9 +71,9 @@ void MapToolGUI::DrawGui_Tilemap()
 	}
 }
 
-void MapToolGUI::DrawGui_SObject()
+void MapToolGUI::DrawGui_Object()
 {
-	const std::vector<MapTool_SObjectData>& BufferTextureDatas = SObjectTexDatas[CurShowAreaTile];
+	const std::vector<MapTool_ObjectData>& BufferTextureDatas = ObjectTexDatas[CurShowAreaTile];
 
 	ImGui::Spacing();
 
@@ -86,7 +86,7 @@ void MapToolGUI::DrawGui_SObject()
 
 		if (true == ImGui::ImageButton((void*)BufferTextureDatas[i].TexturePtr->GetSRV(), ImVec2(TileSize.x, TileSize.y)))
 		{
-			SelectSObjectMetaData = BufferTextureDatas[i].Data;
+			SelectObjectMetaData = BufferTextureDatas[i].Data;
 		}
 
 		if (true == ImGui::IsItemHovered())
@@ -278,7 +278,7 @@ void MapToolGUI::Start()
 	for (LevelArea LoadLevel = LevelArea::None; LoadLevel <= LevelArea::Shop;)
 	{
 		TileDatasLoad(LoadLevel);
-		SObjectDatasLoad(LoadLevel);
+		ObjectDatasLoad(LoadLevel);
 		MonsterDatasLoad(LoadLevel);
 
 		int NextLevel = static_cast<int>(LoadLevel) + 1;
@@ -333,9 +333,9 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 	case MapToolLevel::MapToolState::Tilemap:
 		DrawGui_Tilemap();
 		break;
-	case MapToolLevel::MapToolState::SObject:
+	case MapToolLevel::MapToolState::Object:
 		Callback_Object();
-		DrawGui_SObject();
+		DrawGui_Object();
 		break;
 	case MapToolLevel::MapToolState::BObject:
 		Callback_Object();
@@ -387,12 +387,12 @@ void MapToolGUI::TileDatasLoad(LevelArea _Area)
 	}
 }
 
-void MapToolGUI::SObjectDatasLoad(LevelArea _Area)
+void MapToolGUI::ObjectDatasLoad(LevelArea _Area)
 {
-	std::vector<MapTool_SObjectData>& BufferTextureDatas = SObjectTexDatas[_Area];
+	std::vector<MapTool_ObjectData>& BufferTextureDatas = ObjectTexDatas[_Area];
 
-	std::vector<SObjectMetaData> CopyDatas;
-	ContentDatabase<SObjectMetaData, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
+	std::vector<ObjectMetaData> CopyDatas;
+	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
 
 	BufferTextureDatas.reserve(CopyDatas.size());
 
@@ -405,7 +405,7 @@ void MapToolGUI::SObjectDatasLoad(LevelArea _Area)
 			MsgAssert_Rtti<MapToolGUI>(" - 타일 데이터의 텍스쳐를 찾을 수 없습니다");
 		}
 
-		BufferTextureDatas.push_back(MapTool_SObjectData(CopyDatas[i], FindTex));
+		BufferTextureDatas.push_back(MapTool_ObjectData(CopyDatas[i], FindTex));
 	}
 }
 
