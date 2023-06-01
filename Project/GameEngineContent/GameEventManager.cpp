@@ -70,14 +70,42 @@ void GameEventManager::SaveBin(GameEngineSerializer& _SaveSerializer)
 	_SaveSerializer.Write(&DoorPoint, sizeof(float4));
 	_SaveSerializer.Write(&DoorArea, sizeof(LevelArea));
 	_SaveSerializer.Write(&DType, sizeof(ClearDoorType));
+
+	int SaveEvnetCount = static_cast<int>(EventActors.size());
+	_SaveSerializer.Write(&SaveEvnetCount, sizeof(int));
+
+	for (size_t i = 0; i < EventActors.size(); i++)
+	{
+		EventActors[i]->SaveBin(_SaveSerializer);
+	}
 }
 
 void GameEventManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
+	for (size_t i = 0; i < EventActors.size(); i++)
+	{
+		EventActors[i]->Death();
+		EventActors[i] = nullptr;
+	}
+
+	EventActors.clear();
+
 	_LoadSerializer.Read(&SpawnPoint, sizeof(float4));
 	_LoadSerializer.Read(&DoorPoint, sizeof(float4));
 	_LoadSerializer.Read(&DoorArea, sizeof(LevelArea));
 	_LoadSerializer.Read(&DType, sizeof(ClearDoorType));
+
+	int LoadEvnetCount = 0;
+	_LoadSerializer.Read(&LoadEvnetCount, sizeof(int));
+	
+	EventActors.reserve(LoadEvnetCount);
+	
+	for (int i = 0; i < LoadEvnetCount; i++)
+	{
+		std::shared_ptr<EventActor> NewEvent = GetLevel()->CreateActor<EventActor>();
+		NewEvent->LoadBin(_LoadSerializer);
+		EventActors.push_back(NewEvent);
+	}
 
 	SetClearDoorType(DType);
 }
