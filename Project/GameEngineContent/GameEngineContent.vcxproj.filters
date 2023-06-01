@@ -747,6 +747,9 @@
     <ClInclude Include="EventActor.h">
       <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterDeadBodyActor.h">
+      <Filter>2_Actor\BattleActor\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1195,6 +1198,9 @@
     </ClCompile>
     <ClCompile Include="EventActor.cpp">
       <Filter>2_Actor\Map\Stage\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDeadBodyActor.cpp">
+      <Filter>2_Actor\BattleActor\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

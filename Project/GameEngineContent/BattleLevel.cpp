@@ -106,6 +106,8 @@ void BattleLevel::ChangeStage()
 
 	float4 SpawnPos = BattleAreaPtr->GetSpawnPoint();
 
+	GameEventManager::CallEvent("MoveStage");
+
 	MainCamCtrl.SetLookatSpeed(7.0f);
 	MainCamCtrl.DisalbeForceLookAt();
 	SetPlayerPos(SpawnPos);
@@ -167,6 +169,7 @@ void BattleLevel::MoveNextStage(bool _ForceMove /*= false*/)
 	if (StageNameInfos.size() <= CurStageIndex)
 	{
 		AreaClear();
+		GameEventManager::CallEvent("MoveStage");
 		CurStageIndex = static_cast<UINT>(StageNameInfos.size() - 1);
 	}
 	else

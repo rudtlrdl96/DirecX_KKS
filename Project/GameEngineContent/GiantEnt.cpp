@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include "Projectile.h"
 #include "Player.h"
+#include "MonsterDeadBodyActor.h"
 
 GiantEnt::GiantEnt()
 {
@@ -49,6 +50,11 @@ void GiantEnt::TextureLoad()
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GaintEntStampEffect.png").GetFullPath(), 11, 2);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GiantEntProjectile.png").GetFullPath(), 1, 1);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GiantEntProjectileEffect.png").GetFullPath(), 7, 1);
+			Path.MoveParent();
+
+
+			Path.Move("GiganticEnt_DeadRoot");
+			GameEngineTexture::Load(Path.GetPlusFileName("GiganticEnt_DeadRoot.png").GetFullPath());
 
 			Path.MoveParent();
 			Path.MoveParent();
@@ -253,6 +259,16 @@ void GiantEnt::ShotProjectile(float _Deg)
 			.DeathEvent = ProjectileEndEffect,
 			});
 	}
+}
+
+void GiantEnt::MonsterDeath()
+{
+	BaseMonster::MonsterDeath();
+
+	std::shared_ptr<MonsterDeadBodyActor> DeadBody = GetLevel()->CreateActor<MonsterDeadBodyActor>();
+
+	DeadBody->SetTexture("GiganticEnt_DeadRoot.png", 2.0f);
+	DeadBody->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 47, -1.0f));
 }
 
 void GiantEnt::ProjectileEndEffect(const float4& _EndPos)

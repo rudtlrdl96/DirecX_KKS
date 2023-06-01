@@ -152,7 +152,7 @@ void GlacialWizard::SetColData()
 		LocalFindColPos = float4(0, 50, 0);
 
 		ColTrans->SetLocalPosition(LocalFindColPos);
-		ColTrans->SetWorldScale(float4(600, 600, 1));
+		ColTrans->SetWorldScale(float4(600, 800, 1));
 	}
 
 	{
@@ -161,7 +161,7 @@ void GlacialWizard::SetColData()
 		LocalChasingColPos = float4(0, 50, 0);
 
 		ColTrans->SetLocalPosition(LocalChasingColPos);
-		ColTrans->SetWorldScale(float4(1000, 600, 1));
+		ColTrans->SetWorldScale(float4(1000, 800, 1));
 	}
 
 	LoadFindEffectPos = float4(0, 100, 0);

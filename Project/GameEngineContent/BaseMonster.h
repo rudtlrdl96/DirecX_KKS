@@ -152,6 +152,6 @@ protected:
 	void EffectLoadCheck();
 
 	bool HitCheck();
-	void MonsterDeath();
+	virtual void MonsterDeath();
 };
 

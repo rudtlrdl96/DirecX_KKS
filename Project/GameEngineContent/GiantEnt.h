@@ -3,6 +3,10 @@
 
 class GiantEnt : public BaseMonster
 {
+private:
+	static void ProjectileEndEffect(const float4& _EndPos);
+	static void PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, const class ProjectileHitParameter& _Parameter);
+
 public:
 	GiantEnt();
 	~GiantEnt();
@@ -43,7 +47,7 @@ private:
 
 	void ShotProjectile(float _Deg);
 
-	static void ProjectileEndEffect(const float4& _EndPos);
-	static void PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, const class ProjectileHitParameter& _Parameter);
+	void MonsterDeath() override;
+
 };
 

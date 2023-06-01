@@ -51,7 +51,6 @@ public:
 	}
 
 	ColorOption ColorOptionValue;
-
 protected:
 	void Render(float _Delta) override;
 
