@@ -47,10 +47,6 @@ public:
 	}
 
 protected:
-	void Start() override;
-	void Update(float _DeltaTime) override;
-
-private:
 	std::shared_ptr<ContentSpriteRenderer> EffectRender = nullptr;
 
 	ColorBuffer Buffer;
@@ -59,5 +55,11 @@ private:
 	float DeathTime = 0.0f;
 
 	void Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime);
+
+	void Start() override;
+	void Update(float _DeltaTime) override;
+
+private:
+
 };
 

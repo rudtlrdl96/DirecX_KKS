@@ -13,6 +13,7 @@ public:
 	float Time = 0.0f;
 
 	bool FlipX = false;
+	bool IsUI = false;
 };
 
 class EffectManager

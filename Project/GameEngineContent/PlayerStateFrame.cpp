@@ -44,9 +44,36 @@ void PlayerStateFrame::Start()
 		GameEngineTexture::Load(Path.GetPlusFileName("Player_SubSkull_Frame.png").GetFullPath());
 			
 		GameEngineTexture::Load(Path.GetPlusFileName("PlayerHealthBar.png").GetFullPath());
-		GameEngineTexture::Load(Path.GetPlusFileName("PlayerSubBar.png").GetFullPath());
-	
-	
+		GameEngineTexture::Load(Path.GetPlusFileName("PlayerSubBar.png").GetFullPath());	
+	}
+
+	if (nullptr == GameEngineSprite::Find("MainSkillCooldownEffect.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Effect");
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MainSkillCooldownEffect.png").GetFullPath(), 5, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MainSwitchCooldownEffect.png").GetFullPath(), 5, 4);
+
+
+		EffectManager::CreateMetaData("MainSkillCooldownEffect", {
+			.SpriteName = "MainSkillCooldownEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 19,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("MainSwitchCooldownEffect", {
+			.SpriteName = "MainSwitchCooldownEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 19,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });
 	}
 
 	RenderCreate(MainFrame, float4(0, 0, 5.0f), "Player_MainFrame.png");
@@ -130,18 +157,45 @@ void PlayerStateFrame::Update(float _DeltaTime)
 		float SwitchProgress = ParentPlayer->SwitchCoolTime / ParentPlayer->SwitchCoolEndTime;
 
 		Progress_Switch->UpdateProgress(SwitchProgress);
+
+		if (true == Progress_Switch->IsProgressEnd())
+		{
+			EffectManager::PlayEffect({
+				.EffectName = "MainSwitchCooldownEffect",
+				.Postion = Progress_Switch->GetTransform()->GetWorldPosition() + float4(0, 70, -0.1f),
+				.IsUI = true
+				});
+		}
 	}
 
 	{
 		float MainSkillAProgress = ParentPlayer->MainSkull->GetCurSkillATime() / ParentPlayer->MainSkull->GetSkillAEndTime();
 
 		Progress_MainSkillA->UpdateProgress(MainSkillAProgress);
+
+		if (true == Progress_MainSkillA->IsProgressEnd())
+		{
+			EffectManager::PlayEffect({
+				.EffectName = "MainSkillCooldownEffect",
+				.Postion = Progress_MainSkillA->GetTransform()->GetWorldPosition() + float4(0, 38, -0.1f),
+				.IsUI = true
+				});
+		}
 	}
 
 	{
 		float MainSkillBProgress = ParentPlayer->MainSkull->GetCurSkillBTime() / ParentPlayer->MainSkull->GetSkillBEndTime();
 
 		Progress_MainSkillB->UpdateProgress(MainSkillBProgress);
+
+		if (true == Progress_MainSkillB->IsProgressEnd())
+		{
+			EffectManager::PlayEffect({
+				.EffectName = "MainSkillCooldownEffect",
+				.Postion = Progress_MainSkillB->GetTransform()->GetWorldPosition() + float4(0, 38, -0.1f),
+				.IsUI = true
+				});
+		}
 	}
 
 	if (true == ParentPlayer->MainSkull->IsActiveSkillA())

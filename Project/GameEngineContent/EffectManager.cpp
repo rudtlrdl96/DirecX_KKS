@@ -3,6 +3,9 @@
 
 #include <GameEngineCore/GameEngineLevel.h>
 
+#include "EffectActor.h"
+#include "EffectUI.h"
+
 std::map<std::string, EffectMetaData> EffectManager::EffectMetaDatas;
 std::shared_ptr<GameEngineLevel> EffectManager::CurLevel = nullptr;
 
@@ -52,7 +55,16 @@ std::shared_ptr<EffectActor> EffectManager::PlayEffect(const EffectParameter& _P
 		return nullptr;
 	}
 
-	std::shared_ptr<EffectActor> NewEffectActor = CurLevel->CreateActor<EffectActor>();
+	std::shared_ptr<EffectActor> NewEffectActor = nullptr;
+
+	if (false == _Parameter.IsUI)
+	{
+		NewEffectActor = CurLevel->CreateActor<EffectActor>();
+	}
+	else
+	{
+		NewEffectActor = CurLevel->CreateActor<EffectUI>();
+	}
 
 	EffectMetaData Data = FindIter->second;
 

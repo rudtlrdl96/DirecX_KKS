@@ -13,11 +13,18 @@ public:
 	ProgressUI_Circle& operator=(ProgressUI_Circle&& _Other) noexcept = delete;
 
 	void UpdateProgress(float _Progress) override;
+
+	inline bool IsProgressEnd() const
+	{
+		return IsProgressEndValue;
+	}
+
 protected:
 	void Start() override;
 	
 private:
 	ProgressCircleBuffer Buffer;
 
+	bool IsProgressEndValue = false;
 };
 

@@ -750,6 +750,12 @@
     <ClInclude Include="MonsterDeadBodyActor.h">
       <Filter>2_Actor\BattleActor\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="ContentSpriteUIRenderer.h">
+      <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectUI.h">
+      <Filter>2_Actor\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1201,6 +1207,12 @@
     </ClCompile>
     <ClCompile Include="MonsterDeadBodyActor.cpp">
       <Filter>2_Actor\BattleActor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentSpriteUIRenderer.cpp">
+      <Filter>3_Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectUI.cpp">
+      <Filter>2_Actor\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

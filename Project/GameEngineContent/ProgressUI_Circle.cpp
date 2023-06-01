@@ -37,5 +37,12 @@ void ProgressUI_Circle::Start()
 
 void ProgressUI_Circle::UpdateProgress(float _Progress)
 {
+	IsProgressEndValue = false;
+
+	if (1.0f > Buffer.Progress && 1.0f <= _Progress)
+	{
+		IsProgressEndValue = true;
+	}
+
 	Buffer.Progress = _Progress;
 }
