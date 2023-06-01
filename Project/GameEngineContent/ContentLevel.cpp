@@ -6,7 +6,10 @@
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
-ContentLevel::ContentLevel()
+static UINT NewLevelCode = 0;
+
+ContentLevel::ContentLevel() :
+	LevelCode(++NewLevelCode)
 {
 }
 

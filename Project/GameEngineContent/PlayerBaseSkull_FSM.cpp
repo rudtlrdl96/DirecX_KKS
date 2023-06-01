@@ -126,6 +126,12 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 	if (nullptr == ContentFunc::PlatformColCheck(JumpCol))
 	{
 		JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
+
+		if (JumpDir.Size() > JumpMaxPower)
+		{
+			JumpDir = JumpDir.NormalizeReturn() * JumpMaxPower;
+		}
+
 		PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
 	}
 	else 
@@ -535,6 +541,12 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	}
 
 	JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
+
+	if (JumpDir.Size() > JumpMaxPower)
+	{
+		JumpDir = JumpDir.NormalizeReturn() * JumpMaxPower;
+	}
+
 	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
 
 	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A")) 
@@ -798,6 +810,11 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 	}
 
 	JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
+
+	if (JumpDir.Size() > JumpMaxPower)
+	{
+		JumpDir = JumpDir.NormalizeReturn() * JumpMaxPower;
+	}
 
 	if (0 < JumpDir.y)
 	{

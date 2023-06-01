@@ -3,6 +3,7 @@
 
 class EventActor : public BaseContentActor
 {
+	friend class GameEventManager;
 public:
 	EventActor();
 	~EventActor();

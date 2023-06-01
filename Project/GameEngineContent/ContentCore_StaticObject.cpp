@@ -196,6 +196,7 @@ void ContentCore::CommonTextureLoad()
 		GameEngineTexture::Load(Path.GetPlusFileName("BoxCol.png").GetFullPath());
 		GameEngineTexture::Load(Path.GetPlusFileName("ScaleCol.png").GetFullPath());
 		GameEngineTexture::Load(Path.GetPlusFileName("SphereCol.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("EventCol.png").GetFullPath());
 		Path.MoveParent();
 	}
 

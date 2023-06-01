@@ -12,3 +12,4 @@
 #include "ContentShaderBuffer.h"
 
 #include "EffectManager.h"
+#include "GameEventManager.h"

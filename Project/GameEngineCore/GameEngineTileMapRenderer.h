@@ -50,6 +50,8 @@ public:
 		IsTilemapCulling = false;
 	}
 
+	ColorOption ColorOptionValue;
+
 protected:
 	void Render(float _Delta) override;
 
@@ -58,7 +60,6 @@ private:
 
 	std::vector<std::vector<Tile>> Tiles;
 	float4 MapCount;
-	ColorOption ColorOptionValue;
 	float4 AtlasData;
 	float4 TileSize;
 

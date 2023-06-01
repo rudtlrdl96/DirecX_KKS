@@ -9,6 +9,11 @@ ScaleDebugRender::~ScaleDebugRender()
 {
 }
 
+void ScaleDebugRender::SetTexture(const std::string_view& _TexName)
+{
+	DebugRender->SetTexture(_TexName);
+}
+
 void ScaleDebugRender::Start()
 {
 	DebugRender = CreateComponent<ContentSpriteRenderer>();

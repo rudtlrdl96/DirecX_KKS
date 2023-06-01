@@ -61,22 +61,31 @@ void CameraController::Update(float _DeltaTime)
 	}
 	case CameraController::CamCtrlType::LookAt:
 	{
-		if (nullptr == LookAtTarget)
+		float4 LookatPos = float4::Zero;
+
+		if (false == IsForceTarget)
 		{
-			CamType = CamCtrlType::None;
-			return;
-		}
+			if (nullptr == LookAtTarget)
+			{
+				CamType = CamCtrlType::None;
+				return;
+			}
 
-		if (true == LookAtTarget->IsDeath())
+			if (true == LookAtTarget->IsDeath())
+			{
+				LookAtTarget = nullptr;
+				return;
+			}
+
+			TargetWorldPos = CurCamPos;
+
+			LookatPos = LookAtTarget->GetTransform()->GetWorldPosition();
+		}
+		else
 		{
-			LookAtTarget = nullptr;
-			return;
+			LookatPos = ForceTargetPos;
 		}
-
-		TargetWorldPos = CurCamPos;
-
-		float4 LookatPos = LookAtTarget->GetTransform()->GetWorldPosition();
-
+		
 		DiffX = LookatPos.x - CurCamPos.x;
 		DiffY = LookatPos.y - CurCamPos.y;
 		break;
@@ -109,7 +118,7 @@ void CameraController::Update(float _DeltaTime)
 		float4 DiffDir = float4(DiffX, DiffY);
 		float DiffSize = DiffDir.Size();
 
-		float CamMove = _DeltaTime * DiffSize * 10.0f;
+		float CamMove = _DeltaTime * DiffSize * LookatSpeed;
 
 
 		if (DiffSize > 1.0f)
@@ -163,7 +172,7 @@ void CameraController::Update(float _DeltaTime)
 	MainCamera->GetTransform()->SetWorldRotation(LastCameraRot);
 }
 
-void CameraController::CameraMove_ExceptionZ(const float4& _Start, const float4& _End, float _Time)
+void CameraController::CameraMove_Lerp(const float4& _Start, const float4& _End, float _Time)
 {
 	MoveStartPos = _Start;
 	MoveStartPos.z = CamPos.z;

@@ -25,11 +25,6 @@ void EventActor::Update(float _DeltaTime)
 
 	if (true == IsEventEnter)
 	{
-		if (true == ActiveEnterEvent)
-		{
-			GameEventManager::CallEvent(UpdateEventName);
-		}
-
 		if (nullptr == PlayerCol)
 		{
 			IsEventEnter = false;
@@ -44,6 +39,11 @@ void EventActor::Update(float _DeltaTime)
 			IsEventEnter = true;
 			GameEventManager::CallEvent(EnterEventName);
 		}
+	}
+
+	if (nullptr != PlayerCol)
+	{
+		GameEventManager::CallEvent(UpdateEventName);
 	}
 }
 
@@ -101,7 +101,7 @@ void EventActor::ShowGUI()
 	{
 		float InputFloat4[4] = { ColScale.x, ColScale.y, ColScale.z, ColScale.w };
 
-		ImGui::DragFloat4("EventPoint", InputFloat4);
+		ImGui::DragFloat4("EventScale", InputFloat4);
 
 		ColScale.x = InputFloat4[0];
 		ColScale.y = InputFloat4[1];

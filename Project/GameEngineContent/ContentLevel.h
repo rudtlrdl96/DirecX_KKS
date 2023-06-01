@@ -23,6 +23,8 @@ public:
 protected:
 	CameraController MainCamCtrl;
 
+	const UINT LevelCode = 0;
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
 

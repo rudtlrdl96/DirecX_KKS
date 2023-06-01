@@ -69,6 +69,8 @@ private:
 	const char* DoorComboText[2] = { "Single" ,"Double" };
 	const char* AreaComboText[7] = { "None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop" };
 
+	std::shared_ptr<class ScaleDebugRender> GUI_EventColRender = nullptr;
+
 	int GUI_SelectEvent = 0;
 
 	void SetClearDoorType(ClearDoorType _Type);

@@ -3,6 +3,7 @@
 
 #include <GameEnginePlatform/GameEngineInput.h>
 
+#include "GameEventManager.h"
 #include "EffectManager.h"
 #include "BattleArea.h"
 #include "Player.h"
@@ -30,17 +31,23 @@ void BattleLevel::Start()
 	BattleAreaPtr = CreateActor<BattleArea>();
 
 	FadeActorPtr = CreateActor<FadeActor>();
+
+	GameEventManager::AddEvent("NextLevelMove", LevelCode, [this]()
+		{
+			AreaClear();
+		});
+
 }
 
 void BattleLevel::Update(float _DeltaTime)
 {
 	if (true == GameEngineInput::IsDown("LevelMovePrev"))
 	{
-		MovePrevStage();
+		MovePrevStage(true);
 	}
 	else if (true == GameEngineInput::IsDown("LevelMoveNext"))
 	{
-		MoveNextStage();
+		MoveNextStage(true);
 	}
 
 	ContentLevel::Update(_DeltaTime);
@@ -93,17 +100,19 @@ void BattleLevel::LevelChangeEnd()
 
 void BattleLevel::ChangeStage()
 {
-	BattleAreaPtr->ChangeBackground(MainBackgroundName);
+	BattleAreaPtr->ChangeBackground(MainBackgroundName, BackgroundPivot);
 	BattleAreaPtr->ChangeMap(MainStageName);
 	BattleAreaPtr->SetCameraLock(MainCamCtrl);
 
 	float4 SpawnPos = BattleAreaPtr->GetSpawnPoint();
 
+	MainCamCtrl.SetLookatSpeed(7.0f);
+	MainCamCtrl.DisalbeForceLookAt();
 	SetPlayerPos(SpawnPos);
 	MainCamCtrl.SetCameraPos(SpawnPos);
 }
 
-void BattleLevel::MovePrevStage()
+void BattleLevel::MovePrevStage(bool _ForceMove /*= false*/)
 {
 	if (true == FadeActorPtr->IsFadeEnd())
 	{
@@ -119,21 +128,33 @@ void BattleLevel::MovePrevStage()
 		CurStageIndex = 0;
 	}
 
-	FadeActorPtr->SetWaitTime(0.0f);
-	FadeActorPtr->SetSpeed(3.0f);
-	FadeActorPtr->FadeIn([this]()
-		{
-			MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
-			MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
-			ChangeStage();
+	if (true == _ForceMove)
+	{
+		MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+		MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+		BackgroundPivot = StageNameInfos[CurStageIndex].BackgroundPivot;
+		ChangeStage();
+	}
+	else
+	{
+		FadeActorPtr->SetWaitTime(0.0f);
+		FadeActorPtr->SetSpeed(3.0f);
+		FadeActorPtr->FadeIn([this]()
+			{
+				MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+				MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+				BackgroundPivot = StageNameInfos[CurStageIndex].BackgroundPivot;
+				ChangeStage();
 
-			FadeActorPtr->SetWaitTime(0.3f);
-			FadeActorPtr->SetSpeed(3.0f);
-			FadeActorPtr->FadeOut();
-		});
+				FadeActorPtr->SetWaitTime(0.3f);
+				FadeActorPtr->SetSpeed(3.0f);
+				FadeActorPtr->FadeOut();
+			});
+	}
+
 }
 
-void BattleLevel::MoveNextStage()
+void BattleLevel::MoveNextStage(bool _ForceMove /*= false*/)
 {
 	if (true == FadeActorPtr->IsFadeEnd())
 	{
@@ -150,18 +171,29 @@ void BattleLevel::MoveNextStage()
 	}
 	else
 	{
-		FadeActorPtr->SetWaitTime(0.0f);
-		FadeActorPtr->SetSpeed(3.0f);
-		FadeActorPtr->FadeIn([this]()
-			{
-				MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
-				MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
-				ChangeStage();
+		if (true == _ForceMove)
+		{
+			MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+			MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+			BackgroundPivot = StageNameInfos[CurStageIndex].BackgroundPivot;
+			ChangeStage();
+		}
+		else
+		{
+			FadeActorPtr->SetWaitTime(0.0f);
+			FadeActorPtr->SetSpeed(3.0f);
+			FadeActorPtr->FadeIn([this]()
+				{
+					MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
+					MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+					BackgroundPivot = StageNameInfos[CurStageIndex].BackgroundPivot;
+					ChangeStage();
 
-				FadeActorPtr->SetWaitTime(0.3f);
-				FadeActorPtr->SetSpeed(3.0f);
-				FadeActorPtr->FadeOut();
-			});	
+					FadeActorPtr->SetWaitTime(0.3f);
+					FadeActorPtr->SetSpeed(3.0f);
+					FadeActorPtr->FadeOut();
+				});
+		}
 	}
 }
 

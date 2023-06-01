@@ -7,6 +7,7 @@
 #include "BaseDoor.h"
 #include "BattleLevel.h"
 #include "EventActor.h"
+#include "ScaleDebugRender.h"
 
 // Static Start
 
@@ -103,6 +104,7 @@ void GameEventManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 	for (int i = 0; i < LoadEvnetCount; i++)
 	{
 		std::shared_ptr<EventActor> NewEvent = GetLevel()->CreateActor<EventActor>();
+		NewEvent->GetTransform()->SetParent(GetTransform());
 		NewEvent->LoadBin(_LoadSerializer);
 		EventActors.push_back(NewEvent);
 	}
@@ -112,6 +114,15 @@ void GameEventManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 
 void GameEventManager::ShowGUI()
 {
+	if (nullptr == GUI_EventColRender)
+	{
+		GUI_EventColRender = GetLevel()->CreateActor<ScaleDebugRender>();
+		GUI_EventColRender->GetTransform()->SetParent(GetTransform());
+		GUI_EventColRender->SetTexture("EventCol.png");
+	}
+
+	GUI_EventColRender->Off();
+
 	ImGui::Text("Spawn");
 	ImGui::Spacing();
 
@@ -237,6 +248,7 @@ void GameEventManager::ShowGUI()
 	if (true == ImGui::Button("Add Event", ImVec2(100, 24)))
 	{
 		std::shared_ptr<EventActor> NewEvent = GetLevel()->CreateActor<EventActor>();
+		NewEvent->GetTransform()->SetParent(GetTransform());
 		EventActors.push_back(NewEvent);
 
 		GUI_SelectEvent = static_cast<int>(EventActors.size() - 1);
@@ -261,6 +273,10 @@ void GameEventManager::ShowGUI()
 	}
 
 	EventActors[GUI_SelectEvent]->ShowGUI();
+
+	GUI_EventColRender->On();
+	GUI_EventColRender->GetTransform()->SetLocalPosition(EventActors[GUI_SelectEvent]->ColCenter);
+	GUI_EventColRender->GetTransform()->SetLocalScale(EventActors[GUI_SelectEvent]->ColScale);
 }
 
 void GameEventManager::DoorActive()

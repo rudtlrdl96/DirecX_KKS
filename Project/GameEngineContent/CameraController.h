@@ -23,7 +23,7 @@ public:
 	void Update(float _DeltaTime);
 
 	// Z°ª Àû¿ë X
-	void CameraMove_ExceptionZ(const float4& _Start, const float4& _End, float _Time);
+	void CameraMove_Lerp(const float4& _Start, const float4& _End, float _Time);
 	void CameraShake(float _ShakeDis, float _ShakeSpeed, int _ShakeCount);
 
 	inline float4 GetCameraPos() const
@@ -64,14 +64,34 @@ public:
 	void SetCameraPos(const float4& _Pos);
 	void SetLookatTarget(std::shared_ptr<class GameEngineActor> _Target);
 
+	inline void ActiveForceLookAt(const float4& _Pos)
+	{
+		IsForceTarget = true;
+		ForceTargetPos = _Pos;
+	}
+
+	inline void DisalbeForceLookAt()
+	{
+		IsForceTarget = false;
+		ForceTargetPos = float4::Zero;
+	}
+
 	void ResetScale();
 	void EffectScaleRatio(float _Start, float _End, float _Speed);
+
+	inline void SetLookatSpeed(float _Speed = 7.0f)
+	{
+		LookatSpeed = _Speed;
+	}
 
 protected:
 	
 private:
 	std::shared_ptr<class GameEngineCamera> MainCamera = nullptr;
 	std::shared_ptr<class GameEngineActor> LookAtTarget = nullptr;
+
+	bool IsForceTarget = false;
+	float4 ForceTargetPos = float4::Zero;
 
 	CamCtrlType CamType = CamCtrlType::None;
 	float4 CamPos = float4::Zero;
@@ -85,6 +105,8 @@ private:
 
 	float MaxWidth = 1000000.0f;
 	float MaxHeight = 1000000.0f;
+
+	float LookatSpeed = 7.0f;
 
 	float4 MoveStartPos = float4::Zero;
 	float4 MoveEndPos = float4::Zero;

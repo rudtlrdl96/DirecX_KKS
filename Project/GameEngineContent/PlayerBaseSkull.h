@@ -250,6 +250,7 @@ private:
 	ActorViewDir ViewDir = ActorViewDir::Right;
 
 	float JumpPower = 800.0f;
+	float JumpMaxPower = 1500.0f;
 	bool CanJump = false;
 	bool DoubleJump = false;
 

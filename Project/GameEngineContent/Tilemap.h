@@ -32,6 +32,9 @@ public:
 	void ChangeData(int _Depth, UINT _StartX, UINT _EndX, UINT _StartY, UINT _EndY,  size_t Index);
 	void ChangeData(int _Depth, UINT _StartX, UINT _StartY, const std::vector<std::vector<size_t>>& _Indexs);
 
+	void FadeIn(float _Time);
+	void FadeOut(float _Time);
+
 	void ClearTileMap();
 
 	bool IsOver(UINT _X, UINT _Y);
@@ -75,7 +78,8 @@ public:
 	void ShowGUI() override;
 
 protected:
-	
+	void Update(float _DeltaTime) override;
+
 private:
 	std::vector<std::shared_ptr<GameEngineTileMapRenderer>> TilemapRenders;
 	std::vector<std::vector<std::vector<TileMetaData>>> TilemapDatas;
@@ -91,4 +95,11 @@ private:
 	void Push_Tilemap_Down(UINT _Depth);
 	void Push_Tilemap_Left(UINT _Depth);
 	void Push_Tilemap_Right(UINT _Depth);
+
+	bool IsFade = false;
+
+	float FadeProgressTime = 0.0f;
+	float4 StartAlpha = float4::Zero;
+	float4 EndAlpha = float4::Zero;
+	float FadeTime = 0.0f;
 };

@@ -220,6 +220,29 @@ void Tilemap::ChangeData(int _Depth, UINT _StartX, UINT _StartY, const std::vect
 	}
 }
 
+void Tilemap::FadeIn(float _Time)
+{
+	IsFade = true;
+
+	StartAlpha = float4(1, 1, 1, 1.0f);
+	EndAlpha = float4(1, 1, 1, 0.0f);
+	FadeProgressTime = 0.0f;
+
+	FadeTime = _Time;
+}
+
+void Tilemap::FadeOut(float _Time)
+{
+	On();
+	IsFade = true;
+
+	StartAlpha = float4(1, 1, 1, 0.0f);
+	EndAlpha = float4(1, 1, 1, 1.0f);
+	FadeProgressTime = 0.0f;
+
+	FadeTime = _Time;
+}
+
 void Tilemap::ClearTileMap()
 {
 	for (UINT i = 0; i < TilemapRenders.size(); i++)
@@ -296,6 +319,16 @@ TilemapMetaData Tilemap::GetTilemapMetaData()
 	Result.Top	  = TilemapPos.y + (TilemapSize.y * TileScale.y) - 128;
 	Result.Left   = TilemapPos.x + 128;
 	Result.Right  = TilemapPos.x + (TilemapSize.x * TileScale.x) - 128;
+
+	if (Result.Top < Result.Bottom + GameEngineWindow::GetScreenSize().y)
+	{
+		Result.Top = Result.Bottom + GameEngineWindow::GetScreenSize().y;
+	}
+
+	if (Result.Right < Result.Left + GameEngineWindow::GetScreenSize().x)
+	{
+		Result.Right = Result.Left + GameEngineWindow::GetScreenSize().x;
+	}
 
 	return Result;
 }
@@ -461,6 +494,33 @@ void Tilemap::ShowGUI()
 		Push_Tilemap_Down(Gui_TilemapCurDepth);
 	}
 
+}
+
+void Tilemap::Update(float _DeltaTime)
+{
+	if (false == IsFade)
+	{
+		return;
+	}
+
+	FadeProgressTime += _DeltaTime / FadeTime;
+
+	float4 AlphaColor = float4::LerpClamp(StartAlpha, EndAlpha, FadeProgressTime);
+
+	for (size_t i = 0; i < TilemapRenders.size(); i++)
+	{
+		TilemapRenders[i]->ColorOptionValue.MulColor = AlphaColor;
+	}
+
+	if (FadeProgressTime >= 1.0f)
+	{
+		if (0.0f >= EndAlpha.a)
+		{
+			Off();
+		}
+
+		IsFade = false;
+	}
 }
 
 void Tilemap::Push_Tilemap_Up(UINT _Depth)

@@ -11,6 +11,7 @@ private:
 	public:
 		std::string LoadMapName = "";
 		std::string LoadBackgroundName = "";
+		float4 BackgroundPivot = float4::Zero;
 	};
 public:
 	BattleLevel();
@@ -27,6 +28,7 @@ protected:
 
 	std::string MainStageName = "";
 	std::string MainBackgroundName = "";
+	float4 BackgroundPivot = float4::Zero;
 
 	std::shared_ptr<class FadeActor> FadeActorPtr = nullptr;
 	std::shared_ptr<class Player> MainPlayer = nullptr;
@@ -42,9 +44,9 @@ protected:
 	void LevelChangeStart() override;
 	void LevelChangeEnd() override;
 
-	void ChangeStage();
-	void MovePrevStage();
-	void MoveNextStage();
+	virtual void ChangeStage();
+	void MovePrevStage(bool _ForceMove = false);
+	void MoveNextStage(bool _ForceMove = false);
 
 	void MoveLevel(const std::string_view& _Level);
 	virtual void AreaClear() {}

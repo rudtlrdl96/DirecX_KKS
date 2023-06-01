@@ -39,6 +39,17 @@ void CastleLevel::Start()
 	CurStageIndex = 0;
 	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
 	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+
+	GameEventManager::AddEvent("CastleInCameraLock", LevelCode, [this]()
+		{
+			MainCamCtrl.SetMinHeight(64);
+			MainCamCtrl.SetMaxHeight(64 + GameEngineWindow::GetScreenSize().y);
+		});
+
+	GameEventManager::AddEvent("CastleOutCameraLock", LevelCode, [this]()
+		{
+			MainCamCtrl.SetMinHeight(-3800);
+		});
 }
 
 void CastleLevel::Update(float _DeltaTime)
