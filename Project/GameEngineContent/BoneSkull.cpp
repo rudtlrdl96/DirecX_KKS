@@ -171,6 +171,7 @@ void BoneSkull::Switch_Update(float _DeltaTime)
 
 void BoneSkull::Switch_End()
 {
+	PlayerBaseSkull::Switch_End();
 	DashRigidbody.SetVelocity(float4::Zero);
 }
 

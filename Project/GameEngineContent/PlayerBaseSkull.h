@@ -107,6 +107,16 @@ public:
 
 	std::shared_ptr<GameEngineActor> SkullDeath();
 
+	bool IsSkillALock() const
+	{
+		return IsLockSkillA;
+	}
+
+	bool IsSkillBLock() const
+	{
+		return IsLockSkillB;
+	}
+
 protected:
 	std::vector<std::string> DeadPartNames;
 

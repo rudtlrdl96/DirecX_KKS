@@ -943,6 +943,7 @@ void PlayerBaseSkull::Skill_SlotA_Enter()
 
 	CurSkillATime = 0.0f;
 	FsmState = PlayerFSM_State::SkillA;
+
 }
 
 void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
@@ -1086,6 +1087,9 @@ void PlayerBaseSkull::Switch_Enter()
 	Render->ChangeAnimation(AnimColMeta_Switch[SwitchCombo].GetAnimationName());
 	AttackEnterCheck.SetColData(AnimColMeta_Switch[SwitchCombo]);
 	FsmState = PlayerFSM_State::Switch;
+
+	IsLockSkillA = true;
+	IsLockSkillB = true;
 }
 
 void PlayerBaseSkull::Switch_Update(float _DeltaTime)
@@ -1134,4 +1138,7 @@ void PlayerBaseSkull::Switch_Update(float _DeltaTime)
 void PlayerBaseSkull::Switch_End()
 {
 	AttackEnterCheck.Reset();
+
+	IsLockSkillA = false;
+	IsLockSkillB = false;
 }

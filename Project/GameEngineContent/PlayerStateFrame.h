@@ -29,6 +29,8 @@ private:
 	std::shared_ptr<class ProgressUI_Circle> Progress_Switch= nullptr;
 	std::shared_ptr<class ProgressUI_Circle> Progress_MainSkillA= nullptr;
 	std::shared_ptr<class ProgressUI_Circle> Progress_MainSkillB= nullptr;
+	std::shared_ptr<class ContentUIRender> CooldownRender_MainSkillA = nullptr;
+	std::shared_ptr<class ContentUIRender> CooldownRender_MainSkillB = nullptr;
 
 	std::shared_ptr<class ContentUIRender> MainSkillBFrame = nullptr;
 	std::shared_ptr<class ContentUIRender> TexRender_MainSkillB = nullptr;
@@ -41,6 +43,9 @@ private:
 
 	std::shared_ptr<class ProgressUI_Circle> Progress_SubSkillA = nullptr;
 	std::shared_ptr<class ProgressUI_Circle> Progress_SubSkillB = nullptr;
+
+	std::shared_ptr<class ContentUIRender> CooldownRender_SubSkillA = nullptr;
+	std::shared_ptr<class ContentUIRender> CooldownRender_SubSkillB = nullptr;
 
 	std::shared_ptr<class ContentUIRender> SubSkillFrame_B = nullptr;
 	std::shared_ptr<class ContentUIRender> TexRender_SubSkillB = nullptr;

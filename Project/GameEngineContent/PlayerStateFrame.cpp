@@ -42,6 +42,7 @@ void PlayerStateFrame::Start()
 		GameEngineTexture::Load(Path.GetPlusFileName("Player_SubSkillA_Frame.png").GetFullPath());
 		GameEngineTexture::Load(Path.GetPlusFileName("Player_SubSkillB_Frame.png").GetFullPath());
 		GameEngineTexture::Load(Path.GetPlusFileName("Player_SubSkull_Frame.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("SkillCoolDownFront.png.png").GetFullPath());
 			
 		GameEngineTexture::Load(Path.GetPlusFileName("PlayerHealthBar.png").GetFullPath());
 		GameEngineTexture::Load(Path.GetPlusFileName("PlayerSubBar.png").GetFullPath());	
@@ -86,6 +87,9 @@ void PlayerStateFrame::Start()
 
 	RenderCreate(TexRender_MainSkull, float4(-72.5f, 9.5f, 4.9f), "Empty.png");
 	RenderCreate(TexRender_MainSkillA, float4(-31.5f, 6.5f, 4.8f), "Empty.png");
+	RenderCreate(CooldownRender_MainSkillA, float4(-31.5f, 6.5f, 4.75f), "SkillCoolDownFront.png");
+	CooldownRender_MainSkillA->GetTransform()->SetLocalScale(float4(24, 24, 1));
+	CooldownRender_MainSkillA->Off();
 
 	Progress_MainSkillA = GetLevel()->CreateActor<ProgressUI_Circle>();
 	Progress_MainSkillA->GetTransform()->SetParent(GetTransform());
@@ -95,6 +99,9 @@ void PlayerStateFrame::Start()
 
 	RenderCreate(MainSkillBFrame, float4(0, 0, 4.0f), "Player_MainSkillB_Frame.png");
 	RenderCreate(TexRender_MainSkillB, float4(0.5f, 6.5f, 3.9f), "Empty.png");
+	RenderCreate(CooldownRender_MainSkillB, float4(0.5f, 6.5f, 3.85f), "SkillCoolDownFront.png");
+	CooldownRender_MainSkillB->GetTransform()->SetLocalScale(float4(24, 24, 1));
+	CooldownRender_MainSkillB->Off();
 
 	Progress_MainSkillB = GetLevel()->CreateActor<ProgressUI_Circle>();
 	Progress_MainSkillB->GetTransform()->SetParent(GetTransform());
@@ -106,6 +113,9 @@ void PlayerStateFrame::Start()
 	RenderCreate(TexRender_SubSkull, float4(-82.5f, -14.5f, 2.9f), "Empty.png");
 	RenderCreate(SubSkillFrame_A, float4(0, 0, 2.0f), "Player_SubSkillA_Frame.png");
 	RenderCreate(TexRender_SubSkillA, float4(28, 1, 1.9f), "Empty.png");
+	RenderCreate(CooldownRender_SubSkillA, float4(28, 1, 1.85f), "SkillCoolDownFront.png");
+	CooldownRender_SubSkillA->GetTransform()->SetLocalScale(float4(17, 17, 1));
+	CooldownRender_SubSkillA->Off();
 
 	Progress_SubSkillA = GetLevel()->CreateActor<ProgressUI_Circle>();
 	Progress_SubSkillA->GetTransform()->SetParent(GetTransform());
@@ -115,6 +125,9 @@ void PlayerStateFrame::Start()
 
 	RenderCreate(SubSkillFrame_B, float4(0, 0, 1.0f), "Player_SubSkillB_Frame.png");
 	RenderCreate(TexRender_SubSkillB, float4(51, 1, 0.9f), "Empty.png");
+	RenderCreate(CooldownRender_SubSkillB, float4(51, 1, 0.85f), "SkillCoolDownFront.png");
+	CooldownRender_SubSkillB->GetTransform()->SetLocalScale(float4(17, 17, 1));
+	CooldownRender_SubSkillB->Off();
 
 	Progress_SubSkillB = GetLevel()->CreateActor<ProgressUI_Circle>();
 	Progress_SubSkillB->GetTransform()->SetParent(GetTransform());
@@ -171,6 +184,16 @@ void PlayerStateFrame::Update(float _DeltaTime)
 	{
 		float MainSkillAProgress = ParentPlayer->MainSkull->GetCurSkillATime() / ParentPlayer->MainSkull->GetSkillAEndTime();
 
+		if (true == ParentPlayer->MainSkull->IsActiveSkillA() &&
+			(true == ParentPlayer->MainSkull->IsSkillALock() || 1.0f > MainSkillAProgress))
+		{
+			CooldownRender_MainSkillA->On();
+		}
+		else
+		{
+			CooldownRender_MainSkillA->Off();
+		}
+
 		Progress_MainSkillA->UpdateProgress(MainSkillAProgress);
 
 		if (true == Progress_MainSkillA->IsProgressEnd())
@@ -185,6 +208,16 @@ void PlayerStateFrame::Update(float _DeltaTime)
 
 	{
 		float MainSkillBProgress = ParentPlayer->MainSkull->GetCurSkillBTime() / ParentPlayer->MainSkull->GetSkillBEndTime();
+
+		if (true == ParentPlayer->MainSkull->IsActiveSkillB() &&
+			(true == ParentPlayer->MainSkull->IsSkillBLock() || 1.0f > MainSkillBProgress))
+		{
+			CooldownRender_MainSkillB->On();
+		}
+		else
+		{
+			CooldownRender_MainSkillB->Off();
+		}
 
 		Progress_MainSkillB->UpdateProgress(MainSkillBProgress);
 
@@ -237,9 +270,17 @@ void PlayerStateFrame::Update(float _DeltaTime)
 			TexRender_SubSkillA->SetTexture(ParentPlayer->SubSkull->GetTexName_SkillA());
 			TexRender_SubSkillA->GetTransform()->SetLocalScale(float4(17, 17, 1));
 
-
 			{
 				float SubSkillAProgress = ParentPlayer->SubSkull->GetCurSkillATime() / ParentPlayer->SubSkull->GetSkillAEndTime();
+
+				if (true == ParentPlayer->SubSkull->IsSkillALock() || 1.0f > SubSkillAProgress)
+				{
+					CooldownRender_SubSkillA->On();
+				}
+				else
+				{
+					CooldownRender_SubSkillA->Off();
+				}
 
 				Progress_SubSkillA->UpdateProgress(SubSkillAProgress);
 			}
@@ -248,6 +289,7 @@ void PlayerStateFrame::Update(float _DeltaTime)
 		{
 			Progress_SubSkillA->Off();
 			TexRender_SubSkillA->SetTexture("Empty.png");
+			CooldownRender_SubSkillA->Off();
 		}
 
 		if (true == ParentPlayer->SubSkull->IsActiveSkillB())
@@ -258,6 +300,15 @@ void PlayerStateFrame::Update(float _DeltaTime)
 			{
 				float SubSkillBProgress = ParentPlayer->SubSkull->GetCurSkillBTime() / ParentPlayer->SubSkull->GetSkillBEndTime();
 
+				if (true == ParentPlayer->SubSkull->IsSkillBLock() || 1.0f > SubSkillBProgress)
+				{
+					CooldownRender_SubSkillB->On();
+				}
+				else
+				{
+					CooldownRender_SubSkillB->Off();
+				}
+
 				Progress_SubSkillB->UpdateProgress(SubSkillBProgress);
 			}
 		}
@@ -265,6 +316,7 @@ void PlayerStateFrame::Update(float _DeltaTime)
 		{
 			TexRender_SubSkillB->SetTexture("Empty.png");
 			Progress_SubSkillB->Off();
+			CooldownRender_SubSkillB->Off();
 		}
 	}
 
