@@ -14,12 +14,13 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _DeltaTime) override;
 
 	void ResetBehavior() override;
 	void PlayBehavior() override;
 
 private:
-
-
+	float ShotCoolTime = 0.0f;
+	bool IsShot = false;
 };
 

@@ -36,6 +36,7 @@ void Mushroom::Start()
 	Render->CreateAnimation({ .AnimationName = "Return", .SpriteName = "Mushroom_Return.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 
 	Render->SetScaleRatio(2.0f);
+	Render->ChangeAnimation("Idle");
 
 	Col = CreateComponent<GameEngineCollision>();
 	Col->GetTransform()->SetLocalScale(float4( 64, 64, 1 ));

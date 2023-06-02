@@ -44,6 +44,7 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 	Speed = _Parameter.Speed;
 	ColOrder = _Parameter.ColOrder;
 
+	IsPlatformCol = _Parameter.IsPlatformCol;
 	IsColDeath = _Parameter.IsColDeath;
 
 	HitParameter = _Parameter.HitParameter;
@@ -98,6 +99,32 @@ void Projectile::Update(float _DeltaTime)
 	Trans->AddLocalPosition(Dir * _DeltaTime * Speed);
 
 	ColDatas.clear();
+
+	if (true == IsPlatformCol)
+	{
+		if(nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Normal, ColType::SPHERE2D, ColType::AABBBOX2D))
+		{
+			if (nullptr != DeathEvent)
+			{
+				DeathEvent(GetTransform()->GetWorldPosition());
+			}
+
+			Death();
+			return;
+		}
+
+		if (nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Half, ColType::SPHERE2D, ColType::AABBBOX2D))
+		{
+			if (nullptr != DeathEvent)
+			{
+				DeathEvent(GetTransform()->GetWorldPosition());
+			}
+
+			Death();
+			return;
+		}
+	}
+
 	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ColType::SPHERE2D, ColType::AABBBOX2D))
 	{
 

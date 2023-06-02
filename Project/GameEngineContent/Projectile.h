@@ -23,6 +23,7 @@ public:
 
 	int ColOrder = -1;
 
+	bool IsPlatformCol = false;
 	bool IsColDeath = false;
 
 	float Damage = 1.0f;
@@ -63,6 +64,7 @@ protected:
 
 	int ColOrder = -1;
 
+	bool IsPlatformCol = false;
 	bool IsColDeath = false;
 	bool IsWaitEndValue = false;
 
