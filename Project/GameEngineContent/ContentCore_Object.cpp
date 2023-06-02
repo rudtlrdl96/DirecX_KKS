@@ -1,9 +1,27 @@
 #include "PrecompileHeader.h"
 #include "ContentCore.h"
 #include "MapObject.h"
+#include "BehaviorObject.h"
 
 void ContentCore::ObjectLoad()
 {
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("BehaviorObject");
+		Path.Move("Preview");
+
+		std::vector<GameEngineFile> File = Path.GetAllFile({".png"});
+
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
+	}
+
 	GameEngineDirectory Path;
 	Path.MoveParentToDirectory("Resources");
 	Path.Move("Resources");
@@ -59,6 +77,26 @@ void ContentCore::ObjectLoad()
 		Path.MoveParent();
 		Path.MoveParent();
 	}
+
+	ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+		.Index = 200,
+		.Grade = LevelArea::ForestOfHamory,
+		.Name = "FireFlower_Preview.png"});
+
+	ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+		.Index = 201,
+		.Grade = LevelArea::ForestOfHamory,
+		.Name = "ThornBush_Preview.png" });
+
+	ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+		.Index = 202,
+		.Grade = LevelArea::ForestOfHamory,
+		.Name = "Vine_Preview.png" });
+
+	ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+		.Index = 203,
+		.Grade = LevelArea::ForestOfHamory,
+		.Name = "Mushroom_Preview.png" });
 
 	{
 		Path.Move("4_GrandHall");

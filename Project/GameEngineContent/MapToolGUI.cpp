@@ -102,7 +102,31 @@ void MapToolGUI::DrawGui_Object()
 
 void MapToolGUI::DrawGui_BObject()
 {
+	const std::vector<MapTool_BehaviorObjectData>& BufferTextureDatas = BehaviorObjectTexDatas[CurShowAreaTile];
 
+	ImGui::Spacing();
+
+	for (size_t i = 0; i < BufferTextureDatas.size(); i++)
+	{
+		if (0 != i % 4)
+		{
+			ImGui::SameLine();
+		}
+
+		if (true == ImGui::ImageButton((void*)BufferTextureDatas[i].TexturePtr->GetSRV(), ImVec2(TileSize.x, TileSize.y)))
+		{
+			SelectBehaviorObjectMetaData = BufferTextureDatas[i].Data;
+		}
+
+		if (true == ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+			ImGui::TextUnformatted(BufferTextureDatas[i].Data.Name.c_str());
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
+		}
+	}
 }
 
 void MapToolGUI::DrawGui_Platform()
@@ -279,6 +303,7 @@ void MapToolGUI::Start()
 	{
 		TileDatasLoad(LoadLevel);
 		ObjectDatasLoad(LoadLevel);
+		BehaviorObjectDatasLoad(LoadLevel);
 		MonsterDatasLoad(LoadLevel);
 
 		int NextLevel = static_cast<int>(LoadLevel) + 1;
@@ -402,11 +427,34 @@ void MapToolGUI::ObjectDatasLoad(LevelArea _Area)
 
 		if (nullptr == FindTex)
 		{
-			MsgAssert_Rtti<MapToolGUI>(" - 타일 데이터의 텍스쳐를 찾을 수 없습니다");
+			MsgAssert_Rtti<MapToolGUI>(" - 오브젝트 데이터의 텍스쳐를 찾을 수 없습니다");
 		}
 
 		BufferTextureDatas.push_back(MapTool_ObjectData(CopyDatas[i], FindTex));
 	}
+}
+
+void MapToolGUI::BehaviorObjectDatasLoad(LevelArea _Area)
+{
+	std::vector<MapTool_BehaviorObjectData>& BufferTextureDatas = BehaviorObjectTexDatas[_Area];
+
+	std::vector<BehaviorObjectMetaData> CopyDatas;
+	ContentDatabase<BehaviorObjectMetaData, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
+
+	BufferTextureDatas.reserve(CopyDatas.size());
+
+	for (size_t i = 0; i < CopyDatas.size(); i++)
+	{
+		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(CopyDatas[i].Name);
+
+		if (nullptr == FindTex)
+		{
+			MsgAssert_Rtti<MapToolGUI>(" - 행동 오브젝트 데이터의 텍스쳐를 찾을 수 없습니다");
+		}
+
+		BufferTextureDatas.push_back(MapTool_BehaviorObjectData(CopyDatas[i], FindTex));
+	}
+
 }
 
 void MapToolGUI::MonsterDatasLoad(LevelArea _Area)

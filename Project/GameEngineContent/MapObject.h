@@ -16,8 +16,6 @@ public:
 	float4 Size = float4(100, 100, 0, 0);
 	float4 Color = float4::Zero;
 	float4 LightColor = float4::One;
-
-
 };
 
 class MapObject : public BaseContentActor

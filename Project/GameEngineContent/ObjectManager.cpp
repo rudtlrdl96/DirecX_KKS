@@ -5,10 +5,16 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/imgui.h>
 
+// BehaviorObject
+#include "FireFlower.h"
+#include "ThornBush.h"
+#include "Vine.h"
+#include "Mushroom.h"
+
 ObjectManager::ObjectManager()
 {
 	ObjectActors.reserve(32);
-	BrokenObjectActors.reserve(32);
+	BehaviorObjectActors.reserve(32);
 	MapPlatformActors.reserve(32);
 }
 
@@ -30,6 +36,50 @@ std::shared_ptr<MapObject> ObjectManager::CreateObject(const ObjectMetaData& _Me
 	ObjectActors.push_back(CreatePtr);
 
 	return CreatePtr;
+}
+
+std::shared_ptr<BehaviorObject> ObjectManager::CreateBehaviorObject(const BehaviorObjectMetaData& _MetaData)
+{
+	std::shared_ptr<BehaviorObject> NewBehaviorObject = nullptr;
+
+	switch (_MetaData.Index)
+	{
+	case 200: // FireFlower
+		NewBehaviorObject = GetLevel()->CreateActor<FireFlower>();
+		break;
+	case 201: // ThornBush
+		NewBehaviorObject = GetLevel()->CreateActor<ThornBush>();
+		break;
+	case 202: // Vine
+		NewBehaviorObject = GetLevel()->CreateActor<Vine>();
+		break;
+	case 203: //Mushroom
+		NewBehaviorObject = GetLevel()->CreateActor<Mushroom>();
+		break;
+	default:
+	{
+		MsgAssert_Rtti<ObjectManager>(" - 아직 만들지 않은 행동 오브젝트를 생성하려 했습니다");
+		return nullptr;
+	}
+	}
+
+	GameEngineTransform* ObjectTrans = NewBehaviorObject->GetTransform();
+	NewBehaviorObject->SetMetaData(_MetaData);
+
+	NewBehaviorObject->Render->SetScaleToTexture(_MetaData.Name);
+
+	GameEngineTransform* RenderTrans = NewBehaviorObject->Render->GetTransform();
+
+	float4 TextureScale = RenderTrans->GetLocalScale();
+	RenderTrans->SetLocalScale(TextureScale * 2.0f);
+
+	ObjectTrans->SetParent(GetTransform());
+	ObjectTrans->SetLocalPosition(_MetaData.Postion);
+	ObjectTrans->SetLocalRotation(_MetaData.Rotation);
+
+	BehaviorObjectActors.push_back(NewBehaviorObject);
+
+	return NewBehaviorObject;
 }
 
 std::shared_ptr<MapPlatform> ObjectManager::CreatePaltform(const MapPlatform::PlatformMetaData& _MetaData)
@@ -57,11 +107,12 @@ void ObjectManager::SaveBin(GameEngineSerializer& _SaveSerializer) const
 		LoopRef->SaveBin(_SaveSerializer);
 	}	
 
-	_SaveSerializer.Write(static_cast<int>(BrokenObjectActors.size()));
+	_SaveSerializer.Write(static_cast<int>(BehaviorObjectActors.size()));
 
-	for (const std::shared_ptr<BrokenObject>& LoopRef : BrokenObjectActors)
+	for (const std::shared_ptr<BehaviorObject>& LoopRef : BehaviorObjectActors)
 	{
-		//LoopRef->SaveBin(_SaveSerializer);
+		LoopRef->SaveBin(_SaveSerializer);
+		LoopRef->SaveBin_Child(_SaveSerializer);
 	}
 
 	_SaveSerializer.Write(static_cast<int>(MapPlatformActors.size()));
@@ -101,27 +152,29 @@ void ObjectManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 		}
 	}
 
-	// Broken Object 불러오기
+	// Behavior Object 불러오기
 	{
-		for (size_t i = 0; i < BrokenObjectActors.size(); i++)
+		for (size_t i = 0; i < BehaviorObjectActors.size(); i++)
 		{
-			if (nullptr == BrokenObjectActors[i])
+			if (nullptr == BehaviorObjectActors[i])
 			{
 				continue;
 			}
 
-			BrokenObjectActors[i]->Death();
-			BrokenObjectActors[i] = nullptr;
+			BehaviorObjectActors[i]->Death();
+			BehaviorObjectActors[i] = nullptr;
 		}
 
-		BrokenObjectActors.clear();
+		BehaviorObjectActors.clear();
 
 		int BrokenObjectCount = 0;
 		_LoadSerializer.Read(BrokenObjectCount);
 
 		for (int i = 0; i < BrokenObjectCount; i++)
 		{
-			//BrokenObjectActors
+			BehaviorObjectMetaData LoadData = BehaviorObject::LoadBin(_LoadSerializer);
+			std::shared_ptr<BehaviorObject> NewObject = CreateBehaviorObject(LoadData);
+			NewObject->LoadBin_Child(_LoadSerializer);
 		}
 	}
 
@@ -159,8 +212,8 @@ void ObjectManager::ShowGUI()
 	case ObjectManager::GuiType::Object:
 		Draw_Object_GUI();
 		break;
-	case ObjectManager::GuiType::BObject:
-		Draw_BObject_GUI();
+	case ObjectManager::GuiType::BehaviorObject:
+		Draw_BehaviorObject_GUI();
 		break;
 	case ObjectManager::GuiType::Platform:
 		Draw_Platform_GUI();
@@ -194,6 +247,11 @@ void ObjectManager::PlatformDebugOff()
 void ObjectManager::SelectLastObject()
 {
 	CurrentObjectIndex = static_cast<int>(ObjectActors.size() - 1);
+}
+
+void ObjectManager::SelectLastBehaviorObject()
+{
+	CurrentBehaviorObjectIndex = static_cast<int>(BehaviorObjectActors.size() - 1);
 }
 
 void ObjectManager::SelectLastPlatform()
@@ -240,7 +298,14 @@ void ObjectManager::PushAllObject(const float4& _AddPos)
 	{
 		ObjectActors[i]->GetTransform()->AddLocalPosition(_AddPos);
 	}
+}
 
+void ObjectManager::PushAllBehaviorObject(const float4& _AddPos)
+{
+	for (size_t i = 0; i < BehaviorObjectActors.size(); i++)
+	{
+		BehaviorObjectActors[i]->GetTransform()->AddLocalPosition(_AddPos);
+	}
 }
 
 void ObjectManager::PushAllPlatform(const float4& _AddPos)
@@ -358,8 +423,97 @@ void ObjectManager::Draw_Object_GUI()
 	}
 }
 
-void ObjectManager::Draw_BObject_GUI()
+void ObjectManager::Draw_BehaviorObject_GUI()
 {
+	if (CurrentBehaviorObjectIndex >= 0 && CurrentBehaviorObjectIndex < BehaviorObjectActors.size())
+	{
+		BehaviorObjectActors[CurrentBehaviorObjectIndex]->ShowGUI();
+	}
+
+	if (ImGui::BeginListBox("Behavior Object ListBox"))
+	{
+		for (int n = 0; n < BehaviorObjectActors.size(); n++)
+		{
+			const bool is_selected = (CurrentBehaviorObjectIndex == n);
+
+			if (ImGui::Selectable((BehaviorObjectActors[n]->GetMetaData().Name + " " + std::to_string(n)).data(), is_selected))
+			{
+				CurrentBehaviorObjectIndex = n;
+			}
+
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+
+		ImGui::EndListBox();
+	}
+
+	if (true == ImGui::Button("Copy", ImVec2(70, 25)))
+	{
+		if (CurrentBehaviorObjectIndex < 0)
+		{
+			return;
+		}
+
+		CreateBehaviorObject(BehaviorObjectActors[CurrentBehaviorObjectIndex]->GetMetaData());
+		SelectLastBehaviorObject();
+	}
+
+	if (true == ImGui::Button("Remove", ImVec2(70, 25)))
+	{
+		if (CurrentBehaviorObjectIndex < 0)
+		{
+			return;
+		}
+
+		std::vector<std::shared_ptr<BehaviorObject>>::iterator EraseIter = BehaviorObjectActors.begin();
+
+		EraseIter += CurrentBehaviorObjectIndex;
+
+		(*EraseIter)->Death();
+		(*EraseIter) = nullptr;
+		EraseIter = BehaviorObjectActors.erase(EraseIter);
+
+		if (CurrentBehaviorObjectIndex >= BehaviorObjectActors.size())
+		{
+			CurrentBehaviorObjectIndex = static_cast<int>(BehaviorObjectActors.size() - 1);
+		}
+
+		if (BehaviorObjectActors.size() <= 0)
+		{
+			CurrentBehaviorObjectIndex = -1;
+		}
+	}
+
+	float ArrowButtonSize = ImGui::GetFrameHeight();
+
+	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
+	ImGui::SameLine();
+	if (true == ImGui::ArrowButton("Behavior Object Push Up ArrowButton", ImGuiDir_Up))
+	{
+		PushAllBehaviorObject(float4(0, ContentConst::TileSize.y, 0));
+	}
+
+	if (true == ImGui::ArrowButton("Behavior Object Push Left ArrowButton", ImGuiDir_Left))
+	{
+		PushAllBehaviorObject(float4(-ContentConst::TileSize.x, 0, 0));
+	}
+
+	ImGui::SameLine();
+	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
+	ImGui::SameLine();
+	if (true == ImGui::ArrowButton("Behavior Object Push Right ArrowButton", ImGuiDir_Right))
+	{
+		PushAllBehaviorObject(float4(ContentConst::TileSize.x, 0, 0));
+	}
+
+	ImGui::Dummy(ImVec2(ArrowButtonSize, ArrowButtonSize));
+	ImGui::SameLine();
+	if (true == ImGui::ArrowButton("Behavior Object Push Down ArrowButton", ImGuiDir_Down))
+	{
+		PushAllBehaviorObject(float4(0, -ContentConst::TileSize.y, 0));
+	}
 }
 
 void ObjectManager::Draw_Platform_GUI()

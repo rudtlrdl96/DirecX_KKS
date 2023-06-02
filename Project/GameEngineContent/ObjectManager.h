@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 #include "MapObject.h"
-#include "BrokenObject.h"
+#include "BehaviorObject.h"
 #include "MapPlatform.h"
 
 class ObjectManager : public BaseContentActor
@@ -11,7 +11,7 @@ public:
 	{
 		None,
 		Object,
-		BObject,
+		BehaviorObject,
 		Platform,
 	};
 
@@ -25,6 +25,7 @@ public:
 	ObjectManager& operator=(ObjectManager&& _Other) noexcept = delete;
 
 	std::shared_ptr<MapObject> CreateObject(const ObjectMetaData& _MetaData);
+	std::shared_ptr<BehaviorObject> CreateBehaviorObject(const BehaviorObjectMetaData& _MetaData);
 	std::shared_ptr<MapPlatform> CreatePaltform(const MapPlatform::PlatformMetaData& _MetaData);
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer) const;
@@ -51,6 +52,7 @@ public:
 	void PlatformDebugOff();
 
 	void SelectLastObject();
+	void SelectLastBehaviorObject();
 	void SelectLastPlatform();
 
 protected:
@@ -59,7 +61,7 @@ protected:
 
 private:
 	std::vector<std::shared_ptr<MapObject>> ObjectActors;
-	std::vector<std::shared_ptr<BrokenObject>> BrokenObjectActors;
+	std::vector<std::shared_ptr<BehaviorObject>> BehaviorObjectActors;
 	std::vector<std::shared_ptr<MapPlatform>> MapPlatformActors;
 	
 	/// <summary>
@@ -69,6 +71,7 @@ private:
 	std::shared_ptr<MapPlatform> CurrentEmphasizePlatform = nullptr;
 
 	int CurrentObjectIndex = -1;
+	int CurrentBehaviorObjectIndex = -1;
 	int CurrentPlatformIndex = -1;
 
 	bool IsPlatformDebug = false;
@@ -79,10 +82,11 @@ private:
 	GuiType ShowGuiType = GuiType::None;
 
 	void PushAllObject(const float4& _AddPos);
+	void PushAllBehaviorObject(const float4& _AddPos);
 	void PushAllPlatform(const float4& _AddPos);
 
 	void Draw_Object_GUI();
-	void Draw_BObject_GUI();
+	void Draw_BehaviorObject_GUI();
 	void Draw_Platform_GUI();
 
 	void EmphasizeCurrentPlatform();

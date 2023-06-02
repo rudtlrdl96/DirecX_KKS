@@ -172,9 +172,6 @@
     <Filter Include="2_Actor\Map\Stage\Object">
       <UniqueIdentifier>{1ede5441-c939-4507-a935-0b32249b7446}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Map\Stage\Object\StaticObject">
-      <UniqueIdentifier>{42e7682b-03c1-4b05-bbe5-2bb85bc7ea6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\Map\Stage\Object\BrokenObject">
       <UniqueIdentifier>{129bea81-84ba-44c4-8d99-a30ddc3d1295}</UniqueIdentifier>
     </Filter>
@@ -331,6 +328,15 @@
     <Filter Include="2_Actor\Map\Door">
       <UniqueIdentifier>{d1565de9-2ef4-4c41-a513-a6f68ae41b3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\Object\Object">
+      <UniqueIdentifier>{42e7682b-03c1-4b05-bbe5-2bb85bc7ea6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Object\BehaviorObject">
+      <UniqueIdentifier>{f90f3cc7-ec22-440d-9f57-9272928dffbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony">
+      <UniqueIdentifier>{c53ffb15-a0be-4c03-8920-d2f92dab558a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -442,7 +448,7 @@
       <Filter>2_Actor\BattleActor\Player\Skull\BoneSkull</Filter>
     </ClInclude>
     <ClInclude Include="MapObject.h">
-      <Filter>2_Actor\Map\Stage\Object\StaticObject</Filter>
+      <Filter>2_Actor\Map\Stage\Object\Object</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>2_Actor\Map\Stage\Object</Filter>
@@ -756,6 +762,21 @@
     <ClInclude Include="EffectUI.h">
       <Filter>2_Actor\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="BehaviorObject.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject</Filter>
+    </ClInclude>
+    <ClInclude Include="FireFlower.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="ThornBush.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="Vine.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -867,7 +888,7 @@
       <Filter>2_Actor\BattleActor\Player\Skull\BoneSkull</Filter>
     </ClCompile>
     <ClCompile Include="MapObject.cpp">
-      <Filter>2_Actor\Map\Stage\Object\StaticObject</Filter>
+      <Filter>2_Actor\Map\Stage\Object\Object</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>2_Actor\Map\Stage\Object</Filter>
@@ -1213,6 +1234,21 @@
     </ClCompile>
     <ClCompile Include="EffectUI.cpp">
       <Filter>2_Actor\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorObject.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject</Filter>
+    </ClCompile>
+    <ClCompile Include="FireFlower.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="ThornBush.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="Vine.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

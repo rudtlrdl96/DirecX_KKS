@@ -349,8 +349,20 @@ void MapToolLevel::Update_Object(float _DeltaTime)
 
 void MapToolLevel::Update_BObject(float _DeltaTime)
 {
+	ObjectMgrPtr->SetGuiType(ObjectManager::GuiType::BehaviorObject);
 
-	ObjectMgrPtr->SetGuiType(ObjectManager::GuiType::BObject);
+	if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
+	{
+		float4 TestMousePos = GetMousePos();
+		TestMousePos.z = 0;
+
+		BehaviorObjectMetaData NewBehaviorObjectMetaData = MapToolGuiPtr->GetSelectBehaviorObject();
+		NewBehaviorObjectMetaData.Postion = TestMousePos;
+
+		ObjectMgrPtr->CreateBehaviorObject(NewBehaviorObjectMetaData);
+		ObjectMgrPtr->SelectLastBehaviorObject();
+	}
+
 }
 
 void MapToolLevel::Update_Platfrom(float _DeltaTime)

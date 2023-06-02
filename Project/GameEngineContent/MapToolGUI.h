@@ -35,6 +35,19 @@ private:
 		}
 	};
 
+	class MapTool_BehaviorObjectData
+	{
+	public:
+		BehaviorObjectMetaData Data;
+		std::shared_ptr<class GameEngineTexture> TexturePtr = nullptr;
+
+		MapTool_BehaviorObjectData(const BehaviorObjectMetaData& _Data, const std::shared_ptr<class GameEngineTexture> _TexturePtr) :
+			Data(_Data),
+			TexturePtr(_TexturePtr)
+		{
+		}
+	};
+
 	class MapTool_MonsterData
 	{
 	public:
@@ -64,6 +77,11 @@ public:
 	inline ObjectMetaData GetSelectObject() const
 	{
 		return SelectObjectMetaData;
+	}
+
+	inline BehaviorObjectMetaData GetSelectBehaviorObject() const
+	{
+		return SelectBehaviorObjectMetaData;
 	}
 
 	inline ParticleAreaMetaData GetNewParticleMetaData() const
@@ -119,6 +137,7 @@ protected:
 private:
 	std::map<LevelArea, std::vector<MapTool_TilemapData>> TileTexDatas;
 	std::map<LevelArea, std::vector<MapTool_ObjectData>> ObjectTexDatas;
+	std::map<LevelArea, std::vector<MapTool_BehaviorObjectData>> BehaviorObjectTexDatas;
 	std::map<LevelArea, std::vector<MapTool_MonsterData>> MonsterTexDatas;
 
 	LevelArea CurShowAreaTile = LevelArea::None;
@@ -140,6 +159,7 @@ private:
 
 	UINT SelectTileIndex = 0;
 	ObjectMetaData SelectObjectMetaData;
+	BehaviorObjectMetaData SelectBehaviorObjectMetaData;
 	MonsterData SelectMonsterMetaData;
 
 	ParticleAreaMetaData ParticleAreaMapMetaData;
@@ -155,6 +175,7 @@ private:
 
 	void TileDatasLoad(LevelArea _Area);
 	void ObjectDatasLoad(LevelArea _Area);
+	void BehaviorObjectDatasLoad(LevelArea _Area);
 	void MonsterDatasLoad(LevelArea _Area);
 	
 	void DrawGui_Tilemap();
