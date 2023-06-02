@@ -19,6 +19,29 @@ void ThornBush::Start()
 	AttackCol = CreateComponent<GameEngineCollision>();
 	AttackCol->GetTransform()->SetLocalScale(float4(200, 80, 1));
 	AttackCol->GetTransform()->SetLocalPosition(float4(0, 20, 1));
+
+	if (nullptr == GameEngineSprite::Find("ThornBush_Idle.png"))
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("BehaviorObject");
+		Path.Move("ThornBush");
+		Path.Move("Sheet");
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ThornBush_Idle.png").GetFullPath(), 11, 1);
+	}
+
+	Render->CreateAnimation({
+		.AnimationName = "Idle",
+		.SpriteName = "ThornBush_Idle.png",
+		.FrameInter = 0.1f,
+		.ScaleToTexture = true });
+
+	Render->ChangeAnimation("Idle");
+	Render->SetScaleRatio(2.0f);
 }
 
 void ThornBush::Update(float _DeltaTime)
