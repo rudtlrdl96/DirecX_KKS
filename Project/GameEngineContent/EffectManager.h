@@ -14,6 +14,8 @@ public:
 
 	bool FlipX = false;
 	bool IsUI = false;
+
+	float4 Color = float4::Zero;
 };
 
 class EffectManager

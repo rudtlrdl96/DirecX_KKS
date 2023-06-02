@@ -18,6 +18,8 @@ public:
 
 	float4 GetSpawnPoint() const;
 
+	void StageReset();
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

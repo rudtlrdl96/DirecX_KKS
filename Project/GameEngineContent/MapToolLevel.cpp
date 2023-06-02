@@ -351,6 +351,11 @@ void MapToolLevel::Update_BObject(float _DeltaTime)
 {
 	ObjectMgrPtr->SetGuiType(ObjectManager::GuiType::BehaviorObject);
 
+	if (nullptr == GetFocus())
+	{
+		return;
+	}
+
 	if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
 	{
 		float4 TestMousePos = GetMousePos();

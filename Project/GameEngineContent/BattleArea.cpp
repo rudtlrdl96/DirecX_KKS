@@ -55,6 +55,7 @@ void BattleArea::ChangeMap(const std::string_view _Name, const float4& _Pivot /*
 
 	CurStage = BattleStageDatas[UpperName];
 	CurStage->GetTransform()->SetLocalPosition(_Pivot);
+	CurStage->StageReset();
 	CurStage->On();
 }
 

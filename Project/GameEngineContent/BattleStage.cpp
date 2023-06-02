@@ -41,6 +41,11 @@ float4 BattleStage::GetSpawnPoint() const
 	return EventManagerPtr->GetSpawnPoint();
 }
 
+void BattleStage::StageReset()
+{
+	ObjectManagerPtr->BehaviorObjectReset();
+}
+
 void BattleStage::Start()
 {
 	std::shared_ptr<GameEngineLevel> LevelPtr = GetLevel()->DynamicThis<GameEngineLevel>();

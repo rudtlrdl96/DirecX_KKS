@@ -29,6 +29,13 @@ public:
 
 	void HitPlayer(float _Damage, const float4& _HitForce);
 
+	void PushPlayer(const float4& _HitForce);
+
+	bool CheckFall() const
+	{
+		return 0 > MainSkull->JumpDir.y;
+	}
+
 protected:	
 	void Start() override;
 	void Update(float _DeltaTime);

@@ -79,14 +79,23 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 	PlayerState::HP -= _Damage;
 
 	HitWaitTime = 0.1f;
-
 	HitFade->Active();
-
 	MainSkull->HitRigidbody.AddVelocity(_HitForce);
 	MainSkull->IsHit = true;
 	MainSkull->IsHitEffectOn = true;
 	MainSkull->HitEffect();
 	MainSkull->HitStiffen();
+}
+
+void Player::PushPlayer(const float4& _HitForce)
+{
+	if (nullptr == MainSkull)
+	{
+		MsgAssert_Rtti<Player>(" - 스컬 데이터가 존재하지 않는데 플레이어를 밀어내려 했습니다");
+		return;
+	}
+
+	MainSkull->JumpDir = _HitForce;
 }
 
 void Player::Start()

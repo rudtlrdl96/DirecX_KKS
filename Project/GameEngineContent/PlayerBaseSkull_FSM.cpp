@@ -546,6 +546,11 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	{
 		JumpDir = JumpDir.NormalizeReturn() * JumpMaxPower;
 	}
+	else if (0 < JumpDir.y)
+	{
+		PlayerFSM.ChangeState("Jump");
+		return;
+	}
 
 	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
 

@@ -230,6 +230,22 @@ void ContentCore::CommonTextureLoad()
 	Path.Move("0_Common");
 
 	{
+		Path.Move("Effect");
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Appearance_Impact.png").GetFullPath(), 7, 2);
+
+		Path.MoveParent();
+	
+		EffectManager::CreateMetaData("Appearance_Impact", {
+			.SpriteName = "Appearance_Impact.png",
+			.AnimStart = 0,
+			.AnimEnd = 13,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 0.5f,
+			});
+	}
+
+	{
 		Path.Move("DebugTex");
 		GameEngineTexture::Load(Path.GetPlusFileName("BoxCol.png").GetFullPath());
 		GameEngineTexture::Load(Path.GetPlusFileName("ScaleCol.png").GetFullPath());

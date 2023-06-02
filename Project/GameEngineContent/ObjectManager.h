@@ -55,6 +55,8 @@ public:
 	void SelectLastBehaviorObject();
 	void SelectLastPlatform();
 
+	void BehaviorObjectReset();
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

@@ -79,4 +79,6 @@ void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _Deat
 	EffectRender->SetScaleRatio(_MetaData.ScaleRatio);
 	EffectRender->ChangeAnimation(_MetaData.SpriteName);
 	EffectRender->On();
+
+	Buffer.Color = _MetaData.Color;
 }

@@ -68,9 +68,14 @@ std::shared_ptr<EffectActor> EffectManager::PlayEffect(const EffectParameter& _P
 
 	EffectMetaData Data = FindIter->second;
 
+	if (false == _Parameter.Color.IsZero())
+	{
+		Data.Color = _Parameter.Color;
+	}
+
 	Data.ScaleRatio *= _Parameter.Scale;
 
-	float4 SpawnPos = float4(_Parameter.Postion.x, _Parameter.Postion.y, _Parameter.AddSetZ + GameEngineRandom::MainRandom.RandomFloat(-40.0f, -39.9f));
+	float4 SpawnPos = float4(_Parameter.Postion.x, _Parameter.Postion.y, _Parameter.AddSetZ + GameEngineRandom::MainRandom.RandomFloat(-40.0f, -31.0f));
 
 	NewEffectActor->Init(Data, _Parameter.Triger, _Parameter.Time);
 	NewEffectActor->GetTransform()->SetLocalPosition(SpawnPos);

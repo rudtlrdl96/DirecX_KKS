@@ -21,7 +21,7 @@ public:
 	float AnimIter = 0.1f;
 	float ScaleRatio = 1.0f;
 
-
+	float4 Color = float4::Zero;
 };
 
 class EffectActor : public BaseContentActor

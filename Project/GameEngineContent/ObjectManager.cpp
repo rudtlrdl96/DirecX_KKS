@@ -58,7 +58,6 @@ std::shared_ptr<BehaviorObject> ObjectManager::CreateBehaviorObject(const Behavi
 		break;
 	default:
 	{
-		MsgAssert_Rtti<ObjectManager>(" - 아직 만들지 않은 행동 오브젝트를 생성하려 했습니다");
 		return nullptr;
 	}
 	}
@@ -257,6 +256,14 @@ void ObjectManager::SelectLastBehaviorObject()
 void ObjectManager::SelectLastPlatform()
 {
 	CurrentPlatformIndex = static_cast<int>(MapPlatformActors.size() - 1);
+}
+
+void ObjectManager::BehaviorObjectReset()
+{
+	for (size_t i = 0; i < BehaviorObjectActors.size(); i++)
+	{
+		BehaviorObjectActors[i]->ResetBehavior();
+	}
 }
 
 void ObjectManager::Start()
