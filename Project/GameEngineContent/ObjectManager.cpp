@@ -266,6 +266,14 @@ void ObjectManager::BehaviorObjectReset()
 	}
 }
 
+void ObjectManager::BehaviorObjectPlay()
+{
+	for (size_t i = 0; i < BehaviorObjectActors.size(); i++)
+	{
+		BehaviorObjectActors[i]->PlayBehavior();
+	}
+}
+
 void ObjectManager::Start()
 {
 	if (false == GameEngineInput::IsKey("PlatformDebugSwtich"))

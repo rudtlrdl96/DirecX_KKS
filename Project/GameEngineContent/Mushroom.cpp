@@ -110,4 +110,6 @@ void Mushroom::ResetBehavior()
 
 void Mushroom::PlayBehavior()
 {
+	State = MushroomState::Idle;
+	Render->ChangeAnimation("Idle");
 }

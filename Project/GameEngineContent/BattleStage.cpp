@@ -43,7 +43,7 @@ float4 BattleStage::GetSpawnPoint() const
 
 void BattleStage::StageReset()
 {
-	ObjectManagerPtr->BehaviorObjectReset();
+	ObjectManagerPtr->BehaviorObjectPlay();
 }
 
 void BattleStage::Start()

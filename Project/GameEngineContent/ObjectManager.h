@@ -56,6 +56,7 @@ public:
 	void SelectLastPlatform();
 
 	void BehaviorObjectReset();
+	void BehaviorObjectPlay();
 
 protected:
 	void Start() override;

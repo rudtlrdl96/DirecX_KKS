@@ -141,4 +141,7 @@ void FireFlower::ResetBehavior()
 
 void FireFlower::PlayBehavior()
 {
+	Render->ChangeAnimation("Idle");
+	ShotCoolTime = 0.0f;
+	IsShot = false;
 }
