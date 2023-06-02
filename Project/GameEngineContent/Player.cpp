@@ -113,7 +113,7 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime)
 {
-	HitWaitTime -= _DeltaTime;
+	HitWaitTime -= _DeltaTime;	
 	SwitchCoolTime += _DeltaTime;
 
 	if (PlayerState::HP <= 0.0f)

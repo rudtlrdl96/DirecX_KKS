@@ -27,6 +27,11 @@ public:
 		return MagicAttack;
 	}
 
+	inline void AddJumpDir(const float4& _Dir)
+	{
+		MainSkull->JumpDir += _Dir;
+	}
+
 	void HitPlayer(float _Damage, const float4& _HitForce);
 
 	void PushPlayer(const float4& _HitForce);
@@ -34,6 +39,16 @@ public:
 	bool CheckFall() const
 	{
 		return 0 > MainSkull->JumpDir.y;
+	}
+
+	inline float GetThornHitCoolTime() const
+	{
+		return MainSkull->ThornWaitTime;
+	}
+
+	inline void SetThornHitCoolTime(float _CoolTime)
+	{
+		MainSkull->ThornWaitTime = _CoolTime;
 	}
 
 protected:	
@@ -51,6 +66,7 @@ private:
 	float HP = 100.0f;
 	
 	float HitWaitTime = 0.0f;
+
 
 	std::shared_ptr<class PlayerHitFade> HitFade = nullptr;
 

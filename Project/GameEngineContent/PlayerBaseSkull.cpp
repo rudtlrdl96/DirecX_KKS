@@ -287,6 +287,7 @@ void PlayerBaseSkull::Start()
 
 void PlayerBaseSkull::Update(float _DeltaTime)
 {
+
 	HitRigidbody.UpdateForce(_DeltaTime);
 	float4 HitVelocity = HitRigidbody.GetVelocity();
 

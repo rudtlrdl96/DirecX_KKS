@@ -26,6 +26,7 @@ void BattleActor::Start()
 
 void BattleActor::Update(float _DeltaTime)
 {
+	ThornWaitTime -= _DeltaTime;
 	HitParticleCoolTime += _DeltaTime;	
 	IsHit = false;
 

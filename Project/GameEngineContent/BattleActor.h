@@ -13,6 +13,16 @@ public:
 	BattleActor& operator=(const BattleActor& _Other) = delete;
 	BattleActor& operator=(BattleActor&& _Other) noexcept = delete;
 
+	inline float GetThornHitCoolTime() const
+	{
+		return ThornWaitTime;
+	}
+
+	inline void SetThornHitCoolTime(float _CoolTime)
+	{
+		ThornWaitTime = _CoolTime;
+	}
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	OutlineColorBuffer Buffer = OutlineColorBuffer();
@@ -23,6 +33,8 @@ protected:
 	bool IsHit = false;
 	bool IsHitEffectOn = false;
 	bool IsPush = false;
+
+	float ThornWaitTime = 0.0f;
 
 	float HitEffectProgress = 0.0f;
 	float HitEffectSpeed = 7.5f;

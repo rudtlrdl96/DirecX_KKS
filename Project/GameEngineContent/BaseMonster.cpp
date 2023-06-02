@@ -150,6 +150,8 @@ void BaseMonster::Start()
 
 void BaseMonster::Update(float _DeltaTime)
 {
+	ThornWaitTime -= _DeltaTime;
+
 	if (true == IsAppear)
 	{
 		if (nullptr == AppearEffect)
