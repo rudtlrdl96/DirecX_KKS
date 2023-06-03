@@ -6,7 +6,6 @@
 
 #include "CollisionDebugRender.h"
 #include "HitParticle.h"
-#include "HealthBar.h"
 #include "DeadPartParticle.h"
 #include "Player.h"
 
@@ -33,8 +32,6 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 
 	HP -= _Damage;
 
-	HealthBarActiveTime = 3.0f;
-
 	HitDir = _HitDir;
 	IsHit = true;
 	IsHitEffectOn = true;
@@ -43,9 +40,14 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 	HitEffectProgress = 0.0f;
 }
 
+void BaseMonster::PlayBeahvior(const std::string_view& _BehaviorName)
+{
+	MonsterFsm.ChangeState("Behavior");
+	BehaviorName = _BehaviorName;
+}
+
 void BaseMonster::Start()
 {
-	HealthBarPtr = GetLevel()->CreateActor<HealthBar>();
 	DeathEffectLocalPos = float4(0, 50, -5.0f);
 
 	if (nullptr == GameEngineTexture::Find("EnemyHpBar.png"))
@@ -63,11 +65,6 @@ void BaseMonster::Start()
 		GameEngineTexture::Load(Path.GetPlusFileName("EnemyHpFrame.png").GetFullPath());
 	}
 
-	HealthBarPtr->GetTransform()->SetParent(GetTransform());
-	HealthBarPtr->GetTransform()->SetLocalPosition(float4(0, -15, -10));
-	HealthBarPtr->SetTexture("EnemyHpFrame.png", "EnemyHpBar.png", "EnemySubBar.png", HealthBarScale);
-	HealthBarPtr->Off();
-
 	if (false == GameEngineInput::IsKey("MonsterDebugOn"))
 	{
 		GameEngineInput::CreateKey("MonsterDebugOn", VK_F3);
@@ -82,15 +79,24 @@ void BaseMonster::Start()
 	MonsterFsm.AddFSM("Chasing", &BaseMonster::Chasing_Enter, &BaseMonster::Chasing_Update, &BaseMonster::Chasing_End);
 	MonsterFsm.AddFSM("Attack", &BaseMonster::Attack_Enter, &BaseMonster::Attack_Update, &BaseMonster::Attack_End);
 	MonsterFsm.AddFSM("Hit", &BaseMonster::Hit_Enter, &BaseMonster::Hit_Update, &BaseMonster::Hit_End);
+	MonsterFsm.AddFSM("Behavior", &BaseMonster::Bhavior_Enter, &BaseMonster::Bhavior_Update, &BaseMonster::Bhavior_End);
 	
 	HitFindCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	HitFindCol->SetColType(ColType::AABBBOX2D);
 	BodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Monster);
+	BodyCol->SetColType(ColType::AABBBOX2D);
 	FindCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	FindCol->SetColType(ColType::AABBBOX2D);
 	ChasingCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	ChasingCol->SetColType(ColType::AABBBOX2D);
 	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	WalkCol->SetColType(ColType::AABBBOX2D);
 	BackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	BackCol->SetColType(ColType::AABBBOX2D);
 	GroundCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	GroundCol->SetColType(ColType::AABBBOX2D);
 	WalkFallCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	WalkFallCol->SetColType(ColType::AABBBOX2D);
 
 	HitFindCol->GetTransform()->SetLocalScale(float4(400, 300, 1));
 
@@ -106,6 +112,7 @@ void BaseMonster::Start()
 	DeathPartLoad();
 
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	AttackCol->SetColType(ColType::AABBBOX2D);
 
 	AttackCheck.SetCol(AttackCol, (UINT)CollisionOrder::Player);
 	AttackCheck.SetRender(Render);
@@ -141,72 +148,36 @@ void BaseMonster::Start()
 
 	HP = Data.HP;
 	MonsterFsm.ChangeState("Idle");
-
-	IsAppear = true;
-
-	Render->Off();
-	BodyCol->Off();
 }
 
 void BaseMonster::Update(float _DeltaTime)
 {
 	ThornWaitTime -= _DeltaTime;
-
-	if (true == IsAppear)
-	{
-		if (nullptr == AppearEffect)
-		{
-			AppearEffect = EffectManager::PlayEffect({
-				.EffectName = "MonsterAppear",
-				.Postion = GetTransform()->GetWorldPosition() + float4(0, 50, 0) });
-		}
-
-		if (5 == AppearEffect->GetCurrentFrame())
-		{
-			AppearEffect = nullptr;
-			IsAppear = false;
-			Render->On();
-			BodyCol->On();
-		}
-
-		return;
-	}
-
+	
 	if (HP <= 0.0f)
 	{
 		MonsterDeath();
 		return;
 	}
 
-	HealthBarActiveTime -= _DeltaTime;
-
-	if (0.0f < HealthBarActiveTime)
-	{
-		HealthBarPtr->On();
-	}
-	else
-	{
-		HealthBarPtr->Off();
-	}
-
 	AttackWaitTime += _DeltaTime;
 	TurnCoolTime -= _DeltaTime;
 	HitParticleCoolTime += _DeltaTime;
 
-	HealthBarPtr->UpdateBar(HP / Data.HP, _DeltaTime);
+	HitRigidbody.UpdateForce(_DeltaTime);
 
+	if (nullptr == ContentFunc::PlatformColCheck(WalkCol) && nullptr == ContentFunc::PlatformColCheck(BackCol))
+	{
+		GetTransform()->AddLocalPosition(HitRigidbody.GetVelocity() * _DeltaTime);
+	}
 
 	if (true == GameEngineInput::IsDown("MonsterDebugOn"))
 	{
-		if (false == IsDebug())
-		{
-			DebugOn();
-			CreateColDebugRender();
-		}
+		CreateColDebugRender(true);
 	}
 	else if (true == GameEngineInput::IsDown("MonsterDebugOff"))
 	{
-		DebugOff();
+		CreateColDebugRender(false);
 	}
 
 	if (nullptr != PlayerActor && true == PlayerActor->IsDeath())
@@ -327,38 +298,31 @@ void BaseMonster::Turn(bool _Force /*= false*/)
 	}
 }
 
-void BaseMonster::CreateColDebugRender()
+void BaseMonster::CreateColDebugRender(bool _IsActive)
 {
+	if (true == _IsActive)
 	{
-		std::shared_ptr<CollisionDebugRender> GroundDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
-		GroundDebugRender->SetColor(CollisionDebugRender::DebugColor::Green);
-		GroundDebugRender->SetTargetCollision(GroundCol);
-		GroundDebugRender->GetTransform()->SetParent(GroundCol->GetTransform(), false);
-		GroundDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
+		HitFindCol->DebugOn();
+		BodyCol->DebugOn();
+		WalkCol->DebugOn();
+		BackCol->DebugOn();
+		WalkFallCol->DebugOn();
+		GroundCol->DebugOn();
+		FindCol->DebugOn();
+		ChasingCol->DebugOn();
+		AttackCol->DebugOn();
 	}
-
+	else
 	{
-		std::shared_ptr<CollisionDebugRender> WalkDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
-		WalkDebugRender->SetColor(CollisionDebugRender::DebugColor::Green);
-		WalkDebugRender->SetTargetCollision(WalkCol);
-		WalkDebugRender->GetTransform()->SetParent(WalkCol->GetTransform(), false);
-		WalkDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
-	}
-
-	{
-		std::shared_ptr<CollisionDebugRender> BodyDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
-		BodyDebugRender->SetColor(CollisionDebugRender::DebugColor::Magenta);
-		BodyDebugRender->SetTargetCollision(BodyCol);
-		BodyDebugRender->GetTransform()->SetParent(BodyCol->GetTransform(), false);
-		BodyDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
-	}
-
-	{
-		std::shared_ptr<CollisionDebugRender> WalkFallDebugRender = GetLevel()->CreateActor<CollisionDebugRender>();
-		WalkFallDebugRender->SetColor(CollisionDebugRender::DebugColor::Magenta);
-		WalkFallDebugRender->SetTargetCollision(WalkFallCol);
-		WalkFallDebugRender->GetTransform()->SetParent(WalkFallCol->GetTransform(), false);
-		WalkFallDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
+		HitFindCol->DebugOff();
+		BodyCol->DebugOff();
+		WalkCol->DebugOff();
+		BackCol->DebugOff();
+		WalkFallCol->DebugOff();
+		GroundCol->DebugOff();
+		FindCol->DebugOff();
+		ChasingCol->DebugOff();
+		AttackCol->DebugOff();
 	}
 }
 
@@ -412,6 +376,11 @@ bool BaseMonster::HitCheck()
 	if (true == IsHit)
 	{
 		HitEffect();
+
+		if (true == IsPush)
+		{
+			HitPush();
+		}
 
 		if (false == IsSuperArmor && true == IsStiffen)
 		{

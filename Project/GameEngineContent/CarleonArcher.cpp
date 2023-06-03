@@ -21,7 +21,7 @@ void CarleonArcher::Update(float _DeltaTime)
 		SignEffectActor = nullptr;
 	}
 
-	BaseMonster::Update(_DeltaTime);
+	NormalMonster::Update(_DeltaTime);
 }
 void CarleonArcher::DataLoad()
 {
@@ -205,7 +205,7 @@ void CarleonArcher::DeathPartLoad()
 
 void CarleonArcher::Hit_Enter()
 {
-	BaseMonster::Hit_Enter();
+	NormalMonster::Hit_Enter();
 
 	if (nullptr != SignEffectActor)
 	{
@@ -215,14 +215,14 @@ void CarleonArcher::Hit_Enter()
 
 void CarleonArcher::Attack_Enter()
 {
-	BaseMonster::Attack_Enter();
+	NormalMonster::Attack_Enter();
 	IsAttackShot = false;
 	IsAttackSign = false;
 }
 
 void CarleonArcher::Attack_Update(float _DeltaTime)
 {
-	BaseMonster::Attack_Update(_DeltaTime);
+	NormalMonster::Attack_Update(_DeltaTime);
 
 	if (false == IsAttackSign && 2 == Render->GetCurrentFrame())
 	{

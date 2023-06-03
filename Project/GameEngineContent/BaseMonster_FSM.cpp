@@ -283,19 +283,11 @@ void BaseMonster::Hit_Enter()
 	Render->ChangeAnimation("Hit1");
 	HitAnimIndex = 0;
 	HitWaitTime = 0.0f;
-	HitRigidbody.SetVelocity(float4::Zero);
-	HitStiffen();
 }
 
 void BaseMonster::Hit_Update(float _DeltaTime) 
 {
 	HitWaitTime += _DeltaTime;
-	HitRigidbody.UpdateForce(_DeltaTime);
-
-	if (nullptr == ContentFunc::PlatformColCheck(WalkCol) && nullptr == ContentFunc::PlatformColCheck(BackCol))
-	{
-		GetTransform()->AddLocalPosition(HitRigidbody.GetVelocity() * _DeltaTime);
-	}
 
 	Fall(_DeltaTime);
 
@@ -309,9 +301,10 @@ void BaseMonster::Hit_Update(float _DeltaTime)
 			{
 				Render->ChangeAnimation("Hit2");
 				HitAnimIndex = 1;
-				HitStiffen();
 				HitWaitTime = 0.0f;
 			}
+
+			HitPush();
 		}
 		else if(1 == HitAnimIndex)
 		{
@@ -321,9 +314,10 @@ void BaseMonster::Hit_Update(float _DeltaTime)
 			{
 				Render->ChangeAnimation("Hit1");
 				HitAnimIndex = 0;
-				HitStiffen();
 				HitWaitTime = 0.0f;
 			}
+
+			HitPush();
 		}
 
 	}

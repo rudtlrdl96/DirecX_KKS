@@ -139,7 +139,7 @@ void TeleportOut_End(BaseMonster* _this)
 
 void FlameWizard::Start()
 {
-	BaseMonster::Start();
+	NormalMonster::Start();
 
 	MonsterFsm.AddFSM("TeleportIn", &TeleportIn_Enter, &TeleportIn_Update, &TeleportIn_End);
 	MonsterFsm.AddFSM("TeleportOut", &TeleportOut_Enter, &TeleportOut_Update, &TeleportOut_End);
@@ -157,7 +157,7 @@ void FlameWizard::Start()
 
 void FlameWizard::Update(float _DeltaTime)
 {
-	BaseMonster::Update(_DeltaTime);
+	NormalMonster::Update(_DeltaTime);
 
 	if (nullptr != ShotProjectile)
 	{
@@ -474,7 +474,7 @@ void FlameWizard::Chasing_End()
 
 void FlameWizard::Hit_Enter()
 {
-	BaseMonster::Hit_Enter();
+	NormalMonster::Hit_Enter();
 	
 	if (nullptr != ShotProjectile)
 	{
@@ -485,7 +485,7 @@ void FlameWizard::Hit_Enter()
 
 void FlameWizard::Hit_End()
 {
-	BaseMonster::Hit_End();
+	NormalMonster::Hit_End();
 	AttackWaitTime = 1.5f;
 }
 

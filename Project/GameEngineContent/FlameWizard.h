@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseMonster.h"
+#include "NormalMonster.h"
 
-class FlameWizard : public BaseMonster
+class FlameWizard : public NormalMonster
 {
 	friend void TeleportOut_Enter(BaseMonster* _this);
 

@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseMonster.h"
+#include "NormalMonster.h"
 
-class CarleonRecruit : public BaseMonster
+class CarleonRecruit : public NormalMonster
 {
 public:
 	CarleonRecruit();

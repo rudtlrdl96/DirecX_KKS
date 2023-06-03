@@ -235,12 +235,6 @@
     <Filter Include="2_Actor\BattleActor\Monster">
       <UniqueIdentifier>{9a8187fb-9295-4b1f-a266-729064c4934c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\BattleActor\Monster\Opening">
-      <UniqueIdentifier>{856dee12-e4bd-4011-b9a6-b95a63f19421}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\BattleActor\Monster\ForestOfHarmony">
-      <UniqueIdentifier>{923adf6d-88cf-47d7-b4e7-20caefdf0c6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\BattleActor\Monster\Particle">
       <UniqueIdentifier>{8b581822-80db-4f3e-bae5-0b5813218bef}</UniqueIdentifier>
     </Filter>
@@ -336,6 +330,18 @@
     </Filter>
     <Filter Include="2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony">
       <UniqueIdentifier>{c53ffb15-a0be-4c03-8920-d2f92dab558a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Monster\NormalMonster">
+      <UniqueIdentifier>{afbec180-bbf7-459f-978d-85e464d3320a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Monster\BossMonster">
+      <UniqueIdentifier>{b2d6a1c8-b092-4a84-be92-8f20ed05f61f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Monster\NormalMonster\Opening">
+      <UniqueIdentifier>{856dee12-e4bd-4011-b9a6-b95a63f19421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony">
+      <UniqueIdentifier>{923adf6d-88cf-47d7-b4e7-20caefdf0c6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -646,31 +652,31 @@
       <Filter>2_Actor\BattleActor\Monster\Particle</Filter>
     </ClInclude>
     <ClInclude Include="CarleonRecruit.h">
-      <Filter>2_Actor\BattleActor\Monster\Opening</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\Opening</Filter>
     </ClInclude>
     <ClInclude Include="CarleonArcher.h">
-      <Filter>2_Actor\BattleActor\Monster\Opening</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\Opening</Filter>
     </ClInclude>
     <ClInclude Include="CarleonManAtArms.h">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClInclude>
     <ClInclude Include="Ent.h">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClInclude>
     <ClInclude Include="RootEnt.h">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClInclude>
     <ClInclude Include="GiantEnt.h">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClInclude>
     <ClInclude Include="BlossomEnt.h">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClInclude>
     <ClInclude Include="FlameWizard.h">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClInclude>
     <ClInclude Include="GlacialWizard.h">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClInclude>
     <ClInclude Include="RigidProjectile.h">
       <Filter>2_Actor\Projectile</Filter>
@@ -753,9 +759,6 @@
     <ClInclude Include="EventActor.h">
       <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterDeadBodyActor.h">
-      <Filter>2_Actor\BattleActor\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="ContentSpriteUIRenderer.h">
       <Filter>3_Component\Renderer</Filter>
     </ClInclude>
@@ -776,6 +779,15 @@
     </ClInclude>
     <ClInclude Include="Mushroom.h">
       <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterDeadBodyActor.h">
+      <Filter>2_Actor\BattleActor\Monster\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Mongal.h">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalMonster.h">
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1116,34 +1128,34 @@
       <Filter>2_Actor\BattleActor\Monster\Particle</Filter>
     </ClCompile>
     <ClCompile Include="CarleonArcher.cpp">
-      <Filter>2_Actor\BattleActor\Monster\Opening</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\Opening</Filter>
     </ClCompile>
     <ClCompile Include="CarleonRecruit.cpp">
-      <Filter>2_Actor\BattleActor\Monster\Opening</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\Opening</Filter>
     </ClCompile>
     <ClCompile Include="CarleonManAtArms.cpp">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClCompile>
     <ClCompile Include="Ent.cpp">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClCompile>
     <ClCompile Include="RootEnt.cpp">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClCompile>
     <ClCompile Include="GiantEnt.cpp">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClCompile>
     <ClCompile Include="GiantEnt_FSM.cpp">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClCompile>
     <ClCompile Include="BlossomEnt.cpp">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClCompile>
     <ClCompile Include="FlameWizard.cpp">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClCompile>
     <ClCompile Include="GlacialWizard.cpp">
-      <Filter>2_Actor\BattleActor\Monster\ForestOfHarmony</Filter>
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony</Filter>
     </ClCompile>
     <ClCompile Include="RigidProjectile.cpp">
       <Filter>2_Actor\Projectile</Filter>
@@ -1226,9 +1238,6 @@
     <ClCompile Include="EventActor.cpp">
       <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterDeadBodyActor.cpp">
-      <Filter>2_Actor\BattleActor\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="ContentSpriteUIRenderer.cpp">
       <Filter>3_Component\Renderer</Filter>
     </ClCompile>
@@ -1249,6 +1258,15 @@
     </ClCompile>
     <ClCompile Include="Mushroom.cpp">
       <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDeadBodyActor.cpp">
+      <Filter>2_Actor\BattleActor\Monster\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Mongal.cpp">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalMonster.cpp">
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

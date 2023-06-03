@@ -2,10 +2,6 @@
 #include "MapObject.h"
 #include <GameEngineCore/imgui.h>
 
-#if _DEBUG
-std::shared_ptr<MapObject> MapObject::FocusMapObject = nullptr;
-#endif
-
 MapObject::MapObject()
 {
 }

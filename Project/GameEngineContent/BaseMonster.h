@@ -15,7 +15,7 @@ public:
 	BaseMonster& operator=(const BaseMonster& _Other) = delete;
 	BaseMonster& operator=(BaseMonster&& _Other) noexcept = delete;
 
-	void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush);
+	virtual void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush);
 	
 	std::shared_ptr<ContentSpriteRenderer> GetRender()
 	{
@@ -37,11 +37,10 @@ public:
 		Buffer.Color.a = 1.0f;
 	}
 
+	void PlayBeahvior(const std::string_view& _BehaviorName);
+
 protected:
 	std::vector<std::string> DeadPartNames;
-
-	std::shared_ptr<class HealthBar> HealthBarPtr = nullptr;
-	float4 HealthBarScale = float4(1.0f, 1.5f, 1.5f, 1.0f);
 
 	std::shared_ptr<GameEngineActor> PlayerActor = nullptr;
 
@@ -53,6 +52,7 @@ protected:
 	std::shared_ptr<class GameEngineCollision> GroundCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> FindCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> ChasingCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> AttackCol = nullptr;
 
 	ActorViewDir Dir = ActorViewDir::Right;
 
@@ -60,13 +60,7 @@ protected:
 	MonsterData Data = MonsterData();
 
 	AnimAttackCheck AttackCheck;
-
-	std::shared_ptr<class GameEngineCollision> AttackCol = nullptr;
-
-	bool IsAppear = false;
-
-	std::shared_ptr<EffectActor> AppearEffect = nullptr;
-
+	
 	float HP = 0;
 
 	ClassFSM<BaseMonster> MonsterFsm;
@@ -75,7 +69,6 @@ protected:
 	size_t AttackCheckFrame = 0;
 	std::map<size_t, float> AnimPauseTimes;
 
-	float HealthBarActiveTime = 0.0f;
 	float CurPauseTime = 0.0f;
 	float AttackWaitTime = 1000.0f;
 	float AttackWaitEndTime = 0.0f;
@@ -108,10 +101,11 @@ protected:
 
 	UINT HitAnimIndex = 0;
 
-	bool IsSuperArmor = false;
 	bool IsStiffen = false;
 
 	float HitWaitTime = 0.0f;
+
+	std::string BehaviorName = "";
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -136,6 +130,10 @@ protected:
 	virtual void Hit_Update(float _DeltaTime);
 	virtual void Hit_End();
 
+	virtual void Bhavior_Enter() {}
+	virtual void Bhavior_Update(float _DeltaTime) {}
+	virtual void Bhavior_End() {}
+
 	virtual void DataLoad() = 0;
 	virtual void TextureLoad() = 0;
 	virtual void LoadAnimation() = 0;
@@ -148,10 +146,12 @@ protected:
 	bool Walk(float _DeltaTime);
 	bool Fall(float _DeltaTime);
 	void Turn(bool _Force = false);
-	void CreateColDebugRender();
+	void CreateColDebugRender(bool _IsActive);
 	void EffectLoadCheck();
 
 	bool HitCheck();
 	virtual void MonsterDeath();
+
+
 };
 

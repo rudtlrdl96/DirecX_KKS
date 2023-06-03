@@ -79,9 +79,6 @@ private:
 
 	bool IsPlatformDebug = false;
 
-	std::shared_ptr<ContentSpriteRenderer> OutlineRender = nullptr;
-	CaptureBuffer Buffer;
-
 	GuiType ShowGuiType = GuiType::None;
 
 	void PushAllObject(const float4& _AddPos);

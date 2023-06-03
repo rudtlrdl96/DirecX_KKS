@@ -35,7 +35,7 @@ void Vine::Start()
 	Render->CreateAnimation({ 
 		.AnimationName = "Idle",
 		.SpriteName = "Vine_Idle.png",
-		.FrameInter = 0.1f,
+		.FrameInter = 0.13f,
 		.ScaleToTexture = true});
 
 	Render->CreateAnimation({
@@ -47,7 +47,7 @@ void Vine::Start()
 	Render->CreateAnimation({
 		.AnimationName = "BattleIdle",
 		.SpriteName = "Vine_BattleIdle.png",
-		.FrameInter = 0.1f,
+		.FrameInter = 0.13f,
 		.ScaleToTexture = true });
 
 	Render->CreateAnimation({

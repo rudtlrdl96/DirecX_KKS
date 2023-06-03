@@ -188,13 +188,13 @@ void Ent::DeathPartLoad()
 
 void Ent::Attack_Enter()
 {
-	BaseMonster::Attack_Enter();
+	NormalMonster::Attack_Enter();
 	IsAttackMove = false;
 }
 
 void Ent::Attack_Update(float _DeltaTime)
 {
-	BaseMonster::Attack_Update(_DeltaTime);
+	NormalMonster::Attack_Update(_DeltaTime);
 
 	if (false == IsAttackMove && 1 == Render->GetCurrentFrame())
 	{

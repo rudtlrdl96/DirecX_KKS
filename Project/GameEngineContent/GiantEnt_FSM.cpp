@@ -109,7 +109,7 @@ void GiantEnt::Attack_Enter()
 
 	if (Distance <= 200.0f)
 	{
-		BaseMonster::Attack_Enter();
+		NormalMonster::Attack_Enter();
 	}
 	else
 	{
@@ -122,7 +122,7 @@ void GiantEnt::Attack_Update(float _DeltaTime)
 {
 	if (false == IsRangeAttack)
 	{
-		BaseMonster::Attack_Update(_DeltaTime);
+		NormalMonster::Attack_Update(_DeltaTime);
 
 		if (false == IsAttackStempEffect && 4 == Render->GetCurrentFrame())
 		{

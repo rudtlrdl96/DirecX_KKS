@@ -84,7 +84,7 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 	MainSkull->IsHit = true;
 	MainSkull->IsHitEffectOn = true;
 	MainSkull->HitEffect();
-	MainSkull->HitStiffen();
+	MainSkull->HitPush();
 }
 
 void Player::PushPlayer(const float4& _HitForce)

@@ -189,10 +189,11 @@ void BlossomEnt::DeathPartLoad()
 
 void BlossomEnt::Attack_Enter()
 {
-	BaseMonster::Attack_Enter();
+	NormalMonster::Attack_Enter();
 	IsAttackStart = false;
 
 	IsSuperArmor = true;
+	IsUnPushArmor = true;
 
 	Buffer.OutlineColor = float4(1.0f, 1.0f, -1.0f, 1.0f);
 	AttackCoolTime = 0.3f;
@@ -200,7 +201,7 @@ void BlossomEnt::Attack_Enter()
 
 void BlossomEnt::Attack_Update(float _DeltaTime)
 {
-	BaseMonster::Attack_Update(_DeltaTime);
+	NormalMonster::Attack_Update(_DeltaTime);
 
 	if (false == IsAttackStart && 9 == Render->GetCurrentFrame())
 	{
@@ -256,6 +257,8 @@ void BlossomEnt::Attack_Update(float _DeltaTime)
 void BlossomEnt::Attack_End()
 {
 	IsSuperArmor = false;
-	BaseMonster::Attack_End();
+	IsUnPushArmor = false;
+
+	NormalMonster::Attack_End();
 	Buffer.OutlineColor = float4::Null;
 }

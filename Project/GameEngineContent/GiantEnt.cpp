@@ -17,7 +17,7 @@ GiantEnt::~GiantEnt()
 void GiantEnt::Start()
 {
 	HealthBarScale = float4(1.5f, 1.5f, 1.5f, 1.0f);
-	BaseMonster::Start();
+	NormalMonster::Start();
 }
 
 void GiantEnt::DataLoad()
@@ -25,6 +25,7 @@ void GiantEnt::DataLoad()
 	Data = ContentDatabase<MonsterData, LevelArea>::GetData(103); // 103 = 숲지기(자이언트 엔트)
 
 	IsSuperArmor = true;
+	IsUnPushArmor = true;
 	AttackWaitEndTime = 2.0f;
 
 	RangeAttackPauseTimes[1] = 0.5f;
@@ -263,7 +264,7 @@ void GiantEnt::ShotProjectile(float _Deg)
 
 void GiantEnt::MonsterDeath()
 {
-	BaseMonster::MonsterDeath();
+	NormalMonster::MonsterDeath();
 
 	std::shared_ptr<MonsterDeadBodyActor> DeadBody = GetLevel()->CreateActor<MonsterDeadBodyActor>();
 

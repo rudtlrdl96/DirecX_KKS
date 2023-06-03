@@ -367,6 +367,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Mongal.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="MonsterDeadBodyActor.h">
       <SubType>
       </SubType>
@@ -388,6 +392,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Mushroom.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="NormalMonster.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -953,6 +961,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Mongal.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="MonsterDeadBodyActor.cpp">
       <SubType>
       </SubType>
@@ -974,6 +986,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Mushroom.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="NormalMonster.cpp">
       <SubType>
       </SubType>
     </ClCompile>

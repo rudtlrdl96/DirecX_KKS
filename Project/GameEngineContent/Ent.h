@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseMonster.h"
+#include "NormalMonster.h"
 
-class Ent : public BaseMonster
+class Ent : public NormalMonster
 {
 public:
 	Ent();

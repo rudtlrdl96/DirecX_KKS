@@ -17,7 +17,7 @@ RootEnt::~RootEnt()
 
 void RootEnt::Start()
 {
-	BaseMonster::Start();
+	NormalMonster::Start();
 
 	FloorCheckCol = CreateComponent<GameEngineCollision>();
 
@@ -32,7 +32,7 @@ void RootEnt::Start()
 
 void RootEnt::Update(float _DeltaTime)
 {
-	BaseMonster::Update(_DeltaTime);
+	NormalMonster::Update(_DeltaTime);
 
 	if (nullptr != SignEffectActor && true == SignEffectActor->IsDeath())
 	{
@@ -282,7 +282,7 @@ void RootEnt::DeathPartLoad()
 
 void RootEnt::Hit_Enter()
 {
-	BaseMonster::Hit_Enter();
+	NormalMonster::Hit_Enter();
 
 	if (nullptr != SignEffectActor)
 	{
@@ -293,12 +293,12 @@ void RootEnt::Hit_Enter()
 void RootEnt::Hit_End()
 {
 	AttackWaitTime = 1.5f;
-	BaseMonster::Hit_End();
+	NormalMonster::Hit_End();
 }
 
 void RootEnt::Attack_Enter()
 {
-	BaseMonster::Attack_Enter();
+	NormalMonster::Attack_Enter();
 
 	IsAttackSign = false;
 	IsAttackEffect = false;
@@ -352,7 +352,7 @@ void RootEnt::Attack_Enter()
 
 void RootEnt::Attack_Update(float _DeltaTime)
 {
-	BaseMonster::Attack_Update(_DeltaTime);
+	NormalMonster::Attack_Update(_DeltaTime);
 
 	if (false == IsAttackSign && 0 == Render->GetCurrentFrame())
 	{

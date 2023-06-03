@@ -316,19 +316,19 @@ void GlacialWizard::Chasing_End()
 
 void GlacialWizard::Hit_End()
 {
-	BaseMonster::Hit_End();
+	NormalMonster::Hit_End();
 	AttackWaitTime = 1.5f;
 }
 
 void GlacialWizard::Attack_Enter()
 {
-	BaseMonster::Attack_Enter();
+	NormalMonster::Attack_Enter();
 	IsProjectileShot = false;
 }
 
 void GlacialWizard::Attack_Update(float _DeltaTime)
 {
-	BaseMonster::Attack_Update(_DeltaTime);
+	NormalMonster::Attack_Update(_DeltaTime);
 
 	if (nullptr == PlayerActor || true == PlayerActor->IsDeath())
 	{

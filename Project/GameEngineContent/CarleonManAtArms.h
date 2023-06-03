@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseMonster.h"
+#include "NormalMonster.h"
 
-class CarleonManAtArms : public BaseMonster
+class CarleonManAtArms : public NormalMonster
 {
 public:
 	CarleonManAtArms();
@@ -24,6 +24,7 @@ protected:
 
 	void Attack_Enter() override;
 	void Attack_Update(float _DeltaTime) override;
+	void Attack_End() override;
 
 private:
 	AnimationAttackMetaData AnimColMeta_Tackle;

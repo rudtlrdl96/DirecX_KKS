@@ -125,8 +125,13 @@ void BattleActor::HitEffect()
 	}
 }
 
-void BattleActor::HitStiffen()
+void BattleActor::HitPush()
 {
+	if (true == IsUnPushArmor)
+	{
+		return;
+	}
+
 	if (false == IsPush)
 	{
 		return;

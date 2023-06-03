@@ -14,7 +14,7 @@ CarleonManAtArms::~CarleonManAtArms()
 void CarleonManAtArms::Start()
 {
 	HealthBarScale = float4(1.5f, 1.5f, 1.5f, 1.0f);
-	BaseMonster::Start();
+	NormalMonster::Start();
 }
 
 void CarleonManAtArms::DataLoad()
@@ -231,6 +231,7 @@ void CarleonManAtArms::DeathPartLoad()
 
 void CarleonManAtArms::Attack_Enter()
 {
+	IsUnPushArmor = true;
 	IsTackleAttack = false;
 	IsAttackStempEffect = false;
 	
@@ -255,7 +256,7 @@ void CarleonManAtArms::Attack_Enter()
 	}
 	else
 	{
-		BaseMonster::Attack_Enter();	
+		NormalMonster::Attack_Enter();	
 		AttackCheck.SetColData(AnimColMeta_Attack);
 		AttakPushRatio = 1.0f;
 	}
@@ -374,7 +375,7 @@ void CarleonManAtArms::Attack_Update(float _DeltaTime)
 	}
 	else
 	{
-		BaseMonster::Attack_Update(_DeltaTime);
+		NormalMonster::Attack_Update(_DeltaTime);
 
 
 		if (false == IsAttackStempEffect && 3 == Render->GetCurrentFrame())
@@ -409,4 +410,10 @@ void CarleonManAtArms::Attack_Update(float _DeltaTime)
 			}
 		}
 	}
+}
+
+void CarleonManAtArms::Attack_End()
+{
+	NormalMonster::Attack_End();
+	IsUnPushArmor = false;
 }

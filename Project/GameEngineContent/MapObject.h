@@ -41,6 +41,11 @@ public:
 	std::string GetTexName() const;
 	float4 GetTexWorldScale() const;
 
+	GameEngineTransform* GetRenderTrans()
+	{
+		return ImageRender->GetTransform();
+	}
+
 protected:
 	void Start() override;
 
@@ -48,11 +53,6 @@ private:
 	ObjectMetaData MetaData = ObjectMetaData();
 
 	std::shared_ptr<ContentSpriteRenderer> ImageRender = nullptr;
-
 	ObjectColorBuffer Buffer;
-
-#if _DEBUG
-	static std::shared_ptr<MapObject> FocusMapObject;
-#endif
 
 };

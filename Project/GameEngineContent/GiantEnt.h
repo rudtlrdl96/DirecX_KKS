@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseMonster.h"
+#include "NormalMonster.h"
 
-class GiantEnt : public BaseMonster
+class GiantEnt : public NormalMonster
 {
 private:
 	static void ProjectileEndEffect(const float4& _EndPos);

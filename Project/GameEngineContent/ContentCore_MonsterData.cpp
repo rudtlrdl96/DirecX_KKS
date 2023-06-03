@@ -14,8 +14,9 @@ void ContentCore::MonsterDataLoad()
 	LoadMonster({ .Name = "Ä®·¹¿Â ±Ã¼ö", .ImageName = "Preview_CarleonArcher.png", .Index = 1, .Grade = LevelArea::Opening,
 		.HP = 35, .Attack = 8 });
 
-	//LoadMonster({ .Name = "¸ó°¥", .ImageName = "Preview_CarleonRecruit.png", .Index = 90, .Grade = LevelArea::Opening });
-	//
+	LoadMonster({ .Name = "¸ó°¥", .ImageName = "Preview_CarleonRecruit.png", .Index = 90, .Grade = LevelArea::Opening,
+		.HP = 500, .Attack = 12});
+	
 	LoadMonster({ .Name = "¿£Æ®", .ImageName = "Preview_Ent.png", .Index = 100, .Grade = LevelArea::ForestOfHamory,
 		.HP = 55, .Attack = 6});
 	LoadMonster({ .Name = "²É ¿£Æ®", .ImageName = "Preview_BlossomEnt.png", .Index = 101, .Grade = LevelArea::ForestOfHamory,
@@ -155,6 +156,26 @@ void ContentCore::MonsterDataLoad()
 			Path.MoveParent();
 			Path.MoveParent();
 		}		
+
+		// ¸ó°¥
+		{
+			Path.Move("Mongal");
+			Path.Move("Sheet");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_Attack.png").GetFullPath(), 7, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_BattleDead.png").GetFullPath(), 7, 2);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_BattleHit1.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_BattleHit2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_BattleIdle.png").GetFullPath(), 6, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_BattleWalk.png").GetFullPath(), 4, 2);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_Idle.png").GetFullPath(), 6, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_Laugh.png").GetFullPath(), 3, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_WakeUp.png").GetFullPath(), 7, 3);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_Walk.png").GetFullPath(), 4, 2);
+
+			Path.MoveParent();
+			Path.MoveParent();
+		}
 	
 		Path.MoveParent();
 		Path.MoveParent();

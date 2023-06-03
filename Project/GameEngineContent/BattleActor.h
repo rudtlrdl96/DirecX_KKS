@@ -33,6 +33,8 @@ protected:
 	bool IsHit = false;
 	bool IsHitEffectOn = false;
 	bool IsPush = false;
+	bool IsSuperArmor = false;
+	bool IsUnPushArmor = false;
 
 	float ThornWaitTime = 0.0f;
 
@@ -44,7 +46,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 	void HitEffect();
-	void HitStiffen();
+	void HitPush();
 private:
 };
 

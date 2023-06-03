@@ -2,6 +2,7 @@
 #include "ObjectManager.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineDebug3D.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/imgui.h>
 
@@ -280,14 +281,6 @@ void ObjectManager::Start()
 	{
 		GameEngineInput::CreateKey("PlatformDebugSwtich", VK_F1);
 	}
-
-	OutlineRender = CreateComponent<ContentSpriteRenderer>();
-	OutlineRender->PipeSetting("2DTexture_Capture");
-	OutlineRender->GetShaderResHelper().SetConstantBufferLink("CaptureBuffer", Buffer);
-	OutlineRender->Off();
-	OutlineRender->GetTransform()->SetLocalPosition(float4::Zero);
-
-	Buffer.Color = float4::Black;
 }
 
 void ObjectManager::Update(float _DeltaTime)
@@ -423,18 +416,7 @@ void ObjectManager::Draw_Object_GUI()
 	if (0 <= CurrentObjectIndex && ObjectActors.size() > CurrentObjectIndex)
 	{
 		std::shared_ptr<MapObject> SelectObject = ObjectActors[CurrentObjectIndex];
-
-		std::string TexName = SelectObject->GetTexName();
-		OutlineRender->SetTexture(TexName);
-		OutlineRender->On();
-
-		GameEngineTransform* OutlineTrans = OutlineRender->GetTransform();
-		OutlineTrans->SetWorldPosition(SelectObject->GetTransform()->GetWorldPosition() + float4(0, 0, 0.1f));
-		OutlineTrans->SetWorldScale(SelectObject->GetTexWorldScale() * 1.1f);
-	}
-	else
-	{
-		OutlineRender->Off();
+		GameEngineDebug::DrawBox(GetLevel()->GetMainCamera().get(), SelectObject->GetRenderTrans(), float4::Red);
 	}
 }
 
@@ -442,7 +424,10 @@ void ObjectManager::Draw_BehaviorObject_GUI()
 {
 	if (CurrentBehaviorObjectIndex >= 0 && CurrentBehaviorObjectIndex < BehaviorObjectActors.size())
 	{
-		BehaviorObjectActors[CurrentBehaviorObjectIndex]->ShowGUI();
+		std::shared_ptr<BehaviorObject> Object = BehaviorObjectActors[CurrentBehaviorObjectIndex];
+
+		Object->ShowGUI();
+		GameEngineDebug::DrawBox(GetLevel()->GetMainCamera().get(), Object->GetRenderTrans(), float4::Red);
 	}
 
 	if (ImGui::BeginListBox("Behavior Object ListBox"))

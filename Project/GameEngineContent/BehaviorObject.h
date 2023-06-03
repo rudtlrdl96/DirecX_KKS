@@ -45,6 +45,11 @@ public:
 		return Data;
 	}
 
+	GameEngineTransform* GetRenderTrans()
+	{
+		return Render->GetTransform();
+	}
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	ColorBuffer Buffer;
