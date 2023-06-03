@@ -42,7 +42,7 @@ void NormalMonster::Update(float _DeltaTime)
 		{
 			AppearEffect = EffectManager::PlayEffect({
 				.EffectName = "MonsterAppear",
-				.Postion = GetTransform()->GetWorldPosition() + float4(0, 50, 0) });
+				.Position = GetTransform()->GetWorldPosition() + float4(0, 50, 0) });
 		}
 
 		if (5 == AppearEffect->GetCurrentFrame())

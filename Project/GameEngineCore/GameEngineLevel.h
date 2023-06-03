@@ -95,6 +95,8 @@ protected:
 	void Update(float _DeltaTime);
 	void Render(float _DeltaTime);
 
+	void InsertCamera(int _Order, std::shared_ptr<GameEngineCamera> _CameraPtr);
+
 private:
 	static bool IsDebugRender;
 

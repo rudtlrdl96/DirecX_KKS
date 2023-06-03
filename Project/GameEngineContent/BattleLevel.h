@@ -31,6 +31,8 @@ protected:
 	float4 BackgroundPivot = float4::Zero;
 
 	std::shared_ptr<class FadeActor> FadeActorPtr = nullptr;
+	std::shared_ptr<class StoryFade> StoryFadePtr = nullptr;
+
 	std::shared_ptr<class Player> MainPlayer = nullptr;
 	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
 

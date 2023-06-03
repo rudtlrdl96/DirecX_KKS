@@ -33,6 +33,9 @@ void ContentLevel::Start()
 {
 	GameEngineLevel::Start();
 
+	std::shared_ptr<GameEngineCamera> FadeCam = CreateActor<GameEngineCamera>();
+	FadeCam->SetProjectionType(CameraType::Orthogonal);
+	InsertCamera(101, FadeCam);
 
 	MainCam = GetMainCamera();
 	MainCamCtrl.Start(MainCam);

@@ -171,7 +171,7 @@ void Player::Update(float _DeltaTime)
 		ActorViewDir Dir = MainSkull->GetViewDir();
 
 		EffectManager::PlayEffect({.EffectName = "SwitchEffect", 
-			.Postion = GetTransform()->GetWorldPosition() + float4(0, 40, 0),
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 40, 0),
 			.FlipX = Dir == ActorViewDir::Left});
 
  		SubSkull->PlayerFSM.ChangeState("Switch");

@@ -2,6 +2,8 @@
 #include <GameEnginePlatform/PrecompileHeader.h>
 
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "int2.h"
 #include "ContentDebug.h"

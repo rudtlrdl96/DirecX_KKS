@@ -4,6 +4,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 
 #include "MultiBackground.h"
+#include "FadeActor.h"
 
 OpeningLevel::OpeningLevel()
 {
@@ -16,8 +17,6 @@ OpeningLevel::~OpeningLevel()
 void OpeningLevel::Start()
 {
 	BattleLevel::Start();
-
-
 
 	GameEngineDirectory DirectoryPath;
 	DirectoryPath.MoveParentToDirectory("Resources");
@@ -50,6 +49,29 @@ void OpeningLevel::Start()
 	CurStageIndex = 0;
 	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
 	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
+
+	GameEventManager::AddEvent("LockCamMongal", LevelCode, [this]()
+		{
+			GameEventManager::CallEvent("StoryFadeIn");
+			MainCamCtrl.ActiveForceLookAt(float4(1710, 250));
+		});
+
+	GameEventManager::AddEvent("MongalDeath", LevelCode, [this]()
+		{
+			FadeActorPtr->SetSpeed(1.5f);
+			FadeActorPtr->SetWaitTime(0.0f);
+
+			FadeActorPtr->FadeIn([this]()
+				{
+					FadeActorPtr->FadeOut([this]()
+						{
+							FadeActorPtr->Reset();
+							FadeActorPtr->SetWaitTime(0.5f);
+						}, float4::One);				
+				}, float4::One);
+
+		});
+
 }
 
 void OpeningLevel::Update(float _DeltaTime)

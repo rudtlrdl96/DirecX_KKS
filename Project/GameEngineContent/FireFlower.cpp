@@ -108,7 +108,7 @@ void FireFlower::Update(float _DeltaTime)
 				std::shared_ptr<EffectActor> Actor =
 					EffectManager::PlayEffect({
 					.EffectName = "FireFlowerProjectileEffect",
-					.Postion = _Parameter.ProjectilePos, });
+					.Position = _Parameter.ProjectilePos, });
 
 				float Rot = acosf(float4::DotProduct3D(float4::Left, ShotDir.NormalizeReturn()));
 				Rot *= GameEngineMath::RadToDeg;
@@ -121,7 +121,7 @@ void FireFlower::Update(float _DeltaTime)
 				std::shared_ptr<EffectActor> Actor = 
 				EffectManager::PlayEffect({
 				.EffectName = "FireFlowerProjectileEffect",
-				.Postion = _Pos,});
+				.Position = _Pos,});
 				
 				float Rot = acosf(float4::DotProduct3D(float4::Left, ShotDir.NormalizeReturn()));				
 				Rot *= GameEngineMath::RadToDeg;

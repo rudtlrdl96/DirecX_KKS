@@ -14,7 +14,7 @@ void ContentCore::MonsterDataLoad()
 	LoadMonster({ .Name = "칼레온 궁수", .ImageName = "Preview_CarleonArcher.png", .Index = 1, .Grade = LevelArea::Opening,
 		.HP = 35, .Attack = 8 });
 
-	LoadMonster({ .Name = "몬갈", .ImageName = "Preview_CarleonRecruit.png", .Index = 90, .Grade = LevelArea::Opening,
+	LoadMonster({ .Name = "몬갈", .ImageName = "Preview_Mongal.png", .Index = 90, .Grade = LevelArea::Opening,
 		.HP = 500, .Attack = 12});
 	
 	LoadMonster({ .Name = "엔트", .ImageName = "Preview_Ent.png", .Index = 100, .Grade = LevelArea::ForestOfHamory,

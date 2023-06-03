@@ -789,6 +789,15 @@
     <ClInclude Include="NormalMonster.h">
       <Filter>2_Actor\BattleActor\Monster\NormalMonster</Filter>
     </ClInclude>
+    <ClInclude Include="StoryFade.h">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeEffect.h">
+      <Filter>6_PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentFadeRender.h">
+      <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1267,6 +1276,15 @@
     </ClCompile>
     <ClCompile Include="NormalMonster.cpp">
       <Filter>2_Actor\BattleActor\Monster\NormalMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryFade.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeEffect.cpp">
+      <Filter>6_PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentFadeRender.cpp">
+      <Filter>3_Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

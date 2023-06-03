@@ -42,17 +42,20 @@ void BaseMonster::Idle_Update(float _DeltaTime)
 		return;
 	}
 
-	IdleToWalkTime += _DeltaTime;
-
-	if (IdleToWalkTime >= RandIdleTime)
+	if (false == IsUnWalkable)
 	{
-		if (0 == GameEngineRandom::MainRandom.RandomInt(0, 1))
-		{
-			Turn();
-		}
+		IdleToWalkTime += _DeltaTime;
 
-		MonsterFsm.ChangeState("Walk");
-		return;
+		if (IdleToWalkTime >= RandIdleTime)
+		{
+			if (0 == GameEngineRandom::MainRandom.RandomInt(0, 1))
+			{
+				Turn();
+			}
+
+			MonsterFsm.ChangeState("Walk");
+			return;
+		}
 	}
 
 	if (nullptr != PlayerActor)
@@ -71,7 +74,7 @@ void BaseMonster::Idle_Update(float _DeltaTime)
 
 		EffectManager::PlayEffect({
 			.EffectName = "FindPlayer",
-			.Postion = GetTransform()->GetWorldPosition() + LoadFindEffectPos });
+			.Position = GetTransform()->GetWorldPosition() + LoadFindEffectPos });
 
 		PlayerActor = ResultCol->GetActor()->DynamicThis<GameEngineActor>();
 		return;
@@ -130,7 +133,7 @@ void BaseMonster::Walk_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({ 
 			.EffectName = "FindPlayer",
-			.Postion = GetTransform()->GetWorldPosition() + LoadFindEffectPos });
+			.Position = GetTransform()->GetWorldPosition() + LoadFindEffectPos });
 
 		PlayerActor = ResultCol->GetActor()->DynamicThis<GameEngineActor>();
 		MonsterFsm.ChangeState("Chasing");

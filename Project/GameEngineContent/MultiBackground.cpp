@@ -119,12 +119,12 @@ void MultiBackground::ShowGUI()
 		BackgroundMetaData& MetaDataRef = BackPtr->GetMetaDataRef();
 		TextureMoveBuffer& BufferRef = BackPtr->GetShaderBuffer();
 
-		float4 CenterPostion = MetaDataRef.Center;
-		float CenterArrPostion[4] = { CenterPostion.x, CenterPostion.y, CenterPostion.z, CenterPostion.w };
-		ImGui::DragFloat4("Center", CenterArrPostion);
-		float4 ResultCenter = ContentFunc::ConvertFloat4(CenterArrPostion);
+		float4 CenterPosition = MetaDataRef.Center;
+		float CenterArrPosition[4] = { CenterPosition.x, CenterPosition.y, CenterPosition.z, CenterPosition.w };
+		ImGui::DragFloat4("Center", CenterArrPosition);
+		float4 ResultCenter = ContentFunc::ConvertFloat4(CenterArrPosition);
 
-		if (CenterPostion != ResultCenter)
+		if (CenterPosition != ResultCenter)
 		{
 			MetaDataRef.Center = ResultCenter;
 		}

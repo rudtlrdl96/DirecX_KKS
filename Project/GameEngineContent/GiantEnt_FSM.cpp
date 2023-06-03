@@ -49,7 +49,7 @@ void GiantEnt::Idle_Update(float _DeltaTime)
 
 		EffectManager::PlayEffect({
 			.EffectName = "FindPlayer",
-			.Postion = GetTransform()->GetWorldPosition() + LoadFindEffectPos });
+			.Position = GetTransform()->GetWorldPosition() + LoadFindEffectPos });
 
 		PlayerActor = ResultCol->GetActor()->DynamicThis<GameEngineActor>();
 		return;
@@ -130,7 +130,7 @@ void GiantEnt::Attack_Update(float _DeltaTime)
 
 			EffectManager::PlayEffect({
 				.EffectName = "GaintEntStampEffect",
-				.Postion = GetTransform()->GetWorldPosition(),
+				.Position = GetTransform()->GetWorldPosition(),
 				});
 
 			std::shared_ptr<ContentLevel> ContentLevelPtr = GetLevel()->DynamicThis<ContentLevel>();

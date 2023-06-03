@@ -229,7 +229,7 @@ void Ent::Attack_Update(float _DeltaTime)
 
 		EffectManager::PlayEffect({
 			.EffectName = "EntAttackEffect",
-			.Postion = EffectPos ,
+			.Position = EffectPos ,
 			.FlipX = Dir == ActorViewDir::Left,
 			});
 

@@ -8,6 +8,7 @@
 #include "BattleArea.h"
 #include "Player.h"
 #include "FadeActor.h"
+#include "StoryFade.h"
 
 BattleLevel::BattleLevel()
 {
@@ -31,12 +32,31 @@ void BattleLevel::Start()
 	BattleAreaPtr = CreateActor<BattleArea>();
 
 	FadeActorPtr = CreateActor<FadeActor>();
+	StoryFadePtr = CreateActor<StoryFade>();
+
+	StoryFadePtr->GetTransform()->SetLocalPosition(float4(0, 0, -100.0f));
 
 	GameEventManager::AddEvent("NextLevelMove", LevelCode, [this]()
 		{
 			AreaClear();
+		}); 
+
+	GameEventManager::AddEvent("StoryFadeIn", LevelCode, [this]()
+		{
+			StoryFadePtr->SetSpeed(2.0f);
+			StoryFadePtr->FadeIn();
 		});
 
+	GameEventManager::AddEvent("StoryFadeOut", LevelCode, [this]()
+		{
+			StoryFadePtr->SetSpeed(2.0f);
+			StoryFadePtr->FadeOut();
+		});
+
+	GameEventManager::AddEvent("UnLockCam", LevelCode, [this]()
+		{
+			MainCamCtrl.DisalbeForceLookAt();
+		});
 }
 
 void BattleLevel::Update(float _DeltaTime)
@@ -64,6 +84,8 @@ void BattleLevel::SetPlayerPos(const float4& _Pos)
 
 void BattleLevel::LevelChangeStart()
 {
+	StoryFadePtr->Reset();
+
 	FadeActorPtr->SetWaitTime(0.5f);
 	FadeActorPtr->SetSpeed(2.0f);
 	FadeActorPtr->FadeOut();

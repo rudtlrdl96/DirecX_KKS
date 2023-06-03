@@ -175,7 +175,7 @@ void PlayerStateFrame::Update(float _DeltaTime)
 		{
 			EffectManager::PlayEffect({
 				.EffectName = "MainSwitchCooldownEffect",
-				.Postion = Progress_Switch->GetTransform()->GetWorldPosition() + float4(0, 70, -0.1f),
+				.Position = Progress_Switch->GetTransform()->GetWorldPosition() + float4(0, 70, -0.1f),
 				.IsUI = true
 				});
 		}
@@ -200,7 +200,7 @@ void PlayerStateFrame::Update(float _DeltaTime)
 		{
 			EffectManager::PlayEffect({
 				.EffectName = "MainSkillCooldownEffect",
-				.Postion = Progress_MainSkillA->GetTransform()->GetWorldPosition() + float4(0, 38, -0.1f),
+				.Position = Progress_MainSkillA->GetTransform()->GetWorldPosition() + float4(0, 38, -0.1f),
 				.IsUI = true
 				});
 		}
@@ -225,7 +225,7 @@ void PlayerStateFrame::Update(float _DeltaTime)
 		{
 			EffectManager::PlayEffect({
 				.EffectName = "MainSkillCooldownEffect",
-				.Postion = Progress_MainSkillB->GetTransform()->GetWorldPosition() + float4(0, 38, -0.1f),
+				.Position = Progress_MainSkillB->GetTransform()->GetWorldPosition() + float4(0, 38, -0.1f),
 				.IsUI = true
 				});
 		}

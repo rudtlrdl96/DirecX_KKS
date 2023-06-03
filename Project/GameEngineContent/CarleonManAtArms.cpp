@@ -295,7 +295,7 @@ void CarleonManAtArms::Attack_Update(float _DeltaTime)
 
 				std::shared_ptr<EffectActor> SmokeEffect = EffectManager::PlayEffect({
 					.EffectName = "ManAtArms_TackleSmoke",
-					.Postion = SmokeEffectPos,
+					.Position = SmokeEffectPos,
 					.FlipX = Dir == ActorViewDir::Left,
 					});
 
@@ -317,7 +317,7 @@ void CarleonManAtArms::Attack_Update(float _DeltaTime)
 
 				std::shared_ptr<EffectActor> FlashEffect = EffectManager::PlayEffect({
 					.EffectName = "ManAtArms_TackleFlash",
-					.Postion = FlashEffectPos,
+					.Position = FlashEffectPos,
 					.FlipX = Dir == ActorViewDir::Left,
 					});
 
@@ -398,7 +398,7 @@ void CarleonManAtArms::Attack_Update(float _DeltaTime)
 
 			EffectManager::PlayEffect({
 				.EffectName = "ManAtArms_StempEffect",
-				.Postion = EffectPos });
+				.Position = EffectPos });
 
 			// CameraShake
 

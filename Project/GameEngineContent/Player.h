@@ -61,8 +61,8 @@ private:
 	float SwitchCoolTime = 5.0f;
 	float SwitchCoolEndTime = 5.0f;
 
-	float MeleeAttack = 25.0f;
-	float MagicAttack = 25.0f;
+	float MeleeAttack = 250.0f;
+	float MagicAttack = 250.0f;
 	float HP = 100.0f;
 	
 	float HitWaitTime = 0.0f;

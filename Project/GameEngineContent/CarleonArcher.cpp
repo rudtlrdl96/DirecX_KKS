@@ -244,7 +244,7 @@ void CarleonArcher::Attack_Update(float _DeltaTime)
 
 		SignEffectActor = EffectManager::PlayEffect({
 			.EffectName = "AttackSign_Archer",
-			.Postion = EffectPos});
+			.Position = EffectPos});
 
 		// Projectile Shot
 	}
@@ -292,7 +292,7 @@ void CarleonArcher::ProjectileEndEffect(const float4& _EndPos)
 {
 	EffectManager::PlayEffect({
 	.EffectName = "HitSkeletonSword",
-	.Postion = _EndPos,
+	.Position = _EndPos,
 		});
 }
 

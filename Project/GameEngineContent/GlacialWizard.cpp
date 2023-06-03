@@ -254,7 +254,7 @@ void GlacialWizard::Idle_Update(float _DeltaTime)
 
 		EffectManager::PlayEffect({
 			.EffectName = "FindPlayer",
-			.Postion = GetTransform()->GetWorldPosition() + LoadFindEffectPos });
+			.Position = GetTransform()->GetWorldPosition() + LoadFindEffectPos });
 
 		PlayerActor = ResultCol->GetActor()->DynamicThis<GameEngineActor>();
 		return;
@@ -366,7 +366,7 @@ void GlacialWizard::Attack_Update(float _DeltaTime)
 
 		EffectManager::PlayEffect({
 			.EffectName = "IcicleSpawnEffect",
-			.Postion = ShotPos + float4(0, -50, -0.1f)});
+			.Position = ShotPos + float4(0, -50, -0.1f)});
 	}
 }
 
@@ -374,7 +374,7 @@ void GlacialWizard::ProjectileEndEffect(const float4& _EndPos)
 {
 	EffectManager::PlayEffect({
 	.EffectName = "HitSlashEffect",
-	.Postion = _EndPos,
+	.Position = _EndPos,
 		});
 }
 

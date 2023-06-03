@@ -74,7 +74,7 @@ std::shared_ptr<BehaviorObject> ObjectManager::CreateBehaviorObject(const Behavi
 	RenderTrans->SetLocalScale(TextureScale * 2.0f);
 
 	ObjectTrans->SetParent(GetTransform());
-	ObjectTrans->SetLocalPosition(_MetaData.Postion);
+	ObjectTrans->SetLocalPosition(_MetaData.Position);
 	ObjectTrans->SetLocalRotation(_MetaData.Rotation);
 
 	BehaviorObjectActors.push_back(NewBehaviorObject);

@@ -73,7 +73,7 @@ void RootEnt::Update(float _DeltaTime)
 
 				EffectManager::PlayEffect({
 					.EffectName = "HitNormal",
-					.Postion = CastingPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
+					.Position = CastingPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
 					.AddSetZ = -10.0f });
 
 				CastingPtr->HitPlayer(Data.Attack, float4(0, 500, 0));
@@ -360,7 +360,7 @@ void RootEnt::Attack_Update(float _DeltaTime)
 
 		SignEffectActor = EffectManager::PlayEffect({
 			.EffectName = "RootEntAttackSign",
-			.Postion = AttackPos,
+			.Position = AttackPos,
 		});
 	}
 
@@ -371,7 +371,7 @@ void RootEnt::Attack_Update(float _DeltaTime)
 
 		AttackEffectActor = EffectManager::PlayEffect({
 			.EffectName = "RootEntAttackEffect",
-			.Postion = AttackPos + float4(0, -15, 0),
+			.Position = AttackPos + float4(0, -15, 0),
 			});
 
 		EffectStopTime = 0.0f;

@@ -92,14 +92,14 @@ void BattleActor::HitEffect()
 		if (true == IsPush)
 		{
 			EffectManager::PlayEffect({ .EffectName = "HitSkul",
-				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-50, -40), Rand.RandomFloat(25, 70), 0),
+				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-50, -40), Rand.RandomFloat(25, 70), 0),
 				.Scale = 0.6f,
 				.FlipX = true });
 		}
 		else
 		{
 			EffectManager::PlayEffect({ .EffectName = "HitSkul",
-				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-30, -20), Rand.RandomFloat(25, 70), 0),
+				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-30, -20), Rand.RandomFloat(25, 70), 0),
 				.Scale = 0.6f,
 				.FlipX = true });
 		}
@@ -108,14 +108,14 @@ void BattleActor::HitEffect()
 		if (true == IsPush)
 		{
 			EffectManager::PlayEffect({ .EffectName = "HitSkul",
-				.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(40, 50), Rand.RandomFloat(25, 70), 0),
+				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(40, 50), Rand.RandomFloat(25, 70), 0),
 				.Scale = 0.6f,
 				.FlipX = false });
 		}
 		else
 		{
 			EffectManager::PlayEffect({ .EffectName = "HitSkul",
-					.Postion = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
+					.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
 					.Scale = 0.6f,
 					.FlipX = false });
 		}

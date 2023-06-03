@@ -13,7 +13,7 @@ BehaviorObject::~BehaviorObject()
 void BehaviorObject::SaveBin(GameEngineSerializer& _SaveSerializer)
 {
 	_SaveSerializer.Write(&Data.Index, sizeof(UINT));
-	_SaveSerializer.Write(&Data.Postion, sizeof(float4));
+	_SaveSerializer.Write(&Data.Position, sizeof(float4));
 	_SaveSerializer.Write(&Data.Rotation, sizeof(float4));
 }
 
@@ -25,7 +25,7 @@ BehaviorObjectMetaData BehaviorObject::LoadBin(GameEngineSerializer& _LoadSerial
 
 	LoadData = ContentDatabase<BehaviorObjectMetaData, LevelArea>::GetData(LoadData.Index);
 
-	_LoadSerializer.Read(&LoadData.Postion, sizeof(float4));
+	_LoadSerializer.Read(&LoadData.Position, sizeof(float4));
 	_LoadSerializer.Read(&LoadData.Rotation, sizeof(float4));
 
 	return LoadData;
@@ -34,7 +34,7 @@ BehaviorObjectMetaData BehaviorObject::LoadBin(GameEngineSerializer& _LoadSerial
 void BehaviorObject::ShowGUI()
 {
 	{
-		float4 Center = Data.Postion;
+		float4 Center = Data.Position;
 		float InputPos[4] = { Center.x, Center.y, Center.z, Center.w };
 
 		ImGui::DragFloat4("Behavior Object Pos", InputPos);
@@ -44,12 +44,12 @@ void BehaviorObject::ShowGUI()
 			Center.z != InputPos[2] ||
 			Center.w != InputPos[3])
 		{
-			Data.Postion.x = InputPos[0];
-			Data.Postion.y = InputPos[1];
-			Data.Postion.z = InputPos[2];
-			Data.Postion.w = InputPos[3];
+			Data.Position.x = InputPos[0];
+			Data.Position.y = InputPos[1];
+			Data.Position.z = InputPos[2];
+			Data.Position.w = InputPos[3];
 
-			GetTransform()->SetLocalPosition(Data.Postion);
+			GetTransform()->SetLocalPosition(Data.Position);
 		}
 	}
 

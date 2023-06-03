@@ -276,7 +276,7 @@ void GiantEnt::ProjectileEndEffect(const float4& _EndPos)
 {
 	EffectManager::PlayEffect({
 	.EffectName = "GiantEntProjectileEffect",
-	.Postion = _EndPos,
+	.Position = _EndPos,
 		});
 }
 

@@ -19,11 +19,11 @@ public:
 	FadeActor& operator=(const FadeActor& _Other) = delete;
 	FadeActor& operator=(FadeActor&& _Other) noexcept = delete;
 
-	void SetFade();
-	void SetUnFade();
+	void SetFade(const float4& _FadeColor = float4::Zero);
+	void SetUnFade(const float4& _FadeColor = float4::Zero);
 
-	void FadeIn(std::function<void()> _FadeEndCallback = nullptr);
-	void FadeOut(std::function<void()> _FadeEndCallback = nullptr);
+	void FadeIn(std::function<void()> _FadeEndCallback = nullptr, const float4& _FadeColor = float4::Zero);
+	void FadeOut(std::function<void()> _FadeEndCallback = nullptr, const float4& _FadeColor = float4::Zero);
 
 	void Reset();
 
@@ -48,7 +48,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class ContentUIRender> MainRenderer = nullptr;
+	std::shared_ptr<class ContentFadeRender> MainRenderer = nullptr;
 
 	bool IsFadeEndValue = false;
 

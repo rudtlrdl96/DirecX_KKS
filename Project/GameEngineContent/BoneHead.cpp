@@ -196,12 +196,12 @@ void BoneHead::PlayEndEffect()
 	{
 	case ActorViewDir::Left:
 		EffectPtr = EffectManager::PlayEffect({ .EffectName = "HitSkul",
-			.Postion = GetTransform()->GetLocalPosition(),
+			.Position = GetTransform()->GetLocalPosition(),
 			.FlipX = false });
 		break;
 	case ActorViewDir::Right:
 		EffectPtr = EffectManager::PlayEffect({ .EffectName = "HitSkul",
-			.Postion = GetTransform()->GetLocalPosition(),
+			.Position = GetTransform()->GetLocalPosition(),
 			.FlipX = true });
 		break;
 	default:

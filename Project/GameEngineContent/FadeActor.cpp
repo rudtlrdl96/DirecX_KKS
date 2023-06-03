@@ -1,6 +1,6 @@
 #include "PrecompileHeader.h"
 #include "FadeActor.h"
-#include "ContentUIRender.h"
+#include "ContentFadeRender.h"
 
 FadeActor::FadeActor()
 {
@@ -10,23 +10,32 @@ FadeActor::~FadeActor()
 {
 }
 
-void FadeActor::SetFade()
+void FadeActor::SetFade(const float4& _FadeColor /*= float4::Zero*/)
 {
 	IsFadeEndValue = false;
+	Buffer.Color.x = _FadeColor.x;
+	Buffer.Color.y = _FadeColor.y;
+	Buffer.Color.z = _FadeColor.z;
 	Buffer.Color.w = 1.0f;
 	State = FadeState::Wait;
 }
 
-void FadeActor::SetUnFade()
+void FadeActor::SetUnFade(const float4& _FadeColor /*= float4::Zero*/)
 {
 	IsFadeEndValue = false;
+	Buffer.Color.x = _FadeColor.x;
+	Buffer.Color.y = _FadeColor.y;
+	Buffer.Color.z = _FadeColor.z;
 	Buffer.Color.w = 0.0f;
 	State = FadeState::Wait;
 }
 
-void FadeActor::FadeIn(std::function<void()> _FadeEndCallback /*= nullptr*/)
+void FadeActor::FadeIn(std::function<void()> _FadeEndCallback /*= nullptr*/, const float4& _FadeColor /*= float4::Zero*/)
 {
 	IsFadeEndValue = true;
+	Buffer.Color.x = _FadeColor.x;
+	Buffer.Color.y = _FadeColor.y;
+	Buffer.Color.z = _FadeColor.z;
 	Buffer.Color.w = 0.0f;
 	State = FadeState::FadeIn;
 	FadeEndCallback = _FadeEndCallback;
@@ -34,9 +43,12 @@ void FadeActor::FadeIn(std::function<void()> _FadeEndCallback /*= nullptr*/)
 	CurWaitTime = 0.0f;
 }
 
-void FadeActor::FadeOut(std::function<void()> _FadeEndCallback /*= nullptr*/)
+void FadeActor::FadeOut(std::function<void()> _FadeEndCallback /*= nullptr*/, const float4& _FadeColor /*= float4::Zero*/)
 {
 	IsFadeEndValue = true;
+	Buffer.Color.x = _FadeColor.x;
+	Buffer.Color.y = _FadeColor.y;
+	Buffer.Color.z = _FadeColor.z;
 	Buffer.Color.w = 1.0f;
 	State = FadeState::FadeOut;
 	FadeEndCallback = _FadeEndCallback;
@@ -48,13 +60,13 @@ void FadeActor::Reset()
 {
 	IsFadeEndValue = false;
 	State = FadeState::Wait;
-	Buffer.Color = float4(0, 0, 0, 1);
+	Buffer.Color = float4::Zero;
 	FadeSpeed = 1.0f;
 }
 
 void FadeActor::Start()
 {
-	MainRenderer = CreateComponent<ContentUIRender>();
+	MainRenderer = CreateComponent<ContentFadeRender>();
 	MainRenderer->PipeSetting("2DTexture_Fade");
 	MainRenderer->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", Buffer);
 	MainRenderer->SetTexture("FadeImage.png");

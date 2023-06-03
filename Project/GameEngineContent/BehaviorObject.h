@@ -9,7 +9,7 @@ public:
 
 	std::string Name = "";
 
-	float4 Postion = float4::Zero;
+	float4 Position = float4::Zero;
 	float4 Rotation = float4::Zero;
 };
 

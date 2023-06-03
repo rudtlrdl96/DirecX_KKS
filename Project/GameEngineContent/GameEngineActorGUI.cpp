@@ -22,7 +22,7 @@ void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target, const std::vect
 
 	if (nullptr != TargetTransform)
 	{
-		IsWorldPostion = false;
+		IsWorldPosition = false;
 		IsWorldRotation = false;
 		IsWorldScale = false;
 
@@ -30,10 +30,10 @@ void GameEngineActorGUI::SetTarget(GameEngineTransform* _Target, const std::vect
 		float4 LocalRotation = TargetTransform->GetLocalRotation();
 		float4 LocalScale = TargetTransform->GetLocalScale();
 
-		Postion[0] = LocalPos.x;
-		Postion[1] = LocalPos.y;
-		Postion[2] = LocalPos.z;
-		Postion[3] = LocalPos.w;
+		Position[0] = LocalPos.x;
+		Position[1] = LocalPos.y;
+		Position[2] = LocalPos.z;
+		Position[3] = LocalPos.w;
 
 		Rotation[0] = LocalRotation.x;
 		Rotation[1] = LocalRotation.y;
@@ -71,38 +71,38 @@ void GameEngineActorGUI::OnGUI(std::shared_ptr<GameEngineLevel>, float _DeltaTim
 		return;
 	}
 	
-	ImGui::Checkbox("W", &IsWorldPostion);
+	ImGui::Checkbox("W", &IsWorldPosition);
 	ImGui::SameLine();
-	ContentFunc::ImGuiHelpMarker("Setting World Postion");
+	ContentFunc::ImGuiHelpMarker("Setting World Position");
 	ImGui::SameLine();
 
-	float4 GetPostion = float4::Zero; 
+	float4 GetPosition = float4::Zero; 
 
-	if (true == IsWorldPostion)
+	if (true == IsWorldPosition)
 	{
 		TargetTransform->SetWorldPosition(TargetTransform->GetWorldPosition());
-		GetPostion = TargetTransform->GetWorldPosition();
+		GetPosition = TargetTransform->GetWorldPosition();
 	}
 	else
 	{
 		TargetTransform->SetLocalPosition(TargetTransform->GetLocalPosition());
-		GetPostion = TargetTransform->GetLocalPosition();
+		GetPosition = TargetTransform->GetLocalPosition();
 	}
 
-	Postion[0] = GetPostion.x;
-	Postion[1] = GetPostion.y;
-	Postion[2] = GetPostion.z;
-	Postion[3] = GetPostion.w;
+	Position[0] = GetPosition.x;
+	Position[1] = GetPosition.y;
+	Position[2] = GetPosition.z;
+	Position[3] = GetPosition.w;
 
-	ImGui::DragFloat4(" - Postion", Postion);
+	ImGui::DragFloat4(" - Position", Position);
 
-	if (true == IsWorldPostion)
+	if (true == IsWorldPosition)
 	{
-		TargetTransform->SetWorldPosition(ContentFunc::ConvertFloat4(Postion));
+		TargetTransform->SetWorldPosition(ContentFunc::ConvertFloat4(Position));
 	}
 	else
 	{
-		TargetTransform->SetLocalPosition(ContentFunc::ConvertFloat4(Postion));
+		TargetTransform->SetLocalPosition(ContentFunc::ConvertFloat4(Position));
 	}
 
 	ImGui::Checkbox("W", &IsWorldRotation);

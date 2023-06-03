@@ -30,11 +30,11 @@ protected:
 private:
 	GameEngineTransform* TargetTransform = nullptr;
 
-	bool IsWorldPostion = false;
+	bool IsWorldPosition = false;
 	bool IsWorldRotation = false;
 	bool IsWorldScale = false;
 
-	float Postion[4] = { 0, 0, 0, 1 };
+	float Position[4] = { 0, 0, 0, 1 };
 	float Rotation[4] = { 0, 0, 0, 1 };
 	float Scale[4] = { 1, 1, 1, 1 };
 	

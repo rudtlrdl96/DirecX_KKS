@@ -20,7 +20,7 @@ void TeleportIn_Enter(BaseMonster* _this)
 
 	EffectManager::PlayEffect({
 	.EffectName = "WizardEffectTeleportIn",
-	.Postion = _this->GetTransform()->GetWorldPosition() + float4(0, 60, -5.0f),
+	.Position = _this->GetTransform()->GetWorldPosition() + float4(0, 60, -5.0f),
 		});
 }
 
@@ -116,7 +116,7 @@ void TeleportOut_Enter(BaseMonster* _this)
 
 	EffectManager::PlayEffect({
 	.EffectName = "WizardEffectTeleportOut",
-	.Postion = CastingPtr->GetTransform()->GetWorldPosition() + float4(0, 60, -5.0f),
+	.Position = CastingPtr->GetTransform()->GetWorldPosition() + float4(0, 60, -5.0f),
 		});
 
 	CastingPtr->FadeOff();
@@ -402,7 +402,7 @@ void FlameWizard::Idle_Update(float _DeltaTime)
 
 		EffectManager::PlayEffect({
 			.EffectName = "FindPlayer",
-			.Postion = GetTransform()->GetWorldPosition() + LoadFindEffectPos });
+			.Position = GetTransform()->GetWorldPosition() + LoadFindEffectPos });
 
 		PlayerActor = ResultCol->GetActor()->DynamicThis<GameEngineActor>();
 		return;
@@ -579,7 +579,7 @@ void FlameWizard::ProjectileEndEffect(const float4& _EndPos)
 {
 	EffectManager::PlayEffect({
 	.EffectName = "FireHitEffect",
-	.Postion = _EndPos,
+	.Position = _EndPos,
 		});
 }
 

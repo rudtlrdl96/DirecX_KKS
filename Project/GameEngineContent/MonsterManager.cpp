@@ -9,6 +9,8 @@
 
 #include "CarleonRecruit.h"
 #include "CarleonArcher.h"
+#include "Mongal.h"
+
 #include "CarleonManAtArms.h"
 #include "Ent.h"
 #include "BlossomEnt.h"
@@ -16,6 +18,7 @@
 #include "RootEnt.h"
 #include "FlameWizard.h"
 #include "GlacialWizard.h"
+
 
 std::shared_ptr<BaseMonster> MonsterSpawnMetaData::MonsterSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent)
 {
@@ -33,6 +36,12 @@ std::shared_ptr<BaseMonster> MonsterSpawnMetaData::MonsterSpawn(GameEngineLevel*
 		NewMonster = _SpawnLevel->CreateActor<CarleonArcher>();
 		break;
 	}
+	case 90: // 몬갈
+	{
+		NewMonster = _SpawnLevel->CreateActor<Mongal>();
+		break;
+	}
+		break;
 	case 106: // 칼레온 중보병
 	{
 		NewMonster = _SpawnLevel->CreateActor<CarleonManAtArms>();
@@ -103,7 +112,7 @@ void MonsterSpawnMetaData::ShowGUI()
 
 	float InputSpawnPos[4] = { SpawnPos.x, SpawnPos.y, SpawnPos.z, SpawnPos.w };
 
-	ImGui::DragFloat4("Spawn Postion", InputSpawnPos);
+	ImGui::DragFloat4("Spawn Position", InputSpawnPos);
 
 	SpawnPos.x = InputSpawnPos[0];
 	SpawnPos.y = InputSpawnPos[1];

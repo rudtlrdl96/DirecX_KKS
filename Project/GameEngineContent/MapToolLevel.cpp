@@ -362,7 +362,7 @@ void MapToolLevel::Update_BObject(float _DeltaTime)
 		TestMousePos.z = 0;
 
 		BehaviorObjectMetaData NewBehaviorObjectMetaData = MapToolGuiPtr->GetSelectBehaviorObject();
-		NewBehaviorObjectMetaData.Postion = TestMousePos;
+		NewBehaviorObjectMetaData.Position = TestMousePos;
 
 		ObjectMgrPtr->CreateBehaviorObject(NewBehaviorObjectMetaData);
 		ObjectMgrPtr->SelectLastBehaviorObject();

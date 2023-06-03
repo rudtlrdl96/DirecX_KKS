@@ -209,7 +209,7 @@ void BlossomEnt::Attack_Update(float _DeltaTime)
 		
 		EffectManager::PlayEffect({
 			.EffectName = "BlossomEntAttackEffect",
-			.Postion = GetTransform()->GetWorldPosition() + float4(0, 55, -0.1f)
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 55, -0.1f)
 			});
 	}
 
@@ -242,7 +242,7 @@ void BlossomEnt::Attack_Update(float _DeltaTime)
 
 			EffectManager::PlayEffect({
 				.EffectName = "HitNormal",
-				.Postion = CastingPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
+				.Position = CastingPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
 				.AddSetZ = -10.0f });
 
 

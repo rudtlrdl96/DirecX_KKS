@@ -40,12 +40,6 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 	HitEffectProgress = 0.0f;
 }
 
-void BaseMonster::PlayBeahvior(const std::string_view& _BehaviorName)
-{
-	MonsterFsm.ChangeState("Behavior");
-	BehaviorName = _BehaviorName;
-}
-
 void BaseMonster::Start()
 {
 	DeathEffectLocalPos = float4(0, 50, -5.0f);
@@ -79,7 +73,6 @@ void BaseMonster::Start()
 	MonsterFsm.AddFSM("Chasing", &BaseMonster::Chasing_Enter, &BaseMonster::Chasing_Update, &BaseMonster::Chasing_End);
 	MonsterFsm.AddFSM("Attack", &BaseMonster::Attack_Enter, &BaseMonster::Attack_Update, &BaseMonster::Attack_End);
 	MonsterFsm.AddFSM("Hit", &BaseMonster::Hit_Enter, &BaseMonster::Hit_Update, &BaseMonster::Hit_End);
-	MonsterFsm.AddFSM("Behavior", &BaseMonster::Bhavior_Enter, &BaseMonster::Bhavior_Update, &BaseMonster::Bhavior_End);
 	
 	HitFindCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	HitFindCol->SetColType(ColType::AABBBOX2D);
@@ -128,7 +121,7 @@ void BaseMonster::Start()
 
 			EffectManager::PlayEffect({
 				.EffectName = "HitNormal",
-				.Postion = CastPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
+				.Position = CastPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
 				.AddSetZ = -10.0f});
 
 			switch (Dir)
@@ -398,7 +391,7 @@ void BaseMonster::MonsterDeath()
 
 	EffectManager::PlayEffect({
 		.EffectName = "MonsterDeath",
-		.Postion = GetTransform()->GetWorldPosition() + DeathEffectLocalPos });
+		.Position = GetTransform()->GetWorldPosition() + DeathEffectLocalPos });
 
 	for (size_t i = 0; i < DeadPartNames.size(); i++)
 	{

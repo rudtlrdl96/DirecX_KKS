@@ -49,7 +49,7 @@ private:
 	float FlashProgress = 0.0f;
 	float FlashSpeed = 20.0f;
 
-	float4 GetFlashPostion(ActorViewDir _Dir);
+	float4 GetFlashPosition(ActorViewDir _Dir);
 
 };
 

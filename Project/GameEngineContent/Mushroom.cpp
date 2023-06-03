@@ -68,7 +68,7 @@ void Mushroom::Update(float _DeltaTime)
 
 				EffectManager::PlayEffect({
 					.EffectName = "Appearance_Impact",
-					.Postion = GetTransform()->GetWorldPosition() + float4(-5, 45, 100),
+					.Position = GetTransform()->GetWorldPosition() + float4(-5, 45, 100),
 					.Scale = 1.2f,
 					.Color = float4(-0.1f, 0.3f, 0.3f, 1.0f)});
 

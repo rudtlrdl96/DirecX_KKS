@@ -148,7 +148,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
-		EffectManager::PlayEffect({.EffectName = "PlayerJumpEffect", .Postion = PlayerTrans->GetWorldPosition()});
+		EffectManager::PlayEffect({.EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition()});
 
 		JumpDir = float4::Up * JumpPower;
 		DoubleJump = false;
@@ -321,7 +321,7 @@ void PlayerBaseSkull::Dash_Enter()
 
 	EffectManager::PlayEffect({ 
 		.EffectName = "PlayerDashEffect",
-		.Postion = PlayerTrans->GetWorldPosition(),
+		.Position = PlayerTrans->GetWorldPosition(),
 		.FlipX = ViewDir == ActorViewDir::Left});
 
 	switch (ViewDir)
@@ -368,7 +368,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 	{
 		if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
 		{
-			EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = PlayerTrans->GetWorldPosition() });
+			EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
 			JumpDir = float4::Up * JumpPower;
 			PlayerFSM.ChangeState("Jump");
@@ -385,7 +385,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
-		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = PlayerTrans->GetWorldPosition() });
+		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
 		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
@@ -445,7 +445,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 		EffectManager::PlayEffect({
 			.EffectName = "PlayerDashEffect",
-			.Postion = PlayerTrans->GetWorldPosition(),
+			.Position = PlayerTrans->GetWorldPosition(),
 			.FlipX = ViewDir == ActorViewDir::Left });
 
 		DashCombo = true;
@@ -532,7 +532,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
-		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = PlayerTrans->GetWorldPosition() });
+		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
 		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
@@ -886,7 +886,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 
 	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
-		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Postion = PlayerTrans->GetWorldPosition() });
+		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
 		JumpDir = float4::Up * JumpPower;
 		DoubleJump = false;

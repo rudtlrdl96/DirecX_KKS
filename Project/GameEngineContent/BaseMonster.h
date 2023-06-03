@@ -37,8 +37,6 @@ public:
 		Buffer.Color.a = 1.0f;
 	}
 
-	void PlayBeahvior(const std::string_view& _BehaviorName);
-
 protected:
 	std::vector<std::string> DeadPartNames;
 
@@ -101,11 +99,10 @@ protected:
 
 	UINT HitAnimIndex = 0;
 
+	bool IsUnWalkable = false;
 	bool IsStiffen = false;
 
 	float HitWaitTime = 0.0f;
-
-	std::string BehaviorName = "";
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -129,10 +126,6 @@ protected:
 	virtual void Hit_Enter();
 	virtual void Hit_Update(float _DeltaTime);
 	virtual void Hit_End();
-
-	virtual void Bhavior_Enter() {}
-	virtual void Bhavior_Update(float _DeltaTime) {}
-	virtual void Bhavior_End() {}
 
 	virtual void DataLoad() = 0;
 	virtual void TextureLoad() = 0;

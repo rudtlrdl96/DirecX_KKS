@@ -25,7 +25,7 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 	{
 		std::shared_ptr<EffectActor> NewEffect = EffectManager::PlayEffect({
 			.EffectName = _Parameter.EffectName,
-			.Postion = _Parameter.Pos,
+			.Position = _Parameter.Pos,
 			.Triger = EffectDeathTrigger::Time,
 			.Time = _Parameter.LiveTime,
 			.FlipX = false,

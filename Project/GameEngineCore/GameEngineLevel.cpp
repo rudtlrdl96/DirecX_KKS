@@ -13,12 +13,12 @@ GameEngineLevel::GameEngineLevel()
 {
 	MainCamera = CreateActor<GameEngineCamera>();
 
-	Cameras.insert(std::make_pair(0, MainCamera));
+	InsertCamera(0, MainCamera);
 
 	std::shared_ptr<GameEngineCamera> UICamera = CreateActor<GameEngineCamera>();
 	UICamera->SetProjectionType(CameraType::Orthogonal);
 
-	Cameras.insert(std::make_pair(100, UICamera));
+	InsertCamera(100, UICamera);
 
 	LastTarget = GameEngineRenderTarget::Create(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, GameEngineWindow::GetScreenSize(), float4::Null);
 }
@@ -318,6 +318,11 @@ void GameEngineLevel::Update(float _DeltaTime)
 
 void GameEngineLevel::Render(float _DeltaTime) 
 {
+}
+
+void GameEngineLevel::InsertCamera(int _Order, std::shared_ptr<GameEngineCamera> _CameraPtr)
+{
+	Cameras.insert(std::make_pair(_Order, _CameraPtr));
 }
 
 void GameEngineLevel::ActorInit(std::shared_ptr<GameEngineActor> _Actor, int _Order, GameEngineLevel* _Level)

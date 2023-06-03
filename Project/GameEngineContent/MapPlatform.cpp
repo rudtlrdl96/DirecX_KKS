@@ -119,7 +119,7 @@ void MapPlatform::ShowGUI()
 	ImGui::Spacing();
 
 	float Pos[4] = { MetaData.Pos.x, MetaData.Pos.y, MetaData.Pos.z, MetaData.Pos.w };
-	ImGui::DragFloat4("Postion", Pos);
+	ImGui::DragFloat4("Position", Pos);
 
 	if (MetaData.Pos.x != Pos[0] ||
 		MetaData.Pos.y != Pos[1] ||

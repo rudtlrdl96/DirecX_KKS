@@ -90,11 +90,11 @@ void ChiefGuard::Skill_SlotA_Update(float _DeltaTime)
 		{
 		case ActorViewDir::Left: 
 			FlashPos += float4(-FlashMoveX * 0.5f, 0);
-			FlashEnd = GetFlashPostion(ActorViewDir::Left);
+			FlashEnd = GetFlashPosition(ActorViewDir::Left);
 			break;
 		case ActorViewDir::Right:
 			FlashPos += float4(FlashMoveX * 0.5f, 0);
-			FlashEnd = GetFlashPostion(ActorViewDir::Right);
+			FlashEnd = GetFlashPosition(ActorViewDir::Right);
 			break;
 		default:
 			break;
@@ -102,7 +102,7 @@ void ChiefGuard::Skill_SlotA_Update(float _DeltaTime)
 
 		EffectManager::PlayEffect({
 			.EffectName = "FlashCut",
-			.Postion = FlashPos,
+			.Position = FlashPos,
 			.FlipX = GetViewDir() == ActorViewDir::Left});
 	}
 }
@@ -185,7 +185,7 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 		};
 
 		EffectManager::PlayEffect({ .EffectName = "FireSlash",
-			.Postion = PlayerTrans->GetWorldPosition() + float4(15 * Dir.x, 5),
+			.Position = PlayerTrans->GetWorldPosition() + float4(15 * Dir.x, 5),
 			.FlipX = GetViewDir() == ActorViewDir::Left });
 
 		NewProjectile->ShotProjectile({
@@ -334,11 +334,11 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 
 			if (Flip > 0.0f)
 			{
-				FlashEnd = GetFlashPostion(ActorViewDir::Left);
+				FlashEnd = GetFlashPosition(ActorViewDir::Left);
 			}
 			else
 			{
-				FlashEnd = GetFlashPostion(ActorViewDir::Right);
+				FlashEnd = GetFlashPosition(ActorViewDir::Right);
 			}
 
 			break;
@@ -347,11 +347,11 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 
 			if (Flip > 0.0f)
 			{
-				FlashEnd = GetFlashPostion(ActorViewDir::Right);
+				FlashEnd = GetFlashPosition(ActorViewDir::Right);
 			}
 			else
 			{
-				FlashEnd = GetFlashPostion(ActorViewDir::Left);
+				FlashEnd = GetFlashPosition(ActorViewDir::Left);
 			}
 			break;
 		default:
@@ -360,7 +360,7 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 
 		EffectManager::PlayEffect({
 			.EffectName = "FlashCut",
-			.Postion = FlashPos,
+			.Position = FlashPos,
 			.FlipX = GetViewDir() == ActorViewDir::Left });
 	}
 
@@ -435,7 +435,7 @@ void ChiefGuard::AnimationColLoad()
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_Switch").GetFullPath()), 0.1f);
 }
 
-float4 ChiefGuard::GetFlashPostion(ActorViewDir _Dir)
+float4 ChiefGuard::GetFlashPosition(ActorViewDir _Dir)
 {
 	float4 Result = float4::Zero;
 

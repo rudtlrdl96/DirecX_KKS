@@ -67,20 +67,20 @@ void ParticleArea::Update(float _DeltaTime)
 
 		NewParticle->GetTransform()->SetParent(GetTransform());
 
-		float4 SpawnPostion = float4::Zero;
+		float4 SpawnPosition = float4::Zero;
 
-		SpawnPostion.x = Rand.RandomFloat(-MetaData.Size.hx(), MetaData.Size.hx());
+		SpawnPosition.x = Rand.RandomFloat(-MetaData.Size.hx(), MetaData.Size.hx());
 
 		if (true == MetaData.IsTopSpawn)
 		{
-			SpawnPostion.y = MetaData.Size.hy() * 1.05f;
+			SpawnPosition.y = MetaData.Size.hy() * 1.05f;
 		}
 		else
 		{
-			SpawnPostion.y = -MetaData.Size.hy() * 1.05f;
+			SpawnPosition.y = -MetaData.Size.hy() * 1.05f;
 		}
 
-		NewParticle->GetTransform()->SetLocalPosition(SpawnPostion);
+		NewParticle->GetTransform()->SetLocalPosition(SpawnPosition);
 
 		float4 RandomWind = float4::Zero;
 
