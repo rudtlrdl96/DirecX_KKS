@@ -203,8 +203,8 @@ void ContentCore::ContentPipeLineCreate()
 	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("BoxLight");
 
-		Pipe->SetVertexBuffer("ContentBox");
-		Pipe->SetIndexBuffer("ContentBox");
+		//Pipe->SetVertexBuffer("ContentBox");
+		//Pipe->SetIndexBuffer("ContentBox");
 		Pipe->SetVertexShader("ContentShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ContentShader.hlsl");
@@ -215,8 +215,8 @@ void ContentCore::ContentPipeLineCreate()
 	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_ColorLight");
 
-		Pipe->SetVertexBuffer("Rect");
-		Pipe->SetIndexBuffer("Rect");
+		//Pipe->SetVertexBuffer("Rect");
+		//Pipe->SetIndexBuffer("Rect");
 		Pipe->SetVertexShader("ColorShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ColorShader.hlsl");
@@ -227,8 +227,8 @@ void ContentCore::ContentPipeLineCreate()
 	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Capture");
 
-		Pipe->SetVertexBuffer("Rect");
-		Pipe->SetIndexBuffer("Rect");
+		//Pipe->SetVertexBuffer("Rect");
+		//Pipe->SetIndexBuffer("Rect");
 		Pipe->SetVertexShader("CaptureShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("CaptureShader.hlsl");
@@ -239,8 +239,8 @@ void ContentCore::ContentPipeLineCreate()
 	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Background");
 
-		Pipe->SetVertexBuffer("Rect");
-		Pipe->SetIndexBuffer("Rect");
+		//Pipe->SetVertexBuffer("Rect");
+		//Pipe->SetIndexBuffer("Rect");
 		Pipe->SetVertexShader("TextureMoveShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("TextureMoveShader.hlsl");
@@ -251,8 +251,8 @@ void ContentCore::ContentPipeLineCreate()
 	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Fade");
 
-		Pipe->SetVertexBuffer("Rect");
-		Pipe->SetIndexBuffer("Rect");
+		//Pipe->SetVertexBuffer("Rect");
+		//Pipe->SetIndexBuffer("Rect");
 		Pipe->SetVertexShader("FadeShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("FadeShader.hlsl");
@@ -263,8 +263,8 @@ void ContentCore::ContentPipeLineCreate()
 	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Outline");
 
-		Pipe->SetVertexBuffer("Rect");
-		Pipe->SetIndexBuffer("Rect");
+		//Pipe->SetVertexBuffer("Rect");
+		//Pipe->SetIndexBuffer("Rect");
 		Pipe->SetVertexShader("OutlineColorShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("OutlineColorShader.hlsl");
@@ -275,8 +275,8 @@ void ContentCore::ContentPipeLineCreate()
 	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_ProgressUI");
 
-		Pipe->SetVertexBuffer("Rect");
-		Pipe->SetIndexBuffer("Rect");
+		//Pipe->SetVertexBuffer("Rect");
+		//Pipe->SetIndexBuffer("Rect");
 		Pipe->SetVertexShader("ProgressUI.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ProgressUI.hlsl");
@@ -287,8 +287,8 @@ void ContentCore::ContentPipeLineCreate()
 	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_ProgressUI_Circle");
 
-		Pipe->SetVertexBuffer("Rect");
-		Pipe->SetIndexBuffer("Rect");
+		//Pipe->SetVertexBuffer("Rect");
+		//Pipe->SetIndexBuffer("Rect");
 		Pipe->SetVertexShader("ProgressUI_Circle.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ProgressUI_Circle.hlsl");
@@ -299,8 +299,8 @@ void ContentCore::ContentPipeLineCreate()
 	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Object");
 
-		Pipe->SetVertexBuffer("Rect");
-		Pipe->SetIndexBuffer("Rect");
+		//Pipe->SetVertexBuffer("Rect");
+		//Pipe->SetIndexBuffer("Rect");
 		Pipe->SetVertexShader("ObjectColorShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ObjectColorShader.hlsl");

@@ -11,5 +11,6 @@ ContentUIRender::~ContentUIRender()
 
 void ContentUIRender::Start()
 {
+	SetMesh("Rect");
 	PushCameraRender(100);
 }

@@ -27,6 +27,8 @@ public:
 	GameEngineTileMapRenderer& operator=(const GameEngineTileMapRenderer& _Other) = delete;
 	GameEngineTileMapRenderer& operator=(GameEngineTileMapRenderer&& _Other) noexcept = delete;
 
+	ColorOption ColorOptionValue;
+
 	void CreateTileMap(int _X, int _Y, const float4& _TileSize);
 
 	void Clear();
@@ -50,7 +52,6 @@ public:
 		IsTilemapCulling = false;
 	}
 
-	ColorOption ColorOptionValue;
 protected:
 	void Render(float _Delta) override;
 

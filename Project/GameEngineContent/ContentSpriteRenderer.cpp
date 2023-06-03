@@ -91,6 +91,7 @@ ContentSpriteRenderer::~ContentSpriteRenderer()
 
 void ContentSpriteRenderer::Start()
 {
+	SetMesh("Rect");
 	GameEngineRenderer::Start();
 }
 
