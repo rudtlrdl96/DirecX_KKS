@@ -119,6 +119,16 @@ void Player::Start()
 	StateFrame->SetParentPlayer(this);
 
 	HitFade = GetLevel()->CreateActor<PlayerHitFade>();
+
+	GetContentLevel()->AddEvent("PlayerInputLock", GetActorCode(), [this]()
+		{
+			InputLock();
+		});
+
+	GetContentLevel()->AddEvent("PlayerInputUnlock", GetActorCode(), [this]()
+		{
+			InputUnlock();
+		});
 }
 
 void Player::Update(float _DeltaTime)

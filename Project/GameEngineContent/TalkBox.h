@@ -30,6 +30,7 @@ protected:
 private:
 	std::shared_ptr<ContentUIRender> Render = nullptr;
 
+	std::shared_ptr<class TalkArrow> ArrowPtr = nullptr;
 	std::shared_ptr<TalkNameTag> NameTagPtr = nullptr;
 	std::shared_ptr<TalkboxDebugGUI> DebugGUI = nullptr;
 
@@ -42,6 +43,8 @@ private:
 
 	float ReadSpeed = 1.0f;
 	float Progress = 0.0f;
+
+	float ArrowAlpha = 0.0f;
 
 	std::function<void()> ReadEndCallback = nullptr;
 

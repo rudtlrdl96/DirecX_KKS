@@ -311,7 +311,6 @@ void Mongal::Attack_Enter()
 
 	}
 
-
 	Render->ChangeAnimation(AnimColMeta_Attack.GetAnimationName());
 	AttackRigidbody.SetVelocity(float4::Zero);
 

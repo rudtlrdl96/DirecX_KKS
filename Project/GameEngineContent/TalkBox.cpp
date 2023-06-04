@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "TalkBox.h"
 #include "GameEngineActorGUI.h"
+#include "TalkArrow.h"
 
 TalkBox::TalkBox()
 {
@@ -45,6 +46,12 @@ void TalkBox::Start()
 		GameEngineTexture::Load(Path.GetPlusFileName("TalkBox.png").GetFullPath());
 	}
 
+	ArrowPtr = GetLevel()->CreateActor<TalkArrow>();
+	ArrowPtr->GetTransform()->SetParent(GetTransform());
+	ArrowPtr->GetTransform()->SetLocalPosition(float4(285.0f, -35.0f, -0.1f));
+	ArrowPtr->SetSpeed(1.5f);
+	ArrowPtr->Off();
+
 	Render = CreateComponent<ContentUIRender>();
 	Render->PipeSetting("2DTexture_ColorLight");
 	Render->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
@@ -73,6 +80,7 @@ void TalkBox::Update(float _DeltaTime)
 				ReadEndCallback();
 			}
 		}
+
 		return;
 	}
 
@@ -82,6 +90,11 @@ void TalkBox::Update(float _DeltaTime)
 	{
 		Progress = 1.0f;
 		IsReadEnd = true;
+		ArrowPtr->On();
+	}
+	else
+	{
+		ArrowPtr->Off();
 	}
 
 	size_t ReadIndex = static_cast<size_t>(MainText.size() * Progress);

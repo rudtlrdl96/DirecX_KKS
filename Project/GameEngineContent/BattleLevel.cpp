@@ -95,6 +95,7 @@ void BattleLevel::SetPlayerPos(const float4& _Pos)
 void BattleLevel::LevelChangeStart()
 {
 	//ActorGUIPtr->On();
+	//ActorGUIPtr->SetTarget(TalkBoxPtr->ArrowPtr->GetTransform());
 
 	StoryFadePtr->Reset();
 

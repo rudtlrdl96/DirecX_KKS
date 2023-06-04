@@ -55,6 +55,7 @@ void OpeningLevel::Start()
 	AddEvent("MongalDeath_Appear", LevelCode, [this]()
 		{
 			CallEvent("StoryFadeIn");
+			MainCamCtrl.SetLookatSpeed(3.5F);
 			MainCamCtrl.ActiveForceLookAt(float4(1710, 250));
 
 			std::function<void()> MongalTalk_0 = [this]()
@@ -62,6 +63,7 @@ void OpeningLevel::Start()
 				TalkBoxPtr->ActiveTalkBox("¿À¿ì°Å");
 				TalkBoxPtr->SetMainText(L"...", [this]()
 					{
+						MainCamCtrl.SetLookatSpeed();
 						MainPlayer->InputUnlock();
 						TalkBoxPtr->Off();
 						CallEvent("UnLockCam");
@@ -82,6 +84,8 @@ void OpeningLevel::Start()
 
 	AddEvent("MongalDeath", LevelCode, [this]()
 		{
+			MainPlayer->InputLock();
+
 			FadeActorPtr->SetSpeed(1.5f);
 			FadeActorPtr->SetWaitTime(0.0f);
 
@@ -93,7 +97,6 @@ void OpeningLevel::Start()
 							FadeActorPtr->SetWaitTime(0.5f);
 						}, float4::One);				
 				}, float4::One);
-
 		});
 
 }

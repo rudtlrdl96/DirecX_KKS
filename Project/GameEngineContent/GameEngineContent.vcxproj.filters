@@ -810,6 +810,9 @@
     <ClInclude Include="TalkboxDebugGUI.h">
       <Filter>5_GUI\Common</Filter>
     </ClInclude>
+    <ClInclude Include="TalkArrow.h">
+      <Filter>2_Actor\UI\Talk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1306,6 +1309,9 @@
     </ClCompile>
     <ClCompile Include="TalkboxDebugGUI.cpp">
       <Filter>5_GUI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkArrow.cpp">
+      <Filter>2_Actor\UI\Talk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
