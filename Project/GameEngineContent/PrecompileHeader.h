@@ -4,6 +4,7 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEnginePlatform/GameEngineInput.h>
 
 #include "int2.h"
 #include "ContentDebug.h"

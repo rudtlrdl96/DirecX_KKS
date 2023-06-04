@@ -41,8 +41,7 @@ void BattleLevel::Start()
 
 	TalkBoxPtr = CreateActor<TalkBox>();
 	TalkBoxPtr->GetTransform()->SetLocalPosition(float4(0, -300, -110.0f));
-	TalkBoxPtr->ActiveTalkBox("몬갈");
-	TalkBoxPtr->SetReadSpeed(10.0f);
+	TalkBoxPtr->SetReadSpeed(20.0f);
 	TalkBoxPtr->Off();
 
 	AddEvent("NextLevelMove", LevelCode, [this]()
@@ -66,7 +65,7 @@ void BattleLevel::Start()
 		{
 			MainCamCtrl.DisalbeForceLookAt();
 		});
-	
+
 	ActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 }
 
@@ -79,10 +78,6 @@ void BattleLevel::Update(float _DeltaTime)
 	else if (true == GameEngineInput::IsDown("LevelMoveNext"))
 	{
 		MoveNextStage(true);
-	}
-	else if (true == GameEngineInput::IsDown("DebugTextRead"))
-	{
-		TalkBoxPtr->SetMainText(L"테스트 입니다 010101012 ㅋㅋㅋ", nullptr);
 	}
 
 	ContentLevel::Update(_DeltaTime);

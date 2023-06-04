@@ -51,6 +51,14 @@ public:
 		MainSkull->ThornWaitTime = _CoolTime;
 	}
 
+	void InputLock();
+	void InputUnlock();
+
+	inline bool IsInputLock() const
+	{
+		return IsInputLockValue;
+	}
+
 protected:	
 	void Start() override;
 	void Update(float _DeltaTime);
@@ -67,6 +75,7 @@ private:
 	
 	float HitWaitTime = 0.0f;
 
+	bool IsInputLockValue = false;
 
 	std::shared_ptr<class PlayerHitFade> HitFade = nullptr;
 

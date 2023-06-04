@@ -22,7 +22,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 {
 	IsSwitchValue = false;
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Switch"))
 	{
 		IsSwitchValue = true;
 	}
@@ -45,15 +45,15 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
 	}
 
-	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
+	if (false == ParentPlayer->IsInputLock() && true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
 		PlayerFSM.ChangeState("Dash");
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		PlayerFSM.ChangeState("Attack");
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Jump"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		if (true == GameEngineInput::IsPress("PlayerMove_Down"))
 		{
@@ -69,7 +69,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
 		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
 		{
@@ -77,7 +77,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
 		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
 		{
@@ -85,12 +85,12 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Left"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Left"))
 	{
 		ViewDir = ActorViewDir::Left;
 		PlayerFSM.ChangeState("Walk");
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Right"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Right"))
 	{
 		ViewDir = ActorViewDir::Right;
 		PlayerFSM.ChangeState("Walk");
@@ -112,7 +112,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 {
 	IsSwitchValue = false;
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Switch"))
 	{
 		IsSwitchValue = true;
 	}
@@ -139,14 +139,14 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 		JumpDir.y = -1.0f;
 	}
 
-	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
+	if (false == ParentPlayer->IsInputLock() && true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
 		PlayerFSM.ChangeState("Dash");
 		return;
 	}
 
 
-	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
+	if (false == ParentPlayer->IsInputLock() && true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		EffectManager::PlayEffect({.EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition()});
 
@@ -154,13 +154,13 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 		DoubleJump = false;
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		PlayerFSM.ChangeState("JumpAttack");
 		return;
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
 		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
 		{
@@ -168,7 +168,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B")) 
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
 		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
 		{
@@ -176,7 +176,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		SetViewDir(ActorViewDir::Left);
 
@@ -186,7 +186,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 			PlayerTrans->AddLocalPosition(MoveDir);
 		}
 	}
-	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
 		SetViewDir(ActorViewDir::Right);
 
@@ -215,7 +215,7 @@ void PlayerBaseSkull::Walk_Enter()
 void PlayerBaseSkull::Walk_Update(float _DeltaTime) 
 {
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Switch"))
 	{
 		IsSwitchValue = true;
 	}
@@ -232,7 +232,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 		return;
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Jump"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		if (true == GameEngineInput::IsPress("PlayerMove_Down"))
 		{
@@ -249,7 +249,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 		PlayerFSM.ChangeState("Jump");
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
 		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
 		{
@@ -257,7 +257,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
 		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
 		{
@@ -266,19 +266,19 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 		}
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		PlayerFSM.ChangeState("Attack");
 		return;
 	}
 
-	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
+	if (false == ParentPlayer->IsInputLock() && true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
 		PlayerFSM.ChangeState("Dash");
 		return;
 	}
 
-	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		SetViewDir(ActorViewDir::Left);
 
@@ -288,7 +288,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 			PlayerTrans->AddLocalPosition(MoveDir);
 		}
 	}
-	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
 		SetViewDir(ActorViewDir::Right);
 
@@ -353,7 +353,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 {
 	IsSwitchValue = false;
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Switch"))
 	{
 		IsSwitchValue = true;
 	}
@@ -364,7 +364,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 		PlayerTrans->AddLocalPosition(Velocity);
 	}
 
-	if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
+	if (false == ParentPlayer->IsInputLock() && true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
 		{
@@ -383,7 +383,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 		return;
 	}
 
-	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
+	if (false == ParentPlayer->IsInputLock() && true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
@@ -393,21 +393,21 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 		return;
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
 		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
 		{
 			PlayerFSM.ChangeState("Skill_A");
 		}
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B") && false == IsLockSkillB)
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B") && false == IsLockSkillB)
 	{
 		if (CurSkillBTime > GetSkillBEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 		}
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		if (nullptr == ContentFunc::PlatformColCheck(GroundCol))
 		{
@@ -432,7 +432,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 	}
 
 
-	if (false == DashCombo && GameEngineInput::IsDown("PlayerMove_Dash"))
+	if (false == ParentPlayer->IsInputLock() && false == DashCombo && GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
 		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
@@ -471,11 +471,11 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 			return;
 		}
 
-		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
 			PlayerFSM.ChangeState("Walk");
 		}
-		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
 			PlayerFSM.ChangeState("Walk");
 		}
@@ -502,7 +502,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 {
 	IsSwitchValue = false;
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Switch"))
 	{
 		IsSwitchValue = true;
 	}
@@ -518,19 +518,19 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 		Render->ChangeAnimation("FallRepeat" + AnimNamePlusText);
 	}
 
-	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
+	if (false == ParentPlayer->IsInputLock() && true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
 		PlayerFSM.ChangeState("Dash");
 		return;
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		PlayerFSM.ChangeState("JumpAttack");
 		return;
 	}
 
-	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
+	if (false == ParentPlayer->IsInputLock() && true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
@@ -554,7 +554,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 
 	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A")) 
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
 		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
 		{
@@ -562,7 +562,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B")) 
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
 		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
 		{
@@ -570,7 +570,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		SetViewDir(ActorViewDir::Left);
 
@@ -580,7 +580,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 			PlayerTrans->AddLocalPosition(MoveDir);
 		}
 	}
-	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
 		SetViewDir(ActorViewDir::Right);
 
@@ -607,12 +607,12 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 		PlayerTrans->SetWorldPosition(CurPos);
 		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
 
-		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
 			PlayerFSM.ChangeState("Walk");
 
 		}
-		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
 			PlayerFSM.ChangeState("Walk");
 		}
@@ -637,12 +637,12 @@ void PlayerBaseSkull::Attack_Enter()
 
 	AttackRigidbody.SetVelocity(float4::Zero);
 
-	if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		SetViewDir(ActorViewDir::Left);
 		AttackRigidbody.AddVelocity(float4::Left * AttackMoveDis);
 	}
-	else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
 		SetViewDir(ActorViewDir::Right);
 		AttackRigidbody.AddVelocity(float4::Right * AttackMoveDis);
@@ -662,7 +662,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 
 	IsSwitchValue = false;
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Switch"))
 	{
 		IsSwitchValue = true;
 	}
@@ -684,18 +684,18 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 		PlayerTrans->AddLocalPosition(AttackVelocity);
 	}
 
-	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
+	if (false == ParentPlayer->IsInputLock() && true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
 		PlayerFSM.ChangeState("Dash");
 		return;
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		IsAttackCombo = true;
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
 		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
 		{
@@ -703,7 +703,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
 		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
 		{
@@ -711,7 +711,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
+	else if (false == ParentPlayer->IsInputLock() && true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		JumpDir = float4::Up * JumpPower;
 		PlayerFSM.ChangeState("Jump");
@@ -722,12 +722,12 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 	{
 		AttackRigidbody.SetVelocity(float4::Zero);
 
-		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
 			SetViewDir(ActorViewDir::Left);
 			AttackRigidbody.AddVelocity(float4::Left * AttackMoveDis);
 		}
-		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
 			SetViewDir(ActorViewDir::Right);
 			AttackRigidbody.AddVelocity(float4::Right * AttackMoveDis);
@@ -746,12 +746,12 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 			Render->ChangeAnimation(AnimColMeta_Attack[AttackComboCount].GetAnimationName() + AnimNamePlusText);
 			AttackEnterCheck.SetColData(AnimColMeta_Attack[AttackComboCount]);
 		}
-		else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
 			PlayerFSM.ChangeState("Walk");
 
 		}
-		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
 			PlayerFSM.ChangeState("Walk");
 		}
@@ -789,7 +789,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 
 	IsSwitchValue = false;
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Switch"))
 	{
 		IsSwitchValue = true;
 	}
@@ -802,12 +802,12 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 
 	if (nullptr == ContentFunc::PlatformColCheck(WalkCol))
 	{
-		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
 			SetViewDir(ActorViewDir::Left);
 			PlayerTrans->AddLocalPosition(float4::Left * WalkSpeed * _DeltaTime);
 		}
-		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
 			SetViewDir(ActorViewDir::Right);
 			PlayerTrans->AddLocalPosition(float4::Right * WalkSpeed * _DeltaTime);
@@ -840,7 +840,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 		}
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
 		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
 		{
@@ -848,7 +848,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
 		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
 		{
@@ -869,12 +869,12 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 		PlayerTrans->SetWorldPosition(CurPos);
 		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
 
-		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+		if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
 			PlayerFSM.ChangeState("Walk");
 
 		}
-		else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+		else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 		{
 			PlayerFSM.ChangeState("Walk");
 		}
@@ -884,7 +884,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 		}
 	}
 
-	if (true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
+	if (false == ParentPlayer->IsInputLock() && true == DoubleJump && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
@@ -892,13 +892,13 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 		DoubleJump = false;
 	}
 
-	if (true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
+	if (false == ParentPlayer->IsInputLock() && true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
 		PlayerFSM.ChangeState("Dash");
 		return;
 	}
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		IsJumpAttackCombo = true;
 	}
@@ -958,7 +958,7 @@ void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
 
 	IsSwitchValue = false;
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Switch"))
 	{
 		IsSwitchValue = true;
 	}
@@ -987,12 +987,12 @@ void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
 				PlayerFSM.ChangeState("Fall");
 				return;
 			}
-			else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+			else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 			{
 				PlayerFSM.ChangeState("Walk");
 
 			}
-			else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+			else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 			{
 				PlayerFSM.ChangeState("Walk");
 			}
@@ -1030,7 +1030,7 @@ void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
 	HitRigidbody.SetVelocity(float4::Zero);
 	IsSwitchValue = false;
 
-	if (true == GameEngineInput::IsDown("PlayerMove_Switch"))
+	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Switch"))
 	{
 		IsSwitchValue = true;
 	}
@@ -1058,12 +1058,12 @@ void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
 				PlayerFSM.ChangeState("Fall");
 				return;
 			}
-			else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+			else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 			{
 				PlayerFSM.ChangeState("Walk");
 
 			}
-			else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+			else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 			{
 				PlayerFSM.ChangeState("Walk");
 			}
@@ -1123,12 +1123,12 @@ void PlayerBaseSkull::Switch_Update(float _DeltaTime)
 				PlayerFSM.ChangeState("Fall");
 				return;
 			}
-			else if (true == GameEngineInput::IsPress("PlayerMove_Left"))
+			else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 			{
 				PlayerFSM.ChangeState("Walk");
 
 			}
-			else if (true == GameEngineInput::IsPress("PlayerMove_Right"))
+			else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 			{
 				PlayerFSM.ChangeState("Walk");
 			}

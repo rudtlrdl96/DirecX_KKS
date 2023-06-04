@@ -27,6 +27,11 @@ void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void
 
 void TalkBox::Start()
 {
+	if (false == GameEngineInput::IsKey("TalkKey"))
+	{
+		GameEngineInput::CreateKey("TalkKey", 'X');
+	}
+
 	if (nullptr == GameEngineTexture::Find("TalkBox.png"))
 	{
 		GameEngineDirectory Path;
@@ -61,6 +66,13 @@ void TalkBox::Update(float _DeltaTime)
 
 	if (true == IsReadEnd)
 	{
+		if (true == GameEngineInput::IsDown("TalkKey"))
+		{
+			if (nullptr != ReadEndCallback)
+			{
+				ReadEndCallback();
+			}
+		}
 		return;
 	}
 

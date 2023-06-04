@@ -98,6 +98,16 @@ void Player::PushPlayer(const float4& _HitForce)
 	MainSkull->JumpDir = _HitForce;
 }
 
+void Player::InputLock()
+{
+	IsInputLockValue = true;
+}
+
+void Player::InputUnlock()
+{
+	IsInputLockValue = false;
+}
+
 void Player::Start()
 {
 	PlayerBodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);
