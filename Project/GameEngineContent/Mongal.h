@@ -8,6 +8,7 @@ private:
 	{
 		BattleDeath,
 		WakeUp,
+		NormalIdle,
 		Laugh,
 		DoorWalk,
 		NormalDeath
@@ -40,8 +41,6 @@ protected:
 	void Attack_End() override;
 
 private:
-	void MonsterDeath() override;
-
 	int AttackLoopCount = 0;
 
 	bool IsMongalDeath = false;
@@ -49,9 +48,23 @@ private:
 	bool DeathCameraShake = false;
 
 	float ForceEscapeTime = 0.0f;
-
 	float DeathTimeCheck = 0.0f;
 
+	bool IsFade = false;
+	float FadeTimeCheck = 0.0f;
+
+	float LaughTime = 0.0f;
+
+	float4 WalkStart = float4::Zero;
+	float4 WalkEnd = float4::Zero;
+	float WalkProgress = 0.0f;
+	float WalkSpeed = 0.3f;
+
+	std::map<int, float> WakeupWaitTime;
+
 	DeathState State = DeathState::BattleDeath;
+
+	void MonsterDeath() override;
+	void StoryUpdate(float _DeltaTime);
 };
 

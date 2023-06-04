@@ -54,6 +54,13 @@ void OpeningLevel::Start()
 
 	AddEvent("MongalDeath_Appear", LevelCode, [this]()
 		{
+			if (true == IsMongalEncounter)
+			{
+				return;
+			}
+
+			IsMongalEncounter = true;
+
 			CallEvent("StoryFadeIn");
 			MainCamCtrl.SetLookatSpeed(3.5F);
 			MainCamCtrl.ActiveForceLookAt(float4(1710, 250));
@@ -82,6 +89,26 @@ void OpeningLevel::Start()
 			TalkBoxPtr->SetMainText(L"저기 성앞에 서있는 게 경비대장이 말한 오우가 아니냥-!?", WitchTalk_1);
 		});
 
+	AddEvent("MongalWalkUp_Talk", LevelCode, [this]()
+		{
+			std::function<void()> WitchTalk_2 = [this]()
+			{
+				TalkBoxPtr->SetMainText(L"뭐 지금은 괜찮아 보인다냥-! 일단 급하니 성으로 들어가서 이야기 하자냥-!!", [this]()
+					{
+						CallEvent("Mongal_Laugh");
+						TalkBoxPtr->Off();
+					});
+			};
+
+			std::function<void()> WitchTalk_1 = [this, WitchTalk_2]()
+			{
+				TalkBoxPtr->SetMainText(L"정신 차리라냥-!", WitchTalk_2);
+			};
+
+			TalkBoxPtr->ActiveTalkBox("마녀");
+			TalkBoxPtr->SetMainText(L"경비대장이 말한 오우거가 이녀석이었냥.", WitchTalk_1);
+		});
+
 	AddEvent("MongalDeath", LevelCode, [this]()
 		{
 			MainPlayer->InputLock();
@@ -99,11 +126,22 @@ void OpeningLevel::Start()
 				}, float4::One);
 		});
 
+	AddEvent("PlayerMove_MongalWalkup", LevelCode, [this]()
+		{
+			MainCamCtrl.SetCameraPos(float4(1410, 250));
+			MainPlayer->GetTransform()->SetLocalPosition(float4(1410, 250));
+		});
 }
 
 void OpeningLevel::Update(float _DeltaTime)
 {
 	BattleLevel::Update(_DeltaTime);
+}
+
+void OpeningLevel::LevelChangeStart()
+{
+	BattleLevel::LevelChangeStart();
+	IsMongalEncounter = false;
 }
 
 void OpeningLevel::AreaClear()

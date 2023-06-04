@@ -166,6 +166,7 @@ void ContentCore::MonsterDataLoad()
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_BattleDead.png").GetFullPath(), 7, 2);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_BattleHit1.png").GetFullPath(), 1, 1);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_BattleHit2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_Death.png").GetFullPath(), 1, 1);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_BattleIdle.png").GetFullPath(), 6, 1);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_BattleWalk.png").GetFullPath(), 4, 2);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Mongal_Idle.png").GetFullPath(), 6, 1);

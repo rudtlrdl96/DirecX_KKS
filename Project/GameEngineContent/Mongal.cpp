@@ -19,109 +19,19 @@ void Mongal::Start()
 	SetViewDir(ActorViewDir::Left, true);
 	IsUnWalkable = true;
 	AttackWaitEndTime = 2.0f;
+
+	GetContentLevel()->AddEvent("Mongal_Laugh", GetActorCode(), [this]()
+		{
+			State = DeathState::Laugh;
+			Render->ChangeAnimation("Laugh");
+		});
 }
 
 void Mongal::Update(float _DeltaTime)
 {
 	if (true == IsMongalDeath)
 	{
-		Buffer.Color = float4::Zero;
-
-		switch (State)
-		{
-		case Mongal::DeathState::BattleDeath:
-		{
-			HealthBarPtr->Off();
-
-			if (6 == Render->GetCurrentFrame())
-			{
-				DeathTimeCheck += _DeltaTime;
-
-				if (1.0f < DeathTimeCheck)
-				{
-					Render->SetAnimPauseOff();
-				}
-				else
-				{
-					Render->SetAnimPauseOn();
-				}
-			}
-			else if (7 == Render->GetCurrentFrame())
-			{
-				if (false == DeathCameraShake)
-				{
-					float4 DeathEffectPlusPos;
-
-					if (Dir == ActorViewDir::Left)
-					{
-						DeathEffectPlusPos = float4(-30, 100);
-					}
-					else
-					{
-						DeathEffectPlusPos = float4(30, 100);
-					}
-
-					GetContentLevel()->CallEvent("StoryFadeIn");
-
-					EffectManager::PlayEffect({
-						.EffectName = "MongalDeathEffect",
-						.Position = GetTransform()->GetWorldPosition() + DeathEffectPlusPos,
-						.FlipX = (Dir == ActorViewDir::Left)});
-
-					DeathCameraShake = true;
-
-					std::shared_ptr<BattleLevel> CastPtr = GetLevel()->DynamicThis<BattleLevel>();
-
-					if (nullptr == CastPtr)
-					{
-						return;
-					}
-
-					CastPtr->GetCamCtrl().CameraShake(5, 30, 7);
-				}
-
-				DeathTimeCheck += _DeltaTime;
-
-				if (2.5f < DeathTimeCheck)
-				{
-					Render->SetAnimPauseOff();
-				}
-				else
-				{
-					Render->SetAnimPauseOn();
-				}
-			}
-			else if (2 == Render->GetCurrentFrame())
-			{
-				DeathTimeCheck += _DeltaTime;
-
-				if (1.0f < DeathTimeCheck)
-				{
-					Render->SetAnimPauseOff();
-				}
-				else
-				{
-					Render->SetAnimPauseOn();
-				}
-			}
-			else
-			{
-				DeathTimeCheck = 0.0f;
-			}
-		}
-			break;
-		case Mongal::DeathState::WakeUp:
-			break;
-		case Mongal::DeathState::Laugh:
-			break;
-		case Mongal::DeathState::DoorWalk:
-			break;
-		case Mongal::DeathState::NormalDeath:
-			break;
-		default:
-			break;
-		}
-
+		StoryUpdate(_DeltaTime);
 		return;
 	}
 
@@ -166,9 +76,10 @@ void Mongal::LoadAnimation()
 	Render->CreateAnimation({ .AnimationName = "Hit1", .SpriteName = "Mongal_BattleHit1.png", .Start = 0, .End = 0, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Hit2", .SpriteName = "Mongal_BattleHit2.png", .Start = 0, .End = 0, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Death", .SpriteName = "Mongal_BattleDead.png", .Start = 0, .End = 13, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Death_NoBattle", .SpriteName = "Mongal_Death.png", .Start = 0, .End = 0, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Idle_NoBattle", .SpriteName = "Mongal_Idle.png", .Start = 0, .End = 5, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Walk_NoBattle", .SpriteName = "Mongal_Walk.png", .Start = 0, .End = 7, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "Wakeup", .SpriteName = "Mongal_WakeUp.png", .Start = 0, .End = 20, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Wakeup", .SpriteName = "Mongal_WakeUp.png", .Start = 0, .End = 20, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Laugh", .SpriteName = "Mongal_Laugh.png", .Start = 0, .End = 2, .ScaleToTexture = true });
 }
 

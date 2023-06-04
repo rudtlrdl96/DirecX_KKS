@@ -49,6 +49,16 @@ void BattleLevel::Start()
 			AreaClear();
 		}); 
 
+	AddEvent("FadeIn", LevelCode, [this]()
+		{
+			FadeActorPtr->FadeIn();
+		});
+
+	AddEvent("FadeOut", LevelCode, [this]()
+		{
+			FadeActorPtr->FadeOut();
+		});
+
 	AddEvent("StoryFadeIn", LevelCode, [this]()
 		{
 			StoryFadePtr->SetSpeed(2.0f);

@@ -16,10 +16,12 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	void LevelChangeStart() override;
+
 	virtual void AreaClear() override;
 
 private:
-	
+	bool IsMongalEncounter = false;
 
 };
 

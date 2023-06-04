@@ -1001,6 +1001,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Mongal_Story.cpp" />
     <ClCompile Include="MonsterDeadBodyActor.cpp">
       <SubType>
       </SubType>

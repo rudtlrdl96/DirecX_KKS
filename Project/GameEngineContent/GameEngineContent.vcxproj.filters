@@ -1313,6 +1313,9 @@
     <ClCompile Include="TalkArrow.cpp">
       <Filter>2_Actor\UI\Talk</Filter>
     </ClCompile>
+    <ClCompile Include="Mongal_Story.cpp">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Doc\스컬 간트차트.xlsx">
