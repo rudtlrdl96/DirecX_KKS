@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 
 #include "HitParticle.h"
+#include "BattleLevel.h"
 
 BattleActor::BattleActor()
 {

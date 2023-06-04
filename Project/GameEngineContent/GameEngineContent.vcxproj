@@ -475,6 +475,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TalkBox.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TalkboxDebugGUI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TalkNameTag.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ThornBush.h">
       <SubType>
       </SubType>
@@ -1079,6 +1091,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="StoryFade.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TalkBox.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TalkboxDebugGUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TalkNameTag.cpp">
       <SubType>
       </SubType>
     </ClCompile>

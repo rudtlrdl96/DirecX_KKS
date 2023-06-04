@@ -12,6 +12,7 @@
 #include "ContentFunc.h"
 #include "ContentDatabase.h"
 #include "ContentShaderBuffer.h"
+#include "ContentLevel.h"
 
 #include "EffectManager.h"
 #include "GameEventManager.h"

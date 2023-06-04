@@ -111,7 +111,7 @@ void ForestOfHarmonyLevel::Start()
 	
 	
 
-	GameEventManager::AddEvent("BossIntroDown", LevelCode, [this]()
+	AddEvent("BossIntroDown", LevelCode, [this]()
 		{
 			static bool FirstCheck = false;
 
@@ -126,7 +126,7 @@ void ForestOfHarmonyLevel::Start()
 			}
 		});
 
-	GameEventManager::AddEvent("BossIntroUp", LevelCode, [this]()
+	AddEvent("BossIntroUp", LevelCode, [this]()
 		{
 			MainCamCtrl.SetLookatSpeed(0.5f);
 			MainCamCtrl.SetMaxHeight(7000);
@@ -135,7 +135,7 @@ void ForestOfHarmonyLevel::Start()
 			IntroTilemap->FadeOut(1.0f);
 		});
 
-	GameEventManager::AddEvent("BossIntroUpOut", LevelCode, [this]()
+	AddEvent("BossIntroUpOut", LevelCode, [this]()
 		{
 			MainCamCtrl.SetLookatSpeed(7.0f);
 			IntroTilemap->FadeIn(1.0f);

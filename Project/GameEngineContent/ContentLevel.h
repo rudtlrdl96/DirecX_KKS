@@ -20,6 +20,10 @@ public:
 		return MainCamCtrl;
 	}
 
+	void AddEvent(const std::string_view& _Event, UINT _ActorCode, std::function<void()> _Callback);
+	void RemoveEvent(const std::string_view& _Event, UINT _ActorCode, std::function<void()> _Callback);
+	void CallEvent(const std::string_view& _Event);
+
 protected:
 	CameraController MainCamCtrl;
 
@@ -30,4 +34,5 @@ protected:
 
 private:
 	std::shared_ptr<GameEngineCamera> MainCam = nullptr;
+	std::map<std::string, std::map<UINT, std::function<void(void)>>> EventCallback;
 };

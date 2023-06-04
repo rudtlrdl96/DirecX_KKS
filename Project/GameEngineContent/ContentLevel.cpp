@@ -29,6 +29,47 @@ float4 ContentLevel::GetMousePos() const
 	return Result;
 }
 
+void ContentLevel::AddEvent(const std::string_view& _Event, UINT _ActorCode, std::function<void()> _Callback)
+{
+	std::string UpperName = GameEngineString::ToUpper(_Event);
+	EventCallback[UpperName][_ActorCode] = _Callback;
+}
+
+void ContentLevel::RemoveEvent(const std::string_view& _Event, UINT _ActorCode, std::function<void()> _Callback)
+{
+	std::string UpperName = GameEngineString::ToUpper(_Event);
+
+	std::map<UINT, std::function<void(void)>>& EventRef = EventCallback[UpperName];
+
+	std::map<UINT, std::function<void(void)>>::iterator FindIter = EventRef.find(_ActorCode);
+
+	if (FindIter != EventRef.end())
+	{
+		EventRef.erase(FindIter);
+	}
+}
+
+void ContentLevel::CallEvent(const std::string_view& _Event)
+{
+	std::string UpperName = GameEngineString::ToUpper(_Event);
+	std::map<UINT, std::function<void(void)>>& EventRef = EventCallback[UpperName];
+
+	std::map<UINT, std::function<void(void)>>::iterator LoopIter = EventRef.begin();
+	std::map<UINT, std::function<void(void)>>::iterator EndIter = EventRef.end();
+
+	while (LoopIter != EndIter)
+	{
+		if (nullptr == LoopIter->second)
+		{
+			MsgAssert_Rtti<GameEventManager>(" - nullptr callback 함수를 호출하려 했습니다");
+			continue;
+		}
+
+		LoopIter->second();
+		++LoopIter;
+	}
+}
+
 void ContentLevel::Start()
 {
 	GameEngineLevel::Start();

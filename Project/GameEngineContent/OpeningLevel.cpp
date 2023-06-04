@@ -50,13 +50,13 @@ void OpeningLevel::Start()
 	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
 	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 
-	GameEventManager::AddEvent("LockCamMongal", LevelCode, [this]()
+	AddEvent("LockCamMongal", LevelCode, [this]()
 		{
-			GameEventManager::CallEvent("StoryFadeIn");
+			CallEvent("StoryFadeIn");
 			MainCamCtrl.ActiveForceLookAt(float4(1710, 250));
 		});
 
-	GameEventManager::AddEvent("MongalDeath", LevelCode, [this]()
+	AddEvent("MongalDeath", LevelCode, [this]()
 		{
 			FadeActorPtr->SetSpeed(1.5f);
 			FadeActorPtr->SetWaitTime(0.0f);

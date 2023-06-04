@@ -5,6 +5,7 @@
 #include <GameEngineCore/imgui.h>
 
 #include "GameEventManager.h"
+#include "BattleLevel.h"
 
 EventActor::EventActor()
 {
@@ -28,7 +29,13 @@ void EventActor::Update(float _DeltaTime)
 		if (nullptr == PlayerCol)
 		{
 			IsEventEnter = false;
-			GameEventManager::CallEvent(ExitEventName);
+
+			ContentLevel* CastingPtr =  static_cast<ContentLevel*>(GetLevel());
+
+			if (nullptr != CastingPtr)
+			{
+				CastingPtr-> CallEvent(ExitEventName);
+			}
 		}
 	}
 
@@ -37,13 +44,24 @@ void EventActor::Update(float _DeltaTime)
 		if (nullptr != PlayerCol)
 		{
 			IsEventEnter = true;
-			GameEventManager::CallEvent(EnterEventName);
+
+			ContentLevel* CastingPtr = static_cast<ContentLevel*>(GetLevel());
+
+			if (nullptr != CastingPtr)
+			{
+				CastingPtr->CallEvent(EnterEventName);
+			}
 		}
 	}
 
 	if (nullptr != PlayerCol)
 	{
-		GameEventManager::CallEvent(UpdateEventName);
+		ContentLevel* CastingPtr = static_cast<ContentLevel*>(GetLevel());
+
+		if (nullptr != CastingPtr)
+		{
+			CastingPtr->CallEvent(UpdateEventName);
+		}
 	}
 }
 

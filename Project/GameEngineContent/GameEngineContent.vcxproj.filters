@@ -343,6 +343,9 @@
     <Filter Include="2_Actor\BattleActor\Monster\NormalMonster\ForestOfHarmony">
       <UniqueIdentifier>{923adf6d-88cf-47d7-b4e7-20caefdf0c6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\UI\Talk">
+      <UniqueIdentifier>{e2893a5d-d62c-4cd2-8cae-74e0d89b7106}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -797,6 +800,15 @@
     </ClInclude>
     <ClInclude Include="ContentFadeRender.h">
       <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkBox.h">
+      <Filter>2_Actor\UI\Talk</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkNameTag.h">
+      <Filter>2_Actor\UI\Talk</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkboxDebugGUI.h">
+      <Filter>5_GUI\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1285,6 +1297,15 @@
     </ClCompile>
     <ClCompile Include="ContentFadeRender.cpp">
       <Filter>3_Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkBox.cpp">
+      <Filter>2_Actor\UI\Talk</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkNameTag.cpp">
+      <Filter>2_Actor\UI\Talk</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkboxDebugGUI.cpp">
+      <Filter>5_GUI\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

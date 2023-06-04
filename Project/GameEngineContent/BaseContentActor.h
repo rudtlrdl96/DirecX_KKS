@@ -25,6 +25,7 @@ public:
 	virtual void ShowGUI() {}
 
 protected:
+	class ContentLevel* GetContentLevel() const;
 
 private:
 	const UINT Code;

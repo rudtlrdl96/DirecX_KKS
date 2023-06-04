@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "MonsterDeadBodyActor.h"
+#include "BattleLevel.h"
 
 MonsterDeadBodyActor::MonsterDeadBodyActor()
 {
@@ -26,8 +27,13 @@ void MonsterDeadBodyActor::Start()
 	BodyRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	BodyRender->Off();
 
-	GameEventManager::AddEvent("MoveStage", GetActorCode(), [this]()
-		{
-			Death();
-		});
+	BattleLevel* BattleLevelPtr = static_cast<BattleLevel*>(GetLevel());
+
+	if (nullptr != BattleLevelPtr)
+	{
+		BattleLevelPtr->AddEvent("MoveStage", GetActorCode(), [this]()
+			{
+				Death();
+			});
+	}
 }

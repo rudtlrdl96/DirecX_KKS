@@ -9,6 +9,9 @@
 #include "Player.h"
 #include "FadeActor.h"
 #include "StoryFade.h"
+#include "TalkBox.h"
+
+#include "GameEngineActorGUI.h"
 
 BattleLevel::BattleLevel()
 {
@@ -24,6 +27,7 @@ void BattleLevel::Start()
 	{
 		GameEngineInput::CreateKey("LevelMovePrev", '1');
 		GameEngineInput::CreateKey("LevelMoveNext", '2');
+		GameEngineInput::CreateKey("DebugTextRead", '3');
 	}
 
 	ContentLevel::Start();
@@ -33,30 +37,37 @@ void BattleLevel::Start()
 
 	FadeActorPtr = CreateActor<FadeActor>();
 	StoryFadePtr = CreateActor<StoryFade>();
-
 	StoryFadePtr->GetTransform()->SetLocalPosition(float4(0, 0, -100.0f));
 
-	GameEventManager::AddEvent("NextLevelMove", LevelCode, [this]()
+	TalkBoxPtr = CreateActor<TalkBox>();
+	TalkBoxPtr->GetTransform()->SetLocalPosition(float4(0, -300, -110.0f));
+	TalkBoxPtr->ActiveTalkBox("몬갈");
+	TalkBoxPtr->SetReadSpeed(10.0f);
+	TalkBoxPtr->Off();
+
+	AddEvent("NextLevelMove", LevelCode, [this]()
 		{
 			AreaClear();
 		}); 
 
-	GameEventManager::AddEvent("StoryFadeIn", LevelCode, [this]()
+	AddEvent("StoryFadeIn", LevelCode, [this]()
 		{
 			StoryFadePtr->SetSpeed(2.0f);
 			StoryFadePtr->FadeIn();
 		});
 
-	GameEventManager::AddEvent("StoryFadeOut", LevelCode, [this]()
+	AddEvent("StoryFadeOut", LevelCode, [this]()
 		{
 			StoryFadePtr->SetSpeed(2.0f);
 			StoryFadePtr->FadeOut();
 		});
 
-	GameEventManager::AddEvent("UnLockCam", LevelCode, [this]()
+	AddEvent("UnLockCam", LevelCode, [this]()
 		{
 			MainCamCtrl.DisalbeForceLookAt();
 		});
+	
+	ActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 }
 
 void BattleLevel::Update(float _DeltaTime)
@@ -68,6 +79,10 @@ void BattleLevel::Update(float _DeltaTime)
 	else if (true == GameEngineInput::IsDown("LevelMoveNext"))
 	{
 		MoveNextStage(true);
+	}
+	else if (true == GameEngineInput::IsDown("DebugTextRead"))
+	{
+		TalkBoxPtr->SetMainText(L"테스트 입니다 010101012 ㅋㅋㅋ", nullptr);
 	}
 
 	ContentLevel::Update(_DeltaTime);
@@ -84,6 +99,8 @@ void BattleLevel::SetPlayerPos(const float4& _Pos)
 
 void BattleLevel::LevelChangeStart()
 {
+	//ActorGUIPtr->On();
+
 	StoryFadePtr->Reset();
 
 	FadeActorPtr->SetWaitTime(0.5f);
@@ -108,6 +125,8 @@ void BattleLevel::LevelChangeStart()
 
 void BattleLevel::LevelChangeEnd()
 {
+	ActorGUIPtr->Off();
+
 	if (nullptr != MainPlayer)
 	{
 		MainPlayer->Death();
@@ -128,7 +147,7 @@ void BattleLevel::ChangeStage()
 
 	float4 SpawnPos = BattleAreaPtr->GetSpawnPoint();
 
-	GameEventManager::CallEvent("MoveStage");
+	CallEvent("MoveStage");
 
 	MainCamCtrl.SetLookatSpeed(7.0f);
 	MainCamCtrl.DisalbeForceLookAt();
@@ -191,7 +210,7 @@ void BattleLevel::MoveNextStage(bool _ForceMove /*= false*/)
 	if (StageNameInfos.size() <= CurStageIndex)
 	{
 		AreaClear();
-		GameEventManager::CallEvent("MoveStage");
+		CallEvent("MoveStage");
 		CurStageIndex = static_cast<UINT>(StageNameInfos.size() - 1);
 	}
 	else

@@ -61,7 +61,7 @@ void Mongal::Update(float _DeltaTime)
 						DeathEffectPlusPos = float4(30, 100);
 					}
 
-					GameEventManager::CallEvent("StoryFadeIn");
+					GetContentLevel()->CallEvent("StoryFadeIn");
 
 					EffectManager::PlayEffect({
 						.EffectName = "MongalDeathEffect",
@@ -417,7 +417,7 @@ void Mongal::MonsterDeath()
 		.Position = GetTransform()->GetWorldPosition() + DeathEffectLocalPos });
 
 	Render->ChangeAnimation("Death", 0, false);
-	GameEventManager::CallEvent("MongalDeath");
+	GetContentLevel()->CallEvent("MongalDeath");
 }
 
 

@@ -19,6 +19,7 @@
 #include "BackgroundToolGUI.h"
 #include "LevelMoveGUI.h"
 #include "AnimationCollisionToolGUI.h"
+#include "TalkboxDebugGUI.h"
 
 // Player Level
 #include "TitleLevel.h"
@@ -326,4 +327,7 @@ void ContentCore::ImGuiCreate()
 
 	std::shared_ptr<GameEngineGUIWindow> AnimationColToolGUIPtr = GameEngineGUI::GUIWindowCreate<AnimationCollisionToolGUI>("AnimationCollisionToolGUI");
 	AnimationColToolGUIPtr->Off();
+
+	std::shared_ptr<GameEngineGUIWindow> TalkboxGUIPtr = GameEngineGUI::GUIWindowCreate<TalkboxDebugGUI>("TalkboxDebugGUI");
+	TalkboxGUIPtr->Off();
 }

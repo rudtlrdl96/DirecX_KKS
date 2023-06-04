@@ -4,20 +4,12 @@
 
 class GameEventManager : public BaseContentActor
 {
-public:
-	static void AddEvent(const std::string_view& _Event, UINT _ActorCode, std::function<void()> _Callback);
-	static void RemoveEvent(const std::string_view& _Event, UINT _ActorCode, std::function<void()> _Callback);
-	static void CallEvent(const std::string_view& _Event);
-
 private:
 	enum class ClearDoorType
 	{
 		SingleDoor,
 		DoubleDoor,
 	};
-
-	static std::map<std::string, std::map<UINT, std::function<void(void)>>> EventCallback;
-
 public:
 	GameEventManager();
 	~GameEventManager();
