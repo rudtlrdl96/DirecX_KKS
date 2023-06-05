@@ -36,6 +36,11 @@ void BattleLevel::Start()
 	BattleAreaPtr = CreateActor<BattleArea>();
 
 	FadeActorPtr = CreateActor<FadeActor>();
+	FadeActorPtr->GetTransform()->AddLocalPosition(float4(0, 0, -20.0f));
+
+	FadeActorPtr_White = CreateActor<FadeActor>();
+	FadeActorPtr_White->GetTransform()->AddLocalPosition(float4(0, 0, -1.0f));
+
 	StoryFadePtr = CreateActor<StoryFade>();
 	StoryFadePtr->GetTransform()->SetLocalPosition(float4(0, 0, -100.0f));
 
@@ -57,6 +62,20 @@ void BattleLevel::Start()
 	AddEvent("FadeOut", LevelCode, [this]()
 		{
 			FadeActorPtr->FadeOut();
+		});
+
+	AddEvent("FadeIn_White", LevelCode, [this]()
+		{
+			FadeActorPtr_White->SetWaitTime(0.0f);
+			FadeActorPtr_White->SetSpeed(2.0f);
+			FadeActorPtr_White->FadeIn(nullptr, float4::White);
+		});
+
+	AddEvent("FadeOut_White", LevelCode, [this]()
+		{
+			FadeActorPtr_White->SetWaitTime(0.0f);
+			FadeActorPtr_White->SetSpeed(2.0f);
+			FadeActorPtr_White->FadeOut(nullptr, float4::White);
 		});
 
 	AddEvent("StoryFadeIn", LevelCode, [this]()
@@ -112,6 +131,8 @@ void BattleLevel::LevelChangeStart()
 	FadeActorPtr->SetWaitTime(0.5f);
 	FadeActorPtr->SetSpeed(2.0f);
 	FadeActorPtr->FadeOut();
+
+	FadeActorPtr_White->SetUnFade();
 
 	EffectManager::SetLevel(DynamicThis<GameEngineLevel>());
 

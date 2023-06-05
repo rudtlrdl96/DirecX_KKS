@@ -71,7 +71,7 @@ void FadeActor::Start()
 	MainRenderer->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", Buffer);
 	MainRenderer->SetTexture("FadeImage.png");
 	MainRenderer->GetTransform()->SetWorldScale(GameEngineWindow::GetScreenSize());
-	MainRenderer->GetTransform()->SetWorldPosition({0, 0, -999, 1});
+	MainRenderer->GetTransform()->SetLocalPosition({0, 0, 0, 1});
 }
 
 void FadeActor::Update(float _DeltaTime)

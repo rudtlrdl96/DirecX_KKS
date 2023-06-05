@@ -189,8 +189,8 @@ void CameraController::CameraShake(float _ShakeDis, float _ShakeSpeed, int _Shak
 {
 	ShakeCount = _ShakeCount;
 	ShakeSpeed = _ShakeSpeed;
-	ShakeMinDistance = _ShakeDis * 0.75f;
-	ShakeMaxDistance = _ShakeDis * 1.25f;
+	ShakeMinDistance = _ShakeDis * 0.8f;
+	ShakeMaxDistance = _ShakeDis * 1.2f;
 	ShakeProgress = 0.0f;
 
 	StartShakePos = float4::Zero;

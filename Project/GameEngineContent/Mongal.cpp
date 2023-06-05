@@ -5,6 +5,8 @@
 #include "HealthBar.h"
 #include "BattleLevel.h"
 
+#include "StoryHero_FirstHero_Opening.h"
+
 Mongal::Mongal()
 {
 }

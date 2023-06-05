@@ -58,7 +58,7 @@ private:
 	float4 WalkStart = float4::Zero;
 	float4 WalkEnd = float4::Zero;
 	float WalkProgress = 0.0f;
-	float WalkSpeed = 0.3f;
+	float WalkSpeed = 0.4f;
 
 	std::map<int, float> WakeupWaitTime;
 

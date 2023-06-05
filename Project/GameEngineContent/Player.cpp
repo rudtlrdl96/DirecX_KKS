@@ -129,6 +129,16 @@ void Player::Start()
 		{
 			InputUnlock();
 		});
+
+	GetContentLevel()->AddEvent("PlayerLookLeft", GetActorCode(), [this]()
+		{
+			MainSkull->SetViewDir(ActorViewDir::Left);
+		});
+
+	GetContentLevel()->AddEvent("PlayerLookRight", GetActorCode(), [this]()
+		{
+			MainSkull->SetViewDir(ActorViewDir::Right);
+		});
 }
 
 void Player::Update(float _DeltaTime)

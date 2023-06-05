@@ -8,6 +8,8 @@
 #include "TalkBox.h"
 #include "Player.h"
 
+#include "StoryHero_FirstHero_Opening.h"
+
 OpeningLevel::OpeningLevel()
 {
 }
@@ -63,7 +65,7 @@ void OpeningLevel::Start()
 
 			CallEvent("StoryFadeIn");
 			MainCamCtrl.SetLookatSpeed(3.5F);
-			MainCamCtrl.ActiveForceLookAt(float4(1710, 250));
+			MainCamCtrl.ActiveForceLookAt(float4(1800, 250));
 
 			std::function<void()> MongalTalk_0 = [this]()
 			{
@@ -125,17 +127,54 @@ void OpeningLevel::Start()
 						}, float4::One);				
 				}, float4::One);
 		});
+	
+
+	AddEvent("Story_FirstHeroTalk0", LevelCode, [this]()
+		{
+			std::function<void()> FirstHeroTalk_1 = [this]()
+			{
+				TalkBoxPtr->SetMainText(L"더러운 마족 자식들...", [this]()
+					{
+						CallEvent("Story_FirstHeroTalk0_End");
+						TalkBoxPtr->Off();
+					});
+			};
+
+			std::function<void()> FirstHeroTalk_0 = [this, FirstHeroTalk_1]()
+			{
+				TalkBoxPtr->ActiveTalkBox("초대 용사");
+				TalkBoxPtr->SetMainText(L"쓸모없는 녀석... 고작 스켈레톤에게 패하다니.", FirstHeroTalk_1);
+			};
+
+			TalkBoxPtr->ActiveTalkBox("마녀");
+			TalkBoxPtr->SetMainText(L"요..용사!?", FirstHeroTalk_0);
+		});
 
 	AddEvent("PlayerMove_MongalWalkup", LevelCode, [this]()
 		{
-			MainCamCtrl.SetCameraPos(float4(1410, 250));
-			MainPlayer->GetTransform()->SetLocalPosition(float4(1410, 250));
+			CallEvent("PlayerLookRight");
+
+			MainCamCtrl.SetCameraPos(float4(1480, 250));
+			MainPlayer->GetTransform()->SetLocalPosition(float4(1480, 250));
 		});
+
+	if (false == GameEngineInput::IsKey("MagicDebugKey"))
+	{
+		GameEngineInput::CreateKey("MagicDebugKey", '5');
+	}
 }
 
 void OpeningLevel::Update(float _DeltaTime)
 {
 	BattleLevel::Update(_DeltaTime);
+
+	if (true == GameEngineInput::IsDown("MagicDebugKey"))
+	{
+		std::shared_ptr<StoryHero_FirstHero_Opening> Ptr = CreateActor<StoryHero_FirstHero_Opening>();
+
+		Ptr->GetTransform()->SetLocalPosition(GameEngineWindow::GetScreenSize().half());
+		Ptr->PlayLandingEffect();
+	}
 }
 
 void OpeningLevel::LevelChangeStart()

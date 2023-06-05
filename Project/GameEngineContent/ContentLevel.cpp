@@ -74,10 +74,6 @@ void ContentLevel::Start()
 {
 	GameEngineLevel::Start();
 
-	std::shared_ptr<GameEngineCamera> FadeCam = CreateActor<GameEngineCamera>();
-	FadeCam->SetProjectionType(CameraType::Orthogonal);
-	InsertCamera(101, FadeCam);
-
 	MainCam = GetMainCamera();
 	MainCamCtrl.Start(MainCam);
 	MainCam->SetSortType(0, SortType::ZSort);
@@ -88,6 +84,13 @@ void ContentLevel::Start()
 	UICam->SetProjectionType(CameraType::Orthogonal);
 	UICam->SetSortType(0, SortType::ZSort);
 	UICam->GetTransform()->SetLocalPosition({ 0, 0, -5000 });
+
+	std::shared_ptr<GameEngineCamera> FadeCam = CreateActor<GameEngineCamera>();
+	InsertCamera(101, FadeCam);
+	FadeCam->SetSortType(0, SortType::ZSort);
+	FadeCam->SetProjectionType(CameraType::Orthogonal);
+	FadeCam->GetTransform()->SetLocalPosition(float4(0, 0, -5000.0f));
+	FadeCam->GetTransform()->SetLocalRotation(float4::Zero);
 }
 
 void ContentLevel::Update(float _DeltaTime)

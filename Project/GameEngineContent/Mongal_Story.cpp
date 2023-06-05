@@ -2,6 +2,7 @@
 #include "Mongal.h"
 #include "HealthBar.h"
 #include "BattleLevel.h"
+#include "StoryHero_FirstHero_Opening.h"
 
 void Mongal::StoryUpdate(float _DeltaTime)
 {
@@ -26,7 +27,7 @@ void Mongal::StoryUpdate(float _DeltaTime)
 
 			if (4.0f < FadeTimeCheck)
 			{
-				GetTransform()->SetLocalPosition(float4(1710, 250, 0));
+				GetTransform()->SetLocalPosition(float4(1720, 250, 0));
 
 				GetContentLevel()->CallEvent("PlayerMove_MongalWalkup");
 				GetContentLevel()->CallEvent("FadeOut");
@@ -114,6 +115,8 @@ void Mongal::StoryUpdate(float _DeltaTime)
 	case Mongal::DeathState::WakeUp:
 		if (0 == Render->GetCurrentFrame())
 		{
+			SetViewDir(ActorViewDir::Left, true);
+
 			float& Time = WakeupWaitTime[0];
 
 			Time += _DeltaTime;
@@ -173,7 +176,7 @@ void Mongal::StoryUpdate(float _DeltaTime)
 			Render->ChangeAnimation("Walk_NoBattle");
 
 			WalkStart = GetTransform()->GetLocalPosition();
-			WalkEnd = float4(1980, 250, WalkStart.z);
+			WalkEnd = float4(1950, 250, WalkStart.z);
 			WalkProgress = 0.0f;
 		}
 
@@ -189,9 +192,10 @@ void Mongal::StoryUpdate(float _DeltaTime)
 			State = DeathState::NormalDeath;
 			Render->ChangeAnimation("Death_NoBattle");
 
-			// Effect
-			// CameraShake
-			// 용사 출현 이벤트
+			std::shared_ptr<StoryHero_FirstHero_Opening> FirstHero = GetLevel()->CreateActor<StoryHero_FirstHero_Opening>();
+
+			FirstHero->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition());
+			FirstHero->PlayLandingEffect();
 		}
 
 		GetTransform()->SetLocalPosition(LerpPos);

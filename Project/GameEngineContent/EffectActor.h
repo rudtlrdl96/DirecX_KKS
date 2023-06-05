@@ -46,6 +46,11 @@ public:
 		return EffectRender->GetCurrentFrame();
 	}
 
+	inline bool IsAnimationEnd() const
+	{
+		return EffectRender->IsAnimationEnd();
+	}
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> EffectRender = nullptr;
 

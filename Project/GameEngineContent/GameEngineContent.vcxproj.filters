@@ -346,6 +346,9 @@
     <Filter Include="2_Actor\UI\Talk">
       <UniqueIdentifier>{e2893a5d-d62c-4cd2-8cae-74e0d89b7106}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\StoryNPC">
+      <UniqueIdentifier>{1656e9ce-40a5-4504-9aa9-57b356c570d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -812,6 +815,9 @@
     </ClInclude>
     <ClInclude Include="TalkArrow.h">
       <Filter>2_Actor\UI\Talk</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryHero_FirstHero_Opening.h">
+      <Filter>2_Actor\StoryNPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1315,6 +1321,9 @@
     </ClCompile>
     <ClCompile Include="Mongal_Story.cpp">
       <Filter>2_Actor\BattleActor\Monster\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryHero_FirstHero_Opening.cpp">
+      <Filter>2_Actor\StoryNPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
