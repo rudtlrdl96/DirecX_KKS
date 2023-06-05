@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "StoryHero_FirstHero_Opening.h"
+#include "StoryLevel.h"
 
 StoryHero_FirstHero_Opening::StoryHero_FirstHero_Opening()
 {
@@ -236,6 +237,7 @@ void StoryHero_FirstHero_Opening::Update(float _DeltaTime)
 				OrbTrailEffect = nullptr;
 
 				Death();
+				StoryLevel::SetLevelEnterStoryName(StoryLevel::StoryName::Opening);
 				GameEngineCore::ChangeLevel("Story");
 			}
 		}

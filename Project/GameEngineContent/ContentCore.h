@@ -29,6 +29,7 @@ private:
 	static void TileDataLoad();
 	static void ObjectLoad();
 	static void BackgroundDataLoad();
+	static void NPCDataLoad();
 
 	// Common Load
 	static void CommonTextureLoad();

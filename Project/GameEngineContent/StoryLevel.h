@@ -13,6 +13,15 @@ public:
 		HolyCourtyard,
 		Ending
 	};
+
+	static void SetLevelEnterStoryName(StoryName _StoryName)
+	{
+		ChangeStoryName = _StoryName;
+	}
+
+private:
+	static StoryName ChangeStoryName;
+
 public:
 	StoryLevel();
 	~StoryLevel();
@@ -22,7 +31,7 @@ public:
 	StoryLevel& operator=(const StoryLevel& _Other) = delete;
 	StoryLevel& operator=(StoryLevel&& _Other) noexcept = delete;
 
-	void SetSotoryName(StoryName _Name)
+	void SetStoryName(StoryName _Name)
 	{
 		CurStoryName = _Name;
 		StoryReset();

@@ -61,6 +61,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BaseNPC.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BaseQuintessence.h">
       <SubType>
       </SubType>
@@ -407,6 +411,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="NPCManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Opening_MapParticle.h">
       <SubType>
       </SubType>
@@ -676,6 +684,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BaseMonster_FSM.cpp" />
+    <ClCompile Include="BaseNPC.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BaseQuintessence.cpp">
       <SubType>
       </SubType>
@@ -781,6 +793,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentCore_NPCData.cpp" />
     <ClCompile Include="ContentCore_Object.cpp" />
     <ClCompile Include="ContentCore_MonsterData.cpp" />
     <ClCompile Include="ContentCore_QuintessenceData.cpp" />
@@ -1034,6 +1047,11 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="NPCManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="NPCManager_CreateNPC.cpp" />
     <ClCompile Include="Opening_MapParticle.cpp">
       <SubType>
       </SubType>

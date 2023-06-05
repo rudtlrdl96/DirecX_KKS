@@ -63,6 +63,7 @@ void ContentCore::CoreLoading()
 	TileDataLoad();
 	ObjectLoad();
 	BackgroundDataLoad();
+	NPCDataLoad();
 
 	// Common Load
 	CommonTextureLoad();

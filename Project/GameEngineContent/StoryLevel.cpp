@@ -8,6 +8,8 @@
 #include "StoryTextureView.h"
 #include "StoryBackImage.h"
 
+StoryLevel::StoryName StoryLevel::ChangeStoryName = StoryName::Opening;
+
 StoryLevel::StoryLevel()
 {
 }
@@ -65,23 +67,23 @@ void StoryLevel::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("Story_Opening"))
 	{
-		SetSotoryName(StoryName::Opening);
+		SetStoryName(StoryName::Opening);
 	}
 	else if (true == GameEngineInput::IsDown("Story_ForestOfHarmony"))
 	{
-		SetSotoryName(StoryName::ForestOfHarmony);
+		SetStoryName(StoryName::ForestOfHarmony);
 	}
 	else if (true == GameEngineInput::IsDown("Story_GranHall"))
 	{
-		SetSotoryName(StoryName::GranHall);
+		SetStoryName(StoryName::GranHall);
 	}
 	else if (true == GameEngineInput::IsDown("Story_HolyCourtyard"))
 	{
-		SetSotoryName(StoryName::HolyCourtyard);
+		SetStoryName(StoryName::HolyCourtyard);
 	}
 	else if (true == GameEngineInput::IsDown("Story_Ending"))
 	{
-		SetSotoryName(StoryName::Ending);
+		SetStoryName(StoryName::Ending);
 	}
 
 	StoryBookDatas[CurStoryName].Update(_DeltaTime);
@@ -89,6 +91,7 @@ void StoryLevel::Update(float _DeltaTime)
 
 void StoryLevel::LevelChangeStart()
 {
+	SetStoryName(ChangeStoryName);
 	StoryReset();	
 }
 

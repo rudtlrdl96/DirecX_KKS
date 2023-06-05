@@ -349,6 +349,12 @@
     <Filter Include="2_Actor\StoryNPC">
       <UniqueIdentifier>{1656e9ce-40a5-4504-9aa9-57b356c570d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\NPC">
+      <UniqueIdentifier>{258fadee-4aa5-45b1-a8ea-dbeb5423e2d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\Map\Stage\NPC\NPC">
+      <UniqueIdentifier>{54eef468-f9ec-43b8-ae00-65ba681a55de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -818,6 +824,12 @@
     </ClInclude>
     <ClInclude Include="StoryHero_FirstHero_Opening.h">
       <Filter>2_Actor\StoryNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCManager.h">
+      <Filter>2_Actor\Map\Stage\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseNPC.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1324,6 +1336,18 @@
     </ClCompile>
     <ClCompile Include="StoryHero_FirstHero_Opening.cpp">
       <Filter>2_Actor\StoryNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCManager.cpp">
+      <Filter>2_Actor\Map\Stage\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentCore_NPCData.cpp">
+      <Filter>0_Core\CoreLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseNPC.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCManager_CreateNPC.cpp">
+      <Filter>2_Actor\Map\Stage\NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
