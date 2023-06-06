@@ -40,6 +40,34 @@ void BaseNPC::Start()
 	SpriteLoad();
 }
 
+void BaseNPC::Update(float _DeltaTime)
+{
+	if (CurFrame != MainRender->GetCurrentFrame())
+	{
+		CurFrame = static_cast<UINT>(MainRender->GetCurrentFrame());
+		AnimTimeCheck = 0.0f;
+	}
+
+	AnimTimeCheck += _DeltaTime;
+
+	if (AnimFramePause[CurAnimation][CurFrame] > AnimTimeCheck)
+	{
+		MainRender->SetAnimPauseOn();
+	}
+	else
+	{
+		MainRender->SetAnimPauseOff();
+	}
+}
+
+void BaseNPC::PlayAnimation(const std::string_view& _AnimationName, bool _IsForce, size_t _Frame)
+{
+	AnimTimeCheck = 0.0f;
+	CurFrame = static_cast<UINT>(-1);
+	CurAnimation = _AnimationName;
+	MainRender->ChangeAnimation(CurAnimation, _IsForce, _Frame);
+}
+
 void BaseNPC::ShowGUI()
 {
 	//UINT Index = 0;

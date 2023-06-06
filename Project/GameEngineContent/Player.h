@@ -59,6 +59,9 @@ public:
 		return IsInputLockValue;
 	}
 
+	void ActivePlayerFrame();
+	void DisablePlayerFrame();
+
 protected:	
 	void Start() override;
 	void Update(float _DeltaTime);

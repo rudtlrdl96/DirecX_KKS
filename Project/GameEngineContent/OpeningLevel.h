@@ -23,5 +23,7 @@ protected:
 private:
 	bool IsMongalEncounter = false;
 
+	void CreateOpeningEvent();
+
 };
 

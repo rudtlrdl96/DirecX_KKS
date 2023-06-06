@@ -140,9 +140,9 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_DeadLoop.png").GetFullPath(), 1, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Getscroll.png").GetFullPath(), 6, 9);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_Idle.png").GetFullPath(), 1, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_0.png").GetFullPath(), 5, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_1.png").GetFullPath(), 5, 11);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_2.png").GetFullPath(), 5, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_WlakUp.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_GetHead.png").GetFullPath(), 5, 11);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Intro_Awkward.png").GetFullPath(), 5, 4);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneSkull_Normal_Getskull.png").GetFullPath(), 7, 7);
 	}
 

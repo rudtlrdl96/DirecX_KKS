@@ -40,7 +40,6 @@ private:
 	BoneSkullState State = BoneSkullState::Normal;
 	std::shared_ptr<class GameEngineCollision> HeadPickupCol = nullptr;
 	std::shared_ptr<class BoneHead> HeadActor = nullptr;
-
 	
 	void DataLoad() override;
 	void TextureLoad() override;

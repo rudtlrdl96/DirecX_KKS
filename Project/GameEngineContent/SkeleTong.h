@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseNPC.h"
+#include "ContentUIRender.h"
 
 class SkeleTong : public BaseNPC
 {
@@ -14,9 +15,28 @@ public:
 
 protected:
 	void Start() override;
-	
-private:
-	void SpriteLoad() override;
+	void Update(float _DeltaTime) override;
 
+	void PlayBehavior() override;
+
+private:
+	std::shared_ptr<ContentUIRender> FadeRender = nullptr;
+	ColorBuffer Buffer = ColorBuffer(); 
+
+	bool IsFadeEnd = false;
+	float FadeProgress = 0.0f;
+
+	bool IsMove = false;
+	float MoveWaitTime = 0.0f;
+
+	bool IsSurqrise = false;
+	float SurqriseTime = 0.0f;
+
+	bool IsScript3Active = false;
+	float Script3WaitTime = 0.0f;
+
+	UINT MoveCount = 0;
+
+	void SpriteLoad() override;
 };
 

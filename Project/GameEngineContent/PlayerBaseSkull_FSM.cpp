@@ -49,7 +49,8 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 	{
 		PlayerFSM.ChangeState("Dash");
 	}
-	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	else if (false == ParentPlayer->IsInputLock() && false == IsLockAttack &&
+			 true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		PlayerFSM.ChangeState("Attack");
 	}
@@ -154,7 +155,8 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 		DoubleJump = false;
 	}
 
-	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (false == ParentPlayer->IsInputLock() && false == IsLockAttack &&
+		true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		PlayerFSM.ChangeState("JumpAttack");
 		return;
@@ -266,7 +268,8 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 		}
 	}
 
-	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (false == ParentPlayer->IsInputLock() && false == IsLockAttack && 
+		true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		PlayerFSM.ChangeState("Attack");
 		return;
@@ -407,7 +410,8 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 			PlayerFSM.ChangeState("Skill_B");
 		}
 	}
-	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	else if (false == ParentPlayer->IsInputLock() && false == IsLockAttack &&
+		true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		if (nullptr == ContentFunc::PlatformColCheck(GroundCol))
 		{
@@ -524,7 +528,8 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 		return;
 	}
 
-	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (false == ParentPlayer->IsInputLock() && false == IsLockAttack && 
+		true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		PlayerFSM.ChangeState("JumpAttack");
 		return;
@@ -690,7 +695,8 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 		return;
 	}
 
-	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (false == ParentPlayer->IsInputLock() && false == IsLockAttack && 
+		true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		IsAttackCombo = true;
 	}
@@ -898,7 +904,8 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 		return;
 	}
 
-	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Attack"))
+	if (false == ParentPlayer->IsInputLock() && false == IsLockAttack && 
+		true == GameEngineInput::IsDown("PlayerMove_Attack"))
 	{
 		IsJumpAttackCombo = true;
 	}
@@ -1080,7 +1087,6 @@ void PlayerBaseSkull::Skill_SlotB_End()
 	AttackEnterCheck.Reset();
 }
 
-
 void PlayerBaseSkull::Switch_Enter()
 {
 	if (0 == AnimColMeta_Switch.size())
@@ -1146,4 +1152,53 @@ void PlayerBaseSkull::Switch_End()
 
 	IsLockSkillA = false;
 	IsLockSkillB = false;
+}
+
+void PlayerBaseSkull::Behavior_Enter()
+{
+	if ("" != BehaviorAnimationName)
+	{
+		Render->ChangeAnimation(BehaviorAnimationName);
+	}
+
+	CurPauseTime = 0.0f;
+}
+
+void PlayerBaseSkull::Behavior_Update(float _DeltaTime)
+{
+	if (true == IsBehaviorAnimPause && PauseFrame == Render->GetCurrentFrame())
+	{
+		CurPauseTime += _DeltaTime;
+
+		if (PauseTime <= CurPauseTime)
+		{
+			CurPauseTime = 0.0f;
+			IsBehaviorAnimPause = false;
+			Render->SetAnimPauseOff();
+
+			if (nullptr != PauseEndCallback)
+			{
+				PauseEndCallback();
+			}
+		}
+		else
+		{
+			Render->SetAnimPauseOn();
+		}
+	}
+
+	if (true == Render->IsAnimationEnd())
+	{
+		if (nullptr != BehaviorEndCallback)
+		{
+			BehaviorEndCallback();
+			BehaviorEndCallback = nullptr;
+		}
+	}
+}
+
+void PlayerBaseSkull::Behavior_End()
+{
+	IsBehaviorAnimPause = false;
+	PauseEndCallback = nullptr;
 }

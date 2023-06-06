@@ -135,6 +135,7 @@ void PlayerBaseSkull::Start()
 	PlayerFSM.AddFSM("Switch", &PlayerBaseSkull::Switch_Enter, &PlayerBaseSkull::Switch_Update, &PlayerBaseSkull::Switch_End);
 	PlayerFSM.AddFSM("Skill_A", &PlayerBaseSkull::Skill_SlotA_Enter, &PlayerBaseSkull::Skill_SlotA_Update, &PlayerBaseSkull::Skill_SlotA_End);
 	PlayerFSM.AddFSM("Skill_B", &PlayerBaseSkull::Skill_SlotB_Enter, &PlayerBaseSkull::Skill_SlotB_Update, &PlayerBaseSkull::Skill_SlotB_End);
+	PlayerFSM.AddFSM("Behavior", &PlayerBaseSkull::Behavior_Enter, &PlayerBaseSkull::Behavior_Update, &PlayerBaseSkull::Behavior_End);
 
 	PlayerFSM.ChangeState("Idle");
 

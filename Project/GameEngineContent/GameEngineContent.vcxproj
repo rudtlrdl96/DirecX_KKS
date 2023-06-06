@@ -1080,6 +1080,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="NPCManager_CreateNPC.cpp" />
+    <ClCompile Include="OpeningLevel_Event.cpp" />
     <ClCompile Include="Opening_MapParticle.cpp">
       <SubType>
       </SubType>

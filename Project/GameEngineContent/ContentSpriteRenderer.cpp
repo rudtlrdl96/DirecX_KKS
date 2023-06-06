@@ -240,7 +240,6 @@ std::shared_ptr<ContentAnimationInfo> ContentSpriteRenderer::CreateAnimation(con
 	if (0 != _Paramter.FrameTime.size())
 	{
 		NewAnimation->FrameTime = _Paramter.FrameTime;
-
 	}
 	else
 	{

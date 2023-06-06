@@ -25,6 +25,7 @@ public:
 	BaseNPC& operator=(const BaseNPC& _Other) = delete;
 	BaseNPC& operator=(BaseNPC&& _Other) noexcept = delete;
 
+	virtual void PlayBehavior() {}
 	virtual void ResetNPC() {}
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
@@ -32,15 +33,26 @@ public:
 
 	void ShowGUI() override;
 
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> MainRender = nullptr;
 	ColorBuffer Buffer = ColorBuffer();
 
+	std::map<std::string, std::map<size_t, float>> AnimFramePause;
+
 	void Start() override;
+	void Update(float _DeltaTime) override;
 
 	virtual void SpriteLoad() = 0;
+	void PlayAnimation(const std::string_view& _AnimationName, bool _IsForce, size_t _Frame = static_cast<size_t>(-1));
 
 private:
 	NPCMetaData Data = NPCMetaData();
+
+	std::string CurAnimation = "";
+
+	float AnimTimeCheck = 0.0f;
+	UINT CurFrame = static_cast<UINT>(-1);
+
 };
 

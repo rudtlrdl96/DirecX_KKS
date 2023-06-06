@@ -19,6 +19,7 @@ public:
 
 	std::shared_ptr<BaseNPC> CreateNPC(const NPCMetaData& _NewNPCData);
 	void ResetNPC();
+	void PlayNPC();
 
 protected:
 	void Start() override;

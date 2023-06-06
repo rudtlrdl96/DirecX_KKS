@@ -19,6 +19,7 @@ public:
 	float4 GetSpawnPoint() const;
 
 	void StageReset();
+	void StagePlay();
 
 protected:
 	void Start() override;

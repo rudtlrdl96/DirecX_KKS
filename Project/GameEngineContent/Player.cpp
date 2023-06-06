@@ -108,6 +108,16 @@ void Player::InputUnlock()
 	IsInputLockValue = false;
 }
 
+void Player::ActivePlayerFrame()
+{
+	StateFrame->On();
+}
+
+void Player::DisablePlayerFrame()
+{
+	StateFrame->Off();
+}
+
 void Player::Start()
 {
 	PlayerBodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);

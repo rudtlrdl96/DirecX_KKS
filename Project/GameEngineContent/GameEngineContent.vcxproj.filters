@@ -1388,6 +1388,9 @@
     <ClCompile Include="ChiefGuardNPC.cpp">
       <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
     </ClCompile>
+    <ClCompile Include="OpeningLevel_Event.cpp">
+      <Filter>4_Level\GameLevel\BattleLevel\Opening</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Doc\스컬 간트차트.xlsx">

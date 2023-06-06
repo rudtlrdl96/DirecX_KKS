@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
+#include "Player.h"
 #include "BoneHead.h"
 #include "EffectManager.h"
 
@@ -47,6 +48,91 @@ void BoneSkull::Start()
 	HeadPickupCol->GetTransform()->SetLocalPosition(float4(0.0f, 30.0f, 1.0f));
 	HeadPickupCol->GetTransform()->SetWorldScale(float4(30.0f, 60.0f, 1.0f));
 	HeadPickupCol->GetTransform()->SetWorldRotation(float4::Zero);
+
+	ContentLevel* LevelPtr = GetContentLevel();
+
+	if (nullptr == LevelPtr)
+	{
+		return;
+	}
+
+	LevelPtr->AddEvent("SkeleTong_Script00", GetActorCode(), [this]()
+		{
+			BehaviorAnimationName = "Intro_Idle";
+			PlayerFSM.ChangeState("Behavior");
+		});
+
+	LevelPtr->AddEvent("SkeleTongWalkEnd", GetActorCode(), [this]()
+		{
+			BehaviorAnimationName = "Intro_WakeUp";
+			PlayerFSM.ChangeState("Behavior");
+		});	
+
+	LevelPtr->AddEvent("SkeleTong_Script01_End", GetActorCode(), [this]()
+		{
+			BehaviorAnimationName = "Intro_GetHead";
+			PlayerFSM.ChangeState("Behavior");
+
+			IsBehaviorAnimPause = true;
+			PauseFrame = 11;
+			PauseTime = 0.5f;
+
+			PauseEndCallback = [this]()
+			{
+				PauseFrame = 49;
+				PauseTime = 0.25f;
+				PauseEndCallback = nullptr;
+				IsBehaviorAnimPause = true;
+			};
+
+			BehaviorEndCallback = [this]()
+			{
+				BehaviorAnimationName = "Idle_NoWeapon";
+				PlayerFSM.ChangeState("Behavior");
+				GetContentLevel()->CallEvent("SkeleTong_Script02");
+			};
+
+		});
+
+	LevelPtr->AddEvent("SkeleTong_Script02_End", GetActorCode(), [this]()
+		{
+			BehaviorAnimationName = "Intro_Awkward";
+			PlayerFSM.ChangeState("Behavior");
+
+			BehaviorEndCallback = [this]()
+			{
+				BehaviorAnimationName = "Idle_NoWeapon";
+				PlayerFSM.ChangeState("Behavior");
+				GetContentLevel()->CallEvent("SkeleTong_Script03");
+
+				BehaviorEndCallback = nullptr;
+			};
+		});
+
+	LevelPtr->AddEvent("SkeleTong_Script03_End", GetActorCode(), [this]()
+		{
+			BehaviorAnimationName = "Intro_Awkward";
+			PlayerFSM.ChangeState("Behavior");
+
+			BehaviorEndCallback = [this]()
+			{
+				GetContentLevel()->CallEvent("StoryFadeOut");
+				GetContentLevel()->CallEvent("PlayerInputUnlock");
+
+				SetBoneSkullState(BoneSkullState::NoWeapon);
+				PlayerFSM.ChangeState("Idle");
+
+				IsLockAttack = true;
+
+				IsLockSkillA = true;
+				IsActiveSkillA_Value = false;
+
+				IsLockSkillB = true;
+				IsActiveSkillB_Value = false;
+
+				ParentPlayer->ActivePlayerFrame();
+			};
+		});
 }
 
 void BoneSkull::Update(float _DeltaTime)
@@ -256,6 +342,13 @@ void BoneSkull::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "AttackB_NoHead", .SpriteName = "BoneSkull_AttackB_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });	
 	// JumpAttack NoHead
 	Render->CreateAnimation({ .AnimationName = "JumpAttack_NoHead", .SpriteName = "BoneSkull_JumpAttack_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });
+	
+	// Behavior Anim
+	Render->CreateAnimation({ .AnimationName = "Intro_Idle", .SpriteName = "BoneSkull_Intro_Idle.png", .FrameInter = 0.1f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Intro_WakeUp", .SpriteName = "BoneSkull_Intro_WlakUp.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Intro_GetHead", .SpriteName = "BoneSkull_Intro_GetHead.png", .FrameInter = 0.08f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Intro_Awkward", .SpriteName = "BoneSkull_Intro_Awkward.png",
+		.Start = 0, .End = 18, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 }
 
 void BoneSkull::AnimationColLoad()

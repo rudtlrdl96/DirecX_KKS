@@ -45,6 +45,13 @@ float4 BattleStage::GetSpawnPoint() const
 
 void BattleStage::StageReset()
 {
+	ObjectManagerPtr->BehaviorObjectReset();
+	NPCMgrPtr->ResetNPC();
+}
+
+void BattleStage::StagePlay()
+{
+	NPCMgrPtr->PlayNPC();
 	ObjectManagerPtr->BehaviorObjectPlay();
 }
 

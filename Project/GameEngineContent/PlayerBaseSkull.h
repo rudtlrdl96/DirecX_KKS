@@ -161,6 +161,7 @@ protected:
 
 	bool IsFallEnd = false;
 
+	bool IsLockAttack = false;
 	bool IsLockSkillA = false;
 	bool IsLockSkillB = false;
 
@@ -182,6 +183,15 @@ protected:
 	UINT SkillACombo = 0;
 	UINT SkillBCombo = 0;
 	UINT SwitchCombo = 0;
+
+	std::string BehaviorAnimationName = "";
+	std::function<void()> BehaviorEndCallback = nullptr;
+	std::function<void()> PauseEndCallback = nullptr;
+
+	bool IsBehaviorAnimPause = false;
+	UINT PauseFrame = 0;
+	float PauseTime = 1.0f;
+	float CurPauseTime = 0.0f;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -226,6 +236,10 @@ protected:
 	virtual void Skill_SlotB_Enter();
 	virtual void Skill_SlotB_Update(float _DeltaTime);
 	virtual void Skill_SlotB_End();
+
+	virtual void Behavior_Enter();
+	virtual void Behavior_Update(float _DeltaTime);
+	virtual void Behavior_End();
 
 	virtual void DataLoad() = 0;
 	virtual void TextureLoad() = 0;

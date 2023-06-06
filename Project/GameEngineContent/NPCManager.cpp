@@ -100,6 +100,14 @@ void NPCManager::ResetNPC()
 	}
 }
 
+void NPCManager::PlayNPC()
+{
+	for (size_t i = 0; i < NpcActors.size(); i++)
+	{
+		NpcActors[i]->PlayBehavior();
+	}
+}
+
 void NPCManager::Start()
 {
 	NpcActors.reserve(4);
