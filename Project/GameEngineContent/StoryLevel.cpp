@@ -9,6 +9,7 @@
 #include "StoryBackImage.h"
 
 StoryLevel::StoryName StoryLevel::ChangeStoryName = StoryName::Opening;
+std::string StoryLevel::StoryEndMoveLevel = "";
 
 StoryLevel::StoryLevel()
 {
@@ -87,6 +88,15 @@ void StoryLevel::Update(float _DeltaTime)
 	}
 
 	StoryBookDatas[CurStoryName].Update(_DeltaTime);
+
+	if (true == StoryBookDatas[CurStoryName].IsBookEnd() && true == FadeImage->IsFadeEnd())
+	{
+		if ("" != StoryEndMoveLevel)
+		{
+			GameEngineCore::ChangeLevel(StoryEndMoveLevel);
+			StoryEndMoveLevel = "";
+		}
+	}
 }
 
 void StoryLevel::LevelChangeStart()

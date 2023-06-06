@@ -154,6 +154,8 @@ void SkeleTong::Update(float _DeltaTime)
 
 void SkeleTong::PlayBehavior()
 {
+	return;
+
 	FadeProgress = 0.0f;
 	Buffer.Color.a = 1.0f;
 	FadeRender->On();

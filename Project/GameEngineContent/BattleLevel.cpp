@@ -54,6 +54,16 @@ void BattleLevel::Start()
 			AreaClear();
 		}); 
 
+	AddEvent("PlayerFrameActive", LevelCode, [this]()
+		{
+			MainPlayer->ActivePlayerFrame();
+		});
+
+	AddEvent("PlayerFrameDisable", LevelCode, [this]()
+		{
+			MainPlayer->DisablePlayerFrame();
+		});
+
 	AddEvent("FadeIn", LevelCode, [this]()
 		{
 			FadeActorPtr->FadeIn();
@@ -184,7 +194,7 @@ void BattleLevel::ChangeStage()
 
 void BattleLevel::MovePrevStage(bool _ForceMove /*= false*/)
 {
-	if (true == FadeActorPtr->IsFadeEnd())
+	if (false == FadeActorPtr->IsFadeEnd())
 	{
 		return;
 	}
@@ -226,7 +236,7 @@ void BattleLevel::MovePrevStage(bool _ForceMove /*= false*/)
 
 void BattleLevel::MoveNextStage(bool _ForceMove /*= false*/)
 {
-	if (true == FadeActorPtr->IsFadeEnd())
+	if (false == FadeActorPtr->IsFadeEnd())
 	{
 		return;
 	}

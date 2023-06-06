@@ -238,6 +238,7 @@ void StoryHero_FirstHero_Opening::Update(float _DeltaTime)
 
 				Death();
 				StoryLevel::SetLevelEnterStoryName(StoryLevel::StoryName::Opening);
+				StoryLevel::SetStoryEndMoveLevel("Castle");
 				GameEngineCore::ChangeLevel("Story");
 			}
 		}

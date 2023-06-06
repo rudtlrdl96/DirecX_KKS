@@ -12,7 +12,7 @@ FadeActor::~FadeActor()
 
 void FadeActor::SetFade(const float4& _FadeColor /*= float4::Zero*/)
 {
-	IsFadeEndValue = false;
+	IsFadeEndValue = true;
 	Buffer.Color.x = _FadeColor.x;
 	Buffer.Color.y = _FadeColor.y;
 	Buffer.Color.z = _FadeColor.z;
@@ -22,7 +22,7 @@ void FadeActor::SetFade(const float4& _FadeColor /*= float4::Zero*/)
 
 void FadeActor::SetUnFade(const float4& _FadeColor /*= float4::Zero*/)
 {
-	IsFadeEndValue = false;
+	IsFadeEndValue = true;
 	Buffer.Color.x = _FadeColor.x;
 	Buffer.Color.y = _FadeColor.y;
 	Buffer.Color.z = _FadeColor.z;
@@ -32,7 +32,7 @@ void FadeActor::SetUnFade(const float4& _FadeColor /*= float4::Zero*/)
 
 void FadeActor::FadeIn(std::function<void()> _FadeEndCallback /*= nullptr*/, const float4& _FadeColor /*= float4::Zero*/)
 {
-	IsFadeEndValue = true;
+	IsFadeEndValue = false;
 	Buffer.Color.x = _FadeColor.x;
 	Buffer.Color.y = _FadeColor.y;
 	Buffer.Color.z = _FadeColor.z;
@@ -45,7 +45,7 @@ void FadeActor::FadeIn(std::function<void()> _FadeEndCallback /*= nullptr*/, con
 
 void FadeActor::FadeOut(std::function<void()> _FadeEndCallback /*= nullptr*/, const float4& _FadeColor /*= float4::Zero*/)
 {
-	IsFadeEndValue = true;
+	IsFadeEndValue = false;
 	Buffer.Color.x = _FadeColor.x;
 	Buffer.Color.y = _FadeColor.y;
 	Buffer.Color.z = _FadeColor.z;
@@ -58,7 +58,7 @@ void FadeActor::FadeOut(std::function<void()> _FadeEndCallback /*= nullptr*/, co
 
 void FadeActor::Reset()
 {
-	IsFadeEndValue = false;
+	IsFadeEndValue = true;
 	State = FadeState::Wait;
 	Buffer.Color = float4::Zero;
 	FadeSpeed = 1.0f;
@@ -90,7 +90,7 @@ void FadeActor::Update(float _DeltaTime)
 
 		if (Buffer.Color.w >= 1.0f)
 		{
-			IsFadeEndValue = false;
+			IsFadeEndValue = true;
 
 			Buffer.Color.w = 1.0f;
 			State = FadeState::Wait;
@@ -108,7 +108,7 @@ void FadeActor::Update(float _DeltaTime)
 
 		if (Buffer.Color.w <= 0.0f)
 		{
-			IsFadeEndValue = false;
+			IsFadeEndValue = true;
 
 			Buffer.Color.w = 0;
 			State = FadeState::Wait;

@@ -19,8 +19,14 @@ public:
 		ChangeStoryName = _StoryName;
 	}
 
+	static void SetStoryEndMoveLevel(const std::string_view& _StoryEndMoveLevel)
+	{
+		StoryEndMoveLevel = _StoryEndMoveLevel;
+	}
+
 private:
 	static StoryName ChangeStoryName;
+	static std::string StoryEndMoveLevel;
 
 public:
 	StoryLevel();

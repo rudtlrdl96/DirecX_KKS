@@ -31,8 +31,11 @@ void Mongal::StoryUpdate(float _DeltaTime)
 
 				GetContentLevel()->CallEvent("PlayerMove_MongalWalkup");
 				GetContentLevel()->CallEvent("FadeOut");
+				GetContentLevel()->CallEvent("PlayerFrameDisable");
 				State = DeathState::WakeUp;
 				Render->ChangeAnimation("Wakeup");
+
+
 			}
 		}
 		else if (6 == Render->GetCurrentFrame())
