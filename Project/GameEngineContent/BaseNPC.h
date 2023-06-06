@@ -15,6 +15,7 @@ public:
 
 class BaseNPC : public BaseContentActor
 {
+	friend class NPCManager;
 public:
 	BaseNPC();
 	~BaseNPC();
@@ -29,12 +30,13 @@ public:
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	static NPCMetaData LoadBin(GameEngineSerializer& _LoadSerializer);
 
+	void ShowGUI() override;
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> MainRender = nullptr;
 	ColorBuffer Buffer = ColorBuffer();
 
 	void Start() override;
-	void ShowGUI() override;
 
 	virtual void SpriteLoad() = 0;
 

@@ -12,6 +12,7 @@
 #include "GameEventManager.h"
 #include "ParticleManager.h"
 #include "MonsterManager.h"
+#include "NPCManager.h"
 
 #include "TilemapPallet.h"
 #include "TilemapHoverRenderActor.h"
@@ -61,6 +62,8 @@ void MapToolLevel::Start()
 	MonsterMgrPtr = CreateActor<MonsterManager>();
 	MonsterMgrPtr->SetMapToolManager();
 
+	NPCMgrPtr = CreateActor<NPCManager>();
+
 	TilePalletPtr = CreateActor<TilemapPallet>();
 	TilePalletPtr->SetPencleIndex(1000);
 
@@ -76,6 +79,7 @@ void MapToolLevel::Start()
 	MapToolGuiPtr->Pushback_EventManagerCallback(std::bind(&GameEventManager::ShowGUI, EventMgrPtr));
 	MapToolGuiPtr->Pushback_ParticleManagerCallback(std::bind(& ParticleManager::ShowGUI, ParticleMgrPtr));
 	MapToolGuiPtr->Pushback_MonsterManagerCallback(std::bind(& MonsterManager::ShowGUI, MonsterMgrPtr));
+	MapToolGuiPtr->Pushback_NPCManagerCallback(std::bind(& NPCManager::ShowGUI, NPCMgrPtr));
 
 	ActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 
@@ -137,6 +141,9 @@ void MapToolLevel::Update(float _DeltaTime)
 	case MapToolState::Monster:
 		Update_Monster(_DeltaTime);
 		break;
+	case MapToolState::NPC:
+		Update_NPC(_DeltaTime);
+		break;
 	default:
 		break;
 	}
@@ -157,6 +164,8 @@ void MapToolLevel::Update(float _DeltaTime)
 
 void MapToolLevel::LevelChangeStart()
 {
+	EffectManager::SetLevel(DynamicThis<GameEngineLevel>());
+
 	if (nullptr == MapToolGuiPtr)
 	{
 		MsgAssert_Rtti<MapToolLevel>(" - MapTool Gui를 찾을 수 없습니다");
@@ -176,6 +185,8 @@ void MapToolLevel::LevelChangeStart()
 
 void MapToolLevel::LevelChangeEnd()
 {
+	EffectManager::SetLevel(nullptr);
+
 	if (nullptr == MapToolGuiPtr)
 	{
 		MsgAssert_Rtti<MapToolLevel>(" - MapTool Gui를 찾을 수 없습니다");
@@ -211,6 +222,7 @@ void MapToolLevel::Save()
 	EventMgrPtr->SaveBin(SaveSerializer);
 	ParticleMgrPtr->SaveBin(SaveSerializer);
 	MonsterMgrPtr->SaveBin(SaveSerializer);
+	NPCMgrPtr->SaveBin(SaveSerializer);
 
 	GameEngineFile SaveFile = GameEngineFile(Path);
 	SaveFile.SaveBin(SaveSerializer);
@@ -236,6 +248,7 @@ void MapToolLevel::Load()
 	EventMgrPtr->LoadBin(LoadSerializer);
 	ParticleMgrPtr->LoadBin(LoadSerializer);
 	MonsterMgrPtr->LoadBin(LoadSerializer);
+	NPCMgrPtr->LoadBin(LoadSerializer);
 
 	TilemapOutLinePtr->SetSize(TilemapPtr->GetSize() * ContentConst::TileSize);
 }
@@ -454,5 +467,25 @@ void MapToolLevel::Update_Monster(float _DeltaTime)
 		}
 
 		MonsterMgrPtr->AddMonster(CreateMonsterData.Index, WorldMousePos);
+	}
+}
+
+void MapToolLevel::Update_NPC(float _DeltaTime)
+{
+	if (false == ImGui::GetIO().WantCaptureMouse && true == GameEngineInput::IsDown("ToolActive"))
+	{
+		float4 WorldMousePos = GetMousePos();
+		WorldMousePos.z = GameEngineRandom::MainRandom.RandomFloat(-20.0f, -10.0f);
+
+		NPCMetaData CreateMonsterData = MapToolGuiPtr->GetNPCData();
+
+		if ("" == CreateMonsterData.Name)
+		{
+			return;
+		}
+
+		CreateMonsterData.CenterPos = WorldMousePos;
+
+		NPCMgrPtr->CreateNPC(CreateMonsterData);
 	}
 }

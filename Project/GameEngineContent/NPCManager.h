@@ -15,6 +15,7 @@ public:
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	void LoadBin(GameEngineSerializer& _LoadSerializer);
+	void ShowGUI() override;
 
 	std::shared_ptr<BaseNPC> CreateNPC(const NPCMetaData& _NewNPCData);
 	void ResetNPC();
@@ -24,6 +25,9 @@ protected:
 
 private:
 	std::vector<std::shared_ptr<BaseNPC>> NpcActors;
+
+	//GUI
+	int GUI_SelectNPC = 0;
 
 };
 

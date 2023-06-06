@@ -4,6 +4,23 @@
 
 void ContentCore::NPCDataLoad()
 {
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Npc");
+		Path.Move("Preview");
+		
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+		for (UINT i = 0; i < Files.size(); i++)
+		{
+			GameEngineTexture::Load(Files[i].GetFullPath());
+		}
+	}
+
 	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
 		.Index = 0, .Grade = LevelArea::Opening, 
 		.Name = "½ºÄÌ·¹-Åë", .TalkboxNameTag = "½ºÄÌ·¹-Åë",

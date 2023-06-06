@@ -355,6 +355,9 @@
     <Filter Include="2_Actor\Map\Stage\NPC\NPC">
       <UniqueIdentifier>{54eef468-f9ec-43b8-ae00-65ba681a55de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\NPC\NPC\Opening">
+      <UniqueIdentifier>{290d63ef-eb21-49a3-840b-2dd5fa11f5e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -830,6 +833,24 @@
     </ClInclude>
     <ClInclude Include="BaseNPC.h">
       <Filter>2_Actor\Map\Stage\NPC\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeleTong.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="SueKeleton.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonA.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonB.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="WitchOpening.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="ChiefGuardNPC.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1348,6 +1369,24 @@
     </ClCompile>
     <ClCompile Include="NPCManager_CreateNPC.cpp">
       <Filter>2_Actor\Map\Stage\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeleTong.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="SueKeleton.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonA.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonB.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="WitchOpening.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="ChiefGuardNPC.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

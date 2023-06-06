@@ -13,7 +13,8 @@ public:
 		Event,
 		Particle,
 		Light,
-		Monster
+		Monster,
+		NPC
 	};
 public:
 	MapToolLevel();
@@ -37,6 +38,7 @@ private:
 	std::shared_ptr<class GameEventManager> EventMgrPtr = nullptr;
 	std::shared_ptr<class ParticleManager> ParticleMgrPtr = nullptr;
 	std::shared_ptr<class MonsterManager> MonsterMgrPtr = nullptr;
+	std::shared_ptr<class NPCManager> NPCMgrPtr = nullptr;
 
 	std::shared_ptr<class TilemapPallet> TilePalletPtr = nullptr;
 	std::shared_ptr<class MapToolGUI> MapToolGuiPtr = nullptr;
@@ -63,4 +65,5 @@ private:
 	void Update_Event(float _DeltaTime);
 	void Update_Particle(float _DeltaTime);
 	void Update_Monster(float _DeltaTime);
+	void Update_NPC(float _DeltaTime);
 };

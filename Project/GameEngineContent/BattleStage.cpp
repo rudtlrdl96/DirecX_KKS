@@ -9,6 +9,7 @@
 #include "GameEventManager.h"
 #include "ParticleManager.h"
 #include "MonsterManager.h"
+#include "NPCManager.h"
 
 #include "BattleLevel.h"
 
@@ -26,7 +27,8 @@ void BattleStage::Init(GameEngineSerializer& _LoadSerializer)
 	ObjectManagerPtr->LoadBin(_LoadSerializer);
 	EventManagerPtr->LoadBin(_LoadSerializer);
 	ParticleMgrPtr->LoadBin(_LoadSerializer);
-	MonsterManagerPtr->LoadBin(_LoadSerializer);
+	MonsterMgrPtr->LoadBin(_LoadSerializer);
+	NPCMgrPtr->LoadBin(_LoadSerializer);
 	
 	EventManagerPtr->SetDoorLevel(GetLevel()->DynamicThis<BattleLevel>());
 }
@@ -62,13 +64,16 @@ void BattleStage::Start()
 	ParticleMgrPtr = LevelPtr->CreateActor<ParticleManager>();
 	ParticleMgrPtr->GetTransform()->SetParent(GetTransform());
 
-	MonsterManagerPtr = LevelPtr->CreateActor<MonsterManager>();
-	MonsterManagerPtr->GetTransform()->SetParent(GetTransform());
+	MonsterMgrPtr = LevelPtr->CreateActor<MonsterManager>();
+	MonsterMgrPtr->GetTransform()->SetParent(GetTransform());
+
+	NPCMgrPtr = LevelPtr->CreateActor<NPCManager>();
+	NPCMgrPtr->GetTransform()->SetParent(GetTransform());
 }
 
 void BattleStage::Update(float _DeltaTime)
 {
-	if (MonsterManagerPtr->IsSpawnEnd())
+	if (MonsterMgrPtr->IsSpawnEnd())
 	{
 		EventManagerPtr->DoorActive();
 	}

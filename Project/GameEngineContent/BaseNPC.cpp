@@ -12,11 +12,19 @@ BaseNPC::~BaseNPC()
 
 void BaseNPC::SaveBin(GameEngineSerializer& _SaveSerializer)
 {
+	_SaveSerializer.Write(&Data.Index, sizeof(UINT));
+	_SaveSerializer.Write(&Data.CenterPos, sizeof(float4));
 }
 
 NPCMetaData BaseNPC::LoadBin(GameEngineSerializer& _LoadSerializer)
 {
 	NPCMetaData LoadData;
+
+	UINT LoadIndex = 0;
+	_LoadSerializer.Read(&LoadIndex, sizeof(UINT));
+	LoadData = ContentDatabase<NPCMetaData, LevelArea>::GetData(LoadIndex);
+
+	_LoadSerializer.Read(&LoadData.CenterPos, sizeof(float4));
 
 	return LoadData;
 }
@@ -24,8 +32,10 @@ NPCMetaData BaseNPC::LoadBin(GameEngineSerializer& _LoadSerializer)
 void BaseNPC::Start()
 {
 	MainRender = CreateComponent<ContentSpriteRenderer>();
-	MainRender->PipeSetting("2DTexture_ColorBuffer");
+	MainRender->PipeSetting("2DTexture_ColorLight");
 	MainRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
+	MainRender->SetScaleToTexture("Empty.png");
+	MainRender->SetScaleRatio(2.0f);
 
 	SpriteLoad();
 }
@@ -42,7 +52,7 @@ void BaseNPC::ShowGUI()
 	const type_info& RttiInfo = typeid(Data.Grade);
 	ImGui::Text(std::string("Level Area : " + std::string(RttiInfo.name())).data());
 	
-	ImGui::Text(std::string("Name : " + std::string(Data.Name)).data());
+	ImGui::Text(GameEngineString::AnsiToUTF8("Name : " + std::string(Data.Name)).data());
 
 	float4 Pos = Data.CenterPos;
 
@@ -58,5 +68,7 @@ void BaseNPC::ShowGUI()
 		Data.CenterPos.y = InputCenter[1];
 		Data.CenterPos.z = InputCenter[2];
 		Data.CenterPos.w = InputCenter[3];
+
+		GetTransform()->SetLocalPosition(Data.CenterPos);
 	}
 }

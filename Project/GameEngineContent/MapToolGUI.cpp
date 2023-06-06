@@ -248,6 +248,35 @@ void MapToolGUI::DrawGui_Monster()
 	}
 }
 
+void MapToolGUI::DrawGui_NPC()
+{
+	const std::vector<MapTool_NPCData>& BufferTextureDatas = NPCTexDatas[CurShowAreaTile];
+
+	ImGui::Spacing();
+
+	for (size_t i = 0; i < BufferTextureDatas.size(); i++)
+	{
+		if (0 != i % 4)
+		{
+			ImGui::SameLine();
+		}
+
+		if (true == ImGui::ImageButton((void*)BufferTextureDatas[i].TexturePtr->GetSRV(), ImVec2(TileSize.x, TileSize.y)))
+		{
+			SelectNPCMetaData = BufferTextureDatas[i].Data;
+		}
+
+		if (true == ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+			ImGui::TextUnformatted(GameEngineString::AnsiToUTF8(BufferTextureDatas[i].Data.Name).c_str());
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
+		}
+	}
+}
+
 void MapToolGUI::Callback_Object()
 {
 
@@ -293,6 +322,17 @@ void MapToolGUI::Callback_Monster()
 	}
 }
 
+void MapToolGUI::Callback_NPC()
+{
+	for (size_t i = 0; i < NPCManagerCallback.size(); i++)
+	{
+		if (nullptr != NPCManagerCallback[i])
+		{
+			NPCManagerCallback[i]();
+		}
+	}
+}
+
 void MapToolGUI::Start()
 {
 	ImGui::SetWindowSize(GetName().data(), ImVec2(150, 500));
@@ -305,6 +345,7 @@ void MapToolGUI::Start()
 		ObjectDatasLoad(LoadLevel);
 		BehaviorObjectDatasLoad(LoadLevel);
 		MonsterDatasLoad(LoadLevel);
+		NPCDatasLoad(LoadLevel);
 
 		int NextLevel = static_cast<int>(LoadLevel) + 1;
 		LoadLevel = static_cast<LevelArea>(NextLevel);
@@ -348,7 +389,7 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 
 	MapToolType = (MapToolLevel::MapToolState)CurrentMapToolStateIndex;
 
-	if (MapToolType < MapToolLevel::MapToolState::Tilemap || MapToolType > MapToolLevel::MapToolState::Monster)
+	if (MapToolType < MapToolLevel::MapToolState::Tilemap || MapToolType > MapToolLevel::MapToolState::NPC)
 	{
 		MsgAssert_Rtti<MapToolGUI>(" - 잘못된 MapTool 타입이 입력되었습니다");
 	}
@@ -384,6 +425,10 @@ void MapToolGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 	case MapToolLevel::MapToolState::Monster:
 		Callback_Monster();
 		DrawGui_Monster();
+		break;
+	case MapToolLevel::MapToolState::NPC:
+		Callback_NPC();
+		DrawGui_NPC();
 		break;
 	default:
 		break;
@@ -472,9 +517,31 @@ void MapToolGUI::MonsterDatasLoad(LevelArea _Area)
 
 		if (nullptr == FindTex)
 		{
-			MsgAssert_Rtti<MapToolGUI>(" - 타일 데이터의 텍스쳐를 찾을 수 없습니다");
+			MsgAssert_Rtti<MapToolGUI>(" - 몬스터 데이터의 텍스쳐를 찾을 수 없습니다");
 		}
 
 		BufferTextureDatas.push_back(MapTool_MonsterData(CopyDatas[i], FindTex));
+	}
+}
+
+void MapToolGUI::NPCDatasLoad(LevelArea _Area)
+{
+	std::vector<MapTool_NPCData>& BufferTextureDatas = NPCTexDatas[_Area];
+
+	std::vector<NPCMetaData> CopyDatas;
+	ContentDatabase<NPCMetaData, LevelArea>::CopyGradeDatas(_Area, CopyDatas);
+
+	BufferTextureDatas.reserve(CopyDatas.size());
+
+	for (size_t i = 0; i < CopyDatas.size(); i++)
+	{
+		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(CopyDatas[i].PreviewName);
+
+		if (nullptr == FindTex)
+		{
+			MsgAssert_Rtti<MapToolGUI>(" - NPC 데이터의 텍스쳐를 찾을 수 없습니다");
+		}
+
+		BufferTextureDatas.push_back(MapTool_NPCData(CopyDatas[i], FindTex));
 	}
 }
