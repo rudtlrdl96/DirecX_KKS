@@ -16,6 +16,8 @@ public:
 	Player& operator=(Player&& _Other) noexcept = delete;
 
 	void SetInventoryData();
+	void InsertNewSkull(UINT _SkullIndex);
+	void ForceSwapSkull();
 
 	inline float GetMeleeAttack() const
 	{

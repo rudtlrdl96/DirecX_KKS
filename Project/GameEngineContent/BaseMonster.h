@@ -7,6 +7,11 @@
 class BaseMonster : public BattleActor
 {
 public:
+	static void SetMonstersMove(bool _IsMove);
+
+private:
+	static bool MonsterUnMove;
+public:
 	BaseMonster();
 	~BaseMonster();
 

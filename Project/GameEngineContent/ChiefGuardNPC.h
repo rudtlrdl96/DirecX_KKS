@@ -14,11 +14,16 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _DeltaTime) override;
 	
+	void ResetBehavior() override;
+	void PlayBehavior() override;
+
 private:
 	std::shared_ptr<ContentSpriteRenderer> HeadRender = nullptr;
 	ColorBuffer Buffer;
 
+	std::shared_ptr<GameEngineCollision> ScriptCol = nullptr;
 
 	void SpriteLoad() override;
 

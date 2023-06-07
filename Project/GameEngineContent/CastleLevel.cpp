@@ -2,6 +2,8 @@
 #include "CastleLevel.h"
 #include <GameEngineCore/GameEngineTexture.h>
 #include "MultiBackground.h"
+#include "Inventory.h"
+#include "PlayerState.h"
 
 CastleLevel::CastleLevel()
 {
@@ -59,7 +61,12 @@ void CastleLevel::Update(float _DeltaTime)
 
 void CastleLevel::LevelChangeStart()
 {
+	Inventory::ResetSkull();
+	PlayerState::HP = PlayerState::MaxHP;
+
 	BattleLevel::LevelChangeStart();
+
+	CallEvent("CastleReborn");
 
 	MainCamCtrl.SetMinHeight(64);
 	MainCamCtrl.SetMaxHeight(64 + GameEngineWindow::GetScreenSize().y);

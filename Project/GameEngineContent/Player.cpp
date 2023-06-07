@@ -57,6 +57,42 @@ void Player::SetInventoryData()
 	MainSkull->On();
 }
 
+void Player::InsertNewSkull(UINT _SkullIndex)
+{
+	const SkullData& CreateData = ContentDatabase<SkullData, SkullGrade>::GetData(_SkullIndex);
+
+	if (nullptr == SubSkull)
+	{
+		Inventory::SetSubSkull(CreateData);
+		SubSkull = CreateNewSkull(_SkullIndex);
+	}
+	else
+	{
+		MainSkull->Death();
+		MainSkull = nullptr;
+		Inventory::SetMainSkull(CreateData);
+		MainSkull = CreateNewSkull(_SkullIndex);
+		MainSkull->On();
+	}
+}
+
+void Player::ForceSwapSkull()
+{
+	if (nullptr == SubSkull)
+	{
+		return;
+	}
+
+	Inventory::SwapSkull();
+
+	std::shared_ptr<PlayerBaseSkull> TempSkull = SubSkull;
+	SubSkull = MainSkull;
+	MainSkull = TempSkull;
+
+	MainSkull->On();
+	SubSkull->Off();
+}
+
 void Player::HitPlayer(float _Damage, const float4& _HitForce)
 {
 	if (nullptr == MainSkull)

@@ -68,10 +68,7 @@ void OpeningLevel::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("MagicDebugKey"))
 	{
-		std::shared_ptr<StoryHero_FirstHero_Opening> Ptr = CreateActor<StoryHero_FirstHero_Opening>();
-
-		Ptr->GetTransform()->SetLocalPosition(GameEngineWindow::GetScreenSize().half());
-		Ptr->PlayLandingEffect();
+		CallEvent("ChiefGuard_Script00_End");
 	}
 }
 

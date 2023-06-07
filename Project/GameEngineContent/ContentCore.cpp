@@ -85,8 +85,7 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<BackgroundToolLevel>("BackgroundTool");
 	GameEngineCore::CreateLevel<AnimationColToolLevel>("AnimationColTool");
 
-	Inventory::SetMainSkull(ContentDatabase<SkullData, SkullGrade>::GetData(0)); // 기본 리틀본
-	Inventory::SetSubSkull(ContentDatabase<SkullData, SkullGrade>::GetData(203)); // 디버그용 경비대장
+	Inventory::ResetSkull();
 
 	GameEngineCore::ChangeLevel("Title");
 

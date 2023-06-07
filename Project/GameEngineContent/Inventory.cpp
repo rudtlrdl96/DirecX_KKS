@@ -12,7 +12,6 @@ Inventory::~Inventory()
 {
 }
 
-
 void Inventory::SwapSkull()
 {
 	SkullData TempSkullData = MainSkullData; 
@@ -28,6 +27,12 @@ void Inventory::SetMainSkull(SkullData _SkullData)
 void Inventory::SetSubSkull(SkullData _SkullData)
 {
 	SubSkullData = _SkullData;
+}
+
+void Inventory::ResetSkull()
+{
+	MainSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(0);
+	SubSkullData.Reset();
 }
 
 const SkullData& Inventory::GetMainSkull()

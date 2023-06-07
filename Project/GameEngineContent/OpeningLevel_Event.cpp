@@ -215,6 +215,111 @@ void OpeningLevel::CreateOpeningEvent()
 			TalkBoxPtr->SetMainText(L"내, 내, 다리뼈야..! X를 눌러 공격할 수 있어.", SuekeletonTalk_1);
 		});
 
+	// 경비대장 이벤트
+
+	AddEvent("ChiefGuard_Script00", LevelCode, [this]()
+		{
+			std::function<void()> ScriptEnd = [this]()
+			{
+				CallEvent("ChiefGuard_Script00_End");
+				TalkBoxPtr->Off();
+			};
+
+			std::function<void()> ChiefGuardTalk_9 = [this, ScriptEnd]()
+			{
+				TalkBoxPtr->SetMainText(L"그러니 내 머리를 가져가거라! 내 머리에 나의 모든 마력을 담아줄 테니 함께 싸워다오! 동포들을 구해야한다!", ScriptEnd);
+			};
+
+			std::function<void()> ChiefGuardTalk_8 = [this, ChiefGuardTalk_9]()
+			{
+				TalkBoxPtr->SetMainText(L"분하지만 난 더 이상 움직일 수가 없다!", ChiefGuardTalk_9);
+			};
+
+			std::function<void()> ChiefGuardTalk_7 = [this, ChiefGuardTalk_8]()
+			{
+				TalkBoxPtr->ActiveTalkBox("경비 대장");
+				TalkBoxPtr->SetMainText(L"리틀본!", ChiefGuardTalk_8);
+			};
+
+			std::function<void()> WitchTalk_4 = [this, ChiefGuardTalk_7]()
+			{
+				TalkBoxPtr->ActiveTalkBox("마녀");
+				TalkBoxPtr->SetMainText(L"검은.. 돌...", ChiefGuardTalk_7);
+			};
+
+			std::function<void()> ChiefGuardTalk_6 = [this, WitchTalk_4]()
+			{
+				TalkBoxPtr->SetMainText(L"그 녀석의 힘은, 제가 알던 오우거들과 비교할 수 없을정도로 너무나도 강력한 힘이었습니다...", WitchTalk_4);
+			};
+
+			std::function<void()> ChiefGuardTalk_5 = [this, ChiefGuardTalk_6]()
+			{
+				TalkBoxPtr->ActiveTalkBox("경비 대장");
+				TalkBoxPtr->SetMainText(L"뭔가 이상했습니다. 몸에 검은 돌이 박혀있고 정신이 완전히 나간 듯, 저희 말을 전혀 듣지 못하였습니다.", ChiefGuardTalk_6);
+			};
+
+			std::function<void()> WitchTalk_3 = [this, ChiefGuardTalk_5]()
+			{
+				TalkBoxPtr->ActiveTalkBox("마녀");
+				TalkBoxPtr->SetMainText(L"오우거? 오우거가 왜? 무슨소리를 하는거냥!", ChiefGuardTalk_5);
+			};
+
+			std::function<void()> ChiefGuardTalk_4 = [this, WitchTalk_3]()
+			{
+				TalkBoxPtr->SetMainText(L"오우거였습니다...", WitchTalk_3);
+			};
+
+			std::function<void()> ChiefGuardTalk_3 = [this, ChiefGuardTalk_4]()
+			{
+				TalkBoxPtr->ActiveTalkBox("경비 대장");
+				TalkBoxPtr->SetMainText(L"인간이 아니었습니다.", ChiefGuardTalk_4);
+			};
+
+			std::function<void()> WitchTalk_2 = [this, ChiefGuardTalk_3]()
+			{
+				TalkBoxPtr->SetMainText(L"누가 그랬냥!? 대체 어떤 인간들이냥!?", ChiefGuardTalk_3);
+			};
+
+			std::function<void()> WitchTalk_1 = [this, WitchTalk_2]()
+			{
+				TalkBoxPtr->ActiveTalkBox("마녀");
+				TalkBoxPtr->SetMainText(L"최고의 전투력을 가진 스켈레톤인 너를 이지경으로 만들다니...", WitchTalk_2);
+			};
+
+			std::function<void()> ChiefGuardTalk_2 = [this, WitchTalk_1]()
+			{
+				TalkBoxPtr->SetMainText(L"면목없습니다. 저희 스켈레톤 경비대는 전멸한 것 같습니다.", WitchTalk_1);
+			};
+
+			std::function<void()> ChiefGuardTalk_1 = [this, ChiefGuardTalk_2]()
+			{
+				TalkBoxPtr->SetMainText(L"그렇군 리틀본. 네가 구해드린 건가? 인간들과의 전투는 처음이었을 텐데, 대단하군!", ChiefGuardTalk_2);
+			};
+
+			std::function<void()> ChiefGuardTalk_0 = [this, ChiefGuardTalk_1]()
+			{
+				TalkBoxPtr->ActiveTalkBox("경비 대장");
+				TalkBoxPtr->SetMainText(L"헉! 마녀님! 무사하셨군요!!", ChiefGuardTalk_1);
+			};
+
+			TalkBoxPtr->ActiveTalkBox("마녀");
+			TalkBoxPtr->SetMainText(L"너는 경비대장이 아니냥? 이게 다 어떻게 된 일이다냥?", ChiefGuardTalk_0);
+		});
+
+	AddEvent("ChiefGuard_PlayerMove", LevelCode, [this]()
+		{
+			CallEvent("PlayerInputLock");
+			CallEvent("StoryFadeIn");
+			CallEvent("PlayerFrameDisable");
+
+			MainPlayer->PlayStoryMove(float4(925, 250), [this]()
+				{				
+					CallEvent("ChiefGuard_Script00");
+					CallEvent("PlayerLookRight");
+				});
+		});
+
+
 	// 몬갈 이벤트
 	AddEvent("MongalDeath_Appear", LevelCode, [this]()
 		{

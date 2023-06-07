@@ -14,6 +14,11 @@ void BaseMonster::Idle_Enter()
 
 void BaseMonster::Idle_Update(float _DeltaTime) 
 {
+	if (true == MonsterUnMove)
+	{
+		return;
+	}
+
 	if (true == Fall(_DeltaTime))
 	{
 		return;
@@ -97,6 +102,12 @@ void BaseMonster::Walk_Enter()
 
 void BaseMonster::Walk_Update(float _DeltaTime) 
 {
+	if (true == MonsterUnMove)
+	{
+		MonsterFsm.ChangeState("Idle");
+		return;
+	}
+
 	if (true == HitCheck())
 	{
 		return;
@@ -154,6 +165,12 @@ void BaseMonster::Chasing_Enter()
 
 void BaseMonster::Chasing_Update(float _DeltaTime) 
 {
+	if (true == MonsterUnMove)
+	{
+		MonsterFsm.ChangeState("Idle");
+		return;
+	}
+
 	if (true == HitCheck())
 	{
 		return;
@@ -233,6 +250,12 @@ void BaseMonster::Attack_Enter()
 
 void BaseMonster::Attack_Update(float _DeltaTime)
 {
+	if (true == MonsterUnMove)
+	{
+		MonsterFsm.ChangeState("Idle");
+		return;
+	}
+
 	AttackCheck.Update();
 
 	if (true == HitCheck())

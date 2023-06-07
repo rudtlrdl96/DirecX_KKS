@@ -1219,12 +1219,12 @@ void PlayerBaseSkull::StoryMove_Update(float _DeltaTime)
 	if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
 	{
 		JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
-		Render->ChangeAnimation("Fall");
+		Render->ChangeAnimation("Fall", 0, false);
 	}
 	else
 	{
 		JumpDir = float4::Zero;
-		Render->ChangeAnimation("Walk");
+		Render->ChangeAnimation("Walk", 0, false);
 	}
 
 	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
@@ -1245,7 +1245,7 @@ void PlayerBaseSkull::StoryMove_Update(float _DeltaTime)
 	float4 MoveDir = StoryMovePos - GetTransform()->GetWorldPosition();
 	MoveDir.z = 0;
 
-	if (5.0f > MoveDir.Size())
+	if (3.0f > MoveDir.Size())
 	{
 		if (nullptr != StoryMoveEndCallback)
 		{

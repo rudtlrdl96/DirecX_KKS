@@ -30,6 +30,16 @@ void EffectActor::Start()
 
 void EffectActor::Update(float _DeltaTime)
 {
+	if (GetLiveTime() < WaitTime)
+	{
+		EffectRender->Off();
+		return;
+	}
+	else
+	{
+		EffectRender->On();
+	}
+
 	switch (DeathTrigger)
 	{
 	case EffectDeathTrigger::Time:
@@ -60,7 +70,7 @@ void EffectActor::Update(float _DeltaTime)
 
 }
 
-void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime)
+void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime)
 {
 	DeathTime = _DeathTime;
 	DeathTrigger = _DeathTrigger;
@@ -79,6 +89,8 @@ void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _Deat
 	EffectRender->SetScaleRatio(_MetaData.ScaleRatio);
 	EffectRender->ChangeAnimation(_MetaData.SpriteName);
 	EffectRender->On();
+
+	WaitTime = _WaitTime;
 
 	Buffer.Color = _MetaData.Color;
 }

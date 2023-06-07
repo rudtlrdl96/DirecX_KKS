@@ -11,11 +11,13 @@ public:
 
 	EffectDeathTrigger Triger = EffectDeathTrigger::AnimEnd;
 	float Time = 0.0f;
+	float WaitTime = 0.0f;
 
 	bool FlipX = false;
 	bool IsUI = false;
 
 	float4 Color = float4::Zero;
+
 };
 
 class EffectManager

@@ -10,6 +10,7 @@
 #include "FadeActor.h"
 #include "StoryFade.h"
 #include "TalkBox.h"
+#include "BaseMonster.h"
 
 #include "GameEngineActorGUI.h"
 
@@ -105,6 +106,16 @@ void BattleLevel::Start()
 			MainCamCtrl.DisalbeForceLookAt();
 		});
 
+	AddEvent("LockMonsterMove", LevelCode, [this]()
+		{
+			BaseMonster::SetMonstersMove(true);
+		});
+
+	AddEvent("UnlockMonsterMove", LevelCode, [this]()
+		{
+			BaseMonster::SetMonstersMove(false);
+		});
+
 	ActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 }
 
@@ -133,6 +144,8 @@ void BattleLevel::SetPlayerPos(const float4& _Pos)
 
 void BattleLevel::LevelChangeStart()
 {
+	BaseMonster::SetMonstersMove(false);
+
 	//ActorGUIPtr->On();
 	//ActorGUIPtr->SetTarget(TalkBoxPtr->ArrowPtr->GetTransform());
 

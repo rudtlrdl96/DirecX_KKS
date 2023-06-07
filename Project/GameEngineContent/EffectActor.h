@@ -58,8 +58,9 @@ protected:
 
 	EffectDeathTrigger DeathTrigger = EffectDeathTrigger::Time;
 	float DeathTime = 0.0f;
+	float WaitTime = 0.0f;
 
-	void Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime);
+	void Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime);
 
 	void Start() override;
 	void Update(float _DeltaTime) override;

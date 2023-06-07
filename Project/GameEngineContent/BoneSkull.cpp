@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "BoneHead.h"
 #include "EffectManager.h"
+#include "Inventory.h"
 
 BoneSkull::BoneSkull()
 {
@@ -159,6 +160,83 @@ void BoneSkull::Start()
 			BehaviorEndCallback = [this]()
 			{
 				SetBoneSkullState(BoneSkullState::Normal);
+				PlayerFSM.ChangeState("Idle");
+			};
+		});
+
+	LevelPtr->AddEvent("ChiefGuard_Script00_End", GetActorCode(), [this]()
+		{
+			BehaviorAnimationName = "Intro_GetChiefHead";
+			PlayerFSM.ChangeState("Behavior");
+
+			std::function<void()> PauseCall02 = [this]()
+			{
+				GetContentLevel()->GetCamCtrl().CameraShake(6, 40, 12);
+				float4 EffectPos = ParentPlayer->GetTransform()->GetWorldPosition();
+
+				EffectManager::PlayEffect({
+					.EffectName = "GetSkull_Thunder_Effect",
+					.Position = EffectPos,
+					.WaitTime = 0.0f });
+
+				EffectManager::PlayEffect({
+					.EffectName = "GetSkull_Legendary_Smoke",
+					.Position = EffectPos,
+					.WaitTime = 0.0f });
+			
+				EffectManager::PlayEffect({
+					.EffectName = "GetSkull_Legendary_ElectricUp",
+					.Position = EffectPos,
+					.WaitTime = 0.95f });
+
+				EffectManager::PlayEffect({
+					.EffectName = "GetSkull_Legendary_ElectricSide",
+					.Position = EffectPos,
+					.WaitTime = 1.9f });
+			};
+
+			std::function<void()> PauseCall01 = [this, PauseCall02]()
+			{
+				IsBehaviorAnimPause = true;
+				PauseFrame = 22;
+				PauseTime = 0.0f;
+
+				PauseEndCallback = PauseCall02;
+			};
+
+			IsBehaviorAnimPause = true;
+			PauseFrame = 8;
+			PauseTime = 0.1f;
+
+			PauseEndCallback = [this, PauseCall01]()
+			{
+				IsBehaviorAnimPause = true;
+				PauseFrame = 20;
+				PauseTime = 0.1f;
+
+				PauseEndCallback = PauseCall01;
+			};
+
+			BehaviorEndCallback = [this]()
+			{				
+				ParentPlayer->InsertNewSkull(203);
+				ParentPlayer->ForceSwapSkull();
+				PlayerFSM.ChangeState("Idle");
+
+				GetContentLevel()->CallEvent("PlayerFrameActive");
+				GetContentLevel()->CallEvent("StoryFadeOut");
+				GetContentLevel()->CallEvent("PlayerInputUnlock");
+				GetContentLevel()->CallEvent("UnlockMonsterMove");
+			};
+		});
+
+	LevelPtr->AddEvent("CastleReborn", GetActorCode(), [this]()
+		{
+			BehaviorAnimationName = "Castle_Reborn";
+			PlayerFSM.ChangeState("Behavior");
+
+			BehaviorEndCallback = [this]()
+			{
 				PlayerFSM.ChangeState("Idle");
 			};
 		});
@@ -379,6 +457,10 @@ void BoneSkull::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "Intro_Getbone", .SpriteName = "BoneSkull_Intro_Getbone.png", .FrameInter = 0.15f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_Awkward", .SpriteName = "BoneSkull_Intro_Awkward.png",
 		.Start = 0, .End = 18, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Intro_GetChiefHead", .SpriteName = "BoneSkull_Normal_Getskull.png",
+		.Start = 0, .End = 44, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Castle_Reborn", .SpriteName = "BoneSkull_Normal_RebornCastle.png",
+		.Start = 0, .End = 26, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 }
 
 void BoneSkull::AnimationColLoad()

@@ -7,6 +7,7 @@ public:
 	static void SetMainSkull(SkullData _SkullData);
 	static void SetSubSkull(SkullData _SkullData);
 
+	static void ResetSkull();
 
 	static const SkullData& GetMainSkull();
 	static const SkullData& GetSubSkull();

@@ -9,6 +9,13 @@
 #include "DeadPartParticle.h"
 #include "Player.h"
 
+bool BaseMonster::MonsterUnMove = false;
+
+void BaseMonster::SetMonstersMove(bool _IsMove)
+{
+	MonsterUnMove = _IsMove;
+}
+
 BaseMonster::BaseMonster()
 {
 }

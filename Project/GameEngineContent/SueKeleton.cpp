@@ -1,8 +1,6 @@
 #include "PrecompileHeader.h"
 #include "SueKeleton.h"
 
-#include "GameEngineActorGUI.h"
-
 SueKeleton::SueKeleton()
 {
 }
@@ -44,6 +42,8 @@ void SueKeleton::Start()
 
 void SueKeleton::Update(float _DeltaTime)
 {
+	BaseNPC::Update(_DeltaTime);
+
 	if (false == IsFirstScriptPlay &&
 		nullptr != FirstScriptCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
 	{
@@ -77,7 +77,7 @@ void SueKeleton::ResetBehavior()
 	IsFirstScriptPlay = false;
 	IsSecondScriptPlay = false;
 
-	FirstScriptCol->Off();
+	FirstScriptCol->On();
 	SecondScriptCol->On();
 }
 
@@ -88,10 +88,6 @@ void SueKeleton::PlayBehavior()
 
 	FirstScriptCol->On();
 	SecondScriptCol->On();
-
-	std::shared_ptr<GameEngineActorGUI> gui = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	gui->SetTarget(SecondScriptCol->GetTransform());
-	gui->On();
 }
 
 void SueKeleton::SpriteLoad()
