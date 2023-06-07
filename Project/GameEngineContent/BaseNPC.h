@@ -26,7 +26,7 @@ public:
 	BaseNPC& operator=(BaseNPC&& _Other) noexcept = delete;
 
 	virtual void PlayBehavior() {}
-	virtual void ResetNPC() {}
+	virtual void ResetBehavior() {}
 
 	void SaveBin(GameEngineSerializer& _SaveSerializer);
 	static NPCMetaData LoadBin(GameEngineSerializer& _LoadSerializer);

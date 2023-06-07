@@ -62,6 +62,8 @@ public:
 	void ActivePlayerFrame();
 	void DisablePlayerFrame();
 
+	void PlayStoryMove(const float4& _StoryMovePos, std::function<void()> _EndCallback);
+
 protected:	
 	void Start() override;
 	void Update(float _DeltaTime);

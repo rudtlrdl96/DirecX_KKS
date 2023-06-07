@@ -90,7 +90,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 			std::function<void()> SkeleTongTalk_2 = [this, SkeleTongTalk_3]()
 			{
-				TalkBoxPtr->SetMainText(L"지금 다른 스켈레톤들이 녀석들과 싸우고 있으니, 어서 아래 방향키를 눌러서 인간들을 쫓아가.", SkeleTongTalk_3);
+				TalkBoxPtr->SetMainText(L"지금 다른 스켈레톤들이 녀석들과 싸우고 있으니, 어서 오른쪽 방향키를 눌러서 인간들을 쫓아가.", SkeleTongTalk_3);
 			};
 
 			std::function<void()> SkeleTongTalk_1 = [this, SkeleTongTalk_2]()
@@ -100,6 +100,119 @@ void OpeningLevel::CreateOpeningEvent()
 
 			TalkBoxPtr->ActiveTalkBox("스켈레-통");
 			TalkBoxPtr->SetMainText(L"뭐, 일단 정신 똑바로 차리고 들어!", SkeleTongTalk_1);
+		});
+
+	// 수켈레톤 이벤트
+
+	AddEvent("Suekeleton_Script00", LevelCode, [this]()
+		{
+			std::function<void()> SuekeletonTalk_4 = [this]()
+			{
+				TalkBoxPtr->SetMainText(L"어, 어, 어서 이리 올라와..!", [this]()
+					{
+						MainCamCtrl.DisalbeForceLookAt();
+						MainPlayer->ActivePlayerFrame();
+						MainPlayer->InputUnlock();
+						TalkBoxPtr->Off();
+						CallEvent("StoryFadeOut");
+						CallEvent("Suekeleton_Script00_End");
+					});
+			};
+
+			std::function<void()> SuekeletonTalk_3 = [this, SuekeletonTalk_4]()
+			{
+				TalkBoxPtr->SetMainText(L"C를 눌러 점프할 수 있어. 두 번 누르면 2단 점프가 가능해.", SuekeletonTalk_4);
+			};
+
+			std::function<void()> SuekeletonTalk_2 = [this, SuekeletonTalk_3]()
+			{
+				TalkBoxPtr->SetMainText(L"너, 너, 너는 무사했구나..! 나, 나, 나는 더 이상 움질일 수가 어, 어, 없어..!", SuekeletonTalk_3);
+			};
+
+			std::function<void()> SuekeletonTalk_1 = [this, SuekeletonTalk_2]()
+			{
+				TalkBoxPtr->SetMainText(L"여, 여, 여기야..!", SuekeletonTalk_2);
+			};
+
+			MainCamCtrl.ActiveForceLookAt(float4(1880, 500));
+
+			CallEvent("StoryFadeIn");
+			TalkBoxPtr->ActiveTalkBox("수-켈레톤");
+			TalkBoxPtr->SetMainText(L"오!!, 리, 리 리틀본!!", SuekeletonTalk_1);
+			MainPlayer->InputLock();
+			MainPlayer->DisablePlayerFrame();
+		});
+
+	AddEvent("PlayerMove_Suekeleton", LevelCode, [this]()
+		{
+			CallEvent("StoryFadeIn");
+			MainPlayer->InputLock();
+			MainPlayer->DisablePlayerFrame();
+
+			MainPlayer->PlayStoryMove(float4(2210, 634), [this]()
+				{
+					CallEvent("Suekeleton_Script01");
+					CallEvent("PlayerLookRight");
+				});
+		});
+
+	AddEvent("Suekeleton_Script01", LevelCode, [this]()
+		{
+			std::function<void()> SuekeletonTalk_5 = [this]()
+			{
+				TalkBoxPtr->SetMainText(L"이, 이, 이걸 받아..!", [this]()
+					{
+						TalkBoxPtr->Off();
+						CallEvent("Suekeleton_Script01_End");
+					});
+			};
+
+			std::function<void()> SuekeletonTalk_4 = [this, SuekeletonTalk_5]()
+			{
+				TalkBoxPtr->SetMainText(L"네, 네, 네가 대신 마왕님과 의원님들을 구, 구, 구해줘..!", SuekeletonTalk_5);
+			};
+
+			std::function<void()> SuekeletonTalk_3 = [this, SuekeletonTalk_4]()
+			{
+				TalkBoxPtr->SetMainText(L"나, 나, 나는, 곧 마력이 다할 것 같아...", SuekeletonTalk_4);
+			};
+
+			std::function<void()> SuekeletonTalk_2 = [this, SuekeletonTalk_3]()
+			{
+				TalkBoxPtr->SetMainText(L"나, 나, 나랑 다른 스켈레톤들이 녀석들을 쪼, 쪼, 쫓고 있어..!", SuekeletonTalk_3);
+			};
+
+			std::function<void()> SuekeletonTalk_1 = [this, SuekeletonTalk_2]()
+			{
+				TalkBoxPtr->SetMainText(L"이, 이, 인간 놈들... 마왕성 꼭대기로 나, 나, 날아와 기습해올줄이야...", SuekeletonTalk_2);
+			};
+
+			TalkBoxPtr->ActiveTalkBox("수-켈레톤");
+			TalkBoxPtr->SetMainText(L"크, 크, 큰일이야! 마왕님과 의원님들이 이, 이, 인간 놈들에게 잡혀가버렸어..!", SuekeletonTalk_1);
+		});
+
+	AddEvent("Suekeleton_Script02", LevelCode, [this]()
+		{
+			std::function<void()> SuekeletonTalk_2 = [this]()
+			{
+				TalkBoxPtr->SetMainText(L"꼭 마, 마, 마왕님과 의, 의, 의원님들을 구해줘..!", [this]()
+					{
+						TalkBoxPtr->Off();
+						CallEvent("Suekeleton_Script02_End");
+						CallEvent("StoryFadeOut");
+						CallEvent("PlayerInputUnLock");
+
+						MainPlayer->ActivePlayerFrame();
+					});
+			};
+
+			std::function<void()> SuekeletonTalk_1 = [this, SuekeletonTalk_2]()
+			{
+				TalkBoxPtr->SetMainText(L"나, 나, 나한텐 남은 시간이 얼마 없나봐.", SuekeletonTalk_2);
+			};
+
+			TalkBoxPtr->ActiveTalkBox("수-켈레톤");
+			TalkBoxPtr->SetMainText(L"내, 내, 다리뼈야..! X를 눌러 공격할 수 있어.", SuekeletonTalk_1);
 		});
 
 	// 몬갈 이벤트

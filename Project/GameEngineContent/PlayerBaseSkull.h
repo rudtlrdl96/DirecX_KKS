@@ -117,6 +117,8 @@ public:
 		return IsLockSkillB;
 	}
 
+	void PlayStoryMove(const float4& _MovePos, std::function<void()> _EndCallback = nullptr);
+
 protected:
 	std::vector<std::string> DeadPartNames;
 
@@ -193,6 +195,9 @@ protected:
 	float PauseTime = 1.0f;
 	float CurPauseTime = 0.0f;
 
+	float4 StoryMovePos = float4::Zero;
+	std::function<void()> StoryMoveEndCallback = nullptr;
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	
@@ -240,6 +245,10 @@ protected:
 	virtual void Behavior_Enter();
 	virtual void Behavior_Update(float _DeltaTime);
 	virtual void Behavior_End();
+
+	virtual void StoryMove_Enter();
+	virtual void StoryMove_Update(float _DeltaTime);
+	virtual void StoryMove_End();
 
 	virtual void DataLoad() = 0;
 	virtual void TextureLoad() = 0;

@@ -49,7 +49,7 @@ void NPCManager::ShowGUI()
 			const bool is_selected = (GUI_SelectNPC == n);
 
 			if (ImGui::Selectable(
-				GameEngineString::AnsiToUTF8((std::string("Npc ") + std::to_string(n) + "," + NpcActors[GUI_SelectNPC]->Data.Name)).data(), is_selected))
+				GameEngineString::AnsiToUTF8((std::string("Npc ") + std::to_string(n) + "," + NpcActors[n]->Data.Name)).data(), is_selected))
 			{
 				GUI_SelectNPC = n;
 			}
@@ -96,7 +96,7 @@ void NPCManager::ResetNPC()
 {
 	for (size_t i = 0; i < NpcActors.size(); i++)
 	{
-		NpcActors[i]->ResetNPC();
+		NpcActors[i]->ResetBehavior();
 	}
 }
 

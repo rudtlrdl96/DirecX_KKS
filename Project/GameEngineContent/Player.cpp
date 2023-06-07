@@ -118,6 +118,11 @@ void Player::DisablePlayerFrame()
 	StateFrame->Off();
 }
 
+void Player::PlayStoryMove(const float4& _StoryMovePos, std::function<void()> _EndCallback)
+{
+	MainSkull->PlayStoryMove(_StoryMovePos, _EndCallback);
+}
+
 void Player::Start()
 {
 	PlayerBodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);

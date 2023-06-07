@@ -1202,3 +1202,90 @@ void PlayerBaseSkull::Behavior_End()
 	IsBehaviorAnimPause = false;
 	PauseEndCallback = nullptr;
 }
+
+void PlayerBaseSkull::StoryMove_Enter()
+{
+}
+
+
+void PlayerBaseSkull::StoryMove_Update(float _DeltaTime)
+{
+	if (nullptr == ContentFunc::PlatformColCheck(WalkCol))
+	{
+		float4 DashVelocity = DashRigidbody.GetVelocity() * _DeltaTime;
+		PlayerTrans->AddLocalPosition(DashVelocity);
+	}
+
+	if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
+	{
+		JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
+		Render->ChangeAnimation("Fall");
+	}
+	else
+	{
+		JumpDir = float4::Zero;
+		Render->ChangeAnimation("Walk");
+	}
+
+	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
+
+	std::shared_ptr<GameEngineCollision> GroundColPtr = ContentFunc::PlatformColCheck(GroundCol, true);
+
+	if (nullptr != GroundColPtr)
+	{
+		float4 CurPos = PlayerTrans->GetWorldPosition();
+
+		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
+		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+		PlayerTrans->SetWorldPosition(CurPos);
+		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
+	}
+
+	float4 MoveDir = StoryMovePos - GetTransform()->GetWorldPosition();
+	MoveDir.z = 0;
+
+	if (5.0f > MoveDir.Size())
+	{
+		if (nullptr != StoryMoveEndCallback)
+		{
+			StoryMoveEndCallback();
+			StoryMoveEndCallback = nullptr;
+		}
+
+		PlayerFSM.ChangeState("Idle");
+		return;
+	}
+
+	if (1.0f > fabsf(MoveDir.x))
+	{
+		return;
+	}
+
+	if (MoveDir.x < 0.0f)
+	{
+		SetViewDir(ActorViewDir::Left);
+
+		if (nullptr == ContentFunc::PlatformColCheck(WalkCol))
+		{
+			float4 MoveDir = float4::Left * WalkSpeed * _DeltaTime;
+			PlayerTrans->AddLocalPosition(MoveDir);
+		}
+	}
+	else
+	{
+		SetViewDir(ActorViewDir::Right);
+
+		if (nullptr == ContentFunc::PlatformColCheck(WalkCol))
+		{
+			float4 MoveDir = float4::Right * WalkSpeed * _DeltaTime;
+			PlayerTrans->AddLocalPosition(MoveDir);
+		}
+	}
+
+}
+
+void PlayerBaseSkull::StoryMove_End()
+{
+
+}

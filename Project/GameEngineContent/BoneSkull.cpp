@@ -133,6 +133,35 @@ void BoneSkull::Start()
 				ParentPlayer->ActivePlayerFrame();
 			};
 		});
+
+	LevelPtr->AddEvent("Suekeleton_Script01_End", GetActorCode(), [this]()
+		{
+			BehaviorAnimationName = "Intro_Getbone";
+			PlayerFSM.ChangeState("Behavior");
+
+			BehaviorEndCallback = [this]()
+			{
+				SetBoneSkullState(BoneSkullState::Normal);
+				PlayerFSM.ChangeState("Idle");
+			};
+		});
+
+	LevelPtr->AddEvent("Suekeleton_Script02_End", GetActorCode(), [this]()
+		{
+			IsLockAttack = false;
+
+			IsLockSkillA = false;
+			IsActiveSkillA_Value = true;
+
+			IsLockSkillB = false;
+			IsActiveSkillB_Value = true;
+
+			BehaviorEndCallback = [this]()
+			{
+				SetBoneSkullState(BoneSkullState::Normal);
+				PlayerFSM.ChangeState("Idle");
+			};
+		});
 }
 
 void BoneSkull::Update(float _DeltaTime)
@@ -347,6 +376,7 @@ void BoneSkull::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "Intro_Idle", .SpriteName = "BoneSkull_Intro_Idle.png", .FrameInter = 0.1f, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_WakeUp", .SpriteName = "BoneSkull_Intro_WlakUp.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_GetHead", .SpriteName = "BoneSkull_Intro_GetHead.png", .FrameInter = 0.08f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Intro_Getbone", .SpriteName = "BoneSkull_Intro_Getbone.png", .FrameInter = 0.15f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_Awkward", .SpriteName = "BoneSkull_Intro_Awkward.png",
 		.Start = 0, .End = 18, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 }

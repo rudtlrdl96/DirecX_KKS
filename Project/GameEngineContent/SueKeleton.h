@@ -14,10 +14,20 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _DeltaTime) override;
+
+	void ResetBehavior() override;
+	void PlayBehavior() override;
 
 private:
 	void SpriteLoad() override;
 
+	std::shared_ptr<GameEngineCollision> FirstScriptCol = nullptr;
+	std::shared_ptr<GameEngineCollision> SecondScriptCol = nullptr;
+
+	bool IsFirstScriptPlay = false;
+	bool IsSecondScriptPlay = false;
+	bool IsGiveWeapon = false;
 
 };
 

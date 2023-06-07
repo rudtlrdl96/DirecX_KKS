@@ -1,6 +1,8 @@
 #include "PrecompileHeader.h"
 #include "SueKeleton.h"
 
+#include "GameEngineActorGUI.h"
+
 SueKeleton::SueKeleton()
 {
 }
@@ -17,12 +19,79 @@ void SueKeleton::Start()
 		.AnimationName = "Idle", .SpriteName = "SueKeleton_Idle.png", .ScaleToTexture = true });
 
 	MainRender->CreateAnimation({
-		.AnimationName = "Dead", .SpriteName = "SueKeleton_Dead.png", .Loop = false, .ScaleToTexture = true });
+		.AnimationName = "Dead", .SpriteName = "SueKeleton_Dead.png", 
+		.FrameInter = 0.15f, .Loop = false, .ScaleToTexture = true });
 
 	MainRender->CreateAnimation({
-		.AnimationName = "Wow", .SpriteName = "SueKeleton_GiveWeapon.png", .ScaleToTexture = true });
+		.AnimationName = "GiveWeapon", .SpriteName = "SueKeleton_GiveWeapon.png",
+		.FrameInter = 0.15f, .Loop = false, .ScaleToTexture = true });
 
 	MainRender->ChangeAnimation("Idle");
+
+	FirstScriptCol = CreateComponent<GameEngineCollision>();
+	FirstScriptCol->GetTransform()->SetLocalPosition(float4(-340, -100, 0));
+	FirstScriptCol->GetTransform()->SetLocalScale(float4(400, 600, 1));
+
+	SecondScriptCol = CreateComponent<GameEngineCollision>();
+	SecondScriptCol->GetTransform()->SetLocalScale(float4(140, 1000, 1));
+
+	GetContentLevel()->AddEvent("Suekeleton_Script01_End", GetActorCode(), [this]()
+		{
+			PlayAnimation("GiveWeapon", true);
+			IsGiveWeapon = true;
+		});
+}
+
+void SueKeleton::Update(float _DeltaTime)
+{
+	if (false == IsFirstScriptPlay &&
+		nullptr != FirstScriptCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	{
+		IsFirstScriptPlay = true;
+		FirstScriptCol->Off();
+
+		GetContentLevel()->CallEvent("Suekeleton_Script00");
+
+	}
+
+	if (false == IsSecondScriptPlay &&
+		nullptr != SecondScriptCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	{
+		IsSecondScriptPlay = true;
+		SecondScriptCol->Off();
+
+		GetContentLevel()->CallEvent("PlayerMove_Suekeleton");
+	}	
+
+
+	if (true == IsGiveWeapon && true == MainRender->IsAnimationEnd())
+	{
+		IsGiveWeapon = false;
+		PlayAnimation("Dead", true);
+		GetContentLevel()->CallEvent("Suekeleton_Script02");
+	}
+}
+
+void SueKeleton::ResetBehavior()
+{
+	IsFirstScriptPlay = false;
+	IsSecondScriptPlay = false;
+
+	FirstScriptCol->Off();
+	SecondScriptCol->On();
+}
+
+void SueKeleton::PlayBehavior()
+{
+	IsFirstScriptPlay = false;
+	IsSecondScriptPlay = false;
+
+	FirstScriptCol->On();
+	SecondScriptCol->On();
+
+	std::shared_ptr<GameEngineActorGUI> gui = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	gui->SetTarget(SecondScriptCol->GetTransform());
+	gui->On();
 }
 
 void SueKeleton::SpriteLoad()

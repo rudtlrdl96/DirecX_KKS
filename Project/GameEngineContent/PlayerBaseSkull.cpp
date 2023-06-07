@@ -70,6 +70,13 @@ std::shared_ptr<GameEngineActor> PlayerBaseSkull::SkullDeath()
 	return ReturnActor;
 }
 
+void PlayerBaseSkull::PlayStoryMove(const float4& _MovePos, std::function<void()> _EndCallback /*= nullptr*/)
+{
+	StoryMovePos = _MovePos;
+	StoryMoveEndCallback = _EndCallback;
+	PlayerFSM.ChangeState("StoryMove");
+}
+
 void PlayerBaseSkull::Start()
 {
 	BattleActor::Start();
@@ -136,6 +143,7 @@ void PlayerBaseSkull::Start()
 	PlayerFSM.AddFSM("Skill_A", &PlayerBaseSkull::Skill_SlotA_Enter, &PlayerBaseSkull::Skill_SlotA_Update, &PlayerBaseSkull::Skill_SlotA_End);
 	PlayerFSM.AddFSM("Skill_B", &PlayerBaseSkull::Skill_SlotB_Enter, &PlayerBaseSkull::Skill_SlotB_Update, &PlayerBaseSkull::Skill_SlotB_End);
 	PlayerFSM.AddFSM("Behavior", &PlayerBaseSkull::Behavior_Enter, &PlayerBaseSkull::Behavior_Update, &PlayerBaseSkull::Behavior_End);
+	PlayerFSM.AddFSM("StoryMove", &PlayerBaseSkull::StoryMove_Enter, &PlayerBaseSkull::StoryMove_Update, &PlayerBaseSkull::StoryMove_End);
 
 	PlayerFSM.ChangeState("Idle");
 
