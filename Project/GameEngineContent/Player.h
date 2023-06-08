@@ -63,6 +63,11 @@ public:
 		return IsInputLockValue;
 	}
 
+	inline ActorViewDir GetViewDir() const
+	{
+		return MainSkull->GetViewDir();
+	}
+
 	void ActivePlayerFrame();
 	void DisablePlayerFrame();
 

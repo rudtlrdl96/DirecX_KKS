@@ -667,7 +667,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="WitchCage.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="WitchOpening.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Witch_CatFollow.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -1343,7 +1351,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="WitchCage.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="WitchOpening.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Witch_CatFollow.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -19,7 +19,22 @@ void SkeletonA::Start()
 	MainRender->CreateAnimation({
 		.AnimationName = "Dead", .SpriteName = "SkeletonA_Dead.png", .ScaleToTexture = true });
 
-	MainRender->ChangeAnimation("Idle");
+	PlayAnimation("Idle", true);
+
+	GetContentLevel()->AddEvent("WitchCageOut", GetActorCode(), [this]()
+		{
+			PlayAnimation("Dead", true);
+		});
+}
+
+void SkeletonA::ResetBehavior()
+{
+	PlayAnimation("Idle", true);
+}
+
+void SkeletonA::PlayBehavior()
+{
+	PlayAnimation("Idle", true);
 }
 
 void SkeletonA::SpriteLoad()

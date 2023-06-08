@@ -62,6 +62,8 @@ public:
 	}
 
 	void SetCameraPos(const float4& _Pos);
+	void AddCameraPos(const float4& _Pos);
+
 	void SetLookatTarget(std::shared_ptr<class GameEngineActor> _Target);
 
 	inline void ActiveForceLookAt(const float4& _Pos)

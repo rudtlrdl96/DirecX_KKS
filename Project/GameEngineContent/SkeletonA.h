@@ -15,7 +15,10 @@ public:
 
 protected:
 	void Start() override;
-	
+
+	void ResetBehavior() override;
+	void PlayBehavior() override;
+
 private:
 	void SpriteLoad() override;
 

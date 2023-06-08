@@ -50,4 +50,9 @@ void ContentCore::NPCDataLoad()
 		.Index = 5, .Grade = LevelArea::Opening,
 		.Name = "경비대장", .TalkboxNameTag = "경비대장",
 		.PreviewName = "ChiefGuardNPC_Preview.png" });
+
+	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
+		.Index = 6, .Grade = LevelArea::Opening,
+		.Name = "마녀 고양이(오프닝)", .TalkboxNameTag = "마녀",
+		.PreviewName = "WitchOpeningCat_Preview.png" });
 }

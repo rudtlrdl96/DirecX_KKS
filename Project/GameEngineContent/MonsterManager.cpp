@@ -560,6 +560,12 @@ void MonsterManager::Update(float _DeltaTime)
 			}
 		}
 	}
+
+	if (false == IsMonsterAllDeathCheck && true == IsSpawnEnd())
+	{
+		IsMonsterAllDeathCheck = true;
+		GetContentLevel()->CallEvent("MonsterAllDeath");
+	}
 }
 
 void MonsterManager::InsertWave(int _Index)

@@ -20,6 +20,7 @@ void TalkBox::ActiveTalkBox(const std::string_view& _Name)
 
 void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void()> _Callback)
 {
+	BoostSpeed = 1.0f;
 	MainText = _MainText;
 	Progress = 0.0f;
 	IsReadEnd = false;
@@ -89,7 +90,12 @@ void TalkBox::Update(float _DeltaTime)
 		return;
 	}
 
-	Progress += _DeltaTime * ReadSpeed / static_cast<float>(MainText.size());
+	if (true == GameEngineInput::IsDown("TalkKey"))
+	{
+		BoostSpeed = 10.0f;
+	}
+
+	Progress += _DeltaTime * ReadSpeed * BoostSpeed / static_cast<float>(MainText.size());
 
 	if (1.0f <= Progress)
 	{

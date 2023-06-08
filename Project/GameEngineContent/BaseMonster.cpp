@@ -114,8 +114,7 @@ void BaseMonster::Start()
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	AttackCol->SetColType(ColType::AABBBOX2D);
 
-	AttackCheck.SetCol(AttackCol);
-	AttackCheck.AddOrder((UINT)CollisionOrder::Player);
+	AttackCheck.SetCol(AttackCol, (UINT)CollisionOrder::Player);
 	AttackCheck.SetRender(Render);
 	AttackCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)
 		{

@@ -39,6 +39,7 @@ protected:
 	ColorBuffer Buffer = ColorBuffer();
 
 	std::map<std::string, std::map<size_t, float>> AnimFramePause;
+	std::function<void()> Callback = nullptr;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -53,6 +54,7 @@ private:
 
 	float AnimTimeCheck = 0.0f;
 	UINT CurFrame = static_cast<UINT>(-1);
+
 
 };
 

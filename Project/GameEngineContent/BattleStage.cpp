@@ -45,14 +45,24 @@ float4 BattleStage::GetSpawnPoint() const
 
 void BattleStage::StageReset()
 {
+	LockCount = 0;
 	ObjectManagerPtr->BehaviorObjectReset();
 	NPCMgrPtr->ResetNPC();
 }
 
 void BattleStage::StagePlay()
 {
+	LockCount = 0;
 	NPCMgrPtr->PlayNPC();
 	ObjectManagerPtr->BehaviorObjectPlay();
+}
+
+void BattleStage::Death()
+{
+	BaseContentActor::Death();
+
+	GetContentLevel()->RemoveEvent("DoorLockPlus", GetActorCode());
+	GetContentLevel()->RemoveEvent("DoorLockMinus", GetActorCode());
 }
 
 void BattleStage::Start()
@@ -76,11 +86,22 @@ void BattleStage::Start()
 
 	NPCMgrPtr = LevelPtr->CreateActor<NPCManager>();
 	NPCMgrPtr->GetTransform()->SetParent(GetTransform());
+
+	GetContentLevel()->AddEvent("DoorLockPlus", GetActorCode(), [this]()
+		{
+			++LockCount;
+		});
+
+	GetContentLevel()->AddEvent("DoorLockMinus", GetActorCode(), [this]()
+		{
+			--LockCount;
+		});
+
 }
 
 void BattleStage::Update(float _DeltaTime)
 {
-	if (MonsterMgrPtr->IsSpawnEnd())
+	if (MonsterMgrPtr->IsSpawnEnd() && 0 >= LockCount)
 	{
 		EventManagerPtr->DoorActive();
 	}

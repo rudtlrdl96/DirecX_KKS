@@ -215,6 +215,58 @@ void OpeningLevel::CreateOpeningEvent()
 			TalkBoxPtr->SetMainText(L"내, 내, 다리뼈야..! X를 눌러 공격할 수 있어.", SuekeletonTalk_1);
 		});
 
+	// 마녀 이벤트
+
+	AddEvent("OpeningWitch_Script00", LevelCode, [this]()
+		{
+			std::function<void()> WitchTalk_5 = [this]()
+			{
+				TalkBoxPtr->SetMainText(L"서둘러 쫓아가도록 하죠.", [this]()
+					{
+						TalkBoxPtr->Off();
+						CallEvent("OpeningWitch_Script00_End");
+					});
+			};
+
+			std::function<void()> WitchTalk_4 = [this, WitchTalk_5]()
+			{
+				TalkBoxPtr->SetMainText(L"마왕님을 구하려면 앞서 간 스켈레톤 경비대만으로는 분명 역부족일 것입니다.", WitchTalk_5);
+			};
+
+			std::function<void()> WitchTalk_3 = [this, WitchTalk_4]()
+			{
+				TalkBoxPtr->SetMainText(L"기어코 몇몇이 저를 구하려다 역으로 당하고 말았습니다.", WitchTalk_4);
+			};
+
+			std::function<void()> WitchTalk_2 = [this, WitchTalk_3]()
+			{
+				TalkBoxPtr->SetMainText(L"조금 전에 스켈레톤 경비대가 여길 지나갔습니다. 저는 괜찮으니 마왕님부터 구해달라 그렇게 말했습니다만...", WitchTalk_3);
+			};
+
+			std::function<void()> WitchTalk_1 = [this, WitchTalk_2]()
+			{
+				TalkBoxPtr->SetMainText(L"제 마력을 봉인할 정도의 철장이라니, 칼레온에도 쓸만한 마법사가 있나 보네요.", WitchTalk_2);
+			};
+
+			CallEvent("StoryFadeIn");
+			TalkBoxPtr->ActiveTalkBox("마녀");
+			TalkBoxPtr->SetMainText(L"스컬? 그 난리 통에서 용케 무사했군요.", WitchTalk_1);
+		});
+
+
+	AddEvent("WitchCageOut", LevelCode, [this]()
+		{
+			CallEvent("StoryFadeIn");
+			CallEvent("PlayerInputLock");
+			MainPlayer->DisablePlayerFrame();
+
+			MainPlayer->PlayStoryMove(float4(1450, 252), [this]()
+				{
+					CallEvent("OpeningWitch_Script00");
+					CallEvent("PlayerLookRight");
+				});
+		});
+
 	// 경비대장 이벤트
 
 	AddEvent("ChiefGuard_Script00", LevelCode, [this]()

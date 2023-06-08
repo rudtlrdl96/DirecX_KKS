@@ -13,9 +13,12 @@ public:
 	SkeletonB& operator=(const SkeletonB& _Other) = delete;
 	SkeletonB& operator=(SkeletonB&& _Other) noexcept = delete;
 
+	void Death() override;
+
 protected:
 	void Start() override;
-	
+
+
 private:
 	void SpriteLoad() override;
 

@@ -7,6 +7,7 @@
 #include "SkeleTong.h"
 #include "SueKeleton.h"
 #include "WitchOpening.h"
+#include "Witch_CatFollow.h"
 
 std::shared_ptr<BaseNPC> NPCManager::CreateNPC(const NPCMetaData& _NewNPCData)
 {
@@ -43,14 +44,20 @@ std::shared_ptr<BaseNPC> NPCManager::CreateNPC(const NPCMetaData& _NewNPCData)
 	{
 		NewNPC = GetLevel()->CreateActor<ChiefGuardNPC>();
 	}
+	break;
+	case 6: // ¸¶³à °í¾çÀÌ(¿ÀÇÁ´×)
+	{
+		NewNPC = GetLevel()->CreateActor<Witch_CatFollow>();
+	}
 		break;
 	default:
 		break;
 	}
 
 	NewNPC->Data = _NewNPCData;
+	NewNPC->Data.CenterPos.z = GameEngineRandom::MainRandom.RandomFloat(-10.0f, -5.0f);
 	NewNPC->GetTransform()->SetParent(GetTransform());
-	NewNPC->GetTransform()->SetLocalPosition(_NewNPCData.CenterPos);
+	NewNPC->GetTransform()->SetLocalPosition(NewNPC->Data.CenterPos);
 
 	NpcActors.push_back(NewNPC);
 	GUI_SelectNPC = static_cast<int>(NpcActors.size() - 1);

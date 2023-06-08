@@ -3,7 +3,6 @@
 
 AnimAttackCheck::AnimAttackCheck()
 {
-	Orders.reserve(4);
 }
 
 AnimAttackCheck::~AnimAttackCheck()
@@ -46,6 +45,8 @@ bool AnimAttackCheck::Update()
 			return false;
 		}
 
+		Col->On();
+
 		GameEngineTransform* ColTrans = Col->GetTransform();
 
 		for (size_t i = 0; i < Data.ColMetaDatas.size(); i++)
@@ -55,20 +56,21 @@ bool AnimAttackCheck::Update()
 
 			std::vector<std::shared_ptr<GameEngineCollision>> Cols;
 
-			for (size_t n = 0; n < Orders.size(); n++)
-			{
-				Cols.clear();
+			Cols.clear();
 
-				Col->CollisionAll(
-					Orders[n],
-					Cols,
-					ColType::AABBBOX2D,
-					ColType::AABBBOX2D
-				);
+			Col->CollisionAll(
+				Order,
+				Cols,
+				ColType::AABBBOX2D,
+				ColType::AABBBOX2D
+			);
 
-				ColCheck.AddCollision(Cols, Data);
-			}	
-		}	
+			ColCheck.AddCollision(Cols, Data);
+		}
+	}
+	else
+	{
+		Col->Off();
 	}
 
 

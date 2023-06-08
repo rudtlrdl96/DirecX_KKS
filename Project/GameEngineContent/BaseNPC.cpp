@@ -42,6 +42,15 @@ void BaseNPC::Start()
 
 void BaseNPC::Update(float _DeltaTime)
 {
+	if (true == MainRender->IsAnimationEnd())
+	{
+		if (nullptr != Callback)
+		{
+			Callback();
+			Callback = nullptr;
+		}
+	}
+
 	if (CurFrame != MainRender->GetCurrentFrame())
 	{
 		CurFrame = static_cast<UINT>(MainRender->GetCurrentFrame());

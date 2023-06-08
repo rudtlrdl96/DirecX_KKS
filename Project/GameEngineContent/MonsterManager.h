@@ -107,6 +107,7 @@ private:
 	int GUI_SelectGroup = 0;
 
 	bool IsMapTool = false;	
+	bool IsMonsterAllDeathCheck = false;
 
 	std::shared_ptr<class MonsterGroupRender> GUI_GroupRenders;
 	std::shared_ptr<class ScaleDebugRender> GUI_GroupColRender;

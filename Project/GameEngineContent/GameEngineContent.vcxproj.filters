@@ -861,6 +861,12 @@
     <ClInclude Include="BrokenObjectToolGUI.h">
       <Filter>5_GUI\Tool</Filter>
     </ClInclude>
+    <ClInclude Include="WitchCage.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="Witch_CatFollow.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1405,6 +1411,12 @@
     </ClCompile>
     <ClCompile Include="BrokenObjectToolGUI.cpp">
       <Filter>5_GUI\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="WitchCage.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="Witch_CatFollow.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,13 @@ SkeletonB::~SkeletonB()
 {
 }
 
+void SkeletonB::Death()
+{
+	BaseNPC::Death();
+
+	GetContentLevel()->RemoveEvent("WitchCageOut", GetActorCode());
+}
+
 void SkeletonB::Start()
 {
 	BaseNPC::Start();
@@ -19,7 +26,7 @@ void SkeletonB::Start()
 	MainRender->CreateAnimation({
 		.AnimationName = "Dead", .SpriteName = "SkeletonB_Dead.png", .ScaleToTexture = true });
 
-	MainRender->ChangeAnimation("Idle");
+	PlayAnimation("Idle", true);
 }
 
 void SkeletonB::SpriteLoad()

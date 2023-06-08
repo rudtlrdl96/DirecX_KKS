@@ -178,7 +178,7 @@ void StoryHero_FirstHero_Opening::Update(float _DeltaTime)
 				.EffectName = "FirstHero_BigbangReady",
 				.Position = GetTransform()->GetWorldPosition() + float4(-70, 250, 0) });
 
-			GetContentLevel()->GetCamCtrl().CameraShake(25, 20.0f, 100);
+			GetContentLevel()->GetCamCtrl().CameraShake(20, 20.0f, 100);
 		}
 		break;
 	case StoryHero_FirstHero_Opening::HeroState::CastingLoop:

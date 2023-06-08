@@ -266,19 +266,19 @@ void MapToolLevel::CameraMoveFunction(float _DeltaTime)
 
 	if (GameEngineInput::IsPress("CameraMoveUp"))
 	{
-		GetMainCamera()->GetTransform()->AddLocalPosition(float4::Up * CurFrameCameraSpeed);
+		GetCamCtrl().AddCameraPos(float4::Up * CurFrameCameraSpeed);
 	}
 	else if (GameEngineInput::IsPress("CameraMoveDown"))
 	{
-		GetMainCamera()->GetTransform()->AddLocalPosition(float4::Down * CurFrameCameraSpeed);
+		GetCamCtrl().AddCameraPos(float4::Down * CurFrameCameraSpeed);
 	}
 	if (GameEngineInput::IsPress("CameraMoveLeft"))
 	{
-		GetMainCamera()->GetTransform()->AddLocalPosition(float4::Left * CurFrameCameraSpeed);
+		GetCamCtrl().AddCameraPos(float4::Left * CurFrameCameraSpeed);
 	}
 	else if (GameEngineInput::IsPress("CameraMoveRight"))
 	{
-		GetMainCamera()->GetTransform()->AddLocalPosition(float4::Right * CurFrameCameraSpeed);
+		GetCamCtrl().AddCameraPos(float4::Right * CurFrameCameraSpeed);
 	}
 }
 

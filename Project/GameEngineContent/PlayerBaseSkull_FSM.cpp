@@ -1219,12 +1219,12 @@ void PlayerBaseSkull::StoryMove_Update(float _DeltaTime)
 	if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
 	{
 		JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
-		Render->ChangeAnimation("Fall", 0, false);
+		Render->ChangeAnimation("FallRepeat" + AnimNamePlusText, 0, false);
 	}
 	else
 	{
 		JumpDir = float4::Zero;
-		Render->ChangeAnimation("Walk", 0, false);
+		Render->ChangeAnimation("Walk" + AnimNamePlusText, 0, false);
 	}
 
 	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);

@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "BaseMonster.h"
 #include "DeadPartParticle.h"
+#include "WitchOpening.h"
 
 PlayerBaseSkull::PlayerBaseSkull()
 {
@@ -257,6 +258,7 @@ void PlayerBaseSkull::Start()
 
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
 	AttackCol->GetTransform()->SetWorldRotation(float4::Zero);
+	AttackCol->Off();
 
 	DashTrail = GetLevel()->CreateActor<CaptureTrail>();
 	DashTrail->GetTransform()->SetParent(GetTransform());
@@ -268,25 +270,28 @@ void PlayerBaseSkull::Start()
 	EffectCaptureTrail->SetTime(0.4f);
 	EffectCaptureTrail->SetColor(float4(0.0f, 0.0f, 0.0f, 1.0f), float4::Null);
 
-	AttackEnterCheck.SetCol(AttackCol);
-	AttackEnterCheck.AddOrder((UINT)CollisionOrder::Monster);
-	AttackEnterCheck.AddOrder((UINT)CollisionOrder::BrokenObject);
+	AttackEnterCheck.SetCol(AttackCol, (UINT)CollisionOrder::Monster);
 	AttackEnterCheck.SetRender(Render);
 
 	AttackEnterCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)
 		{			
-			std::shared_ptr<BaseMonster> CastPtr = std::static_pointer_cast<BaseMonster>(_Ptr);
-
-			switch (AttackTypeValue)
 			{
-			case PlayerBaseSkull::AttackType::MeleeAttack:
-				CastPtr->HitMonster(GetMeleeAttackDamage(), GetViewDir(), _Data.IsStiffen, _Data.IsPush);
-				break;
-			case PlayerBaseSkull::AttackType::MagicAttack:
-				CastPtr->HitMonster(GetMagicAttackDamage(), GetViewDir(), _Data.IsStiffen, _Data.IsPush);
-				break;
-			default:
-				break;
+				std::shared_ptr<BaseMonster> CastPtr = std::static_pointer_cast<BaseMonster>(_Ptr);
+
+				if (nullptr != CastPtr)
+				{
+					switch (AttackTypeValue)
+					{
+					case PlayerBaseSkull::AttackType::MeleeAttack:
+						CastPtr->HitMonster(GetMeleeAttackDamage(), GetViewDir(), _Data.IsStiffen, _Data.IsPush);
+						break;
+					case PlayerBaseSkull::AttackType::MagicAttack:
+						CastPtr->HitMonster(GetMagicAttackDamage(), GetViewDir(), _Data.IsStiffen, _Data.IsPush);
+						break;
+					default:
+						break;
+					}
+				}
 			}
 		});
 
