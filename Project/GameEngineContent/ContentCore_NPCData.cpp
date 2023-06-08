@@ -21,6 +21,70 @@ void ContentCore::NPCDataLoad()
 		}
 	}
 
+	if (nullptr == GameEngineSprite::Find("FirstHero_Story_Landing.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("1_Opening");
+		Path.Move("Npc");
+		Path.Move("FirstHero");
+		Path.Move("Sheet");
+
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FirstHero_Story_Landing.png").GetFullPath(), 10, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FirstHero_Story_FlyIdle.png").GetFullPath(), 9, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FirstHero_Story_CastingIntro.png").GetFullPath(), 6, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FirstHero_Story_CastingLoop.png").GetFullPath(), 6, 1);
+
+		Path.MoveParent();
+		Path.Move("Effect");
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FirstHero_BigbangReady_Effect.png").GetFullPath(), 5, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FirstHero_Landing_Effect.png").GetFullPath(), 7, 7);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FirstHero_OrbLoop_Effect.png").GetFullPath(), 7, 6);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FirstHero_OrbStart_Effect.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FirstHero_OrbTrail_Effect.png").GetFullPath(), 5, 5);
+
+		EffectManager::CreateMetaData("FirstHero_BigbangReady", {
+			.SpriteName = "FirstHero_BigbangReady_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 22,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("FirstHero_Landing", {
+			.SpriteName = "FirstHero_Landing_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 42,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("FirstHero_OrbLoop", {
+			.SpriteName = "FirstHero_OrbLoop_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 37,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("FirstHero_OrbStart", {
+			.SpriteName = "FirstHero_OrbStart_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 4,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 3.0f });
+
+		EffectManager::CreateMetaData("FirstHero_OrbTrail", {
+			.SpriteName = "FirstHero_OrbTrail_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 21,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f });
+
+	}
+
 	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
 		.Index = 0, .Grade = LevelArea::Opening, 
 		.Name = "½ºÄÌ·¹-Åë", .TalkboxNameTag = "½ºÄÌ·¹-Åë",

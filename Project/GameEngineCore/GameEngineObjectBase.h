@@ -50,7 +50,7 @@ public:
 
 	virtual bool IsUpdate()
 	{
-		return UpdateValue;
+		return UpdateValue && (false == DeathValue);
 	}
 
 	void DebugOn()
