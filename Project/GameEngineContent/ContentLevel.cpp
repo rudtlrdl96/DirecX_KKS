@@ -35,7 +35,7 @@ void ContentLevel::AddEvent(const std::string_view& _Event, UINT _ActorCode, std
 	EventCallback[UpperName][_ActorCode] = _Callback;
 }
 
-void ContentLevel::RemoveEvent(const std::string_view& _Event, UINT _ActorCode, std::function<void()> _Callback)
+void ContentLevel::RemoveEvent(const std::string_view& _Event, UINT _ActorCode)
 {
 	std::string UpperName = GameEngineString::ToUpper(_Event);
 
@@ -85,8 +85,8 @@ void ContentLevel::Start()
 	UICam->SetSortType(0, SortType::ZSort);
 	UICam->GetTransform()->SetLocalPosition({ 0, 0, -5000 });
 
-	std::shared_ptr<GameEngineCamera> FadeCam = CreateActor<GameEngineCamera>();
-	InsertCamera(101, FadeCam);
+	std::shared_ptr<GameEngineCamera> FadeCam = CreateNewCamera(101);
+
 	FadeCam->SetSortType(0, SortType::ZSort);
 	FadeCam->SetProjectionType(CameraType::Orthogonal);
 	FadeCam->GetTransform()->SetLocalPosition(float4(0, 0, -5000.0f));

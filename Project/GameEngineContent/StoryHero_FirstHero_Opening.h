@@ -23,6 +23,8 @@ public:
 
 	void PlayLandingEffect();
 
+	void Death() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

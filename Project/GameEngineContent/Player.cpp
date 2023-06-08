@@ -36,6 +36,17 @@ Player::~Player()
 	}
 }
 
+void Player::Death()
+{
+	BaseContentActor::Death();
+
+	ContentLevel* LevelPtr = GetContentLevel();
+	LevelPtr->RemoveEvent("PlayerInputLock", GetActorCode());
+	LevelPtr->RemoveEvent("PlayerInputUnlock", GetActorCode());
+	LevelPtr->RemoveEvent("PlayerLookLeft", GetActorCode());
+	LevelPtr->RemoveEvent("PlayerLookRight", GetActorCode());
+}
+
 void Player::SetInventoryData()
 {
 	const SkullData& MainData = Inventory::GetMainSkull();

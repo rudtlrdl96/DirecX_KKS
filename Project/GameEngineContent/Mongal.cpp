@@ -15,6 +15,14 @@ Mongal::~Mongal()
 {
 }
 
+void Mongal::Death()
+{
+	NormalMonster::Death();
+
+	ContentLevel* LevelPtr = GetContentLevel();
+	LevelPtr->RemoveEvent("Mongal_Laugh", GetActorCode());
+}
+
 void Mongal::Start()
 {
 	NormalMonster::Start();

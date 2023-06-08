@@ -47,7 +47,7 @@ void CameraController::Update(float _DeltaTime)
 	}
 
 
-	float4 CurCamPos = MainCamera->GetTransform()->GetWorldPosition();
+	float4 CurCamPos = CamPos;
 	float4 TargetWorldPos = CurCamPos;
 
 	float DiffX = 0.0f;
@@ -158,7 +158,7 @@ void CameraController::Update(float _DeltaTime)
 		ShakeProgress += _DeltaTime * ShakeSpeed;
 		CameraEffectPos = float4::LerpClamp(StartShakePos, EndShakePos, ShakeProgress);
 	
-		if (1.0f < ShakeProgress)
+		if (1.0f <= ShakeProgress)
 		{
 			ShakeProgress -= 1.0f;
 			--ShakeCount;
@@ -189,8 +189,8 @@ void CameraController::CameraShake(float _ShakeDis, float _ShakeSpeed, int _Shak
 {
 	ShakeCount = _ShakeCount;
 	ShakeSpeed = _ShakeSpeed;
-	ShakeMinDistance = _ShakeDis * 0.8f;
-	ShakeMaxDistance = _ShakeDis * 1.2f;
+	ShakeMinDistance = _ShakeDis * 0.5f;
+	ShakeMaxDistance = _ShakeDis * 1.5f;
 	ShakeProgress = 0.0f;
 
 	StartShakePos = float4::Zero;

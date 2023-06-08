@@ -13,6 +13,8 @@ public:
 	SkeleTong& operator=(const SkeleTong& _Other) = delete;
 	SkeleTong& operator=(SkeleTong&& _Other) noexcept = delete;
 
+	void Death() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

@@ -22,6 +22,8 @@ public:
 
 	void SetBoneSkullState(BoneSkullState _State);
 
+	void Death() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

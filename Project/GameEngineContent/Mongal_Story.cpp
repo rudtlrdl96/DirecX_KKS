@@ -82,7 +82,7 @@ void Mongal::StoryUpdate(float _DeltaTime)
 					return;
 				}
 
-				CastPtr->GetCamCtrl().CameraShake(5, 30, 7);
+				CastPtr->GetCamCtrl().CameraShake(30, 20.0f, 7);
 			}
 
 			DeathTimeCheck += _DeltaTime;

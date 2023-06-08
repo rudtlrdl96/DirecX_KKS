@@ -10,6 +10,15 @@ ChiefGuardNPC::~ChiefGuardNPC()
 {
 }
 
+void ChiefGuardNPC::Death()
+{
+	BaseNPC::Death();
+
+	ContentLevel* LevelPtr = GetContentLevel();
+
+	LevelPtr->RemoveEvent("ChiefGuard_Script00_End", GetActorCode());
+}
+
 void ChiefGuardNPC::Start()
 {
 	BaseNPC::Start();
@@ -78,7 +87,7 @@ void ChiefGuardNPC::Start()
 	HeadRender->GetTransform()->SetLocalPosition(float4(-13, 20, 0));
 
 	ScriptCol = CreateComponent<GameEngineCollision>();
-	ScriptCol->GetTransform()->SetLocalPosition(float4(100, 0, 1));
+	ScriptCol->GetTransform()->SetLocalPosition(float4(0, 0, 1));
 	ScriptCol->GetTransform()->SetLocalScale(float4(200, 1000, 1));
 
 	GetContentLevel()->AddEvent("ChiefGuard_Script00_End", GetActorCode(), [this]()

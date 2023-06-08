@@ -154,11 +154,26 @@ void SkeleTong::Update(float _DeltaTime)
 
 void SkeleTong::PlayBehavior()
 {
+	return;
+
 	FadeProgress = 0.0f;
 	Buffer.Color.a = 1.0f;
 	FadeRender->On();
 
 	GetContentLevel()->CallEvent("SkeleTong_Script00");
+}
+
+void SkeleTong::Death()
+{
+	BaseNPC::Death();
+
+	ContentLevel* LevelPtr = GetContentLevel();
+
+	LevelPtr->RemoveEvent("SkeleTong_Script00_End", GetActorCode());
+	LevelPtr->RemoveEvent("SkeleTong_Script01_End", GetActorCode());
+	LevelPtr->RemoveEvent("SkeleTong_Script02", GetActorCode());
+	LevelPtr->RemoveEvent("SkeleTong_Script02_End", GetActorCode());
+	LevelPtr->RemoveEvent("SkeleTong_Script03_End", GetActorCode());
 }
 
 void SkeleTong::SpriteLoad()

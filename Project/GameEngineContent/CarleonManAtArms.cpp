@@ -406,7 +406,7 @@ void CarleonManAtArms::Attack_Update(float _DeltaTime)
 
 			if (nullptr != ContentLevelPtr)
 			{
-				ContentLevelPtr->GetCamCtrl().CameraShake(4, 40, 2);
+				ContentLevelPtr->GetCamCtrl().CameraShake(20, 20.0f, 4);
 			}
 		}
 	}

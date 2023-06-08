@@ -22,6 +22,8 @@ public:
 	Mongal& operator=(const Mongal& _Other) = delete;
 	Mongal& operator=(Mongal&& _Other) noexcept = delete;
 
+	void Death() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

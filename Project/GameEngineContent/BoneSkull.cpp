@@ -37,6 +37,29 @@ void BoneSkull::SetBoneSkullState(BoneSkullState _State)
 	}
 }
 
+void BoneSkull::Death()
+{
+	PlayerBaseSkull::Death();
+
+	ContentLevel* LevelPtr = GetContentLevel();
+
+	LevelPtr->RemoveEvent("SkeleTong_Script00", GetActorCode());
+	LevelPtr->RemoveEvent("SkeleTongWalkEnd", GetActorCode());
+	LevelPtr->RemoveEvent("SkeleTong_Script01_End", GetActorCode());
+	LevelPtr->RemoveEvent("SkeleTong_Script02_End", GetActorCode());
+	LevelPtr->RemoveEvent("SkeleTong_Script03_End", GetActorCode());
+	LevelPtr->RemoveEvent("Suekeleton_Script01_End", GetActorCode());
+	LevelPtr->RemoveEvent("Suekeleton_Script02_End", GetActorCode());
+	LevelPtr->RemoveEvent("ChiefGuard_Script00_End", GetActorCode());
+	LevelPtr->RemoveEvent("CastleReborn", GetActorCode());
+
+	if (nullptr != HeadActor)
+	{
+		HeadActor->Death();
+		HeadActor = nullptr;
+	}
+}
+
 void BoneSkull::Start()
 {
 	PlayerBaseSkull::Start();
@@ -134,7 +157,7 @@ void BoneSkull::Start()
 				ParentPlayer->ActivePlayerFrame();
 			};
 		});
-
+		
 	LevelPtr->AddEvent("Suekeleton_Script01_End", GetActorCode(), [this]()
 		{
 			BehaviorAnimationName = "Intro_Getbone";
@@ -171,7 +194,7 @@ void BoneSkull::Start()
 
 			std::function<void()> PauseCall02 = [this]()
 			{
-				GetContentLevel()->GetCamCtrl().CameraShake(6, 40, 12);
+				GetContentLevel()->GetCamCtrl().CameraShake(36, 20, 12);
 				float4 EffectPos = ParentPlayer->GetTransform()->GetWorldPosition();
 
 				EffectManager::PlayEffect({
@@ -454,7 +477,7 @@ void BoneSkull::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "Intro_Idle", .SpriteName = "BoneSkull_Intro_Idle.png", .FrameInter = 0.1f, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_WakeUp", .SpriteName = "BoneSkull_Intro_WlakUp.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_GetHead", .SpriteName = "BoneSkull_Intro_GetHead.png", .FrameInter = 0.08f, .Loop = false, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "Intro_Getbone", .SpriteName = "BoneSkull_Intro_Getbone.png", .FrameInter = 0.15f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Intro_Getbone", .SpriteName = "BoneSkull_Intro_Getbone.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_Awkward", .SpriteName = "BoneSkull_Intro_Awkward.png",
 		.Start = 0, .End = 18, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_GetChiefHead", .SpriteName = "BoneSkull_Normal_Getskull.png",

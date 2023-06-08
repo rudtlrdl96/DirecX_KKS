@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "FadeActor.h"
 #include "ContentFadeRender.h"
+#include "ContentUIRender.h"
 
 FadeActor::FadeActor()
 {
@@ -66,7 +67,7 @@ void FadeActor::Reset()
 
 void FadeActor::Start()
 {
-	MainRenderer = CreateComponent<ContentFadeRender>();
+	MainRenderer = CreateComponent<ContentUIRender>();
 	MainRenderer->PipeSetting("2DTexture_Fade");
 	MainRenderer->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", Buffer);
 	MainRenderer->SetTexture("FadeImage.png");

@@ -26,6 +26,12 @@ void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void
 	ReadEndCallback = _Callback;
 }
 
+void TalkBox::Off()
+{
+	BaseContentActor::Off();
+	DebugGUI->Off();
+}
+
 void TalkBox::Start()
 {
 	if (false == GameEngineInput::IsKey("TalkKey"))
@@ -58,7 +64,6 @@ void TalkBox::Start()
 	Render->SetScaleToTexture("TalkBox.png");
 
 	DebugGUI = GameEngineGUI::FindGUIWindowConvert<TalkboxDebugGUI>("TalkboxDebugGUI");
-	DebugGUI->On();
 
 	NameTagPtr = GetLevel()->CreateActor<TalkNameTag>();
 	NameTagPtr->GetTransform()->SetParent(GetTransform());
@@ -102,6 +107,11 @@ void TalkBox::Update(float _DeltaTime)
 	if (0 == ReadIndex)
 	{
 		return;
+	}
+
+	if (false == DebugGUI->IsUpdate())
+	{
+		DebugGUI->On();
 	}
 
 	std::wstring ReadText;

@@ -517,7 +517,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 		PlayerTrans->AddLocalPosition(Velocity);
 	}
 
-	if (true == Render->FindAnimation("Fall")->IsEnd())
+	if (true == Render->IsAnimationEnd())
 	{
 		Render->ChangeAnimation("FallRepeat" + AnimNamePlusText);
 	}

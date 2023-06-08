@@ -17,6 +17,16 @@ void StoryHero_FirstHero_Opening::PlayLandingEffect()
 		.Position = GetTransform()->GetWorldPosition() + float4(-10, 300, 0)});
 }
 
+void StoryHero_FirstHero_Opening::Death()
+{
+	BaseContentActor::Death();
+
+	ContentLevel* LevelPtr = GetContentLevel();
+
+	LevelPtr->RemoveEvent("NextLevelMove", GetActorCode());
+	LevelPtr->RemoveEvent("Story_FirstHeroTalk0_End", GetActorCode());
+}
+
 void StoryHero_FirstHero_Opening::Start()
 {
 	if (nullptr == GameEngineSprite::Find("FirstHero_Story_Landing.png"))
@@ -105,19 +115,20 @@ void StoryHero_FirstHero_Opening::Start()
 			Death();
 		});
 
-	GetTransform()->SetLocalNegativeScaleX();
-	MainRender->ChangeAnimation("Landing");
-	GetContentLevel()->GetCamCtrl().CameraShake(30, 30, 17);
-}
-
-void StoryHero_FirstHero_Opening::Update(float _DeltaTime)
-{
 	GetContentLevel()->AddEvent("Story_FirstHeroTalk0_End", GetActorCode(), [this]()
 		{
 			State = HeroState::CastingIntro;
 			MainRender->ChangeAnimation("CastingIntro");
 		});
 
+	GetTransform()->SetLocalNegativeScaleX();
+	MainRender->ChangeAnimation("Landing");
+	GetContentLevel()->GetCamCtrl().CameraShake(30, 20.0f, 15);
+
+}
+
+void StoryHero_FirstHero_Opening::Update(float _DeltaTime)
+{
 	switch (State)
 	{
 	case StoryHero_FirstHero_Opening::HeroState::Landing:
@@ -167,7 +178,7 @@ void StoryHero_FirstHero_Opening::Update(float _DeltaTime)
 				.EffectName = "FirstHero_BigbangReady",
 				.Position = GetTransform()->GetWorldPosition() + float4(-70, 250, 0) });
 
-			GetContentLevel()->GetCamCtrl().CameraShake(7, 25, 100);
+			GetContentLevel()->GetCamCtrl().CameraShake(25, 20.0f, 100);
 		}
 		break;
 	case StoryHero_FirstHero_Opening::HeroState::CastingLoop:

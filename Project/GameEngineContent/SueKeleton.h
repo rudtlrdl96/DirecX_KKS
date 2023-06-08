@@ -12,6 +12,8 @@ public:
 	SueKeleton& operator=(const SueKeleton& _Other) = delete;
 	SueKeleton& operator=(SueKeleton&& _Other) noexcept = delete;
 
+	void Death() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

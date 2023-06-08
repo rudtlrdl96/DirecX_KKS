@@ -15,6 +15,8 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
+	void Death() override;
+
 	void SetInventoryData();
 	void InsertNewSkull(UINT _SkullIndex);
 	void ForceSwapSkull();

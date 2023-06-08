@@ -21,7 +21,7 @@ public:
 	}
 
 	void AddEvent(const std::string_view& _Event, UINT _ActorCode, std::function<void()> _Callback);
-	void RemoveEvent(const std::string_view& _Event, UINT _ActorCode, std::function<void()> _Callback);
+	void RemoveEvent(const std::string_view& _Event, UINT _ActorCode);
 	void CallEvent(const std::string_view& _Event);
 
 protected:

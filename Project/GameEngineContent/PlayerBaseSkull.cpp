@@ -236,7 +236,7 @@ void PlayerBaseSkull::Start()
 	AttackRigidbody.SetFricCoeff(5000);
 
 	GroundCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	GroundCol->GetTransform()->SetLocalPosition(float4(0.0f, -2.0f, 1.0f));
+	GroundCol->GetTransform()->SetLocalPosition(float4(0.0f, 2.5f, 1.0f));
 	GroundCol->GetTransform()->SetWorldScale(float4(30.0f, 5.0f, 1.0f));	
 	GroundCol->GetTransform()->SetWorldRotation(float4::Zero);	
 	

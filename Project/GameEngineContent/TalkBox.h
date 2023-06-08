@@ -23,10 +23,12 @@ public:
 		ReadSpeed = _ReadSpeed;
 	}
 
+	void Off() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
-	
+
 private:
 	std::shared_ptr<ContentUIRender> Render = nullptr;
 

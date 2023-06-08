@@ -48,7 +48,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class ContentFadeRender> MainRenderer = nullptr;
+	std::shared_ptr<class ContentUIRender> MainRenderer = nullptr;
 
 	bool IsFadeEndValue = false;
 

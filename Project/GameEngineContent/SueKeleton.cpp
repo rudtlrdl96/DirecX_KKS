@@ -9,6 +9,13 @@ SueKeleton::~SueKeleton()
 {
 }
 
+void SueKeleton::Death()
+{
+	BaseNPC::Death();
+	ContentLevel* LevelPtr = GetContentLevel();
+	LevelPtr->RemoveEvent("Suekeleton_Script01_End", GetActorCode());
+}
+
 void SueKeleton::Start()
 {
 	BaseNPC::Start();
@@ -18,11 +25,11 @@ void SueKeleton::Start()
 
 	MainRender->CreateAnimation({
 		.AnimationName = "Dead", .SpriteName = "SueKeleton_Dead.png", 
-		.FrameInter = 0.15f, .Loop = false, .ScaleToTexture = true });
+		.FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 
 	MainRender->CreateAnimation({
 		.AnimationName = "GiveWeapon", .SpriteName = "SueKeleton_GiveWeapon.png",
-		.FrameInter = 0.15f, .Loop = false, .ScaleToTexture = true });
+		.FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 
 	MainRender->ChangeAnimation("Idle");
 

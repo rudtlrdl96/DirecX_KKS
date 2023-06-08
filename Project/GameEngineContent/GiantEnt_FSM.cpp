@@ -137,7 +137,7 @@ void GiantEnt::Attack_Update(float _DeltaTime)
 
 			if (nullptr != ContentLevelPtr)
 			{
-				ContentLevelPtr->GetCamCtrl().CameraShake(5, 50, 3);
+				ContentLevelPtr->GetCamCtrl().CameraShake(30, 20.0f, 4);
 			}
 		}
 
