@@ -15,9 +15,9 @@ public:
 protected:
 	
 private:
-	const char* LevelComboText[12] = { 
+	const char* LevelComboText[13] = { 
 		"Opening" ,"Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop", "Title", "Story", "EndingLogo", 
-		"MapTool", "BackgroundTool", "AnimationColTool",};
+		"MapTool", "BackgroundTool", "AnimationColTool", "BrokenObjectTool",};
 
 	int CurrentLevelIndex = 6;
 

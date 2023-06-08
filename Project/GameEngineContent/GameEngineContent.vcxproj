@@ -113,6 +113,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BrokenObjectTool.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="BrokenObjectToolGUI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CameraController.h">
       <SubType>
       </SubType>
@@ -757,6 +765,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BrokenObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BrokenObjectTool.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BrokenObjectToolGUI.cpp">
       <SubType>
       </SubType>
     </ClCompile>

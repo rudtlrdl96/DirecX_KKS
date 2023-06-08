@@ -358,6 +358,9 @@
     <Filter Include="2_Actor\Map\Stage\NPC\NPC\Opening">
       <UniqueIdentifier>{290d63ef-eb21-49a3-840b-2dd5fa11f5e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Level\DebugLevel\Tool\BrokenObjectTool">
+      <UniqueIdentifier>{6a56ef40-62fd-425a-9a41-82e4dcf9e7ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -554,9 +557,6 @@
     </ClInclude>
     <ClInclude Include="MouseCursorFollowTex.h">
       <Filter>2_Actor\Debug\Tool</Filter>
-    </ClInclude>
-    <ClInclude Include="BrokenObject.h">
-      <Filter>2_Actor\Map\Stage\Object\BrokenObject</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundToolLevel.h">
       <Filter>4_Level\DebugLevel\Tool\BackgroundTool</Filter>
@@ -851,6 +851,15 @@
     </ClInclude>
     <ClInclude Include="ChiefGuardNPC.h">
       <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenObject.h">
+      <Filter>2_Actor\Map\Stage\Object\BrokenObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenObjectTool.h">
+      <Filter>4_Level\DebugLevel\Tool\BrokenObjectTool</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenObjectToolGUI.h">
+      <Filter>5_GUI\Tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1390,6 +1399,12 @@
     </ClCompile>
     <ClCompile Include="OpeningLevel_Event.cpp">
       <Filter>4_Level\GameLevel\BattleLevel\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="BrokenObjectTool.cpp">
+      <Filter>4_Level\DebugLevel\Tool\BrokenObjectTool</Filter>
+    </ClCompile>
+    <ClCompile Include="BrokenObjectToolGUI.cpp">
+      <Filter>5_GUI\Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

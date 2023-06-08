@@ -17,10 +17,14 @@ public:
 		Render = _Redner;
 	}
 
-	inline void SetCol(std::shared_ptr<GameEngineCollision> _Col, UINT _Order)
+	inline void SetCol(std::shared_ptr<GameEngineCollision> _Col)
 	{
 		Col = _Col;
-		Order = _Order;
+	}
+
+	inline void AddOrder(UINT _Order)
+	{
+		Orders.push_back(_Order);
 	}
 
 	inline void Reset()
@@ -52,6 +56,6 @@ private:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	std::shared_ptr<GameEngineCollision> Col = nullptr;
 
-	UINT Order = 0;
+	std::vector<UINT> Orders;
 	UINT Frame = 0;
 };

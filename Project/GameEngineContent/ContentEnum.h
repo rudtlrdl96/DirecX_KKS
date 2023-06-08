@@ -7,6 +7,7 @@ enum class CollisionOrder
 	PlayerAttack,
 	Monster,
 	MonsterAttack,
+	BrokenObject,
 	Platform_Normal,
 	Platform_Half,
 	BoneHead

@@ -246,12 +246,12 @@ void PlayerBaseSkull::Start()
 	JumpCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	WalkCol->GetTransform()->SetLocalPosition(float4(20, 31, 0));
+	WalkCol->GetTransform()->SetLocalPosition(float4(22, 31, 0));
 	WalkCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	WalkCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	BackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	BackCol->GetTransform()->SetLocalPosition(float4(-20, 31, 0));
+	BackCol->GetTransform()->SetLocalPosition(float4(-22, 31, 0));
 	BackCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	BackCol->GetTransform()->SetWorldRotation(float4::Zero);
 
@@ -268,7 +268,9 @@ void PlayerBaseSkull::Start()
 	EffectCaptureTrail->SetTime(0.4f);
 	EffectCaptureTrail->SetColor(float4(0.0f, 0.0f, 0.0f, 1.0f), float4::Null);
 
-	AttackEnterCheck.SetCol(AttackCol, (UINT)CollisionOrder::Monster);
+	AttackEnterCheck.SetCol(AttackCol);
+	AttackEnterCheck.AddOrder((UINT)CollisionOrder::Monster);
+	AttackEnterCheck.AddOrder((UINT)CollisionOrder::BrokenObject);
 	AttackEnterCheck.SetRender(Render);
 
 	AttackEnterCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)

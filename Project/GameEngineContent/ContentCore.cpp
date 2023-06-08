@@ -39,6 +39,7 @@
 #include "MapToolLevel.h"
 #include "BackgroundToolLevel.h"
 #include "AnimationColToolLevel.h"
+#include "BrokenObjectTool.h"
 
 ContentCore::ContentCore()
 {
@@ -84,6 +85,7 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<MapToolLevel>("MapTool");
 	GameEngineCore::CreateLevel<BackgroundToolLevel>("BackgroundTool");
 	GameEngineCore::CreateLevel<AnimationColToolLevel>("AnimationColTool");
+	GameEngineCore::CreateLevel<BrokenObjectTool>("BrokenObjectTool");
 
 	Inventory::ResetSkull();
 

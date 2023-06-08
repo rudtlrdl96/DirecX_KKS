@@ -65,8 +65,9 @@ void ContentLevel::CallEvent(const std::string_view& _Event)
 			continue;
 		}
 
-		LoopIter->second();
+		std::map<UINT, std::function<void(void)>>::iterator TempIter = LoopIter;
 		++LoopIter;
+		TempIter->second();
 	}
 }
 

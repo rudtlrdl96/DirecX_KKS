@@ -28,7 +28,21 @@ void WitchOpening::Start()
 	MainRender->CreateAnimation({
 		.AnimationName = "CatWalk", .SpriteName = "Witch_Cat_Walk.png", .ScaleToTexture = true });
 
+	GetTransform()->SetLocalNegativeScaleX();
 	MainRender->ChangeAnimation("CageIdle");
+}
+
+void WitchOpening::Update(float _DeltaTime)
+{
+	BaseNPC::Update(_DeltaTime);
+}
+
+void WitchOpening::ResetBehavior()
+{
+}
+
+void WitchOpening::PlayBehavior()
+{
 }
 
 void WitchOpening::SpriteLoad()

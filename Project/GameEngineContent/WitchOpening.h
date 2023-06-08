@@ -14,7 +14,11 @@ public:
 
 protected:
 	void Start() override;
-	
+	void Update(float _DeltaTime) override;
+
+	void ResetBehavior() override;
+	void PlayBehavior() override;
+		
 private:
 	void SpriteLoad() override;
 

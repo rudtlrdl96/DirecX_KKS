@@ -67,7 +67,7 @@ void FadeActor::Reset()
 
 void FadeActor::Start()
 {
-	MainRenderer = CreateComponent<ContentUIRender>();
+	MainRenderer = CreateComponent<ContentFadeRender>();
 	MainRenderer->PipeSetting("2DTexture_Fade");
 	MainRenderer->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", Buffer);
 	MainRenderer->SetTexture("FadeImage.png");

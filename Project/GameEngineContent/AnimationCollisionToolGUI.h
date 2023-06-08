@@ -12,14 +12,13 @@ public:
 	AnimationCollisionToolGUI(AnimationCollisionToolGUI&& _Other) noexcept = delete;
 	AnimationCollisionToolGUI& operator=(const AnimationCollisionToolGUI& _Other) = delete;
 	AnimationCollisionToolGUI& operator=(AnimationCollisionToolGUI&& _Other) noexcept = delete;
-
-	void Start() override;
-	void OnGUI(std::shared_ptr<class GameEngineLevel> _Level, float _DeltaTime) override;
-
+	
 	void SetRenderer(std::shared_ptr<class GameEngineSpriteRenderer> _Render);
 	void SetCol(std::shared_ptr<class AttackColRender> _Render);
 
 protected:
+	void Start() override;
+	void OnGUI(std::shared_ptr<class GameEngineLevel> _Level, float _DeltaTime) override;
 	
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> SpriteRender = nullptr;

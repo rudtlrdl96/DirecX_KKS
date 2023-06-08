@@ -2,6 +2,7 @@
 #include "ContentCore.h"
 #include "MapObject.h"
 #include "BehaviorObject.h"
+#include "BrokenObject.h"
 
 void ContentCore::ObjectLoad()
 {
@@ -22,183 +23,196 @@ void ContentCore::ObjectLoad()
 		}
 	}
 
-	GameEngineDirectory Path;
-	Path.MoveParentToDirectory("Resources");
-	Path.Move("Resources");
-	Path.Move("Texture");
-
 	{
-		Path.Move("2_Castle");
-		Path.Move("Object");
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
 
-		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
-
-		for (size_t i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			Path.Move("2_Castle");
+			Path.Move("Object");
 
-			if (nullptr == Tex)
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+			for (size_t i = 0; i < Files.size(); i++)
 			{
-				MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
-				continue;
+				std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+				if (nullptr == Tex)
+				{
+					MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
+					continue;
+				}
+
+				std::string Name = Tex->GetNameToString();
+				ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
+					{ .Name = Name, .Index = i, .Grade = LevelArea::Castle, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 			}
 
-			std::string Name = Tex->GetNameToString();
-			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
-				{.Name = Name, .Index = i, .Grade = LevelArea::Castle, .Size = float4(Tex->GetWidth(), Tex->GetHeight())});
+			Path.MoveParent();
+			Path.MoveParent();
 		}
 
-		Path.MoveParent();
-		Path.MoveParent();
-	}
-
-	{
-		Path.Move("3_ForestOfHarmony");
-		Path.Move("Object");
-
-		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
-
-		for (size_t i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
-			
+			Path.Move("3_ForestOfHarmony");
+			Path.Move("Object");
 
-			if (nullptr == Tex)
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+			for (size_t i = 0; i < Files.size(); i++)
 			{
-				MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
-				continue;
+				std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+
+				if (nullptr == Tex)
+				{
+					MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
+					continue;
+				}
+
+				std::string Name = Tex->GetNameToString();
+				ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
+					{ .Name = Name, .Index = 1000 + i, .Grade = LevelArea::ForestOfHamory, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 			}
 
-			std::string Name = Tex->GetNameToString();
-			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
-				{ .Name = Name, .Index = 1000 + i, .Grade = LevelArea::ForestOfHamory, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
+			Path.MoveParent();
+			Path.MoveParent();
 		}
 
-		Path.MoveParent();
-		Path.MoveParent();
-	}
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 200,
+			.Grade = LevelArea::ForestOfHamory,
+			.Name = "FireFlower_Preview.png" });
 
-	ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
-		.Index = 200,
-		.Grade = LevelArea::ForestOfHamory,
-		.Name = "FireFlower_Preview.png"});
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 201,
+			.Grade = LevelArea::ForestOfHamory,
+			.Name = "ThornBush_Preview.png" });
 
-	ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
-		.Index = 201,
-		.Grade = LevelArea::ForestOfHamory,
-		.Name = "ThornBush_Preview.png" });
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 202,
+			.Grade = LevelArea::ForestOfHamory,
+			.Name = "Vine_Preview.png" });
 
-	ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
-		.Index = 202,
-		.Grade = LevelArea::ForestOfHamory,
-		.Name = "Vine_Preview.png" });
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 203,
+			.Grade = LevelArea::ForestOfHamory,
+			.Name = "Mushroom_Preview.png" });
 
-	ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
-		.Index = 203,
-		.Grade = LevelArea::ForestOfHamory,
-		.Name = "Mushroom_Preview.png" });
-
-	{
-		Path.Move("4_GrandHall");
-		Path.Move("Object");
-
-		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
-
-		for (size_t i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			Path.Move("4_GrandHall");
+			Path.Move("Object");
 
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
-			if (nullptr == Tex)
+			for (size_t i = 0; i < Files.size(); i++)
 			{
-				MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
-				continue;
+				std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+
+				if (nullptr == Tex)
+				{
+					MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
+					continue;
+				}
+
+
+				std::string Name = Tex->GetNameToString();
+				ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
+					{ .Name = Name, .Index = 2000 + i, .Grade = LevelArea::GrandHall, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 			}
 
-
-			std::string Name = Tex->GetNameToString();
-			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
-				{ .Name = Name, .Index = 2000 + i, .Grade = LevelArea::GrandHall, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
+			Path.MoveParent();
+			Path.MoveParent();
 		}
 
-		Path.MoveParent();
-		Path.MoveParent();
-	}
-
-	{
-		Path.Move("5_HolyCourtyard");
-		Path.Move("Object");
-
-		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
-
-		for (size_t i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			Path.Move("5_HolyCourtyard");
+			Path.Move("Object");
 
-			if (nullptr == Tex)
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+			for (size_t i = 0; i < Files.size(); i++)
 			{
-				MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
-				continue;
+				std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+				if (nullptr == Tex)
+				{
+					MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
+					continue;
+				}
+
+				std::string Name = Tex->GetNameToString();
+				ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
+					{ .Name = Name, .Index = 3000 + i, .Grade = LevelArea::HolyCourtyard, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 			}
 
-			std::string Name = Tex->GetNameToString();
-			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
-				{ .Name = Name, .Index = 3000 + i, .Grade = LevelArea::HolyCourtyard, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
+			Path.MoveParent();
+			Path.MoveParent();
 		}
 
-		Path.MoveParent();
-		Path.MoveParent();
-	}
-
-	{
-		Path.Move("1_Opening");
-		Path.Move("Object");
-
-		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
-
-		for (size_t i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			Path.Move("1_Opening");
+			Path.Move("Object");
 
-			if (nullptr == Tex)
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+			for (size_t i = 0; i < Files.size(); i++)
 			{
-				MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
-				continue;
+				std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+				if (nullptr == Tex)
+				{
+					MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
+					continue;
+				}
+
+				std::string Name = Tex->GetNameToString();
+				ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
+					{ .Name = Name, .Index = 4000 + i, .Grade = LevelArea::Opening, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 			}
 
-			std::string Name = Tex->GetNameToString();
-			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
-				{ .Name = Name, .Index = 4000 + i, .Grade = LevelArea::Opening, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
+			Path.MoveParent();
+			Path.MoveParent();
 		}
 
-		Path.MoveParent();
-		Path.MoveParent();
-	}
-
-	{
-		Path.Move("7_Shop");
-		Path.Move("Object");
-
-		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
-
-		for (size_t i = 0; i < Files.size(); i++)
 		{
-			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+			Path.Move("7_Shop");
+			Path.Move("Object");
 
-			if (nullptr == Tex)
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+			for (size_t i = 0; i < Files.size(); i++)
 			{
-				MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
-				continue;
+				std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+
+				if (nullptr == Tex)
+				{
+					MsgAssert_Rtti<ContentCore>(" - 알 수 없는 이유로 텍스쳐 로드에 실패했습니다");
+					continue;
+				}
+
+				std::string Name = Tex->GetNameToString();
+				ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
+					{ .Name = Name, .Index = 5000 + i, .Grade = LevelArea::Shop, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 			}
 
-			std::string Name = Tex->GetNameToString();
-			ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
-				{ .Name = Name, .Index = 5000 + i, .Grade = LevelArea::Shop, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
+			Path.MoveParent();
+			Path.MoveParent();
 		}
-
-		Path.MoveParent();
-		Path.MoveParent();
 	}
+
+	//{
+	//	GameEngineDirectory Path;
+	//	
+	//	Path.MoveParentToDirectory("Resources");
+	//	Path.Move("Resources");
+	//	Path.Move("Data");
+	//	Path.Move("1_Opening");
+	//	Path.Move("BrokenObject");
+	//}
+
 
 	std::vector<ObjectMetaData> Castle_Object_Datas;
 	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Castle , Castle_Object_Datas);

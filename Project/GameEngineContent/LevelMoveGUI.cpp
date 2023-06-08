@@ -57,6 +57,9 @@ void LevelMoveGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTim
 		case 11: // AnimationColTool
 			GameEngineCore::ChangeLevel("AnimationColTool");
 			break;
+		case 12: // BrokenObjectTool
+			GameEngineCore::ChangeLevel("BrokenObjectTool");
+			break;
 		default:
 			break;
 		}
