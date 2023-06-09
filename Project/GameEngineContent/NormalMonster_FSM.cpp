@@ -1,8 +1,8 @@
 #include "PrecompileHeader.h"
-#include "BaseMonster.h"
+#include "NormalMonster.h"
 #include <GameEngineCore/GameEngineCollision.h>
 
-void BaseMonster::Idle_Enter() 
+void NormalMonster::Idle_Enter() 
 {
 	Render->ChangeAnimation("Idle");
 	IdleToWalkTime = 0.0f;
@@ -12,7 +12,7 @@ void BaseMonster::Idle_Enter()
 	IsChasingWait = false;
 }
 
-void BaseMonster::Idle_Update(float _DeltaTime) 
+void NormalMonster::Idle_Update(float _DeltaTime) 
 {
 	if (true == MonsterUnMove)
 	{
@@ -86,12 +86,12 @@ void BaseMonster::Idle_Update(float _DeltaTime)
 	}
 }
 
-void BaseMonster::Idle_End() 
+void NormalMonster::Idle_End() 
 {
 
 }
 
-void BaseMonster::Walk_Enter() 
+void NormalMonster::Walk_Enter() 
 {
 	Render->ChangeAnimation("Walk");
 	WalkToIdleTime = 0.0f;
@@ -100,7 +100,7 @@ void BaseMonster::Walk_Enter()
 	RandWalkTime = GameEngineRandom::MainRandom.RandomFloat(1.5f, 2.5f);
 }
 
-void BaseMonster::Walk_Update(float _DeltaTime) 
+void NormalMonster::Walk_Update(float _DeltaTime) 
 {
 	if (true == MonsterUnMove)
 	{
@@ -152,18 +152,18 @@ void BaseMonster::Walk_Update(float _DeltaTime)
 	}
 }
 
-void BaseMonster::Walk_End() 
+void NormalMonster::Walk_End() 
 {
 
 }
 
-void BaseMonster::Chasing_Enter() 
+void NormalMonster::Chasing_Enter() 
 {
 	Render->ChangeAnimation("Walk");
 	TurnCoolTime = 0.0f;
 }
 
-void BaseMonster::Chasing_Update(float _DeltaTime) 
+void NormalMonster::Chasing_Update(float _DeltaTime) 
 {
 	if (true == MonsterUnMove)
 	{
@@ -227,16 +227,16 @@ void BaseMonster::Chasing_Update(float _DeltaTime)
 
 }
 
-void BaseMonster::Chasing_End() 
+void NormalMonster::Chasing_End() 
 {
 
 }
 
-void BaseMonster::Attack_Enter() 
+void NormalMonster::Attack_Enter() 
 {
 	if ("" == AnimColMeta_Attack.GetAnimationName())
 	{
-		MsgAssert_Rtti<BaseMonster>(" - 몬스터의 공격 정보가 존재하지 않습니다");
+		MsgAssert_Rtti<NormalMonster>(" - 몬스터의 공격 정보가 존재하지 않습니다");
 	}
 
 	Render->ChangeAnimation(AnimColMeta_Attack.GetAnimationName());
@@ -248,7 +248,7 @@ void BaseMonster::Attack_Enter()
 	AttackCheck.Reset();
 }
 
-void BaseMonster::Attack_Update(float _DeltaTime)
+void NormalMonster::Attack_Update(float _DeltaTime)
 {
 	if (true == MonsterUnMove)
 	{
@@ -299,19 +299,19 @@ void BaseMonster::Attack_Update(float _DeltaTime)
 	}
 }
 
-void BaseMonster::Attack_End() 
+void NormalMonster::Attack_End() 
 {
 	AttackWaitTime = 0.0f;
 }
 
-void BaseMonster::Hit_Enter() 
+void NormalMonster::Hit_Enter() 
 {
 	Render->ChangeAnimation("Hit1");
 	HitAnimIndex = 0;
 	HitWaitTime = 0.0f;
 }
 
-void BaseMonster::Hit_Update(float _DeltaTime) 
+void NormalMonster::Hit_Update(float _DeltaTime) 
 {
 	HitWaitTime += _DeltaTime;
 
@@ -354,7 +354,7 @@ void BaseMonster::Hit_Update(float _DeltaTime)
 	}
 }
 
-void BaseMonster::Hit_End() 
+void NormalMonster::Hit_End() 
 {
 
 }

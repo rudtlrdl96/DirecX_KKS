@@ -3,7 +3,7 @@
 
 class FlameWizard : public NormalMonster
 {
-	friend void TeleportOut_Enter(BaseMonster* _this);
+	friend void TeleportOut_Enter(NormalMonster* _this);
 
 public:
 	FlameWizard();

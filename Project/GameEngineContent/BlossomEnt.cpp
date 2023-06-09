@@ -222,6 +222,8 @@ void BlossomEnt::Attack_Update(float _DeltaTime)
 			return;
 		}
 
+		AttackCol->On();
+
 		GameEngineTransform* ColTrans = AttackCol->GetTransform();
 
 

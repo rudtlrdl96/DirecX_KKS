@@ -14,7 +14,7 @@ FlameWizard::~FlameWizard()
 }
 
 
-void TeleportIn_Enter(BaseMonster* _this)
+void TeleportIn_Enter(NormalMonster* _this)
 {
 	_this->GetRender()->ChangeAnimation("TeleportIn");
 
@@ -24,7 +24,7 @@ void TeleportIn_Enter(BaseMonster* _this)
 		});
 }
 
-void TeleportIn_Update(BaseMonster* _this, float _DeltaTime)
+void TeleportIn_Update(NormalMonster* _this, float _DeltaTime)
 {
 	std::shared_ptr<ContentSpriteRenderer> Render = _this->GetRender();
 
@@ -39,11 +39,11 @@ void TeleportIn_Update(BaseMonster* _this, float _DeltaTime)
 	}
 }
 
-void TeleportIn_End(BaseMonster* _this)
+void TeleportIn_End(NormalMonster* _this)
 {
 }
 
-void TeleportOut_Enter(BaseMonster* _this)
+void TeleportOut_Enter(NormalMonster* _this)
 {
 	std::shared_ptr<FlameWizard> CastingPtr = _this->DynamicThis<FlameWizard>();
 
@@ -122,7 +122,7 @@ void TeleportOut_Enter(BaseMonster* _this)
 	CastingPtr->FadeOff();
 }
 
-void TeleportOut_Update(BaseMonster* _this, float _DeltaTime)
+void TeleportOut_Update(NormalMonster* _this, float _DeltaTime)
 {
 	std::shared_ptr<ContentSpriteRenderer> Render = _this->GetRender();
 
@@ -132,7 +132,7 @@ void TeleportOut_Update(BaseMonster* _this, float _DeltaTime)
 	}
 }
 
-void TeleportOut_End(BaseMonster* _this)
+void TeleportOut_End(NormalMonster* _this)
 {
 
 }

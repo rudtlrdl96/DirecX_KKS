@@ -349,20 +349,23 @@
     <Filter Include="2_Actor\StoryNPC">
       <UniqueIdentifier>{1656e9ce-40a5-4504-9aa9-57b356c570d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Map\Stage\NPC">
-      <UniqueIdentifier>{258fadee-4aa5-45b1-a8ea-dbeb5423e2d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\Map\Stage\NPC\NPC">
-      <UniqueIdentifier>{54eef468-f9ec-43b8-ae00-65ba681a55de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\Map\Stage\NPC\NPC\Opening">
-      <UniqueIdentifier>{290d63ef-eb21-49a3-840b-2dd5fa11f5e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="4_Level\DebugLevel\Tool\BrokenObjectTool">
       <UniqueIdentifier>{6a56ef40-62fd-425a-9a41-82e4dcf9e7ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Map\Stage\NPC\NPC\Castle">
+    <Filter Include="2_Actor\NPC">
+      <UniqueIdentifier>{258fadee-4aa5-45b1-a8ea-dbeb5423e2d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\NPC\NPC">
+      <UniqueIdentifier>{54eef468-f9ec-43b8-ae00-65ba681a55de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\NPC\NPC\Opening">
+      <UniqueIdentifier>{290d63ef-eb21-49a3-840b-2dd5fa11f5e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\NPC\NPC\Castle">
       <UniqueIdentifier>{f1f9b2d5-ac6e-4192-9271-89c08a0d879b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Monster\BossMonster\ForestOfHarmony">
+      <UniqueIdentifier>{452b1178-36c0-4d3c-8292-0147b0d44e2a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -801,9 +804,6 @@
     <ClInclude Include="MonsterDeadBodyActor.h">
       <Filter>2_Actor\BattleActor\Monster\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Mongal.h">
-      <Filter>2_Actor\BattleActor\Monster\BossMonster</Filter>
-    </ClInclude>
     <ClInclude Include="NormalMonster.h">
       <Filter>2_Actor\BattleActor\Monster\NormalMonster</Filter>
     </ClInclude>
@@ -832,28 +832,28 @@
       <Filter>2_Actor\StoryNPC</Filter>
     </ClInclude>
     <ClInclude Include="NPCManager.h">
-      <Filter>2_Actor\Map\Stage\NPC</Filter>
+      <Filter>2_Actor\NPC</Filter>
     </ClInclude>
     <ClInclude Include="BaseNPC.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC</Filter>
+      <Filter>2_Actor\NPC\NPC</Filter>
     </ClInclude>
     <ClInclude Include="SkeleTong.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClInclude>
     <ClInclude Include="SueKeleton.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClInclude>
     <ClInclude Include="SkeletonA.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClInclude>
     <ClInclude Include="SkeletonB.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClInclude>
     <ClInclude Include="WitchOpening.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClInclude>
     <ClInclude Include="ChiefGuardNPC.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClInclude>
     <ClInclude Include="BrokenObject.h">
       <Filter>2_Actor\Map\Stage\Object\BrokenObject</Filter>
@@ -865,22 +865,31 @@
       <Filter>5_GUI\Tool</Filter>
     </ClInclude>
     <ClInclude Include="WitchCage.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClInclude>
     <ClInclude Include="Witch_CatFollow.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClInclude>
     <ClInclude Include="SpeechBubble.h">
       <Filter>2_Actor\UI\Common</Filter>
     </ClInclude>
     <ClInclude Include="CastleWitchNPC.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
+      <Filter>2_Actor\NPC\NPC\Castle</Filter>
     </ClInclude>
     <ClInclude Include="CastleOgrePaddlerNPC.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
+      <Filter>2_Actor\NPC\NPC\Castle</Filter>
     </ClInclude>
     <ClInclude Include="CastleFoxHunterNPC.h">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
+      <Filter>2_Actor\NPC\NPC\Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="Mongal.h">
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="BossMonster.h">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="RookieHero.h">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster\ForestOfHarmony</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1208,9 +1217,6 @@
     <ClCompile Include="FPSCheckGUI.cpp">
       <Filter>5_GUI\Common</Filter>
     </ClCompile>
-    <ClCompile Include="BaseMonster_FSM.cpp">
-      <Filter>2_Actor\BattleActor\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="ColEnterCheck.cpp">
       <Filter>1_Class\Battle</Filter>
     </ClCompile>
@@ -1355,9 +1361,6 @@
     <ClCompile Include="MonsterDeadBodyActor.cpp">
       <Filter>2_Actor\BattleActor\Monster\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Mongal.cpp">
-      <Filter>2_Actor\BattleActor\Monster\BossMonster</Filter>
-    </ClCompile>
     <ClCompile Include="NormalMonster.cpp">
       <Filter>2_Actor\BattleActor\Monster\NormalMonster</Filter>
     </ClCompile>
@@ -1382,41 +1385,38 @@
     <ClCompile Include="TalkArrow.cpp">
       <Filter>2_Actor\UI\Talk</Filter>
     </ClCompile>
-    <ClCompile Include="Mongal_Story.cpp">
-      <Filter>2_Actor\BattleActor\Monster\BossMonster</Filter>
-    </ClCompile>
     <ClCompile Include="StoryHero_FirstHero_Opening.cpp">
       <Filter>2_Actor\StoryNPC</Filter>
     </ClCompile>
     <ClCompile Include="NPCManager.cpp">
-      <Filter>2_Actor\Map\Stage\NPC</Filter>
+      <Filter>2_Actor\NPC</Filter>
     </ClCompile>
     <ClCompile Include="ContentCore_NPCData.cpp">
       <Filter>0_Core\CoreLoad</Filter>
     </ClCompile>
     <ClCompile Include="BaseNPC.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC</Filter>
+      <Filter>2_Actor\NPC\NPC</Filter>
     </ClCompile>
     <ClCompile Include="NPCManager_CreateNPC.cpp">
-      <Filter>2_Actor\Map\Stage\NPC</Filter>
+      <Filter>2_Actor\NPC</Filter>
     </ClCompile>
     <ClCompile Include="SkeleTong.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClCompile>
     <ClCompile Include="SueKeleton.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClCompile>
     <ClCompile Include="SkeletonA.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClCompile>
     <ClCompile Include="SkeletonB.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClCompile>
     <ClCompile Include="WitchOpening.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClCompile>
     <ClCompile Include="ChiefGuardNPC.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClCompile>
     <ClCompile Include="OpeningLevel_Event.cpp">
       <Filter>4_Level\GameLevel\BattleLevel\Opening</Filter>
@@ -1428,22 +1428,37 @@
       <Filter>5_GUI\Tool</Filter>
     </ClCompile>
     <ClCompile Include="WitchCage.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClCompile>
     <ClCompile Include="Witch_CatFollow.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+      <Filter>2_Actor\NPC\NPC\Opening</Filter>
     </ClCompile>
     <ClCompile Include="SpeechBubble.cpp">
       <Filter>2_Actor\UI\Common</Filter>
     </ClCompile>
     <ClCompile Include="CastleOgrePaddlerNPC.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
+      <Filter>2_Actor\NPC\NPC\Castle</Filter>
     </ClCompile>
     <ClCompile Include="CastleFoxHunterNPC.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
+      <Filter>2_Actor\NPC\NPC\Castle</Filter>
     </ClCompile>
     <ClCompile Include="CastleWitchNPC.cpp">
-      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
+      <Filter>2_Actor\NPC\NPC\Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="Mongal_Story.cpp">
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="Mongal.cpp">
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMonster.cpp">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="RookieHero.cpp">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalMonster_FSM.cpp">
+      <Filter>2_Actor\BattleActor\Monster\NormalMonster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

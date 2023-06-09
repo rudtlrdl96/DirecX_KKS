@@ -105,6 +105,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BossMonster.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BounceRigidbody2D.h">
       <SubType>
       </SubType>
@@ -486,6 +490,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="RookieHero.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="RootEnt.h">
       <SubType>
       </SubType>
@@ -730,7 +738,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="BaseMonster_FSM.cpp" />
+    <ClCompile Include="NormalMonster_FSM.cpp" />
     <ClCompile Include="BaseNPC.cpp">
       <SubType>
       </SubType>
@@ -772,6 +780,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BoneSkull.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BossMonster.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -1169,6 +1181,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="RigidProjectile.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RookieHero.cpp">
       <SubType>
       </SubType>
     </ClCompile>

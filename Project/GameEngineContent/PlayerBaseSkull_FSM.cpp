@@ -1245,8 +1245,13 @@ void PlayerBaseSkull::StoryMove_Update(float _DeltaTime)
 	float4 MoveDir = StoryMovePos - GetTransform()->GetWorldPosition();
 	MoveDir.z = 0;
 
-	if (3.0f > MoveDir.Size())
+	float DiX = fabsf(MoveDir.x);
+
+	if (5.0f > DiX)
 	{
+		StoryMovePos.z = GetTransform()->GetWorldPosition().z;
+		PlayerTrans->SetLocalPosition(StoryMovePos);
+
 		if (nullptr != StoryMoveEndCallback)
 		{
 			StoryMoveEndCallback();
@@ -1254,11 +1259,6 @@ void PlayerBaseSkull::StoryMove_Update(float _DeltaTime)
 		}
 
 		PlayerFSM.ChangeState("Idle");
-		return;
-	}
-
-	if (1.0f > fabsf(MoveDir.x))
-	{
 		return;
 	}
 

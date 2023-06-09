@@ -58,6 +58,8 @@ void RootEnt::Update(float _DeltaTime)
 			Trans->AddWorldPosition(float4(0, 50, 0));
 			Trans->SetWorldScale(float4(150, 100, 1));
 
+			AttackCol->On();
+
 			std::shared_ptr<GameEngineCollision> ColPtr = AttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
 
 			if (nullptr != ColPtr)
