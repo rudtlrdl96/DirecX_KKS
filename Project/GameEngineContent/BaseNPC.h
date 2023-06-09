@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "SpeechBubble.h"
 
 class NPCMetaData
 {
@@ -35,6 +36,8 @@ public:
 
 
 protected:
+	std::shared_ptr<SpeechBubble> Bubble = nullptr;
+
 	std::shared_ptr<ContentSpriteRenderer> MainRender = nullptr;
 	ColorBuffer Buffer = ColorBuffer();
 

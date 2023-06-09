@@ -29,6 +29,35 @@ void SkeletonB::Start()
 	PlayAnimation("Idle", true);
 }
 
+void SkeletonB::Update(float _DeltaTime)
+{
+	BaseNPC::Update(_DeltaTime);
+
+	if (nullptr != Bubble && true == Bubble->IsDeath())
+	{
+		Bubble = nullptr;
+	}	
+}
+
+void SkeletonB::PlayBehavior()
+{
+	Bubble = GetLevel()->CreateActor<SpeechBubble>();
+	Bubble->PlayBubble({
+		.Target = DynamicThis<GameEngineActor>(),
+		.Text = "아래 방향키와 C로 내려갈 수 있어. 어서 인간들을 쫓아가",
+		.Pivot = float4(0, 105, 0),
+		.IsLarge = true,
+		.IsLoop = true,
+		.LiveTime = 3.0f,
+		});
+}
+
+void SkeletonB::ResetBehavior()
+{
+	Bubble->Death();
+	Bubble = nullptr;
+}
+
 void SkeletonB::SpriteLoad()
 {
 	if (nullptr == GameEngineSprite::Find("SkeletonB_Idle.png"))

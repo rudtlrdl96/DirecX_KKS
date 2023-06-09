@@ -85,6 +85,7 @@ void ContentCore::NPCDataLoad()
 
 	}
 
+	// Opening
 	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
 		.Index = 0, .Grade = LevelArea::Opening, 
 		.Name = "스켈레-통", .TalkboxNameTag = "스켈레-통",
@@ -119,4 +120,20 @@ void ContentCore::NPCDataLoad()
 		.Index = 6, .Grade = LevelArea::Opening,
 		.Name = "마녀 고양이(오프닝)", .TalkboxNameTag = "마녀",
 		.PreviewName = "WitchOpeningCat_Preview.png" });
+
+	// Castle
+	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
+		.Index = 100, .Grade = LevelArea::Castle,
+		.Name = "마녀 (캐슬)", .TalkboxNameTag = "마녀",
+		.PreviewName = "Witch_Castle_Preview.png" });
+
+	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
+		.Index = 101, .Grade = LevelArea::Castle,
+		.Name = "인호족 사냥꾼", .TalkboxNameTag = "인호족 사냥꾼",
+		.PreviewName = "FoxHunter_Castle_Preview.png" });
+
+	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
+		.Index = 102, .Grade = LevelArea::Castle,
+		.Name = "오우거 보부상", .TalkboxNameTag = "오우거 보부상",
+		.PreviewName = "OgrePeddler_Castle_Preview.png" });
 }

@@ -12,5 +12,5 @@ ContentFadeRender::~ContentFadeRender()
 void ContentFadeRender::Start()
 {
 	SetMesh("Rect");
-	PushCameraRender(101);
+	PushCameraRender(static_cast<int>(CameraOrder::Fade));
 }

@@ -60,7 +60,7 @@ void StoryHero_FirstHero_Opening::Start()
 
 	GetTransform()->SetLocalNegativeScaleX();
 	MainRender->ChangeAnimation("Landing");
-	GetContentLevel()->GetCamCtrl().CameraShake(30, 20.0f, 15);
+	GetContentLevel()->GetCamCtrl().CameraShake(20, 30.0f, 15);
 
 }
 
@@ -115,7 +115,7 @@ void StoryHero_FirstHero_Opening::Update(float _DeltaTime)
 				.EffectName = "FirstHero_BigbangReady",
 				.Position = GetTransform()->GetWorldPosition() + float4(-70, 250, 0) });
 
-			GetContentLevel()->GetCamCtrl().CameraShake(20, 20.0f, 100);
+			GetContentLevel()->GetCamCtrl().CameraShake(10, 30.0f, 100);
 		}
 		break;
 	case StoryHero_FirstHero_Opening::HeroState::CastingLoop:

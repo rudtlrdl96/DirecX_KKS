@@ -154,7 +154,7 @@ void WitchOpening::Update(float _DeltaTime)
 	float4 Dir = DestPos - WitchTrans->GetWorldPosition();
 	Dir.z = 0;
 
-	float Dis = Dir.Size();
+	float Dis = fabsf(DestPos.x - WitchTrans->GetWorldPosition().x);
 
 	if (0 < Dir.x)
 	{

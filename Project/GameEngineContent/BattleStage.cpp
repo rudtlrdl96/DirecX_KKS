@@ -56,7 +56,6 @@ void BattleStage::StagePlay()
 	LockCount = 0;
 	NPCMgrPtr->PlayNPC();
 	ObjectManagerPtr->BehaviorObjectPlay();
-	GetContentLevel()->CallEvent("UnlockMonsterMove");
 }
 
 void BattleStage::Death()

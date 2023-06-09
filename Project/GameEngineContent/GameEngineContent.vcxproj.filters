@@ -361,6 +361,9 @@
     <Filter Include="4_Level\DebugLevel\Tool\BrokenObjectTool">
       <UniqueIdentifier>{6a56ef40-62fd-425a-9a41-82e4dcf9e7ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\NPC\NPC\Castle">
+      <UniqueIdentifier>{f1f9b2d5-ac6e-4192-9271-89c08a0d879b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -866,6 +869,18 @@
     </ClInclude>
     <ClInclude Include="Witch_CatFollow.h">
       <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeechBubble.h">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CastleWitchNPC.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="CastleOgrePaddlerNPC.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="CastleFoxHunterNPC.h">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1417,6 +1432,18 @@
     </ClCompile>
     <ClCompile Include="Witch_CatFollow.cpp">
       <Filter>2_Actor\Map\Stage\NPC\NPC\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="SpeechBubble.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CastleOgrePaddlerNPC.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="CastleFoxHunterNPC.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="CastleWitchNPC.cpp">
+      <Filter>2_Actor\Map\Stage\NPC\NPC\Castle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -83,11 +83,34 @@ void SkeleTong::Start()
 	LevelPtr->AddEvent("SkeleTong_Script03_End", GetActorCode(), [this]()
 		{
 			PlayAnimation("Walk", true, 12);
+
+			if (nullptr != Bubble)
+			{
+				Bubble->Death();
+				Bubble = nullptr;
+			}
+
+			Bubble = GetLevel()->CreateActor<SpeechBubble>();
+
+			Bubble->PlayBubble({
+				.Target = DynamicThis<GameEngineActor>(),
+				.Text = "ºÎÅ¹ÇÑ´Ù...",
+				.Pivot = float4(-45, 105, 0),
+				.IsLoop = false,
+				.LiveTime = 3.0f,
+				});
+
 		});
 }
 
+
 void SkeleTong::Update(float _DeltaTime)
 {
+	if (nullptr != Bubble && Bubble->IsDeath())
+	{
+		Bubble = nullptr;
+	}
+
 	BaseNPC::Update(_DeltaTime);
 
 	if (true == IsFadeEnd)
@@ -154,6 +177,12 @@ void SkeleTong::Update(float _DeltaTime)
 
 void SkeleTong::PlayBehavior()
 {
+	if (nullptr != Bubble)
+	{
+		Bubble->Death();
+		Bubble = nullptr;
+	}
+
 	FadeProgress = 0.0f;
 	Buffer.Color.a = 1.0f;
 	FadeRender->On();
@@ -164,6 +193,12 @@ void SkeleTong::PlayBehavior()
 void SkeleTong::Death()
 {
 	BaseNPC::Death();
+
+	if (nullptr != Bubble)
+	{
+		Bubble->Death();
+		Bubble = nullptr;
+	}
 
 	ContentLevel* LevelPtr = GetContentLevel();
 

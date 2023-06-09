@@ -9,6 +9,10 @@
 #include "WitchOpening.h"
 #include "Witch_CatFollow.h"
 
+#include "CastleWitchNPC.h"
+#include "CastleFoxHunterNPC.h"
+#include "CastleOgrePaddlerNPC.h"
+
 std::shared_ptr<BaseNPC> NPCManager::CreateNPC(const NPCMetaData& _NewNPCData)
 {
 	std::shared_ptr<BaseNPC> NewNPC = nullptr;
@@ -50,6 +54,22 @@ std::shared_ptr<BaseNPC> NPCManager::CreateNPC(const NPCMetaData& _NewNPCData)
 		NewNPC = GetLevel()->CreateActor<Witch_CatFollow>();
 	}
 		break;
+
+	case 100: // 마녀 (캐슬)
+	{
+		NewNPC = GetLevel()->CreateActor<CastleWitchNPC>();
+	}
+	break;
+	case 101: // 인호족 사냥꾼 (캐슬)
+	{
+		NewNPC = GetLevel()->CreateActor<CastleFoxHunterNPC>();
+	}
+	break;
+	case 102: // 오우가 보부상 (캐슬)
+	{
+		NewNPC = GetLevel()->CreateActor<CastleOgrePaddlerNPC>();
+	}
+	break;
 	default:
 		break;
 	}

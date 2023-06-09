@@ -29,3 +29,10 @@ enum class ActorViewDir
 	Left,
 	Right
 };
+
+enum class CameraOrder
+{
+	Main = 0,
+	UI = 100,
+	Fade = 101
+};

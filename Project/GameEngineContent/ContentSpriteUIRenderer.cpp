@@ -12,5 +12,5 @@ ContentSpriteUIRenderer::~ContentSpriteUIRenderer()
 void ContentSpriteUIRenderer::Start()
 {
 	SetMesh("Rect");
-	PushCameraRender(100);
+	PushCameraRender(static_cast<int>(CameraOrder::UI));
 }
