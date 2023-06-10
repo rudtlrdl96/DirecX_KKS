@@ -44,6 +44,8 @@ protected:
 	ActorViewDir Dir = ActorViewDir::Right;
 	MonsterData Data = MonsterData();
 
+	float HitWaitTime = 0.0f;
+
 	void Start() override;
 	void Update(float _DeltaTime);
 

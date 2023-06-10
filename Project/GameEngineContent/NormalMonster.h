@@ -87,8 +87,6 @@ protected:
 
 	bool IsUnWalkable = false;
 
-	float HitWaitTime = 0.0f;
-
 	void Start() override;
 	void Update(float _DeltaTime) override;
 

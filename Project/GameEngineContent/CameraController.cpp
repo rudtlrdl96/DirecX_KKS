@@ -83,7 +83,7 @@ void CameraController::Update(float _DeltaTime)
 		}
 		else
 		{
-			LookatPos = ForceTargetPos;
+			LookatPos = ForceTargetPos;		
 		}
 		
 		DiffX = LookatPos.x - CurCamPos.x;

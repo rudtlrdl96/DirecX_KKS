@@ -101,7 +101,7 @@ void ForestOfHarmonyLevel::Start()
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_BossRoom_Map", "DB_ForestOfHarmony_Background_04" });
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_BossRoomEnd_Map", "DB_ForestOfHarmony_Background_05" });
 
-	CurStageIndex = 0;
+	CurStageIndex = 4;
 	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
 	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 
@@ -109,37 +109,7 @@ void ForestOfHarmonyLevel::Start()
 	FPS_GUI = GameEngineGUI::FindGUIWindowConvert<FPSCheckGUI>("FPS_GUI");
 	FPS_GUI->Off();
 	
-	
-
-	AddEvent("BossIntroDown", LevelCode, [this]()
-		{
-			static bool FirstCheck = false;
-
-			if (false == FirstCheck)
-			{
-				MainCamCtrl.SetMaxHeight(1460);
-				FirstCheck = true;
-			}
-			else
-			{
-				MainCamCtrl.DisalbeForceLookAt();
-			}
-		});
-
-	AddEvent("BossIntroUp", LevelCode, [this]()
-		{
-			MainCamCtrl.SetLookatSpeed(0.5f);
-			MainCamCtrl.SetMaxHeight(7000);
-
-			MainCamCtrl.ActiveForceLookAt(float4(896, 1600, 0));
-			IntroTilemap->FadeOut(1.0f);
-		});
-
-	AddEvent("BossIntroUpOut", LevelCode, [this]()
-		{
-			MainCamCtrl.SetLookatSpeed(7.0f);
-			IntroTilemap->FadeIn(1.0f);
-		});
+	CreateForestOfHarmonyEvent();
 }
 
 void ForestOfHarmonyLevel::Update(float _DeltaTime)

@@ -20,10 +20,10 @@ protected:
 	void LevelChangeStart() override;
 	void LevelChangeEnd() override;
 	void AreaClear() override;
-
 private:
 	std::shared_ptr<class FPSCheckGUI> FPS_GUI = nullptr;
-
 	std::shared_ptr<class Tilemap> IntroTilemap = nullptr;
+
+	void CreateForestOfHarmonyEvent();
 };
 

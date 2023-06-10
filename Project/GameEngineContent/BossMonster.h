@@ -13,9 +13,61 @@ public:
 	BossMonster& operator=(BossMonster&& _Other) noexcept = delete;
 
 protected:
+	std::weak_ptr<class Player> FindPlayer;
+	std::map<std::string, std::map<UINT, float>> PauseTimes;
+	std::map<UINT, float>& CurAnimPause;
+
+	UINT CurFrameIndex = static_cast<UINT>(-1);
+	float CurFramePauseTime = 0.0f;
+
+	float PatternWaitTime = 2.0f;
+	float CurWaitTime = 0.0f;
 	
-private:
+	ClassFSM<BossMonster> BossFsm;
+	Rigidbody2D BossRigidbody;
 
+	std::shared_ptr<GameEngineCollision> PlayerFindCol = nullptr;
 
+	float DashPower = 500.0f;
+
+	std::function<void()> Cur_Pattern_Enter = nullptr;
+	std::function<void(float)> Cur_Pattern_Update = nullptr;
+	std::function<void()> Cur_Pattern_End = nullptr;
+	
+	std::string PlayBehaviorAnim = "";
+	std::function<void()> BehaviorEndCallback = nullptr;
+
+	void Start() override;
+	void Update(float _DeltaTime) override;
+
+	virtual void Idle_Enter();
+	virtual void Idle_Update(float _DeltaTime);
+	virtual void Idle_End();
+
+	virtual void Dash_Enter();
+	virtual void Dash_Update(float _DeltaTime);
+	virtual void Dash_End();
+
+	virtual void Pattern_Enter();
+	virtual void Pattern_Update(float _DeltaTime);
+	virtual void Pattern_End();
+
+	virtual void Hit_Enter();
+	virtual void Hit_Update(float _DeltaTime);
+	virtual void Hit_End();
+
+	virtual void Behavior_Enter();
+	virtual void Behavior_Update(float _DeltaTime);
+	virtual void Behavior_End();
+
+	virtual void SelectPattern() {}
+
+	bool HitCheck();
+	bool MoveableCheck(const float4& _Dir, bool _IsHalf);
+	void PlayAnimation(const std::string_view& _AnimationName);
+
+	virtual void SpriteLoad() = 0;
+
+	bool IsBehaviorLoop = false;
 };
 

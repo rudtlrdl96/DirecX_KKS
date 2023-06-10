@@ -738,6 +738,8 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BossMonster_FSM.cpp" />
+    <ClCompile Include="ForestOfHarmonyLevel_Event.cpp" />
     <ClCompile Include="NormalMonster_FSM.cpp" />
     <ClCompile Include="BaseNPC.cpp">
       <SubType>
@@ -1188,6 +1190,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="RookieHero_Pattern.cpp" />
     <ClCompile Include="RootEnt.cpp">
       <SubType>
       </SubType>

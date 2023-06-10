@@ -1460,6 +1460,15 @@
     <ClCompile Include="NormalMonster_FSM.cpp">
       <Filter>2_Actor\BattleActor\Monster\NormalMonster</Filter>
     </ClCompile>
+    <ClCompile Include="BossMonster_FSM.cpp">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="RookieHero_Pattern.cpp">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="ForestOfHarmonyLevel_Event.cpp">
+      <Filter>4_Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Doc\스컬 간트차트.xlsx">

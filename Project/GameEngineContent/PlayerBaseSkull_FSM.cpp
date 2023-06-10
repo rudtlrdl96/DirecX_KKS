@@ -1250,7 +1250,6 @@ void PlayerBaseSkull::StoryMove_Update(float _DeltaTime)
 	if (5.0f > DiX)
 	{
 		StoryMovePos.z = GetTransform()->GetWorldPosition().z;
-		PlayerTrans->SetLocalPosition(StoryMovePos);
 
 		if (nullptr != StoryMoveEndCallback)
 		{

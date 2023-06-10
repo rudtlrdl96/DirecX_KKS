@@ -144,7 +144,6 @@ void NormalMonster::Start()
 
 void NormalMonster::Update(float _DeltaTime)
 {
-
 	if (HP <= 0.0f)
 	{
 		MonsterDeath();

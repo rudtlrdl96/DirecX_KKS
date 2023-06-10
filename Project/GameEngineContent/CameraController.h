@@ -94,7 +94,7 @@ private:
 
 	bool IsForceTarget = false;
 	float4 ForceTargetPos = float4::Zero;
-
+	
 	CamCtrlType CamType = CamCtrlType::None;
 	float4 CamPos = float4::Zero;
 	float4 CamRot = float4::Zero;
