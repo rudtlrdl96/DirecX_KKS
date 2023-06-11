@@ -44,8 +44,6 @@ void EffectActor::Update(float _DeltaTime)
 	{
 	case EffectDeathTrigger::Time:
 	{
-		DeathTime += _DeltaTime;
-
 		if (GetLiveTime() >= DeathTime)
 		{
 			Death();

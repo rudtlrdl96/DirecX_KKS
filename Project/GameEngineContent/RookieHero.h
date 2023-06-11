@@ -46,6 +46,7 @@ protected:
 	float HealthBarActiveTime = 0.0f;
 
 	// 패턴 변수
+
 	float PotionTime = 0.0f;
 	float PotionHealTime = 0.0f;
 	float UltimateTime = 0.0f;

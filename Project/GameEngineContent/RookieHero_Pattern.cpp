@@ -175,19 +175,25 @@ void RookieHero::EnergyBall_End()
 void RookieHero::Potion_Enter()
 {
 	PlayAnimation("Potion");
-	PotionTime = -3.0f;
+	PotionTime = -3.5f;
 	PotionHealTime = 0.0f;
 }
 
 void RookieHero::Potion_Update(float _DeltaTime)
 {
 	PotionTime += _DeltaTime;
+	PotionHealTime += _DeltaTime;
 
 	if (0.0f <= PotionHealTime)
 	{
-		PotionHealTime = -0.3f;
+		EffectManager::PlayEffect({
+			.EffectName = "MonsterHeal",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
+			.AddSetZ = -10.0f});
 
-		HP += 3.0f;
+		PotionHealTime = -0.72f;
+
+		HP += 5.0f;
 
 		if (HP > Data.HP)
 		{
@@ -250,7 +256,7 @@ void RookieHero::Explosion_Update(float _DeltaTime)
 
 		ExplosionEffect = EffectManager::PlayEffect({
 			.EffectName = "RookieHero_Explosion",
-			.Position = GetTransform()->GetWorldPosition() + float4(0, 125, 0),
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 130, 0),
 			.AddSetZ = -10.0f });
 	}
 

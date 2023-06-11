@@ -58,7 +58,7 @@ void RookieHero::Start()
 
 	HeroHealthBar = GetLevel()->CreateActor<RookieHero_HealthBar>();
 	HeroHealthBar->GetTransform()->SetLocalPosition(float4(500, 300));
-
+	HeroHealthBar->Off();
 
 	BodyCol->GetTransform()->SetLocalPosition(float4(0, 60, 1));
 	BodyCol->GetTransform()->SetLocalScale(float4(80, 120, 1));
@@ -81,6 +81,7 @@ void RookieHero::Start()
 	AttackCol->DebugOn();
 
 	ExplosionCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	ExplosionCol->GetTransform()->SetLocalPosition(float4(0, 5, 0));
 	ExplosionCol->GetTransform()->SetLocalScale(float4(325, 325, 1));
 
 	Battle_Platform_Left = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Normal);
@@ -166,6 +167,7 @@ void RookieHero::Start()
 	
 	LevelPtr->AddEvent("RookieHero_Script00_End", GetActorCode(), [this]()
 		{
+			HeroHealthBar->On();
 			IsBehaviorLoop = false;
 			IsIntro = false;
 		});
@@ -179,7 +181,7 @@ void RookieHero::Update(float _DeltaTime)
 
 	if (false == IsPlayerEnter)
 	{
-		std::shared_ptr<GameEngineCollision> PlayerCol = 
+		std::shared_ptr<GameEngineCollision> PlayerCol =
 			EventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
 
 		if (nullptr != PlayerCol)
@@ -236,7 +238,7 @@ void RookieHero::Update(float _DeltaTime)
 		}
 	}
 
-	if(nullptr != ExplosionEffect && ExplosionEffect->IsDeath())
+	if (nullptr != ExplosionEffect && ExplosionEffect->IsDeath())
 	{
 		ExplosionEffect = nullptr;
 	}
@@ -331,10 +333,10 @@ void RookieHero::CreateAnimation()
 
 void RookieHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&RookieHero::Explosion_Enter, this);
-	Cur_Pattern_Update = std::bind(&RookieHero::Explosion_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&RookieHero::Explosion_End, this);
-	AttackDistance = 200.0f;
+	Cur_Pattern_Enter = std::bind(&RookieHero::Potion_Enter, this);
+	Cur_Pattern_Update = std::bind(&RookieHero::Potion_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&RookieHero::Potion_End, this);
+	AttackDistance = 2000.0f;
 
 	return;
 

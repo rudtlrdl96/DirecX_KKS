@@ -36,9 +36,9 @@ void ContentCore::MonsterDataLoad()
 		.HP = 45, .Attack = 7});
 
 	LoadMonster({ .Name = "견습 용사", .ImageName = "Preview_RookieHero.png", .Index = 180, .Grade = LevelArea::ForestOfHamory
-		,.HP = 1200, .Attack = 6});
+		,.HP = 950, .Attack = 6});
 	LoadMonster({ .Name = "각성 용사", .ImageName = "Preview_RookieHero.png", .Index = 190, .Grade = LevelArea::ForestOfHamory,
-		.HP = 2150, .Attack = 12});
+		.HP = 1450, .Attack = 12});
 
 	//LoadMonster({ .Name = "빛나는 신병", .ImageName = "GoldCarleonRecruit", .Index = 200, .Grade = LevelArea::GrandHall,
 	//	.HP = 75, .Attack = 7});
@@ -361,6 +361,7 @@ void ContentCore::MonsterDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MonsterDeathEffect.png").GetFullPath(), 3, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MonsterAppear.png").GetFullPath(), 11, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSlashEffect.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Monster_HealEffect.png").GetFullPath(), 4, 5);
 
 		EffectManager::CreateMetaData("FindPlayer", {
 			.SpriteName = "FindPlayerSightEffect.png",
@@ -387,6 +388,13 @@ void ContentCore::MonsterDataLoad()
 			.SpriteName = "MonsterAppear.png",
 			.AnimStart = 0,
 			.AnimEnd = 10,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("MonsterHeal", {
+			.SpriteName = "Monster_HealEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 17,
 			.AnimIter = 0.04f,
 			.ScaleRatio = 2.0f });
 
