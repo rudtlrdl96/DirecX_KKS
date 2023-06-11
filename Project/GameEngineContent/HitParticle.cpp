@@ -23,7 +23,7 @@ void HitParticle::Start()
 	ParticleRigid.SetGravity(ContentConst::Gravity_f);
 
 	Render = CreateComponent<ContentSpriteRenderer>();
-	Render->PipeSetting("2DTexture_ColorLight");
+	Render->PipeSetting("2DTexture_Color");
 	Render->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	Render->SetScaleToTexture("BaseHitParticle.png");
 

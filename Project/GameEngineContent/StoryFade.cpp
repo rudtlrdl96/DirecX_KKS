@@ -49,12 +49,12 @@ void StoryFade::Start()
 	float4 WindowSize = GameEngineWindow::GetScreenSize();
 
 	UpRenderer = CreateComponent<ContentUIRender>();
-	UpRenderer->PipeSetting("2DTexture_ColorLight");
+	UpRenderer->PipeSetting("2DTexture_Color");
 	UpRenderer->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", UpRenderBuffer);
 	UpRenderer->SetScaleToTexture("StoryFade.png");
 
 	DownRenderer = CreateComponent<ContentUIRender>();
-	DownRenderer->PipeSetting("2DTexture_ColorLight");
+	DownRenderer->PipeSetting("2DTexture_Color");
 	DownRenderer->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", DownRenderBuffer);
 	DownRenderer->SetScaleToTexture("StoryFade.png");
 

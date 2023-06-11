@@ -25,7 +25,7 @@ protected:
 	bool IsAppear = false;
 
 	std::shared_ptr<class HealthBar> HealthBarPtr = nullptr;
-	float4 HealthBarScale = float4(1.0f, 1.5f, 1.5f, 1.0f);
+	float4 HealthBarScale = float4(1.0f, 1.3f, 1.0f, 1.0f);
 
 	float HealthBarActiveTime = 0.0f;
 
@@ -120,7 +120,6 @@ protected:
 	bool Fall(float _DeltaTime);
 	void Turn(bool _Force = false);
 	void CreateColDebugRender(bool _IsActive);
-	void EffectLoadCheck();
 	void SetViewDir(ActorViewDir _Dir, bool _Force = false) override;
 
 	bool HitCheck();

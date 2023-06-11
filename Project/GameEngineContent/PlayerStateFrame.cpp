@@ -333,7 +333,7 @@ void PlayerStateFrame::Update(float _DeltaTime)
 void PlayerStateFrame::RenderCreate(std::shared_ptr<class ContentUIRender>& _Render, const float4& _LocalPos, const std::string_view& _TextureName /*= "Empty.png"*/)
 {
 	_Render = CreateComponent<ContentUIRender>();
-	_Render->PipeSetting("2DTexture_ColorLight");
+	_Render->PipeSetting("2DTexture_Color");
 	_Render->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	_Render->GetTransform()->SetLocalPosition(_LocalPos);
 	_Render->SetScaleToTexture(_TextureName);

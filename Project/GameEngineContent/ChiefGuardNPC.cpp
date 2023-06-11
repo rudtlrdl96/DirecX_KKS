@@ -76,7 +76,7 @@ void ChiefGuardNPC::Start()
 	MainRender->ChangeAnimation("Idle");
 
 	HeadRender = CreateComponent<ContentSpriteRenderer>();
-	HeadRender->PipeSetting("2DTexture_ColorLight");
+	HeadRender->PipeSetting("2DTexture_Color");
 	HeadRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	HeadRender->SetScaleRatio(2.0f);
 	

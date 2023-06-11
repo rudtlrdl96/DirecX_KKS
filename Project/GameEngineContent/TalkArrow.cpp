@@ -26,7 +26,7 @@ void TalkArrow::Start()
 	}
 
 	ArrowRender = CreateComponent<ContentUIRender>();
-	ArrowRender->PipeSetting("2DTexture_ColorLight");
+	ArrowRender->PipeSetting("2DTexture_Color");
 	ArrowRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", ArrowBuffer);
 	ArrowRender->SetScaleToTexture("TalkboxArrow.png");
 }

@@ -17,7 +17,7 @@ void CollisionDebugRender::SetTargetCollision(std::shared_ptr<GameEngineCollisio
 void CollisionDebugRender::Start()
 {
 	DebugRender = CreateComponent<ContentSpriteRenderer>();
-	DebugRender->PipeSetting("2DTexture_ColorLight");
+	DebugRender->PipeSetting("2DTexture_Color");
 	DebugRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", DebugBuffer);
 	DebugRender->SetTexture("BoxCol.png");
 }

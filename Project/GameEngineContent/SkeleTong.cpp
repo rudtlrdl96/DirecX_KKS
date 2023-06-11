@@ -50,7 +50,7 @@ void SkeleTong::Start()
 	AnimFramePause["Talk"][0] = 0.2f;
 
 	FadeRender = CreateComponent<ContentUIRender>();
-	FadeRender->PipeSetting("2DTexture_ColorLight");
+	FadeRender->PipeSetting("2DTexture_Color");
 	FadeRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	FadeRender->SetTexture("FadeImage.png");
 	FadeRender->GetTransform()->SetWorldPosition(float4(0, 0, -105.0f));

@@ -27,6 +27,7 @@ BaseMonster::~BaseMonster()
 void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
 {
 	HP -= _Damage;
+	HitDamageCheck += _Damage;
 
 	HitDir = _HitDir;
 	IsHit = true;
@@ -34,11 +35,29 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 	IsStiffen = _IsStiffen;
 	IsPush = _IsPush;
 	HitEffectProgress = 0.0f;
+
+	HitEffect();
 }
 
 void BaseMonster::Start()
 {
 	BattleActor::Start();
+
+	if (nullptr == GameEngineTexture::Find("EnemyHpBar.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("UI");
+
+		GameEngineTexture::Load(Path.GetPlusFileName("EnemyHpBar.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("EnemySubBar.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("EnemyHpFrame.png").GetFullPath());
+	}
+
 	DataLoad();
 	HP = Data.HP;
 }

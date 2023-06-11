@@ -39,6 +39,7 @@ public:
 
 protected:
 	float HP = 0;
+	float HitDamageCheck = 0.0f;
 	bool IsStiffen = false;
 
 	ActorViewDir Dir = ActorViewDir::Right;

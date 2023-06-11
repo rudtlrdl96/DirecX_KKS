@@ -17,7 +17,7 @@ void ScaleDebugRender::SetTexture(const std::string_view& _TexName)
 void ScaleDebugRender::Start()
 {
 	DebugRender = CreateComponent<ContentSpriteRenderer>();
-	DebugRender->PipeSetting("2DTexture_ColorLight");
+	DebugRender->PipeSetting("2DTexture_Color");
 	DebugRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", DebugBuffer);
 	DebugRender->SetTexture("ScaleCol.png");
 	DebugRender->GetTransform()->SetLocalScale(float4::One);

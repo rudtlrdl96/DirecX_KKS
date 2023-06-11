@@ -40,7 +40,7 @@ void TitleLogo::SetLogo(const std::string_view& _TexName, float _IntroTime, floa
 void TitleLogo::Start()
 {
 	LogoRender = CreateComponent<ContentUIRender>();
-	LogoRender->PipeSetting("2DTexture_ColorLight");
+	LogoRender->PipeSetting("2DTexture_Color");
 	LogoRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	LogoRender->SetTexture("Empty.png");
 

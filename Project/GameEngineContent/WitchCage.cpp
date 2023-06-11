@@ -66,7 +66,7 @@ void WitchCage::Start()
 	Render->GetTransform()->SetLocalScale(ForentScale * 2.0f);
 
 	BackCageRender = CreateComponent<ContentSpriteRenderer>();
-	BackCageRender->PipeSetting("2DTexture_ColorLight");
+	BackCageRender->PipeSetting("2DTexture_Color");
 	BackCageRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", CageRenderBuffer);
 	BackCageRender->SetScaleToTexture("Cage_Behind.png");
 	BackCageRender->GetTransform()->AddLocalPosition(float4(0, 110, 0.1f));

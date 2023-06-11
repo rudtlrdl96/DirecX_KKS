@@ -35,13 +35,16 @@ void BattleActor::Update(float _DeltaTime)
 	{
 		HitEffectProgress += _DeltaTime * HitEffectSpeed;
 
-		if (0.5f >= HitEffectProgress)
+		if (false == IsHitEffectOff)
 		{
-			Buffer.Color = float4::LerpClamp(float4(0, 0, 0, 1), float4(1, 1, 1, 1), HitEffectProgress * 2.0f);
-		}
-		else
-		{
-			Buffer.Color = float4::LerpClamp(float4(1, 1, 1, 1), float4(0, 0, 0, 1), (HitEffectProgress * 2.0f) - 1.0f);
+			if (0.5f >= HitEffectProgress)
+			{
+				Buffer.Color = float4::LerpClamp(float4(0, 0, 0, 1), float4(1, 1, 1, 1), HitEffectProgress * 2.0f);
+			}
+			else
+			{
+				Buffer.Color = float4::LerpClamp(float4(1, 1, 1, 1), float4(0, 0, 0, 1), (HitEffectProgress * 2.0f) - 1.0f);
+			}
 		}
 
 		if (1.0f <= HitEffectProgress)

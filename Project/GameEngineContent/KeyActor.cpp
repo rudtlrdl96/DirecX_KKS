@@ -12,7 +12,7 @@ KeyActor::~KeyActor()
 void KeyActor::Start()
 {
 	KeyRender = CreateComponent<ContentSpriteRenderer>();
-	KeyRender->PipeSetting("2DTexture_ColorLight");
+	KeyRender->PipeSetting("2DTexture_Color");
 	KeyRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	KeyRender->Off();
 

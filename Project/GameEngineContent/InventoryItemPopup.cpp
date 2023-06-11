@@ -25,7 +25,7 @@ void InventoryItemPopup::Start()
 	TexSize.y *= 1.97f;
 
 	PopupFrameRender = CreateComponent<ContentUIRender>();
-	PopupFrameRender->PipeSetting("2DTexture_ColorLight");
+	PopupFrameRender->PipeSetting("2DTexture_Color");
 	PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 
 	PopupFrameRender->SetTexture("Inventory_Item_Frame.png");

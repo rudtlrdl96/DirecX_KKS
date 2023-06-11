@@ -77,6 +77,6 @@ void BehaviorObject::ShowGUI()
 void BehaviorObject::Start()
 {
 	Render = CreateComponent<ContentSpriteRenderer>();
-	Render->PipeSetting("2DTexture_ColorLight");
+	Render->PipeSetting("2DTexture_Color");
 	Render->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 }

@@ -891,6 +891,9 @@
     <ClInclude Include="RookieHero.h">
       <Filter>2_Actor\BattleActor\Monster\BossMonster\ForestOfHarmony</Filter>
     </ClInclude>
+    <ClInclude Include="RookieHero_HealthBar.h">
+      <Filter>2_Actor\UI\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1468,6 +1471,9 @@
     </ClCompile>
     <ClCompile Include="ForestOfHarmonyLevel_Event.cpp">
       <Filter>4_Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="RookieHero_HealthBar.cpp">
+      <Filter>2_Actor\UI\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -32,6 +32,7 @@ protected:
 
 	bool IsHit = false;
 	bool IsHitEffectOn = false;
+	bool IsHitEffectOff = false;
 	bool IsPush = false;
 	bool IsSuperArmor = false;
 	bool IsUnPushArmor = false;

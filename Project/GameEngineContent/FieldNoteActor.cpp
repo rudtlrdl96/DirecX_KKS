@@ -32,7 +32,7 @@ void FieldNoteActor::Start()
 	}
 
 	BackRender = CreateComponent<ContentSpriteRenderer>();
-	BackRender->PipeSetting("2DTexture_ColorLight");
+	BackRender->PipeSetting("2DTexture_Color");
 	BackRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	BackRender->SetScaleToTexture("Interaction_BackGround.png");
 

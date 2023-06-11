@@ -32,7 +32,7 @@ NPCMetaData BaseNPC::LoadBin(GameEngineSerializer& _LoadSerializer)
 void BaseNPC::Start()
 {
 	MainRender = CreateComponent<ContentSpriteRenderer>();
-	MainRender->PipeSetting("2DTexture_ColorLight");
+	MainRender->PipeSetting("2DTexture_Color");
 	MainRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	MainRender->SetScaleToTexture("Empty.png");
 	MainRender->SetScaleRatio(2.0f);

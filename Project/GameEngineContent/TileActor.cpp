@@ -60,7 +60,7 @@ void TileActor::Start()
 {
 	DrawRender = CreateComponent<ContentSpriteRenderer>();
 
-	DrawRender->PipeSetting("2DTexture_ColorLight");
+	DrawRender->PipeSetting("2DTexture_Color");
 	DrawRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	DrawRender->GetTransform()->SetLocalScale(ContentConst::TileSize);	
 	DrawRender->GetTransform()->SetLocalPosition({ 0, -ContentConst::TileSize.hy(), 0, 0 });

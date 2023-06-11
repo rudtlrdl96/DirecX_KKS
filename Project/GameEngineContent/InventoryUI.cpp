@@ -23,7 +23,7 @@ InventoryUI::~InventoryUI()
 void InventoryUI::Start()
 {
 	InventoryBackRender = CreateComponent<ContentUIRender>();
-	InventoryBackRender->PipeSetting("2DTexture_ColorLight");
+	InventoryBackRender->PipeSetting("2DTexture_Color");
 	InventoryBackRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", BackFrameTex);
 	InventoryBackRender->SetTexture("Inventory_Background.png");
 	InventoryBackRender->GetTransform()->SetLocalScale(GameEngineWindow::GetScreenSize());
@@ -31,7 +31,7 @@ void InventoryUI::Start()
 	BackFrameTex.Color.w = 0.5f;
 
 	MainFrameRender = CreateComponent<ContentUIRender>();
-	MainFrameRender->PipeSetting("2DTexture_ColorLight");
+	MainFrameRender->PipeSetting("2DTexture_Color");
 	MainFrameRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", MainFrameTex);
 	MainFrameRender->SetTexture("Inventory_Main_Frame.png");
 	MainFrameRender->GetTransform()->SetLocalScale(GameEngineWindow::GetScreenSize());

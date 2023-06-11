@@ -42,7 +42,7 @@ void HealthBar::Start()
 	SubBarRedner->Off();
 
 	FrameRedner = CreateComponent<ContentSpriteRenderer>();
-	FrameRedner->PipeSetting("2DTexture_ColorLight");
+	FrameRedner->PipeSetting("2DTexture_Color");
 	FrameRedner->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", FrameBuffer);
 	FrameRedner->GetTransform()->SetLocalPosition(float4(0, 0, 0.02f));
 	FrameRedner->GetTransform()->SetWorldRotation(float4(0, 0, 0));

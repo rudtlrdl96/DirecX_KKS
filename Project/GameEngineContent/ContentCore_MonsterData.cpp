@@ -296,5 +296,103 @@ void ContentCore::MonsterDataLoad()
 		}
 	}
 
-	int a = 0;
+	// 견습용사
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("3_ForestOfHarmony");
+		Path.Move("Boss");
+		Path.Move("RookieHero");
+		Path.Move("Sheet");
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Idle.png").GetFullPath(), 6, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Intro_ComboA.png").GetFullPath(), 8, 6);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Intro_ComboB.png").GetFullPath(), 7, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Yeah.png").GetFullPath(), 7, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_lol.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_lol_End.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Who.png").GetFullPath(), 6, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Potion.png").GetFullPath(), 6, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Hit.png").GetFullPath(), 3, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Dash.png").GetFullPath(), 3, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_BackDash.png").GetFullPath(), 3, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Groggy.png").GetFullPath(), 2, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_EnergyBallReady.png").GetFullPath(), 9, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_EnergyBall.png").GetFullPath(), 6, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_ExplosionReady.png").GetFullPath(), 3, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_ExplosionLoop.png").GetFullPath(), 6, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_AttackA.png").GetFullPath(), 9, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_AttackAReady.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_AttackB.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_AttackC.png").GetFullPath(), 3, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_AttackD.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_AttackE.png").GetFullPath(), 9, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_SwordEnergyReady.png").GetFullPath(), 3, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_SwordEnergy.png").GetFullPath(), 5, 2);
+	
+		Path.MoveParent();
+		Path.Move("Effect");
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_ExplosionEffect.png").GetFullPath(), 4, 5);
+
+		EffectManager::CreateMetaData("RookieHero_Explosion", {
+			.SpriteName = "RookieHero_ExplosionEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 17,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f });
+	}
+
+	// 몬스터 공용 이펙트
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Monster");
+		Path.Move("Effect");
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FindPlayerSightEffect.png").GetFullPath(), 5, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MonsterDeathEffect.png").GetFullPath(), 3, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MonsterAppear.png").GetFullPath(), 11, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSlashEffect.png").GetFullPath(), 5, 1);
+
+		EffectManager::CreateMetaData("FindPlayer", {
+			.SpriteName = "FindPlayerSightEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 14,
+			.AnimIter = 0.025f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("HitSlashEffect", {
+			.SpriteName = "HitSlashEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 4,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f,});
+
+		EffectManager::CreateMetaData("MonsterDeath", {
+			.SpriteName = "MonsterDeathEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 5,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("MonsterAppear", {
+			.SpriteName = "MonsterAppear.png",
+			.AnimStart = 0,
+			.AnimEnd = 10,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });
+
+		Path.MoveParent();
+		Path.Move("Particle");
+
+		GameEngineTexture::Load(Path.GetPlusFileName("BaseHitParticle.png").GetFullPath());
+	}
 }

@@ -37,7 +37,6 @@ void GlacialWizard::TextureLoad()
 			Path.Move("Effect");
 
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Icicle.png").GetFullPath(), 1, 1);
-			GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSlashEffect.png").GetFullPath(), 5, 1);
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("IcicleSpawnEffect.png").GetFullPath(), 5, 4);
 
 			Path.MoveParent();
@@ -49,14 +48,6 @@ void GlacialWizard::TextureLoad()
 			.AnimStart = 0,
 			.AnimEnd = 0,
 			.AnimIter = 0.1f,
-			.ScaleRatio = 2.0f,
-			});
-
-		EffectManager::CreateMetaData("HitSlashEffect", {
-			.SpriteName = "HitSlashEffect.png",
-			.AnimStart = 0,
-			.AnimEnd = 4,
-			.AnimIter = 0.025f,
 			.ScaleRatio = 2.0f,
 			});
 

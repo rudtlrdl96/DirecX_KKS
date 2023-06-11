@@ -57,7 +57,7 @@ void SpeechBubble::Start()
 	}
 
 	BubbleRender = CreateComponent<ContentSpriteRenderer>();
-	BubbleRender->PipeSetting("2DTexture_ColorLight");
+	BubbleRender->PipeSetting("2DTexture_Color");
 	BubbleRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	BubbleRender->Off();
 }

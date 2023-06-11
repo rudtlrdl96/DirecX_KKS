@@ -37,21 +37,6 @@ void NormalMonster::Start()
 
 	DeathEffectLocalPos = float4(0, 50, -5.0f);
 
-	if (nullptr == GameEngineTexture::Find("EnemyHpBar.png"))
-	{
-		GameEngineDirectory Path;
-
-		Path.MoveParentToDirectory("Resources");
-		Path.Move("Resources");
-		Path.Move("Texture");
-		Path.Move("0_Common");
-		Path.Move("UI");
-
-		GameEngineTexture::Load(Path.GetPlusFileName("EnemyHpBar.png").GetFullPath());
-		GameEngineTexture::Load(Path.GetPlusFileName("EnemySubBar.png").GetFullPath());
-		GameEngineTexture::Load(Path.GetPlusFileName("EnemyHpFrame.png").GetFullPath());
-	}
-
 	if (false == GameEngineInput::IsKey("MonsterDebugOn"))
 	{
 		GameEngineInput::CreateKey("MonsterDebugOn", VK_F3);
@@ -91,7 +76,6 @@ void NormalMonster::Start()
 	LoadAnimation();
 	AnimationAttackMetaDataLoad();
 	SetColData();
-	EffectLoadCheck();
 	DeathPartLoad();
 
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
@@ -323,57 +307,10 @@ void NormalMonster::CreateColDebugRender(bool _IsActive)
 	}
 }
 
-void NormalMonster::EffectLoadCheck()
-{
-	if (nullptr == GameEngineSprite::Find("FindPlayerSightEffect.png"))
-	{
-		GameEngineDirectory Path;
-
-		Path.MoveParentToDirectory("Resources");
-		Path.Move("Resources");
-		Path.Move("Texture");
-		Path.Move("0_Common");
-		Path.Move("Monster");
-		Path.Move("Effect");
-
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FindPlayerSightEffect.png").GetFullPath(), 5, 3);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MonsterDeathEffect.png").GetFullPath(), 3, 2);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MonsterAppear.png").GetFullPath(), 11, 1);
-
-		EffectManager::CreateMetaData("FindPlayer", {
-			.SpriteName = "FindPlayerSightEffect.png",
-			.AnimStart = 0,
-			.AnimEnd = 14,
-			.AnimIter = 0.025f,
-			.ScaleRatio = 2.0f });
-
-		EffectManager::CreateMetaData("MonsterDeath", {
-			.SpriteName = "MonsterDeathEffect.png",
-			.AnimStart = 0,
-			.AnimEnd = 5,
-			.AnimIter = 0.04f,
-			.ScaleRatio = 2.0f });
-
-		EffectManager::CreateMetaData("MonsterAppear", {
-			.SpriteName = "MonsterAppear.png",
-			.AnimStart = 0,
-			.AnimEnd = 10,
-			.AnimIter = 0.04f,
-			.ScaleRatio = 2.0f });
-
-		Path.MoveParent();
-		Path.Move("Particle");
-
-		GameEngineTexture::Load(Path.GetPlusFileName("BaseHitParticle.png").GetFullPath());
-	}
-}
-
 bool NormalMonster::HitCheck()
 {
 	if (true == IsHit)
 	{
-		HitEffect();
-
 		if (true == IsPush)
 		{
 			HitPush();

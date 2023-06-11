@@ -31,7 +31,7 @@ void StoryHero_FirstHero_Opening::Start()
 {	
 
 	MainRender = CreateComponent<ContentSpriteRenderer>();
-	MainRender->PipeSetting("2DTexture_ColorLight");
+	MainRender->PipeSetting("2DTexture_Color");
 	MainRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	MainRender->SetScaleRatio(2.0f);
 

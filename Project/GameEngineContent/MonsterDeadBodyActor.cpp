@@ -31,7 +31,7 @@ void MonsterDeadBodyActor::Death()
 void MonsterDeadBodyActor::Start()
 {
 	BodyRender = CreateComponent<ContentSpriteRenderer>();
-	BodyRender->PipeSetting("2DTexture_ColorLight");
+	BodyRender->PipeSetting("2DTexture_Color");
 	BodyRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	BodyRender->Off();
 

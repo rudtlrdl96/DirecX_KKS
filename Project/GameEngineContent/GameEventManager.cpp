@@ -291,7 +291,7 @@ void GameEventManager::Start()
 	}
 
 	ClearBackRender = CreateComponent<ContentSpriteRenderer>();
-	ClearBackRender->PipeSetting("2DTexture_ColorLight");
+	ClearBackRender->PipeSetting("2DTexture_Color");
 	ClearBackRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", ClearBackBuffer);
 	ClearBackRender->SetScaleToTexture("ForestOfHarmony_ClearBackground.png");
 	

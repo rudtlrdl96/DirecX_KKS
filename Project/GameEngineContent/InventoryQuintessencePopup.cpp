@@ -25,7 +25,7 @@ void InventoryQuintessencePopup::Start()
 	TexSize.y *= 1.975f;
 
 	PopupFrameRender = CreateComponent<ContentUIRender>();
-	PopupFrameRender->PipeSetting("2DTexture_ColorLight");
+	PopupFrameRender->PipeSetting("2DTexture_Color");
 	PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	PopupFrameRender->SetTexture("Inventory_Quintessence_Frame.png");
 	PopupFrameRender->GetTransform()->SetLocalScale(TexSize);

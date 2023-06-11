@@ -1,5 +1,7 @@
 #include "PrecompileHeader.h"
 #include "RookieHero.h"
+#include "HealthBar.h"
+#include "RookieHero_HealthBar.h"
 
 RookieHero::RookieHero()
 {
@@ -23,16 +25,63 @@ void RookieHero::Death()
 	LevelPtr->RemoveEvent("RookieHero_IntroWho", GetActorCode());
 	LevelPtr->RemoveEvent("RookieHero_IntroPotion", GetActorCode());
 	LevelPtr->RemoveEvent("RookieHero_Script00_End", GetActorCode());
+
+	if (nullptr != HeroHealthBar)
+	{
+		HeroHealthBar->Death();
+		HeroHealthBar = nullptr;
+	}
+}
+
+void RookieHero::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
+{
+	BossMonster::HitMonster(_Damage, _HitDir, _IsStiffen, _IsPush);
+
+	HealthBarActiveTime = 3.0f;
 }
 
 void RookieHero::Start()
 {
 	BossMonster::Start();
 	SetViewDir(ActorViewDir::Right);
+	BossRigidbody.SetFricCoeff(3000.0f);
+	DashPower = 1450.0f;
+	BackDashPower = 1050.0f;
+
+	PatternWaitTime = 1.5f;
+
+	HealthBarPtr = GetLevel()->CreateActor<HealthBar>();
+	HealthBarPtr->GetTransform()->SetParent(GetTransform());
+	HealthBarPtr->GetTransform()->SetLocalPosition(float4(0, -15, -10));
+	HealthBarPtr->SetTexture("EnemyHpFrame.png", "EnemyHpBar.png", "EnemySubBar.png", HealthBarScale);
+	HealthBarPtr->Off();
+
+	HeroHealthBar = GetLevel()->CreateActor<RookieHero_HealthBar>();
+	HeroHealthBar->GetTransform()->SetLocalPosition(float4(500, 300));
+
+
+	BodyCol->GetTransform()->SetLocalPosition(float4(0, 60, 1));
+	BodyCol->GetTransform()->SetLocalScale(float4(80, 120, 1));
+
+	WalkCol->GetTransform()->SetLocalPosition(float4(47, 60, 1));
+	WalkCol->GetTransform()->SetLocalScale(float4(7, 120, 1));
+
+	BackCol->GetTransform()->SetLocalPosition(float4(-47, 60, 1));
+	BackCol->GetTransform()->SetLocalScale(float4(7, 120, 1));
+
+	GroundCol->GetTransform()->SetLocalPosition(float4(0, 2.5f, 1));
+	GroundCol->GetTransform()->SetLocalScale(float4(76, 5.0f, 1));
 
 	EventCol = CreateComponent<GameEngineCollision>();
 	EventCol->GetTransform()->SetWorldPosition(float4(1248, 564, 1));
 	EventCol->GetTransform()->SetLocalScale(float4(1220, 640, 1));
+
+	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	AttackCol->SetColType(ColType::AABBBOX2D);
+	AttackCol->DebugOn();
+
+	ExplosionCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	ExplosionCol->GetTransform()->SetLocalScale(float4(325, 325, 1));
 
 	Battle_Platform_Left = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Normal);
 	Battle_Platform_Left->GetTransform()->SetWorldPosition(float4(576, 564, 1));
@@ -44,6 +93,25 @@ void RookieHero::Start()
 	Battle_Platform_Right->GetTransform()->SetLocalScale(float4(64, 640, 1));
 	Battle_Platform_Right->Off();
 
+	UltimateLight = CreateComponent<ContentSpriteRenderer>();
+	UltimateLight->PipeSetting("2DTexture_Color");
+	UltimateLight->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", UltimateLightBuffer);
+	UltimateLight->SetTexture("FadeImage.png");
+	UltimateLight->GetTransform()->SetWorldPosition(float4(0, 0, -4.5f));
+	UltimateLight->GetTransform()->SetLocalScale(float4(100000, 100000, 1));
+	UltimateLight->Off();	
+	
+	UltimateFade = CreateComponent<ContentSpriteRenderer>();
+	UltimateFade->PipeSetting("2DTexture_Color");
+	UltimateFade->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", UltimateFadeBuffer);
+	UltimateFade->SetTexture("FadeImage.png");
+	UltimateFade->GetTransform()->SetWorldPosition(float4(0, 0, -999.0f));
+	UltimateFade->GetTransform()->SetLocalScale(float4(100000, 100000, 1));
+	UltimateFade->Off();
+
+	AttackCheck.SetCol(AttackCol, (UINT)CollisionOrder::Player);
+	AttackCheck.SetRender(Render);
+	
 	ContentLevel* LevelPtr = GetContentLevel();
 
 	LevelPtr->AddEvent("RookieHero_IntroComboA", GetActorCode(), [this]()
@@ -99,12 +167,14 @@ void RookieHero::Start()
 	LevelPtr->AddEvent("RookieHero_Script00_End", GetActorCode(), [this]()
 		{
 			IsBehaviorLoop = false;
+			IsIntro = false;
 		});
-
 }
 
 void RookieHero::Update(float _DeltaTime)
 {
+	UltimateTime += _DeltaTime;
+
 	BossMonster::Update(_DeltaTime);
 
 	if (false == IsPlayerEnter)
@@ -122,6 +192,68 @@ void RookieHero::Update(float _DeltaTime)
 			Battle_Platform_Right->On();
 		}
 	}
+
+	if (true == IsUltimateLightOn)
+	{
+		UltimateLightProgress += _DeltaTime * 2.0f;
+
+		UltimateLightBuffer.Color = float4::LerpClamp(
+			float4(0, 0, 0, 0), float4(0, 0, 0, 0.6f), UltimateLightProgress);
+
+		if (1.0f <= UltimateLightProgress)
+		{
+			IsUltimateLightOn = false;
+		}
+	}
+
+	if (true == IsUltimateLightOff)
+	{
+		UltimateLightProgress += _DeltaTime * 2.0f;
+
+		UltimateLightBuffer.Color = float4::LerpClamp(
+			float4(0, 0, 0, 0.6f), float4(0, 0, 0, 0), UltimateLightProgress);
+
+		if (1.0f <= UltimateLightProgress)
+		{
+			IsUltimateLightOff = false;
+			UltimateLight->Off();
+		}
+	}
+
+	if (true == IsUltimateFadeOn)
+	{
+		UltimateFadeProgress += _DeltaTime * 1.5f;
+
+		float Progress = UltimateFadeProgress - 0.2f;
+
+		UltimateFadeBuffer.Color = float4::LerpClamp(
+			float4(1, 1, 1, 0.6f), float4(1, 1, 1, 0), Progress);
+
+		if (1.0f <= Progress)
+		{
+			IsUltimateFadeOn = false;
+			UltimateFade->Off();
+		}
+	}
+
+	if(nullptr != ExplosionEffect && ExplosionEffect->IsDeath())
+	{
+		ExplosionEffect = nullptr;
+	}
+
+	HealthBarActiveTime -= _DeltaTime;
+
+	if (0.0f < HealthBarActiveTime)
+	{
+		HealthBarPtr->On();
+	}
+	else
+	{
+		HealthBarPtr->Off();
+	}
+
+	HealthBarPtr->UpdateBar(HP / Data.HP, _DeltaTime);
+	HeroHealthBar->UpdateBar(HP / Data.HP, _DeltaTime);
 }
 
 void RookieHero::DataLoad()
@@ -129,30 +261,47 @@ void RookieHero::DataLoad()
 	Data = ContentDatabase<MonsterData, LevelArea>::GetData(180); // 180 = 견습 용사
 }
 
-void RookieHero::SpriteLoad()
+void RookieHero::CreateAnimation()
 {
-	if (nullptr == GameEngineSprite::Find("RookieHero_Idle.png"))
 	{
 		GameEngineDirectory Path;
 
 		Path.MoveParentToDirectory("Resources");
 		Path.Move("Resources");
-		Path.Move("Texture");
+		Path.Move("Data");
 		Path.Move("3_ForestOfHarmony");
 		Path.Move("Boss");
-		Path.Move("RookieHero");
-		Path.Move("Sheet");
 
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Idle.png").GetFullPath(), 6, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Intro_ComboA.png").GetFullPath(), 8, 6);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Intro_ComboB.png").GetFullPath(), 7, 4);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Yeah.png").GetFullPath(), 7, 3);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_lol.png").GetFullPath(), 5, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_lol_End.png").GetFullPath(), 1, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Who.png").GetFullPath(), 6, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Potion.png").GetFullPath(), 6, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Hit.png").GetFullPath(), 3, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Dash.png").GetFullPath(), 3, 1);
+		AttackA_Data = ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("RookieHero_AttackA").GetFullPath());
+		AttackB_Data = ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("RookieHero_AttackB").GetFullPath());
+		AttackD_Data = ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("RookieHero_AttackD").GetFullPath());
+
+		Render->CreateAnimation({
+			.AnimationName = AttackA_Data.GetAnimationName().data(),
+			.SpriteName = AttackA_Data.GetSpriteName().data(),
+			.Start = AttackA_Data.GetStartFrame(),
+			.End = AttackA_Data.GetEndFrame(),
+			.FrameInter = 0.11f,
+			.Loop = false,
+			.ScaleToTexture = true });
+
+		Render->CreateAnimation({
+			.AnimationName = AttackB_Data.GetAnimationName().data(),
+			.SpriteName = AttackB_Data.GetSpriteName().data(),
+			.Start = AttackB_Data.GetStartFrame(),
+			.End = AttackB_Data.GetEndFrame(),
+			.FrameInter = 0.11f,
+			.Loop = false,
+			.ScaleToTexture = true });
+
+		Render->CreateAnimation({
+			.AnimationName = AttackD_Data.GetAnimationName().data(),
+			.SpriteName = AttackD_Data.GetSpriteName().data(),
+			.Start = AttackD_Data.GetStartFrame(),
+			.End = AttackD_Data.GetEndFrame(),
+			.FrameInter = 0.11f,
+			.Loop = false,
+			.ScaleToTexture = true });
 	}
 
 	Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "RookieHero_Idle.png", .Loop = true, .ScaleToTexture = true});
@@ -166,12 +315,112 @@ void RookieHero::SpriteLoad()
 	Render->CreateAnimation({ .AnimationName = "Intro_Who", .SpriteName = "RookieHero_Who.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Potion", .SpriteName = "RookieHero_Potion.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Hit", .SpriteName = "RookieHero_Hit.png", .Loop = false, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "RookieHero_Dash.png", .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "RookieHero_Dash.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "BackDash", .SpriteName = "RookieHero_BackDash.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Groggy", .SpriteName = "RookieHero_Groggy.png",.FrameInter = 0.15f, .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "EnergyBallReady", .SpriteName = "RookieHero_EnergyBallReady.png", .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "EnergyBall", .SpriteName = "RookieHero_EnergyBall.png", .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "ExplosionReady", .SpriteName = "RookieHero_ExplosionReady.png", .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Explosion", .SpriteName = "RookieHero_ExplosionLoop.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "AttackA_Ready", .SpriteName = "RookieHero_AttackAReady.png", .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "AttackC", .SpriteName = "RookieHero_AttackC.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "AttackE", .SpriteName = "RookieHero_AttackE.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "SwordEnergyReady", .SpriteName = "RookieHero_SwordEnergyReady.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "SwordEnergy", .SpriteName = "RookieHero_SwordEnergy.png", .Loop = true, .ScaleToTexture = true });
 }
 
 void RookieHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&RookieHero::TempPattern_Enter, this);
-	Cur_Pattern_Update = std::bind(&RookieHero::TempPattern_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&RookieHero::TempPattern_End, this);
+	Cur_Pattern_Enter = std::bind(&RookieHero::Explosion_Enter, this);
+	Cur_Pattern_Update = std::bind(&RookieHero::Explosion_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&RookieHero::Explosion_End, this);
+	AttackDistance = 200.0f;
+
+	return;
+
+	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
+
+	float CurHpRatio = HP / Data.HP;
+
+	if (0.5f < CurHpRatio && 0.0f <= UltimateTime)
+	{
+		Cur_Pattern_Enter = std::bind(&RookieHero::Ultimate_Enter, this);
+		Cur_Pattern_Update = std::bind(&RookieHero::Ultimate_Update, this, std::placeholders::_1);
+		Cur_Pattern_End = std::bind(&RookieHero::Ultimate_End, this);
+
+		AttackDistance = 400.0f;
+		UltimateTime = -30.0f;
+		return;
+	}
+
+	switch (Rand.RandomInt(0, 3))
+	{
+	case 0: // ComboAttack
+	{
+		Cur_Pattern_Enter = std::bind(&RookieHero::ComboAttack_Enter, this);
+		Cur_Pattern_Update = std::bind(&RookieHero::ComboAttack_Update, this, std::placeholders::_1);
+		Cur_Pattern_End = std::bind(&RookieHero::ComboAttack_End, this);
+		AttackDistance = 400.0f;
+	}
+		break;
+	case 1: // EnergyBall
+	{
+		Cur_Pattern_Enter = std::bind(&RookieHero::EnergyBall_Enter, this);
+		Cur_Pattern_Update = std::bind(&RookieHero::EnergyBall_Update, this, std::placeholders::_1);
+		Cur_Pattern_End = std::bind(&RookieHero::EnergyBall_End, this);
+		AttackDistance = 1000.0f;
+	}
+		break;
+	case 2: // Explosion
+	{
+		Cur_Pattern_Enter = std::bind(&RookieHero::Explosion_Enter, this);
+		Cur_Pattern_Update = std::bind(&RookieHero::Explosion_Update, this, std::placeholders::_1);
+		Cur_Pattern_End = std::bind(&RookieHero::Explosion_End, this);
+		AttackDistance = 200.0f;
+	}
+		break;
+	case 3: // Potion
+	{
+		Cur_Pattern_Enter = std::bind(&RookieHero::Potion_Enter, this);
+		Cur_Pattern_Update = std::bind(&RookieHero::Potion_Update, this, std::placeholders::_1);
+		Cur_Pattern_End = std::bind(&RookieHero::Potion_End, this);
+		AttackDistance = 2000.0f;
+	}
+		break;
+	default:
+		MsgAssert_Rtti<RookieHero>(" - 존재하지 않는 패턴으로 설정하려 했습니다");
+		break;
+	}
+}
+
+
+void RookieHero::UltimateLightOn()
+{
+	IsUltimateLightOn = true;
+	IsUltimateLightOff = false;
+	UltimateLightProgress = 0.0f;
+
+	UltimateLight->On();
+	UltimateLightBuffer.Color = float4(0.0f, 0.0f, 0.0f, 0.0f);
+}
+
+
+void RookieHero::UltimateLightOff()
+{
+	IsUltimateLightOn = false;
+	IsUltimateLightOff = true;
+	UltimateLightProgress = 0.0f;
+
+	UltimateLight->On();
+	UltimateLightBuffer.Color = float4(0.0f, 0.0f, 0.0f, 0.6f);
+}
+
+
+void RookieHero::UltimateFadeOn()
+{
+	IsUltimateFadeOn = true;
+	UltimateFadeProgress = 0.0f;
+
+	UltimateFade->On();
+	UltimateFadeBuffer.Color = float4(1.0f, 1.0f, 1.0f, 0.6f);
 }

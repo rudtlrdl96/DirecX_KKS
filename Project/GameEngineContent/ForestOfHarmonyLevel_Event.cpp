@@ -36,6 +36,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 			IntroTilemap->FadeIn(1.0f);
 		});
 
+	// 견습 용사
 	AddEvent("RookieHero_Script00", LevelCode, [this]()
 		{
 			std::function<void()> Talk11 = [this]()
@@ -111,7 +112,6 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 			TalkBoxPtr->SetMainText(L"하나둘 셋! 하나둘 셋!", Talk01);
 		});
 
-	// 견습 용사
 	AddEvent("RookieHero_Intro", LevelCode, [this]()
 		{
 			CallEvent("PlayerInputLock");

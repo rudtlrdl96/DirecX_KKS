@@ -60,7 +60,7 @@ void TalkBox::Start()
 	ArrowPtr->Off();
 
 	Render = CreateComponent<ContentUIRender>();
-	Render->PipeSetting("2DTexture_ColorLight");
+	Render->PipeSetting("2DTexture_Color");
 	Render->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	Render->SetScaleToTexture("TalkBox.png");
 

@@ -134,7 +134,7 @@ void BaseDoor::ActiveOff()
 void BaseDoor::Start()
 {
 	DoorRender = CreateComponent<ContentSpriteRenderer>();
-	DoorRender->PipeSetting("2DTexture_ColorLight");
+	DoorRender->PipeSetting("2DTexture_Color");
 	DoorRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	DoorRender->SetTexture("Empty.png");
 	DoorRender->GetTransform()->SetLocalPosition(float4::Zero);

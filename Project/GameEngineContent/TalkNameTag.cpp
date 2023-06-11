@@ -45,17 +45,17 @@ void TalkNameTag::Start()
 	}
 
 	LeftRender = CreateComponent<ContentUIRender>();
-	LeftRender->PipeSetting("2DTexture_ColorLight");
+	LeftRender->PipeSetting("2DTexture_Color");
 	LeftRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	LeftRender->SetScaleToTexture("NameTag_Left.png");
 
 	RightRender = CreateComponent<ContentUIRender>();
-	RightRender->PipeSetting("2DTexture_ColorLight");
+	RightRender->PipeSetting("2DTexture_Color");
 	RightRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	RightRender->SetScaleToTexture("NameTag_Right.png");
 
 	CenterRender = CreateComponent<ContentUIRender>();
-	CenterRender->PipeSetting("2DTexture_ColorLight");
+	CenterRender->PipeSetting("2DTexture_Color");
 	CenterRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	CenterRender->SetScaleToTexture("NameTag_Center.png");
 

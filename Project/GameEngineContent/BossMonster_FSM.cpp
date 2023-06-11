@@ -38,8 +38,13 @@ void BossMonster::Idle_Update(float _DeltaTime)
 		PlayerPtr = FindPlayer.lock();
 	}
 	
-	if (0.0f < CurWaitTime)
+	if (false == IsIntro && 0.0f < CurWaitTime)
 	{
+		if (nullptr == Cur_Pattern_Update)
+		{
+			SelectPattern();
+		}
+
 		GameEngineTransform* PlayerTrans = PlayerPtr->GetTransform();
 
 		float4 BossPos = GetTransform()->GetWorldPosition();
@@ -48,7 +53,7 @@ void BossMonster::Idle_Update(float _DeltaTime)
 
 		float DistanceX = fabsf(Dir.x);
 
-		if (400 <= DistanceX)
+		if (AttackDistance <= DistanceX)
 		{
 			if (0.0f > Dir.x)
 			{
@@ -64,9 +69,7 @@ void BossMonster::Idle_Update(float _DeltaTime)
 		}
 		else
 		{
-			SelectPattern();
-			BossFsm.ChangeState("Pattern");
-			return;
+			BossFsm.ChangeState("Pattern");	
 		}
 	}
 }
@@ -96,12 +99,11 @@ void BossMonster::Dash_Update(float _DeltaTime)
 {
 	BossRigidbody.UpdateForce(_DeltaTime);
 
-	float4 DashVel = BossRigidbody.GetVelocity() * _DeltaTime;
+	float4 DashVel = BossRigidbody.GetVelocity();
+	float4 CurDashVel = BossRigidbody.GetVelocity() * _DeltaTime;
 
-	if (true == MoveableCheck(DashVel, false))
-	{
-		GetTransform()->AddLocalPosition(DashVel);
-	}
+	RigidbodyMovePlatformCheck(CurDashVel);
+	GetTransform()->AddLocalPosition(CurDashVel);
 
 	if (1.0f >= DashVel.Size())
 	{
@@ -114,36 +116,46 @@ void BossMonster::Dash_End()
 
 }
 
-void BossMonster::Hit_Enter()
+void BossMonster::BackDash_Enter()
 {
-	Render->ChangeAnimation("Hit");
+	PlayAnimation("BackDash");
 	HitWaitTime = 0.0f;
+
+	switch (Dir)
+	{
+	case ActorViewDir::Left:
+		BossRigidbody.SetVelocity(float4::Right * BackDashPower);
+		break;
+	case ActorViewDir::Right:
+		BossRigidbody.SetVelocity(float4::Left * BackDashPower);
+		break;
+	default:
+		break;
+	}
 }
 
-void BossMonster::Hit_Update(float _DeltaTime)
+void BossMonster::BackDash_Update(float _DeltaTime)
 {
-	HitWaitTime += _DeltaTime;
+	BossRigidbody.UpdateForce(_DeltaTime);
 
-	if (false == IsSuperArmor && true == IsHit)
+	float4 BackDashVel = BossRigidbody.GetVelocity();
+	float4 CurFrameVel = BossRigidbody.GetVelocity() * _DeltaTime;
+
+	RigidbodyMovePlatformCheck(CurFrameVel);
+	GetTransform()->AddLocalPosition(CurFrameVel);
+
+	if (1.0f <= BackDashVel.Size())
 	{
-		HitEffect();
+		return;
+	}
 
-		if (false == IsSuperArmor && true == IsStiffen)
+	if (false == IsIntro && 0.0f < CurWaitTime)
+	{
+		if (nullptr == Cur_Pattern_Update)
 		{
-			Render->ChangeAnimation("Hit");
-			HitWaitTime = 0.0f;
+			SelectPattern();
 		}
 
-		HitPush();
-	}
-
-	if (0.5f <= HitWaitTime)
-	{
-		BossFsm.ChangeState("Idle");
-	}
-
-	if (0.0f < CurWaitTime)
-	{
 		std::shared_ptr<Player> PlayerPtr = FindPlayer.lock();
 		GameEngineTransform* PlayerTrans = PlayerPtr->GetTransform();
 
@@ -153,7 +165,7 @@ void BossMonster::Hit_Update(float _DeltaTime)
 
 		float DistanceX = fabsf(Dir.x);
 
-		if (400 <= DistanceX)
+		if (AttackDistance <= DistanceX)
 		{
 			if (0.0f > Dir.x)
 			{
@@ -169,14 +181,111 @@ void BossMonster::Hit_Update(float _DeltaTime)
 		}
 		else
 		{
-			SelectPattern();
 			BossFsm.ChangeState("Pattern");
 			return;
 		}
 	}
+	else
+	{
+		BossFsm.ChangeState("Idle");
+	}
+}
+
+void BossMonster::BackDash_End()
+{
+
+}
+
+void BossMonster::Hit_Enter()
+{
+	PlayAnimation("Hit");
+	HitWaitTime = 0.0f;
+	CurWaitTime -= 2.0f;
+
+	switch (HitDir)
+	{
+	case ActorViewDir::Left:
+		SetViewDir(ActorViewDir::Right);
+		BossRigidbody.SetVelocity(float4::Left * HitPower);
+		break;
+	case ActorViewDir::Right:
+		SetViewDir(ActorViewDir::Left);
+		BossRigidbody.SetVelocity(float4::Right * HitPower);
+		break;
+	default:
+		break;
+	}
+}
+
+void BossMonster::Hit_Update(float _DeltaTime)
+{
+	HitWaitTime += _DeltaTime;
+	BossRigidbody.UpdateForce(_DeltaTime);
+
+	float4 DashVel = BossRigidbody.GetVelocity() * _DeltaTime;
+
+	RigidbodyMovePlatformCheck(DashVel);
+	GetTransform()->AddLocalPosition(DashVel);
+
+	if (false == IsSuperArmor && true == IsHit)
+	{
+		switch (HitDir)
+		{
+		case ActorViewDir::Left:
+			SetViewDir(ActorViewDir::Right);
+			BossRigidbody.SetVelocity(float4::Left * HitPower);
+			break;
+		case ActorViewDir::Right:
+			SetViewDir(ActorViewDir::Left);
+			BossRigidbody.SetVelocity(float4::Right * HitPower);
+			break;
+		default:
+			break;
+		}
+
+		if (false == IsSuperArmor && true == IsStiffen)
+		{
+			PlayAnimation("Hit");
+			HitWaitTime = 0.0f;
+		}
+
+		HitPush();
+	}
+
+	if (0.5f <= HitWaitTime)
+	{
+		BossFsm.ChangeState("Idle");
+	}
+
+	if (false == IsIntro && 0.0f < CurWaitTime)
+	{
+		BossFsm.ChangeState("BackDash");
+	}
 }
 
 void BossMonster::Hit_End()
+{
+	CurWaitTime += 2.0f;
+}
+
+void BossMonster::Groggy_Enter()
+{
+	PlayAnimation("Groggy");
+
+	CurGroggyTime = -GroggyTime;
+}
+
+void BossMonster::Groggy_Update(float _DeltaTime)
+{
+	CurGroggyTime += _DeltaTime;
+
+	if (0.0f <= CurGroggyTime)
+	{
+		BossFsm.ChangeState("Idle");
+	}
+}
+
+void BossMonster::Groggy_End()
 {
 
 }

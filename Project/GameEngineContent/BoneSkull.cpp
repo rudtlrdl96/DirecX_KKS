@@ -194,7 +194,7 @@ void BoneSkull::Start()
 
 			std::function<void()> PauseCall02 = [this]()
 			{
-				GetContentLevel()->GetCamCtrl().CameraShake(36, 20, 12);
+				GetContentLevel()->GetCamCtrl().CameraShake(20, 20, 12);
 				float4 EffectPos = ParentPlayer->GetTransform()->GetWorldPosition();
 
 				EffectManager::PlayEffect({
@@ -467,11 +467,11 @@ void BoneSkull::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "Jump_NoWeapon", .SpriteName = "BoneSkull_Jump_NoWeapon.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	
 	// AttackA NoHead
-	Render->CreateAnimation({ .AnimationName = "AttackA_NoHead", .SpriteName = "BoneSkull_AttackA_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "AttackA_NoHead", .SpriteName = "BoneSkull_AttackA_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	// AttackB NoHead
-	Render->CreateAnimation({ .AnimationName = "AttackB_NoHead", .SpriteName = "BoneSkull_AttackB_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });	
+	Render->CreateAnimation({ .AnimationName = "AttackB_NoHead", .SpriteName = "BoneSkull_AttackB_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	// JumpAttack NoHead
-	Render->CreateAnimation({ .AnimationName = "JumpAttack_NoHead", .SpriteName = "BoneSkull_JumpAttack_NoHead.png", .FrameInter = 0.1f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "JumpAttack_NoHead", .SpriteName = "BoneSkull_JumpAttack_NoHead.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	
 	// Behavior Anim
 	Render->CreateAnimation({ .AnimationName = "Intro_Idle", .SpriteName = "BoneSkull_Intro_Idle.png", .FrameInter = 0.1f, .ScaleToTexture = true });
