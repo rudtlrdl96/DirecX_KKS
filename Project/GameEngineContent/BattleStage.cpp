@@ -48,6 +48,7 @@ void BattleStage::StageReset()
 	LockCount = 0;
 	ObjectManagerPtr->BehaviorObjectReset();
 	NPCMgrPtr->ResetNPC();
+	MonsterMgrPtr->ResetMonster();
 	GetContentLevel()->CallEvent("UnlockMonsterMove");
 }
 

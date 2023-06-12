@@ -82,6 +82,8 @@ public:
 		return CurWave >= WaveDatas.size() && SpawnCheck;
 	}
 
+	void ResetMonster();
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime);

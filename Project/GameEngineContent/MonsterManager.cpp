@@ -298,7 +298,6 @@ void MonsterManager::LoadBin(GameEngineSerializer& _LoadSerializer)
 			MonsterActors[i][j]->Death();
 			MonsterActors[i][j] = nullptr;
 		}
-
 	}
 
 	if (nullptr != GUI_GroupRenders)
@@ -429,7 +428,6 @@ void MonsterManager::ShowGUI()
 		return;
 	}
 
-
 	if (ImGui::BeginListBox("Group ListBox"))
 	{
 		for (int n = 0; n < WaveDatas[GUI_SelectWave].size(); n++)
@@ -469,6 +467,33 @@ void MonsterManager::ShowGUI()
 	else
 	{
 		GUI_GroupColRender->Off();
+	}
+}
+
+void MonsterManager::ResetMonster()
+{
+	CurWave = 0;
+
+	for (size_t i = 0; i < MonsterActors.size(); i++)
+	{
+		for (size_t j = 0; j < MonsterActors[i].size(); j++)
+		{
+			if (nullptr != MonsterActors[i][j])
+			{
+				MonsterActors[i][j]->Death();
+				MonsterActors[i][j] = nullptr;
+			}
+		}
+
+		MonsterActors[i].clear();
+	}
+
+	for (size_t i = 0; i < WaveDatas.size(); i++)
+	{
+		for (size_t j = 0; j < WaveDatas[i].size(); j++)
+		{
+			WaveDatas[i][j].IsSpawnEnd = false;
+		}
 	}
 }
 
