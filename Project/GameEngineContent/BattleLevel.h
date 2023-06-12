@@ -30,6 +30,7 @@ protected:
 	std::string MainBackgroundName = "";
 	float4 BackgroundPivot = float4::Zero;
 
+	std::shared_ptr<class Minimap> MinimapPtr = nullptr;
 	std::shared_ptr<class FadeActor> FadeActorPtr = nullptr;
 	std::shared_ptr<class FadeActor> FadeActorPtr_White = nullptr;
 	std::shared_ptr<class StoryFade> StoryFadePtr = nullptr;

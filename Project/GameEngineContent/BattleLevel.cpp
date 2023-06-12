@@ -11,6 +11,7 @@
 #include "StoryFade.h"
 #include "TalkBox.h"
 #include "BaseMonster.h"
+#include "Minimap.h"
 
 #include "GameEngineActorGUI.h"
 
@@ -35,6 +36,9 @@ void BattleLevel::Start()
 
 	float4 HalfWindowSize = GameEngineWindow::GetScreenSize().half();
 	BattleAreaPtr = CreateActor<BattleArea>();
+
+	MinimapPtr = CreateActor<Minimap>();
+	MinimapPtr->GetTransform()->SetLocalPosition(float4(530, -295));
 
 	FadeActorPtr = CreateActor<FadeActor>();
 	FadeActorPtr->GetTransform()->AddLocalPosition(float4(0, 0, -20.0f));
@@ -145,9 +149,6 @@ void BattleLevel::SetPlayerPos(const float4& _Pos)
 void BattleLevel::LevelChangeStart()
 {
 	BaseMonster::SetMonstersMove(false);
-
-	//ActorGUIPtr->On();
-	//ActorGUIPtr->SetTarget(TalkBoxPtr->ArrowPtr->GetTransform());
 
 	StoryFadePtr->Reset();
 

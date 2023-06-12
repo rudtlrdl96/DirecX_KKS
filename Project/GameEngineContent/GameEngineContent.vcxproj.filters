@@ -367,6 +367,9 @@
     <Filter Include="2_Actor\BattleActor\Monster\BossMonster\ForestOfHarmony">
       <UniqueIdentifier>{452b1178-36c0-4d3c-8292-0147b0d44e2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\UI\Minimap">
+      <UniqueIdentifier>{d36893cc-038b-41b0-8971-506b5521f6f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -893,6 +896,9 @@
     </ClInclude>
     <ClInclude Include="RookieHero_HealthBar.h">
       <Filter>2_Actor\UI\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Minimap.h">
+      <Filter>2_Actor\UI\Minimap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1474,6 +1480,9 @@
     </ClCompile>
     <ClCompile Include="RookieHero_HealthBar.cpp">
       <Filter>2_Actor\UI\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Minimap.cpp">
+      <Filter>2_Actor\UI\Minimap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
