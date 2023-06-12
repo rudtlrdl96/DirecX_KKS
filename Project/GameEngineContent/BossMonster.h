@@ -49,6 +49,7 @@ protected:
 
 	bool IsBehaviorLoop = false;
 	bool IsIntro = true;
+	bool IsDeathIntro = false;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;

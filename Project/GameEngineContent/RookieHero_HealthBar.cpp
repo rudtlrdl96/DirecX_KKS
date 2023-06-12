@@ -10,6 +10,11 @@ RookieHero_HealthBar::~RookieHero_HealthBar()
 {
 }
 
+void RookieHero_HealthBar::SetDeathPicture()
+{
+	PictureRedner->SetTexture("RookieHero_UI_Dead.png");
+}
+
 void RookieHero_HealthBar::UpdateBar(float _Progress, float _DeltaTime)
 {
 	GameEngineTransform* GetTrans = GetTransform();
@@ -44,6 +49,13 @@ void RookieHero_HealthBar::UpdateBar(float _Progress, float _DeltaTime)
 			IsSubUpdate = false;
 		}
 	}
+}
+
+void RookieHero_HealthBar::Death()
+{
+	BaseContentActor::Death();
+
+	GetContentLevel()->RemoveEvent("MoveStage", GetActorCode());
 }
 
 //#include "GameEngineActorGUI.h"
@@ -114,6 +126,11 @@ void RookieHero_HealthBar::Start()
 	PictureRedner->GetTransform()->SetWorldRotation(float4(0, 0, 0));
 	PictureRedner->SetScaleToTexture("RookieHero_UI_Portrait.png");
 	PictureRedner->GetTransform()->SetLocalScale(float4(52, 52, 1));
+
+	GetContentLevel()->AddEvent("MoveStage", GetActorCode(), [this]()
+		{
+			Death();
+		});
 
 	//std::shared_ptr<GameEngineActorGUI> GUI = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 	//GUI->SetTarget(PictureRedner->GetTransform());

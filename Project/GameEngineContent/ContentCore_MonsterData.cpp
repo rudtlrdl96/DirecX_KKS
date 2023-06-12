@@ -332,16 +332,82 @@ void ContentCore::MonsterDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_AttackE.png").GetFullPath(), 9, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_SwordEnergyReady.png").GetFullPath(), 3, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_SwordEnergy.png").GetFullPath(), 5, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_DeadIntro.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_DeadBody.png").GetFullPath(), 1, 1);
 	
 		Path.MoveParent();
 		Path.Move("Effect");
 
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_ExplosionEffect.png").GetFullPath(), 4, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_EnergyBall_Projectile.png").GetFullPath(), 7, 7);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_EnergyBallExplosion_Effect.png").GetFullPath(), 5, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_EnergyBallShot_Effect.png").GetFullPath(), 4, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Ultimate_Projectile.png").GetFullPath(), 4, 6);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_UltimateAura_Effect.png").GetFullPath(), 4, 6);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_UltimateComplete_Effect.png").GetFullPath(), 4, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_UltimateFail_Effect.png").GetFullPath(), 4, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_UltimateSmoke_Effect.png").GetFullPath(), 1, 6);
 
 		EffectManager::CreateMetaData("RookieHero_Explosion", {
 			.SpriteName = "RookieHero_ExplosionEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 17,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("RookieHero_EnergyBall", {
+			.SpriteName = "RookieHero_EnergyBall_Projectile.png",
+			.AnimStart = 0,
+			.AnimEnd = 47,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("RookieHero_EnergyBallExplosion", {
+			.SpriteName = "RookieHero_EnergyBallExplosion_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 19,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 1.0f });
+
+		EffectManager::CreateMetaData("RookieHero_EnergyBallShot", {
+			.SpriteName = "RookieHero_EnergyBallShot_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 18,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("RookieHero_Ultimate_Projectile", {
+			.SpriteName = "RookieHero_Ultimate_Projectile.png",
+			.AnimStart = 0,
+			.AnimEnd = 23,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.5f });
+
+		EffectManager::CreateMetaData("RookieHero_UltimateAura", {
+			.SpriteName = "RookieHero_UltimateAura_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 21,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("RookieHero_UltimateComplete", {
+			.SpriteName = "RookieHero_UltimateComplete_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 13,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("RookieHero_UltimateFail", {
+			.SpriteName = "RookieHero_UltimateFail_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 17,
+			.AnimIter = 0.03f,
+			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("RookieHero_UltimateSmoke", {
+			.SpriteName = "RookieHero_UltimateSmoke_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 5,
 			.AnimIter = 0.05f,
 			.ScaleRatio = 2.0f });
 	}

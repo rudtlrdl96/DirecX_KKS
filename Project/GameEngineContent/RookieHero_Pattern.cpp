@@ -1,12 +1,12 @@
 #include "PrecompileHeader.h"
 #include "RookieHero.h"
 #include "Player.h"
+#include "Projectile.h"
 
 void RookieHero::ComboAttack_Enter()
 {
 	ComboAttackIndex = 0;
 	LookPlayer();
-	//PlayAnimation("AttackA_Ready");
 
 	AttackCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)
 		{
@@ -73,10 +73,10 @@ void RookieHero::ComboAttack_Update(float _DeltaTime)
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				BossRigidbody.SetVelocity(float4::Left * 700.0f);
+				BossRigidbody.SetVelocity(float4::Left * 800.0f);
 				break;
 			case ActorViewDir::Right:
-				BossRigidbody.SetVelocity(float4::Right * 700.0f);
+				BossRigidbody.SetVelocity(float4::Right * 800.0f);
 				break;
 			default:
 				break;
@@ -101,10 +101,10 @@ void RookieHero::ComboAttack_Update(float _DeltaTime)
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				BossRigidbody.SetVelocity(float4::Left * 700.0f);
+				BossRigidbody.SetVelocity(float4::Left * 800.0f);
 				break;
 			case ActorViewDir::Right:
-				BossRigidbody.SetVelocity(float4::Right * 700.0f);
+				BossRigidbody.SetVelocity(float4::Right * 800.0f);
 				break;
 			default:
 				break;
@@ -125,10 +125,10 @@ void RookieHero::ComboAttack_Update(float _DeltaTime)
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				BossRigidbody.SetVelocity(float4::Left * 700.0f);
+				BossRigidbody.SetVelocity(float4::Left * 800.0f);
 				break;
 			case ActorViewDir::Right:
-				BossRigidbody.SetVelocity(float4::Right * 700.0f);
+				BossRigidbody.SetVelocity(float4::Right * 800.0f);
 				break;
 			default:
 				break;
@@ -146,6 +146,24 @@ void RookieHero::EnergyBall_Enter()
 	LookPlayer();
 	PlayAnimation("EnergyBallReady");
 	IsEnergyBallShot = false;
+
+	float4 Pivot = float4::Zero;
+
+	switch (Dir)
+	{
+	case ActorViewDir::Left:
+		Pivot = float4(-50, 75, 0);
+		break;
+	case ActorViewDir::Right:
+		Pivot = float4(50, 75, 0);
+		break;
+	}
+
+	EffectManager::PlayEffect({
+	.EffectName = "RookieHero_EnergyBallShot",
+	.Position = GetTransform()->GetWorldPosition() + Pivot,
+	.AddSetZ = 10.0f,
+	.FlipX = Dir == ActorViewDir::Left});
 }
 
 void RookieHero::EnergyBall_Update(float _DeltaTime)
@@ -163,6 +181,66 @@ void RookieHero::EnergyBall_Update(float _DeltaTime)
 		{
 			PlayAnimation("EnergyBall");
 			IsEnergyBallShot = true;
+
+			std::shared_ptr<Projectile> ShotProjectile = GetLevel()->CreateActor<Projectile>();
+			
+			float4 Pivot = float4::Zero;
+			float4 ShotDir = float4::Zero;
+
+			switch (Dir)
+			{
+			case ActorViewDir::Left:
+				Pivot = float4(-50, 75, 0);
+				ShotDir = float4::Left;
+				break;
+			case ActorViewDir::Right:
+				Pivot = float4(50, 75, 0);
+				ShotDir = float4::Right;
+				break;
+			}
+
+			std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> HitCallback =
+				[](std::shared_ptr<class BaseContentActor> _ColActor, ProjectileHitParameter _Parameter)
+			{
+				std::shared_ptr<Player> CastingPtr = _ColActor->DynamicThis<Player>();
+				
+				if (nullptr == CastingPtr)
+				{
+					MsgAssert_Rtti<RookieHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+					return;
+				}
+
+				CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 500.0f);
+
+				EffectManager::PlayEffect({
+					.EffectName = "RookieHero_EnergyBallExplosion",
+					.Position = _Parameter.ProjectilePos});
+			};
+
+			std::function<void(const float4& _Pos)> DeathCallback = [](const float4& _Pos)
+			{
+				EffectManager::PlayEffect({
+					.EffectName = "RookieHero_EnergyBallExplosion",
+					.Position = _Pos });
+			};
+
+			ShotProjectile->ShotProjectile({
+				.EffectName = "RookieHero_EnergyBall",
+				.TrackingTarget = FindPlayer.lock(),
+				.Pos = GetTransform()->GetWorldPosition() + Pivot,
+				.Dir = ShotDir,
+				.ColScale = float4(50, 50, 1),
+				.TrackingPivot = float4(0, 40, 0),
+				.ColOrder = (int)CollisionOrder::Player,
+				.IsPlatformCol = true,
+				.IsColDeath = true,
+				.IsRot = false,
+				.Damage = Data.Attack,
+				.Speed = 800.0f,
+				.LiveTime = 1.2f,
+				.TrackingSpeed = 6.0f,
+				.EnterEvent = HitCallback,
+				.DeathEvent = DeathCallback, });
 		}
 	}
 }
@@ -316,12 +394,30 @@ void RookieHero::Ultimate_Enter()
 	IsUltimateShotReady = false;
 	IsUltimateShot = false;
 
+	IsUltimateComplete = false;
+
 	UltimateLightOn();
 }
 
 void RookieHero::Ultimate_Update(float _DeltaTime)
 {
 	UltimateLiveTime += _DeltaTime;
+
+	if (false == IsUltimateShot && (nullptr == UltimateAuraEffect || true == UltimateAuraEffect->IsAnimationEnd()))
+	{
+		UltimateAuraEffect = EffectManager::PlayEffect({
+			.EffectName = "RookieHero_UltimateAura",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
+			.AddSetZ = 0.0f });
+	}
+
+	if (false == IsUltimateShot && (nullptr == UltimateSmokeEffect || true == UltimateSmokeEffect->IsAnimationEnd()))
+	{
+		UltimateSmokeEffect = EffectManager::PlayEffect({
+			.EffectName = "RookieHero_UltimateSmoke",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 30, 0),
+			.AddSetZ = -10.0f });
+	}
 
 	if (false == IsUltimateShotReady && 
 		false == IsUltimateShot && 
@@ -332,8 +428,24 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 
 	if (false == IsUltimateShotReady && 100.0f <= HitDamageCheck)
 	{
+		EffectManager::PlayEffect({
+			.EffectName = "RookieHero_UltimateFail",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
+			.AddSetZ = -20.0f });
+
 		BossFsm.ChangeState("Groggy");
 		UltimateLightOff();
+		return;
+	}
+
+	if (false == IsUltimateComplete && 3.5f <= UltimateLiveTime)
+	{
+		IsUltimateComplete = true;
+
+		EffectManager::PlayEffect({
+			.EffectName = "RookieHero_UltimateComplete",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
+			.AddSetZ = -20.0f });
 	}
 
 	if (false == IsUltimateShotReady && 4.0f <= UltimateLiveTime)
@@ -357,6 +469,7 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 		PlayAnimation("SwordEnergyReady");
 		IsUltimateShotReady = true;
 		UltimateLightOff();
+		return;
 	}
 
 	if (false == IsUltimateShot && 
@@ -368,6 +481,65 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 		IsUltimateShotReady = true;
 		IsUltimateShot = true;
 		PlayAnimation("SwordEnergy", false);
+
+	
+		std::shared_ptr<Projectile> ShotProjectile = GetLevel()->CreateActor<Projectile>();
+
+		float4 Pivot = float4::Zero;
+		float4 ShotDir = float4::Zero;
+
+		switch (Dir)
+		{
+		case ActorViewDir::Left:
+			Pivot = float4(-50, 90, 0);
+			ShotDir = float4::Left;
+			break;
+		case ActorViewDir::Right:
+			Pivot = float4(50, 90, 0);
+			ShotDir = float4::Right;
+			break;
+		}
+
+		std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> HitCallback =
+			[](std::shared_ptr<class BaseContentActor> _ColActor, ProjectileHitParameter _Parameter)
+		{
+			std::shared_ptr<Player> CastingPtr = _ColActor->DynamicThis<Player>();
+
+			if (nullptr == CastingPtr)
+			{
+				MsgAssert_Rtti<RookieHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+				return;
+			}
+
+			CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 500.0f);
+
+			EffectManager::PlayEffect({
+				.EffectName = "RookieHero_EnergyBallExplosion",
+				.Position = _Parameter.ProjectilePos });
+		};
+
+		std::function<void(const float4& _Pos)> DeathCallback = [](const float4& _Pos)
+		{
+			EffectManager::PlayEffect({
+				.EffectName = "RookieHero_EnergyBallExplosion",
+				.Position = _Pos });
+		};
+
+		ShotProjectile->ShotProjectile({
+			.EffectName = "RookieHero_Ultimate_Projectile",
+			.Pos = GetTransform()->GetWorldPosition() + Pivot,
+			.Dir = ShotDir,
+			.ColScale = float4(100, 100, 1),
+			.ColOrder = (int)CollisionOrder::Player,
+			.ProjectileColType = ColType::AABBBOX2D,
+			.IsPlatformCol = false,
+			.IsRot = false,
+			.IsFlipX = Dir == ActorViewDir::Left,
+			.Damage = Data.Attack * 2.0f,
+			.Speed = 1200.0f,
+			.LiveTime = 3.0f,
+			.EnterEvent = HitCallback,
+			.DeathEvent = DeathCallback, });
 	}
 
 	if (true == IsUltimateShot && true == Render->IsAnimationEnd())

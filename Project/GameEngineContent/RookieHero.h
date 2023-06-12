@@ -45,6 +45,7 @@ protected:
 
 	float HealthBarActiveTime = 0.0f;
 
+
 	// 패턴 변수
 
 	float PotionTime = 0.0f;
@@ -60,6 +61,7 @@ protected:
 	bool IsExplosionEffect = false;
 	float ExplosionTime = 0.0f;
 
+	bool IsUltimateComplete = false;
 	bool IsUltimateShotReady = false;
 	bool IsUltimateShot = false;
 	float UltimateLiveTime = 0.0f;
@@ -70,6 +72,9 @@ protected:
 	bool IsUltimateLightOn = false;
 	bool IsUltimateLightOff = false;
 	bool IsUltimateFadeOn = false;
+
+	std::shared_ptr<EffectActor> UltimateSmokeEffect = nullptr;
+	std::shared_ptr<EffectActor> UltimateAuraEffect = nullptr;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;

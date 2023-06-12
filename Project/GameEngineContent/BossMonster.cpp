@@ -69,8 +69,11 @@ void BossMonster::Update(float _DeltaTime)
 		Render->SetAnimPauseOff();
 	}
 
-	BossFsm.Update(_DeltaTime);
-	BaseMonster::Update(_DeltaTime);
+	if (false == IsDeathIntro)
+	{
+		BossFsm.Update(_DeltaTime);
+		BaseMonster::Update(_DeltaTime);
+	}
 
 	std::shared_ptr<GameEngineCollision> PlatformCol = ContentFunc::PlatformColCheck(GroundCol);
 

@@ -2,6 +2,7 @@
 #include "RookieHero.h"
 #include "HealthBar.h"
 #include "RookieHero_HealthBar.h"
+#include "MonsterDeadBodyActor.h"
 
 RookieHero::RookieHero()
 {
@@ -25,12 +26,6 @@ void RookieHero::Death()
 	LevelPtr->RemoveEvent("RookieHero_IntroWho", GetActorCode());
 	LevelPtr->RemoveEvent("RookieHero_IntroPotion", GetActorCode());
 	LevelPtr->RemoveEvent("RookieHero_Script00_End", GetActorCode());
-
-	if (nullptr != HeroHealthBar)
-	{
-		HeroHealthBar->Death();
-		HeroHealthBar = nullptr;
-	}
 }
 
 void RookieHero::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
@@ -49,6 +44,8 @@ void RookieHero::Start()
 	BackDashPower = 1050.0f;
 
 	PatternWaitTime = 1.5f;
+
+	PauseTimes["DeathIntro"][0] = 0.3f;
 
 	HealthBarPtr = GetLevel()->CreateActor<HealthBar>();
 	HealthBarPtr->GetTransform()->SetParent(GetTransform());
@@ -78,7 +75,6 @@ void RookieHero::Start()
 
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	AttackCol->SetColType(ColType::AABBBOX2D);
-	AttackCol->DebugOn();
 
 	ExplosionCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	ExplosionCol->GetTransform()->SetLocalPosition(float4(0, 5, 0));
@@ -86,12 +82,14 @@ void RookieHero::Start()
 
 	Battle_Platform_Left = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Normal);
 	Battle_Platform_Left->GetTransform()->SetWorldPosition(float4(576, 564, 1));
-	Battle_Platform_Left->GetTransform()->SetLocalScale(float4(64, 640, 1));
+	Battle_Platform_Left->GetTransform()->SetWorldScale(float4(64, 640, 1));
+	Battle_Platform_Left->GetTransform()->SetWorldRotation(float4::Zero);
 	Battle_Platform_Left->Off();
 
 	Battle_Platform_Right = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Normal);
 	Battle_Platform_Right->GetTransform()->SetWorldPosition(float4(1922, 564, 1));
-	Battle_Platform_Right->GetTransform()->SetLocalScale(float4(64, 640, 1));
+	Battle_Platform_Right->GetTransform()->SetWorldScale(float4(64, 640, 1));
+	Battle_Platform_Right->GetTransform()->SetWorldRotation(float4::Zero);
 	Battle_Platform_Right->Off();
 
 	UltimateLight = CreateComponent<ContentSpriteRenderer>();
@@ -175,9 +173,43 @@ void RookieHero::Start()
 
 void RookieHero::Update(float _DeltaTime)
 {
-	UltimateTime += _DeltaTime;
-
 	BossMonster::Update(_DeltaTime);
+
+	HealthBarPtr->UpdateBar(HP / Data.HP, _DeltaTime);
+	HeroHealthBar->UpdateBar(HP / Data.HP, _DeltaTime);
+
+	if (0.0f >= HP)
+	{
+		if (false == IsDeathIntro)
+		{
+			IsDeathIntro = true;
+			HealthBarPtr->Off();
+			HeroHealthBar->SetDeathPicture();
+			PlayAnimation("DeathIntro", false);
+
+
+		}
+
+		if (true == Render->IsAnimationEnd())
+		{
+			GetContentLevel()->CallEvent("RookieHero_Death");
+			Death();
+
+			std::shared_ptr<MonsterDeadBodyActor> DeadBody = GetLevel()->CreateActor<MonsterDeadBodyActor>();
+
+			DeadBody->SetTexture("RookieHero_DeadBody.png", 2.0f);
+			DeadBody->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, -2, -1.0f));
+
+			if (ActorViewDir::Left == Dir)
+			{
+				DeadBody->GetTransform()->SetLocalNegativeScaleX();
+			}
+		}
+
+		return;
+	}
+
+	UltimateTime += _DeltaTime;
 
 	if (false == IsPlayerEnter)
 	{
@@ -243,6 +275,16 @@ void RookieHero::Update(float _DeltaTime)
 		ExplosionEffect = nullptr;
 	}
 
+	if (nullptr != UltimateSmokeEffect && UltimateSmokeEffect->IsDeath())
+	{
+		UltimateSmokeEffect = nullptr;
+	}
+
+	if (nullptr != UltimateAuraEffect && UltimateAuraEffect->IsDeath())
+	{
+		UltimateAuraEffect = nullptr;
+	}
+
 	HealthBarActiveTime -= _DeltaTime;
 
 	if (0.0f < HealthBarActiveTime)
@@ -253,9 +295,6 @@ void RookieHero::Update(float _DeltaTime)
 	{
 		HealthBarPtr->Off();
 	}
-
-	HealthBarPtr->UpdateBar(HP / Data.HP, _DeltaTime);
-	HeroHealthBar->UpdateBar(HP / Data.HP, _DeltaTime);
 }
 
 void RookieHero::DataLoad()
@@ -320,7 +359,7 @@ void RookieHero::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "RookieHero_Dash.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "BackDash", .SpriteName = "RookieHero_BackDash.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Groggy", .SpriteName = "RookieHero_Groggy.png",.FrameInter = 0.15f, .Loop = true, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "EnergyBallReady", .SpriteName = "RookieHero_EnergyBallReady.png", .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "EnergyBallReady", .SpriteName = "RookieHero_EnergyBallReady.png", .FrameInter = 0.06666f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "EnergyBall", .SpriteName = "RookieHero_EnergyBall.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "ExplosionReady", .SpriteName = "RookieHero_ExplosionReady.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Explosion", .SpriteName = "RookieHero_ExplosionLoop.png", .Loop = true, .ScaleToTexture = true });
@@ -329,28 +368,23 @@ void RookieHero::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "AttackE", .SpriteName = "RookieHero_AttackE.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "SwordEnergyReady", .SpriteName = "RookieHero_SwordEnergyReady.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "SwordEnergy", .SpriteName = "RookieHero_SwordEnergy.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "DeathIntro", .SpriteName = "RookieHero_DeadIntro.png", .Loop = true, .ScaleToTexture = true });
 }
 
 void RookieHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&RookieHero::Potion_Enter, this);
-	Cur_Pattern_Update = std::bind(&RookieHero::Potion_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&RookieHero::Potion_End, this);
-	AttackDistance = 2000.0f;
-
-	return;
-
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
 	float CurHpRatio = HP / Data.HP;
 
-	if (0.5f < CurHpRatio && 0.0f <= UltimateTime)
+	// Ultimate
+	if (0.5f >= CurHpRatio && 0.0f <= UltimateTime)
 	{
 		Cur_Pattern_Enter = std::bind(&RookieHero::Ultimate_Enter, this);
 		Cur_Pattern_Update = std::bind(&RookieHero::Ultimate_Update, this, std::placeholders::_1);
 		Cur_Pattern_End = std::bind(&RookieHero::Ultimate_End, this);
 
-		AttackDistance = 400.0f;
+		AttackDistance = 600.0f;
 		UltimateTime = -30.0f;
 		return;
 	}

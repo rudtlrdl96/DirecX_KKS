@@ -28,12 +28,19 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 			.Position = _Parameter.Pos,
 			.Triger = EffectDeathTrigger::Time,
 			.Time = _Parameter.LiveTime,
-			.FlipX = false,
+			.FlipX = _Parameter.IsFlipX,
 			});
 
 		NewEffect->GetTransform()->SetParent(GetTransform());
 		NewEffect->GetTransform()->SetLocalPosition(float4::Zero);
 	}
+
+
+
+	TrackingTarget = _Parameter.TrackingTarget;
+
+	ProjectileColType = _Parameter.ProjectileColType;
+	ProjectileCol->SetColType(ProjectileColType);
 
 	Damage = _Parameter.Damage;
 
@@ -42,18 +49,24 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 	WaitTime = _Parameter.WaitTime;
 	LiveTime = _Parameter.LiveTime;
 	Speed = _Parameter.Speed;
+	TrackingSpeed = _Parameter.TrackingSpeed;
+	TrackingPivot = _Parameter.TrackingPivot;
 	ColOrder = _Parameter.ColOrder;
 
 	IsPlatformCol = _Parameter.IsPlatformCol;
 	IsColDeath = _Parameter.IsColDeath;
-
-	HitParameter = _Parameter.HitParameter;
+	IsRot = _Parameter.IsRot;
 
 	EnterEvent = _Parameter.EnterEvent;
 	UpdateEvent = _Parameter.UpdateEvent;
 	DeathEvent = _Parameter.DeathEvent;
 
 	On();
+}
+
+void Projectile::ColDebugOn()
+{
+	ProjectileCol->DebugOn();
 }
 
 void Projectile::Start()
@@ -76,19 +89,38 @@ void Projectile::Update(float _DeltaTime)
 		return;
 	}
 
+	if (nullptr != TrackingTarget && true == TrackingTarget->IsDeath())
+	{
+		TrackingTarget = nullptr;
+	}
+
+	GameEngineTransform* Trans = GetTransform();
+
+	if (nullptr != TrackingTarget)
+	{
+		float4 TrackingDir = (TrackingTarget->GetTransform()->GetWorldPosition() + TrackingPivot) - Trans->GetWorldPosition();
+		TrackingDir.Normalize();
+
+		Dir += TrackingDir * _DeltaTime * TrackingSpeed;
+		Dir.Normalize();
+	}
+
 	HitParameter.ProjectilePos = GetTransform()->GetWorldPosition();
 	HitParameter.Attack = Damage;
 	HitParameter.AttackDir = Dir;
 
-	float RotZ = 0.0f;
 
-	if (float4::Right != Dir)
+	if (true == IsRot)
 	{
-		RotZ = float4::GetAngleVectorToVectorDeg(Dir, float4::Right);
-	}
+		float RotZ = 0.0f;
 
-	GameEngineTransform* Trans = GetTransform();
-	Trans->SetLocalRotation(float4(0, 0, -RotZ));
+		if (float4::Right != Dir)
+		{
+			RotZ = float4::GetAngleVectorToVectorDeg(Dir, float4::Right);
+		}
+
+		Trans->SetLocalRotation(float4(0, 0, -RotZ));
+	}
 
 	if (GetLiveTime() <= WaitTime)
 	{
@@ -125,7 +157,7 @@ void Projectile::Update(float _DeltaTime)
 		}
 	}
 
-	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ColType::SPHERE2D, ColType::AABBBOX2D))
+	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ColType::MAX, ColType::AABBBOX2D))
 	{
 
 		for (size_t i = 0; i < ColDatas.size(); i++)

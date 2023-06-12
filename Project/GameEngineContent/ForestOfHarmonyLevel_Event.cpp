@@ -37,6 +37,13 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 		});
 
 	// 견습 용사
+
+	AddEvent("RookieHero_Death", LevelCode, [this]()
+		{
+			MainCamCtrl.SetLookatSpeed();
+			MainCamCtrl.DisalbeForceLookAt();
+		});
+
 	AddEvent("RookieHero_Script00", LevelCode, [this]()
 		{
 			std::function<void()> Talk11 = [this]()

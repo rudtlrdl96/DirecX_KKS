@@ -15,22 +15,27 @@ class ProjectileParameter
 public:
 	const std::string_view& EffectName = "";
 	
-	ProjectileHitParameter HitParameter;
+	std::shared_ptr<GameEngineActor> TrackingTarget = nullptr;
 
 	float4 Pos = float4::Zero;
 	float4 Dir = float4::Up;
 	float4 ColScale = float4::Zero;
+	float4 TrackingPivot = float4::Zero;
 
 	int ColOrder = -1;
+	ColType ProjectileColType = ColType::SPHERE2D;
 
 	bool IsPlatformCol = false;
 	bool IsColDeath = false;
+	bool IsRot = true;
+	bool IsFlipX = false;
 
 	float Damage = 1.0f;
 
 	float Speed = 100.0f;
 	float LiveTime = 1.0f;
 	float WaitTime = 0.0f;
+	float TrackingSpeed = 100.0f;
 
 	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> EnterEvent = nullptr;
 	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> UpdateEvent = nullptr;
@@ -55,24 +60,31 @@ public:
 		return  IsWaitEndValue;
 	}
 
+	void ColDebugOn();
+
 protected:
 	std::shared_ptr<class GameEngineCollision> ProjectileCol = nullptr;
+	std::shared_ptr<GameEngineActor> TrackingTarget = nullptr;
 
 	ProjectileHitParameter HitParameter;
 
 	float4 Dir = float4::Zero;
+	float4 TrackingPivot = float4::Zero;
 
 	int ColOrder = -1;
+	ColType ProjectileColType = ColType::SPHERE2D;
 
 	bool IsPlatformCol = false;
 	bool IsColDeath = false;
 	bool IsWaitEndValue = false;
+	bool IsRot = false;
 
 	float Damage = 1.0f;
 
 	float WaitTime = 0.0f;
 	float LiveTime = 1.0f;
 	float Speed = 100.0f;
+	float TrackingSpeed = 1.0f;
 
 	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> EnterEvent = nullptr;
 	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> UpdateEvent = nullptr;

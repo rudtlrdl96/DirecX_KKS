@@ -12,7 +12,9 @@ public:
 	RookieHero_HealthBar& operator=(const RookieHero_HealthBar& _Other) = delete;
 	RookieHero_HealthBar& operator=(RookieHero_HealthBar&& _Other) noexcept = delete;
 
+	void SetDeathPicture();
 	void UpdateBar(float _Progress, float _DeltaTime);
+	void Death() override;
 
 protected:
 	std::shared_ptr<class ContentUIRender> BarRedner = nullptr;
