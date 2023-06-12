@@ -76,6 +76,8 @@ void OpeningLevel::LevelChangeStart()
 {
 	BattleLevel::LevelChangeStart();
 	IsMongalEncounter = false;
+
+	CallEvent("MinimapOff");
 }
 
 void OpeningLevel::AreaClear()

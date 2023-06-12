@@ -86,6 +86,16 @@ void BattleLevel::Start()
 			FadeActorPtr_White->FadeIn(nullptr, float4::White);
 		});
 
+	AddEvent("MinimapOn", LevelCode, [this]()
+		{
+			MinimapPtr->On();
+		});
+
+	AddEvent("MinimapOff", LevelCode, [this]()
+		{
+			MinimapPtr->Off();
+		});
+
 	AddEvent("FadeOut_White", LevelCode, [this]()
 		{
 			FadeActorPtr_White->SetWaitTime(0.0f);

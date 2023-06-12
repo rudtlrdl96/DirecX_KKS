@@ -67,6 +67,7 @@ void CastleLevel::LevelChangeStart()
 	BattleLevel::LevelChangeStart();
 
 	CallEvent("CastleReborn");
+	CallEvent("MinimapOff");
 
 	MainCamCtrl.SetMinHeight(64);
 	MainCamCtrl.SetMaxHeight(64 + GameEngineWindow::GetScreenSize().y);

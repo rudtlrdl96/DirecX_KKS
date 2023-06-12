@@ -192,6 +192,7 @@ void RookieHero::Update(float _DeltaTime)
 
 		if (true == Render->IsAnimationEnd())
 		{
+			GetContentLevel()->CallEvent("MinimapOn");
 			GetContentLevel()->CallEvent("RookieHero_Death");
 			Death();
 
@@ -218,6 +219,7 @@ void RookieHero::Update(float _DeltaTime)
 
 		if (nullptr != PlayerCol)
 		{
+			GetContentLevel()->CallEvent("MinimapOff");
 			GetContentLevel()->CallEvent("RookieHero_Intro");
 
 			IsPlayerEnter = true;
