@@ -175,60 +175,6 @@ void RookieHero::Update(float _DeltaTime)
 {
 	BossMonster::Update(_DeltaTime);
 
-	HealthBarPtr->UpdateBar(HP / Data.HP, _DeltaTime);
-	HeroHealthBar->UpdateBar(HP / Data.HP, _DeltaTime);
-
-	if (0.0f >= HP)
-	{
-		if (false == IsDeathIntro)
-		{
-			IsDeathIntro = true;
-			HealthBarPtr->Off();
-			HeroHealthBar->SetDeathPicture();
-			PlayAnimation("DeathIntro", false);
-
-
-		}
-
-		if (true == Render->IsAnimationEnd())
-		{
-			GetContentLevel()->CallEvent("MinimapOn");
-			GetContentLevel()->CallEvent("RookieHero_Death");
-			Death();
-
-			std::shared_ptr<MonsterDeadBodyActor> DeadBody = GetLevel()->CreateActor<MonsterDeadBodyActor>();
-
-			DeadBody->SetTexture("RookieHero_DeadBody.png", 2.0f);
-			DeadBody->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, -2, -1.0f));
-
-			if (ActorViewDir::Left == Dir)
-			{
-				DeadBody->GetTransform()->SetLocalNegativeScaleX();
-			}
-		}
-
-		return;
-	}
-
-	UltimateTime += _DeltaTime;
-
-	if (false == IsPlayerEnter)
-	{
-		std::shared_ptr<GameEngineCollision> PlayerCol =
-			EventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
-
-		if (nullptr != PlayerCol)
-		{
-			GetContentLevel()->CallEvent("MinimapOff");
-			GetContentLevel()->CallEvent("RookieHero_Intro");
-
-			IsPlayerEnter = true;
-
-			Battle_Platform_Left->On();
-			Battle_Platform_Right->On();
-		}
-	}
-
 	if (true == IsUltimateLightOn)
 	{
 		UltimateLightProgress += _DeltaTime * 2.0f;
@@ -271,6 +217,64 @@ void RookieHero::Update(float _DeltaTime)
 			UltimateFade->Off();
 		}
 	}
+
+	HealthBarPtr->UpdateBar(HP / Data.HP, _DeltaTime);
+	HeroHealthBar->UpdateBar(HP / Data.HP, _DeltaTime);
+
+	if (0.0f >= HP)
+	{
+		if (false == IsDeathIntro)
+		{
+			if (true == UltimateLight->IsUpdate())
+			{
+				UltimateLightOff();
+			}
+
+			IsDeathIntro = true;
+			HealthBarPtr->Off();
+			HeroHealthBar->SetDeathPicture();
+			PlayAnimation("DeathIntro", false);
+		}
+
+		if (true == Render->IsAnimationEnd())
+		{
+			GetContentLevel()->CallEvent("MinimapOn");
+			GetContentLevel()->CallEvent("RookieHero_Death");
+			Death();
+
+			std::shared_ptr<MonsterDeadBodyActor> DeadBody = GetLevel()->CreateActor<MonsterDeadBodyActor>();
+
+			DeadBody->SetTexture("RookieHero_DeadBody.png", 2.0f);
+			DeadBody->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, -2, -1.0f));
+
+			if (ActorViewDir::Left == Dir)
+			{
+				DeadBody->GetTransform()->SetLocalNegativeScaleX();
+			}
+		}
+
+		return;
+	}
+
+	UltimateTime += _DeltaTime;
+
+	if (false == IsPlayerEnter)
+	{
+		std::shared_ptr<GameEngineCollision> PlayerCol =
+			EventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		if (nullptr != PlayerCol)
+		{
+			GetContentLevel()->CallEvent("MinimapOff");
+			GetContentLevel()->CallEvent("RookieHero_Intro");
+
+			IsPlayerEnter = true;
+
+			Battle_Platform_Left->On();
+			Battle_Platform_Right->On();
+		}
+	}
+		
 
 	if (nullptr != ExplosionEffect && ExplosionEffect->IsDeath())
 	{
