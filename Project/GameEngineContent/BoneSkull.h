@@ -22,6 +22,7 @@ public:
 
 	void SetBoneSkullState(BoneSkullState _State);
 
+	void Death() override;
 	void Destroy() override;
 
 protected:

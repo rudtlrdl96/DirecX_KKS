@@ -37,6 +37,17 @@ void BoneSkull::SetBoneSkullState(BoneSkullState _State)
 	}
 }
 
+void BoneSkull::Death()
+{
+	PlayerBaseSkull::Death();
+
+	if (nullptr != HeadActor)
+	{
+		HeadActor->Death();
+		HeadActor = nullptr;
+	}
+}
+
 void BoneSkull::Destroy()
 {
 	ContentLevel* LevelPtr = GetContentLevel();
@@ -50,12 +61,6 @@ void BoneSkull::Destroy()
 	LevelPtr->RemoveEvent("Suekeleton_Script02_End", GetActorCode());
 	LevelPtr->RemoveEvent("ChiefGuard_Script00_End", GetActorCode());
 	LevelPtr->RemoveEvent("CastleReborn", GetActorCode());
-
-	if (nullptr != HeadActor)
-	{
-		HeadActor->Death();
-		HeadActor = nullptr;
-	}
 }
 
 void BoneSkull::Start()
