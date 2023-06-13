@@ -137,4 +137,91 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 					CallEvent("RookieHero_Script00");
 				});
 		});
+
+	// 각성 용사
+	AddEvent("VeteranHero_Script02", LevelCode, [this]()
+		{
+			TalkBoxPtr->ActiveTalkBox("견습 용사");
+			TalkBoxPtr->SetMainText(L"정의의 검을 받을 준비는 되었나?", [this]()
+				{
+					CallEvent("PlayerInputUnlock");
+					CallEvent("PlayerFrameActive");
+					CallEvent("StoryFadeOut");
+					MainCamCtrl.SetLookatSpeed();
+
+					CallEvent("VeteranHero_Script02_End");
+					TalkBoxPtr->Off();
+				});
+		});
+
+	AddEvent("VeteranHero_Script01", LevelCode, [this]()
+		{
+			std::function<void()> VeteranHeroTalk06 = [this]()
+			{
+				TalkBoxPtr->SetMainText(L"이제 레벨도 충분히 올렸겠다. 더 이상 봐주지 않겠어.", [this]()
+					{
+						CallEvent("VeteranHero_Script01_End");
+						TalkBoxPtr->Off();
+					});
+			};
+
+			std::function<void()> VeteranHeroTalk05 = [this, VeteranHeroTalk06]()
+			{
+				TalkBoxPtr->SetMainText(L"그게 아니면 내가 패배할 이유는 없잖아? 같잖은 스켈레톤 주제에 감히 용사님을 이겨먹을 생각을 하다니.", VeteranHeroTalk06);
+			};
+
+			std::function<void()> VeteranHeroTalk04 = [this, VeteranHeroTalk05]()
+			{
+				TalkBoxPtr->SetMainText(L"내 방심이랄까?", VeteranHeroTalk05);
+			};
+
+			std::function<void()> VeteranHeroTalk03 = [this, VeteranHeroTalk04]()
+			{
+				TalkBoxPtr->SetMainText(L"내가 왜 패배했을까? 곰곰이 생각해봤어. 이유는 딱 하나야.", VeteranHeroTalk04);
+			};
+
+			std::function<void()> VeteranHeroTalk02 = [this, VeteranHeroTalk03]()
+			{
+				TalkBoxPtr->SetMainText(L"수치스러운 나날들이었다.", VeteranHeroTalk03);
+			};
+
+			std::function<void()> VeteranHeroTalk01 = [this, VeteranHeroTalk02]()
+			{
+				TalkBoxPtr->SetMainText(L"첫 모험에서 고작 스켈레톤 한 마리에게 패배했다는 소문이 퍼지자, 아무도 날 인정해 주지 않더군... 그들을 위해 무수히 많은 사인들을 준비했는데 말이야.", VeteranHeroTalk02);
+			};
+
+			TalkBoxPtr->ActiveTalkBox("견습 용사");
+			TalkBoxPtr->SetMainText(L"스켈레톤 주제에 여기까지 오다니! 마침 내가 혼자일 때 만나서 다행이야. 개인적인 빚을 이제서야 갚아줄 수 있겠어.", VeteranHeroTalk01);
+		});
+
+	AddEvent("VeteranHero_Script00", LevelCode, [this]()
+		{			
+			TalkBoxPtr->ActiveTalkBox("견습 용사");
+			TalkBoxPtr->SetMainText(L"드디어 만났군!", [this]()
+				{
+					CallEvent("VeteranHero_Script00_End");
+					TalkBoxPtr->Off();
+				});
+		});
+
+	AddEvent("VeteranHero_Intro", LevelCode, [this]()
+		{
+			CallEvent("PlayerInputLock");
+			CallEvent("PlayerFrameDisable");
+			CallEvent("StoryFadeIn");
+			MainPlayer->PlayStoryMove(float4(840, 250, 1), [this]()
+				{
+					CallEvent("PlayerLookRight");
+				});
+
+			MainCamCtrl.SetLookatSpeed(2.0f);
+			MainCamCtrl.ActiveForceLookAt(float4(1376, 250, 1));
+
+			TimeEvent.AddEvent(2.5f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*)
+				{
+					CallEvent("VeteranHero_Script00");
+				});
+		});
+
+	//1, 377.5
 }

@@ -900,6 +900,12 @@
     <ClInclude Include="Minimap.h">
       <Filter>2_Actor\UI\Minimap</Filter>
     </ClInclude>
+    <ClInclude Include="VeteranHero.h">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="VeteranHero_HealthBar.h">
+      <Filter>2_Actor\UI\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1483,6 +1489,15 @@
     </ClCompile>
     <ClCompile Include="Minimap.cpp">
       <Filter>2_Actor\UI\Minimap</Filter>
+    </ClCompile>
+    <ClCompile Include="VeteranHero.cpp">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="VeteranHero_Pattern.cpp">
+      <Filter>2_Actor\BattleActor\Monster\BossMonster\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="VeteranHero_HealthBar.cpp">
+      <Filter>2_Actor\UI\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

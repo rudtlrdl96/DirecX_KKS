@@ -37,7 +37,7 @@ void ContentCore::MonsterDataLoad()
 
 	LoadMonster({ .Name = "견습 용사", .ImageName = "Preview_RookieHero.png", .Index = 180, .Grade = LevelArea::ForestOfHamory
 		,.HP = 1350, .Attack = 6});
-	LoadMonster({ .Name = "각성 용사", .ImageName = "Preview_RookieHero.png", .Index = 190, .Grade = LevelArea::ForestOfHamory,
+	LoadMonster({ .Name = "각성 용사", .ImageName = "Preview_VeteranHero.png", .Index = 190, .Grade = LevelArea::ForestOfHamory,
 		.HP = 2050, .Attack = 12});
 
 	//LoadMonster({ .Name = "빛나는 신병", .ImageName = "GoldCarleonRecruit", .Index = 200, .Grade = LevelArea::GrandHall,
@@ -315,6 +315,11 @@ void ContentCore::MonsterDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_lol.png").GetFullPath(), 5, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_lol_End.png").GetFullPath(), 1, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Who.png").GetFullPath(), 6, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_LandingReady.png").GetFullPath(), 4, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_LandingIntro.png").GetFullPath(), 9, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_LandingEnd.png").GetFullPath(), 6, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_LandingEndWait.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Throwing.png").GetFullPath(), 4, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Potion.png").GetFullPath(), 6, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Hit.png").GetFullPath(), 3, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Dash.png").GetFullPath(), 3, 1);
@@ -410,6 +415,10 @@ void ContentCore::MonsterDataLoad()
 			.AnimEnd = 5,
 			.AnimIter = 0.05f,
 			.ScaleRatio = 2.0f });
+
+		Path.MoveParent();
+
+		GameEngineTexture::Load(Path.GetPlusFileName("AdventurerHero_Sword.png").GetFullPath());
 	}
 
 	// 몬스터 공용 이펙트

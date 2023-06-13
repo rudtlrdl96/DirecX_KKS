@@ -20,7 +20,7 @@
 #include "GlacialWizard.h"
 
 #include "RookieHero.h"
-
+#include "VeteranHero.h"
 
 std::shared_ptr<BaseMonster> MonsterSpawnMetaData::MonsterSpawn(GameEngineLevel* _SpawnLevel, GameEngineTransform* _Parent)
 {
@@ -82,6 +82,11 @@ std::shared_ptr<BaseMonster> MonsterSpawnMetaData::MonsterSpawn(GameEngineLevel*
 	case 180: // 견습 용사
 	{
 		NewMonster = _SpawnLevel->CreateActor<RookieHero>();
+		break;
+	}
+	case 190: // 각성 용사
+	{
+		NewMonster = _SpawnLevel->CreateActor<VeteranHero>();
 		break;
 	}
 	default:

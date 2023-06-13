@@ -1,9 +1,9 @@
 #include "PrecompileHeader.h"
-#include "RookieHero.h"
+#include "VeteranHero.h"
 #include "Player.h"
 #include "Projectile.h"
 
-void RookieHero::ComboAttack_Enter()
+void VeteranHero::ComboAttack_Enter()
 {
 	ComboAttackIndex = 0;
 	LookPlayer();
@@ -14,14 +14,14 @@ void RookieHero::ComboAttack_Enter()
 
 			if (nullptr == CastPtr)
 			{
-				MsgAssert_Rtti<RookieHero>(" - 플레이어만 Player Col Order를 가질 수 있습니다.");
+				MsgAssert_Rtti<VeteranHero>(" - 플레이어만 Player Col Order를 가질 수 있습니다.");
 				return;
 			}
 
 			EffectManager::PlayEffect({
 				.EffectName = "HitSlashEffect",
 				.Position = CastPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
-				.AddSetZ = -10.0f});
+				.AddSetZ = -10.0f });
 
 			switch (Dir)
 			{
@@ -40,7 +40,7 @@ void RookieHero::ComboAttack_Enter()
 	ComboDashCheck = false;
 }
 
-void RookieHero::ComboAttack_Update(float _DeltaTime)
+void VeteranHero::ComboAttack_Update(float _DeltaTime)
 {
 	BossRigidbody.UpdateForce(_DeltaTime);
 
@@ -56,7 +56,7 @@ void RookieHero::ComboAttack_Update(float _DeltaTime)
 		++ComboAttackIndex;
 		ComboDashCheck = false;
 	}
-	
+
 	if (1 == ComboAttackIndex)
 	{
 		if (false == AttackCheck.Update())
@@ -81,7 +81,7 @@ void RookieHero::ComboAttack_Update(float _DeltaTime)
 			default:
 				break;
 			}
-		}		
+		}
 	}
 
 	if (2 == ComboAttackIndex)
@@ -137,11 +137,11 @@ void RookieHero::ComboAttack_Update(float _DeltaTime)
 	}
 }
 
-void RookieHero::ComboAttack_End()
+void VeteranHero::ComboAttack_End()
 {
 }
 
-void RookieHero::EnergyBall_Enter()
+void VeteranHero::EnergyBall_Enter()
 {
 	LookPlayer();
 	PlayAnimation("EnergyBallReady");
@@ -163,10 +163,10 @@ void RookieHero::EnergyBall_Enter()
 	.EffectName = "RookieHero_EnergyBallShot",
 	.Position = GetTransform()->GetWorldPosition() + Pivot,
 	.AddSetZ = 10.0f,
-	.FlipX = Dir == ActorViewDir::Left});
+	.FlipX = Dir == ActorViewDir::Left });
 }
 
-void RookieHero::EnergyBall_Update(float _DeltaTime)
+void VeteranHero::EnergyBall_Update(float _DeltaTime)
 {
 	if (true == IsEnergyBallShot)
 	{
@@ -183,7 +183,7 @@ void RookieHero::EnergyBall_Update(float _DeltaTime)
 			IsEnergyBallShot = true;
 
 			std::shared_ptr<Projectile> ShotProjectile = GetLevel()->CreateActor<Projectile>();
-			
+
 			float4 Pivot = float4::Zero;
 			float4 ShotDir = float4::Zero;
 
@@ -203,10 +203,10 @@ void RookieHero::EnergyBall_Update(float _DeltaTime)
 				[](std::shared_ptr<class BaseContentActor> _ColActor, ProjectileHitParameter _Parameter)
 			{
 				std::shared_ptr<Player> CastingPtr = _ColActor->DynamicThis<Player>();
-				
+
 				if (nullptr == CastingPtr)
 				{
-					MsgAssert_Rtti<RookieHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+					MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
 					return;
 				}
 
@@ -214,7 +214,7 @@ void RookieHero::EnergyBall_Update(float _DeltaTime)
 
 				EffectManager::PlayEffect({
 					.EffectName = "RookieHero_EnergyBallExplosion",
-					.Position = _Parameter.ProjectilePos});
+					.Position = _Parameter.ProjectilePos });
 			};
 
 			std::function<void(const float4& _Pos)> DeathCallback = [](const float4& _Pos)
@@ -245,19 +245,19 @@ void RookieHero::EnergyBall_Update(float _DeltaTime)
 	}
 }
 
-void RookieHero::EnergyBall_End()
+void VeteranHero::EnergyBall_End()
 {
 
 }
 
-void RookieHero::Potion_Enter()
+void VeteranHero::Potion_Enter()
 {
 	PlayAnimation("Potion");
 	PotionTime = -3.5f;
 	PotionHealTime = 0.0f;
 }
 
-void RookieHero::Potion_Update(float _DeltaTime)
+void VeteranHero::Potion_Update(float _DeltaTime)
 {
 	PotionTime += _DeltaTime;
 	PotionHealTime += _DeltaTime;
@@ -266,8 +266,8 @@ void RookieHero::Potion_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({
 			.EffectName = "MonsterHeal",
-			.Position = GetTransform()->GetWorldPosition() + float4(0, 78, 0),
-			.AddSetZ = -10.0f});
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
+			.AddSetZ = -10.0f });
 
 		PotionHealTime = -0.72f;
 
@@ -285,12 +285,12 @@ void RookieHero::Potion_Update(float _DeltaTime)
 	}
 }
 
-void RookieHero::Potion_End()
+void VeteranHero::Potion_End()
 {
 
 }
 
-void RookieHero::Explosion_Enter()
+void VeteranHero::Explosion_Enter()
 {
 	PlayAnimation("ExplosionReady");
 
@@ -302,7 +302,7 @@ void RookieHero::Explosion_Enter()
 	IsExplosionAttackEnd = false;
 }
 
-void RookieHero::Explosion_Update(float _DeltaTime)
+void VeteranHero::Explosion_Update(float _DeltaTime)
 {
 
 	if (true == Render->IsAnimationEnd())
@@ -338,7 +338,7 @@ void RookieHero::Explosion_Update(float _DeltaTime)
 			.AddSetZ = -10.0f });
 	}
 
-	if (false == IsExplosionAttackEnd && 
+	if (false == IsExplosionAttackEnd &&
 		nullptr != ExplosionEffect && 4 == ExplosionEffect->GetCurrentFrame())
 	{
 		std::shared_ptr<GameEngineCollision> ExploCol = ExplosionCol->Collision((int)CollisionOrder::Player, ColType::SPHERE2D, ColType::AABBBOX2D);
@@ -351,7 +351,7 @@ void RookieHero::Explosion_Update(float _DeltaTime)
 
 			if (nullptr == CastPtr)
 			{
-				MsgAssert_Rtti<RookieHero>(" - 플레이어만 Player Col Order를 가질 수 있습니다.");
+				MsgAssert_Rtti<VeteranHero>(" - 플레이어만 Player Col Order를 가질 수 있습니다.");
 				return;
 			}
 
@@ -370,7 +370,7 @@ void RookieHero::Explosion_Update(float _DeltaTime)
 			{
 				CastPtr->HitPlayer(Data.Attack, float4(300, 500));
 			}
-		}		
+		}
 
 		ExplosionEffect = nullptr;
 	}
@@ -381,12 +381,12 @@ void RookieHero::Explosion_Update(float _DeltaTime)
 	}
 }
 
-void RookieHero::Explosion_End()
+void VeteranHero::Explosion_End()
 {
 	IsHitEffectOff = false;
 }
 
-void RookieHero::Ultimate_Enter()
+void VeteranHero::Ultimate_Enter()
 {
 	PlayAnimation("ExplosionReady");
 	UltimateLiveTime = 0.0f;
@@ -399,7 +399,7 @@ void RookieHero::Ultimate_Enter()
 	UltimateLightOn();
 }
 
-void RookieHero::Ultimate_Update(float _DeltaTime)
+void VeteranHero::Ultimate_Update(float _DeltaTime)
 {
 	UltimateLiveTime += _DeltaTime;
 
@@ -419,8 +419,8 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 			.AddSetZ = -10.0f });
 	}
 
-	if (false == IsUltimateShotReady && 
-		false == IsUltimateShot && 
+	if (false == IsUltimateShotReady &&
+		false == IsUltimateShot &&
 		true == Render->IsAnimationEnd())
 	{
 		PlayAnimation("Explosion", false);
@@ -472,8 +472,8 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 		return;
 	}
 
-	if (false == IsUltimateShot && 
-		true == IsUltimateShotReady && 
+	if (false == IsUltimateShot &&
+		true == IsUltimateShotReady &&
 		true == Render->IsAnimationEnd())
 	{
 		UltimateFadeOn();
@@ -482,7 +482,7 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 		IsUltimateShot = true;
 		PlayAnimation("SwordEnergy", false);
 
-	
+
 		std::shared_ptr<Projectile> ShotProjectile = GetLevel()->CreateActor<Projectile>();
 
 		float4 Pivot = float4::Zero;
@@ -507,7 +507,7 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 
 			if (nullptr == CastingPtr)
 			{
-				MsgAssert_Rtti<RookieHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+				MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
 				return;
 			}
 
@@ -548,8 +548,7 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 	}
 }
 
-void RookieHero::Ultimate_End()
+void VeteranHero::Ultimate_End()
 {
 
 }
-

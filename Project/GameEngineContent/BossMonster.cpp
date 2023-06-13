@@ -91,6 +91,11 @@ void BossMonster::Update(float _DeltaTime)
 		float4 CurVelocity = BossRigidbody.GetVelocity();
 		CurVelocity.y = 0.0f;
 		BossRigidbody.SetVelocity(CurVelocity);
+		IsGroundUp = true;
+	}
+	else
+	{
+		IsGroundUp = false;
 	}
 }
 

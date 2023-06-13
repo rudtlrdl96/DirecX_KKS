@@ -686,6 +686,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="VeteranHero.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="VeteranHero_HealthBar.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Vine.h">
       <SubType>
       </SubType>
@@ -1396,6 +1404,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="VeteranHero.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="VeteranHero_HealthBar.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="VeteranHero_Pattern.cpp" />
     <ClCompile Include="Vine.cpp">
       <SubType>
       </SubType>
