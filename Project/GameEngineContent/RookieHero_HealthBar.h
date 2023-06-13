@@ -14,7 +14,7 @@ public:
 
 	void SetDeathPicture();
 	void UpdateBar(float _Progress, float _DeltaTime);
-	void Death() override;
+	void Destroy() override;
 
 protected:
 	std::shared_ptr<class ContentUIRender> BarRedner = nullptr;

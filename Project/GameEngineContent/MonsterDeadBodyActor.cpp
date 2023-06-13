@@ -20,10 +20,8 @@ void MonsterDeadBodyActor::SetTexture(const std::string_view& _TextureName, floa
 	BodyRender->On();
 }
 
-void MonsterDeadBodyActor::Death()
+void MonsterDeadBodyActor::Destroy()
 {
-	BaseContentActor::Death();
-
 	ContentLevel* LevelPtr = GetContentLevel();
 	LevelPtr->RemoveEvent("MoveStage", GetActorCode());
 }

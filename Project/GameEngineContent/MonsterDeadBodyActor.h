@@ -13,7 +13,7 @@ public:
 	MonsterDeadBodyActor& operator=(MonsterDeadBodyActor&& _Other) noexcept = delete;
 
 	void SetTexture(const std::string_view& _TextureName, float _Ratio = 1.0f);
-	void Death() override;
+	void Destroy() override;
 
 protected:
 	void Start() override;

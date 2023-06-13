@@ -22,8 +22,7 @@ public:
 	StoryHero_FirstHero_Opening& operator=(StoryHero_FirstHero_Opening&& _Other) noexcept = delete;
 
 	void PlayLandingEffect();
-
-	void Death() override;
+	void Destroy() override;
 
 protected:
 	void Start() override;

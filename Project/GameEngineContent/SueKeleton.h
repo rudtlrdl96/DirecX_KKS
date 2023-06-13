@@ -12,7 +12,7 @@ public:
 	SueKeleton& operator=(const SueKeleton& _Other) = delete;
 	SueKeleton& operator=(SueKeleton&& _Other) noexcept = delete;
 
-	void Death() override;
+	void Destroy() override;
 
 protected:
 	void Start() override;

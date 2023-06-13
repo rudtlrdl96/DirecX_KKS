@@ -9,10 +9,8 @@ SkeletonB::~SkeletonB()
 {
 }
 
-void SkeletonB::Death()
+void SkeletonB::Destroy()
 {
-	BaseNPC::Death();
-
 	GetContentLevel()->RemoveEvent("WitchCageOut", GetActorCode());
 }
 

@@ -10,12 +10,11 @@ RookieHero::RookieHero()
 
 RookieHero::~RookieHero()
 {
+	int a = 0;
 }
 
-void RookieHero::Death()
+void RookieHero::Destroy()
 {
-	BossMonster::Death();
-
 	ContentLevel* LevelPtr = GetContentLevel();
 
 	LevelPtr->RemoveEvent("RookieHero_IntroComboA", GetActorCode());

@@ -59,10 +59,8 @@ void BattleStage::StagePlay()
 	ObjectManagerPtr->BehaviorObjectPlay();
 }
 
-void BattleStage::Death()
+void BattleStage::Destroy()
 {
-	BaseContentActor::Death();
-
 	GetContentLevel()->RemoveEvent("DoorLockPlus", GetActorCode());
 	GetContentLevel()->RemoveEvent("DoorLockMinus", GetActorCode());
 }

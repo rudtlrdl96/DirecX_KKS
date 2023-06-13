@@ -17,10 +17,8 @@ void StoryHero_FirstHero_Opening::PlayLandingEffect()
 		.Position = GetTransform()->GetWorldPosition() + float4(-10, 300, 0)});
 }
 
-void StoryHero_FirstHero_Opening::Death()
+void StoryHero_FirstHero_Opening::Destroy()
 {
-	BaseContentActor::Death();
-
 	ContentLevel* LevelPtr = GetContentLevel();
 
 	LevelPtr->RemoveEvent("NextLevelMove", GetActorCode());

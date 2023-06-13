@@ -51,10 +51,8 @@ void RookieHero_HealthBar::UpdateBar(float _Progress, float _DeltaTime)
 	}
 }
 
-void RookieHero_HealthBar::Death()
+void RookieHero_HealthBar::Destroy()
 {
-	BaseContentActor::Death();
-
 	GetContentLevel()->RemoveEvent("MoveStage", GetActorCode());
 }
 

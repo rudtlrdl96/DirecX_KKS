@@ -239,5 +239,4 @@ void GameEngineRenderer::CalSortZ(GameEngineCamera* _Camera)
 	//default:
 	//	break;
 	//}
-
 }

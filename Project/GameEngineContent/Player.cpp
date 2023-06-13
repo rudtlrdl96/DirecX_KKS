@@ -36,10 +36,8 @@ Player::~Player()
 	}
 }
 
-void Player::Death()
+void Player::Destroy()
 {
-	BaseContentActor::Death();
-
 	ContentLevel* LevelPtr = GetContentLevel();
 	LevelPtr->RemoveEvent("PlayerInputLock", GetActorCode());
 	LevelPtr->RemoveEvent("PlayerInputUnlock", GetActorCode());

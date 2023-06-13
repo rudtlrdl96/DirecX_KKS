@@ -15,7 +15,7 @@ public:
 
 	void On() override;
 	void Off() override;
-	void Death() override;
+	void Destroy() override;
 
 protected:
 	void Start() override;

@@ -21,7 +21,7 @@ public:
 	void StageReset();
 	void StagePlay();
 
-	void Death() override;
+	void Destroy() override;
 
 protected:
 	void Start() override;

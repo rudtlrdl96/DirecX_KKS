@@ -12,7 +12,7 @@ public:
 	ChiefGuardNPC& operator=(const ChiefGuardNPC& _Other) = delete;
 	ChiefGuardNPC& operator=(ChiefGuardNPC&& _Other) noexcept = delete;
 
-	void Death() override;
+	void Destroy() override;
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

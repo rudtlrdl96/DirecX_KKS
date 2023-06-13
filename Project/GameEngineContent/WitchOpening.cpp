@@ -31,9 +31,9 @@ void WitchOpening::Off()
 	}
 }
 
-void WitchOpening::Death()
+void WitchOpening::Destroy()
 {
-	BaseNPC::Death();
+	BaseNPC::Destroy();
 
 	GetContentLevel()->RemoveEvent("MonsterAllDeath", GetActorCode());
 

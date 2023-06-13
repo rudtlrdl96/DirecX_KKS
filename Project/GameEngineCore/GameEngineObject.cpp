@@ -13,23 +13,6 @@ GameEngineObject::~GameEngineObject()
 
 void GameEngineObject::Release() 
 {
-	Transform.ChildRelease();
-
-	std::list<std::shared_ptr<GameEngineObject>>::iterator ReleaseStartIter = Childs.begin();
-	std::list<std::shared_ptr<GameEngineObject>>::iterator ReleaseEndIter = Childs.end();
-
-	for (; ReleaseStartIter != ReleaseEndIter; )
-	{
-		std::shared_ptr<GameEngineObject>& Object = *ReleaseStartIter;
-
-		if (false == Object->IsDeath())
-		{
-			++ReleaseStartIter;
-			continue;
-		}
-
-		ReleaseStartIter = Childs.erase(ReleaseStartIter);
-	}
 }
 
 void GameEngineObject::AllAccTime(float _DeltaTime)
@@ -83,30 +66,27 @@ void GameEngineObject::AllRelease()
 		return;
 	}
 
-	Release();
+	Transform.ChildRelease();
 
-	for (std::shared_ptr<GameEngineObject> Object : Childs)
+	std::list<std::shared_ptr<GameEngineObject>>::iterator ReleaseStartIter = Childs.begin();
+	std::list<std::shared_ptr<GameEngineObject>>::iterator ReleaseEndIter = Childs.end();
+
+	for (; ReleaseStartIter != ReleaseEndIter; )
 	{
-		Object->AllRelease();
-	}
+		std::shared_ptr<GameEngineObject>& Object = *ReleaseStartIter;
 
-}
+		if (false == Object->IsDeath())
+		{
+			Object->AllRelease();
+			++ReleaseStartIter;
+			continue;
+		}
 
-void GameEngineObject::Death()
-{
-	GameEngineObjectBase::Death();
-
-	GameEngineTransform* Trans = GetTransform();
-
-	std::list<GameEngineTransform*>::iterator LoopIter = Trans->Child.begin();
-	std::list<GameEngineTransform*>::iterator EndIter = Trans->Child.end();
-
-	for (; LoopIter != EndIter; ++LoopIter)
-	{
-		(*LoopIter)->GetMaster()->Death();
+		Object->Release();
+		Object->AllDestroy();
+		ReleaseStartIter = Childs.erase(ReleaseStartIter);
 	}
 }
-
 bool GameEngineObject::IsDeath() 
 {
 	GameEngineTransform* Trans = GetTransform()->GetParent();
@@ -133,6 +113,16 @@ bool GameEngineObject::IsUpdate()
 	}
 
 	return GameEngineObjectBase::IsUpdate();
+}
+
+void GameEngineObject::AllDestroy() 
+{
+	Destroy();
+
+	for (std::shared_ptr<GameEngineObject> Object : Childs)
+	{
+		Object->AllDestroy();
+	}
 }
 
 void GameEngineObject::AllLevelChangeStart() 

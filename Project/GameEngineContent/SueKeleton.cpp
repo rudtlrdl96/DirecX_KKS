@@ -9,9 +9,9 @@ SueKeleton::~SueKeleton()
 {
 }
 
-void SueKeleton::Death()
+void SueKeleton::Destroy()
 {
-	BaseNPC::Death();
+	BaseNPC::Destroy();
 	ContentLevel* LevelPtr = GetContentLevel();
 	LevelPtr->RemoveEvent("Suekeleton_Script01_End", GetActorCode());
 }

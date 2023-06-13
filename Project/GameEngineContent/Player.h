@@ -15,7 +15,7 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
-	void Death() override;
+	void Destroy() override;
 
 	void SetInventoryData();
 	void InsertNewSkull(UINT _SkullIndex);
@@ -83,8 +83,8 @@ private:
 	float SwitchCoolTime = 5.0f;
 	float SwitchCoolEndTime = 5.0f;
 
-	float MeleeAttack = 300.0f;
-	float MagicAttack = 300.0f;
+	float MeleeAttack = 10.0f;
+	float MagicAttack = 10.0f;
 	float HP = 100.0f;
 	
 	float HitWaitTime = 0.0f;

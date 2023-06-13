@@ -37,10 +37,8 @@ void BoneSkull::SetBoneSkullState(BoneSkullState _State)
 	}
 }
 
-void BoneSkull::Death()
+void BoneSkull::Destroy()
 {
-	PlayerBaseSkull::Death();
-
 	ContentLevel* LevelPtr = GetContentLevel();
 
 	LevelPtr->RemoveEvent("SkeleTong_Script00", GetActorCode());

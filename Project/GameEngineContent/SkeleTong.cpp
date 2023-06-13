@@ -190,10 +190,8 @@ void SkeleTong::PlayBehavior()
 	GetContentLevel()->CallEvent("SkeleTong_Script00");
 }
 
-void SkeleTong::Death()
+void SkeleTong::Destroy()
 {
-	BaseNPC::Death();
-
 	if (nullptr != Bubble)
 	{
 		Bubble->Death();

@@ -10,10 +10,8 @@ ChiefGuardNPC::~ChiefGuardNPC()
 {
 }
 
-void ChiefGuardNPC::Death()
+void ChiefGuardNPC::Destroy()
 {
-	BaseNPC::Death();
-
 	ContentLevel* LevelPtr = GetContentLevel();
 
 	LevelPtr->RemoveEvent("ChiefGuard_Script00_End", GetActorCode());

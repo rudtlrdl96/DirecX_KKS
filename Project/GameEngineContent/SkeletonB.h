@@ -13,7 +13,7 @@ public:
 	SkeletonB& operator=(const SkeletonB& _Other) = delete;
 	SkeletonB& operator=(SkeletonB&& _Other) noexcept = delete;
 
-	void Death() override;
+	void Destroy() override;
 
 protected:
 	void Start() override;

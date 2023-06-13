@@ -13,7 +13,7 @@ public:
 	RookieHero& operator=(const RookieHero& _Other) = delete;
 	RookieHero& operator=(RookieHero&& _Other) noexcept = delete;
 
-	void Death() override;
+	void Destroy() override;
 	void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush) override;
 protected:
 	std::shared_ptr<ContentSpriteRenderer> UltimateLight = nullptr;
