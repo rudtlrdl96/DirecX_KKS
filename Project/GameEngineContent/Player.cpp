@@ -168,6 +168,9 @@ void Player::PlayStoryMove(const float4& _StoryMovePos, std::function<void()> _E
 	MainSkull->PlayStoryMove(_StoryMovePos, _EndCallback);
 }
 
+
+#include "ContentUIRender.h"
+
 void Player::Start()
 {
 	PlayerBodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);
@@ -205,6 +208,7 @@ void Player::Update(float _DeltaTime)
 {
 	HitWaitTime -= _DeltaTime;	
 	SwitchCoolTime += _DeltaTime;
+
 
 	if (PlayerState::HP <= 0.0f)
 	{

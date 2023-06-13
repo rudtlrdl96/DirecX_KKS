@@ -13,6 +13,23 @@ GameEngineObject::~GameEngineObject()
 
 void GameEngineObject::Release() 
 {
+	Transform.ChildRelease();
+
+	std::list<std::shared_ptr<GameEngineObject>>::iterator ReleaseStartIter = Childs.begin();
+	std::list<std::shared_ptr<GameEngineObject>>::iterator ReleaseEndIter = Childs.end();
+
+	for (; ReleaseStartIter != ReleaseEndIter; )
+	{
+		std::shared_ptr<GameEngineObject>& Object = *ReleaseStartIter;
+
+		if (false == Object->IsDeath())
+		{
+			++ReleaseStartIter;
+			continue;
+		}
+
+		ReleaseStartIter = Childs.erase(ReleaseStartIter);
+	}
 }
 
 void GameEngineObject::AllAccTime(float _DeltaTime)
@@ -66,26 +83,13 @@ void GameEngineObject::AllRelease()
 		return;
 	}
 
-	Transform.ChildRelease();
+	Release();
 
-	std::list<std::shared_ptr<GameEngineObject>>::iterator ReleaseStartIter = Childs.begin();
-	std::list<std::shared_ptr<GameEngineObject>>::iterator ReleaseEndIter = Childs.end();
-
-	for (; ReleaseStartIter != ReleaseEndIter; )
+	for (std::shared_ptr<GameEngineObject> Object : Childs)
 	{
-		std::shared_ptr<GameEngineObject>& Object = *ReleaseStartIter;
-
-		if (false == Object->IsDeath())
-		{
-			Object->AllRelease();
-			++ReleaseStartIter;
-			continue;
-		}
-
-		Object->Release();
-		Object->AllDestroy();
-		ReleaseStartIter = Childs.erase(ReleaseStartIter);
+		Object->AllRelease();
 	}
+
 }
 bool GameEngineObject::IsDeath() 
 {
@@ -117,7 +121,10 @@ bool GameEngineObject::IsUpdate()
 
 void GameEngineObject::AllDestroy() 
 {
-	Destroy();
+	if (true == IsDeath())
+	{
+		Destroy();
+	}
 
 	for (std::shared_ptr<GameEngineObject> Object : Childs)
 	{

@@ -328,6 +328,8 @@ void GameEngineLevel::ActorRelease()
 			{
 				std::shared_ptr<GameEngineActor> RelaseActor = (*ActorStart);
 
+				RelaseActor->AllDestroy();
+
 				if (nullptr != RelaseActor && false == RelaseActor->IsDeath())
 				{
 					RelaseActor->AllRelease();
@@ -335,7 +337,6 @@ void GameEngineLevel::ActorRelease()
 					continue;
 				}
 
-				RelaseActor->AllDestroy();
 				RelaseActor->Release();
 				ActorStart = ActorList.erase(ActorStart);
 			}
