@@ -83,13 +83,14 @@ private:
 	float SwitchCoolTime = 5.0f;
 	float SwitchCoolEndTime = 5.0f;
 
-	float MeleeAttack = 10.0f;
-	float MagicAttack = 10.0f;
+	float MeleeAttack = 15.0f;
+	float MagicAttack = 15.0f;
 	float HP = 100.0f;
 	
 	float HitWaitTime = 0.0f;
 
 	bool IsInputLockValue = false;
+	
 
 	std::shared_ptr<class PlayerHitFade> HitFade = nullptr;
 
@@ -99,6 +100,12 @@ private:
 
 	std::shared_ptr<PlayerBaseSkull> MainSkull = nullptr;
 	std::shared_ptr<PlayerBaseSkull> SubSkull = nullptr;
+
+	std::shared_ptr<GameEngineComponent> CheatDebugComp_Attack = nullptr;
+	std::shared_ptr<GameEngineComponent> CheatDebugComp_HP = nullptr;
+
+	bool Cheat_Attack = false;
+	bool Cheat_HP = false;
 
 	std::shared_ptr<PlayerBaseSkull> CreateNewSkull(size_t _Index);
 

@@ -396,43 +396,35 @@ void RookieHero::SelectPattern()
 		return;
 	}
 
-	switch (Rand.RandomInt(0, 3))
-	{
-	case 0: // ComboAttack
+	int RandPattern = Rand.RandomInt(0, 99);
+
+	if (30 > RandPattern)
 	{
 		Cur_Pattern_Enter = std::bind(&RookieHero::ComboAttack_Enter, this);
 		Cur_Pattern_Update = std::bind(&RookieHero::ComboAttack_Update, this, std::placeholders::_1);
 		Cur_Pattern_End = std::bind(&RookieHero::ComboAttack_End, this);
 		AttackDistance = 400.0f;
 	}
-		break;
-	case 1: // EnergyBall
+	else if (60 > RandPattern)
 	{
 		Cur_Pattern_Enter = std::bind(&RookieHero::EnergyBall_Enter, this);
 		Cur_Pattern_Update = std::bind(&RookieHero::EnergyBall_Update, this, std::placeholders::_1);
 		Cur_Pattern_End = std::bind(&RookieHero::EnergyBall_End, this);
 		AttackDistance = 1000.0f;
 	}
-		break;
-	case 2: // Explosion
+	else if (90 > RandPattern)
 	{
 		Cur_Pattern_Enter = std::bind(&RookieHero::Explosion_Enter, this);
 		Cur_Pattern_Update = std::bind(&RookieHero::Explosion_Update, this, std::placeholders::_1);
 		Cur_Pattern_End = std::bind(&RookieHero::Explosion_End, this);
 		AttackDistance = 200.0f;
 	}
-		break;
-	case 3: // Potion
+	else
 	{
 		Cur_Pattern_Enter = std::bind(&RookieHero::Potion_Enter, this);
 		Cur_Pattern_Update = std::bind(&RookieHero::Potion_Update, this, std::placeholders::_1);
 		Cur_Pattern_End = std::bind(&RookieHero::Potion_End, this);
 		AttackDistance = 2000.0f;
-	}
-		break;
-	default:
-		MsgAssert_Rtti<RookieHero>(" - 존재하지 않는 패턴으로 설정하려 했습니다");
-		break;
 	}
 }
 

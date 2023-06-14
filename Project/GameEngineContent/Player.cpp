@@ -123,6 +123,11 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 
 	PlayerState::HP -= _Damage;
 
+	if (true == Cheat_HP && 1.0f > PlayerState::HP)
+	{
+		PlayerState::HP = 1.0f;
+	}
+
 	HitWaitTime = 0.1f;
 	HitFade->Active();
 	MainSkull->HitRigidbody.AddVelocity(_HitForce);
@@ -173,6 +178,20 @@ void Player::PlayStoryMove(const float4& _StoryMovePos, std::function<void()> _E
 
 void Player::Start()
 {
+	if (false == GameEngineInput::IsKey("Cheat_Attack"))
+	{
+		GameEngineInput::CreateKey("Cheat_Attack", '7');
+		GameEngineInput::CreateKey("Cheat_HP", '8');
+	}
+
+	CheatDebugComp_Attack = CreateComponent<GameEngineComponent>();
+	CheatDebugComp_Attack->GetTransform()->SetLocalPosition(float4(-30, 60, 0));
+	CheatDebugComp_Attack->GetTransform()->SetLocalScale(float4(10, 10, 1));
+
+	CheatDebugComp_HP = CreateComponent<GameEngineComponent>();
+	CheatDebugComp_HP->GetTransform()->SetLocalPosition(float4(30, 60, 0));
+	CheatDebugComp_HP->GetTransform()->SetLocalScale(float4(10, 10, 1));
+
 	PlayerBodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Player);
 	PlayerBodyCol->GetTransform()->SetLocalPosition(float4(0.0f, 30.0f, 1.0f));
 	PlayerBodyCol->GetTransform()->SetWorldScale(float4(30.0f, 60.0f, 1.0f));
@@ -209,6 +228,27 @@ void Player::Update(float _DeltaTime)
 	HitWaitTime -= _DeltaTime;	
 	SwitchCoolTime += _DeltaTime;
 
+
+	if (true == GameEngineInput::IsDown("Cheat_Attack"))
+	{
+		Cheat_Attack = !Cheat_Attack;
+
+		if (true == Cheat_Attack)
+		{
+			MeleeAttack = 250;
+			MagicAttack = 250;
+		}
+		else
+		{
+			MeleeAttack = 15;
+			MagicAttack = 15;
+		}
+	}
+
+	if (true == GameEngineInput::IsDown("Cheat_HP"))
+	{
+		Cheat_HP = !Cheat_HP;
+	}
 
 	if (PlayerState::HP <= 0.0f)
 	{

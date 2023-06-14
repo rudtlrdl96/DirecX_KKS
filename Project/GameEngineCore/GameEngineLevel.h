@@ -100,8 +100,13 @@ public:
 		return Actors[_Index];
 	}
 
+	bool IsDebugRenderFunc() const
+	{
+		return IsDebugRender;
+	}
 
 protected:
+
 	// 레벨이 바뀌어서 시작할때
 	virtual void LevelChangeStart();
 	virtual void LevelChangeEnd();
