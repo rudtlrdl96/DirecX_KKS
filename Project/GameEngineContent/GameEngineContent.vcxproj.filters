@@ -217,9 +217,6 @@
     <Filter Include="2_Actor\Debug\Tilemap">
       <UniqueIdentifier>{768d03cb-951d-492e-a25d-6b7dac086fa8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3_Component\Renderer">
-      <UniqueIdentifier>{8bf0b896-7e80-4916-8d00-b56c5cdc8cbb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\Debug\Tool">
       <UniqueIdentifier>{d794b95d-468a-4fc2-b724-c2cf83402d41}</UniqueIdentifier>
     </Filter>
@@ -369,6 +366,9 @@
     </Filter>
     <Filter Include="2_Actor\UI\Minimap">
       <UniqueIdentifier>{d36893cc-038b-41b0-8971-506b5521f6f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Component\Renderer">
+      <UniqueIdentifier>{8bf0b896-7e80-4916-8d00-b56c5cdc8cbb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

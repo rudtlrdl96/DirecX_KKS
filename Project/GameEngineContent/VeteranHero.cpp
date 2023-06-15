@@ -75,6 +75,11 @@ void VeteranHero::Start()
 	ExplosionCol->GetTransform()->SetLocalPosition(float4(0, 5, 0));
 	ExplosionCol->GetTransform()->SetLocalScale(float4(420, 420, 1));
 
+	ExplosionChargeCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	ExplosionChargeCol->GetTransform()->SetLocalPosition(float4(0, 0, 0));
+	ExplosionChargeCol->GetTransform()->SetLocalScale(float4(1, 1, 1));
+
+
 	SwordRender = CreateComponent<ContentSpriteRenderer>();
 	SwordRender->PipeSetting("2DTexture_Color");
 	SwordRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", SwordBuffer);
