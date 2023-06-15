@@ -31,10 +31,19 @@ void GameEngineTileMapRenderer::Start()
 	GetShaderResHelper().SetConstantBufferLink("ColorOption", ColorOptionValue);
 }
 
-void GameEngineTileMapRenderer::CreateTileMap(int _X, int _Y, const float4& _TileSize)
+void GameEngineTileMapRenderer::CreateTileMap(int _X, int _Y, const float4& _TileSize, const float4& _RenderSize, TileMapMode _Mode)
 {
 	TileSize = _TileSize;
 	TileSize.z = 1.0f;
+	TileSizeH = TileSize.half();
+
+	if (_RenderSize == float4::Zero)
+	{
+		RenderSize = TileSize;
+	}
+	else {
+		RenderSize = _RenderSize;
+	}
 
 	MapCount.x = static_cast<float>(_X);
 	MapCount.y = static_cast<float>(_Y);
@@ -45,6 +54,8 @@ void GameEngineTileMapRenderer::CreateTileMap(int _X, int _Y, const float4& _Til
 	{
 		Tiles[y].resize(_X);
 	}
+
+	Mode = _Mode;
 }
 
 void GameEngineTileMapRenderer::Clear()
@@ -52,13 +63,12 @@ void GameEngineTileMapRenderer::Clear()
 	Tiles.clear();
 }
 
-void GameEngineTileMapRenderer::SetTile(int _X, int _Y, const std::string_view& _SpriteName, int _Index)
+void GameEngineTileMapRenderer::SetTile(int _X, int _Y, const std::string_view& _SpriteName, size_t _Index)
 {
 	if (true == Tiles.empty())
 	{
 		MsgAssert("CreateTileMap을 먼저 호출해주셔야 합니다.");
 	}
-
 
 	// 인덱스 오버
 	if (true == IsOver(_X, _Y))
@@ -69,6 +79,11 @@ void GameEngineTileMapRenderer::SetTile(int _X, int _Y, const std::string_view& 
 
 
 	std::shared_ptr<GameEngineSprite> Sprite = GameEngineSprite::Find(_SpriteName);
+
+	if (nullptr == Sprite)
+	{
+		MsgAssert(std::string(_SpriteName) + "존재하지 않는 스프라이트 입니다.");
+	}
 
 	Tiles[_Y][_X].Sprite = Sprite.get();
 	Tiles[_Y][_X].Index = _Index;
@@ -104,11 +119,9 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetMainCamera();
 
 	bool IsDrawY = false;
-
 	for (size_t y = 0; y < Tiles.size(); y++)
 	{
 		bool IsDrawX = false;
-
 		for (size_t x = 0; x < Tiles[y].size(); x++)
 		{
 			GameEngineSprite* Sprite = Tiles[y][x].Sprite;
@@ -116,9 +129,21 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 
 			// 트랜스폼 세팅
 			{
-				vPos = { TileSize.x * x, TileSize.y * y, 1.0f };
+				switch (Mode)
+				{
+				case TileMapMode::Rect:
+					vPos = { TileSize.x * x, TileSize.y * y, 1.0f };
+					break;
+				case TileMapMode::Iso:
+					vPos.x = (x * TileSizeH.x) - (y * TileSizeH.x);
+					vPos.y = -(x * TileSizeH.y) - (y * TileSizeH.y);
+					vPos.y -= TileSizeH.y;
+					break;
+				default:
+					break;
+				}
 
-				Scale.Scale(TileSize);
+				Scale.Scale(RenderSize);
 				Pos.Pos(vPos);
 				TileTransData.WorldViewProjectionMatrix = Scale * Pos * TransData.WorldMatrix;
 
@@ -140,7 +165,6 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 
 				IsDrawY = true;
 				IsDrawX = true;
-
 				//if (true == GetLevel()->IsCameraOver(WorldPos))
 				//{
 				//	continue;
@@ -168,4 +192,28 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 
 	GetShaderResHelper().SetConstantBufferLink("TransformData", GetTransform()->GetTransDataRef());
 
+}
+
+
+void GameEngineTileMapRenderer::SetTile(const float4& _Pos, const std::string_view& _SpriteName, size_t _Index)
+{
+	int X = -1;
+	int Y = -1;
+
+
+	switch (Mode)
+	{
+	case TileMapMode::Rect:
+		X = static_cast<int>(_Pos.x / TileSize.x);
+		Y = static_cast<int>(_Pos.y / TileSize.y);
+		break;
+	case TileMapMode::Iso:
+		X = static_cast<int>((_Pos.x / TileSizeH.x + -_Pos.y / TileSizeH.y) / 2);
+		Y = static_cast<int>((-_Pos.y / TileSizeH.y - (_Pos.x / TileSizeH.x)) / 2);
+		break;
+	default:
+		break;
+	}
+
+	SetTile(X, Y, _SpriteName, _Index);
 }
