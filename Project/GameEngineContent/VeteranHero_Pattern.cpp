@@ -2,6 +2,7 @@
 #include "VeteranHero.h"
 #include "Player.h"
 #include "Projectile.h"
+#include "VeteranHeroEnergyBall.h"
 
 void VeteranHero::ComboAttack_Enter()
 {
@@ -108,7 +109,7 @@ void VeteranHero::ComboAttack_Update(float _DeltaTime)
 				break;
 			default:
 				break;
-			}
+			}			
 		}
 	}
 
@@ -133,54 +134,6 @@ void VeteranHero::ComboAttack_Update(float _DeltaTime)
 			default:
 				break;
 			}
-		}
-	}
-}
-
-void VeteranHero::ComboAttack_End()
-{
-}
-
-void VeteranHero::EnergyBall_Enter()
-{
-	LookPlayer();
-	PlayAnimation("EnergyBallReady");
-	IsEnergyBallShot = false;
-
-	float4 Pivot = float4::Zero;
-
-	switch (Dir)
-	{
-	case ActorViewDir::Left:
-		Pivot = float4(-50, 75, 0);
-		break;
-	case ActorViewDir::Right:
-		Pivot = float4(50, 75, 0);
-		break;
-	}
-
-	EffectManager::PlayEffect({
-	.EffectName = "RookieHero_EnergyBallShot",
-	.Position = GetTransform()->GetWorldPosition() + Pivot,
-	.AddSetZ = 10.0f,
-	.FlipX = Dir == ActorViewDir::Left });
-}
-
-void VeteranHero::EnergyBall_Update(float _DeltaTime)
-{
-	if (true == IsEnergyBallShot)
-	{
-		if (true == Render->IsAnimationEnd())
-		{
-			BossFsm.ChangeState("Idle");
-		}
-	}
-	else
-	{
-		if (true == Render->IsAnimationEnd())
-		{
-			PlayAnimation("EnergyBall");
-			IsEnergyBallShot = true;
 
 			std::shared_ptr<Projectile> ShotProjectile = GetLevel()->CreateActor<Projectile>();
 
@@ -190,11 +143,11 @@ void VeteranHero::EnergyBall_Update(float _DeltaTime)
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				Pivot = float4(-50, 75, 0);
+				Pivot = float4(-50, 47, 0);
 				ShotDir = float4::Left;
 				break;
 			case ActorViewDir::Right:
-				Pivot = float4(50, 75, 0);
+				Pivot = float4(50, 47, 0);
 				ShotDir = float4::Right;
 				break;
 			}
@@ -213,34 +166,82 @@ void VeteranHero::EnergyBall_Update(float _DeltaTime)
 				CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 500.0f);
 
 				EffectManager::PlayEffect({
-					.EffectName = "RookieHero_EnergyBallExplosion",
+					.EffectName = "HitNormal",
 					.Position = _Parameter.ProjectilePos });
 			};
 
-			std::function<void(const float4& _Pos)> DeathCallback = [](const float4& _Pos)
-			{
-				EffectManager::PlayEffect({
-					.EffectName = "RookieHero_EnergyBallExplosion",
-					.Position = _Pos });
-			};
-
 			ShotProjectile->ShotProjectile({
-				.EffectName = "RookieHero_EnergyBall",
-				.TrackingTarget = FindPlayer.lock(),
+				.EffectName = "VeteranHero_ComboWave",
 				.Pos = GetTransform()->GetWorldPosition() + Pivot,
 				.Dir = ShotDir,
-				.ColScale = float4(50, 50, 1),
-				.TrackingPivot = float4(0, 60, 0),
+				.ColScale = float4(50, 60, 1),
 				.ColOrder = (int)CollisionOrder::Player,
+				.ProjectileColType = ColType::AABBBOX2D,
 				.IsPlatformCol = false,
-				.IsColDeath = true,
 				.IsRot = false,
-				.Damage = Data.Attack,
-				.Speed = 800.0f,
-				.LiveTime = 1.2f,
-				.TrackingSpeed = 6.0f,
-				.EnterEvent = HitCallback,
-				.DeathEvent = DeathCallback, });
+				.IsFlipX = Dir == ActorViewDir::Left,
+				.Damage = Data.Attack * 2.0f,
+				.Speed = 1000.0f,
+				.LiveTime = 0.64f,
+				.EnterEvent = HitCallback});
+		}
+	}
+}
+
+void VeteranHero::ComboAttack_End()
+{
+}
+
+void VeteranHero::EnergyBall_Enter()
+{
+	LookPlayer();
+	PlayAnimation("EnergyBallReady");
+	IsEnergyBallShot = false;
+
+	switch (Dir)
+	{
+	case ActorViewDir::Left:
+		EnergyBallReady(130);
+		EnergyBallReady(180);
+		EnergyBallReady(230);
+		break;
+	case ActorViewDir::Right:
+		EnergyBallReady(-50);
+		EnergyBallReady(0);
+		EnergyBallReady(50);
+		break;
+	}
+}
+
+void VeteranHero::EnergyBall_Update(float _DeltaTime)
+{
+	if (true == IsEnergyBallShot)
+	{
+		if (true == Render->IsAnimationEnd())
+		{
+			BossFsm.ChangeState("Idle");
+		}
+	}
+	else
+	{
+		if (true == Render->IsAnimationEnd())
+		{
+			PlayAnimation("EnergyBall");
+			IsEnergyBallShot = true;
+
+			switch (Dir)
+			{
+			case ActorViewDir::Left:
+				EnergyBallShot(130, 2.6f);
+				EnergyBallShot(180, 3.0f);
+				EnergyBallShot(230, 3.4f);
+				break;
+			case ActorViewDir::Right:
+				EnergyBallShot(-50, 2.6f);
+				EnergyBallShot(0, 3.0f);
+				EnergyBallShot(50, 3.4f);
+				break;
+			}
 		}
 	}
 }
@@ -250,44 +251,85 @@ void VeteranHero::EnergyBall_End()
 
 }
 
-void VeteranHero::Potion_Enter()
+void VeteranHero::EnergyBallReady(float _Rot)
 {
-	PlayAnimation("Potion");
-	PotionTime = -3.5f;
-	PotionHealTime = 0.0f;
+	float4 Pivot = float4::Zero;
+	Pivot = float4(0, 75, 0);
+
+	float4 Dir = float4::Right * 50.0f;
+	Dir.RotaitonZDeg(_Rot);
+
+	Pivot += Dir;
+
+	std::shared_ptr<EffectActor> Effect = EffectManager::PlayEffect({
+	.EffectName = "RookieHero_EnergyBallShot",
+	.Position = GetTransform()->GetWorldPosition() + Pivot,
+	.AddSetZ = 10.0f,
+	.FlipX = Pivot.x < 0});
+
+	if (Pivot.x < 0)
+	{
+		Effect->GetTransform()->SetLocalRotation(float4(0, 0, _Rot - 180));
+	}
+	else
+	{
+		Effect->GetTransform()->SetLocalRotation(float4(0, 0, _Rot));
+	}
 }
 
-void VeteranHero::Potion_Update(float _DeltaTime)
+void VeteranHero::EnergyBallShot(float _Rot, float _LiveTime)
 {
-	PotionTime += _DeltaTime;
-	PotionHealTime += _DeltaTime;
+	std::shared_ptr<VeteranHeroEnergyBall> ShotProjectile = GetLevel()->CreateActor<VeteranHeroEnergyBall>();
 
-	if (0.0f <= PotionHealTime)
+	float4 Pivot = float4(0, 75, 0);
+
+	float4 ShotDir = float4::Right * 50.0f;
+	ShotDir.RotaitonZDeg(_Rot);
+
+	Pivot += ShotDir;
+
+	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> HitCallback =
+		[](std::shared_ptr<class BaseContentActor> _ColActor, ProjectileHitParameter _Parameter)
+	{
+		std::shared_ptr<Player> CastingPtr = _ColActor->DynamicThis<Player>();
+
+		if (nullptr == CastingPtr)
+		{
+			MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+			return;
+		}
+		CastingPtr->GetContentLevel()->GetCamCtrl().CameraShake(4, 20, 3);
+		CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 800.0f);
+
+		EffectManager::PlayEffect({
+			.EffectName = "RookieHero_EnergyBallExplosion_Large",
+			.Position = _Parameter.ProjectilePos });
+	};
+
+	std::function<void(const float4& _Pos)> DeathCallback = [](const float4& _Pos)
 	{
 		EffectManager::PlayEffect({
-			.EffectName = "MonsterHeal",
-			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
-			.AddSetZ = -10.0f });
+			.EffectName = "RookieHero_EnergyBallExplosion_Large",
+			.Position = _Pos });
+	};
 
-		PotionHealTime = -0.72f;
-
-		HP += 5.0f;
-
-		if (HP > Data.HP)
-		{
-			HP = Data.HP;
-		}
-	}
-
-	if (0.0f <= PotionTime)
-	{
-		BossFsm.ChangeState("Idle");
-	}
-}
-
-void VeteranHero::Potion_End()
-{
-
+	ShotProjectile->ShotProjectile({
+		.EffectName = "VeteranHero_EnergyBall",
+		.TrackingTarget = FindPlayer.lock(),
+		.Pos = GetTransform()->GetWorldPosition() + Pivot,
+		.Dir = ShotDir.NormalizeReturn() * 300.0f,
+		.ColScale = float4(50, 50, 1),
+		.TrackingPivot = float4(0, 60, 0),
+		.ColOrder = (int)CollisionOrder::Player,
+		.IsPlatformCol = false,
+		.IsColDeath = true,
+		.IsRot = false,
+		.Damage = Data.Attack,
+		.Speed = 600.0f,
+		.LiveTime = _LiveTime,
+		.TrackingSpeed = 1350.0f,
+		.EnterEvent = HitCallback,
+		.DeathEvent = DeathCallback, });
 }
 
 void VeteranHero::Explosion_Enter()
@@ -296,14 +338,18 @@ void VeteranHero::Explosion_Enter()
 
 	IsExplosion = false;
 	IsExplosionEffect = false;
-	ExplosionTime = 0.0f;
+	IsExplosionChargeEffect = false;
 
+	ExplosionTime = 0.0f;
 	IsHitEffectOff = true;
 	IsExplosionAttackEnd = false;
+
+	PlayerChargeHitTime = 0.0f;
 }
 
 void VeteranHero::Explosion_Update(float _DeltaTime)
 {
+	PlayerChargeHitTime += _DeltaTime;
 
 	if (true == Render->IsAnimationEnd())
 	{
@@ -311,21 +357,21 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 		PlayAnimation("Explosion", false);
 	}
 
+	if (false == IsExplosionChargeEffect && 2 == Render->GetCurrentFrame())
+	{
+		IsExplosionChargeEffect = true;
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_EnergyCharging",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 170, 0) });
+	}
+
 	if (true == IsExplosionEffect)
 	{
 		ExplosionTime += _DeltaTime;
-
-		float Progress = ExplosionTime - 0.2f;
-
-		if (1.0f < Progress)
-		{
-			Progress = 1.0f;
-		}
-
-		Buffer.Color = float4::LerpClamp(float4(1, 1, 1, 1), float4(0, 0, 0, 1), Progress);
 	}
 
-	if (false == IsExplosion && 1.2f <= ExplosionTime)
+	if (false == IsExplosion && 1.7f <= ExplosionTime)
 	{
 		IsHitEffectOff = false;
 		IsExplosion = true;
@@ -333,8 +379,8 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 		GetContentLevel()->GetCamCtrl().CameraShake(10, 30, 9);
 
 		ExplosionEffect = EffectManager::PlayEffect({
-			.EffectName = "RookieHero_Explosion",
-			.Position = GetTransform()->GetWorldPosition() + float4(0, 130, 0),
+			.EffectName = "VeteranHero_Explosion",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 200, 0),
 			.AddSetZ = -10.0f });
 	}
 
@@ -375,7 +421,7 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 		ExplosionEffect = nullptr;
 	}
 
-	if (2.0f <= ExplosionTime)
+	if (3.5f <= ExplosionTime)
 	{
 		BossFsm.ChangeState("Idle");
 	}
@@ -481,7 +527,6 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 		IsUltimateShotReady = true;
 		IsUltimateShot = true;
 		PlayAnimation("SwordEnergy", false);
-
 
 		std::shared_ptr<Projectile> ShotProjectile = GetLevel()->CreateActor<Projectile>();
 

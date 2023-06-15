@@ -32,6 +32,8 @@ void VeteranHero::Start()
 {
 	BossMonster::Start();
 	SetViewDir(ActorViewDir::Right);
+	BossRigidbody.SetGravity(ContentConst::Gravity_f - 1000.0f);
+	BossRigidbody.SetActiveGravity(true);
 	BossRigidbody.SetFricCoeff(3000.0f);
 	DashPower = 1450.0f;
 	BackDashPower = 1050.0f;
@@ -71,7 +73,7 @@ void VeteranHero::Start()
 
 	ExplosionCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	ExplosionCol->GetTransform()->SetLocalPosition(float4(0, 5, 0));
-	ExplosionCol->GetTransform()->SetLocalScale(float4(325, 325, 1));
+	ExplosionCol->GetTransform()->SetLocalScale(float4(420, 420, 1));
 
 	SwordRender = CreateComponent<ContentSpriteRenderer>();
 	SwordRender->PipeSetting("2DTexture_Color");
@@ -150,12 +152,17 @@ void VeteranHero::Start()
 
 			GetTransform()->SetWorldPosition(float4(1970, 800));
 			BossRigidbody.SetVelocity(float4(-1000, -500, 0));
-			BossRigidbody.SetActiveGravity(true);
 			BossRigidbody.SetGravity(ContentConst::Gravity_f - 1000.0f);
 			IsGroundUp = false;
 
 			SetViewDir(ActorViewDir::Left);
 		});
+
+	GetTransform()->AddLocalPosition(float4(-100, -200));
+	IsIntro = false;
+	IsPlayerEnter = true;
+	Battle_Platform_Left->On();
+	Battle_Platform_Right->On();
 }
 
 void VeteranHero::Update(float _DeltaTime)
@@ -196,7 +203,6 @@ void VeteranHero::Update(float _DeltaTime)
 
 		if (true == IsGroundUp)
 		{
-			BossRigidbody.SetActiveGravity(false);
 			BossRigidbody.SetVelocity(float4::Zero);
 
 			IsBehaviorLoop = false;
@@ -217,7 +223,6 @@ void VeteranHero::Update(float _DeltaTime)
 		BossMonster::Update(_DeltaTime);
 		return;
 	}
-
 	BossMonster::Update(_DeltaTime);
 	if (true == IsUltimateLightOn)
 	{
@@ -434,6 +439,13 @@ void VeteranHero::CreateAnimation()
 
 void VeteranHero::SelectPattern()
 {
+	Cur_Pattern_Enter = std::bind(&VeteranHero::Explosion_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::Explosion_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::Explosion_End, this);
+	AttackDistance = 230.0f;
+
+	return;
+
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
 	float CurHpRatio = HP / Data.HP;
@@ -473,21 +485,24 @@ void VeteranHero::SelectPattern()
 		Cur_Pattern_Enter = std::bind(&VeteranHero::Explosion_Enter, this);
 		Cur_Pattern_Update = std::bind(&VeteranHero::Explosion_Update, this, std::placeholders::_1);
 		Cur_Pattern_End = std::bind(&VeteranHero::Explosion_End, this);
-		AttackDistance = 200.0f;
-	}
-	break;
-	case 3: // Potion
-	{
-		Cur_Pattern_Enter = std::bind(&VeteranHero::Potion_Enter, this);
-		Cur_Pattern_Update = std::bind(&VeteranHero::Potion_Update, this, std::placeholders::_1);
-		Cur_Pattern_End = std::bind(&VeteranHero::Potion_End, this);
-		AttackDistance = 2000.0f;
+		AttackDistance = 230.0f;
 	}
 	break;
 	default:
 		MsgAssert_Rtti<VeteranHero>(" - 존재하지 않는 패턴으로 설정하려 했습니다");
 		break;
 	}
+
+	// 신규 패턴 -> 돌진 공격, 검기 웨이브, 내려찍기, 랜딩어택
+	// 발악 패턴 -> 신규 궁극기
+
+	// 변경 패턴
+	// 에너지볼 : 에너지볼 이펙트 변경 에너지볼의 속도, 추적능력변경, 3개 동시에 발사 [완료]
+	// 콤보어택 : 마지막 공격이 검기 발사 [완료]
+
+	// 필살기 : 더 이상 그로기상태가 없음, 즉시발사, 연기 후속타
+	// 폭발 : 이펙트 변경, 차징시 지속 데미지
+
 }
 
 

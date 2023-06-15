@@ -16,11 +16,11 @@ public:
 	void InitRigd(float _MaxSpeed, float _FricCoeff, float _Mass = 1.0f);
 
 protected:
-	void Update(float _DeltaTime) override;
+	Rigidbody2D ProjectileRigidbody;
 
+	void Update(float _DeltaTime) override;
 	
 private:
-	Rigidbody2D ProjectileRigidbody;
 
 };
 

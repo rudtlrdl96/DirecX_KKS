@@ -228,12 +228,24 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 		PlayerTrans->AddLocalPosition(Velocity);
 	}
 
-	if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
+	std::shared_ptr<GameEngineCollision> Ground = ContentFunc::PlatformColCheck(GroundCol, true);
+
+	if (nullptr == Ground)
 	{
 		PlayerFSM.ChangeState("Fall");
 		return;
 	}
+	else
+	{
+		float4 CurPos = PlayerTrans->GetWorldPosition();
 
+		GameEngineTransform* ColTrans = Ground->GetTransform();
+		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+		PlayerTrans->SetWorldPosition(CurPos);
+		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
+	}
+	
 	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
 		if (true == GameEngineInput::IsPress("PlayerMove_Down"))

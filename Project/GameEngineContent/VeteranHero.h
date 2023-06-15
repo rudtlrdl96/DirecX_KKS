@@ -24,6 +24,7 @@ protected:
 
 	std::shared_ptr<GameEngineCollision> AttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> ExplosionCol = nullptr;
+	std::shared_ptr<GameEngineCollision> ExplosionChargeCol = nullptr;
 	std::shared_ptr<GameEngineCollision> EventCol = nullptr;
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Left = nullptr;
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Right = nullptr;
@@ -54,9 +55,6 @@ protected:
 	ColorBuffer SwordBuffer;
 
 	// 패턴 변수
-
-	float PotionTime = 0.0f;
-	float PotionHealTime = 0.0f;
 	float UltimateTime = 0.0f;
 
 	bool IsEnergyBallShot = false;
@@ -66,6 +64,9 @@ protected:
 	bool IsExplosionAttackEnd = false;
 	bool IsExplosion = false;
 	bool IsExplosionEffect = false;
+	bool IsExplosionChargeEffect = false;
+
+	float PlayerChargeHitTime = 0.0f;
 	float ExplosionTime = 0.0f;
 
 	bool IsUltimateComplete = false;
@@ -99,9 +100,8 @@ protected:
 	void EnergyBall_Update(float _DeltaTime);
 	void EnergyBall_End();
 
-	void Potion_Enter();
-	void Potion_Update(float _DeltaTime);
-	void Potion_End();
+	void EnergyBallReady(float _Rot);
+	void EnergyBallShot(float _Rot, float _LiveTime);
 
 	void Explosion_Enter();
 	void Explosion_Update(float _DeltaTime);

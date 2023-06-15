@@ -53,7 +53,7 @@ public:
 	Projectile& operator=(const Projectile& _Other) = delete;
 	Projectile& operator=(Projectile&& _Other) noexcept = delete;
 
-	void ShotProjectile(const ProjectileParameter& _Parameter);
+	virtual void ShotProjectile(const ProjectileParameter& _Parameter);
 
 	inline bool IsWaitEnd() const
 	{

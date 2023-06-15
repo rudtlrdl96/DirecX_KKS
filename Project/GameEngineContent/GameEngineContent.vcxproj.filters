@@ -906,6 +906,9 @@
     <ClInclude Include="VeteranHero_HealthBar.h">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="VeteranHeroEnergyBall.h">
+      <Filter>2_Actor\Projectile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1498,6 +1501,9 @@
     </ClCompile>
     <ClCompile Include="VeteranHero_HealthBar.cpp">
       <Filter>2_Actor\UI\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="VeteranHeroEnergyBall.cpp">
+      <Filter>2_Actor\Projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

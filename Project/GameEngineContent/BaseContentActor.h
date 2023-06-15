@@ -24,8 +24,8 @@ public:
 
 	virtual void ShowGUI() {}
 
-protected:
 	class ContentLevel* GetContentLevel() const;
+protected:
 
 private:
 	const UINT Code;
