@@ -89,7 +89,7 @@ void ContentCore::CoreLoading()
 
 	Inventory::ResetSkull();
 
-	GameEngineCore::ChangeLevel("Title");
+	GameEngineCore::ChangeLevel("ForestOfHarmony");
 
 }
 

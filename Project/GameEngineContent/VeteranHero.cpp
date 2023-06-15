@@ -47,7 +47,7 @@ void VeteranHero::Start()
 	HealthBarPtr->Off();
 
 	HeroHealthBar = GetLevel()->CreateActor<VeteranHero_HealthBar>();
-	HeroHealthBar->GetTransform()->SetLocalPosition(float4(500, 300));
+	HeroHealthBar->GetTransform()->SetLocalPosition(float4(0, 290));
 	HeroHealthBar->Off();
 
 	BodyCol->GetTransform()->SetLocalPosition(float4(0, 60, 1));
