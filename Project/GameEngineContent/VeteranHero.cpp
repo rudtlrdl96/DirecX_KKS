@@ -73,12 +73,16 @@ void VeteranHero::Start()
 
 	ExplosionCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	ExplosionCol->GetTransform()->SetLocalPosition(float4(0, 5, 0));
-	ExplosionCol->GetTransform()->SetLocalScale(float4(420, 420, 1));
+	ExplosionCol->GetTransform()->SetLocalScale(float4(450, 450, 1));
+	ExplosionCol->Off();
 
 	ExplosionChargeCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	ExplosionChargeCol->GetTransform()->SetLocalPosition(float4(0, 0, 0));
 	ExplosionChargeCol->GetTransform()->SetLocalScale(float4(1, 1, 1));
+	ExplosionChargeCol->Off();
 
+	ExplosionChargeScaleStart = float4(200, 200, 1);
+	ExplosionChargeScaleEnd = float4(450, 450, 1);
 
 	SwordRender = CreateComponent<ContentSpriteRenderer>();
 	SwordRender->PipeSetting("2DTexture_Color");
@@ -504,10 +508,9 @@ void VeteranHero::SelectPattern()
 	// 변경 패턴
 	// 에너지볼 : 에너지볼 이펙트 변경 에너지볼의 속도, 추적능력변경, 3개 동시에 발사 [완료]
 	// 콤보어택 : 마지막 공격이 검기 발사 [완료]
+	// 폭발 : 이펙트 변경, 차징시 지속 데미지 [완료]
 
 	// 필살기 : 더 이상 그로기상태가 없음, 즉시발사, 연기 후속타
-	// 폭발 : 이펙트 변경, 차징시 지속 데미지
-
 }
 
 

@@ -345,6 +345,9 @@ void VeteranHero::Explosion_Enter()
 	IsExplosionAttackEnd = false;
 
 	PlayerChargeHitTime = 0.0f;
+
+	ExplosionChargeCol->On();
+	ExplosionChargeProgress = 0.0f;
 }
 
 void VeteranHero::Explosion_Update(float _DeltaTime)
@@ -364,6 +367,48 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 		EffectManager::PlayEffect({
 			.EffectName = "VeteranHero_EnergyCharging",
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 170, 0) });
+	}
+
+	if (true == IsExplosionChargeEffect && 1.0f > ExplosionChargeProgress)
+	{
+		ExplosionChargeProgress += _DeltaTime * 0.5f;
+		ExplosionChargeDamageCoolTime += _DeltaTime;
+
+		ExplosionCol->On();
+		ExplosionCol->GetTransform()->SetLocalScale(
+			float4::LerpClamp(ExplosionChargeScaleStart, ExplosionChargeScaleEnd, ExplosionChargeProgress));
+
+		if (0.0f < ExplosionChargeDamageCoolTime)
+		{	
+			std::shared_ptr<GameEngineCollision> ExploCol = ExplosionCol->Collision((int)CollisionOrder::Player, ColType::SPHERE2D, ColType::AABBBOX2D);
+
+			if (nullptr != ExploCol)
+			{
+				ExplosionChargeDamageCoolTime = -0.2f;
+				std::shared_ptr<Player> CastingPtr = ExploCol->GetActor()->DynamicThis<Player>();
+
+				if (nullptr == CastingPtr)
+				{
+					MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+					return;
+				}
+
+				float4 HitDir = CastingPtr->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+
+				CastingPtr->HitPlayer(Data.Attack * 0.1f, float4::Zero);
+
+				EffectManager::PlayEffect({
+					.EffectName = "HitNormal",
+					.Position = CastingPtr->GetTransform()->GetWorldPosition() 
+					+ float4(GameEngineRandom::MainRandom.RandomFloat(-20, 20),
+						50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20))});
+
+			}
+		}
+	}
+	else
+	{
+		ExplosionCol->Off();
 	}
 
 	if (true == IsExplosionEffect)
@@ -387,6 +432,7 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 	if (false == IsExplosionAttackEnd &&
 		nullptr != ExplosionEffect && 4 == ExplosionEffect->GetCurrentFrame())
 	{
+		ExplosionCol->On();
 		std::shared_ptr<GameEngineCollision> ExploCol = ExplosionCol->Collision((int)CollisionOrder::Player, ColType::SPHERE2D, ColType::AABBBOX2D);
 
 		if (nullptr != ExploCol)
@@ -421,7 +467,7 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 		ExplosionEffect = nullptr;
 	}
 
-	if (3.5f <= ExplosionTime)
+	if (2.4f <= ExplosionTime)
 	{
 		BossFsm.ChangeState("Idle");
 	}
@@ -429,6 +475,8 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 
 void VeteranHero::Explosion_End()
 {
+	ExplosionChargeCol->Off();
+	ExplosionCol->Off();
 	IsHitEffectOff = false;
 }
 

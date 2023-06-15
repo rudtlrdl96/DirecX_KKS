@@ -69,6 +69,7 @@ protected:
 	float4 ExplosionChargeScaleStart = float4::One;
 	float4 ExplosionChargeScaleEnd = float4::One;
 	float ExplosionChargeProgress = 0.0f;
+	float ExplosionChargeDamageCoolTime = 0.0f;
 
 	float PlayerChargeHitTime = 0.0f;
 	float ExplosionTime = 0.0f;
