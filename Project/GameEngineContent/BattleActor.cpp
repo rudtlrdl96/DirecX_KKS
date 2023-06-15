@@ -144,10 +144,10 @@ void BattleActor::HitPush()
 	switch (HitDir)
 	{
 	case ActorViewDir::Left:
-		HitRigidbody.SetVelocity(float4::Left * 200.0f);
+		BattleActorRigidbody.SetVelocity(float4::Left * 200.0f);
 		break;
 	case ActorViewDir::Right:
-		HitRigidbody.SetVelocity(float4::Right * 200.0f);
+		BattleActorRigidbody.SetVelocity(float4::Right * 200.0f);
 		break;
 	default:
 		break;

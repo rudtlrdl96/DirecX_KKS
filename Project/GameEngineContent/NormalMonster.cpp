@@ -68,9 +68,9 @@ void NormalMonster::Start()
 	WalkFallCol->SetColType(ColType::AABBBOX2D);
 
 	HitFindCol->GetTransform()->SetLocalScale(float4(400, 300, 1));
-
-	HitRigidbody.SetMaxSpeed(300.0f);
-	HitRigidbody.SetFricCoeff(1000.0f);
+		
+	BattleActorRigidbody.SetMaxSpeed(300.0f);
+	BattleActorRigidbody.SetFricCoeff(1000.0f);
 
 	TextureLoad();
 	LoadAnimation();
@@ -137,11 +137,11 @@ void NormalMonster::Update(float _DeltaTime)
 	AttackWaitTime += _DeltaTime;
 	TurnCoolTime -= _DeltaTime;
 
-	HitRigidbody.UpdateForce(_DeltaTime);
+	BattleActorRigidbody.UpdateForce(_DeltaTime);
 
 	if (nullptr == ContentFunc::PlatformColCheck(WalkCol) && nullptr == ContentFunc::PlatformColCheck(BackCol))
 	{
-		GetTransform()->AddLocalPosition(HitRigidbody.GetVelocity() * _DeltaTime);
+		GetTransform()->AddLocalPosition(BattleActorRigidbody.GetVelocity() * _DeltaTime);
 	}
 
 	if (true == GameEngineInput::IsDown("MonsterDebugOn"))

@@ -350,13 +350,18 @@ void BoneSkull::Switch_Enter()
 {
 	PlayerBaseSkull::Switch_Enter();
 	DashRigidbody.SetVelocity(float4::Zero);
-	JumpDir.y = 0;
+
+	float4 Vel = BattleActorRigidbody.GetVelocity(); 
+	Vel.y = 0;
+	BattleActorRigidbody.SetVelocity(Vel);
+
+	//JumpDir.y = 0;
 }
 
 void BoneSkull::Switch_Update(float _DeltaTime)
 {
-	JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
-	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
+	BattleActorRigidbody.AddVelocity(float4(0, _DeltaTime * ContentConst::Gravity_f, 0));
+	PlayerTrans->AddLocalPosition(BattleActorRigidbody.GetVelocity() * _DeltaTime);
 
 	std::shared_ptr<GameEngineCollision> GroundColPtr = ContentFunc::PlatformColCheck(GroundCol, true);
 
@@ -370,7 +375,11 @@ void BoneSkull::Switch_Update(float _DeltaTime)
 		PlayerTrans->SetWorldPosition(CurPos);
 		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
 
-		JumpDir.y = 0.0f;
+		float4 Vel = BattleActorRigidbody.GetVelocity();
+		Vel.y = 0;
+		BattleActorRigidbody.SetVelocity(Vel);
+
+		//JumpDir.y = 0.0f;
 	}
 
 	switch (GetViewDir())

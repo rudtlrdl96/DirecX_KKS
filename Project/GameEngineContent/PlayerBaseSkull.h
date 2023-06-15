@@ -157,7 +157,6 @@ protected:
 	SkullData Data = SkullData();
 
 	std::string AnimNamePlusText = "";
-	float4 JumpDir = float4::Zero;
 
 	AttackType AttackTypeValue = AttackType::MeleeAttack;
 
@@ -278,12 +277,13 @@ protected:
 	virtual void SwitchEnd() {}
 	virtual void CoolTimeCheck(float _DeltaTime);
 
+	void Jump();
+
 private:	
 	AnimAttackCheck AttackEnterCheck;
 	ActorViewDir ViewDir = ActorViewDir::Right;
 
-	float JumpPower = 800.0f;
-	float JumpMaxPower = 1500.0f;
+	float JumpPower = 1100.0f;
 	bool CanJump = false;
 	bool DoubleJump = false;
 

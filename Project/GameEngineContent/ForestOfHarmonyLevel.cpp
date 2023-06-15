@@ -23,8 +23,6 @@ void ForestOfHarmonyLevel::Start()
 
 	IntroTilemap = CreateActor<Tilemap>();
 
-	IsDebugSwitch();
-
 	GameEngineDirectory DirectoryPath;
 	DirectoryPath.MoveParentToDirectory("Resources");
 	DirectoryPath.Move("Resources");

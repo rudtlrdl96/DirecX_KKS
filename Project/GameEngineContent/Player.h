@@ -31,18 +31,18 @@ public:
 		return MagicAttack;
 	}
 
-	inline void AddJumpDir(const float4& _Dir)
-	{
-		MainSkull->JumpDir += _Dir;
-	}
-
 	void HitPlayer(float _Damage, const float4& _HitForce);
 
 	void PushPlayer(const float4& _HitForce);
 
+	float4 GetBattleRigidVelocity() const
+	{
+		return MainSkull->BattleActorRigidbody.GetVelocity();
+	}
+
 	bool CheckFall() const
 	{
-		return 0 > MainSkull->JumpDir.y;
+		return 0 > MainSkull->BattleActorRigidbody.GetVelocity().y;
 	}
 
 	inline float GetThornHitCoolTime() const

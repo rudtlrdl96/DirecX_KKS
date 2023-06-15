@@ -28,7 +28,7 @@ protected:
 	OutlineColorBuffer Buffer = OutlineColorBuffer();
 
 	ActorViewDir HitDir = ActorViewDir::Right;
-	Rigidbody2D HitRigidbody;
+	Rigidbody2D BattleActorRigidbody;
 
 	bool IsHit = false;
 	bool IsHitEffectOn = false;

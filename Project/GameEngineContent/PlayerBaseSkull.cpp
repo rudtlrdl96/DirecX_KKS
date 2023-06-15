@@ -228,6 +228,9 @@ void PlayerBaseSkull::Start()
 			2.0f });
 	}
 
+	BattleActorRigidbody.SetMaxSpeed(1500.0f);
+	BattleActorRigidbody.SetFricCoeff(900.0f);
+
 	DashRigidbody.SetActiveGravity(false);
 	DashRigidbody.SetMaxSpeed(1050);
 	DashRigidbody.SetFricCoeff(3500);
@@ -247,12 +250,12 @@ void PlayerBaseSkull::Start()
 	JumpCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	WalkCol->GetTransform()->SetLocalPosition(float4(22, 31, 0));
+	WalkCol->GetTransform()->SetLocalPosition(float4(20, 33, 0));
 	WalkCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	WalkCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	BackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	BackCol->GetTransform()->SetLocalPosition(float4(-22, 31, 0));
+	BackCol->GetTransform()->SetLocalPosition(float4(-20, 33, 0));
 	BackCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	BackCol->GetTransform()->SetWorldRotation(float4::Zero);
 
@@ -295,16 +298,13 @@ void PlayerBaseSkull::Start()
 			}
 		});
 
-	HitRigidbody.SetMaxSpeed(600.0f);
-	HitRigidbody.SetFricCoeff(1000.0f);
-
 	//DashTrail->GetTransform()->SetLocalPosition(float4(0, 0, 1));
 }
 
 void PlayerBaseSkull::Update(float _DeltaTime)
 {
-	HitRigidbody.UpdateForce(_DeltaTime);
-	float4 HitVelocity = HitRigidbody.GetVelocity();
+	BattleActorRigidbody.UpdateForce(_DeltaTime);
+	float4 HitVelocity = BattleActorRigidbody.GetVelocity();
 
 	if (0 < HitVelocity.x)
 	{
@@ -331,7 +331,7 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 
 	if (true == IsFallEnd)
 	{
-		HitRigidbody.SetVelocity(float4::Zero);
+		BattleActorRigidbody.SetVelocity(float4::Zero);
 	}
 
 	if (0 < HitVelocity.y)
@@ -339,14 +339,27 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 		if (nullptr != ContentFunc::PlatformColCheck(JumpCol))
 		{
 			HitVelocity.y = 0.0f;
-			HitRigidbody.SetVelocity(HitVelocity);
+			BattleActorRigidbody.SetVelocity(HitVelocity);
 		}
 	}
 	else
 	{
-		if (nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
+		bool IsHalfCheck = 0.0f >= FallCooldown;
+
+		std::shared_ptr<GameEngineCollision> GroundColPtr = ContentFunc::PlatformColCheck(GroundCol, IsHalfCheck);
+
+		if (nullptr != GroundColPtr)
 		{
-			HitRigidbody.SetVelocity(float4::Zero);
+			HitVelocity.y = 0.0f;
+			BattleActorRigidbody.SetVelocity(HitVelocity);
+
+			float4 CurPos = PlayerTrans->GetWorldPosition();
+
+			GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
+			CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+			PlayerTrans->SetWorldPosition(CurPos);
+			PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
 		}
 	}
 
@@ -380,7 +393,6 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 
 	PlayerFSM.Update(_DeltaTime);
 	DashRigidbody.UpdateForce(_DeltaTime);
-
 }
 
 void PlayerBaseSkull::Pushback_Attack(const AnimationAttackMetaData& _AnimData, float _InterTime)
@@ -479,6 +491,18 @@ void PlayerBaseSkull::CoolTimeCheck(float _DeltaTime)
 
 	RenderEffectProgress += _DeltaTime * RenderEffectSpeed;
 
+}
+
+void PlayerBaseSkull::Jump()
+{
+	float4 JumpVel = BattleActorRigidbody.GetVelocity();
+
+	if (JumpVel.y < JumpPower)
+	{
+		JumpVel.y = JumpPower;
+	}
+
+	BattleActorRigidbody.SetVelocity(JumpVel);
 }
 
 void PlayerBaseSkull::CreateColDebugRender()

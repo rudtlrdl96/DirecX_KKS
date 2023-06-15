@@ -72,7 +72,9 @@ void Mushroom::Update(float _DeltaTime)
 					.Scale = 1.2f,
 					.Color = float4(-0.1f, 0.3f, 0.3f, 1.0f)});
 
-				CastingPlayerPtr->PushPlayer(float4::Up * 1500.0f);
+				float4 Vel = CastingPlayerPtr->GetBattleRigidVelocity();
+				Vel.y = 2800.0f;
+				CastingPlayerPtr->PushPlayer(Vel);
 			}
 		}
 

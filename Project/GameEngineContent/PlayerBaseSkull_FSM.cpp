@@ -11,7 +11,7 @@
 void PlayerBaseSkull::Idle_Enter()
 {
 	Render->ChangeAnimation(std::string("Idle" + AnimNamePlusText));
-	JumpDir = float4::Zero;
+
 	CanJump = true;
 	DoubleJump = true;
 
@@ -34,16 +34,6 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 		PlayerFSM.ChangeState("Fall");
 		return;
 	}
-	else
-	{
-		float4 CurPos = PlayerTrans->GetWorldPosition();
-
-		GameEngineTransform* ColTrans = Ground->GetTransform();
-		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
-
-		PlayerTrans->SetWorldPosition(CurPos);
-		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
-	}
 
 	if (false == ParentPlayer->IsInputLock() && true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
@@ -60,14 +50,14 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 		{
 			if (nullptr == ContentFunc::PlatformColCheck(GroundCol))
 			{
-				FallCooldown = 0.15f;
+				FallCooldown = 0.2f;
 				PlayerFSM.ChangeState("Fall");
 				CanJump = false;
 				return;
 			}
 		}
 
-		JumpDir = float4::Up * JumpPower;
+		Jump();
 		PlayerFSM.ChangeState("Jump");
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
@@ -126,18 +116,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 
 	if (nullptr == ContentFunc::PlatformColCheck(JumpCol))
 	{
-		JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
-
-		if (JumpDir.Size() > JumpMaxPower)
-		{
-			JumpDir = JumpDir.NormalizeReturn() * JumpMaxPower;
-		}
-
-		PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
-	}
-	else 
-	{
-		JumpDir.y = -1.0f;
+		BattleActorRigidbody.AddVelocity(float4(0, -2800.0f * _DeltaTime, 0));
 	}
 
 	if (false == ParentPlayer->IsInputLock() && true == CanDash && true == GameEngineInput::IsDown("PlayerMove_Dash"))
@@ -151,7 +130,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({.EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition()});
 
-		JumpDir = float4::Up * JumpPower;
+		Jump();
 		DoubleJump = false;
 	}
 
@@ -199,7 +178,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 		}
 	}
 
-	if (JumpDir.y < 0)
+	if (BattleActorRigidbody.GetVelocity().y <= 0)
 	{
 		PlayerFSM.ChangeState("Fall");
 	}
@@ -208,7 +187,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 void PlayerBaseSkull::Walk_Enter() 
 {
 	Render->ChangeAnimation(std::string("Walk" + AnimNamePlusText));
-	JumpDir = float4::Zero;
+	//JumpDir = float4::Zero;
 	CanJump = true;
 	DoubleJump = true;
 	FsmState = PlayerFSM_State::Walk;
@@ -253,13 +232,13 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 			if (nullptr == ContentFunc::PlatformColCheck(GroundCol))
 			{
 				CanJump = false;
-				FallCooldown = 0.15f;
+				FallCooldown = 0.2f;
 				PlayerFSM.ChangeState("Fall");
 				return;
 			}
 		}
 
-		JumpDir = float4::Up * JumpPower;
+		Jump();
 		PlayerFSM.ChangeState("Jump");
 	}
 
@@ -339,6 +318,8 @@ void PlayerBaseSkull::Dash_Enter()
 		.Position = PlayerTrans->GetWorldPosition(),
 		.FlipX = ViewDir == ActorViewDir::Left});
 
+	FsmState = PlayerFSM_State::Dash;
+
 	switch (ViewDir)
 	{
 	case ActorViewDir::Left:
@@ -351,14 +332,13 @@ void PlayerBaseSkull::Dash_Enter()
 		break;
 	}
 
-	HitRigidbody.SetVelocity(float4::Zero);
-
 	DashAvoidance = true;
 
 	CanDash = false;
 	DashCombo = false;
 
-	JumpDir = float4::Zero;
+	BattleActorRigidbody.SetVelocity(float4::Zero);
+	//JumpDir = float4::Zero;
 
 	DashTrailCoolTime = 0.05f;
 	FsmState = PlayerFSM_State::Dash;
@@ -385,7 +365,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 		{
 			EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
-			JumpDir = float4::Up * JumpPower;
+			Jump();
 			PlayerFSM.ChangeState("Jump");
 
 			CanJump = false;
@@ -393,7 +373,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 			return;
 		}
 
-		JumpDir = float4::Up * JumpPower;
+		Jump();
 		PlayerFSM.ChangeState("Jump");
 		return;
 	}
@@ -402,7 +382,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
-		JumpDir = float4::Up * JumpPower;
+		Jump();
 		PlayerFSM.ChangeState("Jump");
 		DoubleJump = false;
 		return;
@@ -551,25 +531,19 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
-		JumpDir = float4::Up * JumpPower;
+		Jump();
 		PlayerFSM.ChangeState("Jump");
 		DoubleJump = false;
 		return;
 	}
 
-	JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
+	BattleActorRigidbody.AddVelocity(float4(0, -2800.0f * _DeltaTime));
 
-	if (JumpDir.Size() > JumpMaxPower)
-	{
-		JumpDir = JumpDir.NormalizeReturn() * JumpMaxPower;
-	}
-	else if (0 < JumpDir.y)
+	if (0 < BattleActorRigidbody.GetVelocity().y)
 	{
 		PlayerFSM.ChangeState("Jump");
 		return;
 	}
-
-	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
 
 	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
@@ -731,7 +705,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
-		JumpDir = float4::Up * JumpPower;
+		Jump();
 		PlayerFSM.ChangeState("Jump");
 		return;
 	}
@@ -832,32 +806,9 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 		}
 	}
 
-	JumpDir.y += ContentConst::Gravity_f * _DeltaTime;
 
-	if (JumpDir.Size() > JumpMaxPower)
-	{
-		JumpDir = JumpDir.NormalizeReturn() * JumpMaxPower;
-	}
-
-	if (0 < JumpDir.y)
-	{
-		if (nullptr == ContentFunc::PlatformColCheck(JumpCol))
-		{
-			PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
-		}
-		else
-		{
-			JumpDir.y = -1.0f;
-		}
-	}
-	else
-	{
-		if (nullptr == ContentFunc::PlatformColCheck(GroundCol))
-		{
-			PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
-		}
-	}
-
+	BattleActorRigidbody.AddVelocity(float4(0, -2800.0f * _DeltaTime, 0));
+	
 	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
 		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
@@ -877,7 +828,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 
 	std::shared_ptr<GameEngineCollision> GroundColPtr = ContentFunc::PlatformColCheck(GroundCol, true);
 
-	if (JumpDir.y <= 0.0f && nullptr != GroundColPtr)
+	if (BattleActorRigidbody.GetVelocity().y <= 0.0f && nullptr != GroundColPtr)
 	{
 		float4 CurPos = PlayerTrans->GetWorldPosition();
 
@@ -906,7 +857,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
-		JumpDir = float4::Up * JumpPower;
+		Jump();
 		DoubleJump = false;
 	}
 
@@ -937,7 +888,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 			Render->ChangeAnimation(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName() + AnimNamePlusText);
 			AttackEnterCheck.SetColData(AnimColMeta_JumpAttack[JumpAttackCombo]);
 		}
-		else if (JumpDir.y <= 0.0f)
+		else if (BattleActorRigidbody.GetVelocity().y <= 0.0f)
 		{
 			PlayerFSM.ChangeState("Jump");
 
@@ -972,7 +923,7 @@ void PlayerBaseSkull::Skill_SlotA_Enter()
 
 void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
 {
-	HitRigidbody.SetVelocity(float4::Zero);
+	BattleActorRigidbody.SetVelocity(float4::Zero);
 	AttackEnterCheck.Update();
 
 	IsSwitchValue = false;
@@ -1002,7 +953,6 @@ void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
 		{
 			if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
 			{
-				JumpDir.y = 0.0f;
 				PlayerFSM.ChangeState("Fall");
 				return;
 			}
@@ -1046,7 +996,7 @@ void PlayerBaseSkull::Skill_SlotB_Enter()
 
 void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
 {
-	HitRigidbody.SetVelocity(float4::Zero);
+	BattleActorRigidbody.SetVelocity(float4::Zero);
 	IsSwitchValue = false;
 
 	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Switch"))
@@ -1073,7 +1023,6 @@ void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
 		{
 			if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
 			{
-				JumpDir.y = 0.0f;
 				PlayerFSM.ChangeState("Fall");
 				return;
 			}
@@ -1137,7 +1086,6 @@ void PlayerBaseSkull::Switch_Update(float _DeltaTime)
 		{
 			if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
 			{
-				JumpDir.y = 0.0f;
 				PlayerFSM.ChangeState("Fall");
 				return;
 			}
@@ -1230,16 +1178,13 @@ void PlayerBaseSkull::StoryMove_Update(float _DeltaTime)
 
 	if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
 	{
-		JumpDir.y += _DeltaTime * ContentConst::Gravity_f;
+		BattleActorRigidbody.AddVelocity(float4(0, -2800.0f * _DeltaTime, 0));
 		Render->ChangeAnimation("FallRepeat" + AnimNamePlusText, 0, false);
 	}
 	else
 	{
-		JumpDir = float4::Zero;
 		Render->ChangeAnimation("Walk" + AnimNamePlusText, 0, false);
 	}
-
-	PlayerTrans->AddLocalPosition(JumpDir * _DeltaTime);
 
 	std::shared_ptr<GameEngineCollision> GroundColPtr = ContentFunc::PlatformColCheck(GroundCol, true);
 

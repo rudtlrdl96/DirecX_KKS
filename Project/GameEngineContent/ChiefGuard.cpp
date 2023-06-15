@@ -214,7 +214,7 @@ void ChiefGuard::Switch_Enter()
 
 void ChiefGuard::Switch_Update(float _DeltaTime)
 {
-	HitRigidbody.SetVelocity(float4::Zero);
+	BattleActorRigidbody.SetVelocity(float4::Zero);
 
 	if (true == IsFlash)
 	{

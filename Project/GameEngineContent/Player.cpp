@@ -130,7 +130,7 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 
 	HitWaitTime = 0.1f;
 	HitFade->Active();
-	MainSkull->HitRigidbody.AddVelocity(_HitForce);
+	MainSkull->BattleActorRigidbody.AddVelocity(_HitForce);
 	MainSkull->IsHit = true;
 	MainSkull->IsHitEffectOn = true;
 	MainSkull->HitEffect();
@@ -145,7 +145,7 @@ void Player::PushPlayer(const float4& _HitForce)
 		return;
 	}
 
-	MainSkull->JumpDir = _HitForce;
+	MainSkull->BattleActorRigidbody.SetVelocity(_HitForce);
 }
 
 void Player::InputLock()
