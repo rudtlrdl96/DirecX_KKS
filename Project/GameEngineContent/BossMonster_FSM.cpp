@@ -105,6 +105,8 @@ void BossMonster::Dash_Update(float _DeltaTime)
 	RigidbodyMovePlatformCheck(CurDashVel);
 	GetTransform()->AddLocalPosition(CurDashVel);
 
+	DashVel.y = 0.0f;
+
 	if (5.0f >= DashVel.Size())
 	{
 		BossFsm.ChangeState("Idle");
@@ -144,7 +146,8 @@ void BossMonster::BackDash_Update(float _DeltaTime)
 	RigidbodyMovePlatformCheck(CurFrameVel);
 	GetTransform()->AddLocalPosition(CurFrameVel);
 
-	if (1.0f <= BackDashVel.Size())
+	BackDashVel.y = 0.0f;
+	if (5.0f <= BackDashVel.Size())
 	{
 		return;
 	}
@@ -229,19 +232,22 @@ void BossMonster::Hit_Update(float _DeltaTime)
 
 	if (false == IsSuperArmor && true == IsHit)
 	{
-		switch (HitDir)
+		if (true == IsPush)
 		{
-		case ActorViewDir::Left:
-			SetViewDir(ActorViewDir::Right);
-			BossRigidbody.SetVelocity(float4::Left * HitPower);
-			break;
-		case ActorViewDir::Right:
-			SetViewDir(ActorViewDir::Left);
-			BossRigidbody.SetVelocity(float4::Right * HitPower);
-			break;
-		default:
-			break;
-		}
+			switch (HitDir)
+			{
+			case ActorViewDir::Left:
+				SetViewDir(ActorViewDir::Right);
+				BossRigidbody.SetVelocity(float4::Left * HitPower);
+				break;
+			case ActorViewDir::Right:
+				SetViewDir(ActorViewDir::Left);
+				BossRigidbody.SetVelocity(float4::Right * HitPower);
+				break;
+			default:
+				break;
+			}
+		}	
 
 		if (false == IsSuperArmor && true == IsStiffen)
 		{

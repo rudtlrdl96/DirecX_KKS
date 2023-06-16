@@ -306,8 +306,11 @@ void VeteranHero::EnergyBallShot(float _Rot, float _LiveTime)
 			.Position = _Parameter.ProjectilePos });
 	};
 
-	std::function<void(const float4& _Pos)> DeathCallback = [](const float4& _Pos)
+	ContentLevel* Level = GetContentLevel();
+
+	std::function<void(const float4& _Pos)> DeathCallback = [Level](const float4& _Pos)
 	{
+		Level->GetCamCtrl().CameraShake(4, 20, 3);
 		EffectManager::PlayEffect({
 			.EffectName = "RookieHero_EnergyBallExplosion_Large",
 			.Position = _Pos });
@@ -769,10 +772,94 @@ void VeteranHero::SworWaveShot()
 	ShotProjectile->ColDebugOn();
 }
 
+void VeteranHero::JumpAttack_Enter()
+{
+	LookPlayer();
+	PauseTimes["SwordEnergyReady"][2] = 0;
+	PlayAnimation("SwordEnergyReady");
+	IsJumpAttackStart = false;
+	IsJumpAttackEnd = false;
+	IsJumpAttackUp = false;
+
+	PrevRigdGravity = BossRigidbody.GetGravity();
+}
+
+void VeteranHero::JumpAttack_Update(float _DeltaTime)
+{
+	BossRigidbody.UpdateForce(_DeltaTime);
+
+	float4 BossVel = BossRigidbody.GetVelocity();
+	float4 CurFreamVel = BossVel * _DeltaTime;
+
+	RigidbodyMovePlatformCheck(CurFreamVel);
+	GetTransform()->AddLocalPosition(CurFreamVel);
+
+	if (false == IsJumpAttackStart && true == Render->IsAnimationEnd())
+	{
+		PlayAnimation("AttackD");
+		IsJumpAttackStart = true;
+	}
+
+	if (false == IsJumpAttackUp &&
+		true == IsJumpAttackStart && 1 == Render->GetCurrentFrame())
+	{
+		GetTransform()->AddLocalPosition(float4(0, 5, 0));
+		switch (Dir)
+		{
+		case ActorViewDir::Left:
+			BossRigidbody.SetVelocity(float4(-1200, 1800));
+			break;
+		case ActorViewDir::Right:
+			BossRigidbody.SetVelocity(float4(1200, 1800));
+			break;
+		}
+
+		IsJumpAttackUp = true;
+	}
+
+	if (false == IsJumpAttackEnd && 
+		true == IsJumpAttackStart && true == Render->IsAnimationEnd())
+	{
+		BossRigidbody.SetMaxSpeed(6000);
+		BossRigidbody.SetGravity(-100000.0f);
+		BossRigidbody.SetVelocity(float4(0, -3000));
+		PlayAnimation("AttackE");
+		IsJumpAttackEnd = true;
+	}
+
+	if (true == IsJumpAttackEnd && true == Render->IsAnimationEnd())
+	{
+		BossFsm.ChangeState("Idle");
+	}
+}
+
+void VeteranHero::JumpAttack_End()
+{
+	BossRigidbody.SetVelocity(float4::Zero);
+	BossRigidbody.SetMaxSpeed(3000);
+	BossRigidbody.SetGravity(PrevRigdGravity);
+}
+
+void VeteranHero::LandingAttack_Enter()
+{
+
+}
+
+void VeteranHero::LandingAttack_Update(float _DeltaTime)
+{
+
+}
+
+void VeteranHero::LandingAttack_End()
+{
+
+}
+
 void VeteranHero::Ultimate_Enter()
 {
 	PlayAnimation("Explosion");
 
+	PauseTimes["SwordEnergyReady"][2] = 0.3f;
 	IsUltimateCharge = false;
 	IsSwordEnergyReadyStart = false;
 	IsSwordEnergyReadyEnd = false;

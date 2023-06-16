@@ -68,6 +68,7 @@ private:
 	float4 MapCount;
 	float4 AtlasData;
 	float4 TileSize;
+	float4 Clip = float4::One;
 	float4 RenderSize;
 	float4 TileSizeH;
 

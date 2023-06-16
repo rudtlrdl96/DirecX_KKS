@@ -32,7 +32,7 @@ void VeteranHero::Start()
 {
 	BossMonster::Start();
 	SetViewDir(ActorViewDir::Right);
-	BossRigidbody.SetGravity(ContentConst::Gravity_f - 1000.0f);
+	BossRigidbody.SetGravity(ContentConst::Gravity_f - 2000.0f);
 	BossRigidbody.SetActiveGravity(true);
 	BossRigidbody.SetFricCoeff(3000.0f);
 	DashPower = 1450.0f;
@@ -41,7 +41,6 @@ void VeteranHero::Start()
 	PatternWaitTime = 1.5f;
 
 	PauseTimes["DeathIntro"][0] = 0.3f;
-	PauseTimes["SwordEnergyReady"][2] = 0.3f;
 
 	HealthBarPtr = GetLevel()->CreateActor<HealthBar>();
 	HealthBarPtr->GetTransform()->SetParent(GetTransform());
@@ -148,7 +147,7 @@ void VeteranHero::Start()
 	AttackCheck.SetCol(AttackCol, (UINT)CollisionOrder::Player);
 	AttackCheck.SetRender(Render);
 
-	SwordRigidbody.SetMaxSpeed(2000.0f);
+	SwordRigidbody.SetMaxSpeed(3000.0f);
 	SwordRigidbody.SetFricCoeff(500.0f);
 
 	ContentLevel* LevelPtr = GetContentLevel();
@@ -194,16 +193,16 @@ void VeteranHero::Start()
 		GameEngineInput::CreateKey("Debug_VeteranHeroMove", 'L');
 	}
 
-	//IsIntro = false;
-	//IsPlayerEnter = true;
-	//Battle_Platform_Left->On();
-	//Battle_Platform_Right->On();
+	IsIntro = false;
+	IsPlayerEnter = true;
+	Battle_Platform_Left->On();
+	Battle_Platform_Right->On();
 
 	// 처음 패턴 강제설정
-	Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
-	AttackDistance = 600.0f;
+	//Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
+	//Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
+	//Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
+	//AttackDistance = 600.0f;
 }
 
 void VeteranHero::Update(float _DeltaTime)
@@ -487,11 +486,11 @@ void VeteranHero::CreateAnimation()
 
 void VeteranHero::SelectPattern()
 {
-	//Cur_Pattern_Enter = std::bind(&VeteranHero::SwordWave_Enter, this);
-	//Cur_Pattern_Update = std::bind(&VeteranHero::SwordWave_Update, this, std::placeholders::_1);
-	//Cur_Pattern_End = std::bind(&VeteranHero::SwordWave_End, this);
-	//AttackDistance = 700.0f;
-	//return;
+	Cur_Pattern_Enter = std::bind(&VeteranHero::JumpAttack_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::JumpAttack_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::JumpAttack_End, this);
+	AttackDistance = 300.0f;
+	return;
 
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
@@ -551,6 +550,15 @@ void VeteranHero::SelectPattern()
 		AttackDistance = 700.0f;
 	}
 	break;
+
+	case 5: // JumpAttack
+	{
+		Cur_Pattern_Enter = std::bind(&VeteranHero::JumpAttack_Enter, this);
+		Cur_Pattern_Update = std::bind(&VeteranHero::JumpAttack_Update, this, std::placeholders::_1);
+		Cur_Pattern_End = std::bind(&VeteranHero::JumpAttack_End, this);
+		AttackDistance = 300.0f;
+	}
+		break;
 	default:
 		MsgAssert_Rtti<VeteranHero>(" - 존재하지 않는 패턴으로 설정하려 했습니다");
 		break;

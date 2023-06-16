@@ -16,6 +16,11 @@ public:
 		Mass = _Mass;
 	}
 
+	inline float GetGravity() const
+	{
+		return Gravity;
+	}
+
 	inline float GetMass() const
 	{
 		return Mass;

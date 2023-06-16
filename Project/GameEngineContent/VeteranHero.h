@@ -87,6 +87,13 @@ protected:
 	bool IsStingerAttackHit = false;
 	bool IsStingerSwordHit = false;
 
+	// 점프공격 패턴 변수
+	float PrevRigdGravity = 0.0f;
+
+	bool IsJumpAttackStart = false;
+	bool IsJumpAttackEnd = false;
+	bool IsJumpAttackUp = false;
+
 	// 스워드 웨이브 패턴 변수
 
 	UINT SwordWaveCombo = 0;
@@ -141,8 +148,15 @@ protected:
 	void SwordWave_Enter();
 	void SwordWave_Update(float _DeltaTime);
 	void SwordWave_End();
-
 	void SworWaveShot();
+
+	void JumpAttack_Enter();
+	void JumpAttack_Update(float _DeltaTime);
+	void JumpAttack_End();
+
+	void LandingAttack_Enter();
+	void LandingAttack_Update(float _DeltaTime);
+	void LandingAttack_End();
 
 	void Ultimate_Enter();
 	void Ultimate_Update(float _DeltaTime);
