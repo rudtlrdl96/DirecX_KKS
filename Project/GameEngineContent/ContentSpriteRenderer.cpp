@@ -210,7 +210,7 @@ std::shared_ptr<ContentAnimationInfo> ContentSpriteRenderer::CreateAnimation(con
 		{
 			if (_Paramter.End >= Sprite->GetSpriteCount())
 			{
-				MsgAssert("스프라이트 범위를 초과하는 인덱스로 애니메이션을 마들려고 했습니다." + std::string(_Paramter.AnimationName));
+				MsgAssert("스프라이트 범위를 초과하는 인덱스로 애니메이션을 생성하려 했습니다." + std::string(_Paramter.AnimationName));
 				return nullptr;
 			}
 

@@ -33,7 +33,8 @@ public:
 
 	void HitPlayer(float _Damage, const float4& _HitForce);
 
-	void PushPlayer(const float4& _HitForce);
+	void AddPushPlayer(const float4& _HitForce);
+	void SetPushPlayer(const float4& _HitForce);
 
 	float4 GetBattleRigidVelocity() const
 	{

@@ -105,7 +105,7 @@ void BossMonster::Dash_Update(float _DeltaTime)
 	RigidbodyMovePlatformCheck(CurDashVel);
 	GetTransform()->AddLocalPosition(CurDashVel);
 
-	if (1.0f >= DashVel.Size())
+	if (5.0f >= DashVel.Size())
 	{
 		BossFsm.ChangeState("Idle");
 	}

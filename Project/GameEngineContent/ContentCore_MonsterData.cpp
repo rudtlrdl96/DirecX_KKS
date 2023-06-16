@@ -358,6 +358,8 @@ void ContentCore::MonsterDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_ComboAttack_Projectile.png").GetFullPath(), 4, 4);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_EnergyBlast_Explosion.png").GetFullPath(), 5, 4);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_EnergyBlast_Charging.png").GetFullPath(), 6, 8);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_EnergyBlastStart_Effect.png").GetFullPath(), 4, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_WaveSmoke_Effect.png").GetFullPath(), 4, 4);
 
 		EffectManager::CreateMetaData("RookieHero_Explosion", {
 			.SpriteName = "RookieHero_ExplosionEffect.png",
@@ -463,6 +465,20 @@ void ContentCore::MonsterDataLoad()
 			.AnimStart = 0,
 			.AnimEnd = 46,
 			.AnimIter = 0.045f,
+			.ScaleRatio = 2.0f});		
+		
+		EffectManager::CreateMetaData("VeteranHero_EnergyBlast", {
+			.SpriteName = "VeteranHero_EnergyBlastStart_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 11,
+			.AnimIter = 0.045f,
+			.ScaleRatio = 2.0f});		
+		
+		EffectManager::CreateMetaData("VeteranHero_WaveSmoke", {
+			.SpriteName = "VeteranHero_WaveSmoke_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 15,
+			.AnimIter = 0.04f,
 			.ScaleRatio = 2.0f});
 
 		Path.MoveParent();

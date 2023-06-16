@@ -74,7 +74,7 @@ void Mushroom::Update(float _DeltaTime)
 
 				float4 Vel = CastingPlayerPtr->GetBattleRigidVelocity();
 				Vel.y = 2800.0f;
-				CastingPlayerPtr->PushPlayer(Vel);
+				CastingPlayerPtr->SetPushPlayer(Vel);
 			}
 		}
 

@@ -41,6 +41,7 @@ void VeteranHero::Start()
 	PatternWaitTime = 1.5f;
 
 	PauseTimes["DeathIntro"][0] = 0.3f;
+	PauseTimes["SwordEnergyReady"][2] = 0.3f;
 
 	HealthBarPtr = GetLevel()->CreateActor<HealthBar>();
 	HealthBarPtr->GetTransform()->SetParent(GetTransform());
@@ -70,6 +71,12 @@ void VeteranHero::Start()
 
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	AttackCol->SetColType(ColType::AABBBOX2D);
+
+	WaveSmokeCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	WaveSmokeCol->GetTransform()->SetWorldScale(float4(40, 100, 1));
+	WaveSmokeCol->GetTransform()->SetWorldRotation(float4::Zero);
+	WaveSmokeCol->SetColType(ColType::AABBBOX2D);
+	WaveSmokeCol->Off();
 
 	ExplosionCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	ExplosionCol->GetTransform()->SetLocalPosition(float4(0, 5, 0));
@@ -111,8 +118,9 @@ void VeteranHero::Start()
 	UltimateLight->PipeSetting("2DTexture_Color");
 	UltimateLight->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", UltimateLightBuffer);
 	UltimateLight->SetTexture("FadeImage.png");
-	UltimateLight->GetTransform()->SetWorldPosition(float4(0, 0, -4.5f));
-	UltimateLight->GetTransform()->SetLocalScale(float4(100000, 100000, 1));
+	UltimateLight->GetTransform()->SetWorldPosition(float4(0, 0, 1.0f));
+	UltimateLight->GetTransform()->SetWorldRotation(float4::Zero);
+	UltimateLight->GetTransform()->SetWorldScale(float4(100000, 100000, 1));
 	UltimateLight->Off();
 
 	UltimateFade = CreateComponent<ContentSpriteRenderer>();
@@ -120,7 +128,8 @@ void VeteranHero::Start()
 	UltimateFade->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", UltimateFadeBuffer);
 	UltimateFade->SetTexture("FadeImage.png");
 	UltimateFade->GetTransform()->SetWorldPosition(float4(0, 0, -999.0f));
-	UltimateFade->GetTransform()->SetLocalScale(float4(100000, 100000, 1));
+	UltimateFade->GetTransform()->SetWorldRotation(float4::Zero);
+	UltimateFade->GetTransform()->SetWorldScale(float4(100000, 100000, 1));
 	UltimateFade->Off();
 
 	AttackCheck.SetCol(AttackCol, (UINT)CollisionOrder::Player);
@@ -167,11 +176,11 @@ void VeteranHero::Start()
 			SetViewDir(ActorViewDir::Left);
 		});
 
-	GetTransform()->AddLocalPosition(float4(-100, -200));
-	IsIntro = false;
-	IsPlayerEnter = true;
-	Battle_Platform_Left->On();
-	Battle_Platform_Right->On();
+	//GetTransform()->AddLocalPosition(float4(-100, -200));
+	//IsIntro = false;
+	//IsPlayerEnter = true;
+	//Battle_Platform_Left->On();
+	//Battle_Platform_Right->On();
 }
 
 void VeteranHero::Update(float _DeltaTime)
@@ -350,11 +359,6 @@ void VeteranHero::Update(float _DeltaTime)
 		UltimateSmokeEffect = nullptr;
 	}
 
-	if (nullptr != UltimateAuraEffect && UltimateAuraEffect->IsDeath())
-	{
-		UltimateAuraEffect = nullptr;
-	}
-
 	HealthBarActiveTime -= _DeltaTime;
 
 	if (0.0f < HealthBarActiveTime)
@@ -441,17 +445,18 @@ void VeteranHero::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "AttackA_Ready", .SpriteName = "RookieHero_AttackAReady.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "AttackC", .SpriteName = "RookieHero_AttackC.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "AttackE", .SpriteName = "RookieHero_AttackE.png", .Loop = true, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "SwordEnergyReady", .SpriteName = "RookieHero_SwordEnergyReady.png", .Loop = true, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "SwordEnergy", .SpriteName = "RookieHero_SwordEnergy.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "SwordEnergyReady", .SpriteName = "RookieHero_SwordEnergyReady.png", .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "SwordEnergy", .SpriteName = "RookieHero_SwordEnergy.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "DeathIntro", .SpriteName = "RookieHero_DeadIntro.png", .Loop = true, .ScaleToTexture = true });
 }
 
 void VeteranHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&VeteranHero::Explosion_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::Explosion_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::Explosion_End, this);
-	AttackDistance = 230.0f;
+	Cur_Pattern_Enter = std::bind(&VeteranHero::Ultimate_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::Ultimate_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::Ultimate_End, this);
+
+	AttackDistance = 300.0f;
 
 	return;
 
@@ -466,7 +471,7 @@ void VeteranHero::SelectPattern()
 		Cur_Pattern_Update = std::bind(&VeteranHero::Ultimate_Update, this, std::placeholders::_1);
 		Cur_Pattern_End = std::bind(&VeteranHero::Ultimate_End, this);
 
-		AttackDistance = 600.0f;
+		AttackDistance = 300.0f;
 		UltimateTime = -30.0f;
 		return;
 	}
@@ -505,12 +510,11 @@ void VeteranHero::SelectPattern()
 	// 신규 패턴 -> 돌진 공격, 검기 웨이브, 내려찍기, 랜딩어택
 	// 발악 패턴 -> 신규 궁극기
 
-	// 변경 패턴
 	// 에너지볼 : 에너지볼 이펙트 변경 에너지볼의 속도, 추적능력변경, 3개 동시에 발사 [완료]
 	// 콤보어택 : 마지막 공격이 검기 발사 [완료]
 	// 폭발 : 이펙트 변경, 차징시 지속 데미지 [완료]
 
-	// 필살기 : 더 이상 그로기상태가 없음, 즉시발사, 연기 후속타
+	// 필살기 : 더 이상 그로기상태가 없음, 즉시발사, 연기 후속타 [완료]
 }
 
 

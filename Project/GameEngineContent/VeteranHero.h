@@ -25,6 +25,7 @@ protected:
 	std::shared_ptr<GameEngineCollision> AttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> ExplosionCol = nullptr;
 	std::shared_ptr<GameEngineCollision> ExplosionChargeCol = nullptr;
+	std::shared_ptr<GameEngineCollision> WaveSmokeCol  = nullptr;
 	std::shared_ptr<GameEngineCollision> EventCol = nullptr;
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Left = nullptr;
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Right = nullptr;
@@ -74,10 +75,16 @@ protected:
 	float PlayerChargeHitTime = 0.0f;
 	float ExplosionTime = 0.0f;
 
-	bool IsUltimateComplete = false;
-	bool IsUltimateShotReady = false;
-	bool IsUltimateShot = false;
-	float UltimateLiveTime = 0.0f;
+	std::shared_ptr<EffectActor> UltimateSmokeEffect = nullptr;
+
+	bool IsUltimateCharge = false;
+	bool IsSwordEnergyReadyStart = false;
+	bool IsSwordEnergyReadyEnd = false;
+	float SwordEnergyWaveTime = 0.0f;
+	float SwordEnergyWaveEndTime = 0.0f;
+	float4 SwordSmokePos = float4::Zero;
+	ActorViewDir SmokeDir = ActorViewDir::Right;
+	bool IsSwordWaveSmokeHit = false;
 
 	float UltimateLightProgress = 0.0f;
 	float UltimateFadeProgress = 0.0f;
@@ -86,8 +93,6 @@ protected:
 	bool IsUltimateLightOff = false;
 	bool IsUltimateFadeOn = false;
 
-	std::shared_ptr<EffectActor> UltimateSmokeEffect = nullptr;
-	std::shared_ptr<EffectActor> UltimateAuraEffect = nullptr;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;

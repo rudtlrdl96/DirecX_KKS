@@ -137,7 +137,18 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 	MainSkull->HitPush();
 }
 
-void Player::PushPlayer(const float4& _HitForce)
+void Player::AddPushPlayer(const float4& _HitForce)
+{
+	if (nullptr == MainSkull)
+	{
+		MsgAssert_Rtti<Player>(" - 스컬 데이터가 존재하지 않는데 플레이어를 밀어내려 했습니다");
+		return;
+	}
+
+	MainSkull->BattleActorRigidbody.AddVelocity(_HitForce);
+}
+
+void Player::SetPushPlayer(const float4& _HitForce)
 {
 	if (nullptr == MainSkull)
 	{

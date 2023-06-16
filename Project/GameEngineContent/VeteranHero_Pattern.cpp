@@ -482,99 +482,89 @@ void VeteranHero::Explosion_End()
 
 void VeteranHero::Ultimate_Enter()
 {
-	PlayAnimation("ExplosionReady");
-	UltimateLiveTime = 0.0f;
+	PlayAnimation("Explosion");
+
+	IsUltimateCharge = false;
+	IsSwordEnergyReadyStart = false;
+	IsSwordEnergyReadyEnd = false;
 	HitDamageCheck = 0.0f;
-	IsUltimateShotReady = false;
-	IsUltimateShot = false;
+	SwordEnergyWaveTime = -0.5f;
+	IsSwordWaveSmokeHit = false;
 
-	IsUltimateComplete = false;
-
-	UltimateLightOn();
+	SwordEnergyWaveEndTime = -2.0f;
 }
 
 void VeteranHero::Ultimate_Update(float _DeltaTime)
 {
-	UltimateLiveTime += _DeltaTime;
-
-	if (false == IsUltimateShot && (nullptr == UltimateAuraEffect || true == UltimateAuraEffect->IsAnimationEnd()))
+	if (false == IsUltimateCharge && true == Render->IsAnimationEnd())
 	{
-		UltimateAuraEffect = EffectManager::PlayEffect({
-			.EffectName = "RookieHero_UltimateAura",
-			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
-			.AddSetZ = 0.0f });
-	}
+		IsUltimateCharge = true;
 
-	if (false == IsUltimateShot && (nullptr == UltimateSmokeEffect || true == UltimateSmokeEffect->IsAnimationEnd()))
-	{
 		UltimateSmokeEffect = EffectManager::PlayEffect({
-			.EffectName = "RookieHero_UltimateSmoke",
-			.Position = GetTransform()->GetWorldPosition() + float4(0, 30, 0),
-			.AddSetZ = -10.0f });
-	}
-
-	if (false == IsUltimateShotReady &&
-		false == IsUltimateShot &&
-		true == Render->IsAnimationEnd())
-	{
-		PlayAnimation("Explosion", false);
-	}
-
-	if (false == IsUltimateShotReady && 100.0f <= HitDamageCheck)
-	{
-		EffectManager::PlayEffect({
-			.EffectName = "RookieHero_UltimateFail",
-			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
+			.EffectName = "RookieHero_UltimateComplete",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 70, 0),
 			.AddSetZ = -20.0f });
 
-		BossFsm.ChangeState("Groggy");
-		UltimateLightOff();
+		GetContentLevel()->GetCamCtrl().CameraShake(5, 20, 5);
+		UltimateLightOn();
 		return;
 	}
 
-	if (false == IsUltimateComplete && 3.5f <= UltimateLiveTime)
+	if (nullptr != UltimateSmokeEffect && true == UltimateSmokeEffect->IsAnimationEnd())
 	{
-		IsUltimateComplete = true;
+		GetContentLevel()->GetCamCtrl().CameraShake(7, 20, 3);
+		IsSwordEnergyReadyStart = true;
 
-		EffectManager::PlayEffect({
-			.EffectName = "RookieHero_UltimateComplete",
-			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
-			.AddSetZ = -20.0f });
-	}
+		ExplosionCol->On();
+		std::shared_ptr<GameEngineCollision> ExploCol = ExplosionCol->Collision((int)CollisionOrder::Player, ColType::SPHERE2D, ColType::AABBBOX2D);
 
-	if (false == IsUltimateShotReady && 4.0f <= UltimateLiveTime)
-	{
-		std::shared_ptr<Player> PlayerActor = FindPlayer.lock();
-
-		if (nullptr != PlayerActor)
+		if (nullptr != ExploCol)
 		{
-			float4 Dir = PlayerActor->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+			std::shared_ptr<Player> CastPtr = ExploCol->GetActor()->DynamicThis<Player>();
 
-			if (0.0f > Dir.x)
+			if (nullptr == CastPtr)
 			{
-				SetViewDir(ActorViewDir::Left);
+				MsgAssert_Rtti<VeteranHero>(" - 플레이어만 Player Col Order를 가질 수 있습니다.");
+				return;
+			}
+
+			float4 PlayerDir = CastPtr->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+
+			if (0.0f > PlayerDir.x)
+			{
+				CastPtr->AddPushPlayer(float4(-250, 400));
 			}
 			else
 			{
-				SetViewDir(ActorViewDir::Right);
+				CastPtr->AddPushPlayer(float4(250, 400));
 			}
 		}
 
+		ExplosionCol->Off();
+
+		LookPlayer();
 		PlayAnimation("SwordEnergyReady");
-		IsUltimateShotReady = true;
-		UltimateLightOff();
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_EnergyBlast",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 70, 0),
+			.Scale = 2.0f });
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_EnergyBlast",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 70, 0),
+			.AddSetZ = -10.0f,
+			.Scale = 1.0f,
+			});
+
 		return;
 	}
 
-	if (false == IsUltimateShot &&
-		true == IsUltimateShotReady &&
+	if (true == IsSwordEnergyReadyStart && false == IsSwordEnergyReadyEnd &&
 		true == Render->IsAnimationEnd())
 	{
-		UltimateFadeOn();
-
-		IsUltimateShotReady = true;
-		IsUltimateShot = true;
-		PlayAnimation("SwordEnergy", false);
+		IsSwordEnergyReadyEnd = true;
+		PlayAnimation("SwordEnergy");
 
 		std::shared_ptr<Projectile> ShotProjectile = GetLevel()->CreateActor<Projectile>();
 
@@ -604,7 +594,14 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 				return;
 			}
 
-			CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 500.0f);
+			if (_Parameter.AttackDir.x < 0.0f)
+			{
+				CastingPtr->HitPlayer(_Parameter.Attack, float4(-300, 500));
+			}
+			else
+			{
+				CastingPtr->HitPlayer(_Parameter.Attack, float4(300, 500));
+			}
 
 			EffectManager::PlayEffect({
 				.EffectName = "RookieHero_EnergyBallExplosion",
@@ -633,15 +630,110 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 			.LiveTime = 3.0f,
 			.EnterEvent = HitCallback,
 			.DeathEvent = DeathCallback, });
+
+
+		switch (Dir)
+		{
+		case ActorViewDir::Left:
+			SwordSmokePos = GetTransform()->GetWorldPosition() + float4(-120, 125);
+			break;
+		case ActorViewDir::Right:
+			SwordSmokePos = GetTransform()->GetWorldPosition() + float4(120, 125);
+			break;
+		}
+
+		SmokeDir = Dir;
+
+		return;
 	}
 
-	if (true == IsUltimateShot && true == Render->IsAnimationEnd())
+	if (true == IsSwordEnergyReadyEnd)
+	{
+		SwordEnergyWaveTime += _DeltaTime;
+		SwordEnergyWaveEndTime += _DeltaTime;
+
+		if (0.0f <= SwordEnergyWaveTime)
+		{
+			SwordEnergyWaveTime -= 0.1f;
+
+			switch (SmokeDir)
+			{
+			case ActorViewDir::Left:
+				SwordSmokePos += float4(-60, 0);
+				break;
+			case ActorViewDir::Right:
+				SwordSmokePos += float4(60, 0);
+				break;
+			}
+
+			EffectManager::PlayEffect({
+				.EffectName = "VeteranHero_WaveSmoke",
+				.Position = SwordSmokePos,
+				.FlipX = ActorViewDir::Left == SmokeDir});
+
+			if (false == IsSwordWaveSmokeHit)
+			{
+				WaveSmokeCol->On();
+
+				switch (SmokeDir)
+				{
+				case ActorViewDir::Left:
+					WaveSmokeCol->GetTransform()->SetWorldPosition(SwordSmokePos + float4(70, -70));
+					break;
+				case ActorViewDir::Right:
+					WaveSmokeCol->GetTransform()->SetWorldPosition(SwordSmokePos + float4(-70, -70));
+					break;
+				}
+
+				std::shared_ptr<GameEngineCollision> SmokeCol = WaveSmokeCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+				if (nullptr != SmokeCol)
+				{
+					std::shared_ptr<Player> CastingPtr = SmokeCol->GetActor()->DynamicThis<Player>();
+
+					if (nullptr == CastingPtr)
+					{
+						MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+						return;
+					}
+
+					switch (SmokeDir)
+					{
+					case ActorViewDir::Left:
+						CastingPtr->HitPlayer(Data.Attack * 0.5f, float4(-300, 500));
+						break;
+					case ActorViewDir::Right:
+						CastingPtr->HitPlayer(Data.Attack * 0.5f, float4(300, 500));
+						break;
+					default:
+						break;
+					}
+
+					EffectManager::PlayEffect({
+						.EffectName = "HitNormal",
+						.Position = CastingPtr->GetTransform()->GetWorldPosition()
+						+ float4(GameEngineRandom::MainRandom.RandomFloat(-20, 20),
+							50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20)) });
+
+					IsSwordWaveSmokeHit = true;
+				}
+			}
+		}
+		else
+		{
+			WaveSmokeCol->Off();
+		}
+	}
+
+	if (0.0f <= SwordEnergyWaveEndTime)
 	{
 		BossFsm.ChangeState("Idle");
 	}
+
 }
 
 void VeteranHero::Ultimate_End()
 {
+	UltimateLightOff();
 
 }
