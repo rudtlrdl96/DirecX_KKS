@@ -662,6 +662,113 @@ void VeteranHero::Stinger_End()
 	StingerSwordAttackCol->Off();
 }
 
+void VeteranHero::SwordWave_Enter()
+{
+	LookPlayer();
+	PlayAnimation("AttackA_Ready");
+
+	float4 Pivot = float4::Zero;
+
+	switch (Dir)
+	{
+	case ActorViewDir::Left:
+		Pivot = float4(50, 40, 0);
+		break;
+	case ActorViewDir::Right:
+		Pivot = float4(-50, 40, 0);
+		break;
+	}
+
+	StingerEffect = EffectManager::PlayEffect({
+		.EffectName = "VeteranHero_WaveReady",
+		.Position = GetTransform()->GetWorldPosition() + Pivot,
+		.FlipX = Dir == ActorViewDir::Left, });
+
+	SwordWaveCombo = 0;
+}
+
+void VeteranHero::SwordWave_Update(float _DeltaTime)
+{
+	if (0 == SwordWaveCombo && true == Render->IsAnimationEnd())
+	{
+		SworWaveShot();
+		PlayAnimation("AttackA", true, 5);
+		++SwordWaveCombo;
+	}
+
+	if (1 == SwordWaveCombo && true == Render->IsAnimationEnd())
+	{
+		SworWaveShot();
+		PlayAnimation("AttackB");
+		++SwordWaveCombo;
+	}
+
+	if (2 == SwordWaveCombo && true == Render->IsAnimationEnd())
+	{
+		BossFsm.ChangeState("Idle");
+	}
+}
+
+void VeteranHero::SwordWave_End()
+{
+
+}
+
+void VeteranHero::SworWaveShot()
+{
+	std::shared_ptr<Projectile> ShotProjectile = GetLevel()->CreateActor<Projectile>();
+
+	float4 Pivot = float4::Zero;
+	float4 ShotDir = float4::Zero;
+
+	switch (Dir)
+	{
+	case ActorViewDir::Left:
+		Pivot = float4(-50, 85, 0);
+		ShotDir = float4::Left;
+		break;
+	case ActorViewDir::Right:
+		Pivot = float4(50, 85, 0);
+		ShotDir = float4::Right;
+		break;
+	}
+
+	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> HitCallback =
+		[](std::shared_ptr<class BaseContentActor> _ColActor, ProjectileHitParameter _Parameter)
+	{
+		std::shared_ptr<Player> CastingPtr = _ColActor->DynamicThis<Player>();
+
+		if (nullptr == CastingPtr)
+		{
+			MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+			return;
+		}
+
+		CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 300.0f);
+
+		EffectManager::PlayEffect({
+			.EffectName = "HitNormal",
+			.Position = _Parameter.ProjectilePos });
+	};
+
+	ShotProjectile->ShotProjectile({
+		.EffectName = "VeteranHero_Wave",
+		.Pos = GetTransform()->GetWorldPosition() + Pivot,
+		.Dir = ShotDir,
+		.ColScale = float4(80, 150, 1),
+		.ColOrder = (int)CollisionOrder::Player,
+		.ProjectileColType = ColType::AABBBOX2D,
+		.IsPlatformCol = false,
+		.IsRot = false,
+		.IsFlipX = Dir == ActorViewDir::Left,
+		.Damage = Data.Attack,
+		.Speed = 1000.0f,
+		.LiveTime = 1.5f,
+		.EnterEvent = HitCallback });
+
+	ShotProjectile->ColDebugOn();
+}
+
 void VeteranHero::Ultimate_Enter()
 {
 	PlayAnimation("Explosion");

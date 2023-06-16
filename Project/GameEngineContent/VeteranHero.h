@@ -87,6 +87,10 @@ protected:
 	bool IsStingerAttackHit = false;
 	bool IsStingerSwordHit = false;
 
+	// 스워드 웨이브 패턴 변수
+
+	UINT SwordWaveCombo = 0;
+
 	// 1차 각성기 패턴 변수
 	std::shared_ptr<EffectActor> UltimateSmokeEffect = nullptr;
 	float UltimateTime = 0.0f;
@@ -134,6 +138,11 @@ protected:
 	void Stinger_Update(float _DeltaTime);
 	void Stinger_End();
 	
+	void SwordWave_Enter();
+	void SwordWave_Update(float _DeltaTime);
+	void SwordWave_End();
+
+	void SworWaveShot();
 
 	void Ultimate_Enter();
 	void Ultimate_Update(float _DeltaTime);

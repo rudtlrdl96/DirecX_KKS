@@ -200,10 +200,10 @@ void VeteranHero::Start()
 	Battle_Platform_Right->On();
 
 	// 처음 패턴 강제설정
-	Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
-	AttackDistance = 600.0f;
+	//Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
+	//Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
+	//Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
+	//AttackDistance = 600.0f;
 }
 
 void VeteranHero::Update(float _DeltaTime)
@@ -475,7 +475,7 @@ void VeteranHero::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "EnergyBall", .SpriteName = "RookieHero_EnergyBall.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "ExplosionReady", .SpriteName = "RookieHero_ExplosionReady.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Explosion", .SpriteName = "RookieHero_ExplosionLoop.png", .Loop = true, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "AttackA_Ready", .SpriteName = "RookieHero_AttackAReady.png", .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "AttackA_Ready", .SpriteName = "RookieHero_AttackAReady.png", .FrameInter = 0.125f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "AttackC", .SpriteName = "RookieHero_AttackC.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "AttackE", .SpriteName = "RookieHero_AttackE.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "SwordEnergyReady", .SpriteName = "RookieHero_SwordEnergyReady.png", .Loop = false, .ScaleToTexture = true });
@@ -487,10 +487,10 @@ void VeteranHero::CreateAnimation()
 
 void VeteranHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
-	AttackDistance = 600.0f;
+	Cur_Pattern_Enter = std::bind(&VeteranHero::SwordWave_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::SwordWave_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::SwordWave_End, this);
+	AttackDistance = 700.0f;
 	return;
 
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
@@ -541,6 +541,14 @@ void VeteranHero::SelectPattern()
 		Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
 		Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
 		AttackDistance = 600.0f;
+	}
+	break;
+	case 4: // SwordWave
+	{
+		Cur_Pattern_Enter = std::bind(&VeteranHero::SwordWave_Enter, this);
+		Cur_Pattern_Update = std::bind(&VeteranHero::SwordWave_Update, this, std::placeholders::_1);
+		Cur_Pattern_End = std::bind(&VeteranHero::SwordWave_End, this);
+		AttackDistance = 700.0f;
 	}
 	break;
 	default:
