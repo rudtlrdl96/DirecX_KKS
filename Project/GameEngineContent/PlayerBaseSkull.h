@@ -185,6 +185,12 @@ protected:
 	UINT SkillBCombo = 0;
 	UINT SwitchCombo = 0;
 
+	float CurDamageRatio = 1.0f;
+	float Attack_DamageRatio = 1.0f;
+	float SkillA_DamageRatio = 1.0f;
+	float SkillB_DamageRatio = 1.0f;
+	float Switch_DamageRatio = 1.0f;
+
 	std::string BehaviorAnimationName = "";
 	std::function<void()> BehaviorEndCallback = nullptr;
 	std::function<void()> PauseEndCallback = nullptr;

@@ -645,6 +645,8 @@ void PlayerBaseSkull::Attack_Enter()
 
 	AttackEnterCheck.SetColData(AnimColMeta_Attack[AttackComboCount]);
 	FsmState = PlayerFSM_State::Attack;
+
+	CurDamageRatio = Attack_DamageRatio;
 }
 
 void PlayerBaseSkull::Attack_Update(float _DeltaTime) 
@@ -773,6 +775,8 @@ void PlayerBaseSkull::JumpAttack_Enter()
 	Render->ChangeAnimation(AnimColMeta_JumpAttack[JumpAttackCombo].GetAnimationName() + AnimNamePlusText);
 	AttackEnterCheck.SetColData(AnimColMeta_JumpAttack[JumpAttackCombo]);
 	FsmState = PlayerFSM_State::JumpAttack;
+
+	CurDamageRatio = Attack_DamageRatio;
 }
 
 void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
@@ -919,6 +923,7 @@ void PlayerBaseSkull::Skill_SlotA_Enter()
 	CurSkillATime = 0.0f;
 	FsmState = PlayerFSM_State::SkillA;
 
+	CurDamageRatio = SkillA_DamageRatio;
 }
 
 void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
@@ -992,6 +997,7 @@ void PlayerBaseSkull::Skill_SlotB_Enter()
 
 	CurSkillBTime = 0.0f;
 	FsmState = PlayerFSM_State::SkillB;
+	CurDamageRatio = SkillB_DamageRatio;
 }
 
 void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
@@ -1062,6 +1068,8 @@ void PlayerBaseSkull::Switch_Enter()
 
 	IsLockSkillA = true;
 	IsLockSkillB = true;
+
+	CurDamageRatio = Switch_DamageRatio;
 }
 
 void PlayerBaseSkull::Switch_Update(float _DeltaTime)

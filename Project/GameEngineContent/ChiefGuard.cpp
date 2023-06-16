@@ -23,6 +23,10 @@ void ChiefGuard::Start()
 	float4 ColSize = float4(FlashMoveX, 58, 1);
 	FlashCol->GetTransform()->SetWorldScale(ColSize);
 	FlashCol->GetTransform()->SetWorldRotation(float4::Zero);
+
+	SkillA_DamageRatio = 0.5f;
+	SkillB_DamageRatio = 2.7f;
+	Switch_DamageRatio = 1.5f;
 }
 
 void ChiefGuard::Skill_SlotA_Enter()
@@ -83,7 +87,7 @@ void ChiefGuard::Skill_SlotA_Update(float _DeltaTime)
 				return;
 			}
 
-			HitEnemy->HitMonster(GetMagicAttackDamage(), GetViewDir(), true, true);
+			HitEnemy->HitMonster(GetMagicAttackDamage() * 1.5f, GetViewDir(), true, true);
 		}
 
 		switch (GetViewDir())
@@ -157,10 +161,10 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 				switch (AttackTypeValue)
 				{
 				case PlayerBaseSkull::AttackType::MeleeAttack:
-					ColMonster->HitMonster(GetMeleeAttackDamage(), ActorViewDir::Right, true, true);
+					ColMonster->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio, ActorViewDir::Right, true, true);
 					break;
 				case PlayerBaseSkull::AttackType::MagicAttack:
-					ColMonster->HitMonster(GetMagicAttackDamage(), ActorViewDir::Right, true, true);
+					ColMonster->HitMonster(GetMagicAttackDamage() * SkillB_DamageRatio, ActorViewDir::Right, true, true);
 					break;
 				default:
 					break;
@@ -172,10 +176,10 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 				switch (AttackTypeValue)
 				{
 				case PlayerBaseSkull::AttackType::MeleeAttack:
-					ColMonster->HitMonster(GetMeleeAttackDamage(), ActorViewDir::Left, true, true);
+					ColMonster->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio, ActorViewDir::Left, true, true);
 					break;
 				case PlayerBaseSkull::AttackType::MagicAttack:
-					ColMonster->HitMonster(GetMagicAttackDamage(), ActorViewDir::Left, true, true);
+					ColMonster->HitMonster(GetMagicAttackDamage() * SkillB_DamageRatio, ActorViewDir::Left, true, true);
 					break;
 				default:
 					break;
@@ -304,21 +308,21 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 			case ActorViewDir::Left:
 				if (Flip > 0.0f)
 				{
-					HitEnemy->HitMonster(GetMeleeAttackDamage(), ActorViewDir::Left, true, true);
+					HitEnemy->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, ActorViewDir::Left, true, true);
 				}
 				else
 				{
-					HitEnemy->HitMonster(GetMagicAttackDamage(), ActorViewDir::Right, true, true);
+					HitEnemy->HitMonster(GetMagicAttackDamage() * Switch_DamageRatio, ActorViewDir::Right, true, true);
 				}
 				break;
 			case ActorViewDir::Right:
 				if (Flip > 0.0f)
 				{
-					HitEnemy->HitMonster(GetMeleeAttackDamage(), ActorViewDir::Right, true, true);
+					HitEnemy->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, ActorViewDir::Right, true, true);
 				}
 				else
 				{
-					HitEnemy->HitMonster(GetMagicAttackDamage(), ActorViewDir::Left, true, true);
+					HitEnemy->HitMonster(GetMagicAttackDamage() * Switch_DamageRatio, ActorViewDir::Left, true, true);
 				}
 				
 				break;

@@ -228,7 +228,7 @@ void PlayerBaseSkull::Start()
 			2.0f });
 	}
 
-	BattleActorRigidbody.SetMaxSpeed(1500.0f);
+	BattleActorRigidbody.SetMaxSpeed(1800.0f);
 	BattleActorRigidbody.SetFricCoeff(900.0f);
 
 	DashRigidbody.SetActiveGravity(false);
@@ -241,21 +241,21 @@ void PlayerBaseSkull::Start()
 
 	GroundCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	GroundCol->GetTransform()->SetLocalPosition(float4(0.0f, 2.5f, 1.0f));
-	GroundCol->GetTransform()->SetWorldScale(float4(30.0f, 5.0f, 1.0f));	
+	GroundCol->GetTransform()->SetWorldScale(float4(22.0f, 5.0f, 1.0f));	
 	GroundCol->GetTransform()->SetWorldRotation(float4::Zero);	
 	
 	JumpCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	JumpCol->GetTransform()->SetLocalPosition(float4(0.0f, 66.0f, 1.0f));
-	JumpCol->GetTransform()->SetWorldScale(float4(30.0f, 5.0f, 1.0f));
+	JumpCol->GetTransform()->SetWorldScale(float4(22.0f, 5.0f, 1.0f));
 	JumpCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	WalkCol->GetTransform()->SetLocalPosition(float4(20, 33, 0));
+	WalkCol->GetTransform()->SetLocalPosition(float4(20, 35, 0));
 	WalkCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	WalkCol->GetTransform()->SetWorldRotation(float4::Zero);
 
 	BackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	BackCol->GetTransform()->SetLocalPosition(float4(-20, 33, 0));
+	BackCol->GetTransform()->SetLocalPosition(float4(-20, 35, 0));
 	BackCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	BackCol->GetTransform()->SetWorldRotation(float4::Zero);
 
@@ -286,10 +286,10 @@ void PlayerBaseSkull::Start()
 					switch (AttackTypeValue)
 					{
 					case PlayerBaseSkull::AttackType::MeleeAttack:
-						CastPtr->HitMonster(GetMeleeAttackDamage(), GetViewDir(), _Data.IsStiffen, _Data.IsPush);
+						CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush);
 						break;
 					case PlayerBaseSkull::AttackType::MagicAttack:
-						CastPtr->HitMonster(GetMagicAttackDamage(), GetViewDir(), _Data.IsStiffen, _Data.IsPush);
+						CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush);
 						break;
 					default:
 						break;
@@ -456,13 +456,13 @@ void PlayerBaseSkull::SetViewDir(ActorViewDir _ViewDir)
 	case ActorViewDir::Left:
 	{
 		GetTransform()->SetLocalNegativeScaleX();
-		WalkColTrans->SetLocalPosition(float4(-20, 30, 0));
+		WalkColTrans->SetLocalPosition(float4(-20, 35, 0));
 	}
 		break;
 	case ActorViewDir::Right:
 	{
 		GetTransform()->SetLocalPositiveScaleX();
-		WalkColTrans->SetLocalPosition(float4(20, 30, 0));
+		WalkColTrans->SetLocalPosition(float4(20, 35, 0));
 	}
 		break;
 	default:
