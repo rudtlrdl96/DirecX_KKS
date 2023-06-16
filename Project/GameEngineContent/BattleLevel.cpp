@@ -30,6 +30,7 @@ void BattleLevel::Start()
 		GameEngineInput::CreateKey("LevelMovePrev", '1');
 		GameEngineInput::CreateKey("LevelMoveNext", '2');
 		GameEngineInput::CreateKey("DebugTextRead", '3');
+		GameEngineInput::CreateKey("IsDebugSwitch", '4');
 	}
 
 	ContentLevel::Start();
@@ -142,6 +143,10 @@ void BattleLevel::Update(float _DeltaTime)
 	else if (true == GameEngineInput::IsDown("LevelMoveNext"))
 	{
 		MoveNextStage(true);
+	} 
+	else if (true == GameEngineInput::IsDown("IsDebugSwitch"))
+	{
+		IsDebugSwitch();
 	}
 
 	ContentLevel::Update(_DeltaTime);

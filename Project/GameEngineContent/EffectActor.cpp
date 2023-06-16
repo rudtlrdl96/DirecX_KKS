@@ -30,6 +30,20 @@ void EffectActor::Start()
 
 void EffectActor::Update(float _DeltaTime)
 {
+	if (true == IsFadeDeathValue)
+	{
+		DeathProgress += _DeltaTime * DeathFadeSpeed;
+
+		if (1.0f <= DeathProgress)
+		{
+			DeathProgress = 1.0f;
+			Death();
+		}
+
+		Buffer.Color.a = 1.0f - DeathProgress;
+		return;
+	}
+
 	if (GetLiveTime() < WaitTime)
 	{
 		EffectRender->Off();

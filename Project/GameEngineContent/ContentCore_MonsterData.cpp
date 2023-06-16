@@ -339,6 +339,8 @@ void ContentCore::MonsterDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_SwordEnergy.png").GetFullPath(), 5, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_DeadIntro.png").GetFullPath(), 5, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_DeadBody.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_StingerReady.png").GetFullPath(), 3, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Stinger.png").GetFullPath(), 3, 1);
 	
 		Path.MoveParent();
 		Path.Move("Effect");
@@ -360,6 +362,8 @@ void ContentCore::MonsterDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_EnergyBlast_Charging.png").GetFullPath(), 6, 8);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_EnergyBlastStart_Effect.png").GetFullPath(), 4, 3);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_WaveSmoke_Effect.png").GetFullPath(), 4, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_Stinger_Effect.png").GetFullPath(), 4, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_StingerSlash_Effect.png").GetFullPath(), 3, 4);
 
 		EffectManager::CreateMetaData("RookieHero_Explosion", {
 			.SpriteName = "RookieHero_ExplosionEffect.png",
@@ -479,6 +483,20 @@ void ContentCore::MonsterDataLoad()
 			.AnimStart = 0,
 			.AnimEnd = 15,
 			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f});		
+		
+		EffectManager::CreateMetaData("VeteranHero_Stinger", {
+			.SpriteName = "VeteranHero_Stinger_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 19,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f});		
+		
+		EffectManager::CreateMetaData("VeteranHero_StingerSlash", {
+			.SpriteName = "VeteranHero_StingerSlash_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 9,
+			.AnimIter = 0.05f,
 			.ScaleRatio = 2.0f});
 
 		Path.MoveParent();

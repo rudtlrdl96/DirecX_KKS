@@ -18,6 +18,7 @@ EventActor::~EventActor()
 void EventActor::Start()
 {
 	EventCol = CreateComponent<GameEngineCollision>();
+	EventCol->SetColType(ColType::AABBBOX2D);
 }
 
 void EventActor::Update(float _DeltaTime)

@@ -480,6 +480,188 @@ void VeteranHero::Explosion_End()
 	IsHitEffectOff = false;
 }
 
+void VeteranHero::Stinger_Enter()
+{
+	LookPlayer();
+	PlayAnimation("StingerReady");
+	IsStingerReadyEnd = false;
+	IsStingerEnd = false;
+	IsStingerAttackEffect = false;
+	IsStingerAttackHit = false;
+	IsStingerSwordHit = false;
+
+	PrevRigdFricCoeff = BossRigidbody.GetFricCoeff();
+	BossRigidbody.SetFricCoeff(1200.0f);
+	BossRigidbody.SetActiveGravity(false);
+}
+
+void VeteranHero::Stinger_Update(float _DeltaTime)
+{
+	if (false == IsStingerReadyEnd && Render->IsAnimationEnd())
+	{
+		StingerAttackCol->On();
+
+		StingerEffect = EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_Stinger",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 40, 0),
+			.Triger = EffectDeathTrigger::Time,
+			.Time = 1.0f,
+			.FlipX = Dir == ActorViewDir::Left,
+			});
+
+		StingerEffect->GetTransform()->SetParent(GetTransform());
+
+		switch (Dir)
+		{
+		case ActorViewDir::Left:
+			BossRigidbody.SetVelocity(float4::Left * 1300.0f);
+			break;
+		case ActorViewDir::Right:
+			BossRigidbody.SetVelocity(float4::Right * 1300.0f);
+			break;
+		}
+
+		PlayAnimation("Stinger");
+		IsStingerReadyEnd = true;
+	}
+
+	if (true == IsStingerReadyEnd && false == IsStingerEnd)
+	{
+		BossRigidbody.UpdateForce(_DeltaTime);
+
+		float4 Vel = BossRigidbody.GetVelocity();
+		float4 CurDashVel = BossRigidbody.GetVelocity() * _DeltaTime;
+
+		RigidbodyMovePlatformCheck(CurDashVel);
+		GetTransform()->AddLocalPosition(CurDashVel);
+
+		if (false == IsStingerAttackHit)
+		{
+			std::shared_ptr<GameEngineCollision> StingerCol = StingerAttackCol->Collision((int)CollisionOrder::Player, ColType::SPHERE2D, ColType::AABBBOX2D);
+
+			if (nullptr != StingerCol)
+			{
+				std::shared_ptr<Player> CastPtr = StingerCol->GetActor()->DynamicThis<Player>();
+
+				if (nullptr == CastPtr)
+				{
+					MsgAssert_Rtti<VeteranHero>(" - 플레이어만 Player Col Order를 가질 수 있습니다.");
+					return;
+				}
+
+				float4 PlayerDir = CastPtr->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+
+				if (0.0f > PlayerDir.x)
+				{
+					CastPtr->HitPlayer(Data.Attack, float4(-250, 400));
+				}
+				else
+				{
+					CastPtr->HitPlayer(Data.Attack, float4(250, 400));
+				}
+
+				IsStingerAttackHit = true;
+			}
+		}
+
+		if (nullptr != StingerEffect && 700.0f >= Vel.Size())
+		{
+			StingerEffect->IsFadeDeathOn(1.0f);
+			StingerEffect = nullptr;
+		}
+
+		if (5.0f >= Vel.Size())
+		{
+			IsStingerEnd = true;
+			LookPlayer();
+			PlayAnimation("AttackB");
+			StingerAttackCol->Off();
+		}
+
+		//VeteranHero_StingerSlash
+	}
+
+	if (false == IsStingerSwordHit &&
+		true == IsStingerEnd &&  1 == Render->GetCurrentFrame())
+	{
+		switch (Dir)
+		{
+		case ActorViewDir::Left:
+			StingerSwordAttackCol->GetTransform()->SetLocalPosition(float4(-20, 65, 1));
+			break;
+		case ActorViewDir::Right:
+			StingerSwordAttackCol->GetTransform()->SetLocalPosition(float4(20, 65, 1));
+			break;
+		}
+
+		StingerSwordAttackCol->On();
+		std::shared_ptr<GameEngineCollision> SwrodCol = StingerSwordAttackCol->Collision((int)CollisionOrder::Player, ColType::SPHERE2D, ColType::AABBBOX2D);
+
+		if (nullptr != SwrodCol)
+		{
+			std::shared_ptr<Player> CastPtr = SwrodCol->GetActor()->DynamicThis<Player>();
+
+			if (nullptr == CastPtr)
+			{
+				MsgAssert_Rtti<VeteranHero>(" - 플레이어만 Player Col Order를 가질 수 있습니다.");
+				return;
+			}
+
+			float4 PlayerDir = CastPtr->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+
+			if (0.0f > PlayerDir.x)
+			{
+				CastPtr->HitPlayer(Data.Attack, float4(-250, 400));
+			}
+			else
+			{
+				CastPtr->HitPlayer(Data.Attack, float4(250, 400));
+			}
+
+			IsStingerSwordHit = true;
+		}
+	}
+	else
+	{
+		StingerSwordAttackCol->Off();
+	}
+
+	if (false == IsStingerAttackEffect && 
+		true == IsStingerEnd && 1 == Render->GetCurrentFrame())
+	{
+		IsStingerAttackEffect = true;
+
+		float4 Pivot = float4::Zero;
+
+		switch (Dir)
+		{
+		case ActorViewDir::Left:
+			Pivot = float4(0, 60, 0);
+			break;
+		case ActorViewDir::Right:
+			Pivot = float4(0, 60, 0);
+			break;
+		}
+
+		StingerEffect = EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_StingerSlash",
+			.Position = GetTransform()->GetWorldPosition() + Pivot,
+			.FlipX = Dir == ActorViewDir::Left,});
+	}
+
+	if (true == IsStingerEnd && true == Render->IsAnimationEnd())
+	{
+		BossFsm.ChangeState("Idle");
+	}
+}
+
+void VeteranHero::Stinger_End()
+{
+	BossRigidbody.SetFricCoeff(PrevRigdFricCoeff);
+	BossRigidbody.SetActiveGravity(true);
+	StingerSwordAttackCol->Off();
+}
+
 void VeteranHero::Ultimate_Enter()
 {
 	PlayAnimation("Explosion");

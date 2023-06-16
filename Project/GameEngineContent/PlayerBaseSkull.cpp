@@ -243,24 +243,29 @@ void PlayerBaseSkull::Start()
 	GroundCol->GetTransform()->SetLocalPosition(float4(0.0f, 2.5f, 1.0f));
 	GroundCol->GetTransform()->SetWorldScale(float4(22.0f, 5.0f, 1.0f));	
 	GroundCol->GetTransform()->SetWorldRotation(float4::Zero);	
+	GroundCol->SetColType(ColType::AABBBOX2D);
 	
 	JumpCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	JumpCol->GetTransform()->SetLocalPosition(float4(0.0f, 66.0f, 1.0f));
 	JumpCol->GetTransform()->SetWorldScale(float4(22.0f, 5.0f, 1.0f));
 	JumpCol->GetTransform()->SetWorldRotation(float4::Zero);
+	JumpCol->SetColType(ColType::AABBBOX2D);
 
 	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	WalkCol->GetTransform()->SetLocalPosition(float4(20, 35, 0));
 	WalkCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	WalkCol->GetTransform()->SetWorldRotation(float4::Zero);
+	WalkCol->SetColType(ColType::AABBBOX2D);
 
 	BackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	BackCol->GetTransform()->SetLocalPosition(float4(-20, 35, 0));
 	BackCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	BackCol->GetTransform()->SetWorldRotation(float4::Zero);
+	BackCol->SetColType(ColType::AABBBOX2D);
 
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
 	AttackCol->GetTransform()->SetWorldRotation(float4::Zero);
+	AttackCol->SetColType(ColType::AABBBOX2D);
 	AttackCol->Off();
 
 	DashTrail = GetLevel()->CreateActor<CaptureTrail>();

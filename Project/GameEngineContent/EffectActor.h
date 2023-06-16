@@ -51,6 +51,12 @@ public:
 		return EffectRender->IsAnimationEnd();
 	}
 
+	inline void IsFadeDeathOn(float _DeathFadeSpeed)
+	{
+		IsFadeDeathValue = true;
+		DeathFadeSpeed = _DeathFadeSpeed;
+	}
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> EffectRender = nullptr;
 
@@ -59,6 +65,10 @@ protected:
 	EffectDeathTrigger DeathTrigger = EffectDeathTrigger::Time;
 	float DeathTime = 0.0f;
 	float WaitTime = 0.0f;
+
+	float DeathProgress = 0.0f;
+	float DeathFadeSpeed = 0.0f;
+	bool IsFadeDeathValue = false;
 
 	void Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime);
 

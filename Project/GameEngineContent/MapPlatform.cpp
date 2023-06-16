@@ -29,6 +29,7 @@ void MapPlatform::Init(const PlatformMetaData& _MetaData)
 		if (nullptr == PlatformCol)
 		{
 			PlatformCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Normal);
+			PlatformCol->SetColType(ColType::AABBBOX2D);
 		}
 		else
 		{
@@ -41,6 +42,7 @@ void MapPlatform::Init(const PlatformMetaData& _MetaData)
 		if (nullptr == PlatformCol)
 		{
 			PlatformCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
+			PlatformCol->SetColType(ColType::AABBBOX2D);
 		}
 		else
 		{

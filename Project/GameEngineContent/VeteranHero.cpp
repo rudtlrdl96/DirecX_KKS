@@ -63,14 +63,21 @@ void VeteranHero::Start()
 	BackCol->GetTransform()->SetLocalScale(float4(7, 120, 1));
 
 	GroundCol->GetTransform()->SetLocalPosition(float4(0, 3.0f, 1));
-	GroundCol->GetTransform()->SetLocalScale(float4(76, 5.0f, 1));
+	GroundCol->GetTransform()->SetLocalScale(float4(70, 5.0f, 1));
 
 	EventCol = CreateComponent<GameEngineCollision>();
 	EventCol->GetTransform()->SetWorldPosition(float4(1248, 564, 1));
 	EventCol->GetTransform()->SetLocalScale(float4(1220, 640, 1));
+	EventCol->SetColType(ColType::AABBBOX2D);
 
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	AttackCol->SetColType(ColType::AABBBOX2D);
+
+	StingerAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	StingerAttackCol->SetColType(ColType::AABBBOX2D);
+	StingerAttackCol->GetTransform()->SetLocalPosition(float4(0, 35, 1));
+	StingerAttackCol->GetTransform()->SetWorldScale(float4(150, 50, 1));
+	StingerAttackCol->Off();
 
 	WaveSmokeCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	WaveSmokeCol->GetTransform()->SetWorldScale(float4(40, 100, 1));
@@ -78,6 +85,12 @@ void VeteranHero::Start()
 	WaveSmokeCol->SetColType(ColType::AABBBOX2D);
 	WaveSmokeCol->Off();
 
+	StingerSwordAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	StingerSwordAttackCol->GetTransform()->SetWorldScale(float4(330, 240, 1));
+	StingerSwordAttackCol->GetTransform()->SetWorldRotation(float4::Zero);
+	StingerSwordAttackCol->SetColType(ColType::AABBBOX2D);
+	StingerSwordAttackCol->Off();
+	
 	ExplosionCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	ExplosionCol->GetTransform()->SetLocalPosition(float4(0, 5, 0));
 	ExplosionCol->GetTransform()->SetLocalScale(float4(450, 450, 1));
@@ -176,15 +189,30 @@ void VeteranHero::Start()
 			SetViewDir(ActorViewDir::Left);
 		});
 
-	//GetTransform()->AddLocalPosition(float4(-100, -200));
-	//IsIntro = false;
-	//IsPlayerEnter = true;
-	//Battle_Platform_Left->On();
-	//Battle_Platform_Right->On();
+	if (false == GameEngineInput::IsKey("Debug_VeteranHeroMove"))
+	{
+		GameEngineInput::CreateKey("Debug_VeteranHeroMove", 'L');
+	}
+
+	IsIntro = false;
+	IsPlayerEnter = true;
+	Battle_Platform_Left->On();
+	Battle_Platform_Right->On();
+
+	// 처음 패턴 강제설정
+	Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
+	AttackDistance = 600.0f;
 }
 
 void VeteranHero::Update(float _DeltaTime)
 {
+	if (true == GameEngineInput::IsDown("Debug_VeteranHeroMove"))
+	{
+		GetTransform()->SetWorldPosition(float4(800, 300));
+	}
+
 	if (true == IsSwordThrowing)
 	{
 		SwordRigidbody.UpdateForce(_DeltaTime);
@@ -359,6 +387,11 @@ void VeteranHero::Update(float _DeltaTime)
 		UltimateSmokeEffect = nullptr;
 	}
 
+	if (nullptr != StingerEffect && StingerEffect->IsDeath())
+	{
+		StingerEffect = nullptr;
+	}
+
 	HealthBarActiveTime -= _DeltaTime;
 
 	if (0.0f < HealthBarActiveTime)
@@ -448,16 +481,16 @@ void VeteranHero::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "SwordEnergyReady", .SpriteName = "RookieHero_SwordEnergyReady.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "SwordEnergy", .SpriteName = "RookieHero_SwordEnergy.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "DeathIntro", .SpriteName = "RookieHero_DeadIntro.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "StingerReady", .SpriteName = "RookieHero_StingerReady.png", .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Stinger", .SpriteName = "RookieHero_Stinger.png", .Loop = true, .ScaleToTexture = true });
 }
 
 void VeteranHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&VeteranHero::Ultimate_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::Ultimate_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::Ultimate_End, this);
-
-	AttackDistance = 300.0f;
-
+	Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
+	AttackDistance = 600.0f;
 	return;
 
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
@@ -501,6 +534,14 @@ void VeteranHero::SelectPattern()
 		Cur_Pattern_End = std::bind(&VeteranHero::Explosion_End, this);
 		AttackDistance = 230.0f;
 	}
+		break;
+	case 3: // Stinger
+	{
+		Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
+		Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
+		Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
+		AttackDistance = 600.0f;
+	}
 	break;
 	default:
 		MsgAssert_Rtti<VeteranHero>(" - 존재하지 않는 패턴으로 설정하려 했습니다");
@@ -508,7 +549,13 @@ void VeteranHero::SelectPattern()
 	}
 
 	// 신규 패턴 -> 돌진 공격, 검기 웨이브, 내려찍기, 랜딩어택
-	// 발악 패턴 -> 신규 궁극기
+	// 돌진 패턴 : 빠르게 대쉬공격 후 베기 공격 [완료]
+	// 검기 웨이브 : 
+	// 내려찍기 :
+	// 랜딩어택 :
+	// 
+	// 발악 패턴
+	// 신규 궁극기 : 체력이 50% 이하로 떨어지면 1회 시전 
 
 	// 에너지볼 : 에너지볼 이펙트 변경 에너지볼의 속도, 추적능력변경, 3개 동시에 발사 [완료]
 	// 콤보어택 : 마지막 공격이 검기 발사 [완료]

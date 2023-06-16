@@ -21,6 +21,11 @@ public:
 		return Mass;
 	}
 
+	inline float GetFricCoeff() const
+	{
+		return FricCoeff;
+	}
+
 	inline void AddVelocity(const float4& _Velocity)
 	{
 		Velocity += _Velocity;

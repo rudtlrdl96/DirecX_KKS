@@ -44,6 +44,7 @@ void BossMonster::Start()
 
 	PlayerFindCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	PlayerFindCol->GetTransform()->SetLocalScale(float4(100000, 100000, 1));
+	PlayerFindCol->SetColType(ColType::AABBBOX2D);
 
 	BossFsm.ChangeState("Idle");
 

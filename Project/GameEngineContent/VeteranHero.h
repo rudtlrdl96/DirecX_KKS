@@ -27,6 +27,9 @@ protected:
 	std::shared_ptr<GameEngineCollision> ExplosionChargeCol = nullptr;
 	std::shared_ptr<GameEngineCollision> WaveSmokeCol  = nullptr;
 	std::shared_ptr<GameEngineCollision> EventCol = nullptr;
+	std::shared_ptr<GameEngineCollision> StingerAttackCol = nullptr;
+	std::shared_ptr<GameEngineCollision> StingerSwordAttackCol = nullptr;
+
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Left = nullptr;
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Right = nullptr;
 
@@ -55,11 +58,10 @@ protected:
 	std::shared_ptr<ContentSpriteRenderer> SwordRender = nullptr;
 	ColorBuffer SwordBuffer;
 
-	// 패턴 변수
-	float UltimateTime = 0.0f;
-
+	// 에너지볼 패턴 변수
 	bool IsEnergyBallShot = false;
 
+	// 폭발 패턴 변수
 	std::shared_ptr<EffectActor> ExplosionEffect = nullptr;
 
 	bool IsExplosionAttackEnd = false;
@@ -75,8 +77,19 @@ protected:
 	float PlayerChargeHitTime = 0.0f;
 	float ExplosionTime = 0.0f;
 
-	std::shared_ptr<EffectActor> UltimateSmokeEffect = nullptr;
+	// 돌진패턴 변수
+	float PrevRigdFricCoeff = 0.0f;
+	std::shared_ptr<EffectActor> StingerEffect = nullptr;
+	bool IsStingerReadyEnd = false;
+	bool IsStingerEnd = false;
+	bool IsStingerAttackEffect = false;
 
+	bool IsStingerAttackHit = false;
+	bool IsStingerSwordHit = false;
+
+	// 1차 각성기 패턴 변수
+	std::shared_ptr<EffectActor> UltimateSmokeEffect = nullptr;
+	float UltimateTime = 0.0f;
 	bool IsUltimateCharge = false;
 	bool IsSwordEnergyReadyStart = false;
 	bool IsSwordEnergyReadyEnd = false;
@@ -116,6 +129,11 @@ protected:
 	void Explosion_Enter();
 	void Explosion_Update(float _DeltaTime);
 	void Explosion_End();
+
+	void Stinger_Enter();
+	void Stinger_Update(float _DeltaTime);
+	void Stinger_End();
+	
 
 	void Ultimate_Enter();
 	void Ultimate_Update(float _DeltaTime);
