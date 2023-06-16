@@ -356,6 +356,7 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 		if (nullptr != GroundColPtr)
 		{
 			HitVelocity.y = 0.0f;
+			HitVelocity.x = HitVelocity.x * (1.0f - _DeltaTime);
 			BattleActorRigidbody.SetVelocity(HitVelocity);
 
 			float4 CurPos = PlayerTrans->GetWorldPosition();

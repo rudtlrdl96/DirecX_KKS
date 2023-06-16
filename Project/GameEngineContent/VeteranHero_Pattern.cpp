@@ -299,7 +299,7 @@ void VeteranHero::EnergyBallShot(float _Rot, float _LiveTime)
 			return;
 		}
 		CastingPtr->GetContentLevel()->GetCamCtrl().CameraShake(4, 20, 3);
-		CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 800.0f);
+		CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 500.0f);
 
 		EffectManager::PlayEffect({
 			.EffectName = "RookieHero_EnergyBallExplosion_Large",

@@ -194,16 +194,16 @@ void VeteranHero::Start()
 		GameEngineInput::CreateKey("Debug_VeteranHeroMove", 'L');
 	}
 
-	IsIntro = false;
-	IsPlayerEnter = true;
-	Battle_Platform_Left->On();
-	Battle_Platform_Right->On();
+	//IsIntro = false;
+	//IsPlayerEnter = true;
+	//Battle_Platform_Left->On();
+	//Battle_Platform_Right->On();
 
 	// 처음 패턴 강제설정
-	//Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
-	//Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
-	//Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
-	//AttackDistance = 600.0f;
+	Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
+	AttackDistance = 600.0f;
 }
 
 void VeteranHero::Update(float _DeltaTime)
@@ -487,18 +487,18 @@ void VeteranHero::CreateAnimation()
 
 void VeteranHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&VeteranHero::SwordWave_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::SwordWave_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::SwordWave_End, this);
-	AttackDistance = 700.0f;
-	return;
+	//Cur_Pattern_Enter = std::bind(&VeteranHero::SwordWave_Enter, this);
+	//Cur_Pattern_Update = std::bind(&VeteranHero::SwordWave_Update, this, std::placeholders::_1);
+	//Cur_Pattern_End = std::bind(&VeteranHero::SwordWave_End, this);
+	//AttackDistance = 700.0f;
+	//return;
 
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
 	float CurHpRatio = HP / Data.HP;
 
 	// Ultimate
-	if (0.5f >= CurHpRatio && 0.0f <= UltimateTime)
+	if (0.666667f >= CurHpRatio && 0.0f <= UltimateTime)
 	{
 		Cur_Pattern_Enter = std::bind(&VeteranHero::Ultimate_Enter, this);
 		Cur_Pattern_Update = std::bind(&VeteranHero::Ultimate_Update, this, std::placeholders::_1);
@@ -509,7 +509,7 @@ void VeteranHero::SelectPattern()
 		return;
 	}
 
-	switch (Rand.RandomInt(0, 3))
+	switch (Rand.RandomInt(0, 4))
 	{
 	case 0: // ComboAttack
 	{

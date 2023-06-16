@@ -393,6 +393,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
 		{
 			PlayerFSM.ChangeState("Skill_A");
+			return;
 		}
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B") && false == IsLockSkillB)
@@ -400,6 +401,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 		if (CurSkillBTime > GetSkillBEndTime())
 		{
 			PlayerFSM.ChangeState("Skill_B");
+			return;
 		}
 	}
 	else if (false == ParentPlayer->IsInputLock() && false == IsLockAttack &&
