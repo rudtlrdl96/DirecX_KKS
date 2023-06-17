@@ -780,6 +780,7 @@ void VeteranHero::JumpAttack_Enter()
 	IsJumpAttackStart = false;
 	IsJumpAttackEnd = false;
 	IsJumpAttackUp = false;
+	IsJumpAttackLandSmoke = false;
 
 	PrevRigdGravity = BossRigidbody.GetGravity();
 }
@@ -803,6 +804,41 @@ void VeteranHero::JumpAttack_Update(float _DeltaTime)
 	if (false == IsJumpAttackUp &&
 		true == IsJumpAttackStart && 1 == Render->GetCurrentFrame())
 	{
+		JumpAttackCol->GetTransform()->SetLocalPosition(float4(10, 60, 1));
+		JumpAttackCol->GetTransform()->SetLocalScale(float4(245, 265, 1));
+		JumpAttackCol->On();
+
+		std::shared_ptr<GameEngineCollision> PlayerCol = JumpAttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		if (nullptr != PlayerCol)
+		{
+			std::shared_ptr<Player> CastingPtr = PlayerCol->GetActor()->DynamicThis<Player>();
+
+			if (nullptr == CastingPtr)
+			{
+				MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+				return;
+			}
+
+			switch (Dir)
+			{
+			case ActorViewDir::Left:
+				CastingPtr->HitPlayer(Data.Attack, float4(-300, 500));
+				break;
+			case ActorViewDir::Right:
+				CastingPtr->HitPlayer(Data.Attack, float4(300, 500));
+				break;
+			default:
+				break;
+			}
+
+			EffectManager::PlayEffect({
+			.EffectName = "HitNormal",
+			.Position = CastingPtr->GetTransform()->GetWorldPosition()
+			+ float4(GameEngineRandom::MainRandom.RandomFloat(-20, 20),
+				50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20)) });
+		}		
+
 		GetTransform()->AddLocalPosition(float4(0, 5, 0));
 		switch (Dir)
 		{
@@ -816,6 +852,10 @@ void VeteranHero::JumpAttack_Update(float _DeltaTime)
 
 		IsJumpAttackUp = true;
 	}
+	else
+	{
+		JumpAttackCol->Off();
+	}
 
 	if (false == IsJumpAttackEnd && 
 		true == IsJumpAttackStart && true == Render->IsAnimationEnd())
@@ -825,6 +865,62 @@ void VeteranHero::JumpAttack_Update(float _DeltaTime)
 		BossRigidbody.SetVelocity(float4(0, -3000));
 		PlayAnimation("AttackE");
 		IsJumpAttackEnd = true;
+	}
+
+	if (false == IsJumpAttackLandSmoke && true == IsJumpAttackEnd &&
+		true == IsGroundUp)
+	{
+		JumpAttackCol->GetTransform()->SetLocalPosition(float4(0, 40, 0));
+		JumpAttackCol->GetTransform()->SetLocalScale(float4(300, 80, 1));
+		JumpAttackCol->On();
+
+		std::shared_ptr<GameEngineCollision> PlayerCol = JumpAttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		if (nullptr != PlayerCol)
+		{
+			std::shared_ptr<Player> CastingPtr = PlayerCol->GetActor()->DynamicThis<Player>();
+
+			if (nullptr == CastingPtr)
+			{
+				MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+				return;
+			}
+
+			float4 PlayerDir = CastingPtr->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+
+			if (0.0f > PlayerDir.x)
+			{
+				CastingPtr->HitPlayer(Data.Attack, float4(-300, 500));
+			}
+			else
+			{
+				CastingPtr->HitPlayer(Data.Attack, float4(300, 500));
+			}
+
+			EffectManager::PlayEffect({
+			.EffectName = "HitNormal",
+			.Position = CastingPtr->GetTransform()->GetWorldPosition()
+			+ float4(GameEngineRandom::MainRandom.RandomFloat(-20, 20),
+				50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20)) });
+		}
+
+		float4 SmokePos = GetTransform()->GetWorldPosition();
+		SmokePos.y = GroundY;
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_LandingSmoke_Small",
+			.Position = SmokePos + float4(-90, 50)});
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_LandingSmoke_Small",
+			.Position = SmokePos + float4(90, 50),
+			.FlipX = true});
+
+		IsJumpAttackLandSmoke = true;
+	}
+	else
+	{
+		JumpAttackCol->Off();
 	}
 
 	if (true == IsJumpAttackEnd && true == Render->IsAnimationEnd())

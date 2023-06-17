@@ -27,6 +27,7 @@ protected:
 	float CurGroggyTime = 0.0f;
 
 	bool IsGroundUp = false;
+	float GroundY = 0.0f;
 
 	ClassFSM<BossMonster> BossFsm;
 	Rigidbody2D BossRigidbody;

@@ -100,6 +100,10 @@ void VeteranHero::Start()
 	ExplosionChargeCol->GetTransform()->SetLocalScale(float4(1, 1, 1));
 	ExplosionChargeCol->Off();
 
+	JumpAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	JumpAttackCol->SetColType(ColType::AABBBOX2D);
+	JumpAttackCol->Off();
+
 	ExplosionChargeScaleStart = float4(200, 200, 1);
 	ExplosionChargeScaleEnd = float4(450, 450, 1);
 

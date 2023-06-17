@@ -29,6 +29,7 @@ protected:
 	std::shared_ptr<GameEngineCollision> EventCol = nullptr;
 	std::shared_ptr<GameEngineCollision> StingerAttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> StingerSwordAttackCol = nullptr;
+	std::shared_ptr<GameEngineCollision> JumpAttackCol = nullptr;
 
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Left = nullptr;
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Right = nullptr;
@@ -93,6 +94,7 @@ protected:
 	bool IsJumpAttackStart = false;
 	bool IsJumpAttackEnd = false;
 	bool IsJumpAttackUp = false;
+	bool IsJumpAttackLandSmoke = false;
 
 	// 스워드 웨이브 패턴 변수
 

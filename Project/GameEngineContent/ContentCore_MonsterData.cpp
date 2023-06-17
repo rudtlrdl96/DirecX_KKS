@@ -516,6 +516,13 @@ void ContentCore::MonsterDataLoad()
 			.AnimIter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
+		EffectManager::CreateMetaData("VeteranHero_LandingSmoke_Small", {
+			.SpriteName = "VeteranHero_LandingSmoke_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 14,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 1.5f });
+
 		EffectManager::CreateMetaData("VeteranHero_LandingSmoke", {
 			.SpriteName = "VeteranHero_LandingSmoke_Effect.png",
 			.AnimStart = 0,

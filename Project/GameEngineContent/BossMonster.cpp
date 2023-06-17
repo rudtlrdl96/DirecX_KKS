@@ -85,6 +85,7 @@ void BossMonster::Update(float _DeltaTime)
 
 		GameEngineTransform* ColTrans = PlatformCol->GetTransform();
 		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+		GroundY = CurPos.y;
 
 		GetTransform()->SetWorldPosition(CurPos);
 		GetTransform()->SetLocalPosition(GetTransform()->GetLocalPosition());
