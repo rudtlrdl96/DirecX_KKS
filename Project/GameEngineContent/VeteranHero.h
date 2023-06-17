@@ -22,6 +22,8 @@ protected:
 	std::shared_ptr<ContentSpriteRenderer> UltimateFade = nullptr;
 	ColorBuffer UltimateFadeBuffer = ColorBuffer();
 
+	std::shared_ptr<class Player> FindPlayer = nullptr;
+
 	std::shared_ptr<GameEngineCollision> AttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> ExplosionCol = nullptr;
 	std::shared_ptr<GameEngineCollision> ExplosionChargeCol = nullptr;
@@ -30,6 +32,8 @@ protected:
 	std::shared_ptr<GameEngineCollision> StingerAttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> StingerSwordAttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> JumpAttackCol = nullptr;
+	std::shared_ptr<GameEngineCollision> FindLandingCol = nullptr;
+	std::shared_ptr<GameEngineCollision> LandingAttackCol = nullptr;
 
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Left = nullptr;
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Right = nullptr;
@@ -100,6 +104,24 @@ protected:
 
 	UINT SwordWaveCombo = 0;
 
+	//LandingAttack
+	
+	std::vector<std::shared_ptr<class VeteranHeroMagicSword>> MagicSwordProjectiles;
+	std::shared_ptr<EffectActor> LandingSignEffect = nullptr;
+
+	bool IsLandingUpReady = false;
+	bool IsLandingUpEnd = false;
+	bool IsLandingSignEffect = false;
+	bool IsLandingMagicSwordAttack = false;
+	
+	float LandingUpTime = 0.0f;
+	float LandingMagicSwordTime = 0.0f;
+
+	int MagicSwordCount = 0;
+
+	float4 LandingAttackPos = float4::Zero;
+	float4 MagicSwordInter = float4::Zero;
+
 	// 1차 각성기 패턴 변수
 	std::shared_ptr<EffectActor> UltimateSmokeEffect = nullptr;
 	float UltimateTime = 0.0f;
@@ -118,7 +140,6 @@ protected:
 	bool IsUltimateLightOn = false;
 	bool IsUltimateLightOff = false;
 	bool IsUltimateFadeOn = false;
-
 
 	void Start() override;
 	void Update(float _DeltaTime) override;

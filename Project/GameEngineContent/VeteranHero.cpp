@@ -3,6 +3,8 @@
 #include "HealthBar.h"
 #include "VeteranHero_HealthBar.h"
 #include "MonsterDeadBodyActor.h"
+#include "Player.h"
+#include "VeteranHeroMagicSword.h"
 
 VeteranHero::VeteranHero()
 {
@@ -19,6 +21,13 @@ void VeteranHero::Destroy()
 	LevelPtr->RemoveEvent("VeteranHero_Script02_End", GetActorCode());
 	LevelPtr->RemoveEvent("VeteranHero_Script01_End", GetActorCode());
 	LevelPtr->RemoveEvent("VeteranHero_Script00_End", GetActorCode());
+
+	for (size_t i = 0; i < MagicSwordProjectiles.size(); i++)
+	{
+		MagicSwordProjectiles[i]->FadeDeath();
+	}
+
+	MagicSwordProjectiles.clear();
 }
 
 void VeteranHero::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
@@ -103,6 +112,15 @@ void VeteranHero::Start()
 	JumpAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	JumpAttackCol->SetColType(ColType::AABBBOX2D);
 	JumpAttackCol->Off();
+
+	FindLandingCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	FindLandingCol->GetTransform()->SetWorldScale(float4(20, 100000, 1));
+	FindLandingCol->Off();
+
+	LandingAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	LandingAttackCol->GetTransform()->SetLocalPosition(float4(0, 50, 1));
+	LandingAttackCol->GetTransform()->SetLocalScale(float4(110, 100, 1));
+	LandingAttackCol->Off();
 
 	ExplosionChargeScaleStart = float4(200, 200, 1);
 	ExplosionChargeScaleEnd = float4(450, 450, 1);
@@ -202,7 +220,7 @@ void VeteranHero::Start()
 	Battle_Platform_Left->On();
 	Battle_Platform_Right->On();
 
-	// 처음 패턴 강제설정
+	//처음 패턴 강제설정
 	//Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
 	//Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
 	//Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
@@ -211,6 +229,16 @@ void VeteranHero::Start()
 
 void VeteranHero::Update(float _DeltaTime)
 {
+	if (nullptr != FindPlayer && true == FindPlayer->IsDeath())
+	{
+		FindPlayer = nullptr;
+	}
+
+	if (nullptr != LandingSignEffect && true == LandingSignEffect->IsDeath())
+	{
+		LandingSignEffect = nullptr;
+	}
+
 	if (true == GameEngineInput::IsDown("Debug_VeteranHeroMove"))
 	{
 		GetTransform()->SetWorldPosition(float4(800, 300));
@@ -332,6 +360,13 @@ void VeteranHero::Update(float _DeltaTime)
 				UltimateLightOff();
 			}
 
+			for (size_t i = 0; i < MagicSwordProjectiles.size(); i++)
+			{
+				MagicSwordProjectiles[i]->FadeDeath();
+			}
+
+			MagicSwordProjectiles.clear();
+
 			IsDeathIntro = true;
 			HealthBarPtr->Off();
 			HeroHealthBar->Death();
@@ -366,6 +401,13 @@ void VeteranHero::Update(float _DeltaTime)
 	{
 		std::shared_ptr<GameEngineCollision> PlayerCol =
 			EventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		FindPlayer = PlayerCol->GetActor()->DynamicThis<Player>();
+
+		if (nullptr == FindPlayer)
+		{
+			MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
+		}
 
 		if (nullptr != PlayerCol)
 		{
@@ -480,20 +522,21 @@ void VeteranHero::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "Explosion", .SpriteName = "RookieHero_ExplosionLoop.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "AttackA_Ready", .SpriteName = "RookieHero_AttackAReady.png", .FrameInter = 0.125f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "AttackC", .SpriteName = "RookieHero_AttackC.png", .Loop = true, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "AttackE", .SpriteName = "RookieHero_AttackE.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "AttackE", .SpriteName = "RookieHero_AttackE.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "SwordEnergyReady", .SpriteName = "RookieHero_SwordEnergyReady.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "SwordEnergy", .SpriteName = "RookieHero_SwordEnergy.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "DeathIntro", .SpriteName = "RookieHero_DeadIntro.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "StingerReady", .SpriteName = "RookieHero_StingerReady.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Stinger", .SpriteName = "RookieHero_Stinger.png", .Loop = true, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "RookieHero_Jump.png", .Loop = true, .ScaleToTexture = true });
 }
 
 void VeteranHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&VeteranHero::JumpAttack_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::JumpAttack_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::JumpAttack_End, this);
-	AttackDistance = 300.0f;
+	Cur_Pattern_Enter = std::bind(&VeteranHero::LandingAttack_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::LandingAttack_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::LandingAttack_End, this);
+	AttackDistance = 2000.0f;
 	return;
 
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
@@ -512,7 +555,7 @@ void VeteranHero::SelectPattern()
 		return;
 	}
 
-	switch (Rand.RandomInt(0, 4))
+	switch (Rand.RandomInt(0, 5))
 	{
 	case 0: // ComboAttack
 	{
@@ -554,7 +597,6 @@ void VeteranHero::SelectPattern()
 		AttackDistance = 700.0f;
 	}
 	break;
-
 	case 5: // JumpAttack
 	{
 		Cur_Pattern_Enter = std::bind(&VeteranHero::JumpAttack_Enter, this);
@@ -563,6 +605,14 @@ void VeteranHero::SelectPattern()
 		AttackDistance = 300.0f;
 	}
 		break;
+	case 6: // JumpAttack
+	{
+		Cur_Pattern_Enter = std::bind(&VeteranHero::LandingAttack_Enter, this);
+		Cur_Pattern_Update = std::bind(&VeteranHero::LandingAttack_Update, this, std::placeholders::_1);
+		Cur_Pattern_End = std::bind(&VeteranHero::LandingAttack_End, this);
+		AttackDistance = 2000.0f;
+	}
+	break;
 	default:
 		MsgAssert_Rtti<VeteranHero>(" - 존재하지 않는 패턴으로 설정하려 했습니다");
 		break;

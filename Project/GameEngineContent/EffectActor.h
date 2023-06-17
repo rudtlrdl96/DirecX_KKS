@@ -70,7 +70,7 @@ protected:
 	float DeathFadeSpeed = 0.0f;
 	bool IsFadeDeathValue = false;
 
-	void Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime);
+	void Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime, bool _IsForceLoopOff);
 
 	void Start() override;
 	void Update(float _DeltaTime) override;

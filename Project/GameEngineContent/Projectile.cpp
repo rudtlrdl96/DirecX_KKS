@@ -23,16 +23,16 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 
 	if ("" != _Parameter.EffectName)
 	{
-		std::shared_ptr<EffectActor> NewEffect = EffectManager::PlayEffect({
+		ProjectileEffectActor = EffectManager::PlayEffect({
 			.EffectName = _Parameter.EffectName,
 			.Position = _Parameter.Pos,
 			.Triger = EffectDeathTrigger::Time,
 			.Time = _Parameter.LiveTime,
 			.FlipX = _Parameter.IsFlipX,
-			});
+			.IsForceLoopOff = _Parameter.IsForceLoopOff});
 
-		NewEffect->GetTransform()->SetParent(GetTransform());
-		NewEffect->GetTransform()->SetLocalPosition(float4::Zero);
+		ProjectileEffectActor->GetTransform()->SetParent(GetTransform());
+		ProjectileEffectActor->GetTransform()->SetLocalPosition(float4::Zero);
 	}
 
 

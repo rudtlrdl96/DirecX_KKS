@@ -81,19 +81,26 @@ void EffectActor::Update(float _DeltaTime)
 
 }
 
-void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime)
+void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime, bool _IsForceLoopOff)
 {
 	DeathTime = _DeathTime;
 	DeathTrigger = _DeathTrigger;
 	
-	EffectRender->CreateAnimation({ 
-		_MetaData.SpriteName,
-		_MetaData.SpriteName,
-		_MetaData.AnimStart,
-		_MetaData.AnimEnd,
-		_MetaData.AnimIter,
-		_DeathTrigger != EffectDeathTrigger::AnimEnd,
-		true});
+	bool Loop = _DeathTrigger != EffectDeathTrigger::AnimEnd;
+
+	if (true == _IsForceLoopOff)
+	{
+		Loop = false;
+	}
+
+	EffectRender->CreateAnimation({
+	_MetaData.SpriteName,
+	_MetaData.SpriteName,
+	_MetaData.AnimStart,
+	_MetaData.AnimEnd,
+	_MetaData.AnimIter,
+	Loop,
+	true });
 
 	GameEngineTransform* RenderTrans = EffectRender->GetTransform();
 	RenderTrans->SetLocalPosition(_MetaData.RenderPivot);

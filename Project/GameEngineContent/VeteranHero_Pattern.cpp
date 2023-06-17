@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Projectile.h"
 #include "VeteranHeroEnergyBall.h"
+#include "VeteranHeroMagicSword.h"
 
 void VeteranHero::ComboAttack_Enter()
 {
@@ -318,7 +319,7 @@ void VeteranHero::EnergyBallShot(float _Rot, float _LiveTime)
 
 	ShotProjectile->ShotProjectile({
 		.EffectName = "VeteranHero_EnergyBall",
-		.TrackingTarget = FindPlayer.lock(),
+		.TrackingTarget = FindPlayer,
 		.Pos = GetTransform()->GetWorldPosition() + Pivot,
 		.Dir = ShotDir.NormalizeReturn() * 300.0f,
 		.ColScale = float4(50, 50, 1),
@@ -804,7 +805,7 @@ void VeteranHero::JumpAttack_Update(float _DeltaTime)
 	if (false == IsJumpAttackUp &&
 		true == IsJumpAttackStart && 1 == Render->GetCurrentFrame())
 	{
-		JumpAttackCol->GetTransform()->SetLocalPosition(float4(10, 60, 1));
+		JumpAttackCol->GetTransform()->SetLocalPosition(float4(0, 60, 1));
 		JumpAttackCol->GetTransform()->SetLocalScale(float4(245, 265, 1));
 		JumpAttackCol->On();
 
@@ -916,6 +917,8 @@ void VeteranHero::JumpAttack_Update(float _DeltaTime)
 			.Position = SmokePos + float4(90, 50),
 			.FlipX = true});
 
+
+
 		IsJumpAttackLandSmoke = true;
 	}
 	else
@@ -938,17 +941,262 @@ void VeteranHero::JumpAttack_End()
 
 void VeteranHero::LandingAttack_Enter()
 {
+	LookPlayer();
+	PlayAnimation("StingerReady");
 
+	IsLandingUpReady = false;
+	IsLandingUpEnd = false;
+	IsLandingSignEffect = false;
+	IsLandingMagicSwordAttack = false;
+
+	LandingUpTime = 0.0f;
+	LandingMagicSwordTime = -1.0f;
+
+	MagicSwordCount = 0;
+	MagicSwordInter = float4::Zero;
+
+	if (false == GameEngineInput::IsKey("TESTKEY_VETERANHERO"))
+	{
+		GameEngineInput::CreateKey("TESTKEY_VETERANHERO", 'K');
+	}
 }
 
 void VeteranHero::LandingAttack_Update(float _DeltaTime)
 {
+	BossRigidbody.UpdateForce(_DeltaTime);
 
+	if (false == IsLandingUpReady && Render->IsAnimationEnd())
+	{
+		IsLandingUpReady = true;
+		PlayAnimation("Jump");
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_JumpSmoke",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 97)});
+	}
+
+	if (false == IsLandingUpEnd && true == IsLandingUpReady)
+	{
+		LandingUpTime += _DeltaTime;
+		GetTransform()->AddLocalPosition(float4::Up * _DeltaTime * 2000.0f);
+	}
+	else
+	{
+		float4 BossVel = BossRigidbody.GetVelocity();
+		float4 CurFreamVel = BossVel * _DeltaTime;
+
+		RigidbodyMovePlatformCheck(CurFreamVel);
+		GetTransform()->AddLocalPosition(CurFreamVel);
+	}
+
+	if (false == IsLandingSignEffect && 0.8f <= LandingUpTime)
+	{
+		IsLandingSignEffect = true;
+
+		if (nullptr == FindPlayer)
+		{
+			LandingAttackPos = GetTransform()->GetWorldPosition();
+		}
+		else
+		{
+			LandingAttackPos = FindPlayer->GetTransform()->GetWorldPosition();
+		}
+			
+		LandingAttackPos.y = 2000.0f;
+		float HighY = -100000.0f;
+
+		FindLandingCol->On();
+		GameEngineTransform* FindColTrans = FindLandingCol->GetTransform();
+		FindColTrans->SetWorldPosition(LandingAttackPos);
+
+		std::vector<std::shared_ptr<GameEngineCollision>> PlatformCols;
+
+		if (true == FindLandingCol->CollisionAll((int)CollisionOrder::Platform_Normal, PlatformCols, ColType::AABBBOX2D, ColType::AABBBOX2D))
+		{
+			for (size_t i = 0; i < PlatformCols.size(); i++)
+			{
+				GameEngineTransform* ColTrans = PlatformCols[i]->GetTransform();
+
+				float ColY = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+				if (HighY < ColY)
+				{
+					HighY = ColY;
+					LandingAttackPos.y = HighY;
+				}
+			}
+		}
+
+		PlatformCols.clear();
+
+		if (true == FindLandingCol->CollisionAll((int)CollisionOrder::Platform_Half, PlatformCols, ColType::AABBBOX2D, ColType::AABBBOX2D))
+		{
+			for (size_t i = 0; i < PlatformCols.size(); i++)
+			{
+				GameEngineTransform* ColTrans = PlatformCols[i]->GetTransform();
+
+				float ColY = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+				if (HighY < ColY)
+				{
+					HighY = ColY;
+					LandingAttackPos.y = HighY;
+				}
+			}
+		}
+
+		FindColTrans->SetWorldPosition(LandingAttackPos);
+
+		LandingSignEffect = EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_LandingAttackSign",
+			.Position = LandingAttackPos});
+
+		LandingSignEffect->GetTransform()->SetLocalScale(float4(0.8f, 1.0f, 1.0f));
+
+		FindLandingCol->Off();
+	}
+
+	if (nullptr != LandingSignEffect && true == LandingSignEffect->IsAnimationEnd())
+	{
+		IsLandingUpEnd = true;
+		LandingSignEffect = nullptr;
+
+		PlayAnimation("AttackE");
+		GetTransform()->SetWorldPosition(LandingAttackPos);
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_LandingSmoke",
+			.Position = LandingAttackPos + float4(-100, 70) });
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_LandingSmoke",
+			.Position = LandingAttackPos + float4(100, 70),
+			.FlipX = true });
+
+		LandingAttackCol->On();
+		std::shared_ptr<GameEngineCollision> PlayerCol = LandingAttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		if (nullptr != PlayerCol)
+		{
+			std::shared_ptr<Player> CastingPtr = PlayerCol->GetActor()->DynamicThis<Player>();
+
+			if (nullptr == CastingPtr)
+			{
+				MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다.");
+			}
+
+			float4 PlayerDir = CastingPtr->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+
+			if (0.0f > PlayerDir.x)
+			{
+				CastingPtr->HitPlayer(Data.Attack, float4(-300, 500));
+			}
+			else
+			{
+				CastingPtr->HitPlayer(Data.Attack, float4(300, 500));
+			}
+
+			EffectManager::PlayEffect({
+			.EffectName = "HitNormal",
+			.Position = CastingPtr->GetTransform()->GetWorldPosition()
+			+ float4(GameEngineRandom::MainRandom.RandomFloat(-20, 20),
+				50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20)) });
+		}
+
+		LandingAttackCol->Off();
+
+		IsLandingMagicSwordAttack = true;
+	}
+	//VeteranHero_LandingMagicSword
+
+	if (true == IsLandingMagicSwordAttack)
+	{
+		LandingMagicSwordTime += _DeltaTime;
+
+		if (0.0f <= LandingMagicSwordTime)
+		{
+			if (3 <= MagicSwordCount)
+			{
+				BossFsm.ChangeState("Idle");
+				return;
+			}
+
+			MagicSwordInter.x += 130.0f;
+			++MagicSwordCount;
+			LandingMagicSwordTime -= 0.2f;
+
+			std::function<void(std::shared_ptr<BaseContentActor>, ProjectileHitParameter)> ColEnterEvent =
+				[](std::shared_ptr<class BaseContentActor> _HitActor, ProjectileHitParameter _Data)
+			{
+				std::shared_ptr<Player> CastingPtr = _HitActor->DynamicThis<Player>();
+
+				if (nullptr == CastingPtr)
+				{
+					MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다.");
+				}
+
+				CastingPtr->HitPlayer(_Data.Attack, float4(0, 500));
+
+				EffectManager::PlayEffect({
+					.EffectName = "HitNormal",
+					.Position = CastingPtr->GetTransform()->GetWorldPosition()
+					+ float4(GameEngineRandom::MainRandom.RandomFloat(-20, 20),
+					50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20)) });
+
+			};
+
+			float4 LeftMagicSwordPos = LandingAttackPos + MagicSwordInter;
+
+			std::shared_ptr<VeteranHeroMagicSword> MagicSwordProjectile = GetLevel()->CreateActor<VeteranHeroMagicSword>();
+
+			MagicSwordProjectile->ShotProjectile({
+				.EffectName = "VeteranHero_LandingMagicSword",
+				.Pos = LeftMagicSwordPos + float4(0, 60, 0),
+				.ColScale = float4(35, 100, 1),
+				.ColOrder = (int)CollisionOrder::Player,
+				.ProjectileColType = ColType::AABBBOX2D,
+				.IsForceLoopOff = true,
+				.Damage = Data.Attack,
+				.LiveTime = 4.0f,
+				.EnterEvent = ColEnterEvent,
+				});
+
+			MagicSwordProjectiles.push_back(MagicSwordProjectile);
+
+			float4 RightMagicSwordPos = LandingAttackPos - MagicSwordInter;
+			
+			MagicSwordProjectile = GetLevel()->CreateActor<VeteranHeroMagicSword>();
+
+			MagicSwordProjectile->ShotProjectile({
+				.EffectName = "VeteranHero_LandingMagicSword",
+				.Pos = RightMagicSwordPos + float4(0, 60, 0),
+				.ColScale = float4(35, 100, 1),
+				.ColOrder = (int)CollisionOrder::Player,
+				.ProjectileColType = ColType::AABBBOX2D,
+				.IsForceLoopOff = true,
+				.Damage = Data.Attack,
+				.LiveTime = 4.0f,
+				.EnterEvent = ColEnterEvent,
+				});
+
+			MagicSwordProjectiles.push_back(MagicSwordProjectile);
+
+			if (3 <= MagicSwordCount)
+			{
+				LandingMagicSwordTime = -0.7f;
+			}
+		}
+	}
 }
 
 void VeteranHero::LandingAttack_End()
 {
+	for (size_t i = 0; i < MagicSwordProjectiles.size(); i++)
+	{
+		MagicSwordProjectiles[i]->FadeDeath();
+	}
 
+	MagicSwordProjectiles.clear();
 }
 
 void VeteranHero::Ultimate_Enter()

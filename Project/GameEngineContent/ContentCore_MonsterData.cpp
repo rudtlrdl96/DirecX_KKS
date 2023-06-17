@@ -341,6 +341,7 @@ void ContentCore::MonsterDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_DeadBody.png").GetFullPath(), 1, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_StingerReady.png").GetFullPath(), 3, 3);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Stinger.png").GetFullPath(), 3, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("RookieHero_Jump.png").GetFullPath(), 3, 1);
 	
 		Path.MoveParent();
 		Path.Move("Effect");
@@ -367,6 +368,9 @@ void ContentCore::MonsterDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_WaveReady_Effect.png").GetFullPath(), 3, 7);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_Wave_Projectile.png").GetFullPath(), 6, 5);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_LandingSmoke_Effect.png").GetFullPath(), 3, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_JumpSmoke_Effect.png").GetFullPath(), 5, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_LandingAttack_Sign.png").GetFullPath(), 8, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_LandingMagicSword_Effect.png").GetFullPath(), 3, 1);
 
 		EffectManager::CreateMetaData("RookieHero_Explosion", {
 			.SpriteName = "RookieHero_ExplosionEffect.png",
@@ -527,6 +531,27 @@ void ContentCore::MonsterDataLoad()
 			.SpriteName = "VeteranHero_LandingSmoke_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 14,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f});		
+		
+		EffectManager::CreateMetaData("VeteranHero_JumpSmoke", {
+			.SpriteName = "VeteranHero_JumpSmoke_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 24,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f});		
+		
+		EffectManager::CreateMetaData("VeteranHero_LandingAttackSign", {
+			.SpriteName = "VeteranHero_LandingAttack_Sign.png",
+			.AnimStart = 0,
+			.AnimEnd = 23,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f});		
+		
+		EffectManager::CreateMetaData("VeteranHero_LandingMagicSword", {
+			.SpriteName = "VeteranHero_LandingMagicSword_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 2,
 			.AnimIter = 0.05f,
 			.ScaleRatio = 2.0f});
 

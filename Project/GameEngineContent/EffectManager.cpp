@@ -77,7 +77,7 @@ std::shared_ptr<EffectActor> EffectManager::PlayEffect(const EffectParameter& _P
 
 	float4 SpawnPos = float4(_Parameter.Position.x, _Parameter.Position.y, _Parameter.AddSetZ + GameEngineRandom::MainRandom.RandomFloat(-40.0f, -31.0f));
 
-	NewEffectActor->Init(Data, _Parameter.Triger, _Parameter.Time, _Parameter.WaitTime);
+	NewEffectActor->Init(Data, _Parameter.Triger, _Parameter.Time, _Parameter.WaitTime, _Parameter.IsForceLoopOff);
 	NewEffectActor->GetTransform()->SetLocalPosition(SpawnPos);
 
 	if (true == _Parameter.FlipX)

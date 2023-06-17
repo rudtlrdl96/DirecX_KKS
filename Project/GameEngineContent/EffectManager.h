@@ -15,6 +15,7 @@ public:
 
 	bool FlipX = false;
 	bool IsUI = false;
+	bool IsForceLoopOff = false;
 
 	float4 Color = float4::Zero;
 
