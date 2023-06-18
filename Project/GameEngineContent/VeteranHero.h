@@ -34,6 +34,8 @@ protected:
 	std::shared_ptr<GameEngineCollision> JumpAttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> FindLandingCol = nullptr;
 	std::shared_ptr<GameEngineCollision> LandingAttackCol = nullptr;
+	std::shared_ptr<GameEngineCollision> UltimateStingerAttackCol = nullptr;
+	std::shared_ptr<GameEngineCollision> UltimateFinishAttackCol = nullptr;
 
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Left = nullptr;
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Right = nullptr;
@@ -104,7 +106,7 @@ protected:
 
 	UINT SwordWaveCombo = 0;
 
-	//LandingAttack
+	//LandingAttack 패턴 변수
 	
 	std::vector<std::shared_ptr<class VeteranHeroMagicSword>> MagicSwordProjectiles;
 	std::shared_ptr<EffectActor> LandingSignEffect = nullptr;
@@ -140,6 +142,39 @@ protected:
 	bool IsUltimateLightOn = false;
 	bool IsUltimateLightOff = false;
 	bool IsUltimateFadeOn = false;
+
+	// 2차 각성기 패턴 변수
+
+	std::shared_ptr<EffectActor> SecondUltimateStingerEffect = nullptr;
+	std::shared_ptr<EffectActor> SecondUltimateAuraEffect = nullptr;
+	std::shared_ptr<EffectActor> SecondUltimateFinishEffect = nullptr;
+
+	bool IsSecondUltimateReadyEnd = false;
+	bool IsSecondUltimateShot = false;
+	bool IsSecondUltimateJumpReady = false;
+	bool IsSecondUltimateJump = false;
+	bool IsSecondUltimateStingerStart = false;
+	bool IsSecondUltimateStingerUpdate = false;
+	bool IsSecondUltimatePlayerHit = false;
+	bool IsSecondUltimateLandingStart = false;
+	bool IsSecondUltimateEnd = false;
+
+	int SecondUltimateStingerCount = 0;
+
+	float SecondUltimateStingerProgress = 0.0f;
+	float SecondUltimateUpTime = 0.0f;
+	float SecondUltimateLandingWaitTime = 0.0f;
+	float SecondUltimateLandingFinishTime = 0.0f;
+	float SecondUltimateLandingEndWaitTime = 0.0f;
+	float SecondUltimateHitWaitTime = 0.0f;
+
+
+	float4 SecondStingerForwardDir = float4::Zero;
+	float4 SecondUltimateStingerStart = float4::Zero;
+	float4 SecondUltimateStingerEnd = float4::Zero;
+
+	float4 SecondFinishScaleStart = float4::One;
+	float4 SecondFinishScaleEnd = float4::One;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -184,6 +219,10 @@ protected:
 	void Ultimate_Enter();
 	void Ultimate_Update(float _DeltaTime);
 	void Ultimate_End();
+
+	void SecondUltimate_Enter();
+	void SecondUltimate_Update(float _DeltaTime);
+	void SecondUltimate_End();
 
 	void UltimateLightOn();
 	void UltimateLightOff();

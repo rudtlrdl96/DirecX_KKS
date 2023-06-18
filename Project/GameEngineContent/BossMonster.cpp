@@ -77,6 +77,12 @@ void BossMonster::Update(float _DeltaTime)
 
 	BaseMonster::Update(_DeltaTime);
 
+	if (true == IsGroundUpOff)
+	{
+		IsGroundUp = false;
+		return;
+	}
+
 	std::shared_ptr<GameEngineCollision> PlatformCol = ContentFunc::PlatformColCheck(GroundCol);
 
 	if (nullptr != PlatformCol)

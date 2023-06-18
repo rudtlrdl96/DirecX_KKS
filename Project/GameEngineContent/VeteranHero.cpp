@@ -122,8 +122,22 @@ void VeteranHero::Start()
 	LandingAttackCol->GetTransform()->SetLocalScale(float4(110, 100, 1));
 	LandingAttackCol->Off();
 
+	UltimateStingerAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	UltimateStingerAttackCol->SetColType(ColType::AABBBOX2D);
+	UltimateStingerAttackCol->GetTransform()->SetLocalPosition(float4(0, 35, 1));
+	UltimateStingerAttackCol->GetTransform()->SetWorldScale(float4(150, 50, 1));
+	UltimateStingerAttackCol->Off();
+
 	ExplosionChargeScaleStart = float4(200, 200, 1);
 	ExplosionChargeScaleEnd = float4(450, 450, 1);
+
+	UltimateFinishAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
+	UltimateFinishAttackCol->GetTransform()->SetLocalPosition(float4(-5, 0));
+	UltimateFinishAttackCol->SetColType(ColType::AABBBOX2D);
+	UltimateFinishAttackCol->Off();
+
+	SecondFinishScaleStart = float4(1, 2000);
+	SecondFinishScaleEnd = float4(290, 2000);
 
 	SwordRender = CreateComponent<ContentSpriteRenderer>();
 	SwordRender->PipeSetting("2DTexture_Color");
@@ -168,6 +182,8 @@ void VeteranHero::Start()
 
 	AttackCheck.SetCol(AttackCol, (UINT)CollisionOrder::Player);
 	AttackCheck.SetRender(Render);
+	
+
 
 	SwordRigidbody.SetMaxSpeed(3000.0f);
 	SwordRigidbody.SetFricCoeff(500.0f);
@@ -215,16 +231,13 @@ void VeteranHero::Start()
 		GameEngineInput::CreateKey("Debug_VeteranHeroMove", 'L');
 	}
 
-	IsIntro = false;
-	IsPlayerEnter = true;
-	Battle_Platform_Left->On();
-	Battle_Platform_Right->On();
+	//IsIntro = false;
 
 	//처음 패턴 강제설정
-	//Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
-	//Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
-	//Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
-	//AttackDistance = 600.0f;
+	Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
+	AttackDistance = 600.0f;
 }
 
 void VeteranHero::Update(float _DeltaTime)
@@ -241,7 +254,7 @@ void VeteranHero::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("Debug_VeteranHeroMove"))
 	{
-		GetTransform()->SetWorldPosition(float4(800, 300));
+		GetTransform()->SetWorldPosition(float4(800, 250));
 	}
 
 	if (true == IsSwordThrowing)
@@ -355,6 +368,12 @@ void VeteranHero::Update(float _DeltaTime)
 	{
 		if (false == IsDeathIntro)
 		{
+			if (nullptr != SecondUltimateStingerEffect)
+			{
+				SecondUltimateStingerEffect->IsFadeDeathOn(1.5f);
+				SecondUltimateStingerEffect = nullptr;
+			}
+
 			if (true == UltimateLight->IsUpdate())
 			{
 				UltimateLightOff();
@@ -401,6 +420,11 @@ void VeteranHero::Update(float _DeltaTime)
 	{
 		std::shared_ptr<GameEngineCollision> PlayerCol =
 			EventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		if (nullptr == PlayerCol)
+		{
+			return;
+		}
 
 		FindPlayer = PlayerCol->GetActor()->DynamicThis<Player>();
 
@@ -533,15 +557,21 @@ void VeteranHero::CreateAnimation()
 
 void VeteranHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&VeteranHero::LandingAttack_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::LandingAttack_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::LandingAttack_End, this);
-	AttackDistance = 2000.0f;
-	return;
-
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
 	float CurHpRatio = HP / Data.HP;
+
+	if(false == IsSecondUltimateShot && 0.333334f >= CurHpRatio)
+	{
+		IsSecondUltimateShot = true;
+
+		Cur_Pattern_Enter = std::bind(&VeteranHero::SecondUltimate_Enter, this);
+		Cur_Pattern_Update = std::bind(&VeteranHero::SecondUltimate_Update, this, std::placeholders::_1);
+		Cur_Pattern_End = std::bind(&VeteranHero::SecondUltimate_End, this);
+
+		AttackDistance = 2000.0f;
+		return;
+	}
 
 	// Ultimate
 	if (0.666667f >= CurHpRatio && 0.0f <= UltimateTime)
@@ -555,7 +585,7 @@ void VeteranHero::SelectPattern()
 		return;
 	}
 
-	switch (Rand.RandomInt(0, 5))
+	switch (Rand.RandomInt(0, 6))
 	{
 	case 0: // ComboAttack
 	{
@@ -605,7 +635,7 @@ void VeteranHero::SelectPattern()
 		AttackDistance = 300.0f;
 	}
 		break;
-	case 6: // JumpAttack
+	case 6: // LandingAttack
 	{
 		Cur_Pattern_Enter = std::bind(&VeteranHero::LandingAttack_Enter, this);
 		Cur_Pattern_Update = std::bind(&VeteranHero::LandingAttack_Update, this, std::placeholders::_1);

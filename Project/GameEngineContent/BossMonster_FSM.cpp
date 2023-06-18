@@ -232,16 +232,26 @@ void BossMonster::Hit_Update(float _DeltaTime)
 
 	if (false == IsSuperArmor && true == IsHit)
 	{
+		switch (HitDir)
+		{
+		case ActorViewDir::Left:
+			SetViewDir(ActorViewDir::Right);
+			break;
+		case ActorViewDir::Right:
+			SetViewDir(ActorViewDir::Left);
+			break;
+		default:
+			break;
+		}
+
 		if (true == IsPush)
 		{
 			switch (HitDir)
 			{
 			case ActorViewDir::Left:
-				SetViewDir(ActorViewDir::Right);
 				BossRigidbody.SetVelocity(float4::Left * HitPower);
 				break;
 			case ActorViewDir::Right:
-				SetViewDir(ActorViewDir::Left);
 				BossRigidbody.SetVelocity(float4::Right * HitPower);
 				break;
 			default:

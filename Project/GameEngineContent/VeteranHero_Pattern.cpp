@@ -1457,3 +1457,463 @@ void VeteranHero::Ultimate_End()
 	UltimateLightOff();
 
 }
+
+void VeteranHero::SecondUltimate_Enter()
+{
+	PlayAnimation("ExplosionReady");
+	GetContentLevel()->GetCamCtrl().CameraShake(1, 40, 1000);
+
+	if (false == GameEngineInput::IsKey("Debug_VeteranHeroIdle"))
+	{
+		GameEngineInput::CreateKey("Debug_VeteranHeroIdle", 'K');
+	}
+
+	SecondUltimateAuraEffect = EffectManager::PlayEffect({
+		.EffectName = "VeteranHero_Aura",
+		.Position = GetTransform()->GetWorldPosition() + float4(0, 60),
+		.Scale = 1.2f});
+
+	IsSecondUltimateReadyEnd = false;
+	IsSecondUltimateJumpReady = false;
+	IsSecondUltimateJump = false;
+	IsSecondUltimateStingerStart = false;
+	IsSecondUltimateLandingStart = false;
+	IsSecondUltimateEnd = false;
+
+	SecondUltimateStingerCount = 0;
+
+	SecondUltimateUpTime = 0.0f;
+	SecondUltimateStingerProgress = 0.0f;
+	SecondUltimateLandingWaitTime = 0.0f;
+	SecondUltimateLandingEndWaitTime = 0.0f;
+	SecondUltimateLandingFinishTime = 0.0f;
+	SecondUltimateHitWaitTime = 0.0f;
+
+	IsSecondUltimateStingerUpdate = false;
+	UltimateLightOn();
+}
+
+void VeteranHero::SecondUltimate_Update(float _DeltaTime)
+{
+	if (false == IsSecondUltimateReadyEnd && true == Render->IsAnimationEnd())
+	{
+		PlayAnimation("Explosion");
+		IsSecondUltimateReadyEnd = true;
+	}
+
+	if (nullptr != SecondUltimateAuraEffect && true == SecondUltimateAuraEffect->IsAnimationEnd())
+	{
+		LookPlayer();
+		PlayAnimation("StingerReady");
+		SecondUltimateAuraEffect = nullptr;
+		GetContentLevel()->GetCamCtrl().CameraShake(1, 1, 0);
+
+		switch (Dir)
+		{
+		case ActorViewDir::Left:
+			EffectManager::PlayEffect({
+				.EffectName = "VeteranHero_SecondUlt_Electric",
+				.Position = GetTransform()->GetWorldPosition() + float4(0, 50, 0),
+				.Scale = 2.0f });
+			break;
+		case ActorViewDir::Right:
+			EffectManager::PlayEffect({
+				.EffectName = "VeteranHero_SecondUlt_Electric",
+				.Position = GetTransform()->GetWorldPosition() + float4(0, 50, 0),
+				.Scale = 2.0f });
+			break;
+		}
+
+	
+		
+		//EffectManager::PlayEffect({
+		//	.EffectName = "VeteranHero_EnergyBlast",
+		//	.Position = GetTransform()->GetWorldPosition() + float4(0, 70, 0),
+		//	.Scale = 2.0f });
+		//
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_EnergyBlast",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 70, 0),
+			.AddSetZ = -10.0f,
+			.Scale = 1.0f,
+			});
+
+		IsSecondUltimateJumpReady = true;
+	}
+
+	if (true == IsSecondUltimateJumpReady && true == Render->IsAnimationEnd())
+	{
+		PlayAnimation("Jump");
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_JumpSmoke",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 97) });
+
+		IsSecondUltimateJump = true;
+		IsSecondUltimateJumpReady = false;
+	}
+
+	if (true == IsSecondUltimateJump)
+	{
+		SecondUltimateUpTime += _DeltaTime;
+		GetTransform()->AddLocalPosition(float4::Up * _DeltaTime * 2000.0f);
+	
+		if (1.5f <= SecondUltimateUpTime)
+		{
+			IsSecondUltimateJump = false;
+			IsSecondUltimateStingerStart = true;
+		}
+	}
+
+	if (true == IsSecondUltimateStingerStart && false == IsSecondUltimateStingerUpdate)
+	{
+		float StartX = 0.0f;
+		float EndX = 0.0f;
+
+		float RandStartY = GameEngineRandom::MainRandom.RandomFloat(150.0f, 400.0f);
+		float RandEndY = GameEngineRandom::MainRandom.RandomFloat(250.0f, 400.0f);
+
+		float CurZ = GetTransform()->GetWorldPosition().z;
+
+		PlayAnimation("Stinger", false);
+
+		if (nullptr != SecondUltimateStingerEffect)
+		{
+			SecondUltimateStingerEffect->Death();
+			SecondUltimateStingerEffect = nullptr;
+		}
+
+		SetViewDir(ActorViewDir::Right);
+
+		if (0 == SecondUltimateStingerCount % 2)
+		{
+			StartX = Battle_Platform_Left->GetTransform()->GetWorldPosition().x - 200.0f;
+			EndX = Battle_Platform_Right->GetTransform()->GetWorldPosition().x + 200.0f;	
+		}
+		else
+		{
+			StartX = Battle_Platform_Right->GetTransform()->GetWorldPosition().x + 200.0f;
+			EndX = Battle_Platform_Left->GetTransform()->GetWorldPosition().x - 200.0f;
+		}
+		
+		SecondUltimateStingerStart = float4(StartX, RandStartY, CurZ);
+		SecondUltimateStingerEnd = float4(EndX, RandEndY, CurZ);
+
+		GetTransform()->SetLocalRotation(float4::Zero);
+
+		SecondStingerForwardDir = SecondUltimateStingerEnd - SecondUltimateStingerStart;
+		SecondStingerForwardDir.Normalize();
+
+		float ZRot = 0.0f;
+
+		if (0 == SecondUltimateStingerCount % 2)
+		{
+			ZRot = float4::DotProduct3D(SecondStingerForwardDir, float4::Right);
+		}
+		else
+		{
+			ZRot = float4::DotProduct3D(SecondStingerForwardDir, float4::Left);
+		}
+
+		ZRot = std::acos(ZRot);
+
+
+		SecondUltimateStingerEffect = EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_Stinger",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 40, 0),
+			.Triger = EffectDeathTrigger::Time,
+			.Time = 2.0f});
+
+		if (0 == SecondUltimateStingerCount % 2)
+		{
+			if (0.0f > SecondStingerForwardDir.y)
+			{
+				ZRot = -ZRot;
+			}
+
+			GetTransform()->SetLocalRotation(float4(0, 0, ZRot * GameEngineMath::RadToDeg));
+			SecondUltimateStingerEffect->GetTransform()->SetLocalRotation(float4(0, 0, ZRot* GameEngineMath::RadToDeg));
+			SetViewDir(ActorViewDir::Right);
+		}
+		else
+		{
+			if (0.0f < SecondStingerForwardDir.y)
+			{
+				ZRot = -ZRot;
+			}
+
+			GetTransform()->SetLocalRotation(float4(0, 0, ZRot * GameEngineMath::RadToDeg));
+			SecondUltimateStingerEffect->GetTransform()->SetLocalRotation(float4(0, 0, ZRot * GameEngineMath::RadToDeg));
+			SetViewDir(ActorViewDir::Left);
+			SecondUltimateStingerEffect->GetTransform()->SetLocalNegativeScaleX();
+		}
+				
+		SecondUltimateStingerEffect->GetTransform()->SetParent(GetTransform());
+
+		++SecondUltimateStingerCount;	
+		IsSecondUltimateStingerUpdate = true;
+
+		IsGroundUpOff = true;
+		IsSecondUltimatePlayerHit = false;
+
+		UltimateStingerAttackCol->On();
+	}
+
+	if (true == IsSecondUltimateStingerUpdate)
+	{
+		SecondUltimateStingerProgress += _DeltaTime * 1.2f;
+
+		float4 StingerLerpPos = float4::LerpClamp(SecondUltimateStingerStart, SecondUltimateStingerEnd, SecondUltimateStingerProgress);
+		GetTransform()->SetWorldPosition(StingerLerpPos);
+
+		if (false == IsSecondUltimatePlayerHit)
+		{
+			std::shared_ptr<GameEngineCollision> PlayerCol = 
+				UltimateStingerAttackCol->Collision((int)CollisionOrder::Player, ColType::OBBBOX2D, ColType::AABBBOX2D);
+
+			if (nullptr != PlayerCol)
+			{
+				std::shared_ptr<Player> CastingPtr = PlayerCol->GetActor()->DynamicThis<Player>();
+
+				if (0.0f > SecondStingerForwardDir.x)
+				{
+					CastingPtr->HitPlayer(Data.Attack, float4(-300, 500));
+				}
+				else
+				{
+					CastingPtr->HitPlayer(Data.Attack, float4(300, 500));
+				}
+			}
+		}
+
+		if (1.0f <= SecondUltimateStingerProgress)
+		{
+			SecondUltimateStingerProgress -= 1.2f;
+			IsSecondUltimateStingerUpdate = false;
+
+			if (6 <= SecondUltimateStingerCount)
+			{
+				GetTransform()->SetLocalRotation(float4::Zero);
+				IsSecondUltimateStingerStart = false;
+
+				if (nullptr != SecondUltimateStingerEffect)
+				{
+					SecondUltimateStingerEffect->Death();
+					SecondUltimateStingerEffect = nullptr;
+				}
+
+				IsSecondUltimateLandingStart = true;
+				UltimateStingerAttackCol->Off();
+			}
+		}
+	}
+
+	if (true == IsSecondUltimateLandingStart)
+	{
+		SecondUltimateLandingWaitTime += _DeltaTime;
+
+		if (1.0f <= SecondUltimateLandingWaitTime)
+		{
+			IsSecondUltimateLandingStart = false;
+
+			if (nullptr == FindPlayer)
+			{
+				LandingAttackPos = GetTransform()->GetWorldPosition();
+			}
+			else
+			{
+				LandingAttackPos = FindPlayer->GetTransform()->GetWorldPosition();
+			}
+
+			LandingAttackPos.y = 2000.0f;
+			float HighY = -100000.0f;
+
+			FindLandingCol->On();
+			GameEngineTransform* FindColTrans = FindLandingCol->GetTransform();
+			FindColTrans->SetWorldPosition(LandingAttackPos);
+
+			std::vector<std::shared_ptr<GameEngineCollision>> PlatformCols;
+
+			if (true == FindLandingCol->CollisionAll((int)CollisionOrder::Platform_Normal, PlatformCols, ColType::AABBBOX2D, ColType::AABBBOX2D))
+			{
+				for (size_t i = 0; i < PlatformCols.size(); i++)
+				{
+					GameEngineTransform* ColTrans = PlatformCols[i]->GetTransform();
+
+					float ColY = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+					if (HighY < ColY)
+					{
+						HighY = ColY;
+						LandingAttackPos.y = HighY;
+					}
+				}
+			}
+
+			PlatformCols.clear();
+
+			if (true == FindLandingCol->CollisionAll((int)CollisionOrder::Platform_Half, PlatformCols, ColType::AABBBOX2D, ColType::AABBBOX2D))
+			{
+				for (size_t i = 0; i < PlatformCols.size(); i++)
+				{
+					GameEngineTransform* ColTrans = PlatformCols[i]->GetTransform();
+
+					float ColY = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+					if (HighY < ColY)
+					{
+						HighY = ColY;
+						LandingAttackPos.y = HighY;
+					}
+				}
+			}
+
+			FindColTrans->SetWorldPosition(LandingAttackPos);
+
+			LandingSignEffect = EffectManager::PlayEffect({
+				.EffectName = "VeteranHero_LandingAttackSign",
+				.Position = LandingAttackPos});
+
+			LandingSignEffect->GetTransform()->SetLocalScale(float4(0.8f, 1.0f, 1.0f));
+
+			FindLandingCol->Off();
+		}
+	}
+
+	if (nullptr != LandingSignEffect && true == LandingSignEffect->IsAnimationEnd())
+	{
+		SetViewDir(ActorViewDir::Right);
+		PlayAnimation("AttackE");
+		GetTransform()->SetWorldPosition(LandingAttackPos);
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_LandingSmoke",
+			.Position = LandingAttackPos + float4(-100, 70) });
+
+		EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_LandingSmoke",
+			.Position = LandingAttackPos + float4(100, 70),
+			.FlipX = true });
+
+		LandingAttackCol->On();
+		std::shared_ptr<GameEngineCollision> PlayerCol = LandingAttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		if (nullptr != PlayerCol)
+		{
+			std::shared_ptr<Player> CastingPtr = PlayerCol->GetActor()->DynamicThis<Player>();
+
+			if (nullptr == CastingPtr)
+			{
+				MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다.");
+			}
+
+			float4 PlayerDir = CastingPtr->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+
+			if (0.0f > PlayerDir.x)
+			{
+				CastingPtr->HitPlayer(Data.Attack, float4(-300, 500));
+			}
+			else
+			{
+				CastingPtr->HitPlayer(Data.Attack, float4(300, 500));
+			}
+
+			EffectManager::PlayEffect({
+				.EffectName = "HitNormal",
+				.Position = CastingPtr->GetTransform()->GetWorldPosition()
+				+ float4(GameEngineRandom::MainRandom.RandomFloat(-20, 20),
+					50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20)) });
+		}
+
+		LandingAttackCol->Off();
+
+		GetContentLevel()->GetCamCtrl().CameraShake(1, 40, 1000);
+
+		SecondUltimateFinishEffect = EffectManager::PlayEffect({
+			.EffectName = "VeteranHero_StingerFinish",
+			.Position = LandingAttackPos + float4(0, 280)});
+
+		SecondUltimateFinishEffect->GetTransform()->SetLocalScale(float4(1.0f, 2.0f, 1.0f));
+
+		UltimateFinishAttackCol->On();
+		LandingSignEffect = nullptr;
+	}
+
+	if (nullptr != SecondUltimateFinishEffect)
+	{
+		SecondUltimateLandingFinishTime += _DeltaTime;
+		SecondUltimateHitWaitTime += _DeltaTime;
+
+		float4 FinishColScale = float4::LerpClamp(SecondFinishScaleStart, SecondFinishScaleEnd, SecondUltimateLandingFinishTime / 1.5f);
+		UltimateFinishAttackCol->GetTransform()->SetLocalScale(FinishColScale);
+
+		if (0.0f <= SecondUltimateHitWaitTime)
+		{
+			std::shared_ptr<GameEngineCollision> PlayerCol =
+				UltimateFinishAttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+			if (nullptr != PlayerCol)
+			{
+				std::shared_ptr<Player> CastingCol = PlayerCol->GetActor()->DynamicThis<Player>();
+
+				if (nullptr == CastingCol)
+				{
+					MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다.");
+					return;
+				}
+
+				CastingCol->HitPlayer(Data.Attack * 0.2f, float4::Zero);
+
+				EffectManager::PlayEffect({
+					.EffectName = "HitNormal",
+					.Position = CastingCol->GetTransform()->GetWorldPosition() + float4(GameEngineRandom::MainRandom.RandomFloat(-20, 20),
+					50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20)) });
+
+				SecondUltimateHitWaitTime = -0.3f;
+			}
+		}
+
+		if (1.5f <= SecondUltimateLandingFinishTime)
+		{
+			UltimateFinishAttackCol->Off();
+			GetContentLevel()->GetCamCtrl().CameraShake(1, 1, 0);
+			SecondUltimateFinishEffect->IsFadeDeathOn(0.7f);
+			SecondUltimateFinishEffect = nullptr;
+			IsSecondUltimateEnd = true;
+		}
+	}
+
+	if (true == IsSecondUltimateEnd)
+	{
+		SecondUltimateLandingEndWaitTime += _DeltaTime;
+
+		if (1.3f <= SecondUltimateLandingEndWaitTime)
+		{
+			BossFsm.ChangeState("Idle");
+		}
+	}
+
+	if (true == GameEngineInput::IsDown("Debug_VeteranHeroIdle"))
+	{
+		BossFsm.ChangeState("Idle");
+	}
+}
+
+void VeteranHero::SecondUltimate_End()
+{
+	LandingSignEffect = nullptr;
+	SecondUltimateAuraEffect = nullptr;
+	SecondUltimateFinishEffect = nullptr;
+
+	UltimateLightOff();
+	GetTransform()->SetLocalRotation(float4::Zero);
+
+	if (nullptr != SecondUltimateStingerEffect)
+	{
+		SecondUltimateStingerEffect->Death();
+		SecondUltimateStingerEffect = nullptr;
+	}
+
+	UltimateStingerAttackCol->Off();
+	IsGroundUpOff = false;
+}

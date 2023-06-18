@@ -371,6 +371,9 @@ void ContentCore::MonsterDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_JumpSmoke_Effect.png").GetFullPath(), 5, 5);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_LandingAttack_Sign.png").GetFullPath(), 8, 3);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_LandingMagicSword_Effect.png").GetFullPath(), 3, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_Aura_Effect.png").GetFullPath(), 8, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_StingerFinish_Effect.png").GetFullPath(), 6, 9);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("VeteranHero_SecondUlt_Electric.png").GetFullPath(), 2, 5);
 
 		EffectManager::CreateMetaData("RookieHero_Explosion", {
 			.SpriteName = "RookieHero_ExplosionEffect.png",
@@ -552,6 +555,27 @@ void ContentCore::MonsterDataLoad()
 			.SpriteName = "VeteranHero_LandingMagicSword_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 2,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f});		
+		
+		EffectManager::CreateMetaData("VeteranHero_Aura", {
+			.SpriteName = "VeteranHero_Aura_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 39,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f});		
+		
+		EffectManager::CreateMetaData("VeteranHero_StingerFinish", {
+			.SpriteName = "VeteranHero_StingerFinish_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 53,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f});		
+		
+		EffectManager::CreateMetaData("VeteranHero_SecondUlt_Electric", {
+			.SpriteName = "VeteranHero_SecondUlt_Electric.png",
+			.AnimStart = 0,
+			.AnimEnd = 9,
 			.AnimIter = 0.05f,
 			.ScaleRatio = 2.0f});
 
