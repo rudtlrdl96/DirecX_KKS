@@ -32,6 +32,8 @@ public:
 
 	void SetCameraLock(class CameraController& _CameraCtrl);
 
+	void SetParentToBackground(const std::string_view& _BackgroundName, size_t _Index, GameEngineTransform * _Actor);
+
 protected:
 
 private:

@@ -22,6 +22,8 @@ public:
 
 	void ShowGUI() override;
 	void ClearBackground();
+
+	void SetParentToBackground(size_t _Index, GameEngineTransform* _Actor);
 protected:
 	
 private:

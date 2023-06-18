@@ -139,6 +139,17 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 		});
 
 	// 각성 용사
+	AddEvent("VeteranHero_Death", LevelCode, [this]()
+		{
+			CallEvent("PlayerInputLock");
+			CallEvent("PlayerFrameDisable");
+			CallEvent("StoryFadeIn");
+			CallEvent("FadeOut_White");
+
+			ClearWaitTime = 0.0f;
+			IsBossClear = true;
+		});
+
 	AddEvent("VeteranHero_Script02", LevelCode, [this]()
 		{
 			TalkBoxPtr->ActiveTalkBox("견습 용사");

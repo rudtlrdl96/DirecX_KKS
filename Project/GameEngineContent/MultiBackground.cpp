@@ -200,3 +200,20 @@ void MultiBackground::ClearBackground()
 
 	BackgroundBuffer.clear();
 }
+
+void MultiBackground::SetParentToBackground(size_t _Index, GameEngineTransform* _Actor)
+{
+	if (nullptr == _Actor)
+	{
+		MsgAssert_Rtti<MultiBackground>(" - nullptr 트랜스폼을 백그라운드 자식으로 설정하려 했습니다");
+		return;
+	}
+
+	if (_Index >= BackgroundBuffer.size())
+	{
+		MsgAssert_Rtti<MultiBackground>(" - 백그라운드 인덱스를 초과해 SetParent를 시도하려 했습니다");
+		return;
+	}
+
+	_Actor->SetParent(BackgroundBuffer[_Index]->GetTransform());
+}

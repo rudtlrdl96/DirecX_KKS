@@ -392,12 +392,12 @@ void VeteranHero::Update(float _DeltaTime)
 			HeroHealthBar = nullptr;
 
 			PlayAnimation("DeathIntro", false);
+			GetContentLevel()->CallEvent("VeteranHero_Death");
+			GetContentLevel()->GetCamCtrl().CameraShake(1, 1, 0);
 		}
 
 		if (true == Render->IsAnimationEnd())
 		{
-			GetContentLevel()->CallEvent("MinimapOn");
-			GetContentLevel()->CallEvent("RookieHero_Death");
 			Death();
 
 			std::shared_ptr<MonsterDeadBodyActor> DeadBody = GetLevel()->CreateActor<MonsterDeadBodyActor>();
@@ -647,21 +647,6 @@ void VeteranHero::SelectPattern()
 		MsgAssert_Rtti<VeteranHero>(" - 존재하지 않는 패턴으로 설정하려 했습니다");
 		break;
 	}
-
-	// 신규 패턴 -> 돌진 공격, 검기 웨이브, 내려찍기, 랜딩어택
-	// 돌진 패턴 : 빠르게 대쉬공격 후 베기 공격 [완료]
-	// 검기 웨이브 : 기를 모은 후 검기 2회 발사 [완료]
-	// 내려찍기 :
-	// 랜딩어택 :
-	// 
-	// 발악 패턴
-	// 신규 궁극기 : 체력이 50% 이하로 떨어지면 1회 시전 
-
-	// 에너지볼 : 에너지볼 이펙트 변경 에너지볼의 속도, 추적능력변경, 3개 동시에 발사 [완료]
-	// 콤보어택 : 마지막 공격이 검기 발사 [완료]
-	// 폭발 : 이펙트 변경, 차징시 지속 데미지 [완료]
-
-	// 필살기 : 더 이상 그로기상태가 없음, 즉시발사, 연기 후속타 [완료]
 }
 
 

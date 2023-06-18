@@ -24,6 +24,11 @@ private:
 	std::shared_ptr<class FPSCheckGUI> FPS_GUI = nullptr;
 	std::shared_ptr<class Tilemap> IntroTilemap = nullptr;
 
+	std::shared_ptr<class BossRoomFlop> BossFlop = nullptr;
+
+	bool IsBossClear = false;
+	float ClearWaitTime = 0.0f;
+
 	void CreateForestOfHarmonyEvent();
 };
 

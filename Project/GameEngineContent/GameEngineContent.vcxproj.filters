@@ -370,6 +370,9 @@
     <Filter Include="3_Component\Renderer">
       <UniqueIdentifier>{8bf0b896-7e80-4916-8d00-b56c5cdc8cbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Flop">
+      <UniqueIdentifier>{fc47a103-4943-4783-b782-718bebfc4d23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -911,6 +914,9 @@
     </ClInclude>
     <ClInclude Include="VeteranHeroMagicSword.h">
       <Filter>2_Actor\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="BossRoomFlop.h">
+      <Filter>2_Actor\Map\Flop</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1510,6 +1516,9 @@
     </ClCompile>
     <ClCompile Include="VeteranHeroMagicSword.cpp">
       <Filter>2_Actor\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="BossRoomFlop.cpp">
+      <Filter>2_Actor\Map\Flop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

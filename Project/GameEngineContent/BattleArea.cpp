@@ -120,3 +120,17 @@ void BattleArea::SetCameraLock(CameraController& _CameraCtrl)
 	_CameraCtrl.SetMinWidth(TileMeta.Left);
 	_CameraCtrl.SetMaxWidth(TileMeta.Right);
 }
+
+void BattleArea::SetParentToBackground(const std::string_view& _BackgroundName, size_t _Index, GameEngineTransform* _Actor)
+{
+	std::string UpperName = GameEngineString::ToUpper(_BackgroundName);
+	std::map<std::string, std::shared_ptr<MultiBackground>>::iterator FindIter = BattleBackgroundDatas.find(UpperName);
+
+	if (FindIter == BattleBackgroundDatas.end())
+	{
+		MsgAssert_Rtti<BattleArea>(" - 해당이름의 백그라운드가 존재하지 않습니다 : " + UpperName);
+		return;
+	}
+
+	FindIter->second->SetParentToBackground(_Index, _Actor);
+}

@@ -3,8 +3,11 @@
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include "FadeActor.h"
 
 #include "Tilemap.h"
+#include "StoryLevel.h"
+#include "BossRoomFlop.h"
 
 // Debug¿ë
 #include "FPSCheckGUI.h"
@@ -16,6 +19,7 @@ ForestOfHarmonyLevel::ForestOfHarmonyLevel()
 ForestOfHarmonyLevel::~ForestOfHarmonyLevel()
 {
 }
+#include "GameEngineActorGUI.h"
 
 void ForestOfHarmonyLevel::Start()
 {
@@ -70,6 +74,11 @@ void ForestOfHarmonyLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
+	BossFlop = CreateActor<BossRoomFlop>();
+	BattleAreaPtr->SetParentToBackground("DB_ForestOfHarmony_Background_04", 1, BossFlop->GetTransform());
+	BossFlop->GetTransform()->SetLocalPosition(float4(170.0f, 310.0f, -0.1f));
+	BossFlop->GetTransform()->SetLocalScale(float4(1.05f, 1.05f, 1.0f));
+	
 	IntroTilemap->GetTransform()->SetLocalPosition(float4(0, 448, -1));
 
 	StageNameInfos.reserve(12);
@@ -115,9 +124,29 @@ void ForestOfHarmonyLevel::Start()
 	CreateForestOfHarmonyEvent();
 }
 
+
 void ForestOfHarmonyLevel::Update(float _DeltaTime)
 {
 	BattleLevel::Update(_DeltaTime);
+
+	if (true == IsBossClear)
+	{
+		ClearWaitTime += _DeltaTime;
+
+		if (1.0f <= ClearWaitTime && true == FadeActorPtr->IsFadeEnd())
+		{
+			StoryLevel::SetLevelEnterStoryName(StoryLevel::StoryName::ForestOfHarmony);
+			StoryLevel::SetStoryEndMoveLevel("HolyCourtyard");
+
+			FadeActorPtr->FadeIn([]()
+				{
+					GameEngineCore::ChangeLevel("Story");
+				});	
+
+			IsBossClear = false;
+			ClearWaitTime = 0.0f;
+		}
+	}
 }
 
 void ForestOfHarmonyLevel::ChangeStage()
