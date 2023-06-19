@@ -29,12 +29,15 @@ public:
 
 	void PlayBubble(const SpeechBubbleParameter& _BubbleParameter);
 
+	void On() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	
 private:
 	std::shared_ptr<ContentSpriteRenderer> BubbleRender = nullptr;
+	std::shared_ptr<GameEngineFontRenderer> FontRender = nullptr;
 	ColorBuffer Buffer = ColorBuffer();
 
 	std::weak_ptr<GameEngineActor> Target;

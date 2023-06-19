@@ -10,6 +10,8 @@ SpeechBubble::~SpeechBubble()
 {
 }
 
+#include "GameEngineActorGUI.h"
+
 void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 {
 	Target = _BubbleParameter.Target;
@@ -20,6 +22,9 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 		return;
 	}
 
+	FontRender->SetText(_BubbleParameter.Text);
+	FontRender->On();
+
 	TalkText = _BubbleParameter.Text;
 	Pivot = _BubbleParameter.Pivot;
 
@@ -28,16 +33,28 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 	if (true == _BubbleParameter.IsLarge)
 	{
 		BubbleRender->SetScaleToTexture("SpeechBubble_Large.png");
+		FontRender->GetTransform()->SetLocalPosition(float4(-92, 26, -0.1f));
 	}
 	else
 	{
 		BubbleRender->SetScaleToTexture("SpeechBubble.png");
+		FontRender->GetTransform()->SetLocalPosition(float4(-64, 13, -0.1f));
 	}
+
+	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	//Ptr->SetTarget(FontRender->GetTransform());
+	//Ptr->On();
 
 	BubbleRender->On();
 
 	LiveTime = _BubbleParameter.LiveTime;
 	LoopInter = _BubbleParameter.LoopInter;
+}
+
+
+void SpeechBubble::On()
+{
+	BaseContentActor::On();
 }
 
 void SpeechBubble::Start()
@@ -60,6 +77,13 @@ void SpeechBubble::Start()
 	BubbleRender->PipeSetting("2DTexture_Color");
 	BubbleRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	BubbleRender->Off();
+
+	FontRender = CreateComponent<GameEngineFontRenderer>();
+	FontRender->SetFont("³Ø½¼Lv2°íµñ");
+	FontRender->SetScale(14);
+	FontRender->SetColor(float4(1, 1, 1, 1));
+
+	FontRender->Off();
 }
 
 void SpeechBubble::Update(float _DeltaTime)
@@ -72,11 +96,13 @@ void SpeechBubble::Update(float _DeltaTime)
 	if (nullptr == Target.lock())
 	{
 		BubbleRender->Off();
+		FontRender->Off();
 		return;
 	}
 	else
 	{
 		BubbleRender->On();
+		FontRender->On();
 	}
 
 	OffTime += _DeltaTime;
@@ -84,6 +110,7 @@ void SpeechBubble::Update(float _DeltaTime)
 	if (0.0f > OffTime)
 	{
 		BubbleRender->Off();
+		FontRender->Off();
 		ResetLiveTime();
 	}
 

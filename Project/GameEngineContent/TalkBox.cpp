@@ -27,6 +27,8 @@ void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void
 	ReadEndCallback = _Callback;
 }
 
+#include "GameEngineActorGUI.h"
+
 void TalkBox::On()
 {
 	BaseContentActor::On();
@@ -41,8 +43,6 @@ void TalkBox::Off()
 	BaseContentActor::Off();
 	FontTextRender->Off();
 }
-
-#include "GameEngineActorGUI.h"
 
 void TalkBox::Start()
 {
