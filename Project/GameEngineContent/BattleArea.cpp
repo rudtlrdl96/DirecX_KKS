@@ -134,3 +134,31 @@ void BattleArea::SetParentToBackground(const std::string_view& _BackgroundName, 
 
 	FindIter->second->SetParentToBackground(_Index, _Actor);
 }
+
+void BattleArea::SetFiretDoorType(const std::string_view& _StageName, DoorType _Type)
+{
+	std::string UpperName = GameEngineString::ToUpper(_StageName);
+	std::map<std::string, std::shared_ptr<BattleStage>>::iterator FindIter = BattleStageDatas.find(UpperName);
+
+	if (FindIter == BattleStageDatas.end())
+	{
+		MsgAssert_Rtti<BattleArea>(" - 해당이름의 스테이지가 존재하지 않습니다 : " + UpperName);
+		return;
+	}
+
+	FindIter->second->SetFiretDoorType(_Type);
+}
+
+void BattleArea::SetSecondDoorType(const std::string_view& _StageName, DoorType _Type)
+{
+	std::string UpperName = GameEngineString::ToUpper(_StageName);
+	std::map<std::string, std::shared_ptr<BattleStage>>::iterator FindIter = BattleStageDatas.find(UpperName);
+
+	if (FindIter == BattleStageDatas.end())
+	{
+		MsgAssert_Rtti<BattleArea>(" - 해당이름의 스테이지가 존재하지 않습니다 : " + UpperName);
+		return;
+	}
+
+	FindIter->second->SetSecondDoorType(_Type);
+}

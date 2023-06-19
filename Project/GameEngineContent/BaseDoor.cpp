@@ -137,7 +137,7 @@ void BaseDoor::Start()
 	DoorRender->PipeSetting("2DTexture_Color");
 	DoorRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	DoorRender->SetTexture("Empty.png");
-	DoorRender->GetTransform()->SetLocalPosition(float4::Zero);
+	DoorRender->GetTransform()->SetLocalPosition(float4(0, 10, 0));
 	DoorRender->SetScaleRatio(2.0f);
 
 	DoorCollision = CreateComponent<GameEngineCollision>();
@@ -152,6 +152,7 @@ void BaseDoor::Start()
 	NoteActor = GetLevel()->CreateActor<FieldNoteActor>();
 	NoteActor->GetTransform()->SetParent(GetTransform());
 	NoteActor->GetTransform()->SetLocalPosition(float4(10, -140, -100.0f));
+	NoteActor->SetText("F 들어가기");
 	NoteActor->Off();
 }
 

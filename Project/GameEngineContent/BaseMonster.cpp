@@ -43,6 +43,11 @@ void BaseMonster::Start()
 {
 	BattleActor::Start();
 
+	if (false == GameEngineInput::IsKey("Debug_MonsterAllDeath"))
+	{
+		GameEngineInput::CreateKey("Debug_MonsterAllDeath", '9');
+	}
+
 	if (nullptr == GameEngineTexture::Find("EnemyHpBar.png"))
 	{
 		GameEngineDirectory Path;
@@ -65,6 +70,11 @@ void BaseMonster::Start()
 void BaseMonster::Update(float _DeltaTime)
 {
 	BattleActor::Update(_DeltaTime);
+
+	if (true == GameEngineInput::IsDown("Debug_MonsterAllDeath"))
+	{
+		HP = 0;
+	}
 }
 
 void BaseMonster::SetViewDir(ActorViewDir _Dir, bool _Force)

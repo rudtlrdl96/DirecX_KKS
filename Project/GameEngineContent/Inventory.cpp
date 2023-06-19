@@ -32,7 +32,7 @@ void Inventory::SetSubSkull(SkullData _SkullData)
 void Inventory::ResetSkull()
 {
 	MainSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(0);
-	SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(203);
+	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(203);
 
 	//SubSkullData.Reset();
 }

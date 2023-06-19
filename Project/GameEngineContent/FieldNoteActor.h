@@ -21,6 +21,7 @@ private:
 	std::string NoteText = "Å×½ºÆ®";
 
 	std::shared_ptr<ContentSpriteRenderer> BackRender = nullptr;
+	std::shared_ptr<GameEngineFontRenderer> TextRender = nullptr;
 	ColorBuffer Buffer;
 
 	std::vector<std::shared_ptr<class KeyActor>> KeyActors;

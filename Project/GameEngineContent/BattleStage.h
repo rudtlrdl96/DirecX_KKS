@@ -23,6 +23,16 @@ public:
 
 	void Destroy() override;
 
+	inline void SetFiretDoorType(DoorType _Type)
+	{
+		EventManagerPtr->SetFiretDoorType(_Type);
+	}
+
+	inline void SetSecondDoorType(DoorType _Type)
+	{
+		EventManagerPtr->SetSecondDoorType(_Type);
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

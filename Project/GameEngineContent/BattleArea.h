@@ -34,6 +34,9 @@ public:
 
 	void SetParentToBackground(const std::string_view& _BackgroundName, size_t _Index, GameEngineTransform * _Actor);
 
+	void SetFiretDoorType(const std::string_view& _StageName, DoorType _Type);
+	void SetSecondDoorType(const std::string_view& _StageName, DoorType _Type);
+
 protected:
 
 private:

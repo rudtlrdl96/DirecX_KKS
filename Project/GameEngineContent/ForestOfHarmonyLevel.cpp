@@ -74,6 +74,11 @@ void ForestOfHarmonyLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage0_2_Map", DoorType::MiddleBoss);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage0_2_Map", DoorType::Broken);
+
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_BossEntrance_Map", DoorType::MainBoss);
+
 	BossFlop = CreateActor<BossRoomFlop>();
 	BattleAreaPtr->SetParentToBackground("DB_ForestOfHarmony_Background_04", 1, BossFlop->GetTransform());
 	BossFlop->GetTransform()->SetLocalPosition(float4(170.0f, 310.0f, -0.1f));

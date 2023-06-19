@@ -34,6 +34,18 @@ public:
 
 	void SetDoorLevel(std::shared_ptr<class BattleLevel> _Level);
 
+	inline void SetFiretDoorType(DoorType _Type)
+	{
+		FirestDoorType = _Type;
+		FirstDoorActor->SetDoorType(DoorArea, FirestDoorType);
+	}
+
+	inline void SetSecondDoorType(DoorType _Type)
+	{
+		SecondDoorType = _Type;
+		SecondDoorActor->SetDoorType(DoorArea, SecondDoorType);
+	}
+
 protected:
 	void Start() override;
 	
@@ -46,6 +58,9 @@ private:
 		
 	LevelArea DoorArea = LevelArea::None;
 	ClearDoorType DType = ClearDoorType::SingleDoor;
+
+	DoorType FirestDoorType = DoorType::Normal;
+	DoorType SecondDoorType = DoorType::Normal;
 
 	std::shared_ptr<class BaseDoor> FirstDoorActor = nullptr;
 	std::shared_ptr<class BaseDoor> SecondDoorActor = nullptr;

@@ -341,8 +341,8 @@ void GameEventManager::SetClearDoorType(ClearDoorType _Type)
 
 		ClearBackRender->Off();
 	}
-
-	SetDoorType(DoorType::Normal, DoorType::Normal);
+			
+	SetDoorType(FirestDoorType, SecondDoorType);
 }
 
 void GameEventManager::SetDoorType(DoorType _FirstType, DoorType _SecondType)

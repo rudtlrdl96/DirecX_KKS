@@ -13,8 +13,7 @@ FieldNoteActor::~FieldNoteActor()
 void FieldNoteActor::SetText(const std::string_view& _Text)
 {
 	NoteText = _Text;
-
-
+	TextRender->SetText(NoteText);
 }
 
 void FieldNoteActor::Start()
@@ -42,4 +41,10 @@ void FieldNoteActor::Start()
 	Sclae.y *= 1.8f;
 
 	BackRender->GetTransform()->SetLocalScale(Sclae);
+
+	TextRender = CreateComponent<GameEngineFontRenderer>();
+	TextRender->SetFont("³Ø½¼Lv2°íµñ");
+	TextRender->GetTransform()->SetLocalPosition(float4(-38, 9, -0.1f));
+	TextRender->SetScale(18);
+	TextRender->SetColor(float4(1.0f, 1.0f, 1.0f, 1));
 }
