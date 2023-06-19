@@ -214,6 +214,22 @@ void Player::Start()
 
 	HitFade = GetLevel()->CreateActor<PlayerHitFade>();
 
+	CheatRender_Attack = CreateComponent<GameEngineFontRenderer>();
+	CheatRender_Attack->SetFont("궁서");
+	CheatRender_Attack->GetTransform()->SetLocalPosition(float4(0, 100, -1));
+	CheatRender_Attack->SetText("공격력 치트 ON");
+	CheatRender_Attack->SetScale(20);
+	CheatRender_Attack->SetColor(float4(1, 0, 0, 1));
+	CheatRender_Attack->Off();
+
+	CheatRender_HP = CreateComponent<GameEngineFontRenderer>();
+	CheatRender_HP->SetFont("궁서");
+	CheatRender_HP->GetTransform()->SetLocalPosition(float4(0, 120, -1));
+	CheatRender_HP->SetText("체력 치트 ON");
+	CheatRender_HP->SetScale(20);
+	CheatRender_HP->SetColor(float4(0, 1, 0, 1));
+	CheatRender_HP->Off();
+
 	GetContentLevel()->AddEvent("PlayerInputLock", GetActorCode(), [this]()
 		{
 			InputLock();
@@ -249,17 +265,30 @@ void Player::Update(float _DeltaTime)
 		{
 			MeleeAttack = 250;
 			MagicAttack = 250;
+
+			CheatRender_Attack->On();
 		}
 		else
 		{
 			MeleeAttack = 15;
 			MagicAttack = 15;
+
+			CheatRender_Attack->Off();
 		}
 	}
 
 	if (true == GameEngineInput::IsDown("Cheat_HP"))
 	{
 		Cheat_HP = !Cheat_HP;
+
+		if (true == Cheat_HP)
+		{
+			CheatRender_HP->On();
+		}
+		else
+		{
+			CheatRender_HP->Off();
+		}
 	}
 
 	if (PlayerState::HP <= 0.0f)

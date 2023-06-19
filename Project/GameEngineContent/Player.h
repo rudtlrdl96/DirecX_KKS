@@ -105,6 +105,9 @@ private:
 	std::shared_ptr<GameEngineComponent> CheatDebugComp_Attack = nullptr;
 	std::shared_ptr<GameEngineComponent> CheatDebugComp_HP = nullptr;
 
+	std::shared_ptr<GameEngineFontRenderer> CheatRender_Attack = nullptr;
+	std::shared_ptr<GameEngineFontRenderer> CheatRender_HP = nullptr;
+
 	bool Cheat_Attack = false;
 	bool Cheat_HP = false;
 

@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineDebug3D.h>
+#include <GameEngineCore/GameEngineFontRenderer.h>
 
 #include "int2.h"
 #include "ContentDebug.h"

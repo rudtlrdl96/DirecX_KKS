@@ -69,6 +69,7 @@ void ContentCore::CoreLoading()
 	// Common Load
 	CommonTextureLoad();
 	ImGuiCreate();
+	FontLoad();
 
 	// GameLevel Create
 	GameEngineCore::CreateLevel<TitleLevel>("Title");
@@ -314,4 +315,9 @@ void ContentCore::ImGuiCreate()
 
 	std::shared_ptr<GameEngineGUIWindow> TalkboxGUIPtr = GameEngineGUI::GUIWindowCreate<TalkboxDebugGUI>("TalkboxDebugGUI");
 	TalkboxGUIPtr->Off();
+}
+
+void ContentCore::FontLoad()
+{
+	GameEngineFont::Load("±Ã¼­");
 }
