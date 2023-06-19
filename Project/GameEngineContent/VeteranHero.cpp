@@ -71,7 +71,7 @@ void VeteranHero::Start()
 	BackCol->GetTransform()->SetLocalScale(float4(7, 120, 1));
 
 	GroundCol->GetTransform()->SetLocalPosition(float4(0, 3.0f, 1));
-	GroundCol->GetTransform()->SetLocalScale(float4(70, 5.0f, 1));
+	GroundCol->GetTransform()->SetLocalScale(float4(20, 5.0f, 1));
 
 	EventCol = CreateComponent<GameEngineCollision>();
 	EventCol->GetTransform()->SetWorldPosition(float4(1248, 564, 1));

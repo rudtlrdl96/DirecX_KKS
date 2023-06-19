@@ -1869,7 +1869,7 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 					.Position = CastingCol->GetTransform()->GetWorldPosition() + float4(GameEngineRandom::MainRandom.RandomFloat(-20, 20),
 					50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20)) });
 
-				SecondUltimateHitWaitTime = -0.3f;
+				SecondUltimateHitWaitTime = -0.15f;
 			}
 		}
 

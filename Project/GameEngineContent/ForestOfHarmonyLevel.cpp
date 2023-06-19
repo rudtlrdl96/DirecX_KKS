@@ -136,7 +136,7 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 		if (1.0f <= ClearWaitTime && true == FadeActorPtr->IsFadeEnd())
 		{
 			StoryLevel::SetLevelEnterStoryName(StoryLevel::StoryName::ForestOfHarmony);
-			StoryLevel::SetStoryEndMoveLevel("HolyCourtyard");
+			StoryLevel::SetStoryEndMoveLevel("EndingLogo");
 
 			FadeActorPtr->FadeIn([]()
 				{

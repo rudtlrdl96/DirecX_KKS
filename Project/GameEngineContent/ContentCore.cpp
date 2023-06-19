@@ -320,4 +320,9 @@ void ContentCore::ImGuiCreate()
 void ContentCore::FontLoad()
 {
 	GameEngineFont::Load("±√º≠");
+	GameEngineFont::Load("≥ÿΩºLv2∞ÌµÒ");
+	GameEngineFont::Load("»ﬁ∏’µ’±Ÿ«ÏµÂ∂Û¿Œ");
+	GameEngineFont::Load("»ﬁ∏’µ’±Ÿ«ÏµÂ∂Û¿ŒSimBold");
+	GameEngineFont::Load("HY∞ﬂ∞ÌµÒ");
+	GameEngineFont::Load("Perfect DOS VGA 437");
 }

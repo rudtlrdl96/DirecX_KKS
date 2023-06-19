@@ -272,6 +272,11 @@ void BoneSkull::Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Update(_DeltaTime);
 
+	if (nullptr == HeadActor)
+	{
+		return;
+	}
+
 	if (true == HeadActor->IsUpdate())
 	{
 		if (1.0f <= HeadActor->ShotLiveTime)

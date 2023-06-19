@@ -224,6 +224,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentUIFontRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentUIRender.h">
       <SubType>
       </SubType>
@@ -768,6 +772,10 @@
     </ClCompile>
     <ClCompile Include="BossMonster_FSM.cpp" />
     <ClCompile Include="BossRoomFlop.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentUIFontRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -1473,6 +1481,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\readme.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

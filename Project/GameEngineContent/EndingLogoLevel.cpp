@@ -33,9 +33,27 @@ void EndingLogoLevel::Start()
 
 	BackPtr = CreateActor<BlackBackground>();
 	LogoPtr = CreateActor<SkulLogo>();
+
 }
 
 void EndingLogoLevel::Update(float _DeltaTime)
 {
 	UILevel::Update(_DeltaTime);
+
+
+	if (false == LogoPtr->IsUpdate())
+	{
+		LogoWaitTime += _DeltaTime;
+
+		if (1.0f <= LogoWaitTime)
+		{
+			LogoPtr->On();
+		}
+	}
+}
+
+void EndingLogoLevel::LevelChangeStart()
+{
+	LogoWaitTime = 0.0f;
+	LogoPtr->Off();
 }

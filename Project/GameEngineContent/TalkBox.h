@@ -2,6 +2,7 @@
 #include "BaseContentActor.h"
 #include "TalkNameTag.h"
 #include "TalkboxDebugGUI.h"
+#include "ContentUIFontRenderer.h"
 
 class TalkBox : public BaseContentActor
 {
@@ -23,6 +24,7 @@ public:
 		ReadSpeed = _ReadSpeed;
 	}
 
+	void On() override;
 	void Off() override;
 
 protected:
@@ -31,10 +33,11 @@ protected:
 
 private:
 	std::shared_ptr<ContentUIRender> Render = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> FontTextRender = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> FontNameRender = nullptr;
 
 	std::shared_ptr<class TalkArrow> ArrowPtr = nullptr;
 	std::shared_ptr<TalkNameTag> NameTagPtr = nullptr;
-	std::shared_ptr<TalkboxDebugGUI> DebugGUI = nullptr;
 
 	std::string NameText = "";
 	std::wstring MainText = L"";

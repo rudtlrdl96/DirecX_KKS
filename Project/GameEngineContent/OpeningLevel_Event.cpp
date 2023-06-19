@@ -44,7 +44,7 @@ void OpeningLevel::CreateOpeningEvent()
 		{
 			std::function<void()> SkeleTongTalk_1 = [this]()
 			{
-				TalkBoxPtr->SetMainText(L"깜짝 놀라서 정신을 잃었나보군, 바보같으니! 정신차려! 여기가 어딘지 알 것 같니?", [this]()
+				TalkBoxPtr->SetMainText(L"깜짝 놀라서 정신을 잃었나보군, 바보같으니! 정신차려! \n여기가 어딘지 알 것 같니?", [this]()
 					{
 						TalkBoxPtr->Off();
 						CallEvent("SkeleTong_Script01_End");
@@ -240,7 +240,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 			std::function<void()> WitchTalk_2 = [this, WitchTalk_3]()
 			{
-				TalkBoxPtr->SetMainText(L"조금 전에 스켈레톤 경비대가 여길 지나갔습니다. 저는 괜찮으니 마왕님부터 구해달라 그렇게 말했습니다만...", WitchTalk_3);
+				TalkBoxPtr->SetMainText(L"조금 전에 스켈레톤 경비대가 여길 지나갔습니다. \n저는 괜찮으니 마왕님부터 구해달라 그렇게 말했습니다만...", WitchTalk_3);
 			};
 
 			std::function<void()> WitchTalk_1 = [this, WitchTalk_2]()
@@ -279,7 +279,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 			std::function<void()> ChiefGuardTalk_9 = [this, ScriptEnd]()
 			{
-				TalkBoxPtr->SetMainText(L"그러니 내 머리를 가져가거라! 내 머리에 나의 모든 마력을 담아줄 테니 함께 싸워다오! 동포들을 구해야한다!", ScriptEnd);
+				TalkBoxPtr->SetMainText(L"그러니 내 머리를 가져가거라! \n내 머리에 나의 모든 마력을 담아줄 테니 함께 싸워다오! 동포들을 구해야한다!", ScriptEnd);
 			};
 
 			std::function<void()> ChiefGuardTalk_8 = [this, ChiefGuardTalk_9]()
@@ -307,7 +307,7 @@ void OpeningLevel::CreateOpeningEvent()
 			std::function<void()> ChiefGuardTalk_5 = [this, ChiefGuardTalk_6]()
 			{
 				TalkBoxPtr->ActiveTalkBox("경비 대장");
-				TalkBoxPtr->SetMainText(L"뭔가 이상했습니다. 몸에 검은 돌이 박혀있고 정신이 완전히 나간 듯, 저희 말을 전혀 듣지 못하였습니다.", ChiefGuardTalk_6);
+				TalkBoxPtr->SetMainText(L"뭔가 이상했습니다. 몸에 검은 돌이 박혀있고 정신이 완전히 나간 듯, \n저희 말을 전혀 듣지 못하였습니다.", ChiefGuardTalk_6);
 			};
 
 			std::function<void()> WitchTalk_3 = [this, ChiefGuardTalk_5]()

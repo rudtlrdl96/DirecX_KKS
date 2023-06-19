@@ -64,11 +64,11 @@ void TalkNameTag::Start()
 
 void TalkNameTag::SortText()
 {
-	float TotalDistance = NameText.size() * FontInterval + 20;
+	float TotalDistance = (NameText.size() / 2.0f) * FontInterval + 40;
 
 	LeftRender->GetTransform()->SetLocalPosition(float4(22, 0, 0.0f));
 
-	if (88 > TotalDistance)
+	if (108 > TotalDistance)
 	{
 		CenterRender->Off();
 		RightRender->GetTransform()->SetLocalPosition(float4(66, 0, -0.2f));
@@ -76,7 +76,7 @@ void TalkNameTag::SortText()
 	else
 	{
 		CenterRender->GetTransform()->SetLocalPosition(float4(TotalDistance * 0.5f, 1, -0.1f));
-		CenterRender->GetTransform()->SetLocalScale(float4(TotalDistance - 86, 34, 1));
+		CenterRender->GetTransform()->SetLocalScale(float4(TotalDistance - 66, 34, 1));
 		CenterRender->On();
 
 		RightRender->GetTransform()->SetLocalPosition(float4(TotalDistance - 22, 0, -0.2f));

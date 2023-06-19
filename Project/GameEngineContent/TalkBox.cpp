@@ -12,7 +12,7 @@ TalkBox::~TalkBox()
 }
 
 void TalkBox::ActiveTalkBox(const std::string_view& _Name)
-{
+{ 
 	NameText = _Name;
 	NameTagPtr->SetNameTag(NameText);
 	On();
@@ -27,11 +27,22 @@ void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void
 	ReadEndCallback = _Callback;
 }
 
+void TalkBox::On()
+{
+	BaseContentActor::On();
+
+	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	//Ptr->SetTarget(FontNameRender->GetTransform());
+	//Ptr->On();
+}
+
 void TalkBox::Off()
 {
 	BaseContentActor::Off();
-	DebugGUI->Off();
+	FontTextRender->Off();
 }
+
+#include "GameEngineActorGUI.h"
 
 void TalkBox::Start()
 {
@@ -64,18 +75,31 @@ void TalkBox::Start()
 	Render->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	Render->SetScaleToTexture("TalkBox.png");
 
-	DebugGUI = GameEngineGUI::FindGUIWindowConvert<TalkboxDebugGUI>("TalkboxDebugGUI");
-
 	NameTagPtr = GetLevel()->CreateActor<TalkNameTag>();
 	NameTagPtr->GetTransform()->SetParent(GetTransform());
 	NameTagPtr->GetTransform()->SetLocalPosition(float4(-310, 50, -0.1f));
-	NameTagPtr->SetFontSize(20);
-	NameTagPtr->SetFontInterval(10);
+	//NameTagPtr->SetFontSize(26);
+	NameTagPtr->SetFontInterval(21);
+
+	FontNameRender = CreateComponent<ContentUIFontRenderer>();
+	FontNameRender->SetFont("³Ø½¼Lv2°íµñ");
+	FontNameRender->GetTransform()->SetLocalPosition(float4(-282, 63, -1));
+	FontNameRender->SetScale(20);
+	FontNameRender->SetColor(float4(0.78039f, 0.72549f, 0.67058f, 1));
+
+	FontTextRender = CreateComponent<ContentUIFontRenderer>();
+	FontTextRender->SetFont("³Ø½¼Lv2°íµñ");
+	FontTextRender->GetTransform()->SetLocalPosition(float4(-295, 25, -1));
+	FontTextRender->SetScale(16);
+	FontTextRender->SetColor(float4(0.58431f, 0.48627f, 0.3647f, 1));
+	FontTextRender->Off();
+
+
 }
 
 void TalkBox::Update(float _DeltaTime)
 {
-	DebugGUI->SetNameText(NameText);
+	FontNameRender->SetText(NameText);
 
 	if (true == IsReadEnd)
 	{
@@ -115,9 +139,9 @@ void TalkBox::Update(float _DeltaTime)
 		return;
 	}
 
-	if (false == DebugGUI->IsUpdate())
+	if (false == FontTextRender->IsUpdate())
 	{
-		DebugGUI->On();
+		FontTextRender->On();
 	}
 
 	std::wstring ReadText;
@@ -127,5 +151,5 @@ void TalkBox::Update(float _DeltaTime)
 
 	ReadText[ReadIndex] = L'\0';
 
-	DebugGUI->SetMainText(GameEngineString::UniCodeToAnsi(ReadText));
+	FontTextRender->SetText(GameEngineString::UniCodeToAnsi(ReadText));
 }
