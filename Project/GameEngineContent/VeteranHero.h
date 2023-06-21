@@ -158,6 +158,7 @@ protected:
 	bool IsSecondUltimatePlayerHit = false;
 	bool IsSecondUltimateLandingStart = false;
 	bool IsSecondUltimateEnd = false;
+	bool IsSecondUltimateCamShake = false;
 
 	int SecondUltimateStingerCount = 0;
 
@@ -167,6 +168,7 @@ protected:
 	float SecondUltimateLandingFinishTime = 0.0f;
 	float SecondUltimateLandingEndWaitTime = 0.0f;
 	float SecondUltimateHitWaitTime = 0.0f;
+	float SecondUltimateCamShakeTime = 0.0f;
 
 
 	float4 SecondStingerForwardDir = float4::Zero;

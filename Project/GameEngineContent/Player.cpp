@@ -14,6 +14,7 @@
 
 #include "BoneSkull.h"
 #include "ChiefGuard.h"
+#include "BattleActorDamageFont.h"
 
 #include "ContentLevel.h"
 
@@ -115,7 +116,6 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 		return;
 	}
 
-
 	if (true == MainSkull->DashAvoidance)
 	{
 		return;
@@ -127,6 +127,21 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 	{
 		PlayerState::HP = 1.0f;
 	}
+
+	std::shared_ptr<BattleActorDamageFont> NewDamageFont = GetLevel()->CreateActor<BattleActorDamageFont>();
+
+	float4 FontColor;
+
+	NewDamageFont->InitFont({
+		.Damage = _Damage,
+		.FontSize = 30,
+		.FontColor = float4(1, 0.2509f, 0.1647f, 1),
+		.Pos = GetTransform()->GetWorldPosition() + float4(0, 50, -100),
+		.Dir = float4(0, 1000, 0),
+		.MoveSpeed = 700,
+		.RandX = 20.0f,
+		.LiveTime = 0.8f,
+		});
 
 	HitWaitTime = 0.1f;
 	HitFade->Active();

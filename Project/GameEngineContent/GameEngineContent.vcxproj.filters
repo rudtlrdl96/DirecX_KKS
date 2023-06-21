@@ -924,7 +924,7 @@
     <ClInclude Include="RectFontActor.h">
       <Filter>2_Actor\UI\Common</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterDamageFont.h">
+    <ClInclude Include="BattleActorDamageFont.h">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1535,7 +1535,7 @@
     <ClCompile Include="RectFontActor.cpp">
       <Filter>2_Actor\UI\Common</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterDamageFont.cpp">
+    <ClCompile Include="BattleActorDamageFont.cpp">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1479,6 +1479,7 @@ void VeteranHero::SecondUltimate_Enter()
 	IsSecondUltimateStingerStart = false;
 	IsSecondUltimateLandingStart = false;
 	IsSecondUltimateEnd = false;
+	IsSecondUltimateCamShake = false;
 
 	SecondUltimateStingerCount = 0;
 
@@ -1488,6 +1489,7 @@ void VeteranHero::SecondUltimate_Enter()
 	SecondUltimateLandingEndWaitTime = 0.0f;
 	SecondUltimateLandingFinishTime = 0.0f;
 	SecondUltimateHitWaitTime = 0.0f;
+	SecondUltimateCamShakeTime = 0.0f;
 
 	IsSecondUltimateStingerUpdate = false;
 	UltimateLightOn();
@@ -1827,7 +1829,9 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 
 		LandingAttackCol->Off();
 
-		GetContentLevel()->GetCamCtrl().CameraShake(1, 40, 1000);
+		IsSecondUltimateCamShake = true;
+		GetContentLevel()->GetCamCtrl().CameraShake(10, 40, 1000);
+
 
 		SecondUltimateFinishEffect = EffectManager::PlayEffect({
 			.EffectName = "VeteranHero_StingerFinish",
@@ -1837,6 +1841,17 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 
 		UltimateFinishAttackCol->On();
 		LandingSignEffect = nullptr;
+	}
+
+	if (true == IsSecondUltimateCamShake)
+	{
+		SecondUltimateCamShakeTime += _DeltaTime;
+
+		if (0.5f <= SecondUltimateCamShakeTime)
+		{
+			GetContentLevel()->GetCamCtrl().CameraShake(3, 40, 1000);
+			IsSecondUltimateCamShake = false;
+		}
 	}
 
 	if (nullptr != SecondUltimateFinishEffect)

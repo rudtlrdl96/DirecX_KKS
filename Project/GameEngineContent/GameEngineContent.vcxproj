@@ -414,7 +414,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="MonsterDamageFont.h">
+    <ClInclude Include="BattleActorDamageFont.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -792,7 +792,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="MonsterDamageFont.cpp">
+    <ClCompile Include="BattleActorDamageFont.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -1,15 +1,15 @@
 #include "PrecompileHeader.h"
-#include "MonsterDamageFont.h"
+#include "BattleActorDamageFont.h"
 
-MonsterDamageFont::MonsterDamageFont()
+BattleActorDamageFont::BattleActorDamageFont()
 {
 }
 
-MonsterDamageFont::~MonsterDamageFont()
+BattleActorDamageFont::~BattleActorDamageFont()
 {
 }
 
-void MonsterDamageFont::InitFont(const MonsterDamageFontParameter& _Parameter)
+void BattleActorDamageFont::InitFont(const BattleActorDamageFontParameter& _Parameter)
 {
 	GameEngineTransform* Trans = GetTransform();
 
@@ -32,7 +32,7 @@ void MonsterDamageFont::InitFont(const MonsterDamageFontParameter& _Parameter)
 	LiveTime = -_Parameter.LiveTime;
 }
 
-void MonsterDamageFont::Start()
+void BattleActorDamageFont::Start()
 {
 	DamageFont = CreateComponent<GameEngineFontRenderer>();
 
@@ -41,11 +41,11 @@ void MonsterDamageFont::Start()
 
 	FontRigid.SetMaxSpeed(1000);
 	FontRigid.SetFricCoeff(300);
-	FontRigid.SetGravity(-1400);
+	FontRigid.SetGravity(-1700);
 	FontRigid.SetActiveGravity(true);
 }
 
-void MonsterDamageFont::Update(float _DeltaTime)
+void BattleActorDamageFont::Update(float _DeltaTime)
 {
 	if (true == DamageFont->IsUpdate())
 	{

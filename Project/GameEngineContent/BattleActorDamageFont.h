@@ -2,7 +2,7 @@
 #include "BaseContentActor.h"
 #include "Rigidbody2D.h"
 
-class MonsterDamageFontParameter
+class BattleActorDamageFontParameter
 {
 public:
 	float Damage = 0.0f;
@@ -22,18 +22,18 @@ public:
 };
 
 
-class MonsterDamageFont : public BaseContentActor
+class BattleActorDamageFont : public BaseContentActor
 {
 public:
-	MonsterDamageFont();
-	~MonsterDamageFont();
+	BattleActorDamageFont();
+	~BattleActorDamageFont();
 
-	MonsterDamageFont(const MonsterDamageFont& _Other) = delete;
-	MonsterDamageFont(MonsterDamageFont&& _Other) noexcept = delete;
-	MonsterDamageFont& operator=(const MonsterDamageFont& _Other) = delete;
-	MonsterDamageFont& operator=(MonsterDamageFont&& _Other) noexcept = delete;
+	BattleActorDamageFont(const BattleActorDamageFont& _Other) = delete;
+	BattleActorDamageFont(BattleActorDamageFont&& _Other) noexcept = delete;
+	BattleActorDamageFont& operator=(const BattleActorDamageFont& _Other) = delete;
+	BattleActorDamageFont& operator=(BattleActorDamageFont&& _Other) noexcept = delete;
 
-	void InitFont(const MonsterDamageFontParameter& _Parameter);
+	void InitFont(const BattleActorDamageFontParameter& _Parameter);
 
 protected:
 	void Start() override;

@@ -9,7 +9,7 @@
 #include "DeadPartParticle.h"
 #include "Player.h"
 
-#include "MonsterDamageFont.h"
+#include "BattleActorDamageFont.h"
 
 bool BaseMonster::MonsterUnMove = false;
 
@@ -38,7 +38,7 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 	IsPush = _IsPush;
 	HitEffectProgress = 0.0f;
 
-	std::shared_ptr<MonsterDamageFont> NewDamageFont = GetLevel()->CreateActor<MonsterDamageFont>();
+	std::shared_ptr<BattleActorDamageFont> NewDamageFont = GetLevel()->CreateActor<BattleActorDamageFont>();
 
 	float4 FontDir;
 
@@ -73,7 +73,7 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 		.Dir = FontDir,
 		.MoveSpeed = 700,
 		.RandX = 20.0f,
-		.LiveTime = 1.0f,
+		.LiveTime = 0.8f,
 		});
 
 	HitEffect();

@@ -175,7 +175,16 @@ void BaseDoor::Update(float _DeltaTime)
 		return;
 	}
 
-	NoteActor->On();
+	switch (Type)
+	{
+	case DoorType::Broken:
+		break;
+		NoteActor->Off();
+	default:
+		NoteActor->On();
+		break;
+	}
+
 
 	if (true == GameEngineInput::IsDown("UseKey"))
 	{
