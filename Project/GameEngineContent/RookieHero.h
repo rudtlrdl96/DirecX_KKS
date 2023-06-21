@@ -44,7 +44,7 @@ protected:
 	float4 HealthBarScale = float4(1.3f, 1.3f, 1.0f, 1.0f);
 
 	float HealthBarActiveTime = 0.0f;
-
+	float SpeechCoolTime = 0.0f;
 
 	// 패턴 변수
 

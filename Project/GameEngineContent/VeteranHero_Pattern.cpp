@@ -364,6 +364,12 @@ void VeteranHero::Explosion_Enter()
 
 	ExplosionChargeCol->On();
 	ExplosionChargeProgress = 0.0f;
+
+	if (0.0f <= SpeechCoolTime)
+	{
+		PlaySpeechBubble("¶³¾îÁ®!", 4.0f);
+		SpeechCoolTime = -10.0f;
+	}
 }
 
 void VeteranHero::Explosion_Update(float _DeltaTime)

@@ -39,6 +39,12 @@ void RookieHero::ComboAttack_Enter()
 
 	BossRigidbody.SetVelocity(float4::Zero);
 	ComboDashCheck = false;
+
+	if (0.0f <= SpeechCoolTime)
+	{
+		PlaySpeechBubble("더러운 마족 놈들!", 4.0f);
+		SpeechCoolTime = -10.0f;
+	}
 }
 
 void RookieHero::ComboAttack_Update(float _DeltaTime)
@@ -165,6 +171,12 @@ void RookieHero::EnergyBall_Enter()
 	.Position = GetTransform()->GetWorldPosition() + Pivot,
 	.AddSetZ = 10.0f,
 	.FlipX = Dir == ActorViewDir::Left});
+
+	if (0.0f <= SpeechCoolTime)
+	{
+		PlaySpeechBubble("받아라!", 4.0f);
+		SpeechCoolTime = -10.0f;
+	}
 }
 
 void RookieHero::EnergyBall_Update(float _DeltaTime)
@@ -237,7 +249,7 @@ void RookieHero::EnergyBall_Update(float _DeltaTime)
 				.IsColDeath = true,
 				.IsRot = false,
 				.Damage = Data.Attack,
-				.Speed = 800.0f,
+				.Speed = 600.0f,
 				.LiveTime = 1.2f,
 				.TrackingSpeed = 6.0f,
 				.EnterEvent = HitCallback,
@@ -318,6 +330,12 @@ void RookieHero::Explosion_Enter()
 
 	IsHitEffectOff = true;
 	IsExplosionAttackEnd = false;
+
+	if (0.0f <= SpeechCoolTime)
+	{
+		PlaySpeechBubble("칼레온을 위하여!", 4.0f);
+		SpeechCoolTime = -10.0f;
+	}
 }
 
 void RookieHero::Explosion_Update(float _DeltaTime)
@@ -484,6 +502,9 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 			}
 		}
 
+		PlaySpeechBubble("이제 끝이다! 더 이상 용서하지 않겠어!", 4.0f);
+		SpeechCoolTime = -10.0f;
+
 		PlayAnimation("SwordEnergyReady");
 		IsUltimateShotReady = true;
 		UltimateLightOff();
@@ -542,6 +563,7 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 				.EffectName = "RookieHero_EnergyBallExplosion",
 				.Position = _Pos });
 		};
+
 
 		ShotProjectile->ShotProjectile({
 			.EffectName = "RookieHero_Ultimate_Projectile",

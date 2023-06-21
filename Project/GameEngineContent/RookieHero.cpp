@@ -175,6 +175,7 @@ void RookieHero::Start()
 void RookieHero::Update(float _DeltaTime)
 {
 	BossMonster::Update(_DeltaTime);
+	SpeechCoolTime += _DeltaTime;
 
 	if (true == IsUltimateLightOn)
 	{
@@ -224,6 +225,12 @@ void RookieHero::Update(float _DeltaTime)
 
 	if (0.0f >= HP)
 	{
+		if (nullptr != Bubble)
+		{
+			Bubble->Death();
+			Bubble = nullptr;
+		}
+
 		if (false == IsDeathIntro)
 		{
 			if (true == UltimateLight->IsUpdate())
