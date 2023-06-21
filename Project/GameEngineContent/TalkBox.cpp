@@ -11,10 +11,10 @@ TalkBox::~TalkBox()
 {
 }
 
-void TalkBox::ActiveTalkBox(const std::string_view& _Name)
+void TalkBox::ActiveTalkBox(const std::string_view& _Name, const float4& _NamePivot /*= float4::Zero*/, const float4& _ForceSize /*= float4::Zero*/)
 { 
 	NameText = _Name;
-	NameTagPtr->SetNameTag(NameText);
+	NameTagPtr->SetNameTag(NameText, _NamePivot, _ForceSize);
 	On();
 }
 
@@ -78,14 +78,7 @@ void TalkBox::Start()
 	NameTagPtr = GetLevel()->CreateActor<TalkNameTag>();
 	NameTagPtr->GetTransform()->SetParent(GetTransform());
 	NameTagPtr->GetTransform()->SetLocalPosition(float4(-310, 50, -0.1f));
-	//NameTagPtr->SetFontSize(26);
 	NameTagPtr->SetFontInterval(21);
-
-	FontNameRender = CreateComponent<ContentUIFontRenderer>();
-	FontNameRender->SetFont("³Ø½¼Lv2°íµñ");
-	FontNameRender->GetTransform()->SetLocalPosition(float4(-282, 63, -1));
-	FontNameRender->SetScale(20);
-	FontNameRender->SetColor(float4(0.78039f, 0.72549f, 0.67058f, 1));
 
 	FontTextRender = CreateComponent<ContentUIFontRenderer>();
 	FontTextRender->SetFont("³Ø½¼Lv2°íµñ");
@@ -93,14 +86,10 @@ void TalkBox::Start()
 	FontTextRender->SetScale(16);
 	FontTextRender->SetColor(float4(0.58431f, 0.48627f, 0.3647f, 1));
 	FontTextRender->Off();
-
-
 }
 
 void TalkBox::Update(float _DeltaTime)
 {
-	FontNameRender->SetText(NameText);
-
 	if (true == IsReadEnd)
 	{
 		if (true == GameEngineInput::IsDown("TalkKey"))

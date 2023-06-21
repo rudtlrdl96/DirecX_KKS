@@ -12,6 +12,7 @@ public:
 	bool IsLarge = false;
 	bool IsLoop = false;
 	
+	float FontSize = 0.0f;
 	float LiveTime = 0.0f;
 	float LoopInter = 0.0f;
 };

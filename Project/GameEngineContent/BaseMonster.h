@@ -3,6 +3,7 @@
 #include "Rigidbody2D.h"
 #include "MonsterData.h"
 #include "AnimAttackCheck.h"
+#include "SpeechBubble.h"
 
 class BaseMonster : public BattleActor
 {
@@ -49,13 +50,17 @@ protected:
 
 	float HitWaitTime = 0.0f;
 
+	std::shared_ptr<SpeechBubble> Bubble = nullptr;
+	float4 BubblePivot = float4(0, 100, -100);
+
 	void Start() override;
 	void Update(float _DeltaTime);
 
 	virtual void DataLoad() = 0;
 
 	virtual void SetViewDir(ActorViewDir _Dir, bool _Force = false);
-
+	
+	void PlaySpeechBubble(const std::string_view& _TalkString, float _LiveTime = 3.0f);
 
 };
 

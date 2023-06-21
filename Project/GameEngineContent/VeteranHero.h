@@ -57,6 +57,8 @@ protected:
 
 	float HealthBarActiveTime = 0.0f;
 
+	float SpeechCoolTime = 0.0f;
+
 	// 인트로 변수
 	bool IsIntroJump = false;
 	bool IsSwordThrowing = false;

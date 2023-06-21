@@ -16,7 +16,7 @@ public:
 	TalkBox& operator=(const TalkBox& _Other) = delete;
 	TalkBox& operator=(TalkBox&& _Other) noexcept = delete;
 	
-	void ActiveTalkBox(const std::string_view& _Name);
+	void ActiveTalkBox(const std::string_view& _Name, const float4& _NamePivot = float4::Zero, const float4& _ForceSize = float4::Zero);
 	void SetMainText(const std::wstring_view& _MainText, std::function<void()> _Callback);
 
 	inline void SetReadSpeed(float _ReadSpeed)
@@ -34,7 +34,6 @@ protected:
 private:
 	std::shared_ptr<ContentUIRender> Render = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> FontTextRender = nullptr;
-	std::shared_ptr<ContentUIFontRenderer> FontNameRender = nullptr;
 
 	std::shared_ptr<class TalkArrow> ArrowPtr = nullptr;
 	std::shared_ptr<TalkNameTag> NameTagPtr = nullptr;

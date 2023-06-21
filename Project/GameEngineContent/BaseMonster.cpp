@@ -115,6 +115,11 @@ void BaseMonster::Update(float _DeltaTime)
 	{
 		HP = 0;
 	}
+
+	if (nullptr != Bubble && Bubble->IsDeath())
+	{
+		Bubble = nullptr;
+	}
 }
 
 void BaseMonster::SetViewDir(ActorViewDir _Dir, bool _Force)
@@ -136,4 +141,23 @@ void BaseMonster::SetViewDir(ActorViewDir _Dir, bool _Force)
 	default:
 		break;
 	}
+}
+
+void BaseMonster::PlaySpeechBubble(const std::string_view& _TalkString, float _LiveTime /*= 3.0f*/)
+{
+	if (nullptr != Bubble)
+	{
+		Bubble->Death();
+		Bubble = nullptr;
+	}
+
+	Bubble = GetLevel()->CreateActor<SpeechBubble>();
+
+	Bubble->PlayBubble({
+	.Target = DynamicThis<GameEngineActor>(),
+	.Text = _TalkString,
+	.Pivot = BubblePivot,
+	.IsLoop = false,
+	.FontSize = 17,
+	.LiveTime = _LiveTime,});
 }

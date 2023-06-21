@@ -40,6 +40,12 @@ void VeteranHero::ComboAttack_Enter()
 
 	BossRigidbody.SetVelocity(float4::Zero);
 	ComboDashCheck = false;
+
+	if (0.0f <= SpeechCoolTime)
+	{
+		PlaySpeechBubble("적에게 얕보이지 말 것!", 4.0f);
+		SpeechCoolTime = -10.0f;
+	}
 }
 
 void VeteranHero::ComboAttack_Update(float _DeltaTime)
@@ -211,6 +217,12 @@ void VeteranHero::EnergyBall_Enter()
 		EnergyBallReady(0);
 		EnergyBallReady(50);
 		break;
+	}
+
+	if (0.0f <= SpeechCoolTime)
+	{
+		PlaySpeechBubble("받아라!", 4.0f);
+		SpeechCoolTime = -10.0f;
 	}
 }
 
@@ -497,6 +509,12 @@ void VeteranHero::Stinger_Enter()
 	PrevRigdFricCoeff = BossRigidbody.GetFricCoeff();
 	BossRigidbody.SetFricCoeff(1200.0f);
 	BossRigidbody.SetActiveGravity(false);
+
+	if (0.0f <= SpeechCoolTime)
+	{
+		PlaySpeechBubble("용사 검술, 제 2장!", 4.0f);
+		SpeechCoolTime = -10.0f;
+	}
 }
 
 void VeteranHero::Stinger_Update(float _DeltaTime)
@@ -689,6 +707,12 @@ void VeteranHero::SwordWave_Enter()
 		.FlipX = Dir == ActorViewDir::Left, });
 
 	SwordWaveCombo = 0;
+
+	if (0.0f <= SpeechCoolTime)
+	{
+		PlaySpeechBubble("한발 한발에 진심 담기!", 4.0f);
+		SpeechCoolTime = -10.0f;
+	}
 }
 
 void VeteranHero::SwordWave_Update(float _DeltaTime)
@@ -784,6 +808,12 @@ void VeteranHero::JumpAttack_Enter()
 	IsJumpAttackLandSmoke = false;
 
 	PrevRigdGravity = BossRigidbody.GetGravity();
+
+	if (0.0f <= SpeechCoolTime)
+	{
+		PlaySpeechBubble("경험치를 내놔!", 4.0f);
+		SpeechCoolTime = -10.0f;
+	}
 }
 
 void VeteranHero::JumpAttack_Update(float _DeltaTime)
@@ -955,9 +985,10 @@ void VeteranHero::LandingAttack_Enter()
 	MagicSwordCount = 0;
 	MagicSwordInter = float4::Zero;
 
-	if (false == GameEngineInput::IsKey("TESTKEY_VETERANHERO"))
+	if (0.0f <= SpeechCoolTime)
 	{
-		GameEngineInput::CreateKey("TESTKEY_VETERANHERO", 'K');
+		PlaySpeechBubble("제 2의 초대 용사! 뭔가 이상하지만.", 4.0f);
+		SpeechCoolTime = -10.0f;
 	}
 }
 
@@ -1212,6 +1243,12 @@ void VeteranHero::Ultimate_Enter()
 	IsSwordWaveSmokeHit = false;
 
 	SwordEnergyWaveEndTime = -2.0f;
+
+	if (0.0f <= SpeechCoolTime)
+	{
+		PlaySpeechBubble("이걸로 끝을 내주지!", 4.0f);
+		SpeechCoolTime = -10.0f;
+	}
 }
 
 void VeteranHero::Ultimate_Update(float _DeltaTime)
@@ -1796,6 +1833,9 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 			.EffectName = "VeteranHero_LandingSmoke",
 			.Position = LandingAttackPos + float4(100, 70),
 			.FlipX = true });
+
+		PlaySpeechBubble("널 위해 준비한 최강의 공격!", 4.0f);
+		SpeechCoolTime = -10.0f;
 
 		LandingAttackCol->On();
 		std::shared_ptr<GameEngineCollision> PlayerCol = LandingAttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);

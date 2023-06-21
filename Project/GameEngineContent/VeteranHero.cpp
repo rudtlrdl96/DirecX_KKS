@@ -41,6 +41,9 @@ void VeteranHero::Start()
 {
 	BossMonster::Start();
 	SetViewDir(ActorViewDir::Right);
+
+	BubblePivot = float4(0, 150, -100);
+
 	BossRigidbody.SetGravity(ContentConst::Gravity_f - 2000.0f);
 	BossRigidbody.SetActiveGravity(true);
 	BossRigidbody.SetFricCoeff(3000.0f);
@@ -242,6 +245,8 @@ void VeteranHero::Start()
 
 void VeteranHero::Update(float _DeltaTime)
 {
+	SpeechCoolTime += _DeltaTime;
+
 	if (nullptr != FindPlayer && true == FindPlayer->IsDeath())
 	{
 		FindPlayer = nullptr;
@@ -366,6 +371,12 @@ void VeteranHero::Update(float _DeltaTime)
 
 	if (0.0f >= HP)
 	{
+		if (nullptr != Bubble)
+		{
+			Bubble->Death();
+			Bubble = nullptr;
+		}
+
 		if (false == IsDeathIntro)
 		{
 			if (nullptr != SecondUltimateStingerEffect)

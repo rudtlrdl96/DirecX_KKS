@@ -22,6 +22,11 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 		return;
 	}
 
+	if (0.0f != _BubbleParameter.FontSize)
+	{
+		FontRender->SetScale(_BubbleParameter.FontSize);
+	}
+
 	FontRender->SetText(_BubbleParameter.Text);
 	FontRender->On();
 
@@ -33,12 +38,12 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 	if (true == _BubbleParameter.IsLarge)
 	{
 		BubbleRender->SetScaleToTexture("SpeechBubble_Large.png");
-		FontRender->GetTransform()->SetLocalPosition(float4(-92, 26, -0.1f));
+		FontRender->GetTransform()->SetLocalPosition(float4(0, 5, -0.1f));
 	}
 	else
 	{
 		BubbleRender->SetScaleToTexture("SpeechBubble.png");
-		FontRender->GetTransform()->SetLocalPosition(float4(-64, 13, -0.1f));
+		FontRender->GetTransform()->SetLocalPosition(float4(0, 5, -0.1f));
 	}
 
 	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
@@ -80,8 +85,9 @@ void SpeechBubble::Start()
 
 	FontRender = CreateComponent<GameEngineFontRenderer>();
 	FontRender->SetFont("³Ø½¼Lv2°íµñ");
-	FontRender->SetScale(14);
+	FontRender->SetScale(15);
 	FontRender->SetColor(float4(1, 1, 1, 1));
+	FontRender->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_CENTER));
 
 	FontRender->Off();
 }

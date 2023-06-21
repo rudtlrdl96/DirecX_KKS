@@ -34,7 +34,7 @@ void OpeningLevel::CreateOpeningEvent()
 			};
 
 			CallEvent("StoryFadeIn");
-			TalkBoxPtr->ActiveTalkBox("???");
+			TalkBoxPtr->ActiveTalkBox("???", float4(8, 0, 0));
 			TalkBoxPtr->SetMainText(L"스컬! 일어나!", SkeleTongTalk_1);
 			MainPlayer->InputLock();
 			MainPlayer->DisablePlayerFrame();
@@ -249,7 +249,7 @@ void OpeningLevel::CreateOpeningEvent()
 			};
 
 			CallEvent("StoryFadeIn");
-			TalkBoxPtr->ActiveTalkBox("마녀");
+			TalkBoxPtr->ActiveTalkBox("마녀", float4(3, 0));
 			TalkBoxPtr->SetMainText(L"스컬? 그 난리 통에서 용케 무사했군요.", WitchTalk_1);
 		});
 
@@ -295,7 +295,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 			std::function<void()> WitchTalk_4 = [this, ChiefGuardTalk_7]()
 			{
-				TalkBoxPtr->ActiveTalkBox("마녀");
+				TalkBoxPtr->ActiveTalkBox("마녀", float4(3, 0));
 				TalkBoxPtr->SetMainText(L"검은.. 돌...", ChiefGuardTalk_7);
 			};
 
@@ -312,7 +312,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 			std::function<void()> WitchTalk_3 = [this, ChiefGuardTalk_5]()
 			{
-				TalkBoxPtr->ActiveTalkBox("마녀");
+				TalkBoxPtr->ActiveTalkBox("마녀", float4(3, 0));
 				TalkBoxPtr->SetMainText(L"오우거? 오우거가 왜? 무슨소리를 하는거냥!", ChiefGuardTalk_5);
 			};
 
@@ -334,7 +334,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 			std::function<void()> WitchTalk_1 = [this, WitchTalk_2]()
 			{
-				TalkBoxPtr->ActiveTalkBox("마녀");
+				TalkBoxPtr->ActiveTalkBox("마녀", float4(3, 0));
 				TalkBoxPtr->SetMainText(L"최고의 전투력을 가진 스켈레톤인 너를 이지경으로 만들다니...", WitchTalk_2);
 			};
 
@@ -354,7 +354,7 @@ void OpeningLevel::CreateOpeningEvent()
 				TalkBoxPtr->SetMainText(L"헉! 마녀님! 무사하셨군요!!", ChiefGuardTalk_1);
 			};
 
-			TalkBoxPtr->ActiveTalkBox("마녀");
+			TalkBoxPtr->ActiveTalkBox("마녀", float4(3, 0));
 			TalkBoxPtr->SetMainText(L"너는 경비대장이 아니냥? 이게 다 어떻게 된 일이다냥?", ChiefGuardTalk_0);
 		});
 
@@ -388,7 +388,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 			std::function<void()> MongalTalk_0 = [this]()
 			{
-				TalkBoxPtr->ActiveTalkBox("오우거");
+				TalkBoxPtr->ActiveTalkBox("오우거", float4(0, 0), float4(110, 0 ));
 				TalkBoxPtr->SetMainText(L"...", [this]()
 					{
 						MainCamCtrl.SetLookatSpeed();
@@ -406,7 +406,7 @@ void OpeningLevel::CreateOpeningEvent()
 			};
 
 			MainPlayer->InputLock();
-			TalkBoxPtr->ActiveTalkBox("마녀");
+			TalkBoxPtr->ActiveTalkBox("마녀", float4(3, 0));
 			TalkBoxPtr->SetMainText(L"저기 성앞에 서있는 게 경비대장이 말한 오우가 아니냥-!?", WitchTalk_1);
 		});
 
@@ -426,7 +426,7 @@ void OpeningLevel::CreateOpeningEvent()
 				TalkBoxPtr->SetMainText(L"정신 차리라냥-!", WitchTalk_2);
 			};
 
-			TalkBoxPtr->ActiveTalkBox("마녀");
+			TalkBoxPtr->ActiveTalkBox("마녀", float4(3, 0));
 			TalkBoxPtr->SetMainText(L"경비대장이 말한 오우거가 이녀석이었냥.", WitchTalk_1);
 		});
 
@@ -465,7 +465,7 @@ void OpeningLevel::CreateOpeningEvent()
 				TalkBoxPtr->SetMainText(L"쓸모없는 녀석... 고작 스켈레톤에게 패하다니.", FirstHeroTalk_1);
 			};
 
-			TalkBoxPtr->ActiveTalkBox("마녀");
+			TalkBoxPtr->ActiveTalkBox("마녀", float4(3, 0));
 			TalkBoxPtr->SetMainText(L"요..용사!?", FirstHeroTalk_0);
 		});
 

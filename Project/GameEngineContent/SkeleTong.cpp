@@ -97,6 +97,7 @@ void SkeleTong::Start()
 				.Text = "∫Œ≈π«—¥Ÿ...",
 				.Pivot = float4(-45, 105, 0),
 				.IsLoop = false,
+				.FontSize = 20,
 				.LiveTime = 3.0f,
 				});
 

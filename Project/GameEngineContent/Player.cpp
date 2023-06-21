@@ -235,6 +235,7 @@ void Player::Start()
 	CheatRender_HP->SetText("체력 치트 ON");
 	CheatRender_HP->SetScale(20);
 	CheatRender_HP->SetColor(float4(0, 1, 0, 1));
+	CheatRender_HP->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
 	CheatRender_HP->Off();
 
 	CheatRender_Attack = CreateComponent<GameEngineFontRenderer>();
@@ -242,6 +243,7 @@ void Player::Start()
 	CheatRender_Attack->GetTransform()->SetLocalPosition(float4(0, 100, -1));
 	CheatRender_Attack->SetText("공격력 치트 ON");
 	CheatRender_Attack->SetScale(20);
+	CheatRender_Attack->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
 	CheatRender_Attack->SetColor(float4(1, 0, 0, 1));
 	CheatRender_Attack->Off();
 

@@ -14,6 +14,7 @@ public:
 
 	void Reset();
 	void WriteText(const std::string_view& _Text);
+
 	void RemoveText();
 	void SkipText();
 
