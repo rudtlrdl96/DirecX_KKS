@@ -927,6 +927,9 @@
     <ClInclude Include="BattleActorDamageFont.h">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="BattleActorHealFont.h">
+      <Filter>2_Actor\UI\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1536,6 +1539,9 @@
       <Filter>2_Actor\UI\Common</Filter>
     </ClCompile>
     <ClCompile Include="BattleActorDamageFont.cpp">
+      <Filter>2_Actor\UI\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleActorHealFont.cpp">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClCompile>
   </ItemGroup>

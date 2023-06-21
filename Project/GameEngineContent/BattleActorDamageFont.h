@@ -36,14 +36,14 @@ public:
 	void InitFont(const BattleActorDamageFontParameter& _Parameter);
 
 protected:
-	void Start() override;
-	void Update(float _DeltaTime) override;
-
-private:
 	std::shared_ptr<GameEngineFontRenderer> DamageFont = nullptr;
 
 	Rigidbody2D FontRigid;
 
 	float LiveTime = -1.0f;
+
+	void Start() override;
+	void Update(float _DeltaTime) override;
+
 };
 

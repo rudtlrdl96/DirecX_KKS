@@ -2,6 +2,7 @@
 #include "RookieHero.h"
 #include "Player.h"
 #include "Projectile.h"
+#include "BattleActorHealFont.h"
 
 void RookieHero::ComboAttack_Enter()
 {
@@ -271,12 +272,29 @@ void RookieHero::Potion_Update(float _DeltaTime)
 
 		PotionHealTime = -0.72f;
 
-		HP += 5.0f;
+		float HealHp = 5.0f;
+		HP += HealHp;
 
 		if (HP > Data.HP)
 		{
 			HP = Data.HP;
 		}
+
+		std::shared_ptr<BattleActorHealFont> NewDamageFont = GetLevel()->CreateActor<BattleActorHealFont>();
+
+		float4 FontDir = float4(0, 10, 0);
+		float4 FontColor = float4(0.3607f, 0.9215f, 0.0784f, 1);
+
+		NewDamageFont->InitFont({
+			.Damage = HealHp,
+			.FontSize = 30,
+			.FontColor = FontColor,
+			.Pos = GetTransform()->GetWorldPosition() + float4(0, 50, -100) + DamageFontPivot,
+			.Dir = FontDir,
+			.MoveSpeed = 300,
+			.RandX = 30.0f,
+			.LiveTime = 0.55f,
+			});
 	}
 
 	if (0.0f <= PotionTime)
