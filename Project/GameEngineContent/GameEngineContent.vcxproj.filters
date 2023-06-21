@@ -930,6 +930,9 @@
     <ClInclude Include="BattleActorHealFont.h">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="ContentSlice9Renderer.h">
+      <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1543,6 +1546,9 @@
     </ClCompile>
     <ClCompile Include="BattleActorHealFont.cpp">
       <Filter>2_Actor\UI\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentSlice9Renderer.cpp">
+      <Filter>3_Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

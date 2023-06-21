@@ -53,3 +53,14 @@ public:
 	float4 Uv = float4::Zero;
 };
 
+
+class Slice9Buffer
+{
+public:
+	float4 TextureScale = float4::Zero;
+
+	float Left = 0.0f;
+	float Right = 0.0f;
+	float Top = 0.0f;
+	float Bottom = 0.0f;
+};

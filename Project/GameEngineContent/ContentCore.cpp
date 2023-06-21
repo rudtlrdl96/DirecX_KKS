@@ -90,7 +90,7 @@ void ContentCore::CoreLoading()
 
 	Inventory::ResetSkull();
 
-	GameEngineCore::ChangeLevel("Story");
+	GameEngineCore::ChangeLevel("ForestOfHarmony");
 
 }
 
@@ -290,6 +290,16 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("ObjectColorShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ObjectColorShader.hlsl");
+		Pipe->SetBlendState("ContentAlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Slice9");
+
+		Pipe->SetVertexShader("Slice9Shader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("Slice9Shader.hlsl");
 		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
