@@ -55,6 +55,8 @@ private:
 	FadeState State = FadeState::Wait;
 	FadeBuffer Buffer;
 
+	std::string ReadText = "";
+
 	float FadeSpeed = 1.0f;
 	float WaitTime = 0.0f;
 	float CurWaitTime = 0.0f;

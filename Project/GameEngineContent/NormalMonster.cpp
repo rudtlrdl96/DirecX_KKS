@@ -14,9 +14,9 @@ NormalMonster::~NormalMonster()
 {
 }
 
-void NormalMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
+void NormalMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack)
 {
-	BaseMonster::HitMonster(_Damage, _HitDir, _IsStiffen, _IsPush);
+	BaseMonster::HitMonster(_Damage, _HitDir, _IsStiffen, _IsPush, _IsMagicAttack);
 
 	if (nullptr == PlayerActor)
 	{
@@ -203,36 +203,6 @@ void NormalMonster::SetViewDir(ActorViewDir _Dir, bool _Force /*= false*/)
 	}
 
 	BaseMonster::SetViewDir(_Dir, _Force);
-
-	switch (_Dir)
-	{
-	case ActorViewDir::Left:
-	{
-		LocalWalkColPos.x = -fabsf(LocalWalkColPos.x);
-		LocalBackColPos.x = fabsf(LocalBackColPos.x);
-		LocalWalkFallColPos.x = -fabsf(LocalWalkFallColPos.x);
-		LocalFindColPos.x = -fabsf(LocalFindColPos.x);
-		LocalChasingColPos.x = -fabsf(LocalChasingColPos.x);
-	}
-	break;
-	case ActorViewDir::Right:
-	{
-		LocalWalkColPos.x = fabsf(LocalWalkColPos.x);
-		LocalBackColPos.x = -fabsf(LocalBackColPos.x);
-		LocalWalkFallColPos.x = fabsf(LocalWalkFallColPos.x);
-		LocalFindColPos.x = fabsf(LocalFindColPos.x);
-		LocalChasingColPos.x = fabsf(LocalChasingColPos.x);
-	}
-	break;
-	default:
-		break;
-	}
-
-	WalkCol->GetTransform()->SetLocalPosition(LocalWalkColPos);
-	BackCol->GetTransform()->SetLocalPosition(LocalBackColPos);
-	WalkFallCol->GetTransform()->SetLocalPosition(LocalWalkFallColPos);
-	FindCol->GetTransform()->SetLocalPosition(LocalFindColPos);
-	ChasingCol->GetTransform()->SetLocalPosition(LocalChasingColPos);
 
 	TurnCoolTime = 0.5f;
 }

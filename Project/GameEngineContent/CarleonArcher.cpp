@@ -126,7 +126,7 @@ void CarleonArcher::SetColData()
 	{
 		GameEngineTransform* ColTrans = WalkCol->GetTransform();
 
-		LocalWalkColPos = float4(32, 42, 0);
+		float4 LocalWalkColPos = float4(32, 42, 0);
 
 		ColTrans->SetLocalPosition(LocalWalkColPos);
 		ColTrans->SetWorldScale(float4(10, 80, 1));
@@ -134,7 +134,7 @@ void CarleonArcher::SetColData()
 	{
 		GameEngineTransform* ColTrans = BackCol->GetTransform();
 
-		LocalBackColPos = float4(-32, 42, 0);
+		float4 LocalBackColPos = float4(-32, 42, 0);
 
 		ColTrans->SetLocalPosition(LocalBackColPos);
 		ColTrans->SetWorldScale(float4(10, 80, 1));
@@ -142,7 +142,7 @@ void CarleonArcher::SetColData()
 	{
 		GameEngineTransform* ColTrans = WalkFallCol->GetTransform();
 
-		LocalWalkFallColPos = float4(32, 32, 0);
+		float4 LocalWalkFallColPos = float4(32, 32, 0);
 
 		ColTrans->SetLocalPosition(LocalWalkFallColPos);
 		ColTrans->SetWorldScale(float4(10, 100, 1));
@@ -151,7 +151,7 @@ void CarleonArcher::SetColData()
 	{
 		GameEngineTransform* ColTrans = FindCol->GetTransform();
 
-		LocalFindColPos = float4(200, 50, 0);
+		float4 LocalFindColPos = float4(200, 50, 0);
 
 		ColTrans->SetLocalPosition(LocalFindColPos);
 		ColTrans->SetWorldScale(float4(400, 100, 1));
@@ -160,7 +160,7 @@ void CarleonArcher::SetColData()
 	{
 		GameEngineTransform* ColTrans = ChasingCol->GetTransform();
 
-		LocalChasingColPos = float4(150, 50, 0);
+		float4 LocalChasingColPos = float4(150, 50, 0);
 
 		ColTrans->SetLocalPosition(LocalChasingColPos);
 		ColTrans->SetWorldScale(float4(300, 100, 1));

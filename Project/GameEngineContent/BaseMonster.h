@@ -20,7 +20,7 @@ public:
 	BaseMonster& operator=(const BaseMonster& _Other) = delete;
 	BaseMonster& operator=(BaseMonster&& _Other) noexcept = delete;
 
-	virtual void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush);
+	virtual void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack);
 	
 	std::shared_ptr<ContentSpriteRenderer> GetRender()
 	{
@@ -44,6 +44,8 @@ protected:
 
 	ActorViewDir Dir = ActorViewDir::Right;
 	MonsterData Data = MonsterData();
+
+	float4 DamageFontPivot = float4::Zero;
 
 	float HitWaitTime = 0.0f;
 

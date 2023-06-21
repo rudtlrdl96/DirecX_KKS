@@ -47,7 +47,7 @@ void StoryBook::ReadPage()
 			return;
 		}
 
-		CurPage->PageRead(FadeImage.get(), StoryView.get());
+		CurPage->PageRead(FadeImage.get(), StoryView.get(), FontActor.get());
 		NextPage();
 	}
 }

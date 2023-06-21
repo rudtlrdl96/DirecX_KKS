@@ -148,7 +148,7 @@ void GiantEnt::SetColData()
 	{
 		GameEngineTransform* ColTrans = WalkCol->GetTransform();
 
-		LocalWalkColPos = float4(45, 72, 0);
+		float4 LocalWalkColPos = float4(45, 72, 0);
 
 		ColTrans->SetLocalPosition(LocalWalkColPos);
 		ColTrans->SetWorldScale(float4(10, 140, 1));
@@ -156,7 +156,7 @@ void GiantEnt::SetColData()
 	{
 		GameEngineTransform* ColTrans = BackCol->GetTransform();
 
-		LocalBackColPos = float4(-45, 72, 0);
+		float4 LocalBackColPos = float4(-45, 72, 0);
 
 		ColTrans->SetLocalPosition(LocalBackColPos);
 		ColTrans->SetWorldScale(float4(10, 140, 1));
@@ -164,7 +164,7 @@ void GiantEnt::SetColData()
 	{
 		GameEngineTransform* ColTrans = WalkFallCol->GetTransform();
 
-		LocalWalkFallColPos = float4(45, 55, 0);
+		float4 LocalWalkFallColPos = float4(45, 55, 0);
 
 		ColTrans->SetLocalPosition(LocalWalkFallColPos);
 		ColTrans->SetWorldScale(float4(10, 170, 1));
@@ -173,7 +173,7 @@ void GiantEnt::SetColData()
 	{
 		GameEngineTransform* ColTrans = FindCol->GetTransform();
 
-		LocalFindColPos = float4(0, 80, 0);
+		float4 LocalFindColPos = float4(0, 80, 0);
 
 		ColTrans->SetLocalPosition(LocalFindColPos);
 		ColTrans->SetWorldScale(float4(700, 150, 1));
@@ -182,7 +182,7 @@ void GiantEnt::SetColData()
 	{
 		GameEngineTransform* ColTrans = ChasingCol->GetTransform();
 
-		LocalChasingColPos = float4(0, 80, 0);
+		float4 LocalChasingColPos = float4(0, 80, 0);
 
 		ColTrans->SetLocalPosition(LocalChasingColPos);
 		ColTrans->SetWorldScale(float4(1100, 900, 1));

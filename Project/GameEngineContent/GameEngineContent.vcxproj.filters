@@ -921,6 +921,12 @@
     <ClInclude Include="ContentUIFontRenderer.h">
       <Filter>3_Component\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="RectFontActor.h">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterDamageFont.h">
+      <Filter>2_Actor\UI\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1525,6 +1531,12 @@
     </ClCompile>
     <ClCompile Include="ContentUIFontRenderer.cpp">
       <Filter>3_Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RectFontActor.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDamageFont.cpp">
+      <Filter>2_Actor\UI\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

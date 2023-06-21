@@ -13,7 +13,7 @@ public:
 	NormalMonster& operator=(const NormalMonster& _Other) = delete;
 	NormalMonster& operator=(NormalMonster&& _Other) noexcept = delete;
 
-	void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush) override;
+	void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack) override;
 
 	void ChangeFSM(const std::string_view& _FsmName)
 	{
@@ -73,13 +73,6 @@ protected:
 
 	float4 DeathEffectLocalPos = float4::Zero;
 	float DeathPartScale = 2.0f;
-
-	float4 LocalWalkColPos = float4::Zero;
-	float4 LocalBackColPos = float4::Zero;
-
-	float4 LocalWalkFallColPos = float4::Zero;
-	float4 LocalFindColPos = float4::Zero;
-	float4 LocalChasingColPos = float4::Zero;
 
 	float4 LoadFindEffectPos = float4::Zero;
 

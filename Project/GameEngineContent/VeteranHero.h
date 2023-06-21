@@ -14,7 +14,7 @@ public:
 	VeteranHero& operator=(VeteranHero&& _Other) noexcept = delete;
 
 	void Destroy() override;
-	void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush) override;
+	void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack) override;
 protected:
 	std::shared_ptr<ContentSpriteRenderer> UltimateLight = nullptr;
 	ColorBuffer UltimateLightBuffer = ColorBuffer();

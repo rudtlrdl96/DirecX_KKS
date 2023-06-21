@@ -5,6 +5,7 @@
 
 #include "FadeActor.h"
 #include "StoryFrontImage.h"
+#include "RectFontActor.h"
 #include "StoryTextureView.h"
 #include "StoryBackImage.h"
 
@@ -51,10 +52,11 @@ void StoryLevel::Start()
 	BackImage = CreateActor<StoryBackImage>();
 	StoryView = CreateActor<StoryTextureView>();
 	FrontImage = CreateActor<StoryFrontImage>();
+	StoryFont = CreateActor<RectFontActor>();
 
 	FadeImage = CreateActor<FadeActor>();
 	FadeImage->SetSpeed(0.5f);
-
+	
 	SetOpeningBook();
 	SetForestOfHarmonyBook();
 	SetGrandHallBook();
@@ -102,7 +104,7 @@ void StoryLevel::Update(float _DeltaTime)
 void StoryLevel::LevelChangeStart()
 {
 	SetStoryName(ChangeStoryName);
-	StoryReset();	
+	StoryReset();
 }
 
 
@@ -112,6 +114,7 @@ void StoryLevel::StoryReset()
 
 	FadeImage->Reset();
 	StoryView->Reset();
+	StoryFont->Reset();
 
 	std::map<StoryName, StoryBook>::iterator LoopIter = StoryBookDatas.begin();
 	std::map<StoryName, StoryBook>::iterator EndIter = StoryBookDatas.end();

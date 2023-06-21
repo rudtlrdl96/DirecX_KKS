@@ -9,6 +9,8 @@
 #include "DeadPartParticle.h"
 #include "Player.h"
 
+#include "MonsterDamageFont.h"
+
 bool BaseMonster::MonsterUnMove = false;
 
 void BaseMonster::SetMonstersMove(bool _IsMove)
@@ -24,7 +26,7 @@ BaseMonster::~BaseMonster()
 {
 }
 
-void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
+void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack)
 {
 	HP -= _Damage;
 	HitDamageCheck += _Damage;
@@ -35,6 +37,44 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 	IsStiffen = _IsStiffen;
 	IsPush = _IsPush;
 	HitEffectProgress = 0.0f;
+
+	std::shared_ptr<MonsterDamageFont> NewDamageFont = GetLevel()->CreateActor<MonsterDamageFont>();
+
+	float4 FontDir;
+
+	switch (_HitDir)
+	{
+	case ActorViewDir::Left:
+		FontDir = float4(-0.5f, 10, 0);
+		break;
+	case ActorViewDir::Right:
+		FontDir = float4(0.5f, 10, 0);
+		break;
+	default:
+		break;
+	}
+
+	float4 FontColor;
+
+	if (true == _IsMagicAttack)
+	{
+		FontColor = float4(0.54117f, 0.8392f, 0.90196f, 1);
+	}
+	else
+	{
+		FontColor = float4(0.85f, 0.705f, 0.17254f, 1);
+	}
+
+	NewDamageFont->InitFont({
+		.Damage = _Damage,
+		.FontSize = 30,
+		.FontColor = FontColor,
+		.Pos = GetTransform()->GetWorldPosition() + float4(0, 50, -100) + DamageFontPivot,
+		.Dir = FontDir,
+		.MoveSpeed = 700,
+		.RandX = 20.0f,
+		.LiveTime = 1.0f,
+		});
 
 	HitEffect();
 }

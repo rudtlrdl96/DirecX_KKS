@@ -42,49 +42,69 @@ InitColFunction InitFunction;
 
 void TransformData::LocalCalculation()
 {
-	ScaleMatrix.Scale(Scale);
+	// ScaleMatrix.Scale(Scale);
 
-	Rotation.w = 0.0f;
+	// Rotation.w = 0.0f;
 	Quaternion = Rotation.EulerDegToQuaternion();
-	RotationMatrix = Quaternion.QuaternionToRotationMatrix();
-	PositionMatrix.Pos(Position);
+	//RotationMatrix = Quaternion.QuaternionToRotationMatrix();
+	//PositionMatrix.Pos(Position);
 
-	LocalWorldMatrix = ScaleMatrix * RotationMatrix * PositionMatrix;
+	LocalWorldMatrix.Compose(Scale, Quaternion, Position);
+
+	// LocalWorldMatrix = ScaleMatrix * RotationMatrix * PositionMatrix;
 }
 
-void TransformData::WorldCalculation(const float4x4& _Parent, bool AbsoluteScale, bool AbsoluteRotation, bool AbsolutePosition)
+void TransformData::WorldCalculation(const TransformData& _Parent, bool AbsoluteScale, bool AbsoluteRotation, bool AbsolutePosition)
 {
-	float4 PScale, PRotation, PPosition;
-	_Parent.Decompose(PScale, PRotation, PPosition);
+	const float4x4& ParentMatrix = _Parent.WorldMatrix;
+	WorldMatrix = WorldMatrix * ParentMatrix;
 
-
-	if (true == AbsoluteScale)
+	if (true == AbsoluteScale || true == AbsoluteRotation || true == AbsolutePosition)
 	{
-		PScale = float4::One;
+		float4 WScale, WRotation, WPosition;
+		float4 LScale, LRotation, LPosition;
+
+		WorldMatrix.Decompose(WScale, WRotation, WPosition);
+
+		if (true == AbsoluteScale)
+		{
+			WScale = Scale;
+			LScale *= float4::GetSafeScaleReciprocal(_Parent.WorldScale, 0.00001f);
+		}
+		else
+		{
+			LScale = Scale;
+		}
+
+		Quaternion = Rotation.EulerDegToQuaternion();
+
+		if (true == AbsoluteRotation)
+		{
+			WRotation = Rotation.EulerDegToQuaternion();
+			Quaternion = DirectX::XMQuaternionMultiply(Quaternion, DirectX::XMQuaternionInverse(_Parent.WorldQuaternion));
+		}
+
+		LPosition = Position;
+
+		if (true == AbsolutePosition)
+		{
+			WPosition = Position;
+
+			float4x4 InverseMat = _Parent.WorldMatrix.InverseReturn();
+			LPosition *= InverseMat;
+		}
+
+		// 부모 재계산
+		float4x4 MatScale, MatRot, MatPos;
+		WorldMatrix.Compose(WScale, WRotation, WPosition);
+		// 자식 재계산				
+		ScaleMatrix.Scale(LScale);
+		RotationMatrix = Quaternion.QuaternionToRotationMatrix();
+		PositionMatrix.Pos(LPosition);
+
+		LocalWorldMatrix.Compose(LScale, Quaternion, LPosition);
+
 	}
-	if (true == AbsoluteRotation)
-	{
-		// 부모의 회전 
-		PRotation = float4::Zero;
-		PRotation.EulerDegToQuaternion();
-	}
-	if (true == AbsolutePosition)
-	{
-		PPosition = float4::Zero;
-	}
-
-	float4x4 MatScale, MatRot, MatPos;
-
-	//scale
-	MatScale.Scale(PScale);
-
-	//rot
-	MatRot = PRotation.QuaternionToRotationMatrix();
-
-	//pos
-	MatPos.Pos(PPosition);
-
-	WorldMatrix = LocalWorldMatrix * (MatScale * MatRot * MatPos);
 }
 
 void TransformData::SetViewAndProjection(const float4x4& _View, const float4x4& _Projection)
@@ -241,36 +261,16 @@ GameEngineTransform::~GameEngineTransform()
 }
 
 
-void GameEngineTransform::TransformUpdate()
-{
-	TransData.LocalCalculation();
-
-	if (nullptr == Parent)
-	{
-		TransData.WorldMatrix = TransData.LocalWorldMatrix;
-	}
-	else // 차이
-	{
-		WorldCalculation();
-	}
-
-	WorldDecompose();
-	LocalDecompose();
-	// ParentWorldMatrix.Decompose(PScale, PRoatation, PPosition);
-
-}
-
 void GameEngineTransform::WorldCalculation()
 {
 	float4x4 ParentWorldMatrix = Parent->GetWorldMatrixRef();
-	TransData.WorldCalculation(ParentWorldMatrix, AbsoluteScale, AbsoluteRotation, AbsolutePosition);
+	TransData.WorldCalculation(Parent->TransData, AbsoluteScale, AbsoluteRotation, AbsolutePosition);
 }
 
 void GameEngineTransform::LocalDecompose()
 {
 	TransData.LocalWorldMatrix.Decompose(TransData.LocalScale, TransData.LocalQuaternion, TransData.LocalPosition);
 	TransData.LocalRotation = TransData.LocalQuaternion.QuaternionToEulerDeg();
-
 }
 void GameEngineTransform::WorldDecompose()
 {
@@ -392,8 +392,7 @@ void GameEngineTransform::CalChild()
 {
 	for (GameEngineTransform* ChildTrans : Child)
 	{
-		ChildTrans->WorldCalculation();
-		ChildTrans->WorldDecompose();
+		ChildTrans->TransformUpdate();
 		ChildTrans->CalChild();
 	}
 }
@@ -567,4 +566,21 @@ bool GameEngineTransform::Collision(const CollisionParameter& Data)
 	}
 
 	return ArrColFunction[static_cast<int>(Data.ThisType)][static_cast<int>(Data.OtherType)](this->GetCollisionData(), Data._OtherTrans->GetCollisionData());
+}
+
+
+void GameEngineTransform::TransformUpdate()
+{
+	TransData.LocalCalculation();
+	TransData.WorldMatrix = TransData.LocalWorldMatrix;
+
+	if (nullptr != Parent)
+	{
+		WorldCalculation();
+	}
+
+	WorldDecompose();
+	LocalDecompose();
+	// ParentWorldMatrix.Decompose(PScale, PRoatation, PPosition);
+
 }

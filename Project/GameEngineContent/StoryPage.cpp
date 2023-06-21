@@ -11,7 +11,7 @@ StoryPage::~StoryPage()
 {
 }
 
-void StoryPage::PageRead(FadeActor* FadePtr, StoryTextureView* _View)
+void StoryPage::PageRead(FadeActor* FadePtr, StoryTextureView* _View, RectFontActor* _Font)
 {
 	if (nullptr == FadePtr)
 	{
@@ -25,7 +25,7 @@ void StoryPage::PageRead(FadeActor* FadePtr, StoryTextureView* _View)
 
 	for (size_t i = 0; i < WalkHelpers.size(); i++)
 	{
-		WalkHelpers[i].Walk(FadePtr, _View);
+		WalkHelpers[i].Walk(FadePtr, _View, _Font);
 	}
 
 }
@@ -154,5 +154,12 @@ void StoryPage::Write_SetUnFade()
 {
 	StoryUI::Helper Newhelper;
 	Newhelper.Type = StoryUI::WalkType::SetUnFade;
+	WalkHelpers.push_back(Newhelper);
+}
+
+void StoryPage::Wirte_Text(const std::string_view _Text)
+{
+	StoryUI::Helper Newhelper;
+	Newhelper.Type = StoryUI::WalkType::WriteText;
 	WalkHelpers.push_back(Newhelper);
 }

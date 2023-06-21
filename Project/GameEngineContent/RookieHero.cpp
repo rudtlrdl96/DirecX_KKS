@@ -27,9 +27,9 @@ void RookieHero::Destroy()
 	LevelPtr->RemoveEvent("RookieHero_Script00_End", GetActorCode());
 }
 
-void RookieHero::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush)
+void RookieHero::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack)
 {
-	BossMonster::HitMonster(_Damage, _HitDir, _IsStiffen, _IsPush);
+	BossMonster::HitMonster(_Damage, _HitDir, _IsStiffen, _IsPush, _IsMagicAttack);
 
 	HealthBarActiveTime = 3.0f;
 }

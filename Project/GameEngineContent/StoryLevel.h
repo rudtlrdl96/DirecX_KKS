@@ -53,6 +53,7 @@ private:
 	std::shared_ptr<class StoryFrontImage> FrontImage = nullptr;
 	std::shared_ptr<class StoryBackImage> BackImage = nullptr;
 	std::shared_ptr<class StoryTextureView> StoryView = nullptr;
+	std::shared_ptr<class RectFontActor> StoryFont = nullptr;
 
 	StoryName CurStoryName = StoryName::Opening;
 

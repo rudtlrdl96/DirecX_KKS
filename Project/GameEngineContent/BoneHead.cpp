@@ -98,7 +98,7 @@ void BoneHead::Update(float _DeltaTime)
 				return;
 			}
 
-			MonsterPtr->HitMonster(ParentSkull->GetMagicAttackDamage() * 2.5f, Dir, true, true);
+			MonsterPtr->HitMonster(ParentSkull->GetMagicAttackDamage() * 2.5f, Dir, true, true, true);
 		}
 	}
 

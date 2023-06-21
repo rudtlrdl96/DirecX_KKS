@@ -291,10 +291,10 @@ void PlayerBaseSkull::Start()
 					switch (AttackTypeValue)
 					{
 					case PlayerBaseSkull::AttackType::MeleeAttack:
-						CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush);
+						CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, false);
 						break;
 					case PlayerBaseSkull::AttackType::MagicAttack:
-						CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush);
+						CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, true);
 						break;
 					default:
 						break;
@@ -455,20 +455,16 @@ void PlayerBaseSkull::SetViewDir(ActorViewDir _ViewDir)
 {
 	ViewDir = _ViewDir;
 
-	GameEngineTransform* WalkColTrans = WalkCol->GetTransform();
-
 	switch (ViewDir)
 	{
 	case ActorViewDir::Left:
 	{
 		GetTransform()->SetLocalNegativeScaleX();
-		WalkColTrans->SetLocalPosition(float4(-20, 35, 0));
 	}
 		break;
 	case ActorViewDir::Right:
 	{
 		GetTransform()->SetLocalPositiveScaleX();
-		WalkColTrans->SetLocalPosition(float4(20, 35, 0));
 	}
 		break;
 	default:
