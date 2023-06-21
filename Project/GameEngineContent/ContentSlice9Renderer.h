@@ -20,7 +20,6 @@ protected:
 	void Init();
 
 private:
-	Slice9Buffer Buffer;
-
+	SliceBuffer Buffer;
 };
 

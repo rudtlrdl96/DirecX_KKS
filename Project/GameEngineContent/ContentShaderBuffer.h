@@ -54,13 +54,9 @@ public:
 };
 
 
-class Slice9Buffer
+class SliceBuffer
 {
 public:
 	float4 TextureScale = float4::Zero;
-
-	float Left = 0.0f;
-	float Right = 0.0f;
-	float Top = 0.0f;
-	float Bottom = 0.0f;
+	float4 Pivot = float4::Zero;
 };

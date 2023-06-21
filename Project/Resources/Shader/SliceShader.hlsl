@@ -1,7 +1,3 @@
-// 쉐이더를 짜게되면 다음의 규칙을 지켜야 한다.
-
-// 0~ 16번 슬롯 
-// 선언해 놨다고 쓰는게 아니에요.
 cbuffer TransformData : register(b0)
 {
     float4 Scale;
@@ -38,8 +34,6 @@ struct Input
 
 struct OutPut
 {
-    // 레스터라이저야 이 포지션이
-    // w나눈 다음  뷰포트 곱하고 픽셀 건져낼때 쓸포지션 정보를 내가 보낸거야.
     float4 Pos : SV_Position;
     float4 UV : TEXCOORD;
 };
@@ -50,6 +44,20 @@ OutPut Texture_VS(Input _Value)
     _Value.Pos.w = 1.0f;
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
     return OutPutValue;
+}
+
+Texture2D DiffuseTex : register(t0);
+SamplerState WRAPSAMPLER : register(s0);
+
+cbuffer SliceBuffer : register(b1)
+{
+    float4 TextureScale;
+    float4 Clip;
+}
+
+cbuffer PixelScaleBuffer : register(b2)
+{
+    float4 BufferWorldScale;
 }
 
 float map(float value, float originalMin, float originalMax, float newMin, float newMax)
@@ -73,29 +81,14 @@ float process_axis(float coord, float pixel, float texture_pixel, float start, f
     }
 }
 
-cbuffer Slice9Buffer : register(b1)
-{ 
-    float4 TextureScale;
-    
-    float Left;
-    float Right;
-    float Top;
-    float Bottom;
-}
-
-Texture2D DiffuseTex : register(t0);
-SamplerState WRAPSAMPLER : register(s0);
-
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {         
-    float2 Uv = _Value.UV;
-    float2 pixel_size = TextureScale.xy / WorldScale.xy;
-	
+    float2 pixel_size = TextureScale.xy / BufferWorldScale.xy;    
     float2 mappedUV = float2(
-		process_axis(Uv.x, pixel_size.x, TextureScale.x, Left, Right),
-		process_axis(Uv.y, pixel_size.y, TextureScale.y, Top, Bottom));
-        
-    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, Uv);
+		process_axis(_Value.UV.x, pixel_size.x, TextureScale.x, float(Clip.x), float(Clip.y)),
+		process_axis(_Value.UV.y, pixel_size.y, TextureScale.y, float(Clip.z), float(Clip.w))
+	);
+    
+    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, mappedUV);
     return Color;
 }
-

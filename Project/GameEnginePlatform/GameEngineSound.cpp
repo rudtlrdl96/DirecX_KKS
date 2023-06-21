@@ -22,7 +22,7 @@ std::unordered_map<std::string, std::shared_ptr<GameEngineSound>> GameEngineSoun
 class SoundSystemCreator
 {
 public:
-	SoundSystemCreator() 
+	SoundSystemCreator()
 	{
 		FMOD::System_Create(&SoundSystem);
 
@@ -35,10 +35,10 @@ public:
 		{
 			MsgAssert("사운드 시스템 이니셜라이즈에 실패했습니다.");
 		}
-		
+
 	}
 
-	~SoundSystemCreator() 
+	~SoundSystemCreator()
 	{
 		SoundSystem->release();
 	}
@@ -57,11 +57,11 @@ void GameEngineSound::SoundUpdate()
 	SoundSystem->update();
 }
 
-GameEngineSound::GameEngineSound() 
+GameEngineSound::GameEngineSound()
 {
 }
 
-GameEngineSound::~GameEngineSound() 
+GameEngineSound::~GameEngineSound()
 {
 	if (nullptr == FMODSound)
 	{
@@ -94,11 +94,12 @@ GameEngineSoundPlayer GameEngineSound::Play(const std::string_view& _Name)
 		MsgAssert("존재하지 않는 사운드를 플레이하려고 했습니다.");
 		return nullptr;
 	}
-
-	return Finditer->second->SoundPlay();
+	FMOD::Channel* Channel = Finditer->second->SoundPlay();
+	Channel->setLoopCount(0);
+	return Channel;
 }
 
-void GameEngineSound::SoundLoad(const std::string_view& _Path) 
+void GameEngineSound::SoundLoad(const std::string_view& _Path)
 {
 	std::string UTF8Path = GameEngineString::AnsiToUTF8(_Path);
 

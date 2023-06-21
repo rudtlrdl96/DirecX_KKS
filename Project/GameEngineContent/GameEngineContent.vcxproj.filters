@@ -373,6 +373,9 @@
     <Filter Include="2_Actor\Map\Flop">
       <UniqueIdentifier>{fc47a103-4943-4783-b782-718bebfc4d23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Level\DebugLevel\TestLevel">
+      <UniqueIdentifier>{e5f8edfe-2517-4f5c-ad91-fc6728eadea9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -932,6 +935,12 @@
     </ClInclude>
     <ClInclude Include="ContentSlice9Renderer.h">
       <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentSlice9UIRenderer.h">
+      <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Slice9TestLevel.h">
+      <Filter>4_Level\DebugLevel\TestLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1549,6 +1558,12 @@
     </ClCompile>
     <ClCompile Include="ContentSlice9Renderer.cpp">
       <Filter>3_Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentSlice9UIRenderer.cpp">
+      <Filter>3_Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Slice9TestLevel.cpp">
+      <Filter>4_Level\DebugLevel\TestLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

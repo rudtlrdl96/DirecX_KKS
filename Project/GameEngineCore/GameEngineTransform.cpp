@@ -66,14 +66,12 @@ void TransformData::WorldCalculation(const TransformData& _Parent, bool Absolute
 
 		WorldMatrix.Decompose(WScale, WRotation, WPosition);
 
+		LScale = Scale;
+
 		if (true == AbsoluteScale)
 		{
 			WScale = Scale;
 			LScale *= float4::GetSafeScaleReciprocal(_Parent.WorldScale, 0.00001f);
-		}
-		else
-		{
-			LScale = Scale;
 		}
 
 		Quaternion = Rotation.EulerDegToQuaternion();

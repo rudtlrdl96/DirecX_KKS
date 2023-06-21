@@ -40,6 +40,7 @@
 #include "BackgroundToolLevel.h"
 #include "AnimationColToolLevel.h"
 #include "BrokenObjectTool.h"
+#include "Slice9TestLevel.h"
 
 ContentCore::ContentCore()
 {
@@ -87,10 +88,11 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<BackgroundToolLevel>("BackgroundTool");
 	GameEngineCore::CreateLevel<AnimationColToolLevel>("AnimationColTool");
 	GameEngineCore::CreateLevel<BrokenObjectTool>("BrokenObjectTool");
+	GameEngineCore::CreateLevel<Slice9TestLevel>("Slice9Test");
 
 	Inventory::ResetSkull();
 
-	GameEngineCore::ChangeLevel("ForestOfHarmony");
+	GameEngineCore::ChangeLevel("Slice9Test");
 
 }
 
@@ -295,11 +297,11 @@ void ContentCore::ContentPipeLineCreate()
 	}
 
 	{
-		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Slice9");
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Slice");
 
-		Pipe->SetVertexShader("Slice9Shader.hlsl");
+		Pipe->SetVertexShader("SliceShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
-		Pipe->SetPixelShader("Slice9Shader.hlsl");
+		Pipe->SetPixelShader("SliceShader.hlsl");
 		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}

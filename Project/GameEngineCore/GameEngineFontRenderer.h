@@ -41,6 +41,7 @@ protected:
 private:
 	void Start() override;
 
+
 	float FontScale = 10.0f;
 	float4 FontColor = float4::Red;
 	std::string Text;
