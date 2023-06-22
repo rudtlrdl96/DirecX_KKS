@@ -23,9 +23,9 @@ public:
 	void Reset();
 
 private:
-	std::shared_ptr<FadeActor> FadeImage = nullptr;
+	std::shared_ptr<FadeActor_UI> FadeImage = nullptr;
 	std::shared_ptr<StoryTextureView> StoryView = nullptr;
-	std::shared_ptr<RectFontActor> FontActor = nullptr;
+	std::shared_ptr<StoryFontActor> FontActor = nullptr;
 
 	StoryPage* CurPage = nullptr;
 	size_t CurPageNumber = 0;

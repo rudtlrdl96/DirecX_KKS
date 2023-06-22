@@ -924,9 +924,6 @@
     <ClInclude Include="ContentUIFontRenderer.h">
       <Filter>3_Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="RectFontActor.h">
-      <Filter>2_Actor\UI\Common</Filter>
-    </ClInclude>
     <ClInclude Include="BattleActorDamageFont.h">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClInclude>
@@ -941,6 +938,12 @@
     </ClInclude>
     <ClInclude Include="Slice9TestLevel.h">
       <Filter>4_Level\DebugLevel\TestLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryFontActor.h">
+      <Filter>2_Actor\UI\Story</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeActor_UI.h">
+      <Filter>2_Actor\UI\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1547,9 +1550,6 @@
     <ClCompile Include="ContentUIFontRenderer.cpp">
       <Filter>3_Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="RectFontActor.cpp">
-      <Filter>2_Actor\UI\Common</Filter>
-    </ClCompile>
     <ClCompile Include="BattleActorDamageFont.cpp">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClCompile>
@@ -1564,6 +1564,12 @@
     </ClCompile>
     <ClCompile Include="Slice9TestLevel.cpp">
       <Filter>4_Level\DebugLevel\TestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryFontActor.cpp">
+      <Filter>2_Actor\UI\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeActor_UI.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

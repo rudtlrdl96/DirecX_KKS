@@ -43,17 +43,17 @@ public:
 	}
 
 protected:
+	std::shared_ptr<class ContentSpriteRenderer> MainRenderer = nullptr;
+	FadeBuffer Buffer;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class ContentFadeRender> MainRenderer = nullptr;
 
 	bool IsFadeEndValue = false;
 
 	FadeState State = FadeState::Wait;
-	FadeBuffer Buffer;
 
 	std::string ReadText = "";
 

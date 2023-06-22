@@ -90,7 +90,7 @@ void ContentCore::CoreLoading()
 
 	Inventory::ResetSkull();
 
-	GameEngineCore::ChangeLevel("Opening");
+	GameEngineCore::ChangeLevel("Story");
 
 }
 

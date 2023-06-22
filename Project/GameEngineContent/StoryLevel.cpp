@@ -3,9 +3,9 @@
 
 #include <GameEnginePlatform/GameEngineInput.h>
 
-#include "FadeActor.h"
+#include "FadeActor_UI.h"
 #include "StoryFrontImage.h"
-#include "RectFontActor.h"
+#include "StoryFontActor.h"
 #include "StoryTextureView.h"
 #include "StoryBackImage.h"
 
@@ -19,6 +19,8 @@ StoryLevel::StoryLevel()
 StoryLevel::~StoryLevel()
 {
 }
+
+#include "GameEngineActorGUI.h"
 
 void StoryLevel::Start()
 {
@@ -49,13 +51,16 @@ void StoryLevel::Start()
 		GameEngineInput::CreateKey("Story_Ending", '5');
 	}
 
+	FadeImage = CreateActor<FadeActor_UI>();
+	FadeImage->GetTransform()->SetLocalPosition({ 0, 0, -1000 });
+	FadeImage->SetSpeed(0.5f);
+
 	BackImage = CreateActor<StoryBackImage>();
 	StoryView = CreateActor<StoryTextureView>();
 	FrontImage = CreateActor<StoryFrontImage>();
-	StoryFont = CreateActor<RectFontActor>();
 
-	FadeImage = CreateActor<FadeActor>();
-	FadeImage->SetSpeed(0.5f);
+	StoryFont = CreateActor<StoryFontActor>();
+	StoryFont->GetTransform()->SetLocalPosition({ 0, -270, -2000});
 	
 	SetOpeningBook();
 	SetForestOfHarmonyBook();
@@ -68,23 +73,23 @@ void StoryLevel::Update(float _DeltaTime)
 {
 	UILevel::Update(_DeltaTime);
 
-	if (true == GameEngineInput::IsDown("Story_Opening"))
+	if (true == GameEngineInput::IsUp("Story_Opening"))
 	{
 		SetStoryName(StoryName::Opening);
 	}
-	else if (true == GameEngineInput::IsDown("Story_ForestOfHarmony"))
+	else if (true == GameEngineInput::IsUp("Story_ForestOfHarmony"))
 	{
 		SetStoryName(StoryName::ForestOfHarmony);
 	}
-	else if (true == GameEngineInput::IsDown("Story_GranHall"))
+	else if (true == GameEngineInput::IsUp("Story_GranHall"))
 	{
 		SetStoryName(StoryName::GranHall);
 	}
-	else if (true == GameEngineInput::IsDown("Story_HolyCourtyard"))
+	else if (true == GameEngineInput::IsUp("Story_HolyCourtyard"))
 	{
 		SetStoryName(StoryName::HolyCourtyard);
 	}
-	else if (true == GameEngineInput::IsDown("Story_Ending"))
+	else if (true == GameEngineInput::IsUp("Story_Ending"))
 	{
 		SetStoryName(StoryName::Ending);
 	}
@@ -103,6 +108,10 @@ void StoryLevel::Update(float _DeltaTime)
 
 void StoryLevel::LevelChangeStart()
 {
+	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	Ptr->SetTarget(StoryFont->GetTransform());
+	Ptr->On();
+
 	SetStoryName(ChangeStoryName);
 	StoryReset();
 }
@@ -111,7 +120,6 @@ void StoryLevel::LevelChangeStart()
 void StoryLevel::StoryReset()
 {
 	FadeImage->SetUnFade();
-
 	FadeImage->Reset();
 	StoryView->Reset();
 	StoryFont->Reset();

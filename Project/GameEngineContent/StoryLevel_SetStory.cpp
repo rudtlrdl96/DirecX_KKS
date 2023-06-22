@@ -8,6 +8,10 @@ void StoryLevel::SetOpeningBook()
 
 	BookRef.StoryView = StoryView;
 	BookRef.FadeImage = FadeImage;
+	BookRef.FontActor = StoryFont;
+
+	StoryPage::FlipCondition TimeAndKeyFlip = StoryPage::FlipCondition::None;
+	TimeAndKeyFlip = static_cast<StoryPage::FlipCondition>((int)StoryPage::FlipCondition::AnyKey | (int)StoryPage::FlipCondition::Time);
 
 	{
 		StoryPage Page;	
@@ -18,12 +22,32 @@ void StoryLevel::SetOpeningBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::UnCondition);
+
+		std::vector<StoryFontParameter> Datas = std::vector<StoryFontParameter>();
+		Datas.resize(1);
+
+		Datas[0].StoryText = "밝은 달이 떠있던 밤이었습니다.";
+
+		Page.Wirte_Text(Datas);
+		BookRef.InsertPage(Page);
+	}
+
+	{
+		StoryPage Page;
+		Page.SetFlip(TimeAndKeyFlip, 3.0f);
 		Page.Write_SetMainTex("Story_Opening_00.png", float4(375, -14));
 		Page.Write_SetBackTex("Story_Back.png", float4(0, 50));
 		Page.Write_FadeOut(0.5f);
 		BookRef.InsertPage(Page);
 	}
+
+	//{
+	//	StoryPage Page;
+	//	Page.SetFlip(StoryPage::FlipCondition::AnyKey);
+	//	Page.Wirte_ResetText();
+	//	BookRef.InsertPage(Page);
+	//}
 
 	{
 		StoryPage Page;
@@ -99,6 +123,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	BookRef.StoryView = StoryView;
 	BookRef.FadeImage = FadeImage;
+	BookRef.FontActor = StoryFont;
 
 	{
 		StoryPage Page;
@@ -109,7 +134,10 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		StoryPage::FlipCondition Flip = StoryPage::FlipCondition::None;
+		Flip = static_cast<StoryPage::FlipCondition>((int)StoryPage::FlipCondition::AnyKey | (int)StoryPage::FlipCondition::Time);
+
+		Page.SetFlip(Flip, 3.0f);
 		Page.Write_SetMainTex("Story_ForestOfHarmony_00.png", float4(0, 35));
 		Page.Write_FadeOut(0.5f);
 		BookRef.InsertPage(Page);
@@ -220,6 +248,7 @@ void StoryLevel::SetGrandHallBook()
 
 	BookRef.StoryView = StoryView;
 	BookRef.FadeImage = FadeImage;
+	BookRef.FontActor = StoryFont;
 
 	{
 		StoryPage Page;
@@ -230,7 +259,10 @@ void StoryLevel::SetGrandHallBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		StoryPage::FlipCondition Flip = StoryPage::FlipCondition::None;
+		Flip = static_cast<StoryPage::FlipCondition>((int)StoryPage::FlipCondition::AnyKey | (int)StoryPage::FlipCondition::Time);
+
+		Page.SetFlip(Flip, 3.0f);
 		Page.Write_SetMainTex("Story_GrandHall_00.png", float4(0, 35));
 		Page.Write_FadeOut(0.5f);
 		BookRef.InsertPage(Page);
@@ -359,6 +391,7 @@ void StoryLevel::SetHolyCourtyard()
 
 	BookRef.StoryView = StoryView;
 	BookRef.FadeImage = FadeImage;
+	BookRef.FontActor = StoryFont;
 
 	{
 		StoryPage Page;
@@ -369,7 +402,10 @@ void StoryLevel::SetHolyCourtyard()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		StoryPage::FlipCondition Flip = StoryPage::FlipCondition::None;
+		Flip = static_cast<StoryPage::FlipCondition>((int)StoryPage::FlipCondition::AnyKey | (int)StoryPage::FlipCondition::Time);
+
+		Page.SetFlip(Flip, 3.0f);
 		Page.Write_SetMainTex("Story_HolyCourtyard_00.png", float4(0, 35));
 		Page.Write_FadeOut(0.5f);
 		BookRef.InsertPage(Page);
@@ -504,6 +540,7 @@ void StoryLevel::SetEndingBook()
 
 	BookRef.StoryView = StoryView;
 	BookRef.FadeImage = FadeImage;
+	BookRef.FontActor = StoryFont;
 
 	{
 		StoryPage Page;
@@ -514,7 +551,10 @@ void StoryLevel::SetEndingBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		StoryPage::FlipCondition Flip = StoryPage::FlipCondition::None;
+		Flip = static_cast<StoryPage::FlipCondition>((int)StoryPage::FlipCondition::AnyKey | (int)StoryPage::FlipCondition::Time);
+
+		Page.SetFlip(Flip, 3.0f);
 		Page.Write_SetMainTex("Story_Ending_00.png", float4(0, 35));
 		Page.Write_FadeOut(0.5f);
 		BookRef.InsertPage(Page);

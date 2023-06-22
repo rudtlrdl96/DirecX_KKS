@@ -15,7 +15,7 @@ public:
 	StoryPage();
 	~StoryPage();
 
-	void PageRead(FadeActor* FadePtr, StoryTextureView* _View, RectFontActor* _Font);
+	void PageRead(FadeActor* FadePtr, StoryTextureView* _View, StoryFontActor* _Font);
 
 	void SetFlip(FlipCondition _Condition, float _Time = 5.0f);
 	bool IsFlipCheck();
@@ -32,7 +32,8 @@ public:
 	void Write_FadeOut(float _FadeSpeed);
 	void Write_SetFade();
 	void Write_SetUnFade();
-	void Wirte_Text(const std::string_view _Text);
+	void Wirte_Text(std::vector<StoryFontParameter> _TextDatas);
+	void Wirte_ResetText();
 
 	inline void Reset()
 	{

@@ -11,7 +11,7 @@ StoryPage::~StoryPage()
 {
 }
 
-void StoryPage::PageRead(FadeActor* FadePtr, StoryTextureView* _View, RectFontActor* _Font)
+void StoryPage::PageRead(FadeActor* FadePtr, StoryTextureView* _View, StoryFontActor* _Font)
 {
 	if (nullptr == FadePtr)
 	{
@@ -157,9 +157,17 @@ void StoryPage::Write_SetUnFade()
 	WalkHelpers.push_back(Newhelper);
 }
 
-void StoryPage::Wirte_Text(const std::string_view _Text)
+void StoryPage::Wirte_Text(std::vector<StoryFontParameter> _TextDatas)
 {
 	StoryUI::Helper Newhelper;
 	Newhelper.Type = StoryUI::WalkType::WriteText;
+	Newhelper.WriteTextDatas = _TextDatas;
+	WalkHelpers.push_back(Newhelper);
+}
+
+void StoryPage::Wirte_ResetText()
+{
+	StoryUI::Helper Newhelper;
+	Newhelper.Type = StoryUI::WalkType::RemoveText;
 	WalkHelpers.push_back(Newhelper);
 }
