@@ -50,6 +50,7 @@ private:
 
 	float ArrowAlpha = 0.0f;
 	float BoostSpeed = 1.0f;
+	float FontSize = 16.0f;
 
 	std::function<void()> ReadEndCallback = nullptr;
 

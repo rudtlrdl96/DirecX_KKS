@@ -47,6 +47,7 @@ void SkeletonB::PlayBehavior()
 		.IsLarge = true,
 		.IsLoop = true,
 		.LiveTime = 3.0f,
+		.IsAutoScale = true
 		});
 }
 

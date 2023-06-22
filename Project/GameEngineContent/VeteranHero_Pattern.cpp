@@ -187,7 +187,7 @@ void VeteranHero::ComboAttack_Update(float _DeltaTime)
 				.IsPlatformCol = false,
 				.IsRot = false,
 				.IsFlipX = Dir == ActorViewDir::Left,
-				.Damage = Data.Attack * 2.0f,
+				.Damage = Data.Attack,
 				.Speed = 1000.0f,
 				.LiveTime = 0.64f,
 				.EnterEvent = HitCallback});

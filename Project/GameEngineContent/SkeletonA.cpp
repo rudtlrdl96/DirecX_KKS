@@ -41,6 +41,7 @@ void SkeletonA::Start()
 				.IsLoop = false,
 				.LiveTime = 3.0f,
 				.LoopInter = 3.0f,
+				.IsAutoScale = true
 				});
 		});
 }
@@ -70,6 +71,7 @@ void SkeletonA::Update(float _DeltaTime)
 			.IsLarge = false,
 			.IsLoop = true,
 			.LiveTime = 3.0f,
+			.IsAutoScale = true
 			});
 	}
 
@@ -100,6 +102,7 @@ void SkeletonA::PlayBehavior()
 		.IsLoop = true,
 		.LiveTime = 3.0f,
 		.LoopInter = 3.0f,
+		.IsAutoScale = true
 		});
 }
 

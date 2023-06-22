@@ -37,12 +37,12 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 
 	if (true == _BubbleParameter.IsLarge)
 	{
-		BubbleRender->SetScaleToTexture("SpeechBubble_Large.png");
+		BubbleRender->SetTextureAndSlice("SpeechBubble_Large.png", 0.1f, 0.1f, 0.1f, 0.35f);
 		FontRender->GetTransform()->SetLocalPosition(float4(0, 5, -0.1f));
 	}
 	else
 	{
-		BubbleRender->SetScaleToTexture("SpeechBubble.png");
+		BubbleRender->SetTextureAndSlice("SpeechBubble.png", 0.1f, 0.1f, 0.1f, 0.35f);
 		FontRender->GetTransform()->SetLocalPosition(float4(0, 5, -0.1f));
 	}
 
@@ -50,10 +50,73 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 	//Ptr->SetTarget(FontRender->GetTransform());
 	//Ptr->On();
 
-	BubbleRender->On();
+
 
 	LiveTime = _BubbleParameter.LiveTime;
 	LoopInter = _BubbleParameter.LoopInter;
+
+	BubbleRender->ResetScale();
+
+	if (true == _BubbleParameter.IsAutoScale)
+	{
+		std::wstring BubbleText = GameEngineString::AnsiToUniCode(TalkText);
+
+		float TextureBoardX = 0.0f;
+		float TextureBoardY = 0.0f;
+		
+		if (true == _BubbleParameter.IsLarge)
+		{
+			TextureBoardX = 195.0f;
+			TextureBoardY = 55.0f;
+		}
+		else
+		{
+			TextureBoardX = 130.0f;
+			TextureBoardY = 30.0f;
+		}
+
+		float CurX = 0.0f;
+		float CurY = _BubbleParameter.FontSize;
+
+		float MaxX = 0.0f;
+		float MaxY = 0.0f;
+
+		for (size_t i = 0; i < BubbleText.size(); i++)
+		{
+			if (BubbleText[i] == L'\n')
+			{
+				CurX = 0;
+				CurY += _BubbleParameter.FontSize;
+			}
+			else
+			{
+				CurX += _BubbleParameter.FontSize * 0.7f;
+			}
+
+			if (CurX > MaxX)
+			{
+				MaxX = CurX;
+			}
+
+			if (CurY > MaxY)
+			{
+				MaxY = CurY;
+			}
+		}
+
+		if (TextureBoardX < MaxX)
+		{
+			BubbleRender->GetTransform()->AddWorldScale(float4(MaxX - TextureBoardX, 0));
+
+		}
+
+		if (TextureBoardX < MaxY)
+		{
+			BubbleRender->GetTransform()->AddWorldScale(float4(0, MaxY - TextureBoardX));
+		}
+	}
+
+	BubbleRender->On();
 }
 
 
@@ -78,9 +141,7 @@ void SpeechBubble::Start()
 		GameEngineTexture::Load(Path.GetPlusFileName("SpeechBubble_Large.png").GetFullPath());
 	}
 
-	BubbleRender = CreateComponent<ContentSpriteRenderer>();
-	BubbleRender->PipeSetting("2DTexture_Color");
-	BubbleRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
+	BubbleRender = CreateComponent<ContentSlice9Renderer>();
 	BubbleRender->Off();
 
 	FontRender = CreateComponent<GameEngineFontRenderer>();

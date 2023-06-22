@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "ContentSlice9Renderer.h"
 
 class SpeechBubbleParameter
 {
@@ -15,6 +16,8 @@ public:
 	float FontSize = 0.0f;
 	float LiveTime = 0.0f;
 	float LoopInter = 0.0f;
+
+	bool IsAutoScale = false;
 };
 
 class SpeechBubble : public BaseContentActor
@@ -37,7 +40,7 @@ protected:
 	void Update(float _DeltaTime) override;
 	
 private:
-	std::shared_ptr<ContentSpriteRenderer> BubbleRender = nullptr;
+	std::shared_ptr<ContentSlice9Renderer> BubbleRender = nullptr;
 	std::shared_ptr<GameEngineFontRenderer> FontRender = nullptr;
 	ColorBuffer Buffer = ColorBuffer();
 
@@ -51,5 +54,7 @@ private:
 	float OffTime = 0.0f;
 
 	bool IsLoop = false;
+
+
 };
 

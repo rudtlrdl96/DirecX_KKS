@@ -99,6 +99,7 @@ void SkeleTong::Start()
 				.IsLoop = false,
 				.FontSize = 20,
 				.LiveTime = 3.0f,
+				.IsAutoScale = true
 				});
 
 		});

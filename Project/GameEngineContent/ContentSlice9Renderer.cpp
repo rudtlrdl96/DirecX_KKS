@@ -23,9 +23,11 @@ void ContentSlice9Renderer::SetTextureAndSlice(const std::string_view& _TextureN
 	Buffer.BorderSize.y = _Right;
 	Buffer.BorderSize.z = _Top;
 	Buffer.BorderSize.w = _Bottom;
+}
 
-	Buffer.TexturePer.x = 2.0f;
-	Buffer.TexturePer.y = 2.0f;
+void ContentSlice9Renderer::ResetScale()
+{
+	GetTransform()->SetLocalScale(TextureSize);
 }
 
 void ContentSlice9Renderer::Start()

@@ -15,6 +15,13 @@ public:
 
 	void SetTextureAndSlice(const std::string_view& _TextureName, float _Left, float _Right, float _Top, float _Bottom);
 
+	void SetTexturePer(const float4& _ScalePer)
+	{
+		Buffer.TexturePer = _ScalePer;
+	}
+
+	void ResetScale();
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

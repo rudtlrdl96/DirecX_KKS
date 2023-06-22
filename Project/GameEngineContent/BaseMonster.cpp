@@ -159,5 +159,6 @@ void BaseMonster::PlaySpeechBubble(const std::string_view& _TalkString, float _L
 	.Pivot = BubblePivot,
 	.IsLoop = false,
 	.FontSize = 17,
-	.LiveTime = _LiveTime,});
+	.LiveTime = _LiveTime,
+	.IsAutoScale = true});
 }

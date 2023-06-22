@@ -25,6 +25,28 @@ void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void
 	Progress = 0.0f;
 	IsReadEnd = false;
 	ReadEndCallback = _Callback;
+
+	float TextureSclaeX = 610.0f;
+	float CurX = 0.0f;
+	float FontX = FontSize * 0.7f;
+
+	for (size_t i = 0; i < MainText.size(); i++)
+	{
+		CurX += FontX;
+
+		if (MainText[i] == L'\n')
+		{
+			CurX = 0.0f;
+			continue;
+		}
+
+		if (CurX + FontX >= TextureSclaeX)
+		{
+			CurX = 0.0f;
+
+			MainText.insert(MainText.begin() + i, L'\n');
+		}
+	}
 }
 
 #include "GameEngineActorGUI.h"
@@ -82,8 +104,8 @@ void TalkBox::Start()
 
 	FontTextRender = CreateComponent<ContentUIFontRenderer>();
 	FontTextRender->SetFont("³Ø½¼Lv2°íµñ");
-	FontTextRender->GetTransform()->SetLocalPosition(float4(-295, 25, -1));
-	FontTextRender->SetScale(16);
+	FontTextRender->GetTransform()->SetLocalPosition(float4(-300, 25, -1));
+	FontTextRender->SetScale(FontSize);
 	FontTextRender->SetColor(float4(0.58431f, 0.48627f, 0.3647f, 1));
 	FontTextRender->Off();
 }

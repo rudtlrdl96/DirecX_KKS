@@ -178,7 +178,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 
 			std::function<void()> VeteranHeroTalk05 = [this, VeteranHeroTalk06]()
 			{
-				TalkBoxPtr->SetMainText(L"그게 아니면 내가 패배할 이유는 없잖아? \n같잖은 스켈레톤 주제에 감히 용사님을 이겨먹을 생각을 하다니.", VeteranHeroTalk06);
+				TalkBoxPtr->SetMainText(L"그게 아니면 내가 패배할 이유는 없잖아? 같잖은 스켈레톤 주제에 감히 용사님을 이겨먹을 생각을 하다니.", VeteranHeroTalk06);
 			};
 
 			std::function<void()> VeteranHeroTalk04 = [this, VeteranHeroTalk05]()
@@ -198,11 +198,11 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 
 			std::function<void()> VeteranHeroTalk01 = [this, VeteranHeroTalk02]()
 			{
-				TalkBoxPtr->SetMainText(L"첫 모험에서 고작 스켈레톤 한 마리에게 패배했다는 소문이 퍼지자, 아무도 날 인정해 주지 \n않더군... 그들을 위해 무수히 많은 사인들을 준비했는데 말이야.", VeteranHeroTalk02);
+				TalkBoxPtr->SetMainText(L"첫 모험에서 고작 스켈레톤 한 마리에게 패배했다는 소문이 퍼지자, 아무도 날 인정해 주지 않더군... 그들을 위해 무수히 많은 사인들을 준비했는데 말이야.", VeteranHeroTalk02);
 			};
 
 			TalkBoxPtr->ActiveTalkBox("견습 용사");
-			TalkBoxPtr->SetMainText(L"스켈레톤 주제에 여기까지 오다니! 마침 내가 혼자일 때 만나서 다행이야. \n개인적인 빚을 이제서야 갚아줄 수 있겠어.", VeteranHeroTalk01);
+			TalkBoxPtr->SetMainText(L"스켈레톤 주제에 여기까지 오다니! 마침 내가 혼자일 때 만나서 다행이야. 개인적인 빚을 이제서야 갚아줄 수 있겠어.", VeteranHeroTalk01);
 		});
 
 	AddEvent("VeteranHero_Script00", LevelCode, [this]()

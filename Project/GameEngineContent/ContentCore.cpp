@@ -40,7 +40,6 @@
 #include "BackgroundToolLevel.h"
 #include "AnimationColToolLevel.h"
 #include "BrokenObjectTool.h"
-#include "Slice9TestLevel.h"
 
 ContentCore::ContentCore()
 {
@@ -88,11 +87,10 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<BackgroundToolLevel>("BackgroundTool");
 	GameEngineCore::CreateLevel<AnimationColToolLevel>("AnimationColTool");
 	GameEngineCore::CreateLevel<BrokenObjectTool>("BrokenObjectTool");
-	GameEngineCore::CreateLevel<Slice9TestLevel>("Slice9Test");
 
 	Inventory::ResetSkull();
 
-	GameEngineCore::ChangeLevel("Slice9Test");
+	GameEngineCore::ChangeLevel("Opening");
 
 }
 
