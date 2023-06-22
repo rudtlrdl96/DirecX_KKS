@@ -48,6 +48,6 @@ private:
 
 	size_t Index = 0;
 
-	float4 FontColorFadeStart = float4(0.63921f, 0.53333f, 0.38431f, 0.0f);
-	float4 FontColorFadeEnd = float4(0.63921f, 0.53333f, 0.38431f, 1.0f);
+	float4 FontColorFadeStart = float4(0.6352f, 0.5333f, 0.3607f, 0.0f);
+	float4 FontColorFadeEnd = float4(0.6352f, 0.5333f, 0.3607f, 1.0f);
 };
