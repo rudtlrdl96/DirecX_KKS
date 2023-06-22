@@ -23,6 +23,7 @@ public:
 	StoryFontActor& operator=(StoryFontActor&& _Other) noexcept = delete;
 
 	void WriteText(std::vector<StoryFontParameter> _TextParameter);
+	void ReadText();
 
 	void Reset();
 	void SkipText();
@@ -40,7 +41,7 @@ private:
 	std::vector<float> WaitTimes;
 
 	float ReadProgress = 0.0f;
-	float FadeSpeed = 1.0f;
+	float FadeSpeed = 1.5f;
 	float FontSize = 19.0f;
 
 	bool IsRead = false;

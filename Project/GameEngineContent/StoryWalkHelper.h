@@ -18,6 +18,7 @@ namespace StoryUI
 		SetFade,
 		SetUnFade,
 		WriteText,
+		ReadText,
 		RemoveText
 	};
 

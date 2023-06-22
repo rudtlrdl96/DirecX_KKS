@@ -157,7 +157,7 @@ void StoryPage::Write_SetUnFade()
 	WalkHelpers.push_back(Newhelper);
 }
 
-void StoryPage::Wirte_Text(std::vector<StoryFontParameter> _TextDatas)
+void StoryPage::Write_WriteText(std::vector<StoryFontParameter> _TextDatas)
 {
 	StoryUI::Helper Newhelper;
 	Newhelper.Type = StoryUI::WalkType::WriteText;
@@ -165,7 +165,14 @@ void StoryPage::Wirte_Text(std::vector<StoryFontParameter> _TextDatas)
 	WalkHelpers.push_back(Newhelper);
 }
 
-void StoryPage::Wirte_ResetText()
+void StoryPage::Write_ReadText()
+{
+	StoryUI::Helper Newhelper;
+	Newhelper.Type = StoryUI::WalkType::ReadText;
+	WalkHelpers.push_back(Newhelper);
+}
+
+void StoryPage::Write_ResetText()
 {
 	StoryUI::Helper Newhelper;
 	Newhelper.Type = StoryUI::WalkType::RemoveText;

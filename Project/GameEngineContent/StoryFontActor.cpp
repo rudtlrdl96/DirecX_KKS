@@ -12,12 +12,14 @@ StoryFontActor::~StoryFontActor()
 
 void StoryFontActor::WriteText(std::vector<StoryFontParameter> _TextParameter)
 {
+	Reset();
+
 	TextRender.resize(_TextParameter.size());
 
 	for (size_t i = 0; i < TextRender.size(); i++)
 	{
 		float PosX = _TextParameter[i].PosX;
-		float PosY = FontSize * _TextParameter[i].Line;
+		float PosY = FontSize * 1.3f * -_TextParameter[i].Line;
 
 		TextRender[i] = CreateComponent<ContentUIFontRenderer>();
 		TextRender[i]->GetTransform()->SetParent(GetTransform());	
@@ -31,6 +33,19 @@ void StoryFontActor::WriteText(std::vector<StoryFontParameter> _TextParameter)
 
 	Index = 0;
 	ReadProgress = 0.0f;
+	IsRead = true;
+}
+
+void StoryFontActor::ReadText()
+{
+	for (size_t i = 0; i < Index; i++)
+	{
+		TextRender[i]->SetColor(FontColorFadeEnd);
+	}
+
+	IsRead = true;
+	ReadProgress = 0.0f;
+	++Index;
 }
 
 void StoryFontActor::Reset()
@@ -62,6 +77,11 @@ void StoryFontActor::SkipText()
 
 void StoryFontActor::Update(float _DeltaTime)
 {
+	if (false == IsRead)
+	{
+		return;
+	}
+
 	ReadProgress += _DeltaTime * FadeSpeed;
 
 	if (Index >= TextRender.size())
@@ -75,7 +95,6 @@ void StoryFontActor::Update(float _DeltaTime)
 
 	if (1.0f <= ReadProgress)
 	{
-		ReadProgress = 0.0f;
-		++Index;
+		IsRead = false;
 	}
 }

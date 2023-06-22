@@ -52,6 +52,9 @@ void StoryUI::Helper::Walk(FadeActor* _FadePtr, StoryTextureView* _ViewPtr, Stor
 	case StoryUI::WalkType::WriteText:
 		_Font->WriteText(WriteTextDatas);
 		break;
+	case StoryUI::WalkType::ReadText:
+		_Font->ReadText();
+		break;
 	case StoryUI::WalkType::RemoveText:
 		_Font->Reset();
 		break;

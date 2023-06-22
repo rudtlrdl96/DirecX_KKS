@@ -29,8 +29,8 @@ void StoryLevel::SetOpeningBook()
 
 		Datas[0].StoryText = "밝은 달이 떠있던 밤이었습니다.";
 
-		Page.Wirte_Text(Datas);
-		BookRef.InsertPage(Page);
+		Page.Write_WriteText(Datas);
+		BookRef.InsertPage(Page); 
 	}
 
 	{
@@ -42,17 +42,33 @@ void StoryLevel::SetOpeningBook()
 		BookRef.InsertPage(Page);
 	}
 
-	//{
-	//	StoryPage Page;
-	//	Page.SetFlip(StoryPage::FlipCondition::AnyKey);
-	//	Page.Wirte_ResetText();
-	//	BookRef.InsertPage(Page);
-	//}
+	{
+		StoryPage Page;
+		Page.SetFlip(StoryPage::FlipCondition::UnCondition, 2.0f);
+
+		std::vector<StoryFontParameter> Datas = std::vector<StoryFontParameter>();
+		Datas.resize(3);
+
+		Datas[0].StoryText = "소년은 계속해서 달렸어요.";
+		Datas[0].Line = -0.5f;
+		Datas[0].PosX = -100.0f;
+
+		Datas[1].StoryText = "그 뒤를 검은 형체가 쫓았죠.";
+		Datas[1].Line = -0.5f;
+		Datas[1].PosX = 110.0f;
+
+		Datas[2].StoryText = "아픈 다리로 열심히 도망쳐 보았지만 추격자는 결국 소년을 따라잡았어요.";
+		Datas[2].Line = 0.5f;
+
+		Page.Write_WriteText(Datas);
+		BookRef.InsertPage(Page);
+	}
 
 	{
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_MoveMainTex(float4(-1023, 0, 0, 0), 3000);
+		Page.Write_ReadText();
 		BookRef.InsertPage(Page);
 	}
 
@@ -61,6 +77,7 @@ void StoryLevel::SetOpeningBook()
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_SetSubTex("Story_Opening_01.png", {0, 35});
 		Page.Write_SwapTex();
+		Page.Write_ReadText();
 		Page.Write_FadeIntro(1.0f);
 		BookRef.InsertPage(Page);
 	}
@@ -71,6 +88,23 @@ void StoryLevel::SetOpeningBook()
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_Opening_02.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
+
+		std::vector<StoryFontParameter> Datas = std::vector<StoryFontParameter>();
+		Datas.resize(3);
+
+		Datas[0].StoryText = "소년은 결국 지쳐 쓰러졌고 ";
+		Datas[0].Line = -0.5f;
+		Datas[0].PosX = -130.0f;
+
+		Datas[1].StoryText = "그런 소년의 위에 그림자가 드리워졌어요.";
+		Datas[1].Line = -0.5f;
+		Datas[1].PosX = 130.0f;
+
+		Datas[2].StoryText = "그리고...";
+		Datas[2].Line = 0.5f;
+
+		Page.Write_WriteText(Datas);
+
 		BookRef.InsertPage(Page);
 	}
 
@@ -80,6 +114,14 @@ void StoryLevel::SetOpeningBook()
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_Opening_03.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
+		Page.Write_ReadText();
+		BookRef.InsertPage(Page);
+	}
+
+	{
+		StoryPage Page;
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.Write_ReadText();
 		BookRef.InsertPage(Page);
 	}
 
@@ -87,6 +129,8 @@ void StoryLevel::SetOpeningBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_SetFade();
+		Page.Write_ResetText();
+		Page.Write_ResetText();
 		BookRef.InsertPage(Page);
 	}
 
@@ -101,10 +145,31 @@ void StoryLevel::SetOpeningBook()
 
 	{
 		StoryPage Page;
+		Page.SetFlip(StoryPage::FlipCondition::Time, 1.0f);
+
+		std::vector<StoryFontParameter> Datas = std::vector<StoryFontParameter>();
+		Datas.resize(2);
+
+		Datas[0].StoryText = "저는 그 소년의 마지막을 지켜보려 했어요.";
+		Datas[0].Line = 0.0f;
+		Datas[0].PosX = -40.0f;
+
+		Datas[1].StoryText = "불쌍한 것..";
+		Datas[1].Line = 0.0f;
+		Datas[1].PosX = 165.0f;
+
+		Page.Write_WriteText(Datas);
+
+		BookRef.InsertPage(Page);
+	}
+
+	{
+		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_Opening_05.png", { 508, 2 });
 		Page.Write_FadeIntro(1.0f);
+		Page.Write_ReadText();
 		BookRef.InsertPage(Page);
 	}
 
@@ -112,6 +177,7 @@ void StoryLevel::SetOpeningBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_FadeIn(0.33f);
+		Page.Write_ResetText();
 		BookRef.InsertPage(Page);
 	}
 }
