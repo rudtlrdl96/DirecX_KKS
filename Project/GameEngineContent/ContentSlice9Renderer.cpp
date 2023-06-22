@@ -13,15 +13,19 @@ void ContentSlice9Renderer::SetTextureAndSlice(const std::string_view& _TextureN
 {
 	std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(_TextureName);
 
+	TextureSize = FindTex->GetScale();
+	TextureSize.z = 1.0f;
+
+	GetTransform()->SetLocalScale(TextureSize);
 	GetShaderResHelper().SetTexture("DiffuseTex", _TextureName);
 
-	Buffer.TextureScale = FindTex->GetScale();
-	GetTransform()->SetLocalScale(Buffer.TextureScale);
-	
-	Buffer.Pivot.x = _Left;
-	Buffer.Pivot.y = _Right;
-	Buffer.Pivot.z = _Top;
-	Buffer.Pivot.w = _Bottom;
+	Buffer.BorderSize.x = _Left;
+	Buffer.BorderSize.y = _Right;
+	Buffer.BorderSize.z = _Top;
+	Buffer.BorderSize.w = _Bottom;
+
+	Buffer.TexturePer.x = 2.0f;
+	Buffer.TexturePer.y = 2.0f;
 }
 
 void ContentSlice9Renderer::Start()
@@ -31,11 +35,13 @@ void ContentSlice9Renderer::Start()
 	Init();
 }
 
-
+void ContentSlice9Renderer::Update(float _DeltaTime)
+{
+	Buffer.RenderScale = GetTransform()->GetWorldScale();
+}
 
 void ContentSlice9Renderer::Init()
 {
 	SetPipeLine("2DTexture_Slice");
 	GetShaderResHelper().SetConstantBufferLink("SliceBuffer", Buffer);
-	GetShaderResHelper().SetConstantBufferLink("PixelScaleBuffer", GetTransform()->GetWorldPosition());
 }

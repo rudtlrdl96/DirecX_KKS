@@ -35,7 +35,7 @@ struct Input
 struct OutPut
 {
     float4 Pos : SV_Position;
-    float4 UV : TEXCOORD;
+    float4 TexCoord : TEXCOORD;
 };
 
 OutPut Texture_VS(Input _Value)
@@ -43,52 +43,64 @@ OutPut Texture_VS(Input _Value)
     OutPut OutPutValue = (OutPut) 0;
     _Value.Pos.w = 1.0f;
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
+    OutPutValue.TexCoord = _Value.UV;
+    
     return OutPutValue;
 }
 
 Texture2D DiffuseTex : register(t0);
 SamplerState WRAPSAMPLER : register(s0);
 
-cbuffer SliceBuffer : register(b1)
-{
-    float4 TextureScale;
-    float4 Clip;
-}
-
-cbuffer PixelScaleBuffer : register(b2)
-{
-    float4 BufferWorldScale;
-}
-
 float map(float value, float originalMin, float originalMax, float newMin, float newMax)
 {
     return (value - originalMin) / (originalMax - originalMin) * (newMax - newMin) + newMin;
 }
 
-float process_axis(float coord, float pixel, float texture_pixel, float start, float end)
+
+cbuffer SliceBuffer : register(b1)
 {
-    if (coord > 1.0 - end * pixel)
+    float4 BorderSize; 
+    float4 RenderScale;
+    float4 TexturePer;
+}
+
+float4 Texture_PS(OutPut input) : SV_Target
+{        
+    float2 TextureScale;
+    DiffuseTex.GetDimensions(TextureScale.x, TextureScale.y);
+    
+    TextureScale *= TexturePer.xy;
+    
+    float2 UVScale = (RenderScale.xy / TextureScale);
+    float2 WorldUV = input.TexCoord.xy * UVScale;
+    
+    if (BorderSize.x >= WorldUV.x)
     {
-        return map(coord, 1.0 - end * pixel, 1.0, 1.0 - texture_pixel * end, 1.0);
+        WorldUV.x = WorldUV.x;
     }
-    else if (coord > start * pixel)
+    else if (UVScale.x - BorderSize.y <= WorldUV.x)
     {
-        return map(coord, start * pixel, 1.0 - end * pixel, start * texture_pixel, 1.0 - end * texture_pixel);
+        WorldUV.x = 1.0f - (UVScale.x - WorldUV.x);
     }
     else
     {
-        return map(coord, 0.0, start * pixel, 0.0, start * texture_pixel);
+        WorldUV.x = map(WorldUV.x, BorderSize.x, UVScale.x - BorderSize.y, BorderSize.x, 1.0f - BorderSize.y);
     }
-}
-
-float4 Texture_PS(OutPut _Value) : SV_Target0
-{         
-    float2 pixel_size = TextureScale.xy / BufferWorldScale.xy;    
-    float2 mappedUV = float2(
-		process_axis(_Value.UV.x, pixel_size.x, TextureScale.x, float(Clip.x), float(Clip.y)),
-		process_axis(_Value.UV.y, pixel_size.y, TextureScale.y, float(Clip.z), float(Clip.w))
-	);
     
-    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, mappedUV);
-    return Color;
+    if (BorderSize.z >= WorldUV.y)
+    {
+        WorldUV.y = WorldUV.y;
+    }
+    else if (UVScale.y - BorderSize.w <= WorldUV.y)
+    {
+        WorldUV.y = 1.0f - (UVScale.y - WorldUV.y);
+    }
+    else
+    {
+        WorldUV.y = map(WorldUV.y, BorderSize.z, UVScale.y - BorderSize.w, BorderSize.z, 1.0f - BorderSize.w);
+    }
+    
+    
+    float4 OutColor = DiffuseTex.Sample(WRAPSAMPLER, WorldUV);    
+    return OutColor;
 }

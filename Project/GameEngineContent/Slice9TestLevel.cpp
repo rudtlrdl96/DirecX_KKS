@@ -30,8 +30,12 @@ void Slice9TestLevel::Start()
 	}
 
 	TestActor = CreateActor<GameEngineActor>();
+	TestActor->GetTransform()->SetLocalScale({ 1, 1, 1 });
+
 	SliceRender = TestActor->CreateComponent<ContentSlice9Renderer>();
 
-	SliceRender->SetTextureAndSlice("SpeechBubble.png", 0.1f, 0.9f, 0.1f, 0.9f);
+	SliceRender->SetTextureAndSlice("SpeechBubble.png", 0.3f, 0.3f, 0.15f, 0.34f);
+
+	SliceRender->GetTransform()->SetLocalScale({ 300, 122, 1 });
 
 }

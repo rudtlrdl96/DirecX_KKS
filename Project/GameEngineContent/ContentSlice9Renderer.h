@@ -17,9 +17,11 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _DeltaTime) override;
 	void Init();
 
 private:
 	SliceBuffer Buffer;
+	float4 TextureSize = float4::Zero;
+	
 };
-

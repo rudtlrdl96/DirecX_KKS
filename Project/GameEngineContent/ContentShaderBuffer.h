@@ -57,6 +57,7 @@ public:
 class SliceBuffer
 {
 public:
-	float4 TextureScale = float4::Zero;
-	float4 Pivot = float4::Zero;
+	float4 BorderSize = float4::Zero;
+	float4 RenderScale = float4::Zero;
+	float4 TexturePer = float4::Zero;
 };
