@@ -1,7 +1,7 @@
 #include "PrecompileHeader.h"
 #include "StoryWalkHelper.h"
 
-void StoryUI::Helper::Walk(FadeActor* _FadePtr, StoryTextureView* _ViewPtr, StoryFontActor* _Font)
+void StoryUI::Helper::Walk(FadeActor* _FadePtr, StoryTextureView* _ViewPtr, StoryFontActor* _Font, StorySound* _Sound)
 {
 	if (nullptr == _FadePtr)
 	{
@@ -57,6 +57,15 @@ void StoryUI::Helper::Walk(FadeActor* _FadePtr, StoryTextureView* _ViewPtr, Stor
 		break;
 	case StoryUI::WalkType::RemoveText:
 		_Font->Reset();
+		break;
+	case StoryUI::WalkType::ReadVoice:
+		_Sound->PlayVoice(SoundName);
+		break;		
+	case StoryUI::WalkType::PlayBGM:
+		_Sound->PlayBGM(SoundName);
+		break;
+	case StoryUI::WalkType::ResetBGM:
+		_Sound->ResetBGM();
 		break;
 	default:
 		break;

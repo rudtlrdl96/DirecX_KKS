@@ -33,7 +33,7 @@ void StoryBook::ReadPage()
 		return;
 	}
 
-	if (true == CurPage->IsFlipCheck())
+	if (true == CurPage->IsFlipCheck(StorySoundActor))
 	{
 		if (nullptr == FadeImage)
 		{
@@ -47,7 +47,7 @@ void StoryBook::ReadPage()
 			return;
 		}
 
-		CurPage->PageRead(FadeImage.get(), StoryView.get(), FontActor.get());
+		CurPage->PageRead(FadeImage.get(), StoryView.get(), FontActor.get(), StorySoundActor.get());
 		NextPage();
 	}
 }

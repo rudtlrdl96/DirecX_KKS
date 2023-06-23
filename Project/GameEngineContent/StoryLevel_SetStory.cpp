@@ -9,10 +9,13 @@ void StoryLevel::SetOpeningBook()
 	BookRef.StoryView = StoryView;
 	BookRef.FadeImage = FadeImage;
 	BookRef.FontActor = StoryFont;
+	BookRef.StorySoundActor = StorySoundActor;
 
 	StoryPage::FlipCondition TimeAndKeyFlip = StoryPage::FlipCondition::None;
 	TimeAndKeyFlip = static_cast<StoryPage::FlipCondition>((int)StoryPage::FlipCondition::AnyKey | (int)StoryPage::FlipCondition::Time);
 
+	StoryPage::FlipCondition VoiceAndKeyFlip = StoryPage::FlipCondition::None;
+	VoiceAndKeyFlip = static_cast<StoryPage::FlipCondition>((int)StoryPage::FlipCondition::AnyKey | (int)StoryPage::FlipCondition::VoiceEnd);
 	{
 		StoryPage Page;	
 		Page.SetFlip(StoryPage::FlipCondition::UnCondition);
@@ -29,13 +32,16 @@ void StoryLevel::SetOpeningBook()
 
 		Datas[0].StoryText = "밝은 달이 떠있던 밤이었습니다.";
 
+		Page.Write_ReadVoice("Chapter4_Witch_1.wav");
 		Page.Write_WriteText(Datas);
+		Page.Write_PlayBGM("Wind 2 - low volume.wav");
+
 		BookRef.InsertPage(Page); 
 	}
 
 	{
 		StoryPage Page;
-		Page.SetFlip(TimeAndKeyFlip, 3.0f);
+		Page.SetFlip(TimeAndKeyFlip, 4.0f);
 		Page.Write_SetMainTex("Story_Opening_00.png", float4(375, -14));
 		Page.Write_SetBackTex("Story_Back.png", float4(0, 50));
 		Page.Write_FadeOut(0.5f);
@@ -61,30 +67,34 @@ void StoryLevel::SetOpeningBook()
 		Datas[2].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter4_Witch_2.wav");
+
 		BookRef.InsertPage(Page);
 	}
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_MoveMainTex(float4(-1023, 0, 0, 0), 3000);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter4_Witch_2a.wav");
 		BookRef.InsertPage(Page);
 	}
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_SetSubTex("Story_Opening_01.png", {0, 35});
 		Page.Write_SwapTex();
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter4_Witch_3.wav");
 		Page.Write_FadeIntro(1.0f);
 		BookRef.InsertPage(Page);
 	}
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_Opening_02.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -104,30 +114,33 @@ void StoryLevel::SetOpeningBook()
 		Datas[2].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter4_Witch_4.wav");
 
 		BookRef.InsertPage(Page);
 	}
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_Opening_03.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter4_Witch_4a.wav");
 		BookRef.InsertPage(Page);
 	}
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter4_Witch_4b.wav");
 		BookRef.InsertPage(Page);
 	}
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SetFade();
 		Page.Write_ResetText();
 		Page.Write_ResetText();
@@ -159,23 +172,25 @@ void StoryLevel::SetOpeningBook()
 		Datas[1].PosX = 165.0f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter4_Witch_5.wav"); 
 
 		BookRef.InsertPage(Page);
 	}
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_Opening_05.png", { 508, 2 });
 		Page.Write_FadeIntro(1.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter4_Witch_5a.wav");
 		BookRef.InsertPage(Page);
 	}
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_FadeIn(0.33f);
 		Page.Write_ResetText();
 		BookRef.InsertPage(Page);
@@ -190,6 +205,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 	BookRef.StoryView = StoryView;
 	BookRef.FadeImage = FadeImage;
 	BookRef.FontActor = StoryFont;
+	BookRef.StorySoundActor = StorySoundActor;
 
 	{
 		StoryPage Page;
@@ -206,6 +222,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Page.SetFlip(Flip, 3.0f);
 		Page.Write_SetMainTex("Story_ForestOfHarmony_00.png", float4(0, 35));
 		Page.Write_FadeOut(0.5f);
+		Page.Write_PlayBGM("Forest.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -315,6 +332,7 @@ void StoryLevel::SetGrandHallBook()
 	BookRef.StoryView = StoryView;
 	BookRef.FadeImage = FadeImage;
 	BookRef.FontActor = StoryFont;
+	BookRef.StorySoundActor = StorySoundActor;
 
 	{
 		StoryPage Page;
@@ -458,6 +476,7 @@ void StoryLevel::SetHolyCourtyard()
 	BookRef.StoryView = StoryView;
 	BookRef.FadeImage = FadeImage;
 	BookRef.FontActor = StoryFont;
+	BookRef.StorySoundActor = StorySoundActor;
 
 	{
 		StoryPage Page;
@@ -607,6 +626,7 @@ void StoryLevel::SetEndingBook()
 	BookRef.StoryView = StoryView;
 	BookRef.FadeImage = FadeImage;
 	BookRef.FontActor = StoryFont;
+	BookRef.StorySoundActor = StorySoundActor;
 
 	{
 		StoryPage Page;

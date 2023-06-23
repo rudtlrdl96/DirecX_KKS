@@ -2,6 +2,7 @@
 #include "FadeActor_UI.h"
 #include "StoryTextureView.h"
 #include "StoryFontActor.h"
+#include "StorySound.h"
 
 namespace StoryUI
 {
@@ -19,7 +20,10 @@ namespace StoryUI
 		SetUnFade,
 		WriteText,
 		ReadText,
-		RemoveText
+		RemoveText,
+		ReadVoice,
+		PlayBGM,
+		ResetBGM,
 	};
 
 	class Helper
@@ -30,6 +34,7 @@ namespace StoryUI
 		virtual ~Helper() {}
 
 		std::string TextureName = "";
+		std::string SoundName = "";
 		std::vector<StoryFontParameter> WriteTextDatas;
 
 		float4 Vector = float4::Zero;
@@ -37,7 +42,7 @@ namespace StoryUI
 
 		WalkType Type = WalkType::SetFade;
 
-		void Walk(FadeActor* _FadePtr, StoryTextureView* _ViewPtr, class StoryFontActor* _Font);
+		void Walk(FadeActor* _FadePtr, StoryTextureView* _ViewPtr, class StoryFontActor* _Font, class StorySound* _Sound);
 	};
 
 }

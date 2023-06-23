@@ -20,6 +20,21 @@ public:
 
 	}
 
+	inline bool IsValid() const
+	{
+		return (nullptr != Channel);
+	}
+
+	inline void isPlaying(bool* _IsPlaying) const
+	{
+		if (false == IsValid())
+		{
+			MsgAssert("유효하지 않은 사운드의 실행 여부를 확인하려 했습니다.");
+		}
+
+		Channel->isPlaying(_IsPlaying);
+	}
+
 	void Stop()
 	{
 		Channel->stop();

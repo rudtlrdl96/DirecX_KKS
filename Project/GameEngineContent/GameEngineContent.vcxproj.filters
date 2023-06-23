@@ -945,6 +945,9 @@
     <ClInclude Include="FadeActor_UI.h">
       <Filter>2_Actor\UI\Common</Filter>
     </ClInclude>
+    <ClInclude Include="StorySound.h">
+      <Filter>1_Class\Story</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1570,6 +1573,9 @@
     </ClCompile>
     <ClCompile Include="FadeActor_UI.cpp">
       <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="StorySound.cpp">
+      <Filter>1_Class\Story</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

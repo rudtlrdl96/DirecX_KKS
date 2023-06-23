@@ -570,6 +570,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="StorySound.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SueKeleton.h">
       <SubType>
       </SubType>
@@ -1324,6 +1328,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="StoryHero_FirstHero_Opening.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StorySound.cpp">
       <SubType>
       </SubType>
     </ClCompile>

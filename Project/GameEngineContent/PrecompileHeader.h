@@ -7,6 +7,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineDebug3D.h>
 #include <GameEngineCore/GameEngineFontRenderer.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 #include "int2.h"
 #include "ContentDebug.h"

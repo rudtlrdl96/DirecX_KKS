@@ -26,6 +26,7 @@ private:
 	std::shared_ptr<FadeActor_UI> FadeImage = nullptr;
 	std::shared_ptr<StoryTextureView> StoryView = nullptr;
 	std::shared_ptr<StoryFontActor> FontActor = nullptr;
+	std::shared_ptr<StorySound> StorySoundActor = nullptr;
 
 	StoryPage* CurPage = nullptr;
 	size_t CurPageNumber = 0;

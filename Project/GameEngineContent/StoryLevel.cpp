@@ -8,6 +8,7 @@
 #include "StoryFontActor.h"
 #include "StoryTextureView.h"
 #include "StoryBackImage.h"
+#include "StorySound.h"
 
 StoryLevel::StoryName StoryLevel::ChangeStoryName = StoryName::Opening;
 std::string StoryLevel::StoryEndMoveLevel = "";
@@ -26,19 +27,34 @@ void StoryLevel::Start()
 {
 	UILevel::Start();
 
-	GameEngineDirectory Path;
-	Path.MoveParentToDirectory("Resources");
-	Path.Move("Resources");
-	Path.Move("Texture");
-	Path.Move("9_Story");
-	Path.Move("UI");
-
 	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("9_Story");
+		Path.Move("UI");
+
 		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
 
 		for (size_t i = 0; i < Files.size(); i++)
 		{
 			std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Load(Files[i].GetFullPath());
+		}
+	}
+
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Sound");
+		Path.Move("StorySound");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".wav" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			GameEngineSound::Load(Files[i].GetFullPath());
 		}
 	}
 
@@ -62,6 +78,8 @@ void StoryLevel::Start()
 	StoryFont = CreateActor<StoryFontActor>();
 	StoryFont->GetTransform()->SetLocalPosition({ 0, -270, -2000});
 	
+	StorySoundActor = CreateActor<StorySound>();
+
 	SetOpeningBook();
 	SetForestOfHarmonyBook();
 	SetGrandHallBook();
@@ -108,12 +126,21 @@ void StoryLevel::Update(float _DeltaTime)
 
 void StoryLevel::LevelChangeStart()
 {
+	UILevel::LevelChangeStart();
+
 	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 	Ptr->SetTarget(StoryFont->GetTransform());
 	Ptr->On();
 
 	SetStoryName(ChangeStoryName);
 	StoryReset();
+	StorySoundActor->ResetBGM();
+}
+
+void StoryLevel::LevelChangeEnd()
+{
+	UILevel::LevelChangeEnd();
+	StorySoundActor->ResetBGM();
 }
 
 
@@ -123,6 +150,7 @@ void StoryLevel::StoryReset()
 	FadeImage->Reset();
 	StoryView->Reset();
 	StoryFont->Reset();
+	StorySoundActor->ResetBGM();
 
 	std::map<StoryName, StoryBook>::iterator LoopIter = StoryBookDatas.begin();
 	std::map<StoryName, StoryBook>::iterator EndIter = StoryBookDatas.end();

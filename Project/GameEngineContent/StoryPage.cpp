@@ -11,7 +11,7 @@ StoryPage::~StoryPage()
 {
 }
 
-void StoryPage::PageRead(FadeActor* FadePtr, StoryTextureView* _View, StoryFontActor* _Font)
+void StoryPage::PageRead(FadeActor* FadePtr, StoryTextureView* _View, StoryFontActor* _Font, StorySound* _Sound)
 {
 	if (nullptr == FadePtr)
 	{
@@ -25,7 +25,7 @@ void StoryPage::PageRead(FadeActor* FadePtr, StoryTextureView* _View, StoryFontA
 
 	for (size_t i = 0; i < WalkHelpers.size(); i++)
 	{
-		WalkHelpers[i].Walk(FadePtr, _View, _Font);
+		WalkHelpers[i].Walk(FadePtr, _View, _Font, _Sound);
 	}
 
 }
@@ -36,7 +36,7 @@ void StoryPage::SetFlip(FlipCondition _Condition, float _Time/*= 5.0f*/)
 	FlipTime = _Time;
 }
 
-bool StoryPage::IsFlipCheck()
+bool StoryPage::IsFlipCheck(std::shared_ptr<StorySound> _SoundActor)
 {
 	bool Result = false;
 	int Check = static_cast<int>(FlipCheck);
@@ -44,6 +44,23 @@ bool StoryPage::IsFlipCheck()
 	if(Check & static_cast<int>(FlipCondition::UnCondition))
 	{
 		return true;
+	}
+
+	if (Check & static_cast<int>(FlipCondition::VoiceEnd))
+	{
+		if (true == _SoundActor->IsVoiceEnd())
+		{
+			VoiceFlipTime += GameEngineTime::GlobalTime.GetDeltaTime();
+
+			if (0.5f <= VoiceFlipTime)
+			{
+				Result = true;
+			}
+		}
+		else
+		{
+			VoiceFlipTime = 0.0f;
+		}
 	}
 
 	if (Check & static_cast<int>(FlipCondition::Time))
@@ -176,5 +193,28 @@ void StoryPage::Write_ResetText()
 {
 	StoryUI::Helper Newhelper;
 	Newhelper.Type = StoryUI::WalkType::RemoveText;
+	WalkHelpers.push_back(Newhelper);
+}
+
+void StoryPage::Write_ReadVoice(const std::string_view& _VoiceName)
+{
+	StoryUI::Helper Newhelper;
+	Newhelper.Type = StoryUI::WalkType::ReadVoice;
+	Newhelper.SoundName = _VoiceName;
+	WalkHelpers.push_back(Newhelper);
+}
+
+void StoryPage::Write_PlayBGM(const std::string_view& _SoundName)
+{
+	StoryUI::Helper Newhelper;
+	Newhelper.Type = StoryUI::WalkType::PlayBGM;
+	Newhelper.SoundName = _SoundName;
+	WalkHelpers.push_back(Newhelper);
+}
+
+void StoryPage::Write_ResetBGM()
+{
+	StoryUI::Helper Newhelper;
+	Newhelper.Type = StoryUI::WalkType::ResetBGM;
 	WalkHelpers.push_back(Newhelper);
 }
