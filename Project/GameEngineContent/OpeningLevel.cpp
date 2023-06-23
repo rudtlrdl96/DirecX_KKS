@@ -28,6 +28,8 @@ void OpeningLevel::Start()
 	DirectoryPath.Move("Data");
 	DirectoryPath.Move("1_Opening");
 
+	BgmName = "Tutorial.wav";
+
 	{
 		DirectoryPath.Move("Background");
 		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_Opening_Background");

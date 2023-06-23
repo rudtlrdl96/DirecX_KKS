@@ -163,6 +163,8 @@ void BattleLevel::SetPlayerPos(const float4& _Pos)
 
 void BattleLevel::LevelChangeStart()
 {
+	ContentLevel::LevelChangeStart();
+
 	BaseMonster::SetMonstersMove(false);
 
 	StoryFadePtr->Reset();
@@ -191,6 +193,8 @@ void BattleLevel::LevelChangeStart()
 
 void BattleLevel::LevelChangeEnd()
 {
+	ContentLevel::LevelChangeEnd();
+
 	ActorGUIPtr->Off();
 
 	if (nullptr != MainPlayer)

@@ -99,3 +99,19 @@ void ContentLevel::Update(float _DeltaTime)
 	GameEngineLevel::Update(_DeltaTime);
 	MainCamCtrl.Update(_DeltaTime);
 }
+
+void ContentLevel::LevelChangeStart()
+{
+	if ("" != BgmName)
+	{
+		BgmPlayer = GameEngineSound::Play(BgmName);
+	}
+}
+
+void ContentLevel::LevelChangeEnd()
+{
+	if (true == BgmPlayer.IsValid())
+	{
+		BgmPlayer.Stop();
+	}
+}

@@ -22,6 +22,8 @@ void TitleLevel::Start()
 {
 	UILevel::Start();
 
+	BgmName = "MainTitle_Hardmode.wav";
+
 	GameEngineDirectory Path;
 	Path.MoveParentToDirectory("Resources");
 	Path.Move("Resources");
@@ -103,5 +105,7 @@ void TitleLevel::Update(float _DeltaTime)
 
 void TitleLevel::LevelChangeStart()
 {
+	UILevel::LevelChangeStart();
+
 	IsInputWait = true;
 }

@@ -78,6 +78,8 @@ void BackgroundToolLevel::Update(float _DeltaTime)
 
 void BackgroundToolLevel::LevelChangeStart()
 {
+	ContentLevel::LevelChangeStart();
+
 	if (nullptr == BackgroundToolGUIPtr)
 	{
 		MsgAssert_Rtti<BackgroundToolLevel>(" - 백그라운드툴을 찾을 수 없습니다");
@@ -97,6 +99,8 @@ void BackgroundToolLevel::LevelChangeStart()
 
 void BackgroundToolLevel::LevelChangeEnd()
 {
+	ContentLevel::LevelChangeEnd();
+
 	if (nullptr == BackgroundToolGUIPtr)
 	{
 		MsgAssert_Rtti<BackgroundToolLevel>(" - 백그라운드툴을 찾을 수 없습니다");

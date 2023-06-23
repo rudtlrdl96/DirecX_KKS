@@ -54,6 +54,8 @@ void EndingLogoLevel::Update(float _DeltaTime)
 
 void EndingLogoLevel::LevelChangeStart()
 {
+	UILevel::LevelChangeStart();
+
 	LogoWaitTime = 0.0f;
 	LogoPtr->Off();
 }

@@ -35,6 +35,8 @@ void AnimationColToolLevel::Update(float _DeltaTime)
 
 void AnimationColToolLevel::LevelChangeStart()
 {
+	ContentLevel::LevelChangeStart();
+
 	if (nullptr == AnimationCollisionGUIPtr)
 	{
 		MsgAssert_Rtti<AnimationColToolLevel>(" - AttackColGui가 생성되지 않았습니다");
@@ -48,6 +50,8 @@ void AnimationColToolLevel::LevelChangeStart()
 
 void AnimationColToolLevel::LevelChangeEnd()
 {
+	ContentLevel::LevelChangeEnd();
+
 	if (nullptr == AnimationCollisionGUIPtr)
 	{
 		MsgAssert_Rtti<AnimationColToolLevel>(" - AttackColGui가 생성되지 않았습니다");

@@ -164,6 +164,8 @@ void MapToolLevel::Update(float _DeltaTime)
 
 void MapToolLevel::LevelChangeStart()
 {
+	ContentLevel::LevelChangeStart();
+
 	EffectManager::SetLevel(DynamicThis<GameEngineLevel>());
 
 	if (nullptr == MapToolGuiPtr)
@@ -185,6 +187,8 @@ void MapToolLevel::LevelChangeStart()
 
 void MapToolLevel::LevelChangeEnd()
 {
+	ContentLevel::LevelChangeEnd();
+
 	EffectManager::SetLevel(nullptr);
 
 	if (nullptr == MapToolGuiPtr)

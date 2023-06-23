@@ -70,6 +70,7 @@ void ContentCore::CoreLoading()
 	CommonTextureLoad();
 	ImGuiCreate();
 	FontLoad();
+	SoundLoad();
 
 	// GameLevel Create
 	GameEngineCore::CreateLevel<TitleLevel>("Title");
@@ -90,7 +91,7 @@ void ContentCore::CoreLoading()
 
 	Inventory::ResetSkull();
 
-	GameEngineCore::ChangeLevel("Story");
+	GameEngineCore::ChangeLevel("Title");
 
 }
 
@@ -335,4 +336,22 @@ void ContentCore::FontLoad()
 	GameEngineFont::Load("»ﬁ∏’µ’±Ÿ«ÏµÂ∂Û¿ŒSimBold");
 	GameEngineFont::Load("HY∞ﬂ∞ÌµÒ");
 	GameEngineFont::Load("Perfect DOS VGA 437");
+}
+
+void ContentCore::SoundLoad()
+{
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Sound");
+		Path.Move("BGM");
+
+		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".wav" });
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			GameEngineSound::Load(Files[i].GetFullPath());
+		}
+	}
 }

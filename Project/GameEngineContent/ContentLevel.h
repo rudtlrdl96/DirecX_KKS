@@ -26,13 +26,19 @@ public:
 
 protected:
 	CameraController MainCamCtrl;
+	std::string BgmName = "";
 
 	const UINT LevelCode = 0;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	void LevelChangeStart() override;
+	void LevelChangeEnd() override;
+
 private:
 	std::shared_ptr<GameEngineCamera> MainCam = nullptr;
 	std::map<std::string, std::map<UINT, std::function<void(void)>>> EventCallback;
+
+	GameEngineSoundPlayer BgmPlayer;
 };

@@ -25,6 +25,8 @@ void ForestOfHarmonyLevel::Start()
 {
 	BattleLevel::Start();
 
+	BgmName = "Chapter1.wav";
+
 	IntroTilemap = CreateActor<Tilemap>();
 
 	GameEngineDirectory DirectoryPath;

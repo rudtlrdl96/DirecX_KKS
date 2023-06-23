@@ -17,6 +17,8 @@ void CastleLevel::Start()
 {
 	BattleLevel::Start();
 
+	BgmName = "DemonCastle.wav";
+
 	GameEngineDirectory DirectoryPath;
 	DirectoryPath.MoveParentToDirectory("Resources");
 	DirectoryPath.Move("Resources");
