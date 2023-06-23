@@ -41,7 +41,7 @@ void StoryLevel::SetOpeningBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(TimeAndKeyFlip, 4.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SetMainTex("Story_Opening_00.png", float4(375, -14));
 		Page.Write_SetBackTex("Story_Back.png", float4(0, 50));
 		Page.Write_FadeOut(0.5f);
@@ -207,9 +207,11 @@ void StoryLevel::SetForestOfHarmonyBook()
 	BookRef.FontActor = StoryFont;
 	BookRef.StorySoundActor = StorySoundActor;
 
+	StoryPage::FlipCondition TimeAndKeyFlip = StoryPage::FlipCondition::None;
+	TimeAndKeyFlip = static_cast<StoryPage::FlipCondition>((int)StoryPage::FlipCondition::AnyKey | (int)StoryPage::FlipCondition::Time);
 
-	StoryPage::FlipCondition KeyAndTimeFlip = StoryPage::FlipCondition::None;
-	KeyAndTimeFlip = static_cast<StoryPage::FlipCondition>((int)StoryPage::FlipCondition::AnyKey | (int)StoryPage::FlipCondition::Time);
+	StoryPage::FlipCondition VoiceAndKeyFlip = StoryPage::FlipCondition::None;
+	VoiceAndKeyFlip = static_cast<StoryPage::FlipCondition>((int)StoryPage::FlipCondition::AnyKey | (int)StoryPage::FlipCondition::VoiceEnd);
 
 	{
 		StoryPage Page;
@@ -220,7 +222,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(KeyAndTimeFlip, 3.0f);
+		Page.SetFlip(StoryPage::FlipCondition::UnCondition);
 
 		std::vector<StoryFontParameter> Datas = std::vector<StoryFontParameter>();
 		Datas.resize(1);
@@ -230,12 +232,13 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 		Page.Write_WriteText(Datas);
 		Page.Write_ReadVoice("Chapter1_Witch_1.wav");
+		BookRef.InsertPage(Page);
 	}
 
 	{
 		StoryPage Page;
 
-		Page.SetFlip(KeyAndTimeFlip, 3.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SetMainTex("Story_ForestOfHarmony_00.png", float4(0, 35));
 		Page.Write_FadeOut(0.5f);
 
@@ -261,7 +264,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_2a.wav");
 		BookRef.InsertPage(Page);
@@ -269,7 +272,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_ForestOfHarmony_01.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -280,7 +283,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_ForestOfHarmony_02.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -301,7 +304,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_4a.wav");
 		BookRef.InsertPage(Page);
@@ -309,7 +312,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_ForestOfHarmony_03.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -331,7 +334,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_6.wav");
 		BookRef.InsertPage(Page);
@@ -339,7 +342,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 
 		std::vector<StoryFontParameter> Datas = std::vector<StoryFontParameter>();
 		Datas.resize(2);
@@ -358,7 +361,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_ForestOfHarmony_04.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -369,7 +372,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_ForestOfHarmony_05.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -391,7 +394,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_9.wav");
 		BookRef.InsertPage(Page);
@@ -399,7 +402,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_ForestOfHarmony_06.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -427,7 +430,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_10a.wav");
 		BookRef.InsertPage(Page);
@@ -435,7 +438,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_11.wav");
 		BookRef.InsertPage(Page);
@@ -443,7 +446,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_ForestOfHarmony_07.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -465,7 +468,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_12a.wav");
 		BookRef.InsertPage(Page);
@@ -473,7 +476,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_ForestOfHarmony_08.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -500,7 +503,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_14.wav");
 		BookRef.InsertPage(Page);
@@ -508,7 +511,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_14a.wav");
 		BookRef.InsertPage(Page);
@@ -516,7 +519,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_ForestOfHarmony_09.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -538,7 +541,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_16.wav");
 		BookRef.InsertPage(Page);
@@ -546,7 +549,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{	
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 
 		std::vector<StoryFontParameter> Datas = std::vector<StoryFontParameter>();
 		Datas.resize(3);
@@ -570,7 +573,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_18.wav");
 		BookRef.InsertPage(Page);
@@ -578,7 +581,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_ReadText();
 		Page.Write_ReadVoice("Chapter1_Witch_18a.wav");
 		BookRef.InsertPage(Page);
@@ -586,7 +589,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(StoryPage::FlipCondition::AnyKey);
 		Page.Write_SwapTex();
 		Page.Write_SetMainTex("Story_ForestOfHarmony_10.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
@@ -605,7 +608,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 	{
 		StoryPage Page;
-		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
+		Page.SetFlip(VoiceAndKeyFlip);
 		Page.Write_FadeIn(0.3f);
 		Page.Write_ResetText();
 		BookRef.InsertPage(Page);
