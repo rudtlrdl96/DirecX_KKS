@@ -19,7 +19,7 @@ void StoryFontActor::WriteText(std::vector<StoryFontParameter> _TextParameter)
 	for (size_t i = 0; i < TextRender.size(); i++)
 	{
 		float PosX = _TextParameter[i].PosX;
-		float PosY = FontSize * 1.3f * -_TextParameter[i].Line;
+		float PosY = FontSize * 1.4f * -_TextParameter[i].Line;
 
 		TextRender[i] = CreateComponent<ContentUIFontRenderer>();
 		TextRender[i]->GetTransform()->SetParent(GetTransform());	
@@ -38,8 +38,6 @@ void StoryFontActor::WriteText(std::vector<StoryFontParameter> _TextParameter)
 
 void StoryFontActor::ReadText()
 {
-	++Index;
-
 	for (size_t i = 0; i < Index; i++)
 	{
 		TextRender[i]->SetColor(FontColorFadeEnd);
@@ -47,6 +45,7 @@ void StoryFontActor::ReadText()
 
 	IsRead = true;
 	ReadProgress = 0.0f;
+	++Index;
 }
 
 void StoryFontActor::Reset()
