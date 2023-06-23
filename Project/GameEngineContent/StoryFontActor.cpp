@@ -38,6 +38,7 @@ void StoryFontActor::WriteText(std::vector<StoryFontParameter> _TextParameter)
 
 void StoryFontActor::ReadText()
 {
+	++Index;
 	for (size_t i = 0; i < Index; i++)
 	{
 		TextRender[i]->SetColor(FontColorFadeEnd);
@@ -45,7 +46,6 @@ void StoryFontActor::ReadText()
 
 	IsRead = true;
 	ReadProgress = 0.0f;
-	++Index;
 }
 
 void StoryFontActor::Reset()
