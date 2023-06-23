@@ -29,6 +29,7 @@ void OpeningLevel::Start()
 	DirectoryPath.Move("1_Opening");
 
 	BgmName = "Tutorial.wav";
+	BGM_FadeIn_Time = 3.0f;
 
 	{
 		DirectoryPath.Move("Background");

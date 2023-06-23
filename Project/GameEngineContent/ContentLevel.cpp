@@ -102,16 +102,76 @@ void ContentLevel::Update(float _DeltaTime)
 
 void ContentLevel::LevelChangeStart()
 {
-	if ("" != BgmName)
-	{
-		BgmPlayer = GameEngineSound::Play(BgmName);
-	}
+	PlayBaseBGM();
 }
 
 void ContentLevel::LevelChangeEnd()
 {
-	if (true == BgmPlayer.IsValid())
+	StopBaseBGM();
+}
+
+void ContentLevel::PlayBaseBGM()
+{
+	if ("" != BgmName)
 	{
-		BgmPlayer.Stop();
+		if (false == BaseBgmPlayer.IsValid())
+		{
+			BaseBgmPlayer = GameEngineSound::Play(BgmName);
+			BaseBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, 1.0f);
+		}
+		else
+		{
+			bool IsPlaying = false;
+			BaseBgmPlayer.isPlaying(&IsPlaying);
+
+			if (false == IsPlaying)
+			{
+				BaseBgmPlayer.setPosition(0);
+				BaseBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, 1.0f);
+			}
+		}
+	}
+}
+
+void ContentLevel::StopBaseBGM()
+{
+	if (true == BaseBgmPlayer.IsValid())
+	{
+		bool IsPlaying = false;
+		BaseBgmPlayer.isPlaying(&IsPlaying);
+
+		if (true == IsPlaying)
+		{
+			BaseBgmPlayer.SoundFadeOut(BGM_FadeOut_Time, 0.0f, false);
+		}
+	}
+}
+
+void ContentLevel::PlayCustomBgm(const std::string_view& _BgmName, float _FadeTime /*= 1.0f*/)
+{
+	StopCustomBgm();
+
+	CustomBgmPlayer = GameEngineSound::Play(_BgmName);
+
+	if (false == CustomBgmPlayer.IsValid())
+	{
+		MsgAssert_Rtti<ContentLevel>(" - Custom BGM 실행에 실패했습니다");
+		return;
+	}
+
+	CustomBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, _FadeTime);
+}
+
+void ContentLevel::StopCustomBgm(float _FadeTime /*= 1.0f*/)
+{
+	if (true == CustomBgmPlayer.IsValid())
+	{
+		bool IsPlaying = false;
+		CustomBgmPlayer.isPlaying(&IsPlaying);
+
+		if (true == IsPlaying)
+		{
+			CustomBgmPlayer.SoundFadeOut(_FadeTime, true);
+		}
 	}
 }

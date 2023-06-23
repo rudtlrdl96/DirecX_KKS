@@ -12,6 +12,8 @@ VeteranHero::VeteranHero()
 
 VeteranHero::~VeteranHero()
 {
+	GetContentLevel()->StopCustomBgm();
+	GetContentLevel()->PlayBaseBGM();
 }
 
 void VeteranHero::Destroy()
@@ -198,6 +200,7 @@ void VeteranHero::Start()
 		{
 			IsIntro = false;
 			HeroHealthBar->On();
+			GetContentLevel()->PlayCustomBgm("Chapter1_Boss.wav");
 		});
 
 	LevelPtr->AddEvent("VeteranHero_Script01_End", GetActorCode(), [this]()
@@ -405,6 +408,9 @@ void VeteranHero::Update(float _DeltaTime)
 			PlayAnimation("DeathIntro", false);
 			GetContentLevel()->CallEvent("VeteranHero_Death");
 			GetContentLevel()->GetCamCtrl().CameraShake(1, 1, 0);
+
+			GetContentLevel()->StopCustomBgm();
+			GetContentLevel()->PlayBaseBGM();
 		}
 
 		if (true == Render->IsAnimationEnd())
@@ -453,6 +459,8 @@ void VeteranHero::Update(float _DeltaTime)
 
 			Battle_Platform_Left->On();
 			Battle_Platform_Right->On();
+
+			GetContentLevel()->StopBaseBGM();
 		}
 	}
 

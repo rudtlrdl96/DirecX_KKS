@@ -3,6 +3,7 @@
 #include "HealthBar.h"
 #include "RookieHero_HealthBar.h"
 #include "MonsterDeadBodyActor.h"
+#include "ContentLevel.h"
 
 RookieHero::RookieHero()
 {
@@ -10,7 +11,8 @@ RookieHero::RookieHero()
 
 RookieHero::~RookieHero()
 {
-	int a = 0;
+	GetContentLevel()->StopCustomBgm();
+	GetContentLevel()->PlayBaseBGM();
 }
 
 void RookieHero::Destroy()
@@ -45,6 +47,8 @@ void RookieHero::Start()
 	PatternWaitTime = 1.5f;
 
 	PauseTimes["DeathIntro"][0] = 0.3f;
+
+	BubblePivot = float4(0, 150, -100);
 
 	HealthBarPtr = GetLevel()->CreateActor<HealthBar>();
 	HealthBarPtr->GetTransform()->SetParent(GetTransform());
@@ -169,6 +173,7 @@ void RookieHero::Start()
 			HeroHealthBar->On();
 			IsBehaviorLoop = false;
 			IsIntro = false;
+			GetContentLevel()->PlayCustomBgm("Adventurer.wav");
 		});
 }
 
@@ -242,6 +247,9 @@ void RookieHero::Update(float _DeltaTime)
 			HealthBarPtr->Off();
 			HeroHealthBar->SetDeathPicture();
 			PlayAnimation("DeathIntro", false);
+
+			GetContentLevel()->StopCustomBgm();
+			GetContentLevel()->PlayBaseBGM();
 		}
 
 		if (true == Render->IsAnimationEnd())
@@ -280,6 +288,7 @@ void RookieHero::Update(float _DeltaTime)
 
 			Battle_Platform_Left->On();
 			Battle_Platform_Right->On();
+			GetContentLevel()->StopBaseBGM();
 		}
 	}
 		
