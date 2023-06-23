@@ -11,11 +11,7 @@ StorySound::~StorySound()
 
 void StorySound::PlayVoice(const std::string_view& _VoiceName)
 {
-	if (true == VoicePlayer.IsValid())
-	{
-		VoicePlayer.Stop();
-	}
-
+	ResetVoice();
 	VoicePlayer = GameEngineSound::Play(_VoiceName);
 }
 
@@ -24,6 +20,14 @@ void StorySound::PlayBGM(const std::string_view& _SoundName)
 	ResetBGM();
 	BGMPlayer = GameEngineSound::Play(_SoundName);
 	BGMPlayer.SetLoop(-1);
+}
+
+void StorySound::ResetVoice()
+{
+	if (true == VoicePlayer.IsValid())
+	{
+		VoicePlayer.Stop();
+	}
 }
 
 void StorySound::ResetBGM()

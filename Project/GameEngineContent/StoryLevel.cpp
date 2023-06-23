@@ -150,6 +150,7 @@ void StoryLevel::StoryReset()
 	FadeImage->Reset();
 	StoryView->Reset();
 	StoryFont->Reset();
+	StorySoundActor->ResetVoice();
 	StorySoundActor->ResetBGM();
 
 	std::map<StoryName, StoryBook>::iterator LoopIter = StoryBookDatas.begin();

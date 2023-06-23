@@ -54,5 +54,7 @@ private:
 	float VoiceFlipTime = 0.0f;
 
 	std::vector<StoryUI::Helper> WalkHelpers;
+
+	static bool PrevFrameAnykeyDown;
 };
 

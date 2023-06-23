@@ -2,6 +2,8 @@
 #include "StoryPage.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 
+bool StoryPage::PrevFrameAnykeyDown = false;
+
 StoryPage::StoryPage()
 {
 	WalkHelpers.reserve(8);
@@ -40,9 +42,12 @@ bool StoryPage::IsFlipCheck(std::shared_ptr<StorySound> _SoundActor)
 {
 	bool Result = false;
 	int Check = static_cast<int>(FlipCheck);
+	bool CurFrameAnyKey = GameEngineInput::IsAnyKey();
+
 
 	if(Check & static_cast<int>(FlipCondition::UnCondition))
 	{
+		PrevFrameAnykeyDown = CurFrameAnyKey;
 		return true;
 	}
 
@@ -72,13 +77,14 @@ bool StoryPage::IsFlipCheck(std::shared_ptr<StorySound> _SoundActor)
 	}
 
 	if (Check & static_cast<int>(FlipCondition::AnyKey))
-	{
-		if (true == GameEngineInput::IsAnyKey())
+	{		
+		if (true == CurFrameAnyKey && false == PrevFrameAnykeyDown)
 		{
 			Result = true;
 		}
 	}
 
+	PrevFrameAnykeyDown = CurFrameAnyKey;
 	return Result;
 }
 

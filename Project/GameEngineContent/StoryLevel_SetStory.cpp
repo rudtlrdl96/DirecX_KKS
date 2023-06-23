@@ -229,6 +229,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[0].Line = 0.0f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_1.wav");
 	}
 
 	{
@@ -253,8 +254,8 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[2].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
-
 		Page.Write_PlayBGM("Forest.wav");
+		Page.Write_ReadVoice("Chapter1_Witch_2.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -262,6 +263,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_2a.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -272,6 +274,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Page.Write_SetMainTex("Story_ForestOfHarmony_01.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_3.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -292,6 +295,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[1].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_4.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -299,6 +303,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_4a.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -319,6 +324,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[1].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_5.wav");
 
 		BookRef.InsertPage(Page);
 	}
@@ -327,6 +333,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_6.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -344,6 +351,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[1].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_7.wav");
 
 		BookRef.InsertPage(Page);	
 	}
@@ -355,6 +363,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Page.Write_SetMainTex("Story_ForestOfHarmony_04.png", { 0, 35 });
 		Page.Write_FadeIntro(1.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_7a.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -375,6 +384,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[1].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_8.wav");
 
 		BookRef.InsertPage(Page);
 	}
@@ -383,6 +393,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_9.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -398,16 +409,17 @@ void StoryLevel::SetForestOfHarmonyBook()
 
 		Datas[0].StoryText = "소년은 다시 한번 포즈를 잡더니 어서 모험을 떠나, 용사가 되고 싶다 말했어요.";
 		Datas[0].Line = -0.5f;
-		Datas[0].PosX = -170.0f;
+		Datas[0].PosX = -160.0f;
 
 		Datas[1].StoryText = "아버지께 자랑스러운 아들이 되고 싶다면서.";
 		Datas[1].Line = -0.5f;
-		Datas[1].PosX = 283.0f;
+		Datas[1].PosX = 293.0f;
 
 		Datas[2].StoryText = "마왕님은 씁쓸하게 웃으며 그에게 훌룡한 용사가 될 수 있을 거라 다독였어요.";
 		Datas[2].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_10.wav");
 
 		BookRef.InsertPage(Page);
 	}
@@ -417,6 +429,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_10a.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -424,6 +437,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_11.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -444,6 +458,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[1].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_12.wav");
 
 		BookRef.InsertPage(Page);
 	}
@@ -452,6 +467,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_12a.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -477,6 +493,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[2].PosX = 190.0f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_13.wav");
 
 		BookRef.InsertPage(Page);
 	}
@@ -485,6 +502,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_14.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -492,6 +510,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_14a.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -512,6 +531,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[1].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_15.wav");
 
 		BookRef.InsertPage(Page);
 	}
@@ -520,6 +540,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_16.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -542,6 +563,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[2].Line = 0.5f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_17.wav");
 
 		BookRef.InsertPage(Page);
 	}
@@ -550,6 +572,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_18.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -557,6 +580,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		StoryPage Page;
 		Page.SetFlip(StoryPage::FlipCondition::AnyKey, 5.0f);
 		Page.Write_ReadText();
+		Page.Write_ReadVoice("Chapter1_Witch_18a.wav");
 		BookRef.InsertPage(Page);
 	}
 
@@ -574,6 +598,7 @@ void StoryLevel::SetForestOfHarmonyBook()
 		Datas[0].Line = -0.0f;
 
 		Page.Write_WriteText(Datas);
+		Page.Write_ReadVoice("Chapter1_Witch_19.wav");
 
 		BookRef.InsertPage(Page);
 	}

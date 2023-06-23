@@ -14,6 +14,8 @@ public:
 
 	void PlayVoice(const std::string_view& _VoiceName);
 	void PlayBGM(const std::string_view& _SoundName);
+
+	void ResetVoice();
 	void ResetBGM();
 
 	bool IsVoiceEnd() const;
