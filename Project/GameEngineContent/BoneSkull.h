@@ -31,6 +31,9 @@ protected:
 
 	void SwitchEnd() override;
 
+	void Idle_Enter() override;
+	void Idle_Update(float _DeltaTime) override;
+
 	void Skill_SlotA_Enter() override;
 	void Skill_SlotA_Update(float _DeltaTime) override;
 	void Skill_SlotB_Enter() override;
@@ -44,6 +47,8 @@ private:
 	std::shared_ptr<class GameEngineCollision> HeadPickupCol = nullptr;
 	std::shared_ptr<class BoneHead> HeadActor = nullptr;
 	
+	float WaitTime = 0.0f;
+
 	void DataLoad() override;
 	void TextureLoad() override;
 	void CreateAnimation() override;

@@ -44,7 +44,7 @@ void FieldNoteActor::Start()
 
 	TextRender = CreateComponent<GameEngineFontRenderer>();
 	TextRender->SetFont("³Ø½¼Lv2°íµñ");
-	TextRender->GetTransform()->SetLocalPosition(float4(-38, 9, -0.1f));
-	TextRender->SetScale(18);
+	TextRender->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_CENTER | FW1_TEXT_FLAG::FW1_VCENTER));
+	TextRender->SetScale(17);
 	TextRender->SetColor(float4(1.0f, 1.0f, 1.0f, 1));
 }

@@ -347,11 +347,26 @@ void ContentCore::SoundLoad()
 		Path.Move("Sound");
 		Path.Move("BGM");
 
-		std::vector<GameEngineFile> Files = Path.GetAllFile({ ".wav" });
-
-		for (size_t i = 0; i < Files.size(); i++)
 		{
-			GameEngineSound::Load(Files[i].GetFullPath());
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".wav" });
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineSound::Load(Files[i].GetFullPath());
+			}
+		}
+
+
+		Path.MoveParent();
+		Path.Move("UI");
+
+		{
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".wav" });
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineSound::Load(Files[i].GetFullPath());
+			}
 		}
 	}
 }

@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "StoryFontActor.h"
 #include "ContentUIFontRenderer.h"
+#include "TalkArrow.h"
 
 StoryFontActor::StoryFontActor()
 {
@@ -34,6 +35,7 @@ void StoryFontActor::WriteText(std::vector<StoryFontParameter> _TextParameter)
 	Index = 0;
 	ReadProgress = 0.0f;
 	IsRead = true;
+
 }
 
 void StoryFontActor::ReadText()
@@ -61,6 +63,7 @@ void StoryFontActor::Reset()
 		}
 	}
 
+	ArrowPtr->Off();
 	TextRender.clear();
 }
 
@@ -73,6 +76,15 @@ void StoryFontActor::SkipText()
 	}
 
 	Index = TextRender.size();
+}
+
+void StoryFontActor::Start()
+{
+	ArrowPtr = GetLevel()->CreateActor<TalkArrow>();
+	ArrowPtr->GetTransform()->SetParent(GetTransform());
+	ArrowPtr->GetTransform()->SetLocalPosition(float4(450.0f, -30.0f, -0.1f));
+	ArrowPtr->SetSpeed(1.5f);
+	ArrowPtr->Off();
 }
 
 void StoryFontActor::Update(float _DeltaTime)
@@ -96,5 +108,10 @@ void StoryFontActor::Update(float _DeltaTime)
 	if (1.0f <= ReadProgress)
 	{
 		IsRead = false;
+
+		if (Index + 1 >= TextRender.size())
+		{
+			ArrowPtr->On();
+		}
 	}
 }

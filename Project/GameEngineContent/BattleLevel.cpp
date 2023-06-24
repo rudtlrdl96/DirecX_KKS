@@ -52,7 +52,7 @@ void BattleLevel::Start()
 
 	TalkBoxPtr = CreateActor<TalkBox>();
 	TalkBoxPtr->GetTransform()->SetLocalPosition(float4(0, -300, -110.0f));
-	TalkBoxPtr->SetReadSpeed(20.0f);
+	TalkBoxPtr->SetReadSpeed(25.0f);
 	TalkBoxPtr->Off();
 
 	AddEvent("NextLevelMove", LevelCode, [this]()

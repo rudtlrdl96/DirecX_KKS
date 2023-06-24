@@ -44,6 +44,7 @@ private:
 	ColorBuffer Buffer;
 	
 	bool IsReadEnd = true;
+	bool IsBoost = false;
 
 	float ReadSpeed = 1.0f;
 	float Progress = 0.0f;
@@ -51,6 +52,9 @@ private:
 	float ArrowAlpha = 0.0f;
 	float BoostSpeed = 1.0f;
 	float FontSize = 16.0f;
+
+	int ReadSoundCount = 0;
+	int PrevAddIndex = 0;
 
 	std::function<void()> ReadEndCallback = nullptr;
 

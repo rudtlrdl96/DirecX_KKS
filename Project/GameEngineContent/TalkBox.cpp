@@ -20,10 +20,12 @@ void TalkBox::ActiveTalkBox(const std::string_view& _Name, const float4& _NamePi
 
 void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void()> _Callback)
 {
-	BoostSpeed = 1.0f;
 	MainText = _MainText;
-	Progress = 0.0f;
 	IsReadEnd = false;
+	IsBoost = false;
+	BoostSpeed = 1.0f;
+	Progress = 0.0f;
+	ReadSoundCount = 0;
 	ReadEndCallback = _Callback;
 
 	float TextureSclaeX = 610.0f;
@@ -127,7 +129,14 @@ void TalkBox::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("TalkKey"))
 	{
-		BoostSpeed = 10.0f;
+		BoostSpeed = 15.0f;
+		IsBoost = true;
+
+		if (1 <= ReadSoundCount)
+		{
+			GameEngineSound::Play("UI_Talk.wav");
+			ReadSoundCount = 0;
+		}
 	}
 
 	Progress += _DeltaTime * ReadSpeed * BoostSpeed / static_cast<float>(MainText.size());
@@ -148,6 +157,28 @@ void TalkBox::Update(float _DeltaTime)
 	if (0 == ReadIndex)
 	{
 		return;
+	}
+
+	if (PrevAddIndex != ReadIndex)
+	{
+		if (MainText[ReadIndex] != L'\n')
+		{
+			++ReadSoundCount;
+			PrevAddIndex = static_cast<int>(ReadIndex);
+		}
+		else
+		{
+			ReadSoundCount = 0;
+		}
+	}
+
+	if (false == IsBoost)
+	{
+		if (2 <= ReadSoundCount)
+		{
+			GameEngineSound::Play("UI_Talk.wav");
+			ReadSoundCount = 0;
+		}
 	}
 
 	if (false == FontTextRender->IsUpdate())

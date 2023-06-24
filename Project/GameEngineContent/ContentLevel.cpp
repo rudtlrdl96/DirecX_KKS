@@ -117,6 +117,7 @@ void ContentLevel::PlayBaseBGM()
 		if (false == BaseBgmPlayer.IsValid())
 		{
 			BaseBgmPlayer = GameEngineSound::Play(BgmName);
+			BaseBgmPlayer.SetLoop();
 			BaseBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, 1.0f);
 		}
 		else
@@ -152,6 +153,7 @@ void ContentLevel::PlayCustomBgm(const std::string_view& _BgmName, float _FadeTi
 	StopCustomBgm();
 
 	CustomBgmPlayer = GameEngineSound::Play(_BgmName);
+	CustomBgmPlayer.SetLoop(true);
 
 	if (false == CustomBgmPlayer.IsValid())
 	{

@@ -1,5 +1,7 @@
 #include "PrecompileHeader.h"
 #include "CastleFoxHunterNPC.h"
+#include "NPC_TalkBox.h"
+#include "FieldNoteActor.h"
 
 CastleFoxHunterNPC::CastleFoxHunterNPC()
 {
@@ -13,8 +15,104 @@ void CastleFoxHunterNPC::Start()
 {
 	BaseNPC::Start();
 
+	if (nullptr == GameEngineTexture::Find("FoxHunter_UI_Talk.png"))
+	{
+		GameEngineDirectory Path;
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("2_Castle");
+		Path.Move("Npc");
+		Path.Move("FoxHunter");
+		Path.Move("FoxHunter_UI_Talk");
+
+		GameEngineTexture::Load(Path.GetPlusFileName("FoxHunter_UI_Talk.png").GetFullPath());
+	}
+
+
 	MainRender->CreateAnimation({.AnimationName = "Idle", .SpriteName = "FoxHunter_CastleIdle.png", .ScaleToTexture = true});
 	PlayAnimation("Idle", false);
+	NpcTalkBox = GetLevel()->CreateActor<NPC_TalkBox>();
+	NpcTalkBox->GetTransform()->SetParent(GetTransform());
+	NpcTalkBox->GetTransform()->SetWorldPosition(float4(0, -300, -110.0f));
+	NpcTalkBox->SetButtonInterval(float4(0, 35));
+	NpcTalkBox->AddButton("대화", [this]() {PlayNextScript(); });
+	NpcTalkBox->AddButton("머리 받기", [this]() {});
+
+	NpcTalkBox->SetTalkBoxName("인호족 사냥꾼", float4(2, 0));
+
+	NpcTalkBox->AddMainText(L"모을 때는 한참 걸렸는데, 이렇게 하나씩 나눠주다 보면 금방 떨어지더라.");
+	NpcTalkBox->AddMainText(L"네 녀석이 머리통을 갈아끼우든 말든 중요하지 않아.");
+	NpcTalkBox->AddMainText(L"넌 네가 특별하다고 생각하냐? 이 성에 있는 사람들 중 그정도 특별하지 않은 자가 어디 있지?");
+	NpcTalkBox->AddMainText(L"아직도 나에게 볼일이 남았나?");
+	NpcTalkBox->Off();
+
+	TalkEventCol = CreateComponent<GameEngineCollision>();
+	TalkEventCol->SetColType(ColType::AABBBOX2D);
+	TalkEventCol->GetTransform()->SetLocalScale(float4(130, 150, 1));
+	TalkEventCol->GetTransform()->SetLocalPosition(float4(-15, -180));
+
+	if (false == GameEngineInput::IsKey("UseKey"))
+	{
+		GameEngineInput::CreateKey("UseKey", 'F');
+	}
+
+	NoteActor = GetLevel()->CreateActor<FieldNoteActor>();
+	NoteActor->GetTransform()->SetParent(GetTransform());
+	NoteActor->GetTransform()->SetLocalPosition(float4(-15, -275, -100.0f));
+	NoteActor->SetText("F 대화하기");
+	NoteActor->Off();
+
+	NpcImageRender = CreateComponent<GameEngineUIRenderer>();
+	NpcImageRender->SetScaleToTexture("FoxHunter_UI_Talk.png");
+	NpcImageRender->GetTransform()->SetLocalScale(NpcImageRender->GetTransform()->GetLocalScale() * 2.0f);
+
+	NpcImageRender->GetTransform()->SetWorldPosition(float4(408, 67, -108));
+	NpcImageRender->Off();
+
+	GetContentLevel()->AddEvent("CastleReborn", GetActorCode(), [this]()
+		{
+			IsGiveItem = true;
+		});
+
+	CreateTalkScript();
+}
+
+void CastleFoxHunterNPC::Update(float _DeltaTime)
+{
+	if (true == NpcTalkBox->IsUpdate())
+	{
+		NpcImageRender->On();
+		NoteActor->Off();
+		return;
+	}
+	else
+	{
+		NpcImageRender->Off();
+	}
+
+	if (nullptr == TalkEventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	{
+		NoteActor->Off();
+		return;
+	}
+	else
+	{
+		NoteActor->On();
+	}
+
+	if (true == GameEngineInput::IsDown("UseKey"))
+	{
+		if (true == IsGiveItem)
+		{
+			IsGiveItem = false;
+		}
+		else
+		{
+			NpcTalkBox->ButtonActive();
+			NpcTalkBox->On();
+		}
+	}
 }
 
 void CastleFoxHunterNPC::SpriteLoad()
@@ -34,4 +132,97 @@ void CastleFoxHunterNPC::SpriteLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FoxHunter_CastleIdle.png").GetFullPath(), 8, 1);
 	}
 
+}
+
+void CastleFoxHunterNPC::Destroy()
+{
+	GetContentLevel()->RemoveEvent("CastleReborn", GetActorCode());
+}
+
+void CastleFoxHunterNPC::CreateTalkScript()
+{
+	TalkScripts.resize(3);
+
+	TalkScripts[0] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			TalkEndCallback();
+		};
+
+		std::function<void()> Talk1 = [this, TalkEnd]()
+		{
+			NpcTalkBox->SetTalkMainText(L"한때는 그대로 가져와서 박제하는 방법을 사용해봤는데, 마왕님께 크게 혼난 이후론 박제는 안 해.", TalkEnd);
+		};
+
+		NpcTalkBox->SetTalkMainText(L"인간 놈들 머리통은 왜 이렇게 작은 거지? 아기자기한 맛이 있어 계속 모으게 된다고", Talk1);
+		NpcTalkBox->ButtonDisable();
+	};
+
+	TalkScripts[1] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			TalkEndCallback();
+		};
+
+		std::function<void()> Talk3 = [this, TalkEnd]()
+		{
+			NpcTalkBox->SetTalkMainText(L"그를 기리고자 하는 마음에 여기 머리만 들고 왔어. 볼래?", TalkEnd);
+		};
+
+		std::function<void()> Talk2 = [this, Talk3]()
+		{
+			NpcTalkBox->SetTalkMainText(L"검도 잘 휘두르고, 활도 매우 잘 쏘고, 머리도 영특했는데... 역시 마법이 제일 강력한가...", Talk3);
+		};
+
+		std::function<void()> Talk1 = [this, Talk2]()
+		{
+			NpcTalkBox->SetTalkMainText(L"작전 수행 중 친해진 매우 강력한 전사가 있었는데, 이상한 마법에 걸려서 3일 동안 괴로워하다가 숨을 거뒀어.", Talk2);
+		};
+
+		NpcTalkBox->SetTalkMainText(L"한때는 용병이 되어 하모니아 이곳저곳의 수많은 전투에 참여했었지.", Talk1);
+		NpcTalkBox->ButtonDisable();
+	};
+
+	TalkScripts[2] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			TalkEndCallback();
+		};
+
+		std::function<void()> Talk2 = [this, TalkEnd]()
+		{
+			NpcTalkBox->SetTalkMainText(L"물론 다 죽었어.", TalkEnd);
+		};
+
+		std::function<void()> Talk1 = [this, Talk2]()
+		{
+			NpcTalkBox->SetTalkMainText(L"다들 자기 자신이 가장 중요하다고 생각해서 팀워크가 없어. 서로 도왔으면 얼마나 좋았을까.", Talk2);
+		};
+
+		NpcTalkBox->SetTalkMainText(L"한때는 마왕 군 교관으로 일했었지. 오크, 가고일, 웨어울프 다 좋았는데 우리 호인족은 말을 더럽게 안 듣더라.", Talk1);
+		NpcTalkBox->ButtonDisable();
+	};
+}
+
+void CastleFoxHunterNPC::PlayNextScript()
+{
+	++ScriptNumber;
+
+	if (TalkScripts.size() <= ScriptNumber)
+	{
+		ScriptNumber = 0;
+	}
+
+	TalkScripts[ScriptNumber]();
+}
+
+void CastleFoxHunterNPC::TalkEndCallback()
+{
+	NpcTalkBox->Off();
+	GetContentLevel()->CallEvent("PlayerInputUnlock");
+	GetContentLevel()->CallEvent("StoryFadeOut");
+	GetContentLevel()->CallEvent("PlayerFrameActive");
 }

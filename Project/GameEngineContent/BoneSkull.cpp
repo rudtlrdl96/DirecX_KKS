@@ -308,6 +308,33 @@ void BoneSkull::SwitchEnd()
 	HeadReturn();
 }
 
+void BoneSkull::Idle_Enter()
+{
+	PlayerBaseSkull::Idle_Enter();
+
+	WaitTime = 0.0f;
+}
+
+void BoneSkull::Idle_Update(float _DeltaTime)
+{
+	WaitTime += _DeltaTime;
+
+	if (8.0f <= WaitTime && State == BoneSkullState::Normal)
+	{
+		Render->ChangeAnimation("Idle_Wait", false);
+
+		if (true == Render->IsAnimationEnd())
+		{
+			Render->ChangeAnimation("Idle", false);
+			WaitTime = 0.0f;
+		}
+	}
+
+	PlayerBaseSkull::Idle_Update(_DeltaTime);
+
+
+}
+
 void BoneSkull::Skill_SlotA_Enter()
 {
 	PlayerBaseSkull::Skill_SlotA_Enter();
@@ -501,6 +528,7 @@ void BoneSkull::CreateAnimation()
 		.Start = 0, .End = 44, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Castle_Reborn", .SpriteName = "BoneSkull_Normal_RebornCastle.png",
 		.Start = 0, .End = 26, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Idle_Wait", .SpriteName = "BoneSkull_Wait.png", .FrameInter = 0.11f, .ScaleToTexture = true });
 }
 
 void BoneSkull::AnimationColLoad()

@@ -948,6 +948,12 @@
     <ClInclude Include="StorySound.h">
       <Filter>1_Class\Story</Filter>
     </ClInclude>
+    <ClInclude Include="NPC_TalkBox.h">
+      <Filter>2_Actor\UI\Talk</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkButton.h">
+      <Filter>2_Actor\UI\Talk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1576,6 +1582,12 @@
     </ClCompile>
     <ClCompile Include="StorySound.cpp">
       <Filter>1_Class\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC_TalkBox.cpp">
+      <Filter>2_Actor\UI\Talk</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkButton.cpp">
+      <Filter>2_Actor\UI\Talk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

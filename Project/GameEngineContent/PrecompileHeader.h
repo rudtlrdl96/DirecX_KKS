@@ -3,11 +3,12 @@
 
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineDebug3D.h>
 #include <GameEngineCore/GameEngineFontRenderer.h>
-#include <GameEnginePlatform/GameEngineSound.h>
+#include <GameEngineCore/GameEngineUIRenderer.h>
 
 #include "int2.h"
 #include "ContentDebug.h"

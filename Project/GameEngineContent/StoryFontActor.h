@@ -34,6 +34,7 @@ public:
 	}
 
 protected:
+	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
@@ -50,4 +51,6 @@ private:
 
 	float4 FontColorFadeStart = float4(0.6352f, 0.5333f, 0.3607f, 0.0f);
 	float4 FontColorFadeEnd = float4(0.6352f, 0.5333f, 0.3607f, 1.0f);
+
+	std::shared_ptr<class TalkArrow> ArrowPtr = nullptr;
 };
