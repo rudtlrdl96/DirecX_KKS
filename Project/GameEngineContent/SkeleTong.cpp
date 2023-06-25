@@ -97,7 +97,6 @@ void SkeleTong::Start()
 				.Text = "ºÎÅ¹ÇÑ´Ù...",
 				.Pivot = float4(-45, 105, 0),
 				.IsLoop = false,
-				.FontSize = 20,
 				.LiveTime = 3.0f,
 				.IsAutoScale = true
 				});
@@ -179,8 +178,6 @@ void SkeleTong::Update(float _DeltaTime)
 
 void SkeleTong::PlayBehavior()
 {
-	return;
-
 	if (nullptr != Bubble)
 	{
 		Bubble->Death();

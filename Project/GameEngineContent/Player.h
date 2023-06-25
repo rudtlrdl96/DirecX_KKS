@@ -108,6 +108,9 @@ private:
 	std::shared_ptr<GameEngineFontRenderer> CheatRender_Attack = nullptr;
 	std::shared_ptr<GameEngineFontRenderer> CheatRender_HP = nullptr;
 
+	bool IsInputUnlockWait = false;
+	bool IsInputUnlockWaitEnd = false;
+
 	bool Cheat_Attack = false;
 	bool Cheat_HP = false;
 

@@ -54,27 +54,6 @@ void SkeletonA::Update(float _DeltaTime)
 	}
 
 	BaseNPC::Update(_DeltaTime);
-
-	if (false == GameEngineInput::IsKey("BubbleDebug"))
-	{
-		GameEngineInput::CreateKey("BubbleDebug", '6');
-	}
-
-	if (true == GameEngineInput::IsDown("BubbleDebug"))
-	{
-		Bubble = GetLevel()->CreateActor<SpeechBubble>();
-
-		Bubble->PlayBubble({
-			.Target = DynamicThis<GameEngineActor>(),
-			.Text = "아래 방향키와 C로 내려갈 수 있어. \n어서 인간들을 쫓아가",
-			.Pivot = float4(0, 105, 0),
-			.IsLarge = false,
-			.IsLoop = true,
-			.LiveTime = 3.0f,
-			.IsAutoScale = true
-			});
-	}
-
 }
 
 void SkeletonA::ResetBehavior()

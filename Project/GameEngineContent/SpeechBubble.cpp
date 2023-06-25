@@ -10,8 +10,6 @@ SpeechBubble::~SpeechBubble()
 {
 }
 
-#include "GameEngineActorGUI.h"
-
 void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 {
 	Target = _BubbleParameter.Target;
@@ -52,6 +50,10 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 	{
 		std::shared_ptr<GameEngineSpriteRenderer> NewKeyImage = CreateComponent<GameEngineSpriteRenderer>();
 		NewKeyImage->SetScaleToTexture(_BubbleParameter.KeyImages[i].KeyImageName);
+
+		float4 Scale = NewKeyImage->GetTransform()->GetLocalScale();
+		NewKeyImage->GetTransform()->SetLocalScale(Scale * 1.5f);
+
 		NewKeyImage->GetTransform()->SetLocalPosition(FontRender->GetTransform()->GetLocalPosition() + _BubbleParameter.KeyImages[i].LocalPos);
 		KeyImages[i] = NewKeyImage;
 	}

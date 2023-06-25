@@ -18,8 +18,18 @@ void TalkBox::ActiveTalkBox(const std::string_view& _Name, const float4& _NamePi
 	On();
 }
 
-void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void()> _Callback)
+void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void()> _Callback, std::vector<TalkboxKeyImageData> _KeyImageData)
 {
+	for (size_t i = 0; i < KeyImages.size(); i++)
+	{
+		KeyImages[i]->Death(); 
+		KeyImages[i] = nullptr;
+	}
+
+	FontTextRender->SetText("");
+
+	KeyImages.clear();
+
 	MainText = _MainText;
 	IsReadEnd = false;
 	IsBoost = false;
@@ -27,10 +37,12 @@ void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void
 	Progress = 0.0f;
 	ReadSoundCount = 0;
 	ReadEndCallback = _Callback;
+	KeyImageDatas = _KeyImageData;
 
 	float TextureSclaeX = 600.0f;
 	float CurX = 0.0f;
 	float FontX = FontSize * 0.7f;
+
 
 	for (size_t i = 0; i < MainText.size(); i++)
 	{
@@ -51,15 +63,9 @@ void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void
 	}
 }
 
-#include "GameEngineActorGUI.h"
-
 void TalkBox::On()
 {
 	BaseContentActor::On();
-
-	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	//Ptr->SetTarget(FontNameRender->GetTransform());
-	//Ptr->On();
 }
 
 void TalkBox::Off()
@@ -153,6 +159,24 @@ void TalkBox::Update(float _DeltaTime)
 	}
 
 	size_t ReadIndex = static_cast<size_t>(MainText.size() * Progress);
+
+	for (size_t i = 0; i < ReadIndex; i++)
+	{
+		if (MainText[i] == L'%')
+		{
+			std::shared_ptr<GameEngineUIRenderer> NewImageRender = CreateComponent<GameEngineUIRenderer>();
+			NewImageRender->SetScaleToTexture(KeyImageDatas[KeyImages.size()].KeyImageName);
+			NewImageRender->GetTransform()->SetLocalPosition(KeyImageDatas[KeyImages.size()].LocaPos);
+
+			float4 Scale = NewImageRender->GetTransform()->GetLocalScale();
+			NewImageRender->GetTransform()->SetLocalScale(Scale * 1.5f);
+
+			KeyImages.push_back(NewImageRender);
+
+			MainText[i] = L'¤±';
+			break;
+		}
+	}
 
 	if (0 == ReadIndex)
 	{

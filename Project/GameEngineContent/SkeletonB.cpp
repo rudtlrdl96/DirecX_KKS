@@ -40,15 +40,29 @@ void SkeletonB::Update(float _DeltaTime)
 void SkeletonB::PlayBehavior()
 {
 	Bubble = GetLevel()->CreateActor<SpeechBubble>();
+	std::vector<KeyImageData> KeyImages;
+	KeyImages.resize(2);
+
+	KeyImages[0].KeyImageName = "KeyUI_Down.png";
+	KeyImages[0].LocalPos = float4(-66, 9, 0);
+
+	KeyImages[1].KeyImageName = "KeyUI_C.png";
+	KeyImages[1].LocalPos = float4(-47, 9, 0);
+	
 	Bubble->PlayBubble({
 		.Target = DynamicThis<GameEngineActor>(),
-		.Text = "아래 방향키와 C로 내려갈 수 있어. \n어서 인간들을 쫓아가",
+		.Text = " .. ..  로 내려갈 수 있어.\n어서 인간들을 쫓아가",
 		.Pivot = float4(0, 105, 0),
-		.IsLarge = true,
+		.IsLarge = false,
 		.IsLoop = true,
 		.LiveTime = 3.0f,
-		.IsAutoScale = true
-		});
+		.IsAutoScale = true,
+		.KeyImages = KeyImages });
+
+	float4 Scale = Bubble->GetBubbleScale();
+	Scale.x = 160.0f;
+
+	Bubble->SetBubbleScale(Scale);
 }
 
 void SkeletonB::ResetBehavior()

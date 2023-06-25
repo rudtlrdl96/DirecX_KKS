@@ -4,6 +4,13 @@
 #include "TalkboxDebugGUI.h"
 #include "ContentUIFontRenderer.h"
 
+class TalkboxKeyImageData
+{
+public:
+	std::string KeyImageName = "";
+	float4 LocaPos = float4(-300, 25, -2);
+};
+
 class TalkBox : public BaseContentActor
 {
 	friend class BattleLevel;
@@ -17,7 +24,7 @@ public:
 	TalkBox& operator=(TalkBox&& _Other) noexcept = delete;
 	
 	void ActiveTalkBox(const std::string_view& _Name, const float4& _NamePivot = float4::Zero, const float4& _ForceSize = float4::Zero);
-	void SetMainText(const std::wstring_view& _MainText, std::function<void()> _Callback);
+	void SetMainText(const std::wstring_view& _MainText, std::function<void()> _Callback, std::vector<TalkboxKeyImageData> _KeyImageData = {});
 
 	inline void SetReadSpeed(float _ReadSpeed)
 	{
@@ -55,6 +62,9 @@ private:
 
 	int ReadSoundCount = 0;
 	int PrevAddIndex = 0;
+
+	std::vector<TalkboxKeyImageData> KeyImageDatas;
+	std::vector<std::shared_ptr<GameEngineUIRenderer>> KeyImages;
 
 	std::function<void()> ReadEndCallback = nullptr;
 

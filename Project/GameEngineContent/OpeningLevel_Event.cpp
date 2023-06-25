@@ -35,6 +35,10 @@ void OpeningLevel::CreateOpeningEvent()
 
 			CallEvent("StoryFadeIn");
 			TalkBoxPtr->ActiveTalkBox("???", float4(8, 0, 0));
+
+			//std::vector<TalkboxKeyImageData> KeyImageData;
+			//KeyImageData.push_back({ "KeyUI_Z.png",	float4(-240, 16, -2) });
+			//TalkBoxPtr->SetMainText(L"어서가! % 를 누르면 더 빨리 움직일 수 있으니! 시간이 없어!", SkeleTongTalk_1, KeyImageData);
 			TalkBoxPtr->SetMainText(L"스컬! 일어나!", SkeleTongTalk_1);
 			MainPlayer->InputLock();
 			MainPlayer->DisablePlayerFrame();
@@ -80,7 +84,9 @@ void OpeningLevel::CreateOpeningEvent()
 
 			std::function<void()> SkeleTongTalk_4 = [this, SkeleTongTalk_5]()
 			{
-				TalkBoxPtr->SetMainText(L"어서가! Z를 누르면 더 빨리 움직일 수 있으니! 시간이 없어!", SkeleTongTalk_5);
+				std::vector<TalkboxKeyImageData> KeyImageData;
+				KeyImageData.push_back({ "KeyUI_Z.png",	float4(-240, 16, -2) });
+				TalkBoxPtr->SetMainText(L"어서가! % 를 누르면 더 빨리 움직일 수 있으니! 시간이 없어!", SkeleTongTalk_5, KeyImageData);
 			};
 
 			std::function<void()> SkeleTongTalk_3 = [this, SkeleTongTalk_4]()
@@ -89,8 +95,10 @@ void OpeningLevel::CreateOpeningEvent()
 			};
 
 			std::function<void()> SkeleTongTalk_2 = [this, SkeleTongTalk_3]()
-			{
-				TalkBoxPtr->SetMainText(L"지금 다른 스켈레톤들이 녀석들과 싸우고 있으니, 어서 오른쪽 방향키를 눌러서 인간들을 쫓아가.", SkeleTongTalk_3);
+			{ 
+				std::vector<TalkboxKeyImageData> KeyImageData;
+				KeyImageData.push_back({ "KeyUI_Right.png",	float4(50, 16, -2) });
+				TalkBoxPtr->SetMainText(L"지금 다른 스켈레톤들이 녀석들과 싸우고 있으니, 어서 % 를 눌러서 인간들을 쫓아가.", SkeleTongTalk_3, KeyImageData);
 			};
 
 			std::function<void()> SkeleTongTalk_1 = [this, SkeleTongTalk_2]()
@@ -120,8 +128,10 @@ void OpeningLevel::CreateOpeningEvent()
 			};
 
 			std::function<void()> SuekeletonTalk_3 = [this, SuekeletonTalk_4]()
-			{
-				TalkBoxPtr->SetMainText(L"C를 눌러 점프할 수 있어. 두 번 누르면 2단 점프가 가능해.", SuekeletonTalk_4);
+			{		
+				std::vector<TalkboxKeyImageData> KeyImageData;
+				KeyImageData.push_back({ "KeyUI_C.png",	float4(-295, 16, -2) });
+				TalkBoxPtr->SetMainText(L"% 를 눌러 점프할 수 있어. 두 번 누르면 2단 점프가 가능해.", SuekeletonTalk_4, KeyImageData);
 			};
 
 			std::function<void()> SuekeletonTalk_2 = [this, SuekeletonTalk_3]()
@@ -211,8 +221,11 @@ void OpeningLevel::CreateOpeningEvent()
 				TalkBoxPtr->SetMainText(L"나, 나, 나한텐 남은 시간이 얼마 없나봐.", SuekeletonTalk_2);
 			};
 
-			TalkBoxPtr->ActiveTalkBox("수-켈레톤");
-			TalkBoxPtr->SetMainText(L"내, 내, 다리뼈야..! X를 눌러 공격할 수 있어.", SuekeletonTalk_1);
+			TalkBoxPtr->ActiveTalkBox("수-켈레톤");		
+
+			std::vector<TalkboxKeyImageData> KeyImageData;
+			KeyImageData.push_back({ "KeyUI_X.png",	float4(-167, 16, -2) });
+			TalkBoxPtr->SetMainText(L"내, 내, 다리뼈야..!  % 를 눌러 공격할 수 있어.", SuekeletonTalk_1, KeyImageData);
 		});
 
 	// 마녀 이벤트

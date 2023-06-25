@@ -181,7 +181,7 @@ void Player::InputLock()
 
 void Player::InputUnlock()
 {
-	IsInputLockValue = false;
+	IsInputUnlockWait = true;
 }
 
 void Player::ActivePlayerFrame()
@@ -270,9 +270,20 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime)
 {
+	if (true == IsInputUnlockWaitEnd)
+	{
+		IsInputUnlockWaitEnd = false;
+		IsInputLockValue = false;
+	}
+
+	if (true == IsInputUnlockWait)
+	{
+		IsInputUnlockWait = false;
+		IsInputUnlockWaitEnd = true;
+	}
+
 	HitWaitTime -= _DeltaTime;	
 	SwitchCoolTime += _DeltaTime;
-
 
 	if (true == GameEngineInput::IsDown("Cheat_Attack"))
 	{
