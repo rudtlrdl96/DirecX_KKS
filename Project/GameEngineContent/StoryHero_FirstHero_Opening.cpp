@@ -58,8 +58,8 @@ void StoryHero_FirstHero_Opening::Start()
 
 	GetTransform()->SetLocalNegativeScaleX();
 	MainRender->ChangeAnimation("Landing");
-	GetContentLevel()->GetCamCtrl().CameraShake(20, 30.0f, 15);
-
+	GetContentLevel()->GetCamCtrl().CameraShake(30, 30.0f, 15);
+	GetContentLevel()->PlayCustomBgm("SkulStory5_Chapter4_FirstHero.wav", false, 0.0f);
 }
 
 void StoryHero_FirstHero_Opening::Update(float _DeltaTime)
@@ -169,6 +169,7 @@ void StoryHero_FirstHero_Opening::Update(float _DeltaTime)
 			if (false == IsLevelEnd && 2.0f <= FadeTime)
 			{
 				GetContentLevel()->CallEvent("FadeIn");
+				GetContentLevel()->StopCustomBgm();
 				IsLevelEnd = true;
 			}
 		}

@@ -2,6 +2,13 @@
 #include "BaseContentActor.h"
 #include "ContentSlice9Renderer.h"
 
+class KeyImageData
+{
+public:
+	std::string KeyImageName = "";
+	float4 LocalPos = float4::Zero;
+};
+
 class SpeechBubbleParameter
 {
 public:
@@ -18,6 +25,8 @@ public:
 	float LoopInter = 0.0f;
 
 	bool IsAutoScale = false;
+
+	std::vector<KeyImageData> KeyImages;
 };
 
 class SpeechBubble : public BaseContentActor
@@ -61,6 +70,6 @@ private:
 
 	bool IsLoop = false;
 
-
+	std::vector<std::shared_ptr<GameEngineSpriteRenderer>> KeyImages;
 };
 

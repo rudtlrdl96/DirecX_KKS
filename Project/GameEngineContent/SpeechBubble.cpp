@@ -46,11 +46,15 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 		FontRender->GetTransform()->SetLocalPosition(float4(0, 5, -0.1f));
 	}
 
-	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	//Ptr->SetTarget(FontRender->GetTransform());
-	//Ptr->On();
+	KeyImages.resize(_BubbleParameter.KeyImages.size());
 
-
+	for (size_t i = 0; i < KeyImages.size(); i++)
+	{
+		std::shared_ptr<GameEngineSpriteRenderer> NewKeyImage = CreateComponent<GameEngineSpriteRenderer>();
+		NewKeyImage->SetScaleToTexture(_BubbleParameter.KeyImages[i].KeyImageName);
+		NewKeyImage->GetTransform()->SetLocalPosition(FontRender->GetTransform()->GetLocalPosition() + _BubbleParameter.KeyImages[i].LocalPos);
+		KeyImages[i] = NewKeyImage;
+	}
 
 	LiveTime = _BubbleParameter.LiveTime;
 	LoopInter = _BubbleParameter.LoopInter;
@@ -169,12 +173,23 @@ void SpeechBubble::Update(float _DeltaTime)
 	{
 		BubbleRender->Off();
 		FontRender->Off();
+
+		for (size_t i = 0; i < KeyImages.size(); i++)
+		{
+			KeyImages[i]->Off();
+		}
+
 		return;
 	}
 	else
 	{
 		BubbleRender->On();
 		FontRender->On();
+
+		for (size_t i = 0; i < KeyImages.size(); i++)
+		{
+			KeyImages[i]->On();
+		}
 	}
 
 	OffTime += _DeltaTime;
@@ -183,6 +198,12 @@ void SpeechBubble::Update(float _DeltaTime)
 	{
 		BubbleRender->Off();
 		FontRender->Off();
+
+		for (size_t i = 0; i < KeyImages.size(); i++)
+		{
+			KeyImages[i]->Off();
+		}
+
 		ResetLiveTime();
 	}
 

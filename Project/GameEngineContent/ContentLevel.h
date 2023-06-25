@@ -24,11 +24,11 @@ public:
 	void RemoveEvent(const std::string_view& _Event, UINT _ActorCode);
 	void CallEvent(const std::string_view& _Event);
 
-	void PlayBaseBGM();
-	void StopBaseBGM();
+	void PlayBaseBGM(bool _IsFade = true);
+	void StopBaseBGM(bool _IsFade = true);
 
-	void PlayCustomBgm(const std::string_view& _BgmName, float _FadeTime = 1.0f);
-	void StopCustomBgm(float _FadeTime = 1.0f);
+	void PlayCustomBgm(const std::string_view& _BgmName, bool _IsFade = true, float _FadeTime = 1.0f);
+	void StopCustomBgm(float _FadeTime = 1.0f, bool _IsFade = true);
 
 protected:
 	CameraController MainCamCtrl;

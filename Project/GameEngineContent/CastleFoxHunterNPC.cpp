@@ -37,7 +37,7 @@ void CastleFoxHunterNPC::Start()
 	NpcTalkBox->GetTransform()->SetWorldPosition(float4(0, -300, -110.0f));
 	NpcTalkBox->SetButtonInterval(float4(0, 35));
 	NpcTalkBox->AddButton("대화", [this]() {PlayNextScript(); });
-	NpcTalkBox->AddButton("머리 받기", [this]() {});
+	NpcTalkBox->AddButton("머리 받기", [this]() {PlayNextGiveHeadScript(); });
 
 	NpcTalkBox->SetTalkBoxName("인호족 사냥꾼", float4(2, 0));
 
@@ -292,7 +292,7 @@ void CastleFoxHunterNPC::CreateGiveHeadScript()
 			GiveHeadEndCallback();
 		};
 
-		NpcTalkBox->SetTalkMainText(L"원래는 난 내 보물 안 준다. 너한테는 준다. 너 착하다.", TalkEnd);
+		NpcTalkBox->SetTalkMainText(L"머리를 갈아 끼운다니 웃니는 놈이야. 이걸로도 한번 해봐.", TalkEnd);
 		NpcTalkBox->ButtonDisable();
 	};
 
@@ -303,7 +303,7 @@ void CastleFoxHunterNPC::CreateGiveHeadScript()
 			GiveHeadEndCallback();
 		};
 
-		NpcTalkBox->SetTalkMainText(L"마녀한테는 비밀이다. 그녀가 그랬다. 자주 주면 버릇 나빠진다고.", TalkEnd);
+		NpcTalkBox->SetTalkMainText(L"그거 별로 좋아 보이진 않네. 이게 더 어울려.", TalkEnd);
 		NpcTalkBox->ButtonDisable();
 	};
 
@@ -314,7 +314,7 @@ void CastleFoxHunterNPC::CreateGiveHeadScript()
 			GiveHeadEndCallback();
 		};
 
-		NpcTalkBox->SetTalkMainText(L"네 행색 웃기다. 하하. 받아라 이거.", TalkEnd);
+		NpcTalkBox->SetTalkMainText(L"그 얼굴로 밖에 나가겠다고? 농담이지?", TalkEnd);
 		NpcTalkBox->ButtonDisable();
 	};
 
@@ -325,7 +325,7 @@ void CastleFoxHunterNPC::CreateGiveHeadScript()
 			GiveHeadEndCallback();
 		};
 
-		NpcTalkBox->SetTalkMainText(L"너 많이 조촐하다. 선물 줄게.", TalkEnd);
+		NpcTalkBox->SetTalkMainText(L"모을 때는 한참 걸렸는데, 이렇게 하나씩 나눠주다 보면 금방 떨어지더라.", TalkEnd);
 		NpcTalkBox->ButtonDisable();
 	};
 }

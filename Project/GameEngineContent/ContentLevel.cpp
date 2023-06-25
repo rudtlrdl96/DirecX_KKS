@@ -110,31 +110,21 @@ void ContentLevel::LevelChangeEnd()
 	StopBaseBGM();
 }
 
-void ContentLevel::PlayBaseBGM()
+void ContentLevel::PlayBaseBGM(bool _IsFade /*= true*/)
 {
 	if ("" != BgmName)
 	{
-		if (false == BaseBgmPlayer.IsValid())
-		{
-			BaseBgmPlayer = GameEngineSound::Play(BgmName);
-			BaseBgmPlayer.SetLoop();
-			BaseBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, 1.0f);
-		}
-		else
-		{
-			bool IsPlaying = false;
-			BaseBgmPlayer.isPlaying(&IsPlaying);
+		BaseBgmPlayer = GameEngineSound::Play(BgmName);
+		BaseBgmPlayer.SetLoop();
 
-			if (false == IsPlaying)
-			{
-				BaseBgmPlayer.setPosition(0);
-				BaseBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, 1.0f);
-			}
+		if (true == _IsFade)
+		{
+			BaseBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, 1.0f);
 		}
 	}
 }
 
-void ContentLevel::StopBaseBGM()
+void ContentLevel::StopBaseBGM(bool _IsFade /*= true*/)
 {
 	if (true == BaseBgmPlayer.IsValid())
 	{
@@ -143,17 +133,23 @@ void ContentLevel::StopBaseBGM()
 
 		if (true == IsPlaying)
 		{
-			BaseBgmPlayer.SoundFadeOut(BGM_FadeOut_Time, 0.0f, false);
+			if (true == _IsFade)
+			{
+				BaseBgmPlayer.SoundFadeOut(BGM_FadeOut_Time, 0.0f, true);
+			}
+			else
+			{
+				BaseBgmPlayer.SetPause(true);
+			}
 		}
 	}
 }
 
-void ContentLevel::PlayCustomBgm(const std::string_view& _BgmName, float _FadeTime /*= 1.0f*/)
+void ContentLevel::PlayCustomBgm(const std::string_view& _BgmName, bool _IsFade /*= true*/, float _FadeTime /*= 1.0f*/)
 {
 	StopCustomBgm();
 
 	CustomBgmPlayer = GameEngineSound::Play(_BgmName);
-	CustomBgmPlayer.SetLoop(true);
 
 	if (false == CustomBgmPlayer.IsValid())
 	{
@@ -161,10 +157,15 @@ void ContentLevel::PlayCustomBgm(const std::string_view& _BgmName, float _FadeTi
 		return;
 	}
 
-	CustomBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, _FadeTime);
+	CustomBgmPlayer.SetLoop(true);
+
+	if (true == _IsFade)
+	{
+		CustomBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, _FadeTime);
+	}
 }
 
-void ContentLevel::StopCustomBgm(float _FadeTime /*= 1.0f*/)
+void ContentLevel::StopCustomBgm(float _FadeTime /*= 1.0f*/, bool _IsFade /*= true*/)
 {
 	if (true == CustomBgmPlayer.IsValid())
 	{
@@ -173,7 +174,14 @@ void ContentLevel::StopCustomBgm(float _FadeTime /*= 1.0f*/)
 
 		if (true == IsPlaying)
 		{
-			CustomBgmPlayer.SoundFadeOut(_FadeTime, true);
+			if (true == _IsFade)
+			{
+				CustomBgmPlayer.SoundFadeOut(_FadeTime, 0.0f, true);
+			}
+			else
+			{
+				CustomBgmPlayer.Stop();
+			}
 		}
 	}
 }

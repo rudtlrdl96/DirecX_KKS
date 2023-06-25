@@ -34,7 +34,7 @@ void Mongal::StoryUpdate(float _DeltaTime)
 				GetContentLevel()->CallEvent("PlayerFrameDisable");
 				State = DeathState::WakeUp;
 				Render->ChangeAnimation("Wakeup");
-
+				GetContentLevel()->StopBaseBGM();
 
 			}
 		}

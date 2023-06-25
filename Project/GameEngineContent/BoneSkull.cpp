@@ -317,7 +317,10 @@ void BoneSkull::Idle_Enter()
 
 void BoneSkull::Idle_Update(float _DeltaTime)
 {
-	WaitTime += _DeltaTime;
+	if (false == ParentPlayer->IsInputLock())
+	{
+		WaitTime += _DeltaTime;
+	}
 
 	if (8.0f <= WaitTime && State == BoneSkullState::Normal)
 	{
@@ -331,8 +334,6 @@ void BoneSkull::Idle_Update(float _DeltaTime)
 	}
 
 	PlayerBaseSkull::Idle_Update(_DeltaTime);
-
-
 }
 
 void BoneSkull::Skill_SlotA_Enter()

@@ -28,7 +28,7 @@ void TalkBox::SetMainText(const std::wstring_view& _MainText, std::function<void
 	ReadSoundCount = 0;
 	ReadEndCallback = _Callback;
 
-	float TextureSclaeX = 610.0f;
+	float TextureSclaeX = 600.0f;
 	float CurX = 0.0f;
 	float FontX = FontSize * 0.7f;
 
