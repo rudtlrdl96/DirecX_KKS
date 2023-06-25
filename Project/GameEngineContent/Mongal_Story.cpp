@@ -3,6 +3,7 @@
 #include "HealthBar.h"
 #include "BattleLevel.h"
 #include "StoryHero_FirstHero_Opening.h"
+#include "BattleActorHealFont.h"
 
 void Mongal::StoryUpdate(float _DeltaTime)
 {
@@ -194,6 +195,18 @@ void Mongal::StoryUpdate(float _DeltaTime)
 		{
 			State = DeathState::NormalDeath;
 			Render->ChangeAnimation("Death_NoBattle");
+
+			std::shared_ptr<BattleActorHealFont> DamageFont = GetLevel()->CreateActor<BattleActorHealFont>();
+
+			DamageFont->InitFont({
+				.Damage = 9999,
+				.FontSize = 26,
+				.FontColor = float4(0.93725f, 0.73725f, 0.082353f, 1),
+				.Pos = GetTransform()->GetWorldPosition() + float4(0, 150, -100),
+				.Dir = float4::Up,
+				.MoveSpeed = 100.0f,
+				.LiveTime = 1.0f,
+				});
 
 			std::shared_ptr<StoryHero_FirstHero_Opening> FirstHero = GetLevel()->CreateActor<StoryHero_FirstHero_Opening>();
 
