@@ -49,6 +49,16 @@ void TitleLevel::Start()
 
 	Fade = CreateActor<FadeActor>();
 	Fade->SetUnFade();
+
+	std::shared_ptr<GameEngineActor> FontActor = CreateActor<GameEngineActor>();
+	FontRender = FontActor->CreateComponent<ContentUIFontRenderer>();
+	FontRender->SetFont("³Ø½¼Lv2°íµñ");
+	FontRender->SetScale(20);
+	FontRender->SetColor(float4(0.796f, 0.5411f, 0.945f, 1));
+	FontRender->SetText("¾Æ¹« Å°³ª ´©¸£¼¼¿ä");
+	FontRender->GetTransform()->SetLocalPosition(float4(-60, -305, -10));
+	FontRender->Off();
+
 }
 
 void TitleLevel::Update(float _DeltaTime)
@@ -78,9 +88,13 @@ void TitleLevel::Update(float _DeltaTime)
 		if(true == Title->IsLogoFadeEnd())
 		{
 			State = TitleLevel::TitleState::InputWait;
+			FontRender->On();
 		}
 		break;
 	case TitleLevel::TitleState::InputWait:
+
+		FontFadeProgress += _DeltaTime;
+		FontRender->SetColor(float4::LerpClamp(FontStartColor, FontEndColor, std::fabsf(std::sinf(FontFadeProgress))));
 
 		if (false == IsInputWait)
 		{
@@ -102,10 +116,16 @@ void TitleLevel::Update(float _DeltaTime)
 		break;
 	}
 }
+#include "GameEngineActorGUI.h"
+
 
 void TitleLevel::LevelChangeStart()
 {
 	UILevel::LevelChangeStart();
+
+	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	Ptr->SetTarget(FontRender->GetTransform());
+	Ptr->On();
 
 	IsInputWait = true;
 }

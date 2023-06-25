@@ -45,7 +45,7 @@ void TitleActor::Start()
 	LogoRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", LogoBuffer);
 	LogoRender->SetTexture("Title_Logo2.png");
 	LogoRender->GetTransform()->SetWorldScale(LogoSize);
-	LogoRender->GetTransform()->SetWorldPosition({0, -150, -100});
+	LogoRender->GetTransform()->SetWorldPosition({0, -180, -100});
 
 	LogoRender->Off();
 }

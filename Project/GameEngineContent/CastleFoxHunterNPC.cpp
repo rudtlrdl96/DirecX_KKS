@@ -163,15 +163,9 @@ void CastleFoxHunterNPC::CreateBubbleScript()
 	BubbleScripts[3] = "여우 맞아. 늑대는 아니고.";
 }
 
-#include "GameEngineActorGUI.h"
 
 void CastleFoxHunterNPC::PlayBubble()
 {
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(BubblePivot->GetTransform());
-	Ptr->On();
-
-
 	++BubbleScriptNumber;
 
 	if (BubbleScripts.size() <= BubbleScriptNumber)
