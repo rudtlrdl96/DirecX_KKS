@@ -25,14 +25,28 @@ private:
 	std::shared_ptr<class NPC_TalkBox> NpcTalkBox = nullptr;
 	std::shared_ptr<GameEngineCollision> TalkEventCol = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> NpcImageRender = nullptr;
+	std::shared_ptr<GameEngineComponent> BubblePivot = nullptr;
 
 	bool IsGiveItem = true;
 
 	std::vector<std::function<void()>> TalkScripts;
+	std::vector<std::function<void()>> GiveHeadScritps;
+	std::vector<std::string> BubbleScripts;
 
-	int ScriptNumber = -1;
+	int TalkScriptNumber = -1;
+	int GiveHeadScriptNumber = -1;
+	int BubbleScriptNumber = -1;
+
+	float BubbleTalkTime = -13.0f;
+
+	void CreateBubbleScript();
+	void PlayBubble();
 
 	void CreateTalkScript();
 	void PlayNextScript();
 	void TalkEndCallback();
+
+	void CreateGiveHeadScript();
+	void PlayNextGiveHeadScript();
+	void GiveHeadEndCallback();
 };

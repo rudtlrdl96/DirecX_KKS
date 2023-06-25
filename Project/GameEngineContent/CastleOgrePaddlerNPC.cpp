@@ -35,8 +35,8 @@ void CastleOgrePaddlerNPC::Start()
 	NpcTalkBox->GetTransform()->SetParent(GetTransform());
 	NpcTalkBox->GetTransform()->SetWorldPosition(float4(0, -300, -110.0f));
 	NpcTalkBox->SetButtonInterval(float4(0, 35));
-	NpcTalkBox->AddButton("대화", [this]() {PlayNextScript(); });
-	NpcTalkBox->AddButton("아이템 받기", [this]() {});
+	NpcTalkBox->AddButton("대화", [this]() {PlayNextTalkScript(); });
+	NpcTalkBox->AddButton("아이템 받기", [this]() {PlayNextGiveItemScript(); });
 
 	NpcTalkBox->SetTalkBoxName("오우거 보부상", float4(2, 0));
 
@@ -74,6 +74,11 @@ void CastleOgrePaddlerNPC::Start()
 		});
 
 	CreateTalkScript();
+	CreateGiveItemScript();
+	CreateBubbleScript();
+
+	BubblePivot = CreateComponent<GameEngineComponent>();
+	BubblePivot->GetTransform()->SetLocalPosition(float4(-30, -15, -100));
 }
 
 void CastleOgrePaddlerNPC::Update(float _DeltaTime)
@@ -86,7 +91,13 @@ void CastleOgrePaddlerNPC::Update(float _DeltaTime)
 	}
 	else
 	{
+		BubbleTalkTime += _DeltaTime;
 		NpcImageRender->Off();
+	}
+
+	if (0.0f <= BubbleTalkTime)
+	{
+		PlayBubble();
 	}
 
 	if (nullptr == TalkEventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
@@ -103,6 +114,8 @@ void CastleOgrePaddlerNPC::Update(float _DeltaTime)
 	{
 		if (true == IsGiveItem)
 		{
+			NpcTalkBox->On();
+			PlayNextGiveItemScript();
 
 			IsGiveItem = false;
 		}
@@ -138,6 +151,44 @@ void CastleOgrePaddlerNPC::Destroy()
 	GetContentLevel()->RemoveEvent("CastleReborn", GetActorCode());
 }
 
+void CastleOgrePaddlerNPC::CreateBubbleScript()
+{
+	BubbleScripts.resize(3);
+
+	BubbleScripts[0] = "친구들. 보고싶다.";
+	BubbleScripts[1] = "내 보물, 손 못댄다.";
+	BubbleScripts[2] = "배가 고프다.";
+}
+
+void CastleOgrePaddlerNPC::PlayBubble()
+{
+	++BubbleScriptNumber;
+
+	if (BubbleScripts.size() <= BubbleScriptNumber)
+	{
+		BubbleScriptNumber = 0;
+	}
+
+	if (nullptr != Bubble)
+	{
+		Bubble->Death();
+		Bubble = nullptr;
+	}
+
+	Bubble = GetLevel()->CreateActor<SpeechBubble>();
+	Bubble->GetTransform()->SetParent(GetTransform());
+
+	Bubble->PlayBubble({
+		.Target = DynamicThis<GameEngineActor>(),
+		.Text = BubbleScripts[BubbleScriptNumber],
+		.Pivot = BubblePivot->GetTransform()->GetLocalPosition(),
+		.FontSize = 15,
+		.LiveTime = 4.0f,
+		.IsAutoScale = true });
+
+	BubbleTalkTime = -20.0f;
+}
+
 void CastleOgrePaddlerNPC::CreateTalkScript()
 {
 	TalkScripts.resize(1);
@@ -159,19 +210,88 @@ void CastleOgrePaddlerNPC::CreateTalkScript()
 	};
 }
 
-void CastleOgrePaddlerNPC::PlayNextScript()
+void CastleOgrePaddlerNPC::PlayNextTalkScript()
 {
-	++ScriptNumber;
+	++TalkScriptNumber;
 
-	if (TalkScripts.size() <= ScriptNumber)
+	if (TalkScripts.size() <= TalkScriptNumber)
 	{
-		ScriptNumber = 0;
+		TalkScriptNumber = 0;
 	}
 
-	TalkScripts[ScriptNumber]();
+	TalkScripts[TalkScriptNumber]();
 }
 
 void CastleOgrePaddlerNPC::TalkEndCallback()
+{
+	NpcTalkBox->Off();
+	GetContentLevel()->CallEvent("PlayerInputUnlock");
+	GetContentLevel()->CallEvent("StoryFadeOut");
+	GetContentLevel()->CallEvent("PlayerFrameActive");
+}
+
+void CastleOgrePaddlerNPC::CreateGiveItemScript()
+{
+	GiveItemScritps.resize(4);
+
+	GiveItemScritps[0] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			GiveItemEndCallback();
+		};
+
+		NpcTalkBox->SetTalkMainText(L"원래는 난 내 보물 안 준다. 너한테는 준다. 너 착하다.", TalkEnd);
+		NpcTalkBox->ButtonDisable();
+	};
+
+	GiveItemScritps[1] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			GiveItemEndCallback();
+		};
+
+		NpcTalkBox->SetTalkMainText(L"마녀한테는 비밀이다. 그녀가 그랬다. 자주 주면 버릇 나빠진다고.", TalkEnd);
+		NpcTalkBox->ButtonDisable();
+	};
+
+	GiveItemScritps[2] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			GiveItemEndCallback();
+		};
+
+		NpcTalkBox->SetTalkMainText(L"네 행색 웃기다. 하하. 받아라 이거.", TalkEnd);
+		NpcTalkBox->ButtonDisable();
+	};
+
+	GiveItemScritps[3] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			GiveItemEndCallback();
+		};
+
+		NpcTalkBox->SetTalkMainText(L"너 많이 조촐하다. 선물 줄게.", TalkEnd);
+		NpcTalkBox->ButtonDisable();
+	};
+}
+
+void CastleOgrePaddlerNPC::PlayNextGiveItemScript()
+{
+	++GiveItemScriptNumber;
+
+	if (GiveItemScritps.size() <= GiveItemScriptNumber)
+	{
+		GiveItemScriptNumber = 0;
+	}
+
+	GiveItemScritps[GiveItemScriptNumber]();
+}
+
+void CastleOgrePaddlerNPC::GiveItemEndCallback()
 {
 	NpcTalkBox->Off();
 	GetContentLevel()->CallEvent("PlayerInputUnlock");

@@ -37,12 +37,12 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 
 	if (true == _BubbleParameter.IsLarge)
 	{
-		BubbleRender->SetTextureAndSlice("SpeechBubble_Large.png", 0.1f, 0.1f, 0.1f, 0.35f);
+		BubbleRender->SetTextureAndSlice("SpeechBubble_Large.png", 0.03f, 0.03f, 0.06f, 0.2f);
 		FontRender->GetTransform()->SetLocalPosition(float4(0, 5, -0.1f));
 	}
 	else
 	{
-		BubbleRender->SetTextureAndSlice("SpeechBubble.png", 0.1f, 0.1f, 0.1f, 0.35f);
+		BubbleRender->SetTextureAndSlice("SpeechBubble.png", 0.034f, 0.034f, 0.49f, 0.49f);
 		FontRender->GetTransform()->SetLocalPosition(float4(0, 5, -0.1f));
 	}
 
@@ -71,7 +71,7 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 		}
 		else
 		{
-			TextureBoardX = 130.0f;
+			TextureBoardX = 120.0f;
 			TextureBoardY = 30.0f;
 		}
 
@@ -106,17 +106,22 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 
 		if (TextureBoardX < MaxX)
 		{
-			BubbleRender->GetTransform()->AddWorldScale(float4(MaxX - TextureBoardX, 0));
+			BubbleRender->GetTransform()->AddWorldScale(float4(MaxX - TextureBoardX + 10, 0));
 
 		}
 
 		if (TextureBoardX < MaxY)
 		{
-			BubbleRender->GetTransform()->AddWorldScale(float4(0, MaxY - TextureBoardX));
+			BubbleRender->GetTransform()->AddWorldScale(float4(0, MaxY - TextureBoardY + 10));
 		}
 	}
 
 	BubbleRender->On();
+}
+
+void SpeechBubble::SetBubbleScale(const float4& _Scale)
+{
+	BubbleRender->GetTransform()->SetLocalScale(_Scale);
 }
 
 

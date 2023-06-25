@@ -32,6 +32,12 @@ public:
 	SpeechBubble& operator=(SpeechBubble&& _Other) noexcept = delete;
 
 	void PlayBubble(const SpeechBubbleParameter& _BubbleParameter);
+	void SetBubbleScale(const float4& _Scale);
+
+	inline float4 GetBubbleScale() const
+	{
+		return BubbleRender->GetTransform()->GetLocalScale();
+	}
 
 	void On() override;
 

@@ -69,10 +69,15 @@ void CastleWitchNPC::Start()
 	NpcImageRender->Off();
 
 	CreateTalkScript();
+	CreateBubbleScript();
+
+	BubblePivot = CreateComponent<GameEngineComponent>();
+	BubblePivot->GetTransform()->SetLocalPosition(float4(200, -15, -100));
 }
 
 void CastleWitchNPC::Update(float _DeltaTime)
 {
+
 	if (true == NpcTalkBox->IsUpdate())
 	{
 		NpcImageRender->On();
@@ -81,7 +86,13 @@ void CastleWitchNPC::Update(float _DeltaTime)
 	}
 	else
 	{
+		BubbleTalkTime += _DeltaTime;
 		NpcImageRender->Off();
+	}
+
+	if (0.0f <= BubbleTalkTime)
+	{
+		PlayBubble();
 	}
 
 	if (nullptr == TalkEventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
@@ -120,6 +131,46 @@ void CastleWitchNPC::SpriteLoad()
 
 }
 
+void CastleWitchNPC::CreateBubbleScript()
+{
+	BubbleScripts.resize(5);
+
+	BubbleScripts[0] = "다른 의원님들이 걱정될\n따름이에요.";
+	BubbleScripts[1] = "믿기지 않겠지만, 이곳은 사실\n굉장히 고상한 장소였답니다.";
+	BubbleScripts[2] = "검은 마석의 힘은 쉽게 생각하면\n안 됩니다.";
+	BubbleScripts[3] = "혹시 통조림 하나 없을까요?";
+	BubbleScripts[4] = "그들은 어떻게 마석을\n얻게 되었지..?";
+}
+
+void CastleWitchNPC::PlayBubble()
+{
+	++BubbleScriptNumber;
+
+	if (BubbleScripts.size() <= BubbleScriptNumber)
+	{
+		BubbleScriptNumber = 0;
+	}
+
+	if (nullptr != Bubble)
+	{
+		Bubble->Death();
+		Bubble = nullptr;
+	}
+
+	Bubble = GetLevel()->CreateActor<SpeechBubble>();
+	Bubble->GetTransform()->SetParent(GetTransform());
+
+	Bubble->PlayBubble({
+		.Target = DynamicThis<GameEngineActor>(),
+		.Text = BubbleScripts[BubbleScriptNumber],
+		.Pivot = BubblePivot->GetTransform()->GetLocalPosition(),
+		.FontSize = 15,
+		.LiveTime = 4.0f,
+		.IsAutoScale = true });
+
+	BubbleTalkTime = -7.0f;
+}
+
 void CastleWitchNPC::CreateTalkScript()
 {
 	TalkScripts.resize(7);
@@ -149,7 +200,7 @@ void CastleWitchNPC::CreateTalkScript()
 
 		std::function<void()> Talk2 = [this, TalkEnd]()
 		{
-			NpcTalkBox->SetTalkMainText(L"혹시 갖고 있나요 ?", TalkEnd);
+			NpcTalkBox->SetTalkMainText(L"혹시 갖고 있나요?", TalkEnd);
 		};		
 		
 		std::function<void()> Talk1 = [this, Talk2]()
@@ -259,14 +310,14 @@ void CastleWitchNPC::CreateTalkScript()
 
 void CastleWitchNPC::PlayNextScript()
 {
-	++ScriptNumber;
+	++TalkScriptNumber;
 
-	if (TalkScripts.size() <= ScriptNumber)
+	if (TalkScripts.size() <= TalkScriptNumber)
 	{
-		ScriptNumber = 0;
+		TalkScriptNumber = 0;
 	}
 
-	TalkScripts[ScriptNumber]();
+	TalkScripts[TalkScriptNumber]();
 }
 
 void CastleWitchNPC::TalkEndCallback()

@@ -25,8 +25,17 @@ private:
 	std::shared_ptr<GameEngineUIRenderer> NpcImageRender = nullptr;
 
 	std::vector<std::function<void()>> TalkScripts;
+	std::vector<std::string> BubbleScripts;
 
-	int ScriptNumber = -1;
+	std::shared_ptr<GameEngineComponent> BubblePivot = nullptr;
+
+	int TalkScriptNumber = -1;
+	int BubbleScriptNumber = -1;
+
+	float BubbleTalkTime = -7.0f;
+
+	void CreateBubbleScript();
+	void PlayBubble();
 
 	void CreateTalkScript();
 	void PlayNextScript();

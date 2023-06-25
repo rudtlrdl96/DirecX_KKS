@@ -76,6 +76,11 @@ void CastleFoxHunterNPC::Start()
 		});
 
 	CreateTalkScript();
+	CreateGiveHeadScript();
+	CreateBubbleScript();
+
+	BubblePivot = CreateComponent<GameEngineComponent>();
+	BubblePivot->GetTransform()->SetLocalPosition(float4(-20, -85, -100));
 }
 
 void CastleFoxHunterNPC::Update(float _DeltaTime)
@@ -88,7 +93,13 @@ void CastleFoxHunterNPC::Update(float _DeltaTime)
 	}
 	else
 	{
+		BubbleTalkTime += _DeltaTime;
 		NpcImageRender->Off();
+	}
+
+	if (0.0f <= BubbleTalkTime)
+	{
+		PlayBubble();
 	}
 
 	if (nullptr == TalkEventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
@@ -105,6 +116,9 @@ void CastleFoxHunterNPC::Update(float _DeltaTime)
 	{
 		if (true == IsGiveItem)
 		{
+			NpcTalkBox->On();
+			PlayNextGiveHeadScript();
+
 			IsGiveItem = false;
 		}
 		else
@@ -137,6 +151,52 @@ void CastleFoxHunterNPC::SpriteLoad()
 void CastleFoxHunterNPC::Destroy()
 {
 	GetContentLevel()->RemoveEvent("CastleReborn", GetActorCode());
+}
+
+void CastleFoxHunterNPC::CreateBubbleScript()
+{
+	BubbleScripts.resize(4);
+
+	BubbleScripts[0] = "조금만 더 모았으면 132개인데...";
+	BubbleScripts[1] = "여기서 불이라도 좀 쬐던가.";
+	BubbleScripts[2] = "축축한 마왕성보단 전장이 좋아.";
+	BubbleScripts[3] = "여우 맞아. 늑대는 아니고.";
+}
+
+#include "GameEngineActorGUI.h"
+
+void CastleFoxHunterNPC::PlayBubble()
+{
+	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	Ptr->SetTarget(BubblePivot->GetTransform());
+	Ptr->On();
+
+
+	++BubbleScriptNumber;
+
+	if (BubbleScripts.size() <= BubbleScriptNumber)
+	{
+		BubbleScriptNumber = 0;
+	}
+
+	if (nullptr != Bubble)
+	{
+		Bubble->Death();
+		Bubble = nullptr;
+	}
+
+	Bubble = GetLevel()->CreateActor<SpeechBubble>();
+	Bubble->GetTransform()->SetParent(GetTransform());
+
+	Bubble->PlayBubble({
+		.Target = DynamicThis<GameEngineActor>(),
+		.Text = BubbleScripts[BubbleScriptNumber],
+		.Pivot = BubblePivot->GetTransform()->GetLocalPosition(),
+		.FontSize = 15,
+		.LiveTime = 4.0f,
+		.IsAutoScale = true });
+
+	BubbleTalkTime = -13.0f;
 }
 
 void CastleFoxHunterNPC::CreateTalkScript()
@@ -209,17 +269,86 @@ void CastleFoxHunterNPC::CreateTalkScript()
 
 void CastleFoxHunterNPC::PlayNextScript()
 {
-	++ScriptNumber;
+	++TalkScriptNumber;
 
-	if (TalkScripts.size() <= ScriptNumber)
+	if (TalkScripts.size() <= TalkScriptNumber)
 	{
-		ScriptNumber = 0;
+		TalkScriptNumber = 0;
 	}
 
-	TalkScripts[ScriptNumber]();
+	TalkScripts[TalkScriptNumber]();
 }
 
 void CastleFoxHunterNPC::TalkEndCallback()
+{
+	NpcTalkBox->Off();
+	GetContentLevel()->CallEvent("PlayerInputUnlock");
+	GetContentLevel()->CallEvent("StoryFadeOut");
+	GetContentLevel()->CallEvent("PlayerFrameActive");
+}
+
+void CastleFoxHunterNPC::CreateGiveHeadScript()
+{
+	GiveHeadScritps.resize(4);
+
+	GiveHeadScritps[0] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			GiveHeadEndCallback();
+		};
+
+		NpcTalkBox->SetTalkMainText(L"원래는 난 내 보물 안 준다. 너한테는 준다. 너 착하다.", TalkEnd);
+		NpcTalkBox->ButtonDisable();
+	};
+
+	GiveHeadScritps[1] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			GiveHeadEndCallback();
+		};
+
+		NpcTalkBox->SetTalkMainText(L"마녀한테는 비밀이다. 그녀가 그랬다. 자주 주면 버릇 나빠진다고.", TalkEnd);
+		NpcTalkBox->ButtonDisable();
+	};
+
+	GiveHeadScritps[2] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			GiveHeadEndCallback();
+		};
+
+		NpcTalkBox->SetTalkMainText(L"네 행색 웃기다. 하하. 받아라 이거.", TalkEnd);
+		NpcTalkBox->ButtonDisable();
+	};
+
+	GiveHeadScritps[3] = [this]()
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			GiveHeadEndCallback();
+		};
+
+		NpcTalkBox->SetTalkMainText(L"너 많이 조촐하다. 선물 줄게.", TalkEnd);
+		NpcTalkBox->ButtonDisable();
+	};
+}
+
+void CastleFoxHunterNPC::PlayNextGiveHeadScript()
+{
+	++GiveHeadScriptNumber;
+
+	if (GiveHeadScritps.size() <= GiveHeadScriptNumber)
+	{
+		GiveHeadScriptNumber = 0;
+	}
+
+	GiveHeadScritps[GiveHeadScriptNumber]();
+}
+
+void CastleFoxHunterNPC::GiveHeadEndCallback()
 {
 	NpcTalkBox->Off();
 	GetContentLevel()->CallEvent("PlayerInputUnlock");
