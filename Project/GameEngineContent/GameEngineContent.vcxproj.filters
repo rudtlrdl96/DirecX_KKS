@@ -783,9 +783,6 @@
     <ClInclude Include="FieldNoteActor.h">
       <Filter>2_Actor\UI\Common</Filter>
     </ClInclude>
-    <ClInclude Include="KeyActor.h">
-      <Filter>2_Actor\UI\Common</Filter>
-    </ClInclude>
     <ClInclude Include="EventActor.h">
       <Filter>2_Actor\Map\Stage\Event</Filter>
     </ClInclude>
@@ -1392,9 +1389,6 @@
       <Filter>2_Actor\Map\Door</Filter>
     </ClCompile>
     <ClCompile Include="FieldNoteActor.cpp">
-      <Filter>2_Actor\UI\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyActor.cpp">
       <Filter>2_Actor\UI\Common</Filter>
     </ClCompile>
     <ClCompile Include="EventActor.cpp">

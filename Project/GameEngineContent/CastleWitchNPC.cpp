@@ -58,7 +58,8 @@ void CastleWitchNPC::Start()
 	NoteActor = GetLevel()->CreateActor<FieldNoteActor>();
 	NoteActor->GetTransform()->SetParent(GetTransform());
 	NoteActor->GetTransform()->SetLocalPosition(float4(185, -270, -100.0f));
-	NoteActor->SetText("F 대화하기");
+	NoteActor->SetText("ㅁ 대화하기");
+	NoteActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
 	NoteActor->Off();
 
 	NpcImageRender = CreateComponent<GameEngineUIRenderer>();

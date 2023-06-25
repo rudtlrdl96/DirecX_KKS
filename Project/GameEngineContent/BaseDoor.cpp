@@ -152,7 +152,8 @@ void BaseDoor::Start()
 	NoteActor = GetLevel()->CreateActor<FieldNoteActor>();
 	NoteActor->GetTransform()->SetParent(GetTransform());
 	NoteActor->GetTransform()->SetLocalPosition(float4(10, -140, -100.0f));
-	NoteActor->SetText("F 들어가기");
+	NoteActor->SetText("ㅁ 들어가기");
+	NoteActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
 	NoteActor->Off();
 }
 

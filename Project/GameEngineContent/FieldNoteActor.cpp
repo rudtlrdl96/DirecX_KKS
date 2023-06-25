@@ -1,6 +1,5 @@
 #include "PrecompileHeader.h"
 #include "FieldNoteActor.h"
-#include "KeyActor.h"
 
 FieldNoteActor::FieldNoteActor()
 {
@@ -14,6 +13,18 @@ void FieldNoteActor::SetText(const std::string_view& _Text)
 {
 	NoteText = _Text;
 	TextRender->SetText(NoteText);
+}
+
+void FieldNoteActor::AddKeyImage(const std::string_view& _KeyImage, const float4& _Pos)
+{
+	std::shared_ptr<GameEngineSpriteRenderer> NewImageRender = CreateComponent<GameEngineSpriteRenderer>();
+
+	NewImageRender->GetTransform()->SetLocalPosition(_Pos);
+	NewImageRender->SetScaleToTexture(_KeyImage);
+	float4 Scale = NewImageRender->GetTransform()->GetLocalScale();
+	NewImageRender->GetTransform()->SetLocalScale(Scale * 1.5f);
+
+	KeyImageRenders.push_back(NewImageRender);
 }
 
 void FieldNoteActor::Start()

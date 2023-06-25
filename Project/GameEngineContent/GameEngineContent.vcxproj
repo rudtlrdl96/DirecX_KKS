@@ -394,10 +394,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="KeyActor.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="LevelMoveGUI.h">
       <SubType>
       </SubType>
@@ -1163,10 +1159,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ItemData.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="KeyActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>
