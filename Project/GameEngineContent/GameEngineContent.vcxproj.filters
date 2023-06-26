@@ -256,21 +256,6 @@
     <Filter Include="2_Actor\BattleActor\Player\Skull\Minotaurus\Legandary">
       <UniqueIdentifier>{bd5d0109-1054-41d2-ae45-ad846c998baf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\BattleActor\Player\Skull\Minotaurus\Wolf">
-      <UniqueIdentifier>{59676618-25b2-4fc4-a1ad-083d9df730f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\BattleActor\Player\Skull\Minotaurus\Wolf\Rare">
-      <UniqueIdentifier>{6d6f0935-ac6c-4c94-b711-4924dad61efe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\BattleActor\Player\Skull\Minotaurus\Wolf\Unique">
-      <UniqueIdentifier>{c549aa68-b8da-415d-800a-79153744ea1d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\BattleActor\Player\Skull\Minotaurus\Wolf\Normal">
-      <UniqueIdentifier>{d80fbc1e-af7e-4c46-9df1-a4cd0c41428a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\BattleActor\Player\Skull\Minotaurus\Wolf\Lagandary">
-      <UniqueIdentifier>{fe04da4f-51de-4304-a945-f2d04a946fb5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\BattleActor\Player\Skull\Alchemist">
       <UniqueIdentifier>{db4c0849-8663-4610-82b1-0baec5e95bdd}</UniqueIdentifier>
     </Filter>
@@ -375,6 +360,21 @@
     </Filter>
     <Filter Include="4_Level\DebugLevel\TestLevel">
       <UniqueIdentifier>{e5f8edfe-2517-4f5c-ad91-fc6728eadea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Player\Skull\Wolf">
+      <UniqueIdentifier>{59676618-25b2-4fc4-a1ad-083d9df730f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Player\Skull\Wolf\Rare">
+      <UniqueIdentifier>{6d6f0935-ac6c-4c94-b711-4924dad61efe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Player\Skull\Wolf\Unique">
+      <UniqueIdentifier>{c549aa68-b8da-415d-800a-79153744ea1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Player\Skull\Wolf\Normal">
+      <UniqueIdentifier>{d80fbc1e-af7e-4c46-9df1-a4cd0c41428a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\BattleActor\Player\Skull\Wolf\Lagandary">
+      <UniqueIdentifier>{fe04da4f-51de-4304-a945-f2d04a946fb5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -950,6 +950,9 @@
     </ClInclude>
     <ClInclude Include="TalkButton.h">
       <Filter>2_Actor\UI\Talk</Filter>
+    </ClInclude>
+    <ClInclude Include="WolfSkull_Normal.h">
+      <Filter>2_Actor\BattleActor\Player\Skull\Wolf\Normal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1582,6 +1585,9 @@
     </ClCompile>
     <ClCompile Include="TalkButton.cpp">
       <Filter>2_Actor\UI\Talk</Filter>
+    </ClCompile>
+    <ClCompile Include="WolfSkull_Normal.cpp">
+      <Filter>2_Actor\BattleActor\Player\Skull\Wolf\Normal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

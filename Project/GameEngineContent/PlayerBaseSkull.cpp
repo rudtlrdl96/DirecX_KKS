@@ -45,6 +45,18 @@ void PlayerBaseSkull::SetPlayer(std::shared_ptr<class Player> _ParentPlayer)
 
 std::shared_ptr<GameEngineActor> PlayerBaseSkull::SkullDeath()
 {
+	switch (Type)
+	{
+	case PlayerBaseSkull::SkullType::Power:
+		break;
+	case PlayerBaseSkull::SkullType::Speed:
+		break;
+	case PlayerBaseSkull::SkullType::Balance:
+		break;
+	default:
+		break;
+	}
+
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
 	std::shared_ptr<GameEngineActor> ReturnActor = nullptr;

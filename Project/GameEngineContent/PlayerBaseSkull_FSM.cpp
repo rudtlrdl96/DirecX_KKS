@@ -662,11 +662,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 		IsSwitchValue = true;
 	}
 
-	if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
-	{
-		PlayerFSM.ChangeState("Fall");
-		return;
-	}
+	BattleActorRigidbody.AddVelocity(float4(0, -2800.0f * _DeltaTime, 0));
 
 	AttackRigidbody.UpdateForce(_DeltaTime);
 
@@ -717,6 +713,12 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 	if (true == Render->IsAnimationEnd())
 	{
 		AttackRigidbody.SetVelocity(float4::Zero);
+
+		if (nullptr == ContentFunc::PlatformColCheck(GroundCol, true))
+		{
+			PlayerFSM.ChangeState("Fall");
+			return;
+		}
 
 		if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{

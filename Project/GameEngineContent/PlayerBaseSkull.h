@@ -30,6 +30,13 @@ public:
 		MagicAttack,
 	};
 
+	enum class SkullType
+	{
+		Power,
+		Speed,
+		Balance
+	};
+
 public:
 	PlayerBaseSkull();
 	~PlayerBaseSkull();
@@ -120,6 +127,8 @@ public:
 	void PlayStoryMove(const float4& _MovePos, std::function<void()> _EndCallback = nullptr);
 
 protected:
+	SkullType Type = SkullType::Balance;
+
 	std::vector<std::string> DeadPartNames;
 
 	class Player* ParentPlayer = nullptr;
