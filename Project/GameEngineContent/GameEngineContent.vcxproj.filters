@@ -954,6 +954,9 @@
     <ClInclude Include="WolfSkull_Normal.h">
       <Filter>2_Actor\BattleActor\Player\Skull\Wolf\Normal</Filter>
     </ClInclude>
+    <ClInclude Include="WolfSkull_Rare.h">
+      <Filter>2_Actor\BattleActor\Player\Skull\Wolf\Rare</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1588,6 +1591,9 @@
     </ClCompile>
     <ClCompile Include="WolfSkull_Normal.cpp">
       <Filter>2_Actor\BattleActor\Player\Skull\Wolf\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="WolfSkull_Rare.cpp">
+      <Filter>2_Actor\BattleActor\Player\Skull\Wolf\Rare</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -33,7 +33,8 @@ void Inventory::ResetSkull()
 {
 	MainSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(0);
 	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(203); //경비 대장
-	SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(1); //웨어울프_노말
+	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(1); //웨어울프_노말
+	SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(100); //웨어울프_레어
 
 	//SubSkullData.Reset();
 }

@@ -227,7 +227,7 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ChiefGuard_Unique_Switch.png").GetFullPath(), 9, 1);
 	}
 
-	// 
+	// 웨어울프 노말
 	if (nullptr == GameEngineTexture::Find("Wolf_Normal_Idle.png"))
 	{
 		GameEngineDirectory Path;
@@ -273,6 +273,54 @@ void ContentCore::SkullDataLoad()
 
 		// Skull Switch
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Normal_Switch.png").GetFullPath(), 3, 1);
+	}
+
+	// 웨어울프 레어
+	if (nullptr == GameEngineTexture::Find("Wolf_Rare_Idle.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Player");
+		Path.Move("Skull");
+		Path.Move("Wolf");
+		Path.Move("Rare");
+
+		// Idle Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_Idle.png").GetFullPath(), 6, 1);
+
+		// Walk Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_Walk.png").GetFullPath(), 3, 2);
+
+		// Dash Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_Dash.png").GetFullPath(), 3, 1);
+
+		// FallEnter Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_Fall.png").GetFullPath(), 1, 1);
+
+		// FallRepeat Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_FallRepeat.png").GetFullPath(), 3, 1);
+
+		// Jump Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_Jump.png").GetFullPath(), 3, 1);
+
+		// AttackA Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_AttackA.png").GetFullPath(), 5, 1);
+
+		// AttackB Sprite 
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_AttackB.png").GetFullPath(), 5, 1);
+
+		// JumpAttack Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_JumpAttack.png").GetFullPath(), 6, 1);
+
+		// SkillA Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_SkillA.png").GetFullPath(), 7, 1);
+
+		// Skull Switch
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_Switch.png").GetFullPath(), 6, 1);
 	}
 
 	std::vector<SkullData> NormalDatas;

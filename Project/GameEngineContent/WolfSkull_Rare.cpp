@@ -1,17 +1,17 @@
 #include "PrecompileHeader.h"
-#include "WolfSkull_Normal.h"
-#include "BaseMonster.h"
+#include "WolfSkull_Rare.h"
 #include "Player.h"
+#include "BaseMonster.h"
 
-WolfSkull_Normal::WolfSkull_Normal()
+WolfSkull_Rare::WolfSkull_Rare()
 {
 }
 
-WolfSkull_Normal::~WolfSkull_Normal()
+WolfSkull_Rare::~WolfSkull_Rare()
 {
 }
 
-void WolfSkull_Normal::Start()
+void WolfSkull_Rare::Start()
 {
 	Type = SkullType::Speed;
 
@@ -36,7 +36,7 @@ void WolfSkull_Normal::Start()
 	Switch_DamageRatio = 2.0f;
 }
 
-void WolfSkull_Normal::Skill_SlotA_Enter()
+void WolfSkull_Rare::Skill_SlotA_Enter()
 {
 	PlayerBaseSkull::Skill_SlotA_Enter();
 	IsSkillMove = false;
@@ -51,7 +51,7 @@ void WolfSkull_Normal::Skill_SlotA_Enter()
 	DashRigidbody.SetMaxSpeed(3000.0f);
 }
 
-void WolfSkull_Normal::Skill_SlotA_Update(float _DeltaTime)
+void WolfSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Skill_SlotA_Update(_DeltaTime);
 
@@ -76,7 +76,7 @@ void WolfSkull_Normal::Skill_SlotA_Update(float _DeltaTime)
 	}
 }
 
-void WolfSkull_Normal::Skill_SlotA_End()
+void WolfSkull_Rare::Skill_SlotA_End()
 {
 	DashRigidbody.SetMaxSpeed(1600.0f);
 	DashRigidbody.SetVelocity(float4::Zero);
@@ -84,32 +84,32 @@ void WolfSkull_Normal::Skill_SlotA_End()
 	KillEvent = nullptr;
 }
 
-void WolfSkull_Normal::Dash_Enter()
+void WolfSkull_Rare::Dash_Enter()
 {
 	PlayerBaseSkull::Dash_Enter();
 	WalkCol->GetTransform()->SetLocalPosition(float4(40, 35, 0));
 }
 
-void WolfSkull_Normal::Dash_Update(float _DeltaTime)
+void WolfSkull_Rare::Dash_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Dash_Update(_DeltaTime);
 	BattleActorRigidbody.AddVelocity(float4(0, -3200.0f * _DeltaTime));
 }
 
-void WolfSkull_Normal::Dash_End()
+void WolfSkull_Rare::Dash_End()
 {
 	PlayerBaseSkull::Dash_End();
 	WalkCol->GetTransform()->SetLocalPosition(float4(20, 35, 0));
 }
 
-void WolfSkull_Normal::Switch_Enter()
+void WolfSkull_Rare::Switch_Enter()
 {
 	PlayerBaseSkull::Switch_Enter();
 	IsSwitchMove = false;
 	SwitchMoveProgress = 0.0f;
 }
 
-void WolfSkull_Normal::Switch_Update(float _DeltaTime)
+void WolfSkull_Rare::Switch_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Switch_Update(_DeltaTime);
 
@@ -145,9 +145,9 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 			ColTrans->SetWorldScale(Scale);
 			SwitchMoveEnd.x = SearchPositionX(Pos, Scale, Inter, SearchColMode::Right);
 		}
-			break;
+		break;
 		case ActorViewDir::Right:
-		{		
+		{
 			float4 Pos = DashPos + float4(150, 0);
 			float4 Scale = float4(300, WalkCol->GetTransform()->GetWorldScale().y, 1);
 
@@ -155,7 +155,7 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 			ColTrans->SetWorldScale(Scale);
 			SwitchMoveEnd.x = SearchPositionX(Pos, Scale, Inter, SearchColMode::Left);
 		}
-			break;
+		break;
 		}
 
 		SwitchCol->On();
@@ -171,7 +171,7 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 
 				if (nullptr == CastingPtr)
 				{
-					MsgAssert_Rtti<WolfSkull_Normal>(" - BaseMonster 클래스를 상속받은 클래스만 Monster ColOrder를 가질 수 있습니다");
+					MsgAssert_Rtti<WolfSkull_Rare>(" - BaseMonster 클래스를 상속받은 클래스만 Monster ColOrder를 가질 수 있습니다");
 					return;
 				}
 
@@ -183,46 +183,46 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 	}
 }
 
-void WolfSkull_Normal::DataLoad()
+void WolfSkull_Rare::DataLoad()
 {
-	Data = ContentDatabase<SkullData, SkullGrade>::GetData(1); // 1 == 웨어울프
+	Data = ContentDatabase<SkullData, SkullGrade>::GetData(100); // 1 == 나이 든 웨어울프
 }
 
-void WolfSkull_Normal::TextureLoad()
+void WolfSkull_Rare::TextureLoad()
 {
 	DeadPartNames.reserve(6);
-	DeadPartNames.push_back("Werewolf_Head1.png");
+	DeadPartNames.push_back("Werewolf_Head2.png");
 	DeadPartNames.push_back("Skul_DeatParts01.png");
 	DeadPartNames.push_back("Skul_DeatParts02.png");
 	DeadPartNames.push_back("Skul_DeatParts03.png");
 	DeadPartNames.push_back("Skul_DeatParts04.png");
 	DeadPartNames.push_back("Skul_DeatParts05.png");
 
-	TexName_MainSkullUI = "Normal_WereWolf_UI_MainSkull.png";
-	TexName_SubSkullUI = "Normal_WereWolf_UI_SubSkull.png";
-	TexName_InventoryUI = "Normal_WereWolf_UI_Inventory.png";
+	TexName_MainSkullUI = "Rare_WereWolf_UI_MainSkull.png";
+	TexName_SubSkullUI = "Rare_WereWolf_UI_SubSkull.png";
+	TexName_InventoryUI = "Rare_WereWolf_UI_Inventory.png";
 
-	TexName_SkillA = "Normal_WereWolf_Predation1.png";
-	TexName_SkillB = "Normal_WereWolf_Predation1.png";
+	TexName_SkillA = "Normal_WereWolf_Predation2.png";
+	TexName_SkillB = "Normal_WereWolf_Predation2.png";
 }
 
-void WolfSkull_Normal::CreateAnimation()
+void WolfSkull_Rare::CreateAnimation()
 {
 	//Idle Animation
-	Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Wolf_Normal_Idle.png", .FrameInter = 0.1f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Wolf_Rare_Idle.png", .FrameInter = 0.1f, .ScaleToTexture = true });
 	//Walk Animation
-	Render->CreateAnimation({ .AnimationName = "Walk", .SpriteName = "Wolf_Normal_Walk.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Walk", .SpriteName = "Wolf_Rare_Walk.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	//Dash Animation
-	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "Wolf_Normal_Dash.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "Wolf_Rare_Dash.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	// Fall
-	Render->CreateAnimation({ .AnimationName = "Fall", .SpriteName = "Wolf_Normal_Fall.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Fall", .SpriteName = "Wolf_Rare_Fall.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	// Fall Repeat
-	Render->CreateAnimation({ .AnimationName = "FallRepeat", .SpriteName = "Wolf_Normal_FallRepeat.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "FallRepeat", .SpriteName = "Wolf_Rare_FallRepeat.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	// Jump
-	Render->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "Wolf_Normal_Jump.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "Wolf_Rare_Jump.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 }
 
-void WolfSkull_Normal::AnimationColLoad()
+void WolfSkull_Rare::AnimationColLoad()
 {
 	GameEngineDirectory Path;
 
@@ -231,16 +231,16 @@ void WolfSkull_Normal::AnimationColLoad()
 	Path.Move("Data");
 	Path.Move("8_Player");
 	Path.Move("Wolf");
-	Path.Move("Normal");
+	Path.Move("Rare");
 
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_AttackA").GetFullPath()), 0.06f);
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_AttackB").GetFullPath()), 0.06f);
-	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_JumpAttack").GetFullPath()), 0.04f);
-	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_SkillA").GetFullPath()), 0.08f);
-	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_Switch").GetFullPath()), 0.1f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Rare_AttackA").GetFullPath()), 0.06f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Rare_AttackB").GetFullPath()), 0.06f);
+	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Rare_JumpAttack").GetFullPath()), 0.04f);
+	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Rare_SkillA").GetFullPath()), 0.08f);
+	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Rare_Switch").GetFullPath()), 0.1f);
 }
 
-void WolfSkull_Normal::Dash()
+void WolfSkull_Rare::Dash()
 {
 	switch (GetViewDir())
 	{
