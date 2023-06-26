@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "WolfSkull_Normal.h"
 #include "BaseMonster.h"
+#include "Player.h"
 
 WolfSkull_Normal::WolfSkull_Normal()
 {
@@ -41,6 +42,12 @@ void WolfSkull_Normal::Skill_SlotA_Enter()
 	IsSkillMove = false;
 
 	AttackTypeValue = AttackType::MagicAttack;
+
+	KillEvent = [this]()
+	{
+		ParentPlayer->HealPlayer(1, float4::Up);
+	};
+
 }
 
 void WolfSkull_Normal::Skill_SlotA_Update(float _DeltaTime)
@@ -63,10 +70,28 @@ void WolfSkull_Normal::Skill_SlotA_Update(float _DeltaTime)
 	}
 }
 
+void WolfSkull_Normal::Skill_SlotA_End()
+{
+	PlayerBaseSkull::Skill_SlotA_End();
+	KillEvent = nullptr;
+}
+
+void WolfSkull_Normal::Dash_Enter()
+{
+	PlayerBaseSkull::Dash_Enter();
+	WalkCol->GetTransform()->SetLocalPosition(float4(40, 35, 0));
+}
+
 void WolfSkull_Normal::Dash_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Dash_Update(_DeltaTime);
 	BattleActorRigidbody.AddVelocity(float4(0, -2800.0f * _DeltaTime));
+}
+
+void WolfSkull_Normal::Dash_End()
+{
+	PlayerBaseSkull::Dash_End();
+	WalkCol->GetTransform()->SetLocalPosition(float4(20, 35, 0));
 }
 
 void WolfSkull_Normal::Switch_Enter()

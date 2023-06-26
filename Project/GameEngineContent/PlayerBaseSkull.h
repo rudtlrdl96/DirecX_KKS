@@ -225,6 +225,7 @@ protected:
 
 	float4 StoryMovePos = float4::Zero;
 	std::function<void()> StoryMoveEndCallback = nullptr;
+	std::function<void()> KillEvent = nullptr;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -345,5 +346,6 @@ private:
 	void CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime);
 	void RendererEffect(const float4& _StartColor, const float4& _EndColor, float _Speed);
 	void CaptureRenderTex(const float4& _StartColor, const float4& _EndColor, float _Speed);
+
 };
 

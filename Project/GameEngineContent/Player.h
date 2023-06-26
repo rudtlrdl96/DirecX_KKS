@@ -32,6 +32,7 @@ public:
 	}
 
 	void HitPlayer(float _Damage, const float4& _HitForce);
+	void HealPlayer(float _Heal, const float4& _HealForce);
 
 	void AddPushPlayer(const float4& _HitForce);
 	void SetPushPlayer(const float4& _HitForce);

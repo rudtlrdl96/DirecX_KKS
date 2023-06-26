@@ -17,8 +17,11 @@ protected:
 	
 	void Skill_SlotA_Enter() override;
 	void Skill_SlotA_Update(float _DeltaTime) override;
+	void Skill_SlotA_End() override;
 
+	void Dash_Enter() override;
 	void Dash_Update(float _DeltaTime) override;
+	void Dash_End() override;
 
 	void Switch_Enter() override;
 	void Switch_Update(float _DeltaTime) override;

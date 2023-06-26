@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
+#include "BattleActorHealFont.h"
 #include "CollisionDebugRender.h"
 
 #include "PlayerHitFade.h"
@@ -156,6 +157,31 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 	MainSkull->IsHitEffectOn = true;
 	MainSkull->HitEffect();
 	MainSkull->HitPush();
+}
+
+void Player::HealPlayer(float _Heal, const float4& _HealForce)
+{
+	PlayerState::HP += _Heal;
+
+	if (PlayerState::HP > PlayerState::MaxHP)
+	{
+		PlayerState::HP = PlayerState::MaxHP;
+	}
+
+	std::shared_ptr<BattleActorHealFont> NewDamageFont = GetLevel()->CreateActor<BattleActorHealFont>();
+
+	float4 FontColor = float4(0.3607f, 0.9215f, 0.0784f, 1);
+
+	NewDamageFont->InitFont({
+		.Damage = _Heal,
+		.FontSize = 34,
+		.FontColor = FontColor,
+		.Pos = GetTransform()->GetWorldPosition() + float4(GameEngineRandom::MainRandom.RandomFloat(-30, 30), 70, -100),
+		.Dir = _HealForce,
+		.MoveSpeed = 100,
+		.RandX = 30.0f,
+		.LiveTime = 0.55f,
+		});
 }
 
 void Player::AddPushPlayer(const float4& _HitForce)

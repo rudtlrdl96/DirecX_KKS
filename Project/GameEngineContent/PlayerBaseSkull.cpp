@@ -306,10 +306,10 @@ void PlayerBaseSkull::Start()
 					switch (AttackTypeValue)
 					{
 					case PlayerBaseSkull::AttackType::MeleeAttack:
-						CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, false);
+						CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, false, KillEvent);
 						break;
 					case PlayerBaseSkull::AttackType::MagicAttack:
-						CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, true);
+						CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, true, KillEvent);
 						break;
 					default:
 						break;
