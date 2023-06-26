@@ -116,16 +116,9 @@ void TitleLevel::Update(float _DeltaTime)
 		break;
 	}
 }
-#include "GameEngineActorGUI.h"
-
 
 void TitleLevel::LevelChangeStart()
 {
 	UILevel::LevelChangeStart();
-
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(FontRender->GetTransform());
-	Ptr->On();
-
 	IsInputWait = true;
 }

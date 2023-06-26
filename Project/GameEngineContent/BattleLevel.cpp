@@ -13,8 +13,6 @@
 #include "BaseMonster.h"
 #include "Minimap.h"
 
-#include "GameEngineActorGUI.h"
-
 BattleLevel::BattleLevel()
 {
 }
@@ -130,8 +128,6 @@ void BattleLevel::Start()
 		{
 			BaseMonster::SetMonstersMove(false);
 		});
-
-	ActorGUIPtr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
 }
 
 void BattleLevel::Update(float _DeltaTime)
@@ -194,8 +190,6 @@ void BattleLevel::LevelChangeStart()
 void BattleLevel::LevelChangeEnd()
 {
 	ContentLevel::LevelChangeEnd();
-
-	ActorGUIPtr->Off();
 
 	if (nullptr != MainPlayer)
 	{

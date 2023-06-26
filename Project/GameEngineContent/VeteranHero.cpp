@@ -13,7 +13,6 @@ VeteranHero::VeteranHero()
 VeteranHero::~VeteranHero()
 {
 	GetContentLevel()->StopCustomBgm();
-	GetContentLevel()->PlayBaseBGM();
 }
 
 void VeteranHero::Destroy()
@@ -408,9 +407,6 @@ void VeteranHero::Update(float _DeltaTime)
 			PlayAnimation("DeathIntro", false);
 			GetContentLevel()->CallEvent("VeteranHero_Death");
 			GetContentLevel()->GetCamCtrl().CameraShake(1, 1, 0);
-
-			GetContentLevel()->StopCustomBgm();
-			GetContentLevel()->PlayBaseBGM();
 		}
 
 		if (true == Render->IsAnimationEnd())

@@ -1,6 +1,5 @@
 #include "PrecompileHeader.h"
 #include "WitchOpening.h"
-#include "GameEngineActorGUI.h"
 #include "Player.h"
 
 WitchOpening::WitchOpening()

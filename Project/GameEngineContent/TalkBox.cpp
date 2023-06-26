@@ -1,6 +1,5 @@
 #include "PrecompileHeader.h"
 #include "TalkBox.h"
-#include "GameEngineActorGUI.h"
 #include "TalkArrow.h"
 
 TalkBox::TalkBox()

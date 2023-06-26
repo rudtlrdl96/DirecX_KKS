@@ -56,8 +56,6 @@ void RookieHero_HealthBar::Destroy()
 	GetContentLevel()->RemoveEvent("MoveStage", GetActorCode());
 }
 
-//#include "GameEngineActorGUI.h"
-
 void RookieHero_HealthBar::Start()
 {
 	if (nullptr == GameEngineTexture::Find("EnemyHpBar.png"))

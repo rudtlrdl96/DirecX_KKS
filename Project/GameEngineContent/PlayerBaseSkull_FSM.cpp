@@ -62,7 +62,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
+		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA && true == IsActiveSkillA())
 		{
 			PlayerFSM.ChangeState("Skill_A");		
 			return;
@@ -70,7 +70,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
+		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB && true == IsActiveSkillB())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -143,7 +143,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 
 	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
+		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA && true == IsActiveSkillA())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -151,7 +151,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
+		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB && true == IsActiveSkillB())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -244,7 +244,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 
 	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
+		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA && true == IsActiveSkillA())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -252,7 +252,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
+		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB && true == IsActiveSkillB())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -319,19 +319,7 @@ void PlayerBaseSkull::Dash_Enter()
 		.FlipX = ViewDir == ActorViewDir::Left});
 
 	FsmState = PlayerFSM_State::Dash;
-
-	switch (ViewDir)
-	{
-	case ActorViewDir::Left:
-		DashRigidbody.SetVelocity(float4::Left * DashVelocity);
-		break;
-	case ActorViewDir::Right:
-		DashRigidbody.SetVelocity(float4::Right * DashVelocity);
-		break;
-	default:
-		break;
-	}
-
+	Dash();
 	DashAvoidance = true;
 
 	CanDash = false;
@@ -390,7 +378,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
+		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA && true == IsActiveSkillA())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -398,7 +386,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B") && false == IsLockSkillB)
 	{
-		if (CurSkillBTime > GetSkillBEndTime())
+		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB && true == IsActiveSkillB())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -448,17 +436,8 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 
 		DashCombo = true;
 
-		switch (ViewDir)
-		{
-		case ActorViewDir::Left:
-			DashRigidbody.SetVelocity(float4::Left * DashVelocity);
-			break;
-		case ActorViewDir::Right:
-			DashRigidbody.SetVelocity(float4::Right * DashVelocity);
-			break;
-		default:
-			break;
-		}
+		Render->ChangeAnimation("Dash" + AnimNamePlusText);
+		Dash();
 	}
 
 	if (5.0f > DashRigidbody.GetVelocity().Size())
@@ -549,7 +528,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 
 	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
+		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA && true == IsActiveSkillA())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -557,7 +536,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
+		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB && true == IsActiveSkillB())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -689,7 +668,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 
 	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
+		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA && true == IsActiveSkillA())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -697,7 +676,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
+		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB && true == IsActiveSkillB())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;
@@ -819,7 +798,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 	
 	if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
 	{
-		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA)
+		if (CurSkillATime > GetSkillAEndTime() && false == IsLockSkillA && true == IsActiveSkillA())
 		{
 			PlayerFSM.ChangeState("Skill_A");
 			return;
@@ -827,7 +806,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
-		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB)
+		if (CurSkillBTime > GetSkillBEndTime() && false == IsLockSkillB && true == IsActiveSkillB())
 		{
 			PlayerFSM.ChangeState("Skill_B");
 			return;

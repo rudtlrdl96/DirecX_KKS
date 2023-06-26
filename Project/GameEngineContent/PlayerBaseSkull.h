@@ -14,6 +14,12 @@ enum class SkullType
 
 class PlayerBaseSkull : public BattleActor
 {
+protected:
+	enum class SearchColMode
+	{
+		Left,
+		Right
+	};
 public:
 	friend class Player;
 
@@ -165,6 +171,7 @@ protected:
 	std::shared_ptr<class GameEngineCollision> GroundCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> JumpCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> AttackCol = nullptr;
+	std::shared_ptr<class GameEngineCollision> RayCol = nullptr;
 
 	Rigidbody2D DashRigidbody;
 	Rigidbody2D AttackRigidbody;
@@ -188,6 +195,7 @@ protected:
 	float SkillACoolTime = 5.0f;
 	float CurSkillBTime = 1000.0f;
 	float SkillBCoolTime = 5.0f;
+	float DashVelocity = 3000.0f;
 
 	UINT AttackComboCount = 0;
 	bool IsAttackCombo = false;
@@ -294,11 +302,16 @@ protected:
 		return IsSwitchValue;
 	}
 
-	virtual void SwitchEnter() {}
-	virtual void SwitchEnd() {}
 	virtual void CoolTimeCheck(float _DeltaTime);
 
 	void Jump();
+	virtual void Dash();
+
+	float SearchPositionX(const float4& _Pos, const float4& _ColScale, float _Inter, SearchColMode _Mode);
+
+	virtual void ChangeSwitchStart() {}
+	virtual void ChangeSwitchEnd() {}
+
 
 private:	
 	AnimAttackCheck AttackEnterCheck;
@@ -314,7 +327,6 @@ private:
 	float DashCoolTime = 1000.0f;
 	float DashTrailCoolTime = 0.0f;
 
-	float DashVelocity = 3000.0f;
 	bool DashAvoidance = false;
 	bool DashCombo = false;
 

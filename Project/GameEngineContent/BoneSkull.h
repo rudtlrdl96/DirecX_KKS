@@ -29,7 +29,7 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
-	void SwitchEnd() override;
+	void ChangeSwitchEnd() override;
 
 	void Idle_Enter() override;
 	void Idle_Update(float _DeltaTime) override;

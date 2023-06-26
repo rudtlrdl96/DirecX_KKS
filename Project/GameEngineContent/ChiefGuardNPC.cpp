@@ -1,6 +1,5 @@
 #include "PrecompileHeader.h"
 #include "ChiefGuardNPC.h"
-#include "GameEngineActorGUI.h"
 
 ChiefGuardNPC::ChiefGuardNPC()
 {

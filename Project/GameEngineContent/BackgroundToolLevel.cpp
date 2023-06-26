@@ -46,7 +46,6 @@ void BackgroundToolLevel::Start()
 	DebugActor = CreateActor<DebugSpriteActor>();
 
 	MainCamCtrl.SetLookatTarget(DebugActor);
-	ActorGUIPtr->SetTarget(DebugActor->GetTransform());
 }
 
 void BackgroundToolLevel::Update(float _DeltaTime)

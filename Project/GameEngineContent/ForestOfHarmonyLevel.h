@@ -27,7 +27,10 @@ private:
 	std::shared_ptr<class BossRoomFlop> BossFlop = nullptr;
 
 	bool IsBossClear = false;
+	bool IsFadeEndWait = false;
+
 	float ClearWaitTime = 0.0f;
+	float FadeWaitTime = 0.0f;
 
 	void CreateForestOfHarmonyEvent();
 };

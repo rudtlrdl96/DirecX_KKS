@@ -39,8 +39,6 @@ protected:
 	std::shared_ptr<class Player> MainPlayer = nullptr;
 	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
 
-	std::shared_ptr<class GameEngineActorGUI> ActorGUIPtr = nullptr;
-
 	bool IsLevelMove = false;
 
 	void Start() override;

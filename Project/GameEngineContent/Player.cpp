@@ -14,6 +14,7 @@
 
 #include "BoneSkull.h"
 #include "ChiefGuard.h"
+#include "WolfSkull_Normal.h"
 #include "BattleActorDamageFont.h"
 
 #include "ContentLevel.h"
@@ -385,13 +386,13 @@ void Player::Update(float _DeltaTime)
 
  		SubSkull->PlayerFSM.ChangeState("Switch");
 		SubSkull->SetViewDir(Dir);
-		SubSkull->SwitchEnter();
+		SubSkull->ChangeSwitchStart();
 		SubSkull->On();
 		SubSkull->DebugOff();
 
 		MainSkull->CaptureRenderTex(float4(0.85f, 0.2f, 0.92f, 1.0f), float4(0.85f, 0.2f, 0.92f, 0.0f), 1.5f);
 		MainSkull->Off();
-		MainSkull->SwitchEnd();
+		MainSkull->ChangeSwitchEnd();
 		MainSkull->DebugOff();
 		MainSkull->IsSwitchValue = false;
 
@@ -451,6 +452,9 @@ std::shared_ptr<PlayerBaseSkull> Player::CreateNewSkull(size_t _Index)
 	{
 	case 0: // 리틀본
 		NewSkull = GetLevel()->CreateActor<BoneSkull>();
+		break;
+	case 1: // 웨어울프
+		NewSkull = GetLevel()->CreateActor<WolfSkull_Normal>();
 		break;
 	case 203: // 경비대장
 		NewSkull = GetLevel()->CreateActor<ChiefGuard>();

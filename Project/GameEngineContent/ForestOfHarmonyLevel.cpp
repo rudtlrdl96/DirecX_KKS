@@ -19,7 +19,6 @@ ForestOfHarmonyLevel::ForestOfHarmonyLevel()
 ForestOfHarmonyLevel::~ForestOfHarmonyLevel()
 {
 }
-#include "GameEngineActorGUI.h"
 
 void ForestOfHarmonyLevel::Start()
 {
@@ -145,15 +144,28 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 			StoryLevel::SetLevelEnterStoryName(StoryLevel::StoryName::ForestOfHarmony);
 			StoryLevel::SetStoryEndMoveLevel("EndingLogo");
 
-			FadeActorPtr->FadeIn([]()
+			FadeActorPtr->FadeIn([this]()
 				{
-					GameEngineCore::ChangeLevel("Story");
+					IsFadeEndWait = true;
 				});	
 
 			IsBossClear = false;
 			ClearWaitTime = 0.0f;
 		}
 	}
+
+	if (true == IsFadeEndWait)
+	{
+		FadeWaitTime += _DeltaTime;
+
+		if (4.0f <= FadeWaitTime)
+		{
+			FadeWaitTime = 0.0f;
+			IsFadeEndWait = false;
+			GameEngineCore::ChangeLevel("Story");
+		}
+	}
+
 }
 
 void ForestOfHarmonyLevel::ChangeStage()

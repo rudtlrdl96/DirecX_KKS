@@ -21,8 +21,6 @@ StoryLevel::~StoryLevel()
 {
 }
 
-#include "GameEngineActorGUI.h"
-
 void StoryLevel::Start()
 {
 	UILevel::Start();
@@ -127,10 +125,6 @@ void StoryLevel::Update(float _DeltaTime)
 void StoryLevel::LevelChangeStart()
 {
 	UILevel::LevelChangeStart();
-
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(StoryFont->GetTransform());
-	Ptr->On();
 
 	SetStoryName(ChangeStoryName);
 	StoryReset();

@@ -279,6 +279,10 @@ void PlayerBaseSkull::Start()
 	AttackCol->SetColType(ColType::AABBBOX2D);
 	AttackCol->Off();
 
+	RayCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	RayCol->SetColType(ColType::AABBBOX2D);
+	RayCol->Off();
+
 	DashTrail = GetLevel()->CreateActor<CaptureTrail>();
 	DashTrail->GetTransform()->SetParent(GetTransform());
 	DashTrail->SetTime(0.4f);
@@ -321,6 +325,7 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 {
 	BattleActorRigidbody.UpdateForce(_DeltaTime);
 	float4 HitVelocity = BattleActorRigidbody.GetVelocity();
+	float4 DashVelocity = DashRigidbody.GetVelocity();
 
 	if (0 < HitVelocity.x)
 	{
@@ -350,12 +355,14 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 		BattleActorRigidbody.SetVelocity(float4::Zero);
 	}
 
-	if (0 < HitVelocity.y)
+	if (0 < HitVelocity.y + DashVelocity.y)
 	{
 		if (nullptr != ContentFunc::PlatformColCheck(JumpCol))
 		{
 			HitVelocity.y = 0.0f;
+			DashVelocity.y = 0.0f;
 			BattleActorRigidbody.SetVelocity(HitVelocity);
+			DashRigidbody.SetVelocity(DashVelocity);
 		}
 	}
 	else
@@ -367,8 +374,10 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 		if (nullptr != GroundColPtr)
 		{
 			HitVelocity.y = 0.0f;
+			DashVelocity.y = 0.0f;
 			HitVelocity.x = HitVelocity.x * (1.0f - _DeltaTime);
 			BattleActorRigidbody.SetVelocity(HitVelocity);
+			DashRigidbody.SetVelocity(DashVelocity);
 
 			float4 CurPos = PlayerTrans->GetWorldPosition();
 
@@ -516,6 +525,88 @@ void PlayerBaseSkull::Jump()
 	}
 
 	BattleActorRigidbody.SetVelocity(JumpVel);
+}
+
+void PlayerBaseSkull::Dash()
+{
+	switch (ViewDir)
+	{
+	case ActorViewDir::Left:
+		DashRigidbody.SetVelocity(float4::Left * DashVelocity);
+		break;
+	case ActorViewDir::Right:
+		DashRigidbody.SetVelocity(float4::Right * DashVelocity);
+		break;
+	default:
+		break;
+	}
+}
+
+float PlayerBaseSkull::SearchPositionX(const float4& _Pos, const float4& _ColScale, float _Inter, SearchColMode _Mode)
+{
+	float ResultX = 0.0f;
+
+	switch (_Mode)
+	{
+	case SearchColMode::Left:
+		ResultX = _Pos.x + _ColScale.hx();
+		break;
+	case SearchColMode::Right:
+		ResultX = _Pos.x - _ColScale.hx();
+		break;
+	default:
+		break;
+	}
+
+	RayCol->On();
+
+	GameEngineTransform* ColTrans = RayCol->GetTransform();
+
+	ColTrans->SetWorldPosition(_Pos);
+	ColTrans->SetWorldScale(_ColScale);
+
+	std::vector<std::shared_ptr<GameEngineCollision>> PlatformDatas;
+
+	if (true == RayCol->CollisionAll(CollisionOrder::Platform_Normal, PlatformDatas, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	{
+		float NearDis = D3D10_FLOAT32_MAX;
+
+		for (size_t i = 0; i < PlatformDatas.size(); i++)
+		{
+			GameEngineTransform* PlatformTrans = PlatformDatas[i]->GetTransform();
+
+			float4 PlatformColPos = PlatformTrans->GetWorldPosition();
+			float4 PlatformSize = PlatformTrans->GetWorldScale();
+
+			float PlatformX = 0.0f;
+
+			switch (_Mode)
+			{
+			case SearchColMode::Left:
+				PlatformX = PlatformColPos.x - (PlatformSize.hx() + _Inter);
+
+				if (PlatformX < ResultX)
+				{
+					ResultX = PlatformX;
+				}
+
+				break;
+			case SearchColMode::Right:
+				PlatformX = PlatformColPos.x + PlatformSize.hx() + _Inter;
+
+				if (PlatformX > ResultX)
+				{
+					ResultX = PlatformX;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	RayCol->Off();
+	return ResultX;
 }
 
 void PlayerBaseSkull::CreateColDebugRender()

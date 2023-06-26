@@ -15,11 +15,28 @@ public:
 protected:
 	void Start() override;
 	
+	void Dash_Update(float _DeltaTime) override;
+
+	void Switch_Enter() override;
+	void Switch_Update(float _DeltaTime) override;
+
 private:
+	bool IsSwitchMove = false;
+
+	float4 SwitchMoveStart = float4::Zero;
+	float4 SwitchMoveEnd = float4::Zero;
+
+	std::shared_ptr<GameEngineCollision> SwitchCol = nullptr;
+
+	float SwitchMoveProgress = 0.0f;
+
 	void DataLoad() override;
 	void TextureLoad() override;
 	void CreateAnimation() override;
 	void AnimationColLoad() override;
+
+	void Dash() override;
+
 
 };
 
