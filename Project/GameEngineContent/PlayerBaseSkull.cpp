@@ -327,15 +327,17 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 	float4 HitVelocity = BattleActorRigidbody.GetVelocity();
 	float4 DashVelocity = DashRigidbody.GetVelocity();
 
-	if (0 < HitVelocity.x)
+	if (0 < HitVelocity.x + DashVelocity.x)
 	{
 		if (ViewDir == ActorViewDir::Left && nullptr != ContentFunc::PlatformColCheck(BackCol))
 		{
 			HitVelocity.x = 0.0f;
+			DashVelocity.x = 0.0f;
 		}
 		else if(nullptr != ContentFunc::PlatformColCheck(WalkCol))
 		{
 			HitVelocity.x = 0.0f;
+			DashVelocity.x = 0.0f;
 		}
 	}
 	else 
@@ -343,10 +345,12 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 		if (ViewDir == ActorViewDir::Left && nullptr != ContentFunc::PlatformColCheck(WalkCol))
 		{
 			HitVelocity.x = 0.0f;
+			DashVelocity.x = 0.0f;
 		}
 		else if (nullptr != ContentFunc::PlatformColCheck(BackCol))
 		{
 			HitVelocity.x = 0.0f;
+			DashVelocity.x = 0.0f;
 		}
 	}
 

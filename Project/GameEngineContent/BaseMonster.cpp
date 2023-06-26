@@ -26,10 +26,18 @@ BaseMonster::~BaseMonster()
 {
 }
 
-void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack)
+void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, std::function<void()> _KillEvent /*= nullptr*/)
 {
 	HP -= _Damage;
 	HitDamageCheck += _Damage;
+
+	if (0.0f > HP)
+	{
+		if (nullptr != _KillEvent)
+		{
+			_KillEvent();
+		}
+	}
 
 	HitDir = _HitDir;
 	IsHit = true;

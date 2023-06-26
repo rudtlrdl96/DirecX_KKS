@@ -11,10 +11,10 @@ void ContentCore::SkullDataLoad()
 {
 	LoadSkull({ .Name = "리틀본", .Index = 0, .Grade = SkullGrade::Normal });
 
-	LoadSkull({.Name = "웨어울프", .Index = 1, .Grade = SkullGrade::Normal});
-	LoadSkull({.Name = "나이 든 웨어울프", .Index = 100, .Grade = SkullGrade::Rare});
-	LoadSkull({ .Name = "미노타우로스", .Index = 101, .Grade = SkullGrade::Rare });
-	LoadSkull({ .Name = "연금술사", .Index = 102, .Grade = SkullGrade::Rare });
+	LoadSkull({.Name = "웨어울프", .Index = 1, .Grade = SkullGrade::Normal, .MoveSpeed = 440.0f});
+	LoadSkull({.Name = "나이 든 웨어울프", .Index = 100, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
+	LoadSkull({ .Name = "미노타우로스", .Index = 101, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
+	LoadSkull({ .Name = "연금술사", .Index = 102, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
 
 	LoadSkull({.Name = "우두머리 웨어울프", .Index = 200, .Grade = SkullGrade::Unique});
 	LoadSkull({ .Name = "미노타우로스 2세", .Index = 201, .Grade = SkullGrade::Unique });

@@ -15,12 +15,16 @@ public:
 protected:
 	void Start() override;
 	
+	void Skill_SlotA_Enter() override;
+	void Skill_SlotA_Update(float _DeltaTime) override;
+
 	void Dash_Update(float _DeltaTime) override;
 
 	void Switch_Enter() override;
 	void Switch_Update(float _DeltaTime) override;
 
 private:
+	bool IsSkillMove = false;
 	bool IsSwitchMove = false;
 
 	float4 SwitchMoveStart = float4::Zero;

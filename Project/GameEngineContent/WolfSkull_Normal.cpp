@@ -16,6 +16,8 @@ void WolfSkull_Normal::Start()
 
 	PlayerBaseSkull::Start();
 
+	GroundCol->GetTransform()->SetWorldScale(float4(14.0f, 5.0f, 1.0f));
+
 	DashRigidbody.SetMaxSpeed(1500.0f);
 	DashRigidbody.SetGravity(-4000.0f);
 
@@ -28,9 +30,37 @@ void WolfSkull_Normal::Start()
 	SwitchCol->SetColType(ColType::AABBBOX2D);
 	SwitchCol->Off();
 
-	//SkillA_DamageRatio = 0.5f;
+	SkillA_DamageRatio = 2.0f;
 	//SkillB_DamageRatio = 2.7f;
-	//Switch_DamageRatio = 1.5f;
+	Switch_DamageRatio = 2.0f;
+}
+
+void WolfSkull_Normal::Skill_SlotA_Enter()
+{
+	PlayerBaseSkull::Skill_SlotA_Enter();
+	IsSkillMove = false;
+
+	AttackTypeValue = AttackType::MagicAttack;
+}
+
+void WolfSkull_Normal::Skill_SlotA_Update(float _DeltaTime)
+{
+	PlayerBaseSkull::Skill_SlotA_Update(_DeltaTime);
+
+	if (false == IsSkillMove && 4 == Render->GetCurrentFrame())
+	{
+		switch (GetViewDir())
+		{
+		case ActorViewDir::Left:
+			DashRigidbody.SetVelocity(float4::Left * 750.0f);
+			break;
+		case ActorViewDir::Right:
+			DashRigidbody.SetVelocity(float4::Right * 750.0f);
+			break;
+		}
+
+		IsSkillMove = true;
+	}
 }
 
 void WolfSkull_Normal::Dash_Update(float _DeltaTime)
@@ -75,8 +105,8 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 		{
 		case ActorViewDir::Left:
 		{
-			float4 Pos = DashPos - float4(200, 0);
-			float4 Scale = float4(400, WalkCol->GetTransform()->GetWorldScale().y, 1);
+			float4 Pos = DashPos - float4(150, 0);
+			float4 Scale = float4(300, WalkCol->GetTransform()->GetWorldScale().y, 1);
 
 			ColTrans->SetWorldPosition(Pos);
 			ColTrans->SetWorldScale(Scale);
@@ -85,8 +115,8 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 			break;
 		case ActorViewDir::Right:
 		{		
-			float4 Pos = DashPos + float4(200, 0);
-			float4 Scale = float4(400, WalkCol->GetTransform()->GetWorldScale().y, 1);
+			float4 Pos = DashPos + float4(150, 0);
+			float4 Scale = float4(300, WalkCol->GetTransform()->GetWorldScale().y, 1);
 
 			ColTrans->SetWorldPosition(Pos);
 			ColTrans->SetWorldScale(Scale);
@@ -112,7 +142,7 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingPtr->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false);
+				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false);
 			}
 		}
 

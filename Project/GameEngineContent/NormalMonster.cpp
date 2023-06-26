@@ -14,9 +14,9 @@ NormalMonster::~NormalMonster()
 {
 }
 
-void NormalMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack)
+void NormalMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, std::function<void()> _KillEvent /*= nullptr*/)
 {
-	BaseMonster::HitMonster(_Damage, _HitDir, _IsStiffen, _IsPush, _IsMagicAttack);
+	BaseMonster::HitMonster(_Damage, _HitDir, _IsStiffen, _IsPush, _IsMagicAttack, _KillEvent);
 
 	if (nullptr == PlayerActor)
 	{
