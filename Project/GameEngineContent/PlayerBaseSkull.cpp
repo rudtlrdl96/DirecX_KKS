@@ -45,18 +45,6 @@ void PlayerBaseSkull::SetPlayer(std::shared_ptr<class Player> _ParentPlayer)
 
 std::shared_ptr<GameEngineActor> PlayerBaseSkull::SkullDeath()
 {
-	switch (Type)
-	{
-	case PlayerBaseSkull::SkullType::Power:
-		break;
-	case PlayerBaseSkull::SkullType::Speed:
-		break;
-	case PlayerBaseSkull::SkullType::Balance:
-		break;
-	default:
-		break;
-	}
-
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
 	std::shared_ptr<GameEngineActor> ReturnActor = nullptr;
@@ -246,6 +234,17 @@ void PlayerBaseSkull::Start()
 	DashRigidbody.SetActiveGravity(false);
 	DashRigidbody.SetMaxSpeed(1050);
 	DashRigidbody.SetFricCoeff(3500);
+
+
+	switch (Type)
+	{
+	case SkullType::Speed:
+		DashRigidbody.SetMaxSpeed(1300);
+		break;
+	default:
+		break;
+	}
+
 	
 	AttackRigidbody.SetActiveGravity(false);
 	AttackRigidbody.SetMaxSpeed(1000);

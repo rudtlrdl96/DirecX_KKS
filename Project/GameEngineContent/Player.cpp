@@ -121,6 +121,11 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 		return;
 	}
 
+	if (SkullType::Power == MainSkull->GetSkullType())
+	{
+		_Damage *= 0.8f;
+	}
+
 	PlayerState::HP -= _Damage;
 
 	if (true == Cheat_HP && 1.0f > PlayerState::HP)

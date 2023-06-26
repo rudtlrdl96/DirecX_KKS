@@ -5,6 +5,13 @@
 #include "Rigidbody2D.h"
 #include "SkullData.h"
 
+enum class SkullType
+{
+	Power,
+	Speed,
+	Balance
+};
+
 class PlayerBaseSkull : public BattleActor
 {
 public:
@@ -30,12 +37,6 @@ public:
 		MagicAttack,
 	};
 
-	enum class SkullType
-	{
-		Power,
-		Speed,
-		Balance
-	};
 
 public:
 	PlayerBaseSkull();
@@ -57,71 +58,76 @@ public:
 
 	void SetPlayer(std::shared_ptr<class Player> _ParentPlayer);
 
-	std::string GetTexName_MainSkullUI()
+	inline std::string GetTexName_MainSkullUI() const
 	{
 		return TexName_MainSkullUI;
 	}
 
-	std::string GetTexName_SubSkullUI()
+	inline std::string GetTexName_SubSkullUI() const
 	{
 		return TexName_SubSkullUI;
 	}
 
-	std::string GetTexName_InventoryUI()
+	inline std::string GetTexName_InventoryUI() const
 	{
 		return TexName_InventoryUI;
 	}	
 
-	std::string GetTexName_SkillA()
+	inline std::string GetTexName_SkillA() const
 	{
 		return TexName_SkillA;
 	}
 
-	std::string GetTexName_SkillB()
+	inline std::string GetTexName_SkillB() const
 	{
 		return TexName_SkillB;
 	}
 
-	bool IsActiveSkillA() const
+	inline bool IsActiveSkillA() const
 	{
 		return IsActiveSkillA_Value;
 	}
 
-	bool IsActiveSkillB() const
+	inline bool IsActiveSkillB() const
 	{
 		return IsActiveSkillB_Value;
 	}
 
-	float GetCurSkillATime() const
+	inline float GetCurSkillATime() const
 	{
 		return CurSkillATime;
 	}
 
-	float GetCurSkillBTime() const
+	inline float GetCurSkillBTime() const
 	{
 		return CurSkillBTime;
 	}
 
-	float GetSkillAEndTime() const
+	inline float GetSkillAEndTime() const
 	{
 		return SkillACoolTime;
 	}
 
-	float GetSkillBEndTime() const
+	inline float GetSkillBEndTime() const
 	{
 		return SkillBCoolTime;
 	}
 
 	std::shared_ptr<GameEngineActor> SkullDeath();
 
-	bool IsSkillALock() const
+	inline bool IsSkillALock() const
 	{
 		return IsLockSkillA;
 	}
 
-	bool IsSkillBLock() const
+	inline bool IsSkillBLock() const
 	{
 		return IsLockSkillB;
+	}
+
+	inline SkullType GetSkullType() const
+	{
+		return Type;
 	}
 
 	void PlayStoryMove(const float4& _MovePos, std::function<void()> _EndCallback = nullptr);

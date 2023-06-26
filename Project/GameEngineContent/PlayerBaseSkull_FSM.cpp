@@ -430,7 +430,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 	}
 
 
-	if (false == ParentPlayer->IsInputLock() && false == DashCombo && GameEngineInput::IsDown("PlayerMove_Dash"))
+	if (false == ParentPlayer->IsInputLock() && Type != SkullType::Power && false == DashCombo && GameEngineInput::IsDown("PlayerMove_Dash"))
 	{
 		if (true == GameEngineInput::IsPress("PlayerMove_Left"))
 		{
