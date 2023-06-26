@@ -440,7 +440,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 		Dash();
 	}
 
-	if (5.0f > DashRigidbody.GetVelocity().Size())
+	if (150.0f > std::fabsf(DashRigidbody.GetVelocity().x))
 	{
 		if (nullptr == ContentFunc::PlatformColCheck(GroundCol))
 		{

@@ -245,7 +245,7 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Normal_Idle.png").GetFullPath(), 6, 1);
 
 		// Walk Sprite
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Normal_Walk.png").GetFullPath(), 6, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Normal_Walk.png").GetFullPath(), 3, 2);
 
 		// Dash Sprite
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Normal_Dash.png").GetFullPath(), 3, 1);

@@ -19,7 +19,7 @@ void WolfSkull_Normal::Start()
 
 	GroundCol->GetTransform()->SetWorldScale(float4(14.0f, 5.0f, 1.0f));
 
-	DashRigidbody.SetMaxSpeed(1500.0f);
+	DashRigidbody.SetMaxSpeed(1600.0f);
 	DashRigidbody.SetGravity(-4000.0f);
 
 	IsActiveSkillA_Value = true;
@@ -48,6 +48,7 @@ void WolfSkull_Normal::Skill_SlotA_Enter()
 		ParentPlayer->HealPlayer(1, float4::Up);
 	};
 
+	DashRigidbody.SetMaxSpeed(3000.0f);
 }
 
 void WolfSkull_Normal::Skill_SlotA_Update(float _DeltaTime)
@@ -59,19 +60,26 @@ void WolfSkull_Normal::Skill_SlotA_Update(float _DeltaTime)
 		switch (GetViewDir())
 		{
 		case ActorViewDir::Left:
-			DashRigidbody.SetVelocity(float4::Left * 750.0f);
+			DashRigidbody.SetVelocity(float4::Left * 2500.0f);
 			break;
 		case ActorViewDir::Right:
-			DashRigidbody.SetVelocity(float4::Right * 750.0f);
+			DashRigidbody.SetVelocity(float4::Right * 2500.0f);
 			break;
 		}
 
 		IsSkillMove = true;
 	}
+
+	if (5 == Render->GetCurrentFrame())
+	{
+		DashRigidbody.SetVelocity(float4::Zero);
+	}
 }
 
 void WolfSkull_Normal::Skill_SlotA_End()
 {
+	DashRigidbody.SetMaxSpeed(1600.0f);
+	DashRigidbody.SetVelocity(float4::Zero);
 	PlayerBaseSkull::Skill_SlotA_End();
 	KillEvent = nullptr;
 }
@@ -85,7 +93,7 @@ void WolfSkull_Normal::Dash_Enter()
 void WolfSkull_Normal::Dash_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Dash_Update(_DeltaTime);
-	BattleActorRigidbody.AddVelocity(float4(0, -2800.0f * _DeltaTime));
+	BattleActorRigidbody.AddVelocity(float4(0, -3200.0f * _DeltaTime));
 }
 
 void WolfSkull_Normal::Dash_End()
@@ -205,7 +213,7 @@ void WolfSkull_Normal::CreateAnimation()
 	//Walk Animation
 	Render->CreateAnimation({ .AnimationName = "Walk", .SpriteName = "Wolf_Normal_Walk.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	//Dash Animation
-	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "Wolf_Normal_Dash.png", .FrameInter = 0.15f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "Wolf_Normal_Dash.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	// Fall
 	Render->CreateAnimation({ .AnimationName = "Fall", .SpriteName = "Wolf_Normal_Fall.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	// Fall Repeat
@@ -225,9 +233,9 @@ void WolfSkull_Normal::AnimationColLoad()
 	Path.Move("Wolf");
 	Path.Move("Normal");
 
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_AttackA").GetFullPath()), 0.07f);
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_AttackB").GetFullPath()), 0.07f);
-	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_JumpAttack").GetFullPath()), 0.08f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_AttackA").GetFullPath()), 0.06f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_AttackB").GetFullPath()), 0.06f);
+	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_JumpAttack").GetFullPath()), 0.04f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_SkillA").GetFullPath()), 0.08f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_Switch").GetFullPath()), 0.1f);
 }
@@ -237,10 +245,10 @@ void WolfSkull_Normal::Dash()
 	switch (GetViewDir())
 	{
 	case ActorViewDir::Left:
-		DashRigidbody.SetVelocity(float4(-1, 0.3f, 0) * DashVelocity);
+		DashRigidbody.SetVelocity(float4(-1, 0.4f, 0) * DashVelocity);
 		break;
 	case ActorViewDir::Right:
-		DashRigidbody.SetVelocity(float4(1, 0.3f, 0) * DashVelocity);
+		DashRigidbody.SetVelocity(float4(1, 0.4f, 0) * DashVelocity);
 		break;
 	default:
 		break;
