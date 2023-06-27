@@ -49,7 +49,7 @@ OutPut Texture_VS(Input _Value)
 }
 
 Texture2D DiffuseTex : register(t0);
-SamplerState WRAPSAMPLER : register(s0);
+SamplerState SAMPLER : register(s0);
 
 float map(float value, float originalMin, float originalMax, float newMin, float newMax)
 {
@@ -101,6 +101,6 @@ float4 Texture_PS(OutPut input) : SV_Target
     }
     
     
-    float4 OutColor = DiffuseTex.Sample(WRAPSAMPLER, WorldUV);    
+    float4 OutColor = DiffuseTex.Sample(SAMPLER, WorldUV);
     return OutColor;
 }

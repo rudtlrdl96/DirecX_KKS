@@ -73,11 +73,11 @@ cbuffer CaptureBuffer : register(b1)
 }
 
 Texture2D DiffuseTex : register(t0);
-SamplerState WRAPSAMPLER : register(s0);
+SamplerState SAMPLER : register(s0);
 
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
-    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, _Value.UV.xy);
+    float4 Color = DiffuseTex.Sample(SAMPLER, _Value.UV.xy);
     
     Color.xyz = OutColor.xyz;
     Color.a *= OutColor.a;

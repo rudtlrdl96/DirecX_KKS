@@ -54,14 +54,14 @@ OutPut Texture_VS(Input _Value)
 }
 
 Texture2D DiffuseTex : register(t0);
-SamplerState CLAMPSAMPLER : register(s0);
+SamplerState SAMPLER : register(s0);
 
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
-    float4 TextureColor = DiffuseTex.Sample(CLAMPSAMPLER, _Value.UV.xy);
+    float4 TextureColor = DiffuseTex.Sample(SAMPLER, _Value.UV.xy);
     float4 LightColor = float4(0.0f, 0, 0, 1.0f);
     float4 LightDir = normalize(float4(1.0f, 1.0f, 0.0f, 0.0f));
-    //float4 PixelData = DiffuseTex.Sample(CLAMPSAMPLER, _Value.UV.xy);
+    //float4 PixelData = DiffuseTex.Sample(SAMPLER, _Value.UV.xy);
     
     float LightDiff = 0.5 + saturate(dot(LightDir, _Value.Normal));
     

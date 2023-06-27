@@ -44,59 +44,67 @@ struct OutPut
     // 레스터라이저야 이 포지션이
     // w나눈 다음  뷰포트 곱하고 픽셀 건져낼때 쓸포지션 정보를 내가 보낸거야.
     float4 Pos : SV_Position;
-    float4 UV : TEXCOORD;
+    float4 UV : TEXCOORD0;
 };
 
 
 cbuffer AtlasData : register(b1)
 {
+    // 0.0 0.5
     float2 FramePos;
+    // 0.5 0.5 
     float2 FrameScale;
+    // float4 AtlasUV;
 }
 
-
-OutPut Texture_VS(Input _Value)
+OutPut TileMap_VS(Input _Value)
 {
     OutPut OutPutValue = (OutPut) 0;
 	
     _Value.Pos.w = 1.0f;
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
-    OutPutValue.UV.x = (_Value.UV.x * FrameScale.x) + FramePos.x;
-    OutPutValue.UV.y = (_Value.UV.y * FrameScale.y) + FramePos.y;
+    // OutPutValue.UV = _Value.UV;
+    
+    // [][]
+    // [][]
+    
+    // 0.5 0.0  0.5 0.5 
+    
+    // 0,0    1,0
+    //
+    //
+    // 0,1    1,1
+    
+    float4 VtxUV = _Value.UV;
+    
+    OutPutValue.UV.x = (VtxUV.x * FrameScale.x) + FramePos.x;
+    OutPutValue.UV.y = (VtxUV.y * FrameScale.y) + FramePos.y;
     
     return OutPutValue;
 }
 
-cbuffer OutlineColorBuffer : register(b1)
+cbuffer ColorOption : register(b0)
 {
-    float4 OutColor;
-    float4 OutlineColor;
+    float4 MulColor;
+    float4 PlusColor;
 }
 
 Texture2D DiffuseTex : register(t0);
 SamplerState SAMPLER : register(s0);
 
-float4 Texture_PS(OutPut _Value) : SV_Target0
+struct OutColor
 {
-    
-    float2 Uv = _Value.UV.xy;
-    float4 Color = DiffuseTex.Sample(SAMPLER, Uv);
-    
-    Color.xyz += OutColor.xyz;
-    Color *= OutColor.a;
-    
-    if (Color.a == 0)
-    {
-        float4 pixelUp = DiffuseTex.Sample(SAMPLER, Uv + float2(0, 0.001f));
-        float4 pixelDown = DiffuseTex.Sample(SAMPLER, Uv - float2(0, 0.001f));
-        float4 pixelRight = DiffuseTex.Sample(SAMPLER, Uv + float2(0.0005f, 0));
-        float4 pixelLeft = DiffuseTex.Sample(SAMPLER, Uv - float2(0.0005f, 0));
-                		 
-        if (pixelUp.a != 0 || pixelDown.a != 0 || pixelRight.a != 0 || pixelLeft.a != 0)
-        {
-            Color += OutlineColor;
-        }
-    }
+    float4 Color0 : SV_Target0;
+    float4 Color1 : SV_Target1;
+    float4 Color2 : SV_Target2;
+    float4 Color3 : SV_Target3;
+};
+
+float4 TileMap_PS(OutPut _Value) : SV_Target0
+{
+    float4 Color = DiffuseTex.Sample(SAMPLER, _Value.UV.xy);
+    Color *= MulColor;
+    Color += PlusColor;
     
     return Color;
 }

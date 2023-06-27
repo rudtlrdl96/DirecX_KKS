@@ -168,6 +168,23 @@ void ContentCore::VertextBufferCreate()
 void ContentCore::BlendCreate()
 {
 	{
+		D3D11_SAMPLER_DESC SamperData = {};
+		SamperData.Filter = D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
+		SamperData.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+		SamperData.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+		SamperData.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+		// ≈ÿΩ∫√≥∞° ∏÷∏Æ¿÷¿ª∂ß π∂∞∂≤®≥ƒ
+		// æ»π∂∞µ¥Ÿ.
+		SamperData.MipLODBias = 0.0f;
+		SamperData.MaxAnisotropy = 1;
+		SamperData.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		SamperData.MinLOD = -FLT_MAX;
+		SamperData.MaxLOD = FLT_MAX;
+
+		GameEngineSampler::ReSetting("ENGINEBASE", SamperData);
+	}
+
+	{
 		D3D11_BLEND_DESC Desc = { 0, };
 
 		Desc.AlphaToCoverageEnable = false;

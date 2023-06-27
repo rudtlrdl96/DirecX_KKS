@@ -40,40 +40,33 @@ public:
 	{
 		Channel->stop();
 	}
-
 	void SetPitch(float _Pitch)
 	{
 		//재생속도 배율
 		Channel->setPitch(_Pitch);
 	}
-
 	void SetVolume(float _Volume)
 	{
 		Channel->setVolume(_Volume);
 	}
-
 	void SetLoop(int _Count = -1)
 	{
 		// -1 -> 무한루프 / 0 -> 루프X
 		Channel->setLoopCount(_Count);
 	}
-
 	void SetMute(bool _Value)
 	{
 		Channel->setMute(_Value);
 	}
-
 	void SetPause(bool _Value)
 	{
 		Channel->setPaused(_Value);
 	}
-
 	void SetPosition(float _StartSecond, FMOD_TIMEUNIT _TimeUnit = FMOD_TIMEUNIT_MS)
 	{
 		//float으로 _StartSecond를 넣어주면 ms로 보정해서 해당 지점부터 시작
 		Channel->setPosition(static_cast<UINT>(_StartSecond * 1000.f), _TimeUnit);
 	}
-
 	void SetLoopPoint(float _StartSecond, float _EndSecond, FMOD_TIMEUNIT _TimeUnit = FMOD_TIMEUNIT_MS)
 	{
 		//_StartSecond ~_EndSecond 까지 반복
@@ -81,7 +74,7 @@ public:
 	}
 
 	/// <param name="_Position">사운드 위치 값</param>
-	/// <param name="_TimeType">입력 값의 타입을 정합니다</param>
+/// <param name="_TimeType">입력 값의 타입을 정합니다</param>
 	inline void setPosition(UINT _Position, FMOD_TIMEUNIT _TimeType = FMOD_TIMEUNIT_MS)
 	{
 		if (false == IsValid())
@@ -120,6 +113,7 @@ public:
 	/// <param name="_Volume">정지점의 사운드 볼륨을 설정합니다 기본적으로 0.0f 입니다</param>
 	/// <param name="_IsStop">true일 경우 사운드를 Stop 합니다, false 경우 사운드를 일시정지 시킵니다</param>
 	void SoundFadeOut(double _Time, float _Volume = 0.0f, bool _IsStop = false);
+
 };
 
 // 설명 :
