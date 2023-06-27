@@ -482,21 +482,21 @@ void ContentCore::SkullDataLoad()
 			"WereWolfUnique_Dash_Effect.png" ,
 			float4::Zero,
 			0, 5,
-			0.05f,
+			0.06f,
 			2.0f });
 
 		EffectManager::CreateMetaData("WereWolf_Unique_Predation", {
 			"WereWolfUnique_Predation_Effect.png" ,
 			float4::Zero,
 			0, 14,
-			0.05f,
+			0.03f,
 			2.0f });
 
 		EffectManager::CreateMetaData("WereWolf_Unique_SwitchFlash", {
 			"WereWolfUnique_Switch_Effect1.png" ,
 			float4::Zero,
 			0, 12,
-			0.05f,
+			0.03f,
 			2.0f });
 
 		EffectManager::CreateMetaData("WereWolf_Unique_SwitchAttack", {

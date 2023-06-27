@@ -34,6 +34,8 @@ void WolfSkull_Rare::Start()
 	SkillA_DamageRatio = 2.0f;
 	//SkillB_DamageRatio = 2.7f;
 	Switch_DamageRatio = 2.0f;
+
+	AttackEffectType = HitEffectType::Sword;
 }
 
 void WolfSkull_Rare::Attack_Enter()

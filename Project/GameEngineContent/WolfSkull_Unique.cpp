@@ -24,7 +24,6 @@ void WolfSkull_Unique::Start()
 
 	IsActiveSkillA_Value = true;
 	IsActiveSkillB_Value = true;
-	IsLockSkillB = true;
 
 	SwitchCol = CreateComponent<GameEngineCollision>();
 	SwitchCol->SetColType(ColType::AABBBOX2D);
@@ -33,6 +32,8 @@ void WolfSkull_Unique::Start()
 	SkillA_DamageRatio = 2.0f;
 	//SkillB_DamageRatio = 2.7f;
 	Switch_DamageRatio = 2.0f;
+
+	AttackEffectType = HitEffectType::Sword;
 }
 
 void WolfSkull_Unique::Attack_Enter()
@@ -71,10 +72,28 @@ void WolfSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 		switch (GetViewDir())
 		{
 		case ActorViewDir::Left:
+		{
 			DashRigidbody.SetVelocity(float4::Left * 2500.0f);
+
+			std::shared_ptr<EffectActor> Effect = EffectManager::PlayEffect({
+				.EffectName = "WereWolf_Unique_Predation",
+				.Position = GetTransform()->GetWorldPosition() + float4(-50, 70),
+				.FlipX = true });
+
+			Effect->GetTransform()->SetParent(GetTransform());
+		}
 			break;
 		case ActorViewDir::Right:
+		{
 			DashRigidbody.SetVelocity(float4::Right * 2500.0f);
+
+			std::shared_ptr<EffectActor> Effect = EffectManager::PlayEffect({
+				.EffectName = "WereWolf_Unique_Predation",
+				.Position = GetTransform()->GetWorldPosition() + float4(50, 70),
+				.FlipX = false });
+
+			Effect->GetTransform()->SetParent(GetTransform());
+		}	
 			break;
 		}
 
@@ -138,6 +157,25 @@ void WolfSkull_Unique::Skill_SlotB_Update(float _DeltaTime)
 			ColTrans->SetWorldPosition(Pos);
 			ColTrans->SetWorldScale(Scale);
 			SwitchMoveEnd.x = SearchPositionX(Pos, Scale, Inter, SearchColMode::Right);
+
+
+			EffectManager::PlayEffect({
+				.EffectName = "WereWolf_Unique_SwitchFlash",
+				.Position = Pos + float4(0, 40),
+				.Scale = 0.75f,
+				.FlipX = true });
+
+			EffectManager::PlayEffect({
+				.EffectName = "WereWolf_Unique_SwitchFlash",
+				.Position = Pos + float4(0, 15),
+				.Scale = 0.5f,
+				.FlipX = true });
+
+
+			EffectManager::PlayEffect({
+				.EffectName = "WereWolf_Unique_DashSmoke",
+				.Position = GetTransform()->GetWorldPosition() + float4(230, 85),
+				.FlipX = true });
 		}
 		break;
 		case ActorViewDir::Right:
@@ -148,6 +186,24 @@ void WolfSkull_Unique::Skill_SlotB_Update(float _DeltaTime)
 			ColTrans->SetWorldPosition(Pos);
 			ColTrans->SetWorldScale(Scale);
 			SwitchMoveEnd.x = SearchPositionX(Pos, Scale, Inter, SearchColMode::Left);
+
+			EffectManager::PlayEffect({
+				.EffectName = "WereWolf_Unique_SwitchFlash",
+				.Position = Pos + float4(0, 40),
+				.Scale = 0.75f,
+				.FlipX = false ,
+				});
+
+			EffectManager::PlayEffect({
+				.EffectName = "WereWolf_Unique_SwitchFlash",
+				.Position = Pos + float4(0, 15),
+				.Scale = 0.5f,
+				.FlipX = false });
+
+			EffectManager::PlayEffect({
+				.EffectName = "WereWolf_Unique_DashSmoke",
+				.Position = GetTransform()->GetWorldPosition() + float4(-230, 85),
+				.FlipX = false });
 		}
 		break;
 		}
@@ -169,7 +225,7 @@ void WolfSkull_Unique::Skill_SlotB_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Normal, [this]()
+				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Sword, [this]()
 					{
 						CurSkillBTime = GetSkillBEndTime();
 					});
@@ -246,6 +302,11 @@ void WolfSkull_Unique::Switch_Update(float _DeltaTime)
 			ColTrans->SetWorldPosition(Pos);
 			ColTrans->SetWorldScale(Scale);
 			SwitchMoveEnd.x = SearchPositionX(Pos, Scale, Inter, SearchColMode::Right);
+
+			EffectManager::PlayEffect({
+				.EffectName = "WereWolf_Unique_DashSmoke",
+				.Position = GetTransform()->GetWorldPosition() + float4(230, 85),
+				.FlipX = true});
 		}
 		break;
 		case ActorViewDir::Right:
@@ -256,6 +317,11 @@ void WolfSkull_Unique::Switch_Update(float _DeltaTime)
 			ColTrans->SetWorldPosition(Pos);
 			ColTrans->SetWorldScale(Scale);
 			SwitchMoveEnd.x = SearchPositionX(Pos, Scale, Inter, SearchColMode::Left);
+
+			EffectManager::PlayEffect({
+				.EffectName = "WereWolf_Unique_DashSmoke",
+				.Position = GetTransform()->GetWorldPosition() + float4(-230, 85),
+				.FlipX = false });
 		}
 		break;
 		}
@@ -277,7 +343,7 @@ void WolfSkull_Unique::Switch_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Normal);
+				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Sword);
 			}
 		}
 
@@ -340,7 +406,7 @@ void WolfSkull_Unique::AnimationColLoad()
 	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Unique_JumpAttack").GetFullPath()), 0.05f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Unique_SkillA").GetFullPath()), 0.08f);
 	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Unique_SkillB").GetFullPath()), 0.08f);
-	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Unique_Switch").GetFullPath()), 0.07f);
+	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Unique_Switch").GetFullPath()), 0.05f);
 }
 
 void WolfSkull_Unique::Dash()

@@ -26,7 +26,6 @@ void WolfSkull_Normal::Start()
 	IsActiveSkillB_Value = false;
 	IsLockSkillB = true;
 
-
 	SwitchCol = CreateComponent<GameEngineCollision>();
 	SwitchCol->SetColType(ColType::AABBBOX2D);
 	SwitchCol->Off();
