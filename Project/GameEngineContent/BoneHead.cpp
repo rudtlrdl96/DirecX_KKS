@@ -24,6 +24,7 @@ void BoneHead::ShotHead(ActorViewDir _Dir)
 	IsActorHit = false;
 	HeadRigid.SetVelocity(float4::Zero);
 	HeadRigid.SetActiveGravity(true);
+	IsMonsterHit = false;
 }
 
 void BoneHead::Start()
@@ -99,6 +100,7 @@ void BoneHead::Update(float _DeltaTime)
 			}
 
 			MonsterPtr->HitMonster(ParentSkull->GetMagicAttackDamage() * 2.5f, Dir, true, true, true, HitEffectType::Normal);
+			IsMonsterHit = true;
 		}
 	}
 
@@ -152,7 +154,11 @@ void BoneHead::Update(float _DeltaTime)
 
 		if (false == IsMoveEnd)
 		{
-			PlayEndEffect();
+			if (false == IsMonsterHit)
+			{
+				PlayEndEffect();
+			}
+
 			IsMoveEnd = true;
 
 			if (true == IsActorHit)

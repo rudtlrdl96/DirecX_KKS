@@ -5,6 +5,7 @@
 
 enum class HitEffectType
 {
+	None,
 	Normal,
 	Sword,
 };

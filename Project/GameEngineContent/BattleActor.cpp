@@ -154,10 +154,7 @@ void BattleActor::HitEffect(HitEffectType _Type)
 			break;
 		}
 
-
-
 		Effect->GetTransform()->SetLocalRotation(float4(0, 0, Rand.RandomFloat(0.0f, 360.0f)));
-
 	}
 
 		break;

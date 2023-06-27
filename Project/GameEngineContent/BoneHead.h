@@ -42,6 +42,7 @@ private:
 
 	float ShotLiveTime = 0.0f;
 
+	bool IsMonsterHit = false;
 	bool IsActorHit = false;
 	bool IsMoveEnd = false;
 	ActorViewDir Dir = ActorViewDir::Left;

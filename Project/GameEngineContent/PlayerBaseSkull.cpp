@@ -88,33 +88,6 @@ void PlayerBaseSkull::Start()
 	CreateAnimation();
 	AnimationColLoad();
 
-	if (nullptr == GameEngineSprite::Find("Player_DashSmokeEffect.png"))
-	{
-		GameEngineDirectory Path;
-
-		Path.MoveParentToDirectory("Resources");
-		Path.Move("Resources");
-		Path.Move("Texture");
-		Path.Move("0_Common");
-		Path.Move("Player");
-		Path.Move("Effect");
-
-		// 공용
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Player_DashSmokeEffect.png").GetFullPath(), 6, 2);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Player_DoubleJumpEffect.png").GetFullPath(), 5, 2);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkul.png").GetFullPath(), 5, 2);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitNormal.png").GetFullPath(), 6, 2);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkeletonSword.png").GetFullPath(), 5, 3);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SkullAppearance.png").GetFullPath(), 7, 1);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("LandSmoke.png").GetFullPath(), 7, 3);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SwitchEffect.png").GetFullPath(), 5, 4);
-
-		// 경비대장
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FireProjectile.png").GetFullPath(), 4, 6);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FlashCut.png").GetFullPath(), 1, 8);
-		GameEngineSprite::LoadSheet(Path.GetPlusFileName("FireSlash.png").GetFullPath(), 11, 2);
-	}
-
 	if (false == GameEngineInput::IsKey("PlayerMove_Left"))
 	{
 		GameEngineInput::CreateKey("PlayerMove_Up", VK_UP);
@@ -147,86 +120,6 @@ void PlayerBaseSkull::Start()
 	PlayerFSM.AddFSM("StoryMove", &PlayerBaseSkull::StoryMove_Enter, &PlayerBaseSkull::StoryMove_Update, &PlayerBaseSkull::StoryMove_End);
 
 	PlayerFSM.ChangeState("Idle");
-
-	if (false == EffectManager::IsCreate("PlayerDashEffect"))
-	{
-		EffectManager::CreateMetaData("PlayerDashEffect", { 
-			"Player_DashSmokeEffect.png" ,
-			float4::Zero,
-			0, 11,
-			0.04f,
-			2.0f});
-
-		EffectManager::CreateMetaData("PlayerJumpEffect", {
-			"Player_DoubleJumpEffect.png" ,
-			float4::Zero,
-			0, 9,
-			0.05f,
-			2.0f});
-
-		EffectManager::CreateMetaData("SkullAppearance", {
-			"SkullAppearance.png" ,
-			float4::Zero,
-			0, 6,
-			0.05f,
-			2.0f });
-
-		EffectManager::CreateMetaData("HitSkul", {
-			"HitSkul.png" ,
-			float4::Zero,
-			0, 9,
-			0.05f,
-			2.0f });
-
-		EffectManager::CreateMetaData("HitNormal", {
-			"HitNormal.png" ,
-			float4::Zero,
-			0, 11,
-			0.05f,
-			1.5f });
-
-		EffectManager::CreateMetaData("HitSkeletonSword", {
-			"HitSkeletonSword.png" ,
-			float4::Zero,
-			0, 14,
-			0.03f,
-			1.5f });
-
-		EffectManager::CreateMetaData("LandSmoke", {
-			"LandSmoke.png" ,
-			float4::Zero,
-			0, 20,
-			0.03f,
-			2.0f });
-
-		EffectManager::CreateMetaData("SwitchEffect", {
-			"SwitchEffect.png" ,
-			float4::Zero,
-			0, 19,
-			0.03f,
-			2.0f });
-
-		EffectManager::CreateMetaData("FireProjectile", {
-			"FireProjectile.png" ,
-			float4::Zero,
-			0, 23,
-			0.03f,
-			2.0f });
-
-		EffectManager::CreateMetaData("FlashCut", {
-			"FlashCut.png" ,
-			float4::Zero,
-			0, 7,
-			0.025f,
-			1.5f });		
-		
-		EffectManager::CreateMetaData("FireSlash", {
-			"FireSlash.png" ,
-			float4::Zero,
-			0, 21,
-			0.03f,
-			2.0f });
-	}
 
 	BattleActorRigidbody.SetMaxSpeed(1800.0f);
 	BattleActorRigidbody.SetFricCoeff(900.0f);
