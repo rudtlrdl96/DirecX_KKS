@@ -247,6 +247,7 @@ void ContentCore::CommonTextureLoad()
 		Path.Move("Effect");
 
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Appearance_Impact.png").GetFullPath(), 7, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SmokeLargeEffect.png").GetFullPath(), 3, 5);
 
 		Path.MoveParent();
 	
@@ -256,6 +257,14 @@ void ContentCore::CommonTextureLoad()
 			.AnimEnd = 13,
 			.AnimIter = 0.05f,
 			.ScaleRatio = 0.5f,
+			});
+
+		EffectManager::CreateMetaData("SmokeLargeEffect", {
+			.SpriteName = "SmokeLargeEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 14,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f,
 			});
 	}
 

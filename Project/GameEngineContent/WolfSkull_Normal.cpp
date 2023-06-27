@@ -218,8 +218,8 @@ void WolfSkull_Normal::TextureLoad()
 	TexName_SubSkullUI = "Normal_WereWolf_UI_SubSkull.png";
 	TexName_InventoryUI = "Normal_WereWolf_UI_Inventory.png";
 
-	TexName_SkillA = "Normal_WereWolf_Predation1.png";
-	TexName_SkillB = "Normal_WereWolf_Predation1.png";
+	TexName_SkillA = "WereWolf_Predation1.png";
+	TexName_SkillB = "WereWolf_Predation1.png";
 }
 
 void WolfSkull_Normal::CreateAnimation()

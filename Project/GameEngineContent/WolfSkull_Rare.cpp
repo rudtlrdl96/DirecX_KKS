@@ -198,7 +198,7 @@ void WolfSkull_Rare::Switch_Update(float _DeltaTime)
 
 void WolfSkull_Rare::DataLoad()
 {
-	Data = ContentDatabase<SkullData, SkullGrade>::GetData(100); // 1 == 나이 든 웨어울프
+	Data = ContentDatabase<SkullData, SkullGrade>::GetData(100); // 100 == 나이 든 웨어울프
 }
 
 void WolfSkull_Rare::TextureLoad()
@@ -215,8 +215,8 @@ void WolfSkull_Rare::TextureLoad()
 	TexName_SubSkullUI = "Rare_WereWolf_UI_SubSkull.png";
 	TexName_InventoryUI = "Rare_WereWolf_UI_Inventory.png";
 
-	TexName_SkillA = "Normal_WereWolf_Predation2.png";
-	TexName_SkillB = "Normal_WereWolf_Predation2.png";
+	TexName_SkillA = "WereWolf_Predation2.png";
+	TexName_SkillB = "WereWolf_Predation2.png";
 }
 
 void WolfSkull_Rare::CreateAnimation()

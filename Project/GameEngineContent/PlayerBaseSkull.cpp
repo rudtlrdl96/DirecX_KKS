@@ -257,19 +257,19 @@ void PlayerBaseSkull::Start()
 	GroundCol->SetColType(ColType::AABBBOX2D);
 	
 	JumpCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	JumpCol->GetTransform()->SetLocalPosition(float4(0.0f, 66.0f, 1.0f));
+	JumpCol->GetTransform()->SetLocalPosition(float4(0.0f, 74.0f, 1.0f));
 	JumpCol->GetTransform()->SetWorldScale(float4(22.0f, 5.0f, 1.0f));
 	JumpCol->GetTransform()->SetWorldRotation(float4::Zero);
 	JumpCol->SetColType(ColType::AABBBOX2D);
 
 	WalkCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	WalkCol->GetTransform()->SetLocalPosition(float4(20, 35, 0));
+	WalkCol->GetTransform()->SetLocalPosition(float4(25, 35, 0));
 	WalkCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	WalkCol->GetTransform()->SetWorldRotation(float4::Zero);
 	WalkCol->SetColType(ColType::AABBBOX2D);
 
 	BackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
-	BackCol->GetTransform()->SetLocalPosition(float4(-20, 35, 0));
+	BackCol->GetTransform()->SetLocalPosition(float4(-25, 35, 0));
 	BackCol->GetTransform()->SetWorldScale(float4(10, 56, 1));
 	BackCol->GetTransform()->SetWorldRotation(float4::Zero);
 	BackCol->SetColType(ColType::AABBBOX2D);

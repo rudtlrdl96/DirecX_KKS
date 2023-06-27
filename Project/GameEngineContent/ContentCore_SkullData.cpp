@@ -13,17 +13,17 @@ void ContentCore::SkullDataLoad()
 
 	LoadSkull({.Name = "웨어울프", .Index = 1, .Grade = SkullGrade::Normal, .MoveSpeed = 440.0f});
 	LoadSkull({.Name = "나이 든 웨어울프", .Index = 100, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
-	LoadSkull({ .Name = "미노타우로스", .Index = 101, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
-	LoadSkull({ .Name = "연금술사", .Index = 102, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
+	//LoadSkull({ .Name = "미노타우로스", .Index = 101, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
+	//LoadSkull({ .Name = "연금술사", .Index = 102, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
 
 	LoadSkull({.Name = "우두머리 웨어울프", .Index = 200, .Grade = SkullGrade::Unique});
-	LoadSkull({ .Name = "미노타우로스 2세", .Index = 201, .Grade = SkullGrade::Unique });
-	LoadSkull({ .Name = "고위 연금술사", .Index = 202, .Grade = SkullGrade::Unique });
+	//LoadSkull({ .Name = "미노타우로스 2세", .Index = 201, .Grade = SkullGrade::Unique });
+	//LoadSkull({ .Name = "고위 연금술사", .Index = 202, .Grade = SkullGrade::Unique });
 	LoadSkull({ .Name = "경비대장", .Index = 203, .Grade = SkullGrade::Unique });
 	
 	LoadSkull({.Name = "영원의 웨어울프", .Index = 300, .Grade = SkullGrade::Legendary});
-	LoadSkull({ .Name = "미노타우로스 3세", .Index = 301, .Grade = SkullGrade::Legendary });
-	LoadSkull({ .Name = "검은 연금술사", .Index = 302, .Grade = SkullGrade::Legendary });
+	//LoadSkull({ .Name = "미노타우로스 3세", .Index = 301, .Grade = SkullGrade::Legendary });
+	//LoadSkull({ .Name = "검은 연금술사", .Index = 302, .Grade = SkullGrade::Legendary });
 
 	if (nullptr == GameEngineTexture::Find("BoneSkull_Idle.png"))
 	{
@@ -321,6 +321,57 @@ void ContentCore::SkullDataLoad()
 
 		// Skull Switch
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Rare_Switch.png").GetFullPath(), 6, 1);
+	}
+
+	// 웨어울프 유니크
+	if (nullptr == GameEngineTexture::Find("Wolf_Unique_Idle.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Player");
+		Path.Move("Skull");
+		Path.Move("Wolf");
+		Path.Move("Unique");
+
+		// Idle Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_Idle.png").GetFullPath(), 7, 1);
+
+		// Walk Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_Walk.png").GetFullPath(), 3, 2);
+
+		// Dash Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_Dash.png").GetFullPath(), 3, 1);
+
+		// FallEnter Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_Fall.png").GetFullPath(), 2, 1);
+
+		// FallRepeat Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_FallRepeat.png").GetFullPath(), 3, 1);
+
+		// Jump Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_Jump.png").GetFullPath(), 3, 1);
+
+		// AttackA Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_AttackA.png").GetFullPath(), 5, 1);
+
+		// AttackB Sprite 
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_AttackB.png").GetFullPath(), 5, 1);
+
+		// JumpAttack Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_JumpAttack.png").GetFullPath(), 7, 1);
+
+		// SkillA Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_SkillA.png").GetFullPath(), 7, 1);
+
+		// SkillB Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_SkillB.png").GetFullPath(), 7, 1);
+
+		// Skull Switch
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_Switch.png").GetFullPath(), 8, 1);
 	}
 
 	std::vector<SkullData> NormalDatas;

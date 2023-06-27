@@ -78,6 +78,8 @@ void BoneSkull::Start()
 	HeadPickupCol->GetTransform()->SetWorldScale(float4(30.0f, 60.0f, 1.0f));
 	HeadPickupCol->GetTransform()->SetWorldRotation(float4::Zero);
 
+	Switch_DamageRatio = 0.5f;
+
 	ContentLevel* LevelPtr = GetContentLevel();
 
 	if (nullptr == LevelPtr)
