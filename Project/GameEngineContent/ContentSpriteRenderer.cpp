@@ -40,7 +40,17 @@ void ContentAnimationInfo::Update(float _DeltaTime)
 		return;
 	}
 
-	size_t CurFrameIndex = FrameIndex[CurFrame];
+
+	size_t CurFrameIndex = 0;
+
+	if (FrameIndex.size() <= CurFrame)
+	{
+		CurFrameIndex = FrameIndex.size() - 1;
+	}
+	else
+	{
+		CurFrameIndex = FrameIndex[CurFrame];
+	}
 
 
 	if (UpdateEventFunction.end() != UpdateEventFunction.find(CurFrameIndex))
@@ -57,7 +67,7 @@ void ContentAnimationInfo::Update(float _DeltaTime)
 		if (FrameIndex.size() <= CurFrame)
 		{
 			IsEndValue = true;
-			--CurFrame;
+			CurFrame = FrameIndex.size() - 1;
 		}
 		else
 		{

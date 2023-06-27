@@ -26,7 +26,7 @@ BaseMonster::~BaseMonster()
 {
 }
 
-void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, std::function<void()> _KillEvent /*= nullptr*/)
+void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, HitEffectType _Type, std::function<void()> _KillEvent /*= nullptr*/)
 {
 	HP -= _Damage;
 	HitDamageCheck += _Damage;
@@ -84,7 +84,7 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 		.LiveTime = 0.8f,
 		});
 
-	HitEffect();
+	HitEffect(_Type);
 }
 
 void BaseMonster::Start()

@@ -2,6 +2,13 @@
 #include "BaseContentActor.h"
 #include "Rigidbody2D.h"
 
+
+enum class HitEffectType
+{
+	Normal,
+	Sword,
+};
+
 class BattleActor : public BaseContentActor
 {
 public:
@@ -46,7 +53,7 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
-	void HitEffect();
+	void HitEffect(HitEffectType _Type);
 	void HitPush();
 private:
 };

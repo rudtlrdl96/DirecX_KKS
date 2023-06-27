@@ -100,7 +100,7 @@ void WitchCage::Update(float _DeltaTime)
 	{
 		if (nullptr != CageCol->Collision((int)CollisionOrder::PlayerAttack, ColType::AABBBOX2D, ColType::AABBBOX2D))
 		{
-			HitEffect();
+			HitEffect(HitEffectType::Normal);
 			++HitCount;
 			HitCoolTime = -0.3f;
 

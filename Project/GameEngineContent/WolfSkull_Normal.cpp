@@ -19,7 +19,7 @@ void WolfSkull_Normal::Start()
 
 	GroundCol->GetTransform()->SetWorldScale(float4(14.0f, 5.0f, 1.0f));
 
-	DashRigidbody.SetMaxSpeed(1600.0f);
+	DashRigidbody.SetMaxSpeed(1400.0f);
 	DashRigidbody.SetGravity(-4000.0f);
 
 	IsActiveSkillA_Value = true;
@@ -34,6 +34,20 @@ void WolfSkull_Normal::Start()
 	SkillA_DamageRatio = 2.0f;
 	//SkillB_DamageRatio = 2.7f;
 	Switch_DamageRatio = 2.0f;
+
+	AttackEffectType = HitEffectType::Sword;
+}
+
+void WolfSkull_Normal::Attack_Enter()
+{
+	PlayerBaseSkull::Attack_Enter();
+	AttackTypeValue = AttackType::MeleeAttack;
+}
+
+void WolfSkull_Normal::JumpAttack_Enter()
+{
+	PlayerBaseSkull::JumpAttack_Enter();
+	AttackTypeValue = AttackType::MeleeAttack;
 }
 
 void WolfSkull_Normal::Skill_SlotA_Enter()
@@ -78,7 +92,7 @@ void WolfSkull_Normal::Skill_SlotA_Update(float _DeltaTime)
 
 void WolfSkull_Normal::Skill_SlotA_End()
 {
-	DashRigidbody.SetMaxSpeed(1600.0f);
+	DashRigidbody.SetMaxSpeed(1400.0f);
 	DashRigidbody.SetVelocity(float4::Zero);
 	PlayerBaseSkull::Skill_SlotA_End();
 	KillEvent = nullptr;
@@ -104,6 +118,8 @@ void WolfSkull_Normal::Dash_End()
 
 void WolfSkull_Normal::Switch_Enter()
 {
+	AttackTypeValue = AttackType::MeleeAttack;
+
 	PlayerBaseSkull::Switch_Enter();
 	IsSwitchMove = false;
 	SwitchMoveProgress = 0.0f;
@@ -175,7 +191,7 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false);
+				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Normal);
 			}
 		}
 
@@ -233,9 +249,9 @@ void WolfSkull_Normal::AnimationColLoad()
 	Path.Move("Wolf");
 	Path.Move("Normal");
 
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_AttackA").GetFullPath()), 0.06f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_AttackA").GetFullPath()), 0.07f);
 	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_AttackB").GetFullPath()), 0.06f);
-	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_JumpAttack").GetFullPath()), 0.04f);
+	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_JumpAttack").GetFullPath()), 0.05f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_SkillA").GetFullPath()), 0.08f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_Switch").GetFullPath()), 0.1f);
 }
@@ -245,10 +261,10 @@ void WolfSkull_Normal::Dash()
 	switch (GetViewDir())
 	{
 	case ActorViewDir::Left:
-		DashRigidbody.SetVelocity(float4(-1, 0.4f, 0) * DashVelocity);
+		DashRigidbody.SetVelocity(float4(-1, 0.35f, 0) * DashVelocity);
 		break;
 	case ActorViewDir::Right:
-		DashRigidbody.SetVelocity(float4(1, 0.4f, 0) * DashVelocity);
+		DashRigidbody.SetVelocity(float4(1, 0.35f, 0) * DashVelocity);
 		break;
 	default:
 		break;

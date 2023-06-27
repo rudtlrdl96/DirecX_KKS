@@ -65,7 +65,7 @@ void ThornBush::Update(float _DeltaTime)
 		}
 
 		CastingPtr->SetThornHitCoolTime(1.5f);
-		CastingPtr->HitMonster(30.0f, ActorViewDir::Right, false, false, false);
+		CastingPtr->HitMonster(30.0f, ActorViewDir::Right, false, false, false, HitEffectType::Normal);
 	}
 
 	std::shared_ptr<GameEngineCollision> PlayerCol = AttackCol->Collision((int)CollisionOrder::Player, ColType::OBBBOX2D, ColType::AABBBOX2D);

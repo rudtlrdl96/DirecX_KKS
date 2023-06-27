@@ -118,8 +118,8 @@ void ForestOfHarmonyLevel::Start()
 
 	
 
-	//CurStageIndex = 4;
-	CurStageIndex = 10;
+	CurStageIndex = 0;
+	//CurStageIndex = 10;
 	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
 	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 

@@ -11,8 +11,6 @@ RookieHero::RookieHero()
 
 RookieHero::~RookieHero()
 {
-	GetContentLevel()->StopCustomBgm();
-	GetContentLevel()->PlayBaseBGM();
 }
 
 void RookieHero::Destroy()
@@ -29,9 +27,9 @@ void RookieHero::Destroy()
 	LevelPtr->RemoveEvent("RookieHero_Script00_End", GetActorCode());
 }
 
-void RookieHero::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, std::function<void()> _KillEvent /*= nullptr*/)
+void RookieHero::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, HitEffectType _Type, std::function<void()> _KillEvent /*= nullptr*/)
 {
-	BossMonster::HitMonster(_Damage, _HitDir, _IsStiffen, _IsPush, _IsMagicAttack, _KillEvent);
+	BossMonster::HitMonster(_Damage, _HitDir, _IsStiffen, _IsPush, _IsMagicAttack, _Type, _KillEvent);
 
 	HealthBarActiveTime = 3.0f;
 }

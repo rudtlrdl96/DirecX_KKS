@@ -19,7 +19,6 @@ public:
 	static std::string GetSaveFilePath();
 
 	static float4 ConvertFloat4(float _FloatArr[4]);
-
 	static AnimationAttackMetaData LoadAnimAttackMetaData(const std::string_view& _Path);
 
 	static std::shared_ptr<class GameEngineCollision> PlatformColCheck(const std::shared_ptr<class GameEngineCollision>& _Col, bool _IsHalf = false);
@@ -40,7 +39,6 @@ public:
 		// V0 + t * (V1 - V0)
 		return _Start + _Progress * (_End - _Start);
 	}
-
 protected:
 	
 private:

@@ -189,7 +189,7 @@ void PlayerBaseSkull::Start()
 			"HitSkeletonSword.png" ,
 			float4::Zero,
 			0, 14,
-			0.04f,
+			0.03f,
 			1.5f });
 
 		EffectManager::CreateMetaData("LandSmoke", {
@@ -306,10 +306,10 @@ void PlayerBaseSkull::Start()
 					switch (AttackTypeValue)
 					{
 					case PlayerBaseSkull::AttackType::MeleeAttack:
-						CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, false, KillEvent);
+						CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, false, AttackEffectType, KillEvent);
 						break;
 					case PlayerBaseSkull::AttackType::MagicAttack:
-						CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, true, KillEvent);
+						CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, true, AttackEffectType, KillEvent);
 						break;
 					default:
 						break;

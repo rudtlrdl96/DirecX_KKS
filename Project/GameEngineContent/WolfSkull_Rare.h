@@ -15,6 +15,9 @@ public:
 protected:
 	void Start() override;
 
+	void Attack_Enter() override;
+	void JumpAttack_Enter() override;
+
 	void Skill_SlotA_Enter() override;
 	void Skill_SlotA_Update(float _DeltaTime) override;
 	void Skill_SlotA_End() override;

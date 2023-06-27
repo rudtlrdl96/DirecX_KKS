@@ -321,7 +321,7 @@ void NormalMonster::Hit_Update(float _DeltaTime)
 	{
 		if (0 == HitAnimIndex)
 		{
-			HitEffect();
+			HitEffect(HitEffectType::Normal);
 
 			if (false == IsSuperArmor && true == IsStiffen)
 			{
@@ -334,7 +334,7 @@ void NormalMonster::Hit_Update(float _DeltaTime)
 		}
 		else if(1 == HitAnimIndex)
 		{
-			HitEffect();
+			HitEffect(HitEffectType::Normal);
 
 			if (false == IsSuperArmor && true == IsStiffen)
 			{

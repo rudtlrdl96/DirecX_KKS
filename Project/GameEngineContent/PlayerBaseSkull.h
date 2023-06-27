@@ -141,6 +141,7 @@ public:
 protected:
 	SkullType Type = SkullType::Balance;
 
+	HitEffectType AttackEffectType = HitEffectType::Normal;
 	std::vector<std::string> DeadPartNames;
 
 	class Player* ParentPlayer = nullptr;
