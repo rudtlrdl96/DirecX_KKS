@@ -365,6 +365,8 @@ void VeteranHero::Explosion_Enter()
 	ExplosionChargeCol->On();
 	ExplosionChargeProgress = 0.0f;
 
+	Buffer.Color = float4(0, 0, 0, 1);
+
 	if (0.0f <= SpeechCoolTime)
 	{
 		PlaySpeechBubble("¶³¾îÁ®!", 4.0f);
