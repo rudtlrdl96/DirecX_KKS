@@ -2,6 +2,7 @@
 #include "WolfSkull_Unique.h"
 #include "Player.h"
 #include "BaseMonster.h"
+#include "Projectile.h"
 
 WolfSkull_Unique::WolfSkull_Unique()
 {
@@ -34,6 +35,61 @@ void WolfSkull_Unique::Start()
 	Switch_DamageRatio = 2.0f;
 
 	AttackEffectType = HitEffectType::Sword;
+}
+
+void WolfSkull_Unique::Update(float _DeltaTime)
+{
+	PlayerBaseSkull::Update(_DeltaTime);
+
+	if (true == IsSwitchTrailAttack)
+	{
+		TrailAttackProgress += _DeltaTime * 7.5f;
+
+		if (1.0f <= TrailAttackProgress)
+		{
+			std::shared_ptr<Projectile> TrailProjectile = GetLevel()->CreateActor<Projectile>();
+			ActorViewDir Dir = GetViewDir();
+
+			float4 AttackPos = float4::LerpClamp(SwitchMoveStart, SwitchMoveEnd, static_cast<float>(TrailAttackCount) / 7.0f);
+
+			TrailProjectile->ShotProjectile({
+				.EffectName = "WereWolf_Unique_SwitchAttack",
+				.Pos = AttackPos + float4(0, 50),
+				.Dir = float4::Zero,
+				.ColScale = float4(80, 150),
+				.ColOrder = (int)CollisionOrder::Monster,
+				.ProjectileColType = ColType::OBBBOX2D,
+				.IsRot = false,
+				.IsEffectEndDeath = true,
+				.Damage = GetMeleeAttackDamage(),
+				.Speed = 0.0f,
+				.EnterEvent = [Dir](std::shared_ptr<BaseContentActor> _ColActor, const ProjectileHitParameter& _Hit)
+				{
+					std::shared_ptr<BaseMonster> CastingPtr = _ColActor->DynamicThis<BaseMonster>();
+
+					if (nullptr == CastingPtr)
+					{
+						MsgAssert_Rtti<WolfSkull_Unique>(" - BaseMonster를 상속받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+						return;
+					}
+
+					CastingPtr->HitMonster(_Hit.Attack, Dir, true, false, false, HitEffectType::Sword);
+				}
+				});
+
+			TrailProjectile->GetTransform()->SetLocalRotation(float4(0, 0, GameEngineRandom::MainRandom.RandomFloat(0, 360.0f)));
+
+			++TrailAttackCount;
+			TrailAttackProgress = 0.0f;
+		}
+
+		if (7 <= TrailAttackCount)
+		{
+			TrailAttackProgress = 0.0f;
+			IsSwitchTrailAttack = false;
+			TrailAttackCount = 0;
+		}
+	}
 }
 
 void WolfSkull_Unique::Attack_Enter()
@@ -282,6 +338,10 @@ void WolfSkull_Unique::Switch_Update(float _DeltaTime)
 	{
 		IsSwitchMove = true;
 		SwitchMoveProgress = 0.0f;
+		IsSwitchTrailAttack = true;
+		TrailAttackProgress = 0.0f;
+		TrailAttackCount = 0;
+
 		float4 DashPos = GetTransform()->GetWorldPosition();
 		DashPos.y += WalkCol->GetTransform()->GetWorldScale().hy() + 6;
 

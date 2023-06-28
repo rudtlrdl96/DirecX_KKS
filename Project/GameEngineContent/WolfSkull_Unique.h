@@ -14,6 +14,7 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _DeltaTime) override;
 
 	void Attack_Enter() override;
 	void JumpAttack_Enter() override;
@@ -36,6 +37,7 @@ protected:
 private:
 	bool IsSkillMove = false;
 	bool IsSwitchMove = false;
+	bool IsSwitchTrailAttack = false;
 
 	float4 SwitchMoveStart = float4::Zero;
 	float4 SwitchMoveEnd = float4::Zero;
@@ -43,6 +45,9 @@ private:
 	std::shared_ptr<GameEngineCollision> SwitchCol = nullptr;
 
 	float SwitchMoveProgress = 0.0f;
+	float TrailAttackProgress = 0.0f;
+
+	int TrailAttackCount = 0;
 
 	void DataLoad() override;
 	void TextureLoad() override;

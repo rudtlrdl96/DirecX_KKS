@@ -56,6 +56,7 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 	IsPlatformCol = _Parameter.IsPlatformCol;
 	IsColDeath = _Parameter.IsColDeath;
 	IsRot = _Parameter.IsRot;
+	IsEffectEndDeath = _Parameter.IsEffectEndDeath;
 
 	EnterEvent = _Parameter.EnterEvent;
 	UpdateEvent = _Parameter.UpdateEvent;
@@ -78,7 +79,15 @@ void Projectile::Start()
 
 void Projectile::Update(float _DeltaTime)
 {
-	if (GetLiveTime() >= LiveTime)
+	if (true == IsEffectEndDeath)
+	{
+		if (true == ProjectileEffectActor->IsAnimationEnd())
+		{
+			Death();
+			return;
+		}
+	}
+	else if (GetLiveTime() >= LiveTime)
 	{
 		if (nullptr != DeathEvent)
 		{

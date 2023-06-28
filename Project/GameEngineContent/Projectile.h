@@ -30,6 +30,7 @@ public:
 	bool IsRot = true;
 	bool IsFlipX = false;
 	bool IsForceLoopOff = false;
+	bool IsEffectEndDeath = false;
 
 	float Damage = 1.0f;
 
@@ -79,6 +80,7 @@ protected:
 	bool IsColDeath = false;
 	bool IsWaitEndValue = false;
 	bool IsRot = false;
+	bool IsEffectEndDeath = false;
 
 	float Damage = 1.0f;
 
@@ -87,8 +89,8 @@ protected:
 	float Speed = 100.0f;
 	float TrackingSpeed = 1.0f;
 
-	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter)> EnterEvent = nullptr;
-	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter)> UpdateEvent = nullptr;
+	std::function<void(std::shared_ptr<class BaseContentActor>, const ProjectileHitParameter&)> EnterEvent = nullptr;
+	std::function<void(std::shared_ptr<class BaseContentActor>, const ProjectileHitParameter&)> UpdateEvent = nullptr;
 	std::function<void(const float4&)> DeathEvent = nullptr;
 
 	std::vector<std::shared_ptr<GameEngineCollision>> ColDatas;
