@@ -91,7 +91,7 @@ void ContentCore::CoreLoading()
 
 	Inventory::ResetSkull();
 
-	GameEngineCore::ChangeLevel("Castle");
+	GameEngineCore::ChangeLevel("ForestOfHarmony");
 
 }
 

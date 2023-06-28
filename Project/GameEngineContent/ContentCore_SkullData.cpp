@@ -374,6 +374,57 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Unique_Switch.png").GetFullPath(), 8, 1);
 	}
 
+	// 웨어울프 레전더리
+	if (nullptr == GameEngineTexture::Find("Wolf_Legendary_Idle.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Player");
+		Path.Move("Skull");
+		Path.Move("Wolf");
+		Path.Move("Legendary");
+
+		// Idle Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_Idle.png").GetFullPath(), 7, 1);
+
+		// Walk Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_Walk.png").GetFullPath(), 3, 2);
+
+		// Dash Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_Dash.png").GetFullPath(), 3, 1);
+
+		// FallEnter Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_Fall.png").GetFullPath(), 2, 1);
+
+		// FallRepeat Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_FallRepeat.png").GetFullPath(), 3, 1);
+
+		// Jump Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_Jump.png").GetFullPath(), 3, 1);
+
+		// AttackA Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_AttackA.png").GetFullPath(), 6, 1);
+
+		// AttackB Sprite 
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_AttackB.png").GetFullPath(), 6, 1);
+
+		// JumpAttack Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_JumpAttack.png").GetFullPath(), 7, 1);
+
+		// SkillA Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_SkillA.png").GetFullPath(), 7, 1);
+
+		// SkillB Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_SkillB.png").GetFullPath(), 7, 1);
+
+		// Skull Switch
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Wolf_Legendary_Switch.png").GetFullPath(), 8, 1);
+	}
+
 	if (nullptr == GameEngineSprite::Find("Player_DashSmokeEffect.png"))
 	{
 		GameEngineDirectory Path;
@@ -400,6 +451,10 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("WereWolfUnique_Predation_Effect.png").GetFullPath(), 3, 5);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("WereWolfUnique_Switch_Effect1.png").GetFullPath(), 1, 13);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("WereWolfUnique_Switch_Effect2.png").GetFullPath(), 3, 3);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("WereWolfLegendary_Predation_Effect.png").GetFullPath(), 7, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("WereWolfLegendary_Switch_Effect1.png").GetFullPath(), 1, 13);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("WereWolfLegendary_Switch_Effect2.png").GetFullPath(), 6, 2);
 
 		EffectManager::CreateMetaData("PlayerDashEffect", {
 			"Player_DashSmokeEffect.png" ,
@@ -504,6 +559,27 @@ void ContentCore::SkullDataLoad()
 			float4::Zero,
 			0, 8,
 			0.03f,
+			2.0f });
+
+		EffectManager::CreateMetaData("WereWolf_Legendary_Predation", {
+			"WereWolfLegendary_Predation_Effect.png" ,
+			float4::Zero,
+			0, 13,
+			0.03f,
+			2.0f });
+
+		EffectManager::CreateMetaData("WereWolf_Legendary_SwitchFlash", {
+			"WereWolfLegendary_Switch_Effect1.png" ,
+			float4::Zero,
+			0, 12,
+			0.03f,
+			2.0f });
+
+		EffectManager::CreateMetaData("WereWolf_Legendary_SwitchAttack", {
+			"WereWolfLegendary_Switch_Effect2.png" ,
+			float4::Zero,
+			0, 11,
+			0.02f,
 			2.0f });
 	}
 

@@ -18,6 +18,7 @@
 #include "WolfSkull_Normal.h"
 #include "WolfSkull_Rare.h"
 #include "WolfSkull_Unique.h"
+#include "WolfSkull_Legandary.h"
 
 #include "BattleActorDamageFont.h"
 
@@ -490,6 +491,9 @@ std::shared_ptr<PlayerBaseSkull> Player::CreateNewSkull(size_t _Index)
 		break;
 	case 200: // 우두머리 웨어울프
 		NewSkull = GetLevel()->CreateActor<WolfSkull_Unique>();
+		break;	
+	case 300: // 영원의 웨어울프
+		NewSkull = GetLevel()->CreateActor<WolfSkull_Legandary>();
 		break;
 	case 203: // 경비대장
 		NewSkull = GetLevel()->CreateActor<ChiefGuard>();

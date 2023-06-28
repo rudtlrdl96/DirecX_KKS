@@ -762,6 +762,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="WolfSkull_Legandary.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="WolfSkull_Normal.h">
       <SubType>
       </SubType>
@@ -1542,6 +1546,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Witch_CatFollow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="WolfSkull_Legandary.cpp">
       <SubType>
       </SubType>
     </ClCompile>
