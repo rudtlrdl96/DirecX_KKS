@@ -305,3 +305,18 @@ void MinotaurusSkull_Rare::AnimationColLoad()
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_SkillA").GetFullPath()), 0.08f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_Switch").GetFullPath()), 0.1f);
 }
+
+void MinotaurusSkull_Rare::Skill_SlotA_Enter()
+{
+	PlayerBaseSkull::Skill_SlotA_Enter();
+}
+
+void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
+{
+	PlayerBaseSkull::Skill_SlotA_Update(_DeltaTime);
+}
+
+void MinotaurusSkull_Rare::Skill_SlotA_End()
+{
+	PlayerBaseSkull::Skill_SlotA_End();
+}

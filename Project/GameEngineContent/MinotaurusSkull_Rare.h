@@ -29,6 +29,10 @@ protected:
 	void Dash_Update(float _DeltaTime) override;
 	void Dash_End() override;
 
+	void Skill_SlotA_Enter() override;
+	void Skill_SlotA_Update(float _DeltaTime) override;
+	void Skill_SlotA_End() override;
+
 private:
 	std::shared_ptr<GameEngineCollision> JumpAttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> DashAttackCol = nullptr;
