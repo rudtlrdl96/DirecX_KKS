@@ -12,6 +12,11 @@ VeteranHero::VeteranHero()
 
 VeteranHero::~VeteranHero()
 {
+}
+
+void VeteranHero::Death()
+{
+	BossMonster::Death();
 	GetContentLevel()->StopCustomBgm();
 }
 

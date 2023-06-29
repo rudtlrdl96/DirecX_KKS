@@ -13,6 +13,7 @@ public:
 	VeteranHero& operator=(const VeteranHero& _Other) = delete;
 	VeteranHero& operator=(VeteranHero&& _Other) noexcept = delete;
 
+	void Death() override;
 	void Destroy() override;
 	void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, HitEffectType _Type, std::function<void()> _KillEvent = nullptr) override;
 protected:
@@ -48,6 +49,8 @@ protected:
 	AnimationAttackMetaData AttackA_Data;
 	AnimationAttackMetaData AttackB_Data;
 	AnimationAttackMetaData AttackD_Data;
+
+	bool IsBGMOff = false;
 
 	UINT ComboAttackIndex = 0;
 

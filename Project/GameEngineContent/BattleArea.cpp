@@ -162,3 +162,11 @@ void BattleArea::SetSecondDoorType(const std::string_view& _StageName, DoorType 
 
 	FindIter->second->SetSecondDoorType(_Type);
 }
+
+void BattleArea::ClearStage()
+{
+	if (nullptr != CurStage)
+	{
+		CurStage->StageReset();
+	}
+}

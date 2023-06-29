@@ -191,23 +191,26 @@ void PlayerBaseSkull::Start()
 
 	AttackEnterCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)
 		{			
-			{
-				std::shared_ptr<BaseMonster> CastPtr = std::static_pointer_cast<BaseMonster>(_Ptr);
+			std::shared_ptr<BaseMonster> CastPtr = std::static_pointer_cast<BaseMonster>(_Ptr);
 
-				if (nullptr != CastPtr)
+			if (nullptr != CastPtr)
+			{
+				switch (AttackTypeValue)
 				{
-					switch (AttackTypeValue)
-					{
-					case PlayerBaseSkull::AttackType::MeleeAttack:
-						CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, false, AttackEffectType, KillEvent);
-						break;
-					case PlayerBaseSkull::AttackType::MagicAttack:
-						CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, true, AttackEffectType, KillEvent);
-						break;
-					default:
-						break;
-					}
+				case PlayerBaseSkull::AttackType::MeleeAttack:
+					CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, false, AttackEffectType, KillEvent);
+					break;
+				case PlayerBaseSkull::AttackType::MagicAttack:
+					CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, true, AttackEffectType, KillEvent);
+					break;
+				default:
+					break;
 				}
+			}
+
+			if (nullptr != HitEvent)
+			{
+				HitEvent();
 			}
 		});
 
@@ -545,8 +548,8 @@ void PlayerBaseSkull::CreateAttackAnim(const AnimationAttackMetaData& _AnimData,
 		.Start = _AnimData.GetStartFrame() ,
 		.End = _AnimData.GetEndFrame(),
 		.FrameInter = _InterTime,
+		.Loop = false,
 		.ScaleToTexture = true});
-
 }
 
 

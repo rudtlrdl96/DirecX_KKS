@@ -156,21 +156,29 @@ void BattleActor::HitEffect(HitEffectType _Type)
 	break;
 	case HitEffectType::MinoTaurus:
 	{
+		std::shared_ptr<EffectActor> Effect = nullptr;
+
 		switch (HitDir)
 		{
 		case ActorViewDir::Left:
-			EffectManager::PlayEffect({ .EffectName = "HitMinotaurus",
-				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-30, -20), Rand.RandomFloat(25, 70), 0),
+
+			Effect = EffectManager::PlayEffect({ .EffectName = "HitMinotaurus",
+				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-55, -35), Rand.RandomFloat(25, 70), 0),
+				.Scale = Rand.RandomFloat(0.7f, 0.9f),
 				.FlipX = true });
+
 			break;
 		case ActorViewDir::Right:
-			EffectManager::PlayEffect({ .EffectName = "HitMinotaurus",
-					.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
-					.FlipX = false });
+			Effect = EffectManager::PlayEffect({ .EffectName = "HitMinotaurus",
+				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(35, 55), Rand.RandomFloat(25, 70), 0),
+				.Scale = Rand.RandomFloat(0.7f, 0.9f),
+				.FlipX = true });
 			break;
 		default:
 			break;
 		}
+
+		Effect->GetTransform()->SetLocalRotation(float4(0, 0, Rand.RandomFloat(0.0f, 360.0f)));
 	}
 		break;
 	default:

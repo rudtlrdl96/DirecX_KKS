@@ -201,6 +201,8 @@ void BattleLevel::LevelChangeEnd()
 	EffectManager::SetLevel(nullptr);
 	GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(1.0f);
 	GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(1.0f);
+
+	BattleAreaPtr->ClearStage();
 }
 
 void BattleLevel::ChangeStage()

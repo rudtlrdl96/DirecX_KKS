@@ -37,6 +37,8 @@ public:
 	void SetFiretDoorType(const std::string_view& _StageName, DoorType _Type);
 	void SetSecondDoorType(const std::string_view& _StageName, DoorType _Type);
 
+	void ClearStage();
+
 protected:
 
 private:

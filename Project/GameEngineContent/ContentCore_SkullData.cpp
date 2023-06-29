@@ -640,7 +640,7 @@ void ContentCore::SkullDataLoad()
 			"HitMinotaurus.png" ,
 			float4::Zero,
 			0, 14,
-			0.05f,
+			0.03f,
 			2.0f });
 	}
 

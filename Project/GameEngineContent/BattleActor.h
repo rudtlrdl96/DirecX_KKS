@@ -22,7 +22,7 @@ public:
 	BattleActor(BattleActor&& _Other) noexcept = delete;
 	BattleActor& operator=(const BattleActor& _Other) = delete;
 	BattleActor& operator=(BattleActor&& _Other) noexcept = delete;
-
+	
 	inline float GetThornHitCoolTime() const
 	{
 		return ThornWaitTime;

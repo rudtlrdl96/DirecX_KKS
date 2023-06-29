@@ -15,11 +15,25 @@ public:
 protected:
 	void Start() override;
 	
+	void Attack_Enter() override;
+	void Attack_End() override;
+
+	void JumpAttack_Enter() override;
+	void JumpAttack_Update(float _DeltaTime) override;
+	void JumpAttack_End() override;
+
 private:
+	std::shared_ptr<GameEngineCollision> JumpAttackCol = nullptr;
+	std::map<UINT, std::shared_ptr <class BaseMonster>> JumpAttackDoubleCheck;
+
+	float JumpAttackTime = 0.0f;
+	float JumpAttackLandTime = 0.0f;
+
+	bool IsJumpAttackLand = false;
+
 	void DataLoad() override;
 	void TextureLoad() override;
 	void CreateAnimation() override;
 	void AnimationColLoad() override;
-
 };
 

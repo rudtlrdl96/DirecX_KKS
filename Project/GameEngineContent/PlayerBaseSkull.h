@@ -226,6 +226,7 @@ protected:
 
 	float4 StoryMovePos = float4::Zero;
 	std::function<void()> StoryMoveEndCallback = nullptr;
+	std::function<void()> HitEvent = nullptr;
 	std::function<void()> KillEvent = nullptr;
 
 	void Start() override;

@@ -293,6 +293,10 @@ void ContentSpriteRenderer::ChangeAnimation(const std::string_view& _Name, size_
 		CurAnimation->CurFrame = _Frame;
 	}
 
+	if (CurAnimation->CurFrame >= CurAnimation->FrameIndex.size())
+	{
+		CurAnimation->CurFrame = 0;
+	}
 }
 
 void ContentSpriteRenderer::Update(float _Delta)
