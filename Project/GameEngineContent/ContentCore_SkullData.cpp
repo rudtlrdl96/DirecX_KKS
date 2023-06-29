@@ -509,6 +509,7 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("WereWolfLegendary_Switch_Effect2.png").GetFullPath(), 6, 2);
 
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitMinotaurus.png").GetFullPath(), 3, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("DashTackleEffect.png").GetFullPath(), 2, 5);
 
 		EffectManager::CreateMetaData("PlayerDashEffect", {
 			"Player_DashSmokeEffect.png" ,
@@ -640,6 +641,13 @@ void ContentCore::SkullDataLoad()
 			"HitMinotaurus.png" ,
 			float4::Zero,
 			0, 14,
+			0.03f,
+			2.0f });		
+		
+		EffectManager::CreateMetaData("DashTackleEffect", {
+			"DashTackleEffect.png" ,
+			float4::Zero,
+			0, 9,
 			0.03f,
 			2.0f });
 	}

@@ -22,14 +22,23 @@ protected:
 	void JumpAttack_Update(float _DeltaTime) override;
 	void JumpAttack_End() override;
 
+	void Switch_Enter() override;
+	void Switch_Update(float _DeltaTime) override;
+
+	void Dash_Enter() override;
+	void Dash_Update(float _DeltaTime) override;
+	void Dash_End() override;
+
 private:
 	std::shared_ptr<GameEngineCollision> JumpAttackCol = nullptr;
-	std::map<UINT, std::shared_ptr <class BaseMonster>> JumpAttackDoubleCheck;
+	std::shared_ptr<GameEngineCollision> DashAttackCol = nullptr;
+	std::map<UINT, std::shared_ptr <class BaseMonster>> AttackDoubleCheck;
 
 	float JumpAttackTime = 0.0f;
 	float JumpAttackLandTime = 0.0f;
 
 	bool IsJumpAttackLand = false;
+	bool IsSwitchMove = false;
 
 	void DataLoad() override;
 	void TextureLoad() override;

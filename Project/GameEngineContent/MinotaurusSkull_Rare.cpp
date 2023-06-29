@@ -8,6 +8,7 @@ MinotaurusSkull_Rare::MinotaurusSkull_Rare()
 
 MinotaurusSkull_Rare::~MinotaurusSkull_Rare()
 {
+	AttackDoubleCheck.clear();
 }
 
 void MinotaurusSkull_Rare::Start()
@@ -27,6 +28,12 @@ void MinotaurusSkull_Rare::Start()
 	JumpAttackCol->GetTransform()->SetLocalScale(float4(80, 90, 1));
 	JumpAttackCol->SetColType(ColType::AABBBOX2D);
 	JumpAttackCol->Off();
+
+	DashAttackCol = CreateComponent<GameEngineCollision>();
+	DashAttackCol->GetTransform()->SetLocalPosition(float4(5, 43, 0));
+	DashAttackCol->GetTransform()->SetLocalScale(float4(116, 85, 1));
+	DashAttackCol->SetColType(ColType::AABBBOX2D);
+	DashAttackCol->Off();
 }
 
 void MinotaurusSkull_Rare::Attack_Enter()
@@ -62,7 +69,7 @@ void MinotaurusSkull_Rare::JumpAttack_Enter()
 	DashRigidbody.SetVelocity(float4::Zero);
 	IsJumpAttackLand = false;
 
-	JumpAttackDoubleCheck.clear();
+	AttackDoubleCheck.clear();
 }
 
 void MinotaurusSkull_Rare::JumpAttack_Update(float _DeltaTime)
@@ -94,7 +101,7 @@ void MinotaurusSkull_Rare::JumpAttack_Update(float _DeltaTime)
 			{
 				std::shared_ptr<BaseMonster> CastingCol = AllCol[i]->GetActor()->DynamicThis<BaseMonster>();
 
-				if (nullptr != JumpAttackDoubleCheck[CastingCol->GetActorCode()])
+				if (nullptr != AttackDoubleCheck[CastingCol->GetActorCode()])
 				{
 					continue;
 				}
@@ -106,7 +113,7 @@ void MinotaurusSkull_Rare::JumpAttack_Update(float _DeltaTime)
 				}
 
 				CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
-				JumpAttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
+				AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
 			}
 		}
 	}
@@ -146,6 +153,98 @@ void MinotaurusSkull_Rare::JumpAttack_End()
 {
 	AttackRigidbody.SetActiveGravity(false);
 	AttackRigidbody.SetMaxSpeed(1000.0f);
+
+	AttackDoubleCheck.clear();
+}
+
+void MinotaurusSkull_Rare::Switch_Enter()
+{
+	PlayerBaseSkull::Switch_Enter();
+	IsSwitchMove = false;
+}
+
+void MinotaurusSkull_Rare::Switch_Update(float _DeltaTime)
+{
+	PlayerBaseSkull::Switch_Update(_DeltaTime);
+
+	if (false == IsSwitchMove && 3 == Render->GetCurrentFrame())
+	{
+		IsSwitchMove = true;
+
+		switch (GetViewDir())
+		{
+		case ActorViewDir::Left:
+			AttackRigidbody.SetVelocity(float4::Left * 800.0f);
+			break;
+
+		case ActorViewDir::Right:
+			AttackRigidbody.SetVelocity(float4::Right * 800.0f);
+			break;
+		default:
+			break;
+		}
+	}
+
+	AttackRigidbody.UpdateForce(_DeltaTime);
+
+	if (nullptr == ContentFunc::PlatformColCheck(WalkCol))
+	{
+		float4 AttackVelocity = AttackRigidbody.GetVelocity() * _DeltaTime;
+		PlayerTrans->AddLocalPosition(AttackVelocity);
+	}
+
+}
+
+void MinotaurusSkull_Rare::Dash_Enter()
+{
+	PlayerBaseSkull::Dash_Enter();
+
+	std::shared_ptr<EffectActor> DashEffect = EffectManager::PlayEffect({
+		.EffectName = "DashTackleEffect",
+		.FlipX = ActorViewDir::Left == GetViewDir()});
+
+	DashEffect->GetTransform()->SetParent(GetTransform());
+	DashEffect->GetTransform()->SetLocalPosition(float4(30, 45, -35));
+
+	AttackDoubleCheck.clear();
+	DashAttackCol->On();
+}
+
+void MinotaurusSkull_Rare::Dash_Update(float _DeltaTime)
+{
+	PlayerBaseSkull::Dash_Update(_DeltaTime);
+
+	std::vector<std::shared_ptr<GameEngineCollision>> AllCol;
+	AllCol.reserve(8);
+
+	if (true == DashAttackCol->CollisionAll((int)CollisionOrder::Monster, AllCol, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	{
+		for (size_t i = 0; i < AllCol.size(); i++)
+		{
+			std::shared_ptr<BaseMonster> CastingCol = AllCol[i]->GetActor()->DynamicThis<BaseMonster>();
+
+			if (nullptr != AttackDoubleCheck[CastingCol->GetActorCode()])
+			{
+				continue;
+			}
+
+			if (nullptr == CastingCol)
+			{
+				MsgAssert_Rtti<MinotaurusSkull_Rare>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+				return;
+			}
+
+			CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::Normal);
+			AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
+		}
+	}
+}
+
+void MinotaurusSkull_Rare::Dash_End()
+{
+	PlayerBaseSkull::Dash_End();
+	AttackDoubleCheck.clear();
+	DashAttackCol->Off();
 }
 
 void MinotaurusSkull_Rare::DataLoad()
