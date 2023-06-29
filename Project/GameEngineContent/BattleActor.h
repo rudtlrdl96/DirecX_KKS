@@ -7,7 +7,9 @@ enum class HitEffectType
 {
 	None,
 	Normal,
+	Skull,
 	Sword,
+	MinoTaurus
 };
 
 class BattleActor : public BaseContentActor

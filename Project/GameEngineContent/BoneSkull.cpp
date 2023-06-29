@@ -66,8 +66,9 @@ void BoneSkull::Destroy()
 void BoneSkull::Start()
 {
 	Type = SkullType::Balance;
-
 	PlayerBaseSkull::Start();
+
+	AttackEffectType = HitEffectType::Skull;
 
 	HeadActor = GetLevel()->CreateActor<BoneHead>();
 	HeadActor->SetParentSkull(this);

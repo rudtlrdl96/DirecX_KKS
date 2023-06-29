@@ -20,6 +20,8 @@
 #include "WolfSkull_Unique.h"
 #include "WolfSkull_Legandary.h"
 
+#include "MinotaurusSkull_Rare.h"
+
 #include "BattleActorDamageFont.h"
 
 #include "ContentLevel.h"
@@ -488,6 +490,9 @@ std::shared_ptr<PlayerBaseSkull> Player::CreateNewSkull(size_t _Index)
 		break;
 	case 100: // 나이 든 웨어울프
 		NewSkull = GetLevel()->CreateActor<WolfSkull_Rare>();
+		break;
+	case 101: // 미노타우르스 1세 
+		NewSkull = GetLevel()->CreateActor<MinotaurusSkull_Rare>();
 		break;
 	case 200: // 우두머리 웨어울프
 		NewSkull = GetLevel()->CreateActor<WolfSkull_Unique>();

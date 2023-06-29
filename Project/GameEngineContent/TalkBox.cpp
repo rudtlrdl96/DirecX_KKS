@@ -134,7 +134,7 @@ void TalkBox::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("TalkKey"))
 	{
-		BoostSpeed = 15.0f;
+		BoostSpeed = 30.0f;
 		IsBoost = true;
 
 		if (1 <= ReadSoundCount)

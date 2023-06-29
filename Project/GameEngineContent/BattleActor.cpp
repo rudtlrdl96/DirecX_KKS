@@ -95,36 +95,33 @@ void BattleActor::HitEffect(HitEffectType _Type)
 		switch (HitDir)
 		{
 		case ActorViewDir::Left:
-			if (true == IsPush)
-			{
-				EffectManager::PlayEffect({ .EffectName = "HitSkul",
-					.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-50, -40), Rand.RandomFloat(25, 70), 0),
-					.Scale = 0.6f,
-					.FlipX = true });
-			}
-			else
-			{
-				EffectManager::PlayEffect({ .EffectName = "HitSkul",
-					.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-30, -20), Rand.RandomFloat(25, 70), 0),
-					.Scale = 0.6f,
-					.FlipX = true });
-			}
+			EffectManager::PlayEffect({ .EffectName = "HitNormal",
+				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-30, -20), Rand.RandomFloat(25, 70), 0),
+				.FlipX = true });
 			break;
 		case ActorViewDir::Right:
-			if (true == IsPush)
-			{
-				EffectManager::PlayEffect({ .EffectName = "HitSkul",
-					.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(40, 50), Rand.RandomFloat(25, 70), 0),
-					.Scale = 0.6f,
+			EffectManager::PlayEffect({ .EffectName = "HitNormal",
+					.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
 					.FlipX = false });
-			}
-			else
-			{
-				EffectManager::PlayEffect({ .EffectName = "HitSkul",
-						.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
-						.Scale = 0.6f,
-						.FlipX = false });
-			}
+			break;
+		default:
+			break;
+		}
+		break;
+	case HitEffectType::Skull:
+		switch (HitDir)
+		{
+		case ActorViewDir::Left:
+			EffectManager::PlayEffect({ .EffectName = "HitSkul",
+				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-30, -20), Rand.RandomFloat(25, 70), 0),
+				.Scale = 0.6f,
+				.FlipX = true });
+			break;
+		case ActorViewDir::Right:
+			EffectManager::PlayEffect({ .EffectName = "HitSkul",
+				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
+				.Scale = 0.6f,
+				.FlipX = false });
 			break;
 		default:
 			break;
@@ -156,7 +153,25 @@ void BattleActor::HitEffect(HitEffectType _Type)
 
 		Effect->GetTransform()->SetLocalRotation(float4(0, 0, Rand.RandomFloat(0.0f, 360.0f)));
 	}
-
+	break;
+	case HitEffectType::MinoTaurus:
+	{
+		switch (HitDir)
+		{
+		case ActorViewDir::Left:
+			EffectManager::PlayEffect({ .EffectName = "HitMinotaurus",
+				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-30, -20), Rand.RandomFloat(25, 70), 0),
+				.FlipX = true });
+			break;
+		case ActorViewDir::Right:
+			EffectManager::PlayEffect({ .EffectName = "HitMinotaurus",
+					.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
+					.FlipX = false });
+			break;
+		default:
+			break;
+		}
+	}
 		break;
 	default:
 		break;

@@ -13,6 +13,7 @@ public:
 	MinotaurusSkull_Rare& operator=(MinotaurusSkull_Rare&& _Other) noexcept = delete;
 
 protected:
+	void Start() override;
 	
 private:
 	void DataLoad() override;

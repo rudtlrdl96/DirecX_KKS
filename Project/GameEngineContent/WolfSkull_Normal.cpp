@@ -190,7 +190,7 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Normal);
+				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Sword);
 			}
 		}
 
