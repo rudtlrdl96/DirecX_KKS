@@ -1,26 +1,25 @@
 #include "PrecompileHeader.h"
-#include "MinotaurusSkull_Rare.h"
+#include "MinotaurusSkull_Unique.h"
 #include "BaseMonster.h"
 
-MinotaurusSkull_Rare::MinotaurusSkull_Rare()
+MinotaurusSkull_Unique::MinotaurusSkull_Unique()
 {
 }
 
-MinotaurusSkull_Rare::~MinotaurusSkull_Rare()
+MinotaurusSkull_Unique::~MinotaurusSkull_Unique()
 {
 	AttackDoubleCheck.clear();
 	PassiveDoubleCheck.clear();
 }
 
-void MinotaurusSkull_Rare::Start()
+void MinotaurusSkull_Unique::Start()
 {
 	Type = SkullType::Power;
 
 	PlayerBaseSkull::Start();
 
 	IsActiveSkillA_Value = true;
-	IsActiveSkillB_Value = false;
-	IsLockSkillB = true;
+	IsActiveSkillB_Value = true;
 
 	AttackEffectType = HitEffectType::MinoTaurus;
 
@@ -56,7 +55,7 @@ void MinotaurusSkull_Rare::Start()
 	SkillA_DamageRatio = 2.0f;
 }
 
-void MinotaurusSkull_Rare::Update(float _DeltaTime)
+void MinotaurusSkull_Unique::Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Update(_DeltaTime);
 
@@ -80,7 +79,7 @@ void MinotaurusSkull_Rare::Update(float _DeltaTime)
 
 				if (nullptr == CastingCol)
 				{
-					MsgAssert_Rtti<MinotaurusSkull_Rare>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+					MsgAssert_Rtti<MinotaurusSkull_Unique>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
 					return;
 				}
 
@@ -101,7 +100,7 @@ void MinotaurusSkull_Rare::Update(float _DeltaTime)
 				PassiveEffect->Death();
 			}
 
-			PassiveEffect = nullptr;			
+			PassiveEffect = nullptr;
 			IsPassive = false;
 			PassiveTime = 0.0f;
 			PassiveCol->Off();
@@ -110,7 +109,7 @@ void MinotaurusSkull_Rare::Update(float _DeltaTime)
 	}
 }
 
-void MinotaurusSkull_Rare::Attack_Enter()
+void MinotaurusSkull_Unique::Attack_Enter()
 {
 	PlayerBaseSkull::Attack_Enter();
 
@@ -120,14 +119,14 @@ void MinotaurusSkull_Rare::Attack_Enter()
 	};
 }
 
-void MinotaurusSkull_Rare::Attack_End()
+void MinotaurusSkull_Unique::Attack_End()
 {
 	PlayerBaseSkull::Attack_End();
 
 	HitEvent = nullptr;
 }
 
-void MinotaurusSkull_Rare::JumpAttack_Enter()
+void MinotaurusSkull_Unique::JumpAttack_Enter()
 {
 	Render->ChangeAnimation("JumpAttack");
 
@@ -146,7 +145,7 @@ void MinotaurusSkull_Rare::JumpAttack_Enter()
 	AttackDoubleCheck.clear();
 }
 
-void MinotaurusSkull_Rare::JumpAttack_Update(float _DeltaTime)
+void MinotaurusSkull_Unique::JumpAttack_Update(float _DeltaTime)
 {
 	if (false == IsJumpAttackLand)
 	{
@@ -182,7 +181,7 @@ void MinotaurusSkull_Rare::JumpAttack_Update(float _DeltaTime)
 
 				if (nullptr == CastingCol)
 				{
-					MsgAssert_Rtti<MinotaurusSkull_Rare>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+					MsgAssert_Rtti<MinotaurusSkull_Unique>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
 					return;
 				}
 
@@ -223,7 +222,7 @@ void MinotaurusSkull_Rare::JumpAttack_Update(float _DeltaTime)
 	}
 }
 
-void MinotaurusSkull_Rare::JumpAttack_End()
+void MinotaurusSkull_Unique::JumpAttack_End()
 {
 	AttackRigidbody.SetActiveGravity(false);
 	AttackRigidbody.SetMaxSpeed(1000.0f);
@@ -231,13 +230,13 @@ void MinotaurusSkull_Rare::JumpAttack_End()
 	AttackDoubleCheck.clear();
 }
 
-void MinotaurusSkull_Rare::Switch_Enter()
+void MinotaurusSkull_Unique::Switch_Enter()
 {
 	PlayerBaseSkull::Switch_Enter();
 	IsSwitchMove = false;
 }
 
-void MinotaurusSkull_Rare::Switch_Update(float _DeltaTime)
+void MinotaurusSkull_Unique::Switch_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Switch_Update(_DeltaTime);
 
@@ -269,13 +268,13 @@ void MinotaurusSkull_Rare::Switch_Update(float _DeltaTime)
 
 }
 
-void MinotaurusSkull_Rare::Dash_Enter()
+void MinotaurusSkull_Unique::Dash_Enter()
 {
 	PlayerBaseSkull::Dash_Enter();
 
 	std::shared_ptr<EffectActor> DashEffect = EffectManager::PlayEffect({
 		.EffectName = "DashTackleEffect",
-		.FlipX = ActorViewDir::Left == GetViewDir()});
+		.FlipX = ActorViewDir::Left == GetViewDir() });
 
 	DashEffect->GetTransform()->SetParent(GetTransform());
 	DashEffect->GetTransform()->SetLocalPosition(float4(30, 45, -35));
@@ -284,7 +283,7 @@ void MinotaurusSkull_Rare::Dash_Enter()
 	DashAttackCol->On();
 }
 
-void MinotaurusSkull_Rare::Dash_Update(float _DeltaTime)
+void MinotaurusSkull_Unique::Dash_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Dash_Update(_DeltaTime);
 
@@ -304,7 +303,7 @@ void MinotaurusSkull_Rare::Dash_Update(float _DeltaTime)
 
 			if (nullptr == CastingCol)
 			{
-				MsgAssert_Rtti<MinotaurusSkull_Rare>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+				MsgAssert_Rtti<MinotaurusSkull_Unique>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
 				return;
 			}
 
@@ -314,17 +313,17 @@ void MinotaurusSkull_Rare::Dash_Update(float _DeltaTime)
 	}
 }
 
-void MinotaurusSkull_Rare::Dash_End()
+void MinotaurusSkull_Unique::Dash_End()
 {
 	PlayerBaseSkull::Dash_End();
 	AttackDoubleCheck.clear();
 	DashAttackCol->Off();
 }
 
-void MinotaurusSkull_Rare::Skill_SlotA_Enter()
+void MinotaurusSkull_Unique::Skill_SlotA_Enter()
 {
 	PlayerBaseSkull::Skill_SlotA_Enter();
-	AttackDoubleCheck.clear();	
+	AttackDoubleCheck.clear();
 
 	switch (GetViewDir())
 	{
@@ -342,11 +341,11 @@ void MinotaurusSkull_Rare::Skill_SlotA_Enter()
 	IsSkillALand = false;
 	SkillALandTime = 0.0f;
 	SkillACol->Off();
-	
+
 	PassiveCheck();
 }
 
-void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
+void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 {
 	if (false == IsSkillALand)
 	{
@@ -380,7 +379,7 @@ void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
 		std::shared_ptr<EffectActor> StampEffect = EffectManager::PlayEffect({
 			.EffectName = "StampEffect",
 			.Position = GetTransform()->GetWorldPosition(),
-			.Scale = 0.65f});
+			.Scale = 0.65f });
 
 		SkillACol->On();
 
@@ -395,7 +394,7 @@ void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
 
 				if (nullptr == CastingCol)
 				{
-					MsgAssert_Rtti<MinotaurusSkull_Rare>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+					MsgAssert_Rtti<MinotaurusSkull_Unique>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
 					return;
 				}
 
@@ -417,7 +416,7 @@ void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
 	}
 }
 
-void MinotaurusSkull_Rare::Skill_SlotA_End()
+void MinotaurusSkull_Unique::Skill_SlotA_End()
 {
 	PlayerBaseSkull::Skill_SlotA_End();
 	AttackDoubleCheck.clear();
@@ -427,48 +426,48 @@ void MinotaurusSkull_Rare::Skill_SlotA_End()
 }
 
 
-void MinotaurusSkull_Rare::DataLoad()
+void MinotaurusSkull_Unique::DataLoad()
 {
-	Data = ContentDatabase<SkullData, SkullGrade>::GetData(101); // 101 == 미노타우로스
+	Data = ContentDatabase<SkullData, SkullGrade>::GetData(201); // 201 == 미노타우로스 2세
 }
 
-void MinotaurusSkull_Rare::TextureLoad()
+void MinotaurusSkull_Unique::TextureLoad()
 {
 	DeadPartNames.reserve(6);
-	DeadPartNames.push_back("Minotaurus_Head1.png");
+	DeadPartNames.push_back("Minotaurus_Head2.png");
 	DeadPartNames.push_back("Skul_DeatParts01.png");
 	DeadPartNames.push_back("Skul_DeatParts02.png");
 	DeadPartNames.push_back("Skul_DeatParts03.png");
 	DeadPartNames.push_back("Skul_DeatParts04.png");
 	DeadPartNames.push_back("Skul_DeatParts05.png");
 
-	TexName_MainSkullUI = "Rare_Minotaurus_UI_MainSkull.png";
-	TexName_SubSkullUI = "Rare_Minotaurus_UI_SubSkull.png";
-	TexName_InventoryUI = "Rare_Minotaurus_UI_Inventory.png";
+	TexName_MainSkullUI = "Unique_Minotaurus_UI_MainSkull.png";
+	TexName_SubSkullUI = "Unique_Minotaurus_UI_SubSkull.png";
+	TexName_InventoryUI = "Unique_Minotaurus_UI_Inventory.png";
 
-	TexName_SkillA = "Minotaurus_Stamp1.png";
-	TexName_SkillB = "Empty.png";
+	TexName_SkillA = "Minotaurus_Stamp2.png";
+	TexName_SkillB = "Minotaurus_PlowUp2.png";
 }
 
-void MinotaurusSkull_Rare::CreateAnimation()
+void MinotaurusSkull_Unique::CreateAnimation()
 {
 	//Idle Animation
-	Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Minotaurus_Rare_Idle.png", .FrameInter = 0.1f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Minotaurus_Unique_Idle.png", .FrameInter = 0.1f, .ScaleToTexture = true });
 	//Walk Animation
-	Render->CreateAnimation({ .AnimationName = "Walk", .SpriteName = "Minotaurus_Rare_Walk.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Walk", .SpriteName = "Minotaurus_Unique_Walk.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	//Dash Animation
-	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "Minotaurus_Rare_Dash.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Dash", .SpriteName = "Minotaurus_Unique_Dash.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	// Fall
-	Render->CreateAnimation({ .AnimationName = "Fall", .SpriteName = "Minotaurus_Rare_Fall.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Fall", .SpriteName = "Minotaurus_Unique_Fall.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	// Fall Repeat
-	Render->CreateAnimation({ .AnimationName = "FallRepeat", .SpriteName = "Minotaurus_Rare_FallRepeat.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "FallRepeat", .SpriteName = "Minotaurus_Unique_FallRepeat.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 	// Jump
-	Render->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "Minotaurus_Rare_Jump.png", .FrameInter = 0.08f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "Minotaurus_Unique_Jump.png", .FrameInter = 0.08f, .ScaleToTexture = true });
 
-	Render->CreateAnimation({ .AnimationName = "JumpAttack_Land", .SpriteName = "Minotaurus_Rare_JumpAttackLand.png", .FrameInter = 0.1f, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "JumpAttack_Land", .SpriteName = "Minotaurus_Unique_JumpAttackLand.png", .FrameInter = 0.1f, .ScaleToTexture = true });
 }
 
-void MinotaurusSkull_Rare::AnimationColLoad()
+void MinotaurusSkull_Unique::AnimationColLoad()
 {
 	GameEngineDirectory Path;
 
@@ -477,16 +476,17 @@ void MinotaurusSkull_Rare::AnimationColLoad()
 	Path.Move("Data");
 	Path.Move("8_Player");
 	Path.Move("Minotaurus");
-	Path.Move("Rare");
+	Path.Move("Unique");
 
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_AttackA").GetFullPath()), 0.1f);
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_AttackB").GetFullPath()), 0.1f);
-	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_JumpAttack").GetFullPath()), 0.08f);
-	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_SkillA").GetFullPath()), 0.08f);
-	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_Switch").GetFullPath()), 0.1f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_AttackA").GetFullPath()), 0.1f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_AttackB").GetFullPath()), 0.1f);
+	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_JumpAttack").GetFullPath()), 0.08f);
+	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_SkillA").GetFullPath()), 0.08f);
+	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_SkillB").GetFullPath()), 0.1f);
+	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_Switch").GetFullPath()), 0.1f);
 }
 
-void MinotaurusSkull_Rare::PassiveCheck()
+void MinotaurusSkull_Unique::PassiveCheck()
 {
 	if (false == IsPassive)
 	{

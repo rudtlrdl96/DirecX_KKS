@@ -966,6 +966,9 @@
     <ClInclude Include="MinotaurusSkull_Rare.h">
       <Filter>2_Actor\BattleActor\Player\Skull\Minotaurus\Rare</Filter>
     </ClInclude>
+    <ClInclude Include="MinotaurusSkull_Unique.h">
+      <Filter>2_Actor\BattleActor\Player\Skull\Minotaurus\Unique</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1612,6 +1615,9 @@
     </ClCompile>
     <ClCompile Include="MinotaurusSkull_Rare.cpp">
       <Filter>2_Actor\BattleActor\Player\Skull\Minotaurus\Rare</Filter>
+    </ClCompile>
+    <ClCompile Include="MinotaurusSkull_Unique.cpp">
+      <Filter>2_Actor\BattleActor\Player\Skull\Minotaurus\Unique</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -40,7 +40,8 @@ void Inventory::ResetSkull()
 	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(200); //웨어울프_유니크
 	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(300); //웨어울프_레전더리
 
-	SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(101); //미노타우르스_레어
+	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(101); //미노타우르스_레어
+	SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(201); //미노타우르스_유니크
 
 	//SubSkullData.Reset();
 }

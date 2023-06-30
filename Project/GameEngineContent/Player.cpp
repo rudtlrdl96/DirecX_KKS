@@ -21,6 +21,7 @@
 #include "WolfSkull_Legandary.h"
 
 #include "MinotaurusSkull_Rare.h"
+#include "MinotaurusSkull_Unique.h"
 
 #include "BattleActorDamageFont.h"
 
@@ -499,6 +500,9 @@ std::shared_ptr<PlayerBaseSkull> Player::CreateNewSkull(size_t _Index)
 		break;	
 	case 300: // 영원의 웨어울프
 		NewSkull = GetLevel()->CreateActor<WolfSkull_Legandary>();
+		break;
+	case 201: // 미노타우르스 2세
+		NewSkull = GetLevel()->CreateActor<MinotaurusSkull_Unique>();
 		break;
 	case 203: // 경비대장
 		NewSkull = GetLevel()->CreateActor<ChiefGuard>();

@@ -198,10 +198,10 @@ void PlayerBaseSkull::Start()
 				switch (AttackTypeValue)
 				{
 				case PlayerBaseSkull::AttackType::MeleeAttack:
-					CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, false, AttackEffectType, KillEvent);
+					CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio * _Data.AttackRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, false, AttackEffectType, KillEvent);
 					break;
 				case PlayerBaseSkull::AttackType::MagicAttack:
-					CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, true, AttackEffectType, KillEvent);
+					CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio * _Data.AttackRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, true, AttackEffectType, KillEvent);
 					break;
 				default:
 					break;
@@ -213,8 +213,6 @@ void PlayerBaseSkull::Start()
 				HitEvent();
 			}
 		});
-
-	//DashTrail->GetTransform()->SetLocalPosition(float4(0, 0, 1));
 }
 
 void PlayerBaseSkull::Update(float _DeltaTime)
