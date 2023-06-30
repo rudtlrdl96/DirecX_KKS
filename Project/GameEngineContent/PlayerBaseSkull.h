@@ -184,6 +184,7 @@ protected:
 	AttackType AttackTypeValue = AttackType::MeleeAttack;
 
 	bool IsFallEnd = false;
+	bool IsDownPlatformCheckOff = false;
 
 	bool IsLockAttack = false;
 	bool IsLockSkillA = false;
@@ -348,6 +349,6 @@ private:
 	void CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime);
 	void RendererEffect(const float4& _StartColor, const float4& _EndColor, float _Speed);
 	void CaptureRenderTex(const float4& _StartColor, const float4& _EndColor, float _Speed);
-
+	void EffectCaptureAnimation(const class CaptureAnimParameter& _Parameter);
 };
 

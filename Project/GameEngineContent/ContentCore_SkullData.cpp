@@ -564,6 +564,7 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitMinotaurus.png").GetFullPath(), 3, 5);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("DashTackleEffect.png").GetFullPath(), 2, 5);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_Passive.png").GetFullPath(), 5, 7);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MinoSkillA_Smoke.png").GetFullPath(), 3, 7);
 
 		EffectManager::CreateMetaData("PlayerDashEffect", {
 			"Player_DashSmokeEffect.png" ,
@@ -716,6 +717,13 @@ void ContentCore::SkullDataLoad()
 			.SpriteName = "Minotaurus_Rare_Passive.png",
 			.AnimStart = 0,
 			.AnimEnd = 34,
+			.AnimIter = 0.035f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("MinoSkillA_Smoke", {
+			.SpriteName = "MinoSkillA_Smoke.png",
+			.AnimStart = 0,
+			.AnimEnd = 19,
 			.AnimIter = 0.035f,
 			.ScaleRatio = 2.0f, });
 	}

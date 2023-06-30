@@ -46,6 +46,7 @@ protected:
 	bool IsPush = false;
 	bool IsSuperArmor = false;
 	bool IsUnPushArmor = false;
+	bool IsColorEffect = false;
 
 	float ThornWaitTime = 0.0f;
 
@@ -53,11 +54,21 @@ protected:
 	float HitEffectSpeed = 7.5f;
 	float HitParticleCoolTime = 0.0f;
 
+	float ColorEffectWaitTime = 0.0f;
+	float ColorEffectProgress = 0.0f;
+	float ColorEffectSpeed = 0.0f;
+
+	float4 ColorEffectStart = float4::Zero;
+	float4 ColorEffectEnd = float4::Zero;
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 	void HitEffect(HitEffectType _Type);
 	void HitPush();
+
+	void ColorEffectOn(float _Speed, float _WaitTime, const float4& _StartColor, const float4& _EndColor);
+
 private:
 };
 

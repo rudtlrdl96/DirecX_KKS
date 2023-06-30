@@ -143,6 +143,7 @@ void MinotaurusSkull_Unique::JumpAttack_Enter()
 	IsJumpAttackLand = false;
 
 	AttackDoubleCheck.clear();
+	IsDownPlatformCheckOff = true;
 }
 
 void MinotaurusSkull_Unique::JumpAttack_Update(float _DeltaTime)
@@ -163,6 +164,7 @@ void MinotaurusSkull_Unique::JumpAttack_Update(float _DeltaTime)
 		if (-200.0f > AttackVel.y)
 		{
 			JumpAttackCol->On();
+			IsDownPlatformCheckOff = false;
 		}
 
 		std::vector<std::shared_ptr<GameEngineCollision>> AllCol;
@@ -191,7 +193,7 @@ void MinotaurusSkull_Unique::JumpAttack_Update(float _DeltaTime)
 		}
 	}
 
-	if (false == IsJumpAttackLand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
+	if (false == IsDownPlatformCheckOff && false == IsJumpAttackLand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
 		Render->ChangeAnimation("JumpAttack_Land");
 		IsJumpAttackLand = true;
@@ -228,6 +230,7 @@ void MinotaurusSkull_Unique::JumpAttack_End()
 	AttackRigidbody.SetMaxSpeed(1000.0f);
 
 	AttackDoubleCheck.clear();
+	IsDownPlatformCheckOff = false;
 }
 
 void MinotaurusSkull_Unique::Switch_Enter()
@@ -345,6 +348,7 @@ void MinotaurusSkull_Unique::Skill_SlotA_Enter()
 	SkillACol->Off();
 
 	PassiveCheck();
+	IsDownPlatformCheckOff = true;
 }
 
 void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
@@ -369,10 +373,15 @@ void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 			SkillARigidbody.SetVelocity(SkillVel);
 		}
 
+		if (-200.0f > SkillVel.y)
+		{
+			IsDownPlatformCheckOff = false;
+		}
+
 		PlayerTrans->AddLocalPosition(SkillVel * _DeltaTime);
 	}
 
-	if (false == IsSkillALand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
+	if (false == IsDownPlatformCheckOff && false == IsSkillALand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
 		SkillALandTime = 0.0f;
 		IsSkillALand = true;
@@ -387,9 +396,9 @@ void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 		if (true == IsSkillADoubleAttack)
 		{
 			EffectManager::PlayEffect({
-			.EffectName = "StampEffect",
-			.Position = GetTransform()->GetWorldPosition(),
-			.Scale = 0.65f });
+			.EffectName = "MinoSkillA_Smoke",
+			.Position = GetTransform()->GetWorldPosition() + float4(20, 40),
+			.Scale = 0.5f });
 		}
 
 		SkillACol->On();
@@ -425,7 +434,7 @@ void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 			IsSkillALand = false;
 			IsSkillADoubleAttack = true;
 
-			SkillARigidbody.SetVelocity(float4(0, 500));
+			SkillARigidbody.SetVelocity(float4(0, 700));
 		}
 		else if (0.3f <= SkillALandTime)
 		{
@@ -441,6 +450,7 @@ void MinotaurusSkull_Unique::Skill_SlotA_End()
 	AttackRigidbody.SetActiveGravity(false);
 	AttackRigidbody.SetMaxSpeed(1000.0f);
 	SkillACol->Off();
+	IsDownPlatformCheckOff = false;
 }
 
 
@@ -496,8 +506,8 @@ void MinotaurusSkull_Unique::AnimationColLoad()
 	Path.Move("Minotaurus");
 	Path.Move("Unique");
 
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_AttackA").GetFullPath()), 0.1f);
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_AttackB").GetFullPath()), 0.1f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_AttackA").GetFullPath()), 0.08f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_AttackB").GetFullPath()), 0.08f);
 	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_JumpAttack").GetFullPath()), 0.08f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_SkillA").GetFullPath()), 0.08f);
 	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_SkillB").GetFullPath()), 0.1f);

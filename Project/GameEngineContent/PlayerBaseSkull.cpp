@@ -10,7 +10,8 @@
 #include "Player.h"
 #include "BaseMonster.h"
 #include "DeadPartParticle.h"
-#include "WitchOpening.h"
+#include "CaptureRenderer.h"
+#include "CaptureAnimation.h"
 
 PlayerBaseSkull::PlayerBaseSkull()
 {
@@ -263,7 +264,7 @@ void PlayerBaseSkull::Update(float _DeltaTime)
 			DashRigidbody.SetVelocity(DashVelocity);
 		}
 	}
-	else
+	else if(false == IsDownPlatformCheckOff)
 	{
 		bool IsHalfCheck = 0.0f >= FallCooldown;
 
@@ -564,8 +565,14 @@ void PlayerBaseSkull::CaptureRenderTex(const float4& _StartColor, const float4& 
 	EffectCaptureTrail->SetColor(_StartColor, _EndColor);
 	EffectCaptureTrail->SetTime(1.0f / _Speed);
 
-	EffectCaptureTrail->PlayTrail(Render->GetTexName(),
+	std::shared_ptr<CaptureRenderer> WaitRender = EffectCaptureTrail->PlayTrail(Render->GetTexName(),
 		Render->GetAtlasData(),
 		(ActorViewDir::Left == ViewDir),
 		Render->GetScaleRatio());
+}
+
+void PlayerBaseSkull::EffectCaptureAnimation(const CaptureAnimParameter& _Parameter)
+{
+	std::shared_ptr<CaptureAnimation> Capture = GetLevel()->CreateActor<CaptureAnimation>();
+	Capture->PlayCapture(_Parameter);
 }

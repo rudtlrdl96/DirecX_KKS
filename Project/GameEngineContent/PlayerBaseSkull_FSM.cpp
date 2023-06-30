@@ -7,6 +7,7 @@
 #include "CaptureTrail.h"
 #include "Player.h"
 #include "BaseMonster.h"
+#include "CaptureAnimation.h"
 
 void PlayerBaseSkull::Idle_Enter()
 {
@@ -1053,6 +1054,14 @@ void PlayerBaseSkull::Switch_Enter()
 	IsLockSkillB = true;
 
 	CurDamageRatio = Switch_DamageRatio;
+
+
+	EffectCaptureAnimation({
+		.SpriteRender = Render,
+		.StartColor = float4(0.59215f, 0.0f, 0.97647f, 1.0f), 
+		.EndColor = float4(0.59215f, 0.0f, 0.97647f, 0.0f),
+		.Speed = 2.0f,
+		.WaitTime = 0.0f});
 }
 
 void PlayerBaseSkull::Switch_Update(float _DeltaTime)

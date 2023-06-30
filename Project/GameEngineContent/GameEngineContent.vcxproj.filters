@@ -969,6 +969,9 @@
     <ClInclude Include="MinotaurusSkull_Unique.h">
       <Filter>2_Actor\BattleActor\Player\Skull\Minotaurus\Unique</Filter>
     </ClInclude>
+    <ClInclude Include="CaptureAnimation.h">
+      <Filter>2_Actor\BattleActor\Player\Capture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1618,6 +1621,9 @@
     </ClCompile>
     <ClCompile Include="MinotaurusSkull_Unique.cpp">
       <Filter>2_Actor\BattleActor\Player\Skull\Minotaurus\Unique</Filter>
+    </ClCompile>
+    <ClCompile Include="CaptureAnimation.cpp">
+      <Filter>2_Actor\BattleActor\Player\Capture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

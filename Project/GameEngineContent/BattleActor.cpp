@@ -31,7 +31,17 @@ void BattleActor::Update(float _DeltaTime)
 	HitParticleCoolTime += _DeltaTime;	
 	IsHit = false;
 
-	if (true == IsHitEffectOn)
+	if (true == IsColorEffect)
+	{
+		ColorEffectProgress += _DeltaTime * ColorEffectSpeed;
+		Buffer.Color = float4::LerpClamp(ColorEffectStart, ColorEffectEnd, ColorEffectProgress - ColorEffectWaitTime);
+
+		if (1.0f <= ColorEffectProgress)
+		{
+			IsColorEffect = false;
+		}
+	}
+	else if (true == IsHitEffectOn)
 	{
 		HitEffectProgress += _DeltaTime * HitEffectSpeed;
 
@@ -212,4 +222,14 @@ void BattleActor::HitPush()
 		break;
 	}
 
+}
+
+void BattleActor::ColorEffectOn(float _Speed, float _WaitTime, const float4& _StartColor, const float4& _EndColor)
+{
+	ColorEffectProgress = 0.0f;
+	ColorEffectWaitTime = _WaitTime;
+	ColorEffectSpeed = _Speed;
+	ColorEffectStart = _StartColor;
+	ColorEffectEnd = _EndColor;
+	IsColorEffect = true;
 }

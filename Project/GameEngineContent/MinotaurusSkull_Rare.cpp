@@ -142,6 +142,7 @@ void MinotaurusSkull_Rare::JumpAttack_Enter()
 	BattleActorRigidbody.SetVelocity(float4::Zero);
 	DashRigidbody.SetVelocity(float4::Zero);
 	IsJumpAttackLand = false;
+	IsDownPlatformCheckOff = true;
 
 	AttackDoubleCheck.clear();
 }
@@ -164,6 +165,7 @@ void MinotaurusSkull_Rare::JumpAttack_Update(float _DeltaTime)
 		if (-200.0f > AttackVel.y)
 		{
 			JumpAttackCol->On();
+			IsDownPlatformCheckOff = false;
 		}
 
 		std::vector<std::shared_ptr<GameEngineCollision>> AllCol;
@@ -192,7 +194,7 @@ void MinotaurusSkull_Rare::JumpAttack_Update(float _DeltaTime)
 		}
 	}
 
-	if (false == IsJumpAttackLand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
+	if (false == IsDownPlatformCheckOff && false == IsJumpAttackLand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
 		Render->ChangeAnimation("JumpAttack_Land");
 		IsJumpAttackLand = true;
@@ -229,6 +231,7 @@ void MinotaurusSkull_Rare::JumpAttack_End()
 	AttackRigidbody.SetMaxSpeed(1000.0f);
 
 	AttackDoubleCheck.clear();
+	IsDownPlatformCheckOff = false;
 }
 
 void MinotaurusSkull_Rare::Switch_Enter()
@@ -342,8 +345,9 @@ void MinotaurusSkull_Rare::Skill_SlotA_Enter()
 	IsSkillALand = false;
 	SkillALandTime = 0.0f;
 	SkillACol->Off();
-	
+
 	PassiveCheck();
+	IsDownPlatformCheckOff = true;
 }
 
 void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
@@ -368,10 +372,15 @@ void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
 			SkillARigidbody.SetVelocity(SkillVel);
 		}
 
+		if (-200.0f > SkillVel.y)
+		{
+			IsDownPlatformCheckOff = false;
+		}
+
 		PlayerTrans->AddLocalPosition(SkillVel * _DeltaTime);
 	}
 
-	if (false == IsSkillALand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
+	if (false == IsDownPlatformCheckOff && false == IsSkillALand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
 		IsSkillALand = true;
 		Render->ChangeAnimation("JumpAttack_Land");
@@ -424,6 +433,7 @@ void MinotaurusSkull_Rare::Skill_SlotA_End()
 	AttackRigidbody.SetActiveGravity(false);
 	AttackRigidbody.SetMaxSpeed(1000.0f);
 	SkillACol->Off();
+	IsDownPlatformCheckOff = false;
 }
 
 

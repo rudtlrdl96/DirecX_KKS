@@ -493,8 +493,6 @@ void MonsterManager::ResetMonster()
 		MonsterActors[i].clear();
 	}
 
-	MonsterActors.clear();
-
 	for (size_t i = 0; i < WaveDatas.size(); i++)
 	{
 		for (size_t j = 0; j < WaveDatas[i].size(); j++)
