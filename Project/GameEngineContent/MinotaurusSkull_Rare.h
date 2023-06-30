@@ -14,6 +14,7 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _DeltaTime) override;
 	
 	void Attack_Enter() override;
 	void Attack_End() override;
@@ -37,22 +38,29 @@ private:
 	std::shared_ptr<GameEngineCollision> JumpAttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> DashAttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> SkillACol = nullptr;
+	std::shared_ptr<GameEngineCollision> PassiveCol = nullptr;
 
 	std::map<UINT, std::shared_ptr <class BaseMonster>> AttackDoubleCheck;
+	std::map<UINT, float> PassiveDoubleCheck;
+	std::shared_ptr<EffectActor> PassiveEffect = nullptr;
 
 	Rigidbody2D SkillARigidbody;
 
 	float JumpAttackTime = 0.0f;
 	float JumpAttackLandTime = 0.0f;
 	float SkillALandTime = 0.0f;
+	float PassiveTime = 0.0f;
 
 	bool IsJumpAttackLand = false;
 	bool IsSkillALand = false;
 	bool IsSwitchMove = false;
+	bool IsPassive = false;
 
 	void DataLoad() override;
 	void TextureLoad() override;
 	void CreateAnimation() override;
 	void AnimationColLoad() override;
+
+	void PassiveCheck();
 };
 

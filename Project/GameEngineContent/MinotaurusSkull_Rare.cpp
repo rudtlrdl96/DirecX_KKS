@@ -41,12 +41,71 @@ void MinotaurusSkull_Rare::Start()
 	SkillACol->SetColType(ColType::AABBBOX2D);
 	SkillACol->Off();
 
+	PassiveCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
+	PassiveCol->GetTransform()->SetLocalPosition(float4(0, 15, 0));
+	PassiveCol->GetTransform()->SetLocalScale(float4(110, 30, 1));
+	PassiveCol->SetColType(ColType::AABBBOX2D);
+	PassiveCol->Off();
+
 	SkillARigidbody.SetMaxSpeed(3000.0f);
 	SkillARigidbody.SetGravity(-3500.0f);
 	SkillARigidbody.SetActiveGravity(true);
 	SkillARigidbody.SetFricCoeff(1000.0f);
 
 	SkillA_DamageRatio = 2.0f;
+}
+
+void MinotaurusSkull_Rare::Update(float _DeltaTime)
+{
+	PlayerBaseSkull::Update(_DeltaTime);
+
+	if (true == IsPassive)
+	{
+		PassiveTime += _DeltaTime;
+
+		for (std::pair<const UINT, float>& Pair : PassiveDoubleCheck)
+		{
+			Pair.second += _DeltaTime;
+		}
+
+		std::vector<std::shared_ptr<GameEngineCollision>> AllCol;
+		AllCol.reserve(8);
+
+		if (true == PassiveCol->CollisionAll((int)CollisionOrder::Monster, AllCol, ColType::AABBBOX2D, ColType::AABBBOX2D))
+		{
+			for (size_t i = 0; i < AllCol.size(); i++)
+			{
+				std::shared_ptr<BaseMonster> CastingCol = AllCol[i]->GetActor()->DynamicThis<BaseMonster>();
+
+				if (nullptr == CastingCol)
+				{
+					MsgAssert_Rtti<MinotaurusSkull_Rare>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+					return;
+				}
+
+				if (0.0f > PassiveDoubleCheck[CastingCol->GetActorCode()])
+				{
+					continue;
+				}
+
+				CastingCol->HitMonster(GetMeleeAttackDamage() * 0.5f, GetViewDir(), true, false, false, HitEffectType::Normal);
+				PassiveDoubleCheck[CastingCol->GetActorCode()] = -0.5f;
+			}
+		}
+
+		if (3.0f <= PassiveTime)
+		{
+			if (nullptr != PassiveEffect)
+			{
+				PassiveEffect->Death();
+			}
+
+			PassiveEffect = nullptr;			
+			IsPassive = false;
+			PassiveTime = 0.0f;
+			PassiveCol->Off();
+		}
+	}
 }
 
 void MinotaurusSkull_Rare::Attack_Enter()
@@ -281,6 +340,8 @@ void MinotaurusSkull_Rare::Skill_SlotA_Enter()
 	IsSkillALand = false;
 	SkillALandTime = 0.0f;
 	SkillACol->Off();
+	
+	PassiveCheck();
 }
 
 void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
@@ -341,7 +402,6 @@ void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
 		}
 
 		SkillACol->Off();
-
 	}
 
 	if (true == IsSkillALand)
@@ -422,4 +482,24 @@ void MinotaurusSkull_Rare::AnimationColLoad()
 	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_JumpAttack").GetFullPath()), 0.08f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_SkillA").GetFullPath()), 0.08f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_Switch").GetFullPath()), 0.1f);
+}
+
+void MinotaurusSkull_Rare::PassiveCheck()
+{
+	if (false == IsPassive)
+	{
+		PassiveEffect = EffectManager::PlayEffect({
+			.EffectName = "Minotaurus_Rare_Passive",
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 10),
+			.Scale = 0.6f,
+			.Triger = EffectDeathTrigger::Time
+			,.Time = 100.0f,
+			});
+
+		PassiveEffect->GetTransform()->SetParent(GetTransform());
+		IsPassive = true;
+		PassiveTime = 0.0f;
+		PassiveDoubleCheck.clear();
+		PassiveCol->On();
+	}
 }
