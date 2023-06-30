@@ -54,6 +54,8 @@ private:
 
 	bool IsJumpAttackLand = false;
 	bool IsSkillALand = false;
+	bool IsSkillADoubleAttack = false;
+
 	bool IsSwitchMove = false;
 	bool IsPassive = false;
 

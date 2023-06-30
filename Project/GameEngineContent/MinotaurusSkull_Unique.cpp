@@ -339,6 +339,8 @@ void MinotaurusSkull_Unique::Skill_SlotA_Enter()
 	BattleActorRigidbody.SetVelocity(float4::Zero);
 
 	IsSkillALand = false;
+	IsSkillADoubleAttack = false;
+
 	SkillALandTime = 0.0f;
 	SkillACol->Off();
 
@@ -372,6 +374,7 @@ void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 
 	if (false == IsSkillALand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
+		SkillALandTime = 0.0f;
 		IsSkillALand = true;
 		Render->ChangeAnimation("JumpAttack_Land");
 		GetContentLevel()->GetCamCtrl().CameraShake(15, 120, 20);
@@ -380,6 +383,14 @@ void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 			.EffectName = "StampEffect",
 			.Position = GetTransform()->GetWorldPosition(),
 			.Scale = 0.65f });
+
+		if (true == IsSkillADoubleAttack)
+		{
+			EffectManager::PlayEffect({
+			.EffectName = "StampEffect",
+			.Position = GetTransform()->GetWorldPosition(),
+			.Scale = 0.65f });
+		}
 
 		SkillACol->On();
 
@@ -409,7 +420,14 @@ void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 	{
 		SkillALandTime += _DeltaTime;
 
-		if (0.3f <= SkillALandTime)
+		if (false == IsSkillADoubleAttack && true == GameEngineInput::IsDown("PlayerMove_Skill_A"))
+		{
+			IsSkillALand = false;
+			IsSkillADoubleAttack = true;
+
+			SkillARigidbody.SetVelocity(float4(0, 500));
+		}
+		else if (0.3f <= SkillALandTime)
 		{
 			PlayerFSM.ChangeState("Idle");
 		}
