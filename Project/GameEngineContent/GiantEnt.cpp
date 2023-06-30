@@ -61,6 +61,11 @@ void GiantEnt::TextureLoad()
 			Path.MoveParent();
 		}
 
+
+	}
+
+	if (false == EffectManager::IsCreate("GaintEntStampEffect"))
+	{
 		EffectManager::CreateMetaData("GaintEntStampEffect", {
 			.SpriteName = "GaintEntStampEffect.png",
 			.AnimStart = 0,

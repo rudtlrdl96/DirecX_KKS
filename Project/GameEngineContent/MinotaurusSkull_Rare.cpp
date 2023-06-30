@@ -23,17 +23,30 @@ void MinotaurusSkull_Rare::Start()
 
 	AttackEffectType = HitEffectType::MinoTaurus;
 
-	JumpAttackCol = CreateComponent<GameEngineCollision>();
+	JumpAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
 	JumpAttackCol->GetTransform()->SetLocalPosition(float4(10, 45, 0));
 	JumpAttackCol->GetTransform()->SetLocalScale(float4(80, 90, 1));
 	JumpAttackCol->SetColType(ColType::AABBBOX2D);
 	JumpAttackCol->Off();
 
-	DashAttackCol = CreateComponent<GameEngineCollision>();
+	DashAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
 	DashAttackCol->GetTransform()->SetLocalPosition(float4(5, 43, 0));
 	DashAttackCol->GetTransform()->SetLocalScale(float4(116, 85, 1));
 	DashAttackCol->SetColType(ColType::AABBBOX2D);
 	DashAttackCol->Off();
+
+	SkillACol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
+	SkillACol->GetTransform()->SetLocalPosition(float4(0, 40, 0));
+	SkillACol->GetTransform()->SetLocalScale(float4(350, 80, 1));
+	SkillACol->SetColType(ColType::AABBBOX2D);
+	SkillACol->Off();
+
+	SkillARigidbody.SetMaxSpeed(3000.0f);
+	SkillARigidbody.SetGravity(-3500.0f);
+	SkillARigidbody.SetActiveGravity(true);
+	SkillARigidbody.SetFricCoeff(1000.0f);
+
+	SkillA_DamageRatio = 2.0f;
 }
 
 void MinotaurusSkull_Rare::Attack_Enter()
@@ -247,6 +260,111 @@ void MinotaurusSkull_Rare::Dash_End()
 	DashAttackCol->Off();
 }
 
+void MinotaurusSkull_Rare::Skill_SlotA_Enter()
+{
+	PlayerBaseSkull::Skill_SlotA_Enter();
+	AttackDoubleCheck.clear();	
+
+	switch (GetViewDir())
+	{
+	case ActorViewDir::Left:
+		SkillARigidbody.SetVelocity(float4(-900, 1000));
+		break;
+	case ActorViewDir::Right:
+		SkillARigidbody.SetVelocity(float4(900, 1000));
+		break;
+	}
+
+	DashRigidbody.SetVelocity(float4::Zero);
+	BattleActorRigidbody.SetVelocity(float4::Zero);
+
+	IsSkillALand = false;
+	SkillALandTime = 0.0f;
+	SkillACol->Off();
+}
+
+void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
+{
+	if (false == IsSkillALand)
+	{
+		SkillARigidbody.UpdateForce(_DeltaTime);
+		float4 SkillVel = SkillARigidbody.GetVelocity();
+
+		if (0.0f < SkillVel.y)
+		{
+			if (nullptr != ContentFunc::PlatformColCheck(JumpCol))
+			{
+				SkillVel.y = 0.0f;
+				SkillARigidbody.SetVelocity(SkillVel);
+			}
+		}
+
+		if (nullptr != ContentFunc::PlatformColCheck(WalkCol))
+		{
+			SkillVel.x = 0.0f;
+			SkillARigidbody.SetVelocity(SkillVel);
+		}
+
+		PlayerTrans->AddLocalPosition(SkillVel * _DeltaTime);
+	}
+
+	if (false == IsSkillALand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
+	{
+		IsSkillALand = true;
+		Render->ChangeAnimation("JumpAttack_Land");
+		GetContentLevel()->GetCamCtrl().CameraShake(15, 120, 20);
+
+		std::shared_ptr<EffectActor> StampEffect = EffectManager::PlayEffect({
+			.EffectName = "StampEffect",
+			.Position = GetTransform()->GetWorldPosition(),
+			.Scale = 0.65f});
+
+		SkillACol->On();
+
+		std::vector<std::shared_ptr<GameEngineCollision>> AllCol;
+		AllCol.reserve(8);
+
+		if (true == SkillACol->CollisionAll((int)CollisionOrder::Monster, AllCol, ColType::AABBBOX2D, ColType::AABBBOX2D))
+		{
+			for (size_t i = 0; i < AllCol.size(); i++)
+			{
+				std::shared_ptr<BaseMonster> CastingCol = AllCol[i]->GetActor()->DynamicThis<BaseMonster>();
+
+				if (nullptr == CastingCol)
+				{
+					MsgAssert_Rtti<MinotaurusSkull_Rare>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+					return;
+				}
+
+				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillA_DamageRatio, GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+			}
+		}
+
+		SkillACol->Off();
+
+	}
+
+	if (true == IsSkillALand)
+	{
+		SkillALandTime += _DeltaTime;
+
+		if (0.3f <= SkillALandTime)
+		{
+			PlayerFSM.ChangeState("Idle");
+		}
+	}
+}
+
+void MinotaurusSkull_Rare::Skill_SlotA_End()
+{
+	PlayerBaseSkull::Skill_SlotA_End();
+	AttackDoubleCheck.clear();
+	AttackRigidbody.SetActiveGravity(false);
+	AttackRigidbody.SetMaxSpeed(1000.0f);
+	SkillACol->Off();
+}
+
+
 void MinotaurusSkull_Rare::DataLoad()
 {
 	Data = ContentDatabase<SkullData, SkullGrade>::GetData(101); // 101 == 미노타우로스
@@ -304,19 +422,4 @@ void MinotaurusSkull_Rare::AnimationColLoad()
 	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_JumpAttack").GetFullPath()), 0.08f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_SkillA").GetFullPath()), 0.08f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_Switch").GetFullPath()), 0.1f);
-}
-
-void MinotaurusSkull_Rare::Skill_SlotA_Enter()
-{
-	PlayerBaseSkull::Skill_SlotA_Enter();
-}
-
-void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
-{
-	PlayerBaseSkull::Skill_SlotA_Update(_DeltaTime);
-}
-
-void MinotaurusSkull_Rare::Skill_SlotA_End()
-{
-	PlayerBaseSkull::Skill_SlotA_End();
 }

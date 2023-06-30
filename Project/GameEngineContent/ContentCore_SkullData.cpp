@@ -493,6 +493,8 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkul.png").GetFullPath(), 5, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitNormal.png").GetFullPath(), 6, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkeletonSword.png").GetFullPath(), 5, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("StampEffect.png").GetFullPath(), 11, 2);
+
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SkullAppearance.png").GetFullPath(), 7, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("LandSmoke.png").GetFullPath(), 7, 3);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SwitchEffect.png").GetFullPath(), 5, 4);
@@ -650,6 +652,13 @@ void ContentCore::SkullDataLoad()
 			0, 9,
 			0.03f,
 			2.0f });
+
+		EffectManager::CreateMetaData("StampEffect", {
+			.SpriteName = "StampEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 21,
+			.AnimIter = 0.02f,
+			.ScaleRatio = 2.0f,});
 	}
 
 	std::vector<SkullData> NormalDatas;

@@ -36,12 +36,18 @@ protected:
 private:
 	std::shared_ptr<GameEngineCollision> JumpAttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> DashAttackCol = nullptr;
+	std::shared_ptr<GameEngineCollision> SkillACol = nullptr;
+
 	std::map<UINT, std::shared_ptr <class BaseMonster>> AttackDoubleCheck;
+
+	Rigidbody2D SkillARigidbody;
 
 	float JumpAttackTime = 0.0f;
 	float JumpAttackLandTime = 0.0f;
+	float SkillALandTime = 0.0f;
 
 	bool IsJumpAttackLand = false;
+	bool IsSkillALand = false;
 	bool IsSwitchMove = false;
 
 	void DataLoad() override;
