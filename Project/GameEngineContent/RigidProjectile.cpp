@@ -32,15 +32,19 @@ void RigidProjectile::Update(float _DeltaTime)
 	HitParameter.ProjectilePos = GetTransform()->GetWorldPosition();
 	HitParameter.Attack = Damage;
 
-	float RotZ = 0.0f;
-
-	if (float4::Right != Dir)
-	{
-		RotZ = float4::GetAngleVectorToVectorDeg(Dir, float4::Right);
-	}
-
 	GameEngineTransform* Trans = GetTransform();
-	Trans->SetLocalRotation(float4(0, 0, -RotZ));
+
+	if (true == IsRot)
+	{
+		float RotZ = 0.0f;
+
+		if (float4::Right != Dir)
+		{
+			RotZ = float4::GetAngleVectorToVectorDeg(Dir, float4::Right);
+		}
+
+		Trans->SetLocalRotation(float4(0, 0, -RotZ));
+	}
 
 	if (GetLiveTime() <= WaitTime)
 	{
@@ -53,8 +57,33 @@ void RigidProjectile::Update(float _DeltaTime)
 	ProjectileRigidbody.UpdateForce(_DeltaTime);
 	Trans->AddLocalPosition(ProjectileRigidbody.GetVelocity() * _DeltaTime);
 
+	if (true == IsPlatformCol)
+	{
+		if (nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Normal, ProjectileColType, ColType::AABBBOX2D))
+		{
+			if (nullptr != DeathEvent)
+			{
+				DeathEvent(GetTransform()->GetWorldPosition());
+			}
+
+			Death();
+			return;
+		}
+
+		if (nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Half, ProjectileColType, ColType::AABBBOX2D))
+		{
+			if (nullptr != DeathEvent)
+			{
+				DeathEvent(GetTransform()->GetWorldPosition());
+			}
+
+			Death();
+			return;
+		}
+	}
+
 	ColDatas.clear();
-	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ColType::SPHERE2D, ColType::AABBBOX2D))
+	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ProjectileColType, ColType::AABBBOX2D))
 	{
 
 		for (size_t i = 0; i < ColDatas.size(); i++)

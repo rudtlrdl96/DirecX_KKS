@@ -565,6 +565,15 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("DashTackleEffect.png").GetFullPath(), 2, 5);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_Passive.png").GetFullPath(), 5, 7);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MinoSkillA_Smoke.png").GetFullPath(), 3, 7);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_PlowUp_Smoke.png").GetFullPath(), 3, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Projectile_Hit.png").GetFullPath(), 5, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp.png").GetFullPath(), 3, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Explosion.png").GetFullPath(), 5, 5);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Projectile1.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Projectile2.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Projectile3.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Projectile4.png").GetFullPath(), 1, 1);
 
 		EffectManager::CreateMetaData("PlayerDashEffect", {
 			"Player_DashSmokeEffect.png" ,
@@ -725,6 +734,62 @@ void ContentCore::SkullDataLoad()
 			.AnimStart = 0,
 			.AnimEnd = 19,
 			.AnimIter = 0.035f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_PlowUp_Smoke", {
+			.SpriteName = "Minotaurus_PlowUp_Smoke.png",
+			.AnimStart = 0,
+			.AnimEnd = 11,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Projectile_Hit", {
+			.SpriteName = "Minotaurus_Projectile_Hit.png",
+			.AnimStart = 0,
+			.AnimEnd = 19,
+			.AnimIter = 0.07f,
+			.ScaleRatio = 1.5f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp", {
+			.SpriteName = "Minotaurus_Rare_PlowUp.png",
+			.AnimStart = 0,
+			.AnimEnd = 2,
+			.AnimIter = 0.035f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp_Explosion", {
+			.SpriteName = "Minotaurus_Rare_PlowUp_Explosion.png",
+			.AnimStart = 0,
+			.AnimEnd = 24,
+			.AnimIter = 0.035f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp_Projectile1", {
+			.SpriteName = "Minotaurus_Rare_PlowUp_Projectile1.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp_Projectile2", {
+			.SpriteName = "Minotaurus_Rare_PlowUp_Projectile2.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp_Projectile3", {
+			.SpriteName = "Minotaurus_Rare_PlowUp_Projectile3.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp_Projectile4", {
+			.SpriteName = "Minotaurus_Rare_PlowUp_Projectile4.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
 			.ScaleRatio = 2.0f, });
 	}
 

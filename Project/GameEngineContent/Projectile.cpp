@@ -143,7 +143,7 @@ void Projectile::Update(float _DeltaTime)
 
 	if (true == IsPlatformCol)
 	{
-		if(nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Normal, ColType::SPHERE2D, ColType::AABBBOX2D))
+		if(nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Normal, ProjectileColType, ColType::AABBBOX2D))
 		{
 			if (nullptr != DeathEvent)
 			{
@@ -154,7 +154,7 @@ void Projectile::Update(float _DeltaTime)
 			return;
 		}
 
-		if (nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Half, ColType::SPHERE2D, ColType::AABBBOX2D))
+		if (nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Half, ProjectileColType, ColType::AABBBOX2D))
 		{
 			if (nullptr != DeathEvent)
 			{
@@ -166,7 +166,7 @@ void Projectile::Update(float _DeltaTime)
 		}
 	}
 
-	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ColType::MAX, ColType::AABBBOX2D))
+	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ProjectileColType, ColType::AABBBOX2D))
 	{
 
 		for (size_t i = 0; i < ColDatas.size(); i++)

@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "MinotaurusSkull_Unique.h"
 #include "BaseMonster.h"
+#include "RigidProjectile.h"
 
 MinotaurusSkull_Unique::MinotaurusSkull_Unique()
 {
@@ -10,6 +11,12 @@ MinotaurusSkull_Unique::~MinotaurusSkull_Unique()
 {
 	AttackDoubleCheck.clear();
 	PassiveDoubleCheck.clear();
+
+	if (nullptr != SkillBPlowUpEffect)
+	{
+		SkillBPlowUpEffect->IsFadeDeathOn(2.0f);
+		SkillBPlowUpEffect = nullptr;
+	}
 }
 
 void MinotaurusSkull_Unique::Start()
@@ -41,6 +48,13 @@ void MinotaurusSkull_Unique::Start()
 	SkillACol->SetColType(ColType::AABBBOX2D);
 	SkillACol->Off();
 
+	SkillBCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
+	SkillBCol->GetTransform()->SetLocalPosition(float4(110, 50, 0));
+	SkillBCol->GetTransform()->SetLocalScale(float4(80, 150, 1));
+	SkillBCol->GetTransform()->SetLocalRotation(float4(0, 0, -30));
+	SkillBCol->SetColType(ColType::AABBBOX2D);
+	SkillBCol->Off();
+
 	PassiveCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
 	PassiveCol->GetTransform()->SetLocalPosition(float4(0, 15, 0));
 	PassiveCol->GetTransform()->SetLocalScale(float4(110, 30, 1));
@@ -53,6 +67,13 @@ void MinotaurusSkull_Unique::Start()
 	SkillARigidbody.SetFricCoeff(1000.0f);
 
 	SkillA_DamageRatio = 2.0f;
+
+	ProjectileEffectNames.resize(4);
+
+	ProjectileEffectNames[0] = "Minotaurus_Rare_PlowUp_Projectile1";
+	ProjectileEffectNames[1] = "Minotaurus_Rare_PlowUp_Projectile2";
+	ProjectileEffectNames[2] = "Minotaurus_Rare_PlowUp_Projectile3";
+	ProjectileEffectNames[3] = "Minotaurus_Rare_PlowUp_Projectile4";
 }
 
 void MinotaurusSkull_Unique::Update(float _DeltaTime)
@@ -236,7 +257,11 @@ void MinotaurusSkull_Unique::JumpAttack_End()
 void MinotaurusSkull_Unique::Switch_Enter()
 {
 	PlayerBaseSkull::Switch_Enter();
+
 	IsSwitchMove = false;
+	IsSwitchProjectileShot = false;
+	SwitchProjectileTime = 0.0f;
+	SwitchShotCount = 0;
 }
 
 void MinotaurusSkull_Unique::Switch_Update(float _DeltaTime)
@@ -251,13 +276,43 @@ void MinotaurusSkull_Unique::Switch_Update(float _DeltaTime)
 		{
 		case ActorViewDir::Left:
 			AttackRigidbody.SetVelocity(float4::Left * 800.0f);
-			break;
 
+			EffectManager::PlayEffect({
+				.EffectName = "Minotaurus_PlowUp_Smoke",
+				.Position = GetTransform()->GetWorldPosition() + float4(-130, 50),
+				.AddSetZ = -20,
+				.FlipX = true,
+				});
+			break;
 		case ActorViewDir::Right:
 			AttackRigidbody.SetVelocity(float4::Right * 800.0f);
+
+			EffectManager::PlayEffect({
+				.EffectName = "Minotaurus_PlowUp_Smoke",
+				.Position = GetTransform()->GetWorldPosition() + float4(130, 50),
+				.AddSetZ = -20 });
 			break;
 		default:
 			break;
+		}
+
+		IsSwitchProjectileShot = true;
+	}
+
+	if (true == IsSwitchProjectileShot)
+	{
+		SwitchProjectileTime += _DeltaTime * 20.0f;
+
+		if (1.0f <= SwitchProjectileTime)
+		{
+			SwitchProjectileTime -= 1.0f;
+			ShotProjectile(SwitchShotCount);
+			++SwitchShotCount;
+		}
+
+		if (4 <= SwitchShotCount)
+		{
+			IsSwitchProjectileShot = false;
 		}
 	}
 
@@ -453,6 +508,132 @@ void MinotaurusSkull_Unique::Skill_SlotA_End()
 	IsDownPlatformCheckOff = false;
 }
 
+void MinotaurusSkull_Unique::Skill_SlotB_Enter()
+{
+	PlayerBaseSkull::Skill_SlotB_Enter();
+
+	IsSkillBWait = false;
+	IsSkillBEffect = false;
+	SkillBWaitTime = 0.0f;
+
+	SkillBShotCount = 0;
+	IsSKillBProjectileShot = false;
+	SkillBProjectileTime = 0.0f;
+}
+
+void MinotaurusSkull_Unique::Skill_SlotB_Update(float _DeltaTime)
+{
+	if (false == IsSkillBEffect && 3 == Render->GetCurrentFrame())
+	{
+		IsSkillBEffect = true;
+		IsSKillBProjectileShot = true;
+
+		switch (GetViewDir())
+		{
+		case ActorViewDir::Left:
+		{
+			EffectManager::PlayEffect({
+			.EffectName = "Minotaurus_PlowUp_Smoke",
+			.Position = GetTransform()->GetWorldPosition() + float4(-130, 50),
+			.AddSetZ = -20,
+			.FlipX = true,
+				});
+
+			SkillBPlowUpEffect = EffectManager::PlayEffect({
+			.EffectName = "Minotaurus_Rare_PlowUp",
+			.Position = GetTransform()->GetWorldPosition() + float4(-110, 100),
+			.Triger = EffectDeathTrigger::Time,
+			.Time = 5.0f,
+			.FlipX = true,
+			.IsForceLoopOff = true, });
+		}
+		break;
+		case ActorViewDir::Right:
+		{
+			EffectManager::PlayEffect({
+			.EffectName = "Minotaurus_PlowUp_Smoke",
+			.Position = GetTransform()->GetWorldPosition() + float4(130, 50),
+			.AddSetZ = -20});
+
+			SkillBPlowUpEffect = EffectManager::PlayEffect({
+			.EffectName = "Minotaurus_Rare_PlowUp",
+			.Position = GetTransform()->GetWorldPosition() + float4(110, 100),
+			.Triger = EffectDeathTrigger::Time,
+			.Time = 5.0f,
+			.IsForceLoopOff = true, });
+		}
+		break;
+		}
+
+		SkillBCol->On();
+
+		std::vector<std::shared_ptr<GameEngineCollision>> AllCol;
+		AllCol.reserve(8);
+
+		GetContentLevel()->GetCamCtrl().CameraShake(5, 30, 5);
+
+		if (true == SkillBCol->CollisionAll((int)CollisionOrder::Monster, AllCol, ColType::OBBBOX2D, ColType::AABBBOX2D))
+		{
+			for (size_t i = 0; i < AllCol.size(); i++)
+			{
+
+				std::shared_ptr<BaseMonster> CastingCol = AllCol[i]->GetActor()->DynamicThis<BaseMonster>();
+
+				if (nullptr == CastingCol)
+				{
+					MsgAssert_Rtti<MinotaurusSkull_Unique>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+					return;
+				}
+
+				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio * 2.0f, GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+			}
+		}
+
+		SkillBCol->Off();
+	}
+
+	if (true == IsSKillBProjectileShot)
+	{
+		SkillBProjectileTime += _DeltaTime * 20.0f;
+
+		if (1.0f <= SkillBProjectileTime)
+		{
+			SkillBProjectileTime -= 1.0f;
+			ShotProjectile(SkillBShotCount);
+			++SkillBShotCount;
+		}
+
+		if (4 <= SkillBShotCount)
+		{
+			IsSKillBProjectileShot = false;
+		}
+	}
+
+	if (false == IsSkillBWait && true == Render->IsAnimationEnd())
+	{
+		IsSkillBWait = true;		
+	}
+
+	if (true == IsSkillBWait)
+	{
+		SkillBWaitTime += _DeltaTime;
+
+		if (0.2f <= SkillBWaitTime)
+		{
+			PlayerFSM.ChangeState("Idle");
+		}
+	}
+}
+
+void MinotaurusSkull_Unique::Skill_SlotB_End()
+{
+	if (nullptr != SkillBPlowUpEffect)
+	{
+		SkillBPlowUpEffect->IsFadeDeathOn(2.0f);
+		SkillBPlowUpEffect = nullptr;
+	}
+}
+
 
 void MinotaurusSkull_Unique::DataLoad()
 {
@@ -532,4 +713,117 @@ void MinotaurusSkull_Unique::PassiveCheck()
 		PassiveDoubleCheck.clear();
 		PassiveCol->On();
 	}
+}
+
+void MinotaurusSkull_Unique::ShotProjectile(size_t _TextureIndex)
+{
+	_TextureIndex %= 4;
+
+	std::shared_ptr<RigidProjectile> Projectile = GetLevel()->CreateActor<RigidProjectile>();
+
+	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
+
+	float4 ProjectilePos = GetTransform()->GetWorldPosition() + float4(Rand.RandomFloat(-25, 25), Rand.RandomFloat(-25, 25));
+	ActorViewDir LookDir = GetViewDir();
+
+	switch (LookDir)
+	{
+	case ActorViewDir::Left:
+		ProjectilePos += float4(-100, 100);
+		break;
+	case ActorViewDir::Right:
+		ProjectilePos += float4(100, 100);
+		break;
+	}
+
+	Projectile->InitRigd(2000.0f, 0.0f, 1.0f);
+
+	Rigidbody2D& ProjectileRigid = Projectile->GetRigid();
+
+	ContentLevel* Level = GetContentLevel();
+
+	Projectile->ShotProjectile({
+		.EffectName = ProjectileEffectNames[_TextureIndex],
+		.Pos = ProjectilePos,
+		.Dir = float4::Up,
+		.ColScale = float4(30, 30, 1),
+		.ColOrder = (int)CollisionOrder::Monster,
+		.IsPlatformCol = true,
+		.IsColDeath = true,
+		.IsFlipX = ActorViewDir::Left == GetViewDir(),
+		.Damage = GetMeleeAttackDamage() * 0.7f,
+		.Speed = 0.0f,
+		.LiveTime = 10.0f,
+		.EnterEvent = [LookDir, Level](std::shared_ptr<BaseContentActor> _HitActor, ProjectileHitParameter _HitData)
+		{
+			std::shared_ptr<BaseMonster> CastingActor = _HitActor->DynamicThis<BaseMonster>();
+
+			if (nullptr == CastingActor)
+			{
+				MsgAssert_Rtti<MinotaurusSkull_Unique>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+				return;
+			}
+
+			CastingActor->HitMonster(_HitData.Attack, LookDir, true, true, false, HitEffectType::None);
+
+			EffectManager::PlayEffect({
+				.EffectName = "Minotaurus_Projectile_Hit",
+				.Position = _HitData.ProjectilePos});
+		
+			Level->GetCamCtrl().CameraShake(5, 30, 5);
+		},
+		.DeathEvent = [Level](const float4& _DeathPos)
+		{
+			EffectManager::PlayEffect({
+				.EffectName = "Minotaurus_Projectile_Hit",
+				.Position = _DeathPos});
+
+			Level->GetCamCtrl().CameraShake(5, 30, 5);
+		}
+		});
+
+
+	ProjectileRigid.SetActiveGravity(true);
+	ProjectileRigid.SetGravity(-1300.0f);
+
+	switch (LookDir)
+	{
+	case ActorViewDir::Left:
+		ProjectileRigid.SetVelocity(float4(-500, 800) * Rand.RandomFloat(0.8f, 1.1f));
+		break;
+	case ActorViewDir::Right:
+		ProjectileRigid.SetVelocity(float4(500, 800) * Rand.RandomFloat(0.8f, 1.1f));
+		break;
+	}
+
+	//const std::string_view& EffectName = "";
+	//
+	//std::shared_ptr<GameEngineActor> TrackingTarget = nullptr;
+	//
+	//float4 Pos = float4::Zero;
+	//float4 Dir = float4::Up;
+	//float4 ColScale = float4::Zero;
+	//float4 TrackingPivot = float4::Zero;
+	//
+	//int ColOrder = -1;
+	//ColType ProjectileColType = ColType::SPHERE2D;
+	//
+	//bool IsPlatformCol = false;
+	//bool IsColDeath = false;
+	//bool IsRot = true;
+	//bool IsFlipX = false;
+	//bool IsForceLoopOff = false;
+	//bool IsEffectEndDeath = false;
+	//
+	//float Damage = 1.0f;
+	//
+	//float Speed = 100.0f;
+	//float LiveTime = 1.0f;
+	//float WaitTime = 0.0f;
+	//float TrackingSpeed = 100.0f;
+	//
+	//std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> EnterEvent = nullptr;
+	//std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> UpdateEvent = nullptr;
+	//std::function<void(const float4& _Pos)> DeathEvent = nullptr;
+
 }

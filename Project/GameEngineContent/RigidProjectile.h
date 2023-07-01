@@ -15,6 +15,11 @@ public:
 
 	void InitRigd(float _MaxSpeed, float _FricCoeff, float _Mass = 1.0f);
 
+	Rigidbody2D& GetRigid()
+	{
+		return ProjectileRigidbody;
+	}
+
 protected:
 	Rigidbody2D ProjectileRigidbody;
 
