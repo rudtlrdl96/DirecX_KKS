@@ -51,6 +51,7 @@ ContentCore::~ContentCore()
 
 void ContentCore::CoreLoading()
 {
+	FontFind();
 	VertextBufferCreate();
 	BlendCreate();
 	ShaderCreate();
@@ -69,8 +70,8 @@ void ContentCore::CoreLoading()
 	// Common Load
 	CommonTextureLoad();
 	ImGuiCreate();
-	FontLoad();
 	SoundLoad();
+	FontLoad();
 
 	// GameLevel Create
 	GameEngineCore::CreateLevel<TitleLevel>("Title");
@@ -345,13 +346,8 @@ void ContentCore::ImGuiCreate()
 	TalkboxGUIPtr->Off();
 }
 
-void ContentCore::FontLoad()
+void ContentCore::FontFind()
 {
-	GameEngineFont::Load("±√º≠");
-	GameEngineFont::Load("»ﬁ∏’µ’±Ÿ«ÏµÂ∂Û¿Œ");
-	GameEngineFont::Load("»ﬁ∏’µ’±Ÿ«ÏµÂ∂Û¿ŒSimBold");
-	GameEngineFont::Load("HY∞ﬂ∞ÌµÒ");
-
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("Resources");
@@ -370,7 +366,14 @@ void ContentCore::FontLoad()
 			return;
 		}
 	}
+}
 
+void ContentCore::FontLoad()
+{
+	GameEngineFont::Load("±√º≠");
+	GameEngineFont::Load("»ﬁ∏’µ’±Ÿ«ÏµÂ∂Û¿Œ");
+	GameEngineFont::Load("»ﬁ∏’µ’±Ÿ«ÏµÂ∂Û¿ŒSimBold");
+	GameEngineFont::Load("HY∞ﬂ∞ÌµÒ");
 	GameEngineFont::Load("≥ÿΩºLv2∞ÌµÒ");
 	GameEngineFont::Load("Perfect DOS VGA 437");
 }
