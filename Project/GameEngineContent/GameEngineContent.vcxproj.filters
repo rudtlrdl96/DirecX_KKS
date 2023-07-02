@@ -1643,9 +1643,4 @@
       <Filter>7_Doc</Filter>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\readme.txt">
-      <Filter>7_Doc</Filter>
-    </Text>
-  </ItemGroup>
 </Project>

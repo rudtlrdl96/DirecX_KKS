@@ -348,10 +348,30 @@ void ContentCore::ImGuiCreate()
 void ContentCore::FontLoad()
 {
 	GameEngineFont::Load("±Ã¼­");
-	GameEngineFont::Load("³Ø½¼Lv2°íµñ");
 	GameEngineFont::Load("ÈÞ¸ÕµÕ±ÙÇìµå¶óÀÎ");
 	GameEngineFont::Load("ÈÞ¸ÕµÕ±ÙÇìµå¶óÀÎSimBold");
 	GameEngineFont::Load("HY°ß°íµñ");
+
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("Resources");
+		NewDir.Move("Resources");
+		NewDir.Move("Font");
+
+		if (0 == AddFontResourceA(NewDir.GetPlusFileName("NEXON Lv2 Gothic Bold.ttf").GetFullPath().data()))
+		{
+			MsgAssert_Rtti<ContentCore>(" - ÆùÆ® ·Îµå¿¡ ½ÇÆÐÇß½À´Ï´Ù.");
+			return;
+		}
+
+		if (0 == AddFontResourceA(NewDir.GetPlusFileName("Perfect DOS VGA 437.ttf").GetFullPath().data()))
+		{
+			MsgAssert_Rtti<ContentCore>(" - ÆùÆ® ·Îµå¿¡ ½ÇÆÐÇß½À´Ï´Ù.");
+			return;
+		}
+	}
+
+	GameEngineFont::Load("³Ø½¼Lv2°íµñ");
 	GameEngineFont::Load("Perfect DOS VGA 437");
 }
 
