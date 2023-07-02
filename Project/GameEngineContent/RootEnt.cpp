@@ -78,7 +78,7 @@ void RootEnt::Update(float _DeltaTime)
 					.Position = CastingPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
 					.AddSetZ = -10.0f });
 
-				CastingPtr->HitPlayer(Data.Attack, float4(0, 500, 0));
+				CastingPtr->HitPlayer(Data.Attack, float4(0, 400, 0));
 			}
 		}
 		

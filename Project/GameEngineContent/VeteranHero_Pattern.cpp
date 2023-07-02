@@ -28,10 +28,10 @@ void VeteranHero::ComboAttack_Enter()
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				CastPtr->HitPlayer(Data.Attack, float4(-300, 500));
+				CastPtr->HitPlayer(Data.Attack, float4(-250, 400));
 				break;
 			case ActorViewDir::Right:
-				CastPtr->HitPlayer(Data.Attack, float4(300, 500));
+				CastPtr->HitPlayer(Data.Attack, float4(250, 400));
 				break;
 			default:
 				break;
@@ -170,7 +170,7 @@ void VeteranHero::ComboAttack_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 500.0f);
+				CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 400.0f);
 
 				EffectManager::PlayEffect({
 					.EffectName = "HitNormal",
@@ -312,7 +312,7 @@ void VeteranHero::EnergyBallShot(float _Rot, float _LiveTime)
 			return;
 		}
 		CastingPtr->GetContentLevel()->GetCamCtrl().CameraShake(4, 20, 3);
-		CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 500.0f);
+		CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 400.0f);
 
 		EffectManager::PlayEffect({
 			.EffectName = "RookieHero_EnergyBallExplosion_Large",
@@ -480,11 +480,11 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 
 			if (0.0f > PlayerDir.x)
 			{
-				CastPtr->HitPlayer(Data.Attack, float4(-300, 500));
+				CastPtr->HitPlayer(Data.Attack, float4(-250, 400));
 			}
 			else
 			{
-				CastPtr->HitPlayer(Data.Attack, float4(300, 500));
+				CastPtr->HitPlayer(Data.Attack, float4(250, 400));
 			}
 		}
 
@@ -862,10 +862,10 @@ void VeteranHero::JumpAttack_Update(float _DeltaTime)
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				CastingPtr->HitPlayer(Data.Attack, float4(-300, 500));
+				CastingPtr->HitPlayer(Data.Attack, float4(-250, 400));
 				break;
 			case ActorViewDir::Right:
-				CastingPtr->HitPlayer(Data.Attack, float4(300, 500));
+				CastingPtr->HitPlayer(Data.Attack, float4(250, 400));
 				break;
 			default:
 				break;
@@ -929,11 +929,11 @@ void VeteranHero::JumpAttack_Update(float _DeltaTime)
 
 			if (0.0f > PlayerDir.x)
 			{
-				CastingPtr->HitPlayer(Data.Attack, float4(-300, 500));
+				CastingPtr->HitPlayer(Data.Attack, float4(-250, 400));
 			}
 			else
 			{
-				CastingPtr->HitPlayer(Data.Attack, float4(300, 500));
+				CastingPtr->HitPlayer(Data.Attack, float4(250, 400));
 			}
 
 			EffectManager::PlayEffect({
@@ -1128,11 +1128,11 @@ void VeteranHero::LandingAttack_Update(float _DeltaTime)
 
 			if (0.0f > PlayerDir.x)
 			{
-				CastingPtr->HitPlayer(Data.Attack, float4(-300, 500));
+				CastingPtr->HitPlayer(Data.Attack, float4(-250, 400));
 			}
 			else
 			{
-				CastingPtr->HitPlayer(Data.Attack, float4(300, 500));
+				CastingPtr->HitPlayer(Data.Attack, float4(250, 400));
 			}
 
 			EffectManager::PlayEffect({
@@ -1361,11 +1361,11 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 
 			if (_Parameter.AttackDir.x < 0.0f)
 			{
-				CastingPtr->HitPlayer(_Parameter.Attack, float4(-300, 500));
+				CastingPtr->HitPlayer(_Parameter.Attack, float4(-250, 400));
 			}
 			else
 			{
-				CastingPtr->HitPlayer(_Parameter.Attack, float4(300, 500));
+				CastingPtr->HitPlayer(_Parameter.Attack, float4(250, 400));
 			}
 
 			EffectManager::PlayEffect({
@@ -1465,10 +1465,10 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 					switch (SmokeDir)
 					{
 					case ActorViewDir::Left:
-						CastingPtr->HitPlayer(Data.Attack * 0.5f, float4(-300, 500));
+						CastingPtr->HitPlayer(Data.Attack * 0.5f, float4(-250, 400));
 						break;
 					case ActorViewDir::Right:
-						CastingPtr->HitPlayer(Data.Attack * 0.5f, float4(300, 500));
+						CastingPtr->HitPlayer(Data.Attack * 0.5f, float4(250, 400));
 						break;
 					default:
 						break;
@@ -1724,11 +1724,11 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 
 				if (0.0f > SecondStingerForwardDir.x)
 				{
-					CastingPtr->HitPlayer(Data.Attack, float4(-300, 500));
+					CastingPtr->HitPlayer(Data.Attack, float4(-250, 400));
 				}
 				else
 				{
-					CastingPtr->HitPlayer(Data.Attack, float4(300, 500));
+					CastingPtr->HitPlayer(Data.Attack, float4(250, 400));
 				}
 			}
 		}
@@ -1861,11 +1861,11 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 
 			if (0.0f > PlayerDir.x)
 			{
-				CastingPtr->HitPlayer(Data.Attack, float4(-300, 500));
+				CastingPtr->HitPlayer(Data.Attack, float4(-250, 400));
 			}
 			else
 			{
-				CastingPtr->HitPlayer(Data.Attack, float4(300, 500));
+				CastingPtr->HitPlayer(Data.Attack, float4(250, 400));
 			}
 
 			EffectManager::PlayEffect({

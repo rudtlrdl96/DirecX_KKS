@@ -27,10 +27,10 @@ void RookieHero::ComboAttack_Enter()
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				CastPtr->HitPlayer(Data.Attack, float4(-300, 500));
+				CastPtr->HitPlayer(Data.Attack, float4(-250, 400));
 				break;
 			case ActorViewDir::Right:
-				CastPtr->HitPlayer(Data.Attack, float4(300, 500));
+				CastPtr->HitPlayer(Data.Attack, float4(250, 400));
 				break;
 			default:
 				break;
@@ -223,7 +223,7 @@ void RookieHero::EnergyBall_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 500.0f);
+				CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 400.0f);
 
 				EffectManager::PlayEffect({
 					.EffectName = "RookieHero_EnergyBallExplosion",
@@ -400,11 +400,11 @@ void RookieHero::Explosion_Update(float _DeltaTime)
 
 			if (0.0f > PlayerDir.x)
 			{
-				CastPtr->HitPlayer(Data.Attack, float4(-300, 500));
+				CastPtr->HitPlayer(Data.Attack, float4(-250, 400));
 			}
 			else
 			{
-				CastPtr->HitPlayer(Data.Attack, float4(300, 500));
+				CastPtr->HitPlayer(Data.Attack, float4(250, 400));
 			}
 		}		
 
@@ -550,7 +550,7 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 				return;
 			}
 
-			CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 500.0f);
+			CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 400.0f);
 
 			EffectManager::PlayEffect({
 				.EffectName = "RookieHero_EnergyBallExplosion",

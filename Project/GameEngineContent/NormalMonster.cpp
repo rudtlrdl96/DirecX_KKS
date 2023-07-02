@@ -107,10 +107,10 @@ void NormalMonster::Start()
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				CastPtr->HitPlayer(Data.Attack, float4(-300, 500) * AttakPushRatio);
+				CastPtr->HitPlayer(Data.Attack, float4(-250, 400) * AttakPushRatio);
 				break;
 			case ActorViewDir::Right:
-				CastPtr->HitPlayer(Data.Attack, float4(300, 500) * AttakPushRatio);
+				CastPtr->HitPlayer(Data.Attack, float4(250, 400) * AttakPushRatio);
 				break;
 			default:
 				break;
