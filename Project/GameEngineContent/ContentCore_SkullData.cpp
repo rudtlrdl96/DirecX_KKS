@@ -22,7 +22,7 @@ void ContentCore::SkullDataLoad()
 	LoadSkull({ .Name = "경비대장", .Index = 203, .Grade = SkullGrade::Unique });
 	
 	LoadSkull({.Name = "영원의 웨어울프", .Index = 300, .Grade = SkullGrade::Legendary});
-	//LoadSkull({ .Name = "미노타우로스 3세", .Index = 301, .Grade = SkullGrade::Legendary });
+	LoadSkull({ .Name = "미노타우로스 3세", .Index = 301, .Grade = SkullGrade::Legendary });
 	//LoadSkull({ .Name = "검은 연금술사", .Index = 302, .Grade = SkullGrade::Legendary });
 
 	if (nullptr == GameEngineTexture::Find("BoneSkull_Idle.png"))
@@ -525,6 +525,57 @@ void ContentCore::SkullDataLoad()
 
 		// SkillB Sprite
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Unique_SkillB.png").GetFullPath(), 7, 1);
+	}
+	
+	// 미노타우르스 레전더리
+	if (nullptr == GameEngineTexture::Find("Minotaurus_Legendary_Idle.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Player");
+		Path.Move("Skull");
+		Path.Move("Minotaurus");
+		Path.Move("Legendary");
+
+		// Idle Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_Idle.png").GetFullPath(), 6, 1);
+
+		// Walk Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_Walk.png").GetFullPath(), 8, 1);
+
+		// Dash Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_Dash.png").GetFullPath(), 1, 1);
+
+		// FallEnter Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_Fall.png").GetFullPath(), 2, 1);
+
+		// FallRepeat Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_FallRepeat.png").GetFullPath(), 2, 1);
+
+		// Jump Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_Jump.png").GetFullPath(), 2, 1);
+
+		// AttackA Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_AttackA.png").GetFullPath(), 7, 1);
+
+		// AttackB Sprite 
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_AttackB.png").GetFullPath(), 6, 1);
+
+		// JumpAttack Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_JumpAttack.png").GetFullPath(), 3, 1);
+
+		// JumpAttack Landing
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_JumpAttackLand.png").GetFullPath(), 1, 1);
+
+		// SkillA Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_SkillA.png").GetFullPath(), 5, 1);
+
+		// SkillB Sprite
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_SkillB.png").GetFullPath(), 7, 1);
 	}
 
 	// 이펙트
