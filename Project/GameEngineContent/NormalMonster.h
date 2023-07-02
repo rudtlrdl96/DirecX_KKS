@@ -20,6 +20,8 @@ public:
 		MonsterFsm.ChangeState(_FsmName);
 	}
 
+	void Stun(float _Time) override;
+
 protected:
 	std::shared_ptr<EffectActor> AppearEffect = nullptr;
 	bool IsAppear = false;

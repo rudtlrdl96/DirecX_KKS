@@ -13,6 +13,7 @@ CarleonManAtArms::~CarleonManAtArms()
 
 void CarleonManAtArms::Start()
 {
+	StunPivot = float4(0, 150);
 	HealthBarScale = float4(1.3f, 1.3f, 1.5f, 1.0f);
 	NormalMonster::Start();
 }

@@ -31,6 +31,12 @@ void NormalMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStif
 	HealthBarActiveTime = 3.0f;
 }
 
+void NormalMonster::Stun(float _Time)
+{
+	BaseMonster::Stun(_Time);
+	MonsterFsm.ChangeState("Idle");
+}
+
 void NormalMonster::Start()
 {
 	BaseMonster::Start();
@@ -159,6 +165,7 @@ void NormalMonster::Update(float _DeltaTime)
 	}
 
 	MonsterFsm.Update(_DeltaTime);
+
 	BaseMonster::Update(_DeltaTime);
 
 	if (true == IsAppear)

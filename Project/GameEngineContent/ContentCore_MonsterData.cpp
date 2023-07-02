@@ -577,8 +577,8 @@ void ContentCore::MonsterDataLoad()
 			.AnimStart = 0,
 			.AnimEnd = 9,
 			.AnimIter = 0.05f,
-			.ScaleRatio = 2.0f});
-
+			.ScaleRatio = 2.0f});		
+		
 		Path.MoveParent();
 
 		GameEngineTexture::Load(Path.GetPlusFileName("AdventurerHero_Sword.png").GetFullPath());
@@ -600,6 +600,7 @@ void ContentCore::MonsterDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MonsterAppear.png").GetFullPath(), 11, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSlashEffect.png").GetFullPath(), 5, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Monster_HealEffect.png").GetFullPath(), 4, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Monster_Stun.png").GetFullPath(), 1, 3);
 
 		EffectManager::CreateMetaData("FindPlayer", {
 			.SpriteName = "FindPlayerSightEffect.png",
@@ -634,6 +635,13 @@ void ContentCore::MonsterDataLoad()
 			.AnimStart = 0,
 			.AnimEnd = 17,
 			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });		
+		
+		EffectManager::CreateMetaData("Monster_Stun", {
+			.SpriteName = "Monster_Stun.png",
+			.AnimStart = 0,
+			.AnimEnd = 2,
+			.AnimIter = 0.09f,
 			.ScaleRatio = 2.0f });
 
 		Path.MoveParent();

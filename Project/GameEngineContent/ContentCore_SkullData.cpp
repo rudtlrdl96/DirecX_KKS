@@ -569,6 +569,7 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Projectile_Hit.png").GetFullPath(), 5, 4);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp.png").GetFullPath(), 3, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Explosion.png").GetFullPath(), 5, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minitaurus_Unique_Passive.png").GetFullPath(), 11, 2);
 
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Projectile1.png").GetFullPath(), 1, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Projectile2.png").GetFullPath(), 1, 1);
@@ -791,6 +792,13 @@ void ContentCore::SkullDataLoad()
 			.AnimEnd = 0,
 			.AnimIter = 0.1f,
 			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minitaurus_Unique_Passive", {
+			.SpriteName = "Minitaurus_Unique_Passive.png",
+			.AnimStart = 0,
+			.AnimEnd = 21,
+			.AnimIter = 0.02f,
+			.ScaleRatio = 1.5f, });
 	}
 
 	std::vector<SkullData> NormalDatas;

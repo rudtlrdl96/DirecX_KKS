@@ -15,6 +15,11 @@ void BossMonster::Idle_Update(float _DeltaTime)
 		BossFsm.ChangeState("Hit");
 	}
 
+	if (true == IsStun)
+	{
+		return;
+	}
+
 	std::shared_ptr<Player> PlayerPtr = FindPlayer.lock();
 
 	if (nullptr == PlayerPtr)
@@ -273,7 +278,7 @@ void BossMonster::Hit_Update(float _DeltaTime)
 		BossFsm.ChangeState("Idle");
 	}
 
-	if (false == IsIntro && 0.0f < CurWaitTime)
+	if (false == IsStiffen && false == IsIntro && 0.0f < CurWaitTime)
 	{
 		BossFsm.ChangeState("BackDash");
 	}

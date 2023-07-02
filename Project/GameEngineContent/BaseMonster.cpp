@@ -87,6 +87,23 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 	HitEffect(_Type);
 }
 
+void BaseMonster::Stun(float _Time)
+{
+	if (true == IsStun)
+	{
+		return;
+	}
+
+	std::shared_ptr<EffectActor> StunEffect = EffectManager::PlayEffect({ .EffectName = "Monster_Stun", .Triger = EffectDeathTrigger::Time, .Time = _Time});
+
+	StunEffect->GetTransform()->SetParent(GetTransform());
+	StunEffect->GetTransform()->SetLocalPosition(StunPivot);
+
+	StunTime = _Time;
+	CurStunTime = 0.0f;
+	IsStun = true;
+}
+
 void BaseMonster::Start()
 {
 	BattleActor::Start();
@@ -127,6 +144,16 @@ void BaseMonster::Update(float _DeltaTime)
 	if (nullptr != Bubble && Bubble->IsDeath())
 	{
 		Bubble = nullptr;
+	}
+
+	if (true == IsStun)
+	{
+		CurStunTime += _DeltaTime;
+
+		if (StunTime <= CurStunTime)
+		{
+			IsStun = false;
+		}
 	}
 }
 

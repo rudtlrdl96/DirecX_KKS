@@ -5,12 +5,17 @@
 
 void GiantEnt::Idle_Update(float _DeltaTime)
 {
+	if (true == HitCheck())
+	{
+		return;
+	}
+
 	if (true == Fall(_DeltaTime))
 	{
 		return;
 	}
 
-	if (true == HitCheck())
+	if (true == IsStun)
 	{
 		return;
 	}

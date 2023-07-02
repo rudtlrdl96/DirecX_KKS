@@ -44,12 +44,11 @@ private:
 	std::shared_ptr<GameEngineCollision> DashAttackCol = nullptr;
 	std::shared_ptr<GameEngineCollision> SkillACol = nullptr;
 	std::shared_ptr<GameEngineCollision> SkillBCol = nullptr;
+	std::shared_ptr<GameEngineCollision> SkillBDoubleAttackCol = nullptr;
 
 	std::shared_ptr<GameEngineCollision> PassiveCol = nullptr;
 
 	std::map<UINT, std::shared_ptr <class BaseMonster>> AttackDoubleCheck;
-	std::map<UINT, float> PassiveDoubleCheck;
-	std::shared_ptr<EffectActor> PassiveEffect = nullptr;
 	std::shared_ptr<EffectActor> SkillBPlowUpEffect = nullptr;
 
 	std::vector<std::string> ProjectileEffectNames;
@@ -71,6 +70,7 @@ private:
 	bool IsSkillBWait = false;
 	bool IsSkillBEffect = false;
 	bool IsSKillBProjectileShot = false;
+	bool IsSKillBDoubleAttack = false;
 
 	bool IsSwitchProjectileShot = false;
 
@@ -79,6 +79,7 @@ private:
 
 	int SkillBShotCount = 0;
 	int SwitchShotCount = 0;
+	int PassiveCount = 0;
 
 	void DataLoad() override;
 	void TextureLoad() override;

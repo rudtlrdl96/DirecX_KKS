@@ -14,8 +14,9 @@ void NormalMonster::Idle_Enter()
 
 void NormalMonster::Idle_Update(float _DeltaTime) 
 {
-	if (true == MonsterUnMove)
+	if (true == HitCheck())
 	{
+		MonsterFsm.ChangeState("Hit");
 		return;
 	}
 
@@ -24,7 +25,12 @@ void NormalMonster::Idle_Update(float _DeltaTime)
 		return;
 	}
 
-	if (true == HitCheck())
+	if (true == IsStun)
+	{
+		return;
+	}
+
+	if (true == MonsterUnMove)
 	{
 		return;
 	}

@@ -23,6 +23,8 @@ public:
 
 	virtual void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, HitEffectType _Type, std::function<void()> _KillEvent = nullptr);
 	
+	virtual void Stun(float _Time);
+
 	std::shared_ptr<ContentSpriteRenderer> GetRender()
 	{
 		return Render;
@@ -41,7 +43,11 @@ public:
 protected:
 	float HP = 0;
 	float HitDamageCheck = 0.0f;
+	float StunTime = 0.0f;
+	float CurStunTime = 0.0f;
+
 	bool IsStiffen = false;
+	bool IsStun = false;
 
 	ActorViewDir Dir = ActorViewDir::Right;
 	MonsterData Data = MonsterData();
@@ -52,6 +58,7 @@ protected:
 
 	std::shared_ptr<SpeechBubble> Bubble = nullptr;
 	float4 BubblePivot = float4(0, 100, -100);
+	float4 StunPivot = float4(0, 100);
 
 	void Start() override;
 	void Update(float _DeltaTime);

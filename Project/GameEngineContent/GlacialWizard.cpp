@@ -211,6 +211,11 @@ void GlacialWizard::Idle_Update(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsStun)
+	{
+		return;
+	}
+
 	if (AttackWaitTime < AttackWaitEndTime)
 	{
 		return;
