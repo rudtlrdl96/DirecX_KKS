@@ -94,10 +94,10 @@ void BaseMonster::Stun(float _Time)
 		return;
 	}
 
-	std::shared_ptr<EffectActor> StunEffect = EffectManager::PlayEffect({ .EffectName = "Monster_Stun", .Triger = EffectDeathTrigger::Time, .Time = _Time});
+	std::shared_ptr<EffectActor> StunEffect = EffectManager::PlayEffect({ 
+		.EffectName = "Monster_Stun", .Position = GetTransform()->GetWorldPosition() + StunPivot, .Scale = StunScale, .Triger = EffectDeathTrigger::Time, .Time = _Time, });
 
 	StunEffect->GetTransform()->SetParent(GetTransform());
-	StunEffect->GetTransform()->SetLocalPosition(StunPivot);
 
 	StunTime = _Time;
 	CurStunTime = 0.0f;

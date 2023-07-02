@@ -618,6 +618,7 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("MinoSkillA_Smoke.png").GetFullPath(), 3, 7);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_PlowUp_Smoke.png").GetFullPath(), 3, 4);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Projectile_Hit.png").GetFullPath(), 5, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Projectile_Hit2.png").GetFullPath(), 5, 4);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp.png").GetFullPath(), 3, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Explosion.png").GetFullPath(), 5, 5);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minitaurus_Unique_Passive.png").GetFullPath(), 11, 2);
@@ -626,6 +627,21 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Projectile2.png").GetFullPath(), 1, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Projectile3.png").GetFullPath(), 1, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Rare_PlowUp_Projectile4.png").GetFullPath(), 1, 1);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_PlowUp.png").GetFullPath(), 3, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_PlowUpExplosion.png").GetFullPath(), 5, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Legendary_PlowUpSkome.png").GetFullPath(), 2, 6);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_WaveSmoke_Effect.png").GetFullPath(), 4, 4);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Debris_Projectile1.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Debris_Projectile2.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_Debris_Projectile3.png").GetFullPath(), 1, 1);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_3_PlowUp_Rock1.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_3_PlowUp_Rock2.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_3_PlowUp_Rock3.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_3_PlowUp_Remains_0.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Minotaurus_3_Swap_Rock_0.png").GetFullPath(), 1, 1);
 
 		EffectManager::CreateMetaData("PlayerDashEffect", {
 			"Player_DashSmokeEffect.png" ,
@@ -802,6 +818,13 @@ void ContentCore::SkullDataLoad()
 			.AnimIter = 0.07f,
 			.ScaleRatio = 1.5f, });
 
+		EffectManager::CreateMetaData("Minotaurus_Projectile_Hit2", {
+			.SpriteName = "Minotaurus_Projectile_Hit2.png",
+			.AnimStart = 0,
+			.AnimEnd = 19,
+			.AnimIter = 0.07f,
+			.ScaleRatio = 1.5f, });
+
 		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp", {
 			.SpriteName = "Minotaurus_Rare_PlowUp.png",
 			.AnimStart = 0,
@@ -850,6 +873,90 @@ void ContentCore::SkullDataLoad()
 			.AnimEnd = 21,
 			.AnimIter = 0.02f,
 			.ScaleRatio = 1.5f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Legendary_PlowUp", {
+			.SpriteName = "Minotaurus_Legendary_PlowUp.png",
+			.AnimStart = 0,
+			.AnimEnd = 2,
+			.AnimIter = 0.035f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Legendary_PlowUpExplosion", {
+			.SpriteName = "Minotaurus_Legendary_PlowUpExplosion.png",
+			.AnimStart = 0,
+			.AnimEnd = 23,
+			.AnimIter = 0.035f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Legendary_PlowUpSkome", {
+			.SpriteName = "Minotaurus_Legendary_PlowUpSkome.png",
+			.AnimStart = 0,
+			.AnimEnd = 11,
+			.AnimIter = 0.035f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Debris_Projectile1", {
+			.SpriteName = "Minotaurus_Debris_Projectile1.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Debris_Projectile2", {
+			.SpriteName = "Minotaurus_Debris_Projectile2.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_Debris_Projectile3", {
+			.SpriteName = "Minotaurus_Debris_Projectile3.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_3_PlowUp_Rock1", {
+			.SpriteName = "Minotaurus_3_PlowUp_Rock1.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_3_PlowUp_Rock2", {
+			.SpriteName = "Minotaurus_3_PlowUp_Rock2.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_3_PlowUp_Rock3", {
+			.SpriteName = "Minotaurus_3_PlowUp_Rock3.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });		
+
+		EffectManager::CreateMetaData("Minotaurus_3_PlowUp_Remains_0", {
+			.SpriteName = "Minotaurus_3_PlowUp_Remains_0.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });		
+		
+		EffectManager::CreateMetaData("Minotaurus_3_Swap_Rock_0", {
+			.SpriteName = "Minotaurus_3_Swap_Rock_0.png",
+			.AnimStart = 0,
+			.AnimEnd = 0,
+			.AnimIter = 0.1f,
+			.ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("Minotaurus_WaveSmoke_Effect", {
+			.SpriteName = "Minotaurus_WaveSmoke_Effect.png",
+			.AnimStart = 0,
+			.AnimEnd = 15,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 2.0f });
 	}
 
 	std::vector<SkullData> NormalDatas;

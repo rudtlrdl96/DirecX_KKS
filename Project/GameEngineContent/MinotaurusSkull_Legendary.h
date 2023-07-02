@@ -44,6 +44,8 @@ private:
 	std::shared_ptr<GameEngineCollision> SkillACol = nullptr;
 	std::shared_ptr<GameEngineCollision> SkillBCol = nullptr;
 	std::shared_ptr<GameEngineCollision> SkillBDoubleAttackCol = nullptr;
+	std::shared_ptr<GameEngineCollision> EarthquakeFindCol = nullptr;
+	std::shared_ptr<GameEngineCollision> EarthquakeAttackCol = nullptr;
 
 	std::shared_ptr<GameEngineCollision> PassiveCol = nullptr;
 
@@ -51,6 +53,7 @@ private:
 	std::shared_ptr<EffectActor> SkillBPlowUpEffect = nullptr;
 
 	std::vector<std::string> ProjectileEffectNames;
+	std::vector<std::string> LargeProjectileEffectNames;
 
 	Rigidbody2D SkillARigidbody;
 
@@ -60,6 +63,7 @@ private:
 	float SkillBWaitTime = 0.0f;
 	float SkillBProjectileTime = 0.0f;
 	float SwitchProjectileTime = 0.0f;
+	float SwitchEarthquakeTime = 0.0f;
 	float PassiveTime = 0.0f;
 
 	bool IsJumpAttackLand = false;
@@ -72,13 +76,18 @@ private:
 	bool IsSKillBDoubleAttack = false;
 
 	bool IsSwitchProjectileShot = false;
+	bool IsSwitchEarthquake = false;
 
 	bool IsSwitchMove = false;
 	bool IsPassive = false;
 
+	float4 SwitchEarthquakePos = float4::Zero;
+	float4 SwitchEarthquakeInter = float4::Zero;
+
 	int SkillBShotCount = 0;
 	int SwitchShotCount = 0;
 	int PassiveCount = 0;
+	int SwitchEarthquakeCount = 0;
 
 	void DataLoad() override;
 	void TextureLoad() override;
@@ -87,5 +96,6 @@ private:
 
 	void PassiveCheck();
 	void ShotProjectile(size_t _TextureIndex);
+	void ShotLargeProjectile(size_t _TextureIndex);
 };
 

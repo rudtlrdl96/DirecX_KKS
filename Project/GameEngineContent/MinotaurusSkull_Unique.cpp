@@ -275,6 +275,26 @@ void MinotaurusSkull_Unique::Switch_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Switch_Update(_DeltaTime);
 
+	BattleActorRigidbody.AddVelocity(float4(0, _DeltaTime * ContentConst::Gravity_f, 0));
+	PlayerTrans->AddLocalPosition(BattleActorRigidbody.GetVelocity() * _DeltaTime);
+
+	std::shared_ptr<GameEngineCollision> GroundColPtr = ContentFunc::PlatformColCheck(GroundCol, true);
+
+	if (nullptr != GroundColPtr)
+	{
+		float4 CurPos = PlayerTrans->GetWorldPosition();
+
+		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
+		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+		PlayerTrans->SetWorldPosition(CurPos);
+		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
+
+		float4 Vel = BattleActorRigidbody.GetVelocity();
+		Vel.y = 0;
+		BattleActorRigidbody.SetVelocity(Vel);
+	}
+
 	if (false == IsSwitchMove && 3 == Render->GetCurrentFrame())
 	{
 		IsSwitchMove = true;
@@ -497,6 +517,7 @@ void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 			IsSkillALand = false;
 			IsSkillADoubleAttack = true;
 
+			Render->ChangeAnimation("JumpAttack");
 			SkillARigidbody.SetVelocity(float4(0, 700));
 		}
 		else if (0.3f <= SkillALandTime)
@@ -532,6 +553,26 @@ void MinotaurusSkull_Unique::Skill_SlotB_Enter()
 
 void MinotaurusSkull_Unique::Skill_SlotB_Update(float _DeltaTime)
 {
+	BattleActorRigidbody.AddVelocity(float4(0, _DeltaTime * ContentConst::Gravity_f, 0));
+	PlayerTrans->AddLocalPosition(BattleActorRigidbody.GetVelocity() * _DeltaTime);
+
+	std::shared_ptr<GameEngineCollision> GroundColPtr = ContentFunc::PlatformColCheck(GroundCol, true);
+
+	if (nullptr != GroundColPtr)
+	{
+		float4 CurPos = PlayerTrans->GetWorldPosition();
+
+		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
+		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+		PlayerTrans->SetWorldPosition(CurPos);
+		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
+
+		float4 Vel = BattleActorRigidbody.GetVelocity();
+		Vel.y = 0;
+		BattleActorRigidbody.SetVelocity(Vel);
+	}
+
 	if (false == IsSkillBEffect && 3 == Render->GetCurrentFrame())
 	{
 		IsSkillBEffect = true;
@@ -858,13 +899,17 @@ void MinotaurusSkull_Unique::ShotProjectile(size_t _TextureIndex)
 	ProjectileRigid.SetActiveGravity(true);
 	ProjectileRigid.SetGravity(-1300.0f);
 
+	float4 ShotDir = float4(0, 1);
+
 	switch (LookDir)
 	{
 	case ActorViewDir::Left:
-		ProjectileRigid.SetVelocity(float4(-500, 800) * Rand.RandomFloat(0.8f, 1.1f));
+		ShotDir.RotaitonZDeg(Rand.RandomFloat(20.0f, 45.0f));
+		ProjectileRigid.SetVelocity(ShotDir * Rand.RandomFloat(850.0f, 1050.0f));
 		break;
 	case ActorViewDir::Right:
-		ProjectileRigid.SetVelocity(float4(500, 800) * Rand.RandomFloat(0.8f, 1.1f));
+		ShotDir.RotaitonZDeg(Rand.RandomFloat(-45.0f, -20.0f));
+		ProjectileRigid.SetVelocity(ShotDir * Rand.RandomFloat(850.0f, 1050.0f));
 		break;
 	}
 }

@@ -43,14 +43,12 @@ void MinotaurusSkull_Legendary::Start()
 
 	SkillACol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
 	SkillACol->GetTransform()->SetLocalPosition(float4(0, 40, 0));
-	SkillACol->GetTransform()->SetLocalScale(float4(350, 80, 1));
 	SkillACol->SetColType(ColType::AABBBOX2D);
 	SkillACol->Off();
 
 	SkillBCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
-	SkillBCol->GetTransform()->SetLocalPosition(float4(110, 50, 0));
-	SkillBCol->GetTransform()->SetLocalScale(float4(80, 150, 1));
-	SkillBCol->GetTransform()->SetLocalRotation(float4(0, 0, -30));
+	SkillBCol->GetTransform()->SetLocalPosition(float4(155, 125, 0));
+	SkillBCol->GetTransform()->SetLocalScale(float4(130, 250, 1));
 	SkillBCol->SetColType(ColType::AABBBOX2D);
 	SkillBCol->Off();
 
@@ -61,10 +59,20 @@ void MinotaurusSkull_Legendary::Start()
 	PassiveCol->Off();
 
 	SkillBDoubleAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
-	SkillBDoubleAttackCol->GetTransform()->SetLocalPosition(float4(70, 90, 0));
-	SkillBDoubleAttackCol->GetTransform()->SetLocalScale(float4(150, 180, 1));
+	SkillBDoubleAttackCol->GetTransform()->SetLocalPosition(float4(105, 100, 0));
+	SkillBDoubleAttackCol->GetTransform()->SetLocalScale(float4(220, 200, 1));
 	SkillBDoubleAttackCol->SetColType(ColType::AABBBOX2D);
 	SkillBDoubleAttackCol->Off();
+
+	EarthquakeFindCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	EarthquakeFindCol->GetTransform()->SetLocalScale(float4(10, 128, 1));
+	EarthquakeFindCol->SetColType(ColType::AABBBOX2D);
+	EarthquakeFindCol->Off();
+
+	EarthquakeAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
+	EarthquakeAttackCol->GetTransform()->SetLocalScale(float4(70, 100, 1));
+	EarthquakeAttackCol->SetColType(ColType::AABBBOX2D);
+	EarthquakeAttackCol->Off();
 
 	SkillARigidbody.SetMaxSpeed(3000.0f);
 	SkillARigidbody.SetGravity(-3500.0f);
@@ -73,17 +81,147 @@ void MinotaurusSkull_Legendary::Start()
 
 	SkillA_DamageRatio = 2.0f;
 
-	ProjectileEffectNames.resize(4);
+	ProjectileEffectNames.resize(3);
 
-	ProjectileEffectNames[0] = "Minotaurus_Rare_PlowUp_Projectile1";
-	ProjectileEffectNames[1] = "Minotaurus_Rare_PlowUp_Projectile2";
-	ProjectileEffectNames[2] = "Minotaurus_Rare_PlowUp_Projectile3";
-	ProjectileEffectNames[3] = "Minotaurus_Rare_PlowUp_Projectile4";
+	ProjectileEffectNames[0] = "Minotaurus_Debris_Projectile1";
+	ProjectileEffectNames[1] = "Minotaurus_Debris_Projectile2";
+	ProjectileEffectNames[2] = "Minotaurus_Debris_Projectile3";
+
+	LargeProjectileEffectNames.resize(3);
+
+	LargeProjectileEffectNames[0] = "Minotaurus_3_PlowUp_Rock1";
+	LargeProjectileEffectNames[1] = "Minotaurus_3_PlowUp_Rock2";
+	LargeProjectileEffectNames[2] = "Minotaurus_3_PlowUp_Rock3";
 }
 
 void MinotaurusSkull_Legendary::Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Update(_DeltaTime);
+
+	if (true == IsSwitchEarthquake)
+	{
+		SwitchEarthquakeTime += _DeltaTime * 10.0f;
+
+		if (1.0f <= SwitchEarthquakeTime)
+		{
+			std::vector<std::shared_ptr<GameEngineCollision>> AllCol;
+			AllCol.reserve(8);
+
+			EarthquakeFindCol->GetTransform()->SetWorldPosition(SwitchEarthquakePos);
+
+			bool IsPlatformCol = false;
+
+			float4 PlatformPos = SwitchEarthquakePos;
+			float NearDis = 128.0f;
+			float ColDis;
+
+			EarthquakeFindCol->On();
+
+			if (true == EarthquakeFindCol->CollisionAll((int)CollisionOrder::Platform_Normal, AllCol, ColType::AABBBOX2D, ColType::AABBBOX2D))
+			{
+				for (size_t i = 0; i < AllCol.size(); i++)
+				{
+					float ColY = AllCol[i]->GetTransform()->GetWorldPosition().y + AllCol[i]->GetTransform()->GetLocalScale().hy();
+					ColDis = std::fabs(ColY - SwitchEarthquakePos.y);
+
+					if (ColDis < NearDis)
+					{
+						IsPlatformCol = true;
+
+						PlatformPos.y = ColY;
+						NearDis = ColDis;
+					}
+				}	
+			}
+
+			if (true == EarthquakeFindCol->CollisionAll((int)CollisionOrder::Platform_Half, AllCol, ColType::AABBBOX2D, ColType::AABBBOX2D))
+			{
+				for (size_t i = 0; i < AllCol.size(); i++)
+				{
+					float ColY = AllCol[i]->GetTransform()->GetWorldPosition().y + AllCol[i]->GetTransform()->GetLocalScale().hy();
+					ColDis = std::fabs(ColY - SwitchEarthquakePos.y);
+
+					if (ColDis < NearDis)
+					{
+						IsPlatformCol = true;
+
+						PlatformPos.y = ColY;
+						NearDis = ColDis;
+					}
+				}
+			}
+
+			EarthquakeFindCol->Off();
+
+			if (false == IsPlatformCol)
+			{
+				IsSwitchEarthquake = false;
+			}
+			else
+			{
+				SwitchEarthquakeTime -= 1.0f;
+				++SwitchEarthquakeCount;
+
+				bool IsFlipX = SwitchEarthquakeInter.x < 0;
+
+				EffectManager::PlayEffect({
+					.EffectName = "Minotaurus_3_Swap_Rock_0",
+					.Position = PlatformPos + float4(0, 43),
+					.Triger = EffectDeathTrigger::Time,
+					.Time = 1.5f,
+					.FadeSpeed = 2.0f,
+					.FlipX = IsFlipX,
+					.IsFadeDeath = true,
+					});
+
+				float4 AddSmokePos;
+
+				if (true == IsFlipX)
+				{
+					AddSmokePos = float4(-100, 135);
+				}
+				else
+				{
+					AddSmokePos = float4(100, 135);
+				}
+
+				EffectManager::PlayEffect({
+					.EffectName = "Minotaurus_WaveSmoke_Effect",
+					.Position = PlatformPos + AddSmokePos,
+					.AddSetZ = -20.0f,
+					.FlipX = IsFlipX,
+					});
+
+				EarthquakeAttackCol->On();
+				EarthquakeAttackCol->GetTransform()->SetWorldPosition(PlatformPos + float4(0, 50));
+
+				if (true == EarthquakeAttackCol->CollisionAll((int)CollisionOrder::Monster, AllCol, ColType::AABBBOX2D, ColType::AABBBOX2D))
+				{
+					for (size_t i = 0; i < AllCol.size(); i++)
+					{
+						std::shared_ptr<BaseMonster> CastingCol = AllCol[i]->GetActor()->DynamicThis<BaseMonster>();
+
+						if (nullptr == CastingCol)
+						{
+							MsgAssert_Rtti<MinotaurusSkull_Legendary>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+							return;
+						}
+
+						CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+					}
+				}
+				EarthquakeAttackCol->Off();
+
+				SwitchEarthquakePos += SwitchEarthquakeInter;
+			}
+			
+		}
+
+		if (10 <= SwitchEarthquakeCount)
+		{
+			IsSwitchEarthquake = false;
+		}
+	}
 
 	if (true == IsPassive)
 	{
@@ -269,15 +407,39 @@ void MinotaurusSkull_Legendary::Switch_Enter()
 	IsSwitchProjectileShot = false;
 	SwitchProjectileTime = 0.0f;
 	SwitchShotCount = 0;
+	IsSwitchEarthquake = false;
 }
 
 void MinotaurusSkull_Legendary::Switch_Update(float _DeltaTime)
 {
 	PlayerBaseSkull::Switch_Update(_DeltaTime);
 
+	BattleActorRigidbody.AddVelocity(float4(0, _DeltaTime * ContentConst::Gravity_f, 0));
+	PlayerTrans->AddLocalPosition(BattleActorRigidbody.GetVelocity() * _DeltaTime);
+
+	std::shared_ptr<GameEngineCollision> GroundColPtr = ContentFunc::PlatformColCheck(GroundCol, true);
+
+	if (nullptr != GroundColPtr)
+	{
+		float4 CurPos = PlayerTrans->GetWorldPosition();
+
+		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
+		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+		PlayerTrans->SetWorldPosition(CurPos);
+		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
+
+		float4 Vel = BattleActorRigidbody.GetVelocity();
+		Vel.y = 0;
+		BattleActorRigidbody.SetVelocity(Vel);
+	}
+
 	if (false == IsSwitchMove && 3 == Render->GetCurrentFrame())
 	{
 		IsSwitchMove = true;
+		IsSwitchEarthquake = true;
+		SwitchEarthquakeTime = 0.0f;
+		SwitchEarthquakeCount = 0;
 
 		switch (GetViewDir())
 		{
@@ -290,6 +452,10 @@ void MinotaurusSkull_Legendary::Switch_Update(float _DeltaTime)
 				.AddSetZ = -20,
 				.FlipX = true,
 				});
+
+			SwitchEarthquakePos = GetTransform()->GetWorldPosition() + float4(-200, 0, 0);
+			SwitchEarthquakeInter = float4(-80, 0, 0);
+
 			break;
 		case ActorViewDir::Right:
 			AttackRigidbody.SetVelocity(float4::Right * 800.0f);
@@ -298,6 +464,9 @@ void MinotaurusSkull_Legendary::Switch_Update(float _DeltaTime)
 				.EffectName = "Minotaurus_PlowUp_Smoke",
 				.Position = GetTransform()->GetWorldPosition() + float4(130, 50),
 				.AddSetZ = -20 });
+
+			SwitchEarthquakePos = GetTransform()->GetWorldPosition() + float4(200, 0, 0);
+			SwitchEarthquakeInter = float4(80, 0, 0);
 			break;
 		default:
 			break;
@@ -317,7 +486,7 @@ void MinotaurusSkull_Legendary::Switch_Update(float _DeltaTime)
 			++SwitchShotCount;
 		}
 
-		if (4 <= SwitchShotCount)
+		if (3 <= SwitchShotCount)
 		{
 			IsSwitchProjectileShot = false;
 		}
@@ -451,17 +620,34 @@ void MinotaurusSkull_Legendary::Skill_SlotA_Update(float _DeltaTime)
 
 		PassiveCheck();
 
-		std::shared_ptr<EffectActor> StampEffect = EffectManager::PlayEffect({
-			.EffectName = "StampEffect",
+		EffectManager::PlayEffect({
+			.EffectName = "Minitaurus_Unique_Passive",
 			.Position = GetTransform()->GetWorldPosition(),
-			.Scale = 0.65f });
+			.Scale = 1.0f });
 
 		if (true == IsSkillADoubleAttack)
 		{
+			SkillACol->GetTransform()->SetLocalScale(float4(1050, 80, 1));
+
 			EffectManager::PlayEffect({
-			.EffectName = "MinoSkillA_Smoke",
-			.Position = GetTransform()->GetWorldPosition() + float4(20, 40),
-			.Scale = 0.5f });
+				.EffectName = "MinoSkillA_Smoke",
+				.Position = GetTransform()->GetWorldPosition() + float4(20, 80),
+				.AddSetZ = -15.0f,
+				.Scale = 1.0f,});
+
+			EffectManager::PlayEffect({
+				.EffectName = "Minitaurus_Unique_Passive",
+				.Position = GetTransform()->GetWorldPosition() + float4(-400, 0),
+				.Scale = 1.0f });
+
+			EffectManager::PlayEffect({
+				.EffectName = "Minitaurus_Unique_Passive",
+				.Position = GetTransform()->GetWorldPosition() + float4(400, 0),
+				.Scale = 1.0f });
+		}
+		else
+		{
+			SkillACol->GetTransform()->SetLocalScale(float4(350, 80, 1));
 		}
 
 		SkillACol->On();
@@ -498,6 +684,7 @@ void MinotaurusSkull_Legendary::Skill_SlotA_Update(float _DeltaTime)
 			IsSkillADoubleAttack = true;
 
 			SkillARigidbody.SetVelocity(float4(0, 700));
+			Render->ChangeAnimation("JumpAttack");
 		}
 		else if (0.3f <= SkillALandTime)
 		{
@@ -532,6 +719,26 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Enter()
 
 void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 {
+	BattleActorRigidbody.AddVelocity(float4(0, _DeltaTime * ContentConst::Gravity_f, 0));
+	PlayerTrans->AddLocalPosition(BattleActorRigidbody.GetVelocity() * _DeltaTime);
+
+	std::shared_ptr<GameEngineCollision> GroundColPtr = ContentFunc::PlatformColCheck(GroundCol, true);
+
+	if (nullptr != GroundColPtr)
+	{
+		float4 CurPos = PlayerTrans->GetWorldPosition();
+
+		GameEngineTransform* ColTrans = GroundColPtr->GetTransform();
+		CurPos.y = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy();
+
+		PlayerTrans->SetWorldPosition(CurPos);
+		PlayerTrans->SetLocalPosition(PlayerTrans->GetLocalPosition());
+
+		float4 Vel = BattleActorRigidbody.GetVelocity();
+		Vel.y = 0;
+		BattleActorRigidbody.SetVelocity(Vel);
+	}
+
 	if (false == IsSkillBEffect && 3 == Render->GetCurrentFrame())
 	{
 		IsSkillBEffect = true;
@@ -544,15 +751,15 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 		case ActorViewDir::Left:
 		{
 			EffectManager::PlayEffect({
-			.EffectName = "Minotaurus_PlowUp_Smoke",
-			.Position = GetTransform()->GetWorldPosition() + float4(-130, 50),
+			.EffectName = "Minotaurus_Legendary_PlowUpSkome",
+			.Position = GetTransform()->GetWorldPosition() + float4(-160, 80),
 			.AddSetZ = -20,
 			.FlipX = true,
 				});
 
 			SkillBPlowUpEffect = EffectManager::PlayEffect({
-			.EffectName = "Minotaurus_Rare_PlowUp",
-			.Position = GetTransform()->GetWorldPosition() + float4(-110, 100),
+			.EffectName = "Minotaurus_Legendary_PlowUp",
+			.Position = GetTransform()->GetWorldPosition() + float4(-150, 140),
 			.Triger = EffectDeathTrigger::Time,
 			.Time = 5.0f,
 			.FlipX = true,
@@ -562,13 +769,13 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 		case ActorViewDir::Right:
 		{
 			EffectManager::PlayEffect({
-			.EffectName = "Minotaurus_PlowUp_Smoke",
-			.Position = GetTransform()->GetWorldPosition() + float4(130, 50),
+			.EffectName = "Minotaurus_Legendary_PlowUpSkome",
+			.Position = GetTransform()->GetWorldPosition() + float4(150, 80),
 			.AddSetZ = -20 });
 
 			SkillBPlowUpEffect = EffectManager::PlayEffect({
-			.EffectName = "Minotaurus_Rare_PlowUp",
-			.Position = GetTransform()->GetWorldPosition() + float4(110, 100),
+			.EffectName = "Minotaurus_Legendary_PlowUp",
+			.Position = GetTransform()->GetWorldPosition() + float4(150, 140),
 			.Triger = EffectDeathTrigger::Time,
 			.Time = 5.0f,
 			.IsForceLoopOff = true, });
@@ -583,11 +790,10 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 
 		GetContentLevel()->GetCamCtrl().CameraShake(5, 30, 5);
 
-		if (true == SkillBCol->CollisionAll((int)CollisionOrder::Monster, AllCol, ColType::OBBBOX2D, ColType::AABBBOX2D))
+		if (true == SkillBCol->CollisionAll((int)CollisionOrder::Monster, AllCol, ColType::AABBBOX2D, ColType::AABBBOX2D))
 		{
 			for (size_t i = 0; i < AllCol.size(); i++)
 			{
-
 				std::shared_ptr<BaseMonster> CastingCol = AllCol[i]->GetActor()->DynamicThis<BaseMonster>();
 
 				if (nullptr == CastingCol)
@@ -614,7 +820,7 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 			++SkillBShotCount;
 		}
 
-		if (4 <= SkillBShotCount)
+		if (3 <= SkillBShotCount)
 		{
 			IsSKillBProjectileShot = false;
 		}
@@ -634,25 +840,48 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 
 		SkillBDoubleAttackCol->On();
 
+		ShotLargeProjectile(0);
+		ShotLargeProjectile(1);
+		ShotLargeProjectile(2);
+
 		switch (GetViewDir())
 		{
 		case ActorViewDir::Left:
 			AttackRigidbody.AddVelocity(float4::Left * 1500.0f);
 
 			EffectManager::PlayEffect({
-				.EffectName = "Minotaurus_Rare_PlowUp_Explosion",
-				.Position = GetTransform()->GetWorldPosition() + float4(-210, 130),
-				.AddSetZ = 5,
+				.EffectName = "Minotaurus_Legendary_PlowUpExplosion",
+				.Position = GetTransform()->GetWorldPosition() + float4(-350, 130),
+				.AddSetZ = -20.0f,
 				.FlipX = true, });
+
+			EffectManager::PlayEffect({
+				.EffectName = "Minotaurus_3_PlowUp_Remains_0",
+				.Position = GetTransform()->GetWorldPosition() + float4(-150, 28),
+				.Triger = EffectDeathTrigger::Time,
+				.Time = 3.0f,
+				.FadeSpeed = 2.0f,
+				.FlipX = true,
+				.IsFadeDeath = true,
+				});
 			break;
 
 		case ActorViewDir::Right:
 			AttackRigidbody.AddVelocity(float4::Right * 1500.0f);
 
 			EffectManager::PlayEffect({
-				.EffectName = "Minotaurus_Rare_PlowUp_Explosion",
-				.Position = GetTransform()->GetWorldPosition() + float4(220, 130),
-				.AddSetZ = 5 });
+				.EffectName = "Minotaurus_Legendary_PlowUpExplosion",
+				.Position = GetTransform()->GetWorldPosition() + float4(350, 130),
+				.AddSetZ = -20.0f });
+
+			EffectManager::PlayEffect({
+				.EffectName = "Minotaurus_3_PlowUp_Remains_0",
+				.Position = GetTransform()->GetWorldPosition() + float4(150, 28),
+				.Triger = EffectDeathTrigger::Time,
+				.Time = 3.0f,
+				.FadeSpeed = 2.0f,
+				.IsFadeDeath = true,
+				});
 			break;
 		}
 
@@ -766,14 +995,14 @@ void MinotaurusSkull_Legendary::AnimationColLoad()
 	Path.Move("Data");
 	Path.Move("8_Player");
 	Path.Move("Minotaurus");
-	Path.Move("Unique");
+	Path.Move("Legendary");
 
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_AttackA").GetFullPath()), 0.08f);
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_AttackB").GetFullPath()), 0.08f);
-	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_JumpAttack").GetFullPath()), 0.08f);
-	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_SkillA").GetFullPath()), 0.08f);
-	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_SkillB").GetFullPath()), 0.1f);
-	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_Switch").GetFullPath()), 0.1f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Legendary_AttackA").GetFullPath()), 0.08f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Legendary_AttackB").GetFullPath()), 0.08f);
+	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Legendary_JumpAttack").GetFullPath()), 0.08f);
+	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Legendary_SkillA").GetFullPath()), 0.08f);
+	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Legendary_SkillB").GetFullPath()), 0.1f);
+	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Legendary_Switch").GetFullPath()), 0.1f);
 }
 
 void MinotaurusSkull_Legendary::PassiveCheck()
@@ -789,7 +1018,7 @@ void MinotaurusSkull_Legendary::PassiveCheck()
 
 void MinotaurusSkull_Legendary::ShotProjectile(size_t _TextureIndex)
 {
-	_TextureIndex %= 4;
+	_TextureIndex %= 3;
 
 	std::shared_ptr<RigidProjectile> Projectile = GetLevel()->CreateActor<RigidProjectile>();
 
@@ -839,7 +1068,7 @@ void MinotaurusSkull_Legendary::ShotProjectile(size_t _TextureIndex)
 			CastingActor->HitMonster(_HitData.Attack, LookDir, true, true, false, HitEffectType::None);
 
 			EffectManager::PlayEffect({
-				.EffectName = "Minotaurus_Projectile_Hit",
+				.EffectName = "Minotaurus_Projectile_Hit2",
 				.Position = _HitData.ProjectilePos});
 
 			Level->GetCamCtrl().CameraShake(5, 30, 5);
@@ -847,7 +1076,7 @@ void MinotaurusSkull_Legendary::ShotProjectile(size_t _TextureIndex)
 		.DeathEvent = [Level](const float4& _DeathPos)
 		{
 			EffectManager::PlayEffect({
-				.EffectName = "Minotaurus_Projectile_Hit",
+				.EffectName = "Minotaurus_Projectile_Hit2",
 				.Position = _DeathPos});
 
 			Level->GetCamCtrl().CameraShake(5, 30, 5);
@@ -858,13 +1087,90 @@ void MinotaurusSkull_Legendary::ShotProjectile(size_t _TextureIndex)
 	ProjectileRigid.SetActiveGravity(true);
 	ProjectileRigid.SetGravity(-1300.0f);
 
+	float4 ShotDir = float4(0, 1);
+
+
 	switch (LookDir)
 	{
 	case ActorViewDir::Left:
-		ProjectileRigid.SetVelocity(float4(-500, 800) * Rand.RandomFloat(0.8f, 1.1f));
+		ShotDir.RotaitonZDeg(Rand.RandomFloat(20.0f, 45.0f));
+		ProjectileRigid.SetVelocity(ShotDir * Rand.RandomFloat(700.0f, 950.0f));
 		break;
 	case ActorViewDir::Right:
-		ProjectileRigid.SetVelocity(float4(500, 800) * Rand.RandomFloat(0.8f, 1.1f));
+		ShotDir.RotaitonZDeg(Rand.RandomFloat(-45.0f, -20.0f));
+		ProjectileRigid.SetVelocity(ShotDir * Rand.RandomFloat(700.0f, 950.0f));
+		break;
+	}
+}
+
+void MinotaurusSkull_Legendary::ShotLargeProjectile(size_t _TextureIndex)
+{
+	_TextureIndex %= 3;
+
+	std::shared_ptr<RigidProjectile> Projectile = GetLevel()->CreateActor<RigidProjectile>();
+
+	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
+
+	float4 ProjectilePos = GetTransform()->GetWorldPosition() + float4(Rand.RandomFloat(-25, 25), Rand.RandomFloat(-25, 25));
+	ActorViewDir LookDir = GetViewDir();
+
+	switch (LookDir)
+	{
+	case ActorViewDir::Left:
+		ProjectilePos += float4(-100, 100);
+		break;
+	case ActorViewDir::Right:
+		ProjectilePos += float4(100, 100);
+		break;
+	}
+
+	Projectile->InitRigd(2000.0f, 0.0f, 1.0f);
+
+	Rigidbody2D& ProjectileRigid = Projectile->GetRigid();
+
+	ContentLevel* Level = GetContentLevel();
+
+	Projectile->ShotProjectile({
+		.EffectName = LargeProjectileEffectNames[_TextureIndex],
+		.Pos = ProjectilePos,
+		.Dir = float4::Up,
+		.ColScale = float4(60, 60, 1),
+		.ColOrder = (int)CollisionOrder::Monster,
+		.IsPlatformCol = false,
+		.IsColDeath = false,
+		.IsFlipX = ActorViewDir::Left == GetViewDir(),
+		.Damage = GetMeleeAttackDamage() * 1.2f,
+		.Speed = 0.0f,
+		.LiveTime = 4.0f,
+		.EnterEvent = [LookDir, Level](std::shared_ptr<BaseContentActor> _HitActor, ProjectileHitParameter _HitData)
+		{
+			std::shared_ptr<BaseMonster> CastingActor = _HitActor->DynamicThis<BaseMonster>();
+
+			if (nullptr == CastingActor)
+			{
+				MsgAssert_Rtti<MinotaurusSkull_Legendary>(" - BaseMonster를 상속 받은 클래스만 Monster ColOrder를 가질 수 있습니다.");
+				return;
+			}
+
+			CastingActor->HitMonster(_HitData.Attack, LookDir, true, true, false, HitEffectType::MinoTaurus);
+			Level->GetCamCtrl().CameraShake(5, 30, 5);
+		}});
+
+
+	ProjectileRigid.SetActiveGravity(true);
+	ProjectileRigid.SetGravity(-1300.0f);
+
+	float4 ShotDir = float4(0, 1);
+
+	switch (LookDir)
+	{
+	case ActorViewDir::Left:
+		ShotDir.RotaitonZDeg(Rand.RandomFloat(20.0f, 45.0f));
+		ProjectileRigid.SetVelocity(ShotDir * Rand.RandomFloat(700.0f, 900.0f));
+		break;
+	case ActorViewDir::Right:
+		ShotDir.RotaitonZDeg(Rand.RandomFloat(-45.0f, -20.0f));
+		ProjectileRigid.SetVelocity(ShotDir * Rand.RandomFloat(700.0f, 900.0f));
 		break;
 	}
 }

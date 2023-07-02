@@ -59,6 +59,7 @@ protected:
 	std::shared_ptr<SpeechBubble> Bubble = nullptr;
 	float4 BubblePivot = float4(0, 100, -100);
 	float4 StunPivot = float4(0, 100);
+	float StunScale = 0.8f;
 
 	void Start() override;
 	void Update(float _DeltaTime);

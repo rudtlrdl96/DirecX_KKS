@@ -331,15 +331,15 @@ void Player::Update(float _DeltaTime)
 
 		if (true == Cheat_Attack)
 		{
-			MeleeAttack = 250;
-			MagicAttack = 250;
+			MeleeAttack = 100;
+			MagicAttack = 100;
 
 			CheatRender_Attack->On();
 		}
 		else
 		{
-			MeleeAttack = 15;
-			MagicAttack = 15;
+			MeleeAttack = 10;
+			MagicAttack = 10;
 
 			CheatRender_Attack->Off();
 		}

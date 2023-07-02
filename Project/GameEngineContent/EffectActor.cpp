@@ -60,7 +60,15 @@ void EffectActor::Update(float _DeltaTime)
 	{
 		if (GetLiveTime() >= DeathTime)
 		{
-			Death();
+			if (true == IsFadeDeath)
+			{
+				IsFadeDeathValue = true;
+			}
+			else
+			{
+				Death();
+			}
+
 			return;
 		}
 	}
@@ -69,7 +77,15 @@ void EffectActor::Update(float _DeltaTime)
 	{
 		if (true == EffectRender->IsAnimationEnd())
 		{
-			Death();
+			if (true == IsFadeDeath)
+			{
+				IsFadeDeathValue = true;
+			}
+			else
+			{
+				Death();
+			}
+
 			return;
 		}
 	}
@@ -81,7 +97,7 @@ void EffectActor::Update(float _DeltaTime)
 
 }
 
-void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime, bool _IsForceLoopOff)
+void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime, bool _IsForceLoopOff, bool _IsFadeDeath, float _FadeSpeed)
 {
 	DeathTime = _DeathTime;
 	DeathTrigger = _DeathTrigger;
@@ -111,4 +127,6 @@ void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _Deat
 	WaitTime = _WaitTime;
 
 	Buffer.Color = _MetaData.Color;
+	IsFadeDeath = _IsFadeDeath;
+	DeathFadeSpeed = _FadeSpeed;
 }
