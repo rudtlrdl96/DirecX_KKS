@@ -25,9 +25,9 @@ void CaptureAnimation::PlayCapture(const CaptureAnimParameter& _Parameter)
 void CaptureAnimation::Start()
 {
 	CaptureRender = CreateComponent<ContentSpriteRenderer>();
-	CaptureRender->SetPipeLine("2DTexture_Capture");
+	CaptureRender->SetPipeLine("2DTexture_Color");
 	CaptureRender->GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
-	CaptureRender->GetShaderResHelper().SetConstantBufferLink("CaptureBuffer", Buffer);
+	CaptureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	CaptureRender->SetTexture("Empty.png");
 	CaptureRender->Off();
 }

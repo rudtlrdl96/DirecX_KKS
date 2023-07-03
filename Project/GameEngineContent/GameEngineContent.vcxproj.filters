@@ -376,6 +376,9 @@
     <Filter Include="2_Actor\BattleActor\Player\Skull\Wolf\Lagandary">
       <UniqueIdentifier>{fe04da4f-51de-4304-a945-f2d04a946fb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Gear">
+      <UniqueIdentifier>{c7a616bf-256a-49b9-81ed-66344a906813}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -974,6 +977,9 @@
     </ClInclude>
     <ClInclude Include="MinotaurusSkull_Legendary.h">
       <Filter>2_Actor\BattleActor\Player\Skull\Minotaurus\Legandary</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGear.h">
+      <Filter>2_Actor\Gear</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1630,6 +1636,9 @@
     </ClCompile>
     <ClCompile Include="MinotaurusSkull_Legendary.cpp">
       <Filter>2_Actor\BattleActor\Player\Skull\Minotaurus\Legandary</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseGear.cpp">
+      <Filter>2_Actor\Gear</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

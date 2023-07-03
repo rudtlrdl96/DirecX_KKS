@@ -33,12 +33,6 @@ public:
 	float Progress = 0.0f;
 };
 
-class CaptureBuffer
-{
-public:
-	float4 Color = float4::Zero;
-};
-
 class FadeBuffer
 {
 public:
@@ -53,11 +47,16 @@ public:
 	float4 Uv = float4::Zero;
 };
 
-
 class SliceBuffer
 {
 public:
 	float4 BorderSize = float4::Zero;
 	float4 RenderScale = float4::Zero;
 	float4 TexturePer = float4::One;
+};
+
+class BlackAndWihteBuffer
+{
+public:
+	float4 Color = float4::Null;
 };

@@ -3,7 +3,6 @@
   <ItemGroup>
     <FxCompile Include="..\Resources\Shader\ContentShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\ColorShader.hlsl" />
-    <FxCompile Include="..\Resources\Shader\CaptureShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\TextureMoveShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\FadeShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\ProgressUI.hlsl" />
@@ -11,5 +10,6 @@
     <FxCompile Include="..\Resources\Shader\ProgressUI_Circle.hlsl" />
     <FxCompile Include="..\Resources\Shader\ObjectColorShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\SliceShader.hlsl" />
+    <FxCompile Include="..\Resources\Shader\BlackAndWhiteShader.hlsl" />
   </ItemGroup>
 </Project>

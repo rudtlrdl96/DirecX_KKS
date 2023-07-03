@@ -244,16 +244,6 @@ void ContentCore::ContentPipeLineCreate()
 	}
 
 	{
-		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Capture");
-
-		Pipe->SetVertexShader("CaptureShader.hlsl");
-		Pipe->SetRasterizer("Engine2DBase");
-		Pipe->SetPixelShader("CaptureShader.hlsl");
-		Pipe->SetBlendState("ContentAlphaBlend");
-		Pipe->SetDepthState("EngineDepth");
-	}
-
-	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Background");
 
 		Pipe->SetVertexShader("TextureMoveShader.hlsl");
@@ -319,6 +309,17 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("SliceShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("SliceShader.hlsl");
+		Pipe->SetBlendState("ContentAlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
+
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_BlackAndWhite");
+
+		Pipe->SetVertexShader("BlackAndWhiteShader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("BlackAndWhiteShader.hlsl");
 		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}

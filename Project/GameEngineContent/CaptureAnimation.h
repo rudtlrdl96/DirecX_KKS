@@ -42,7 +42,7 @@ private:
 	float WaitTime = 0.0f;
 
 	float4 AtlasData = float4::Zero;
-	CaptureBuffer Buffer = CaptureBuffer();
+	ColorBuffer Buffer = ColorBuffer();
 
 };
 

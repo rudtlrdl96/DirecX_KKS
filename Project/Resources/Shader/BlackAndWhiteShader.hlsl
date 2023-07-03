@@ -67,7 +67,7 @@ OutPut Texture_VS(Input _Value)
     return OutPutValue;
 }
 
-cbuffer CaptureBuffer : register(b1)
+cbuffer BlackAndWhiteBuffer : register(b1)
 {
     float4 OutColor;
 }
@@ -77,10 +77,18 @@ SamplerState SAMPLER : register(s0);
 
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
-    float4 Color = DiffuseTex.Sample(SAMPLER, _Value.UV.xy);
     
-    Color.xyz = OutColor.xyz;
-    Color.a *= OutColor.a;
+    float2 Uv = _Value.UV.xy;
+    float4 Color = DiffuseTex.Sample(SAMPLER, Uv);
+    
+    if (0.0f != OutColor.a)
+    {
+        float DivColor = (Color.x + Color.y + Color.z) / 3;
+        
+        Color.x = DivColor;
+        Color.y = DivColor;
+        Color.z = DivColor;
+    }
     
     return Color;
 }

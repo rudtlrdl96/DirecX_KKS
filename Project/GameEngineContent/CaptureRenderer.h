@@ -38,7 +38,7 @@ protected:
 private:
 	std::shared_ptr<GameEngineSpriteRenderer> CaptureRender = nullptr;
 
-	CaptureBuffer Buffer;
+	ColorBuffer Buffer;
 
 	float4 AtlasData = float4(0.0f, 0.0f, 1.0f, 1.0f);
 
