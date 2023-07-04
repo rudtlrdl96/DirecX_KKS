@@ -984,6 +984,9 @@
     <ClInclude Include="BaseGear.h">
       <Filter>2_Actor\Gear</Filter>
     </ClInclude>
+    <ClInclude Include="SkullGear.h">
+      <Filter>2_Actor\Gear\Skull</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1642,6 +1645,9 @@
     </ClCompile>
     <ClCompile Include="BaseGear.cpp">
       <Filter>2_Actor\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="SkullGear.cpp">
+      <Filter>2_Actor\Gear\Skull</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

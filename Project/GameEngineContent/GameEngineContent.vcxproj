@@ -538,6 +538,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="SkullGear.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="StoryFontActor.h">
       <SubType>
       </SubType>
@@ -1335,6 +1339,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SkullGear.cpp">
       <SubType>
       </SubType>
     </ClCompile>

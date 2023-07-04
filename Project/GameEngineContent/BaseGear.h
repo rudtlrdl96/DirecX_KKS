@@ -43,16 +43,6 @@ public:
 	}
 
 protected:
-	void Start() override;
-	void Update(float _DeltaTime) override;
-
-	void Destroy() override;
-
-	virtual void UseGear();
-
-	void SetWaveState(std::shared_ptr<GameEngineCollision> _PlatformCol);
-
-private:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	BlackAndWihteBuffer Buffer;
 
@@ -66,16 +56,22 @@ private:
 	bool IsEffectOff = false;
 	bool IsBlackAndWhite = false;
 	bool IsColWave = false;
-
-
+	bool IsPrevFrameCol = false;
 
 	float4 WaveCenter = float4::Zero;
 	std::vector<float4> BezierPoint;
 	float BezierProgress = 0.0f;
 
-	virtual void PlayDestroyEffect();
-
 	std::function<void()> MoveEndCallback = nullptr;
+	std::function<void()> ColEnterCallback = nullptr;
+	std::function<void()> ColExitCallback = nullptr;
 
+	void Start() override;
+	void Update(float _DeltaTime) override;
+
+	void Destroy() override;
+	void SetWaveState(std::shared_ptr<GameEngineCollision> _PlatformCol);
+
+	virtual void UseGear();
+	virtual void PlayDestroyEffect();
 };
-

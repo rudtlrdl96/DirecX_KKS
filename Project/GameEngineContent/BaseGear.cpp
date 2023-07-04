@@ -73,9 +73,28 @@ void BaseGear::Start()
 
 void BaseGear::Update(float _DeltaTime)
 {
+	bool IsBodyCol = false;
+	
+	if (nullptr != GearBodyCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	{
+		IsBodyCol = true;
+
+		if (false == IsPrevFrameCol && nullptr != ColEnterCallback)
+		{
+			ColEnterCallback();
+		}
+	}
+	else
+	{
+		if (true == IsPrevFrameCol && nullptr != ColExitCallback)
+		{
+			ColExitCallback();
+		}
+	}
+
 	if (true == IsBlackAndWhite)
 	{
-		if (nullptr == GearBodyCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+		if (false == IsBodyCol)
 		{
 			Buffer.Color.a = 1.0f;
 		}
@@ -88,7 +107,7 @@ void BaseGear::Update(float _DeltaTime)
 
 	if (true == IsColWave)
 	{
-		if (nullptr == GearBodyCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+		if (false == IsBodyCol)
 		{
 			State = PrevState;
 			GetTransform()->SetWorldPosition(WaveCenter);
@@ -98,8 +117,8 @@ void BaseGear::Update(float _DeltaTime)
 			State = GearState::Wave;
 			ResetLiveTime();
 		}
-
 	}
+
 
 	switch (State)
 	{
@@ -175,6 +194,7 @@ void BaseGear::Update(float _DeltaTime)
 		break;
 	}
 
+	IsPrevFrameCol = IsBodyCol;
 }
 
 void BaseGear::Destroy()
