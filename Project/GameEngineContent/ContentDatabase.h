@@ -102,6 +102,19 @@ public:
 			_CopyBuffer[i] = CopyRef[i];
 		}
 	}
+
+	static bool IsVaild(size_t _Index)
+	{
+		if (AllDatas.find(_Index) != AllDatas.end())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 private:
 	static std::map<size_t, DataClass> AllDatas;
 	static std::map<GradeEnum, std::vector<DataClass>> GradeDatas;

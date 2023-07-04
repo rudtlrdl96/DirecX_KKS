@@ -18,7 +18,7 @@ public:
 	void Destroy() override;
 
 	void SetInventoryData();
-	void InsertNewSkull(UINT _SkullIndex);
+	void InsertNewSkull(size_t _SkullIndex);
 	void ForceSwapSkull();
 
 	inline float GetMeleeAttack() const

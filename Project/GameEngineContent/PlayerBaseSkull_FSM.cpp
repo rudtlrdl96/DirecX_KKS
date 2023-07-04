@@ -77,12 +77,12 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 			return;
 		}
 	}
-	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Left"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Left"))
 	{
 		ViewDir = ActorViewDir::Left;
 		PlayerFSM.ChangeState("Walk");
 	}
-	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsDown("PlayerMove_Right"))
+	else if (false == ParentPlayer->IsInputLock() && true == GameEngineInput::IsPress("PlayerMove_Right"))
 	{
 		ViewDir = ActorViewDir::Right;
 		PlayerFSM.ChangeState("Walk");

@@ -53,7 +53,7 @@ float4 ContentFunc::Bezier(std::vector<float4>& _Points, float _Time)
 {
     std::vector<float4> CopyPoint = _Points;
 
-    int i = CopyPoint.size() - 1;
+    size_t i = CopyPoint.size() - 1;
 
     while (i > 0) 
     {

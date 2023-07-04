@@ -9,21 +9,18 @@ static void LoadSkull(const SkullData& _Data)
 
 void ContentCore::SkullDataLoad()
 {
-	LoadSkull({ .Name = "리틀본", .Index = 0, .Grade = SkullGrade::Normal });
+	LoadSkull({ .Name = "리틀본", .HeadTexName = "BoneSkul_Head.png", .Index = 0, .Grade = SkullGrade::Normal });
+	LoadSkull({.Name = "웨어울프", .HeadTexName = "Werewolf_Head1.png", .Index = 1, .Grade = SkullGrade::Normal, .MoveSpeed = 440.0f});
 
-	LoadSkull({.Name = "웨어울프", .Index = 1, .Grade = SkullGrade::Normal, .MoveSpeed = 440.0f});
-	LoadSkull({.Name = "나이 든 웨어울프", .Index = 100, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
-	LoadSkull({ .Name = "미노타우로스", .Index = 101, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
-	//LoadSkull({ .Name = "연금술사", .Index = 102, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
+	LoadSkull({.Name = "나이 든 웨어울프", .HeadTexName = "Werewolf_Head2.png", .Index = 100, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
+	LoadSkull({ .Name = "미노타우로스 1세", .HeadTexName = "Minotaurus_Head1.png", .Index = 101, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
 
-	LoadSkull({.Name = "우두머리 웨어울프", .Index = 200, .Grade = SkullGrade::Unique});
-	LoadSkull({ .Name = "미노타우로스 2세", .Index = 201, .Grade = SkullGrade::Unique });
-	//LoadSkull({ .Name = "고위 연금술사", .Index = 202, .Grade = SkullGrade::Unique });
-	LoadSkull({ .Name = "경비대장", .Index = 203, .Grade = SkullGrade::Unique });
+	LoadSkull({.Name = "우두머리 웨어울프", .HeadTexName = "Werewolf_Head3.png", .Index = 200, .Grade = SkullGrade::Unique});
+	LoadSkull({ .Name = "미노타우로스 2세", .HeadTexName = "Minotaurus_Head2.png", .Index = 201, .Grade = SkullGrade::Unique });
+	LoadSkull({ .Name = "경비대장", .HeadTexName = "ChiefGuard_Head.png", .Index = 203, .Grade = SkullGrade::Unique });
 	
-	LoadSkull({.Name = "영원의 웨어울프", .Index = 300, .Grade = SkullGrade::Legendary});
-	LoadSkull({ .Name = "미노타우로스 3세", .Index = 301, .Grade = SkullGrade::Legendary });
-	//LoadSkull({ .Name = "검은 연금술사", .Index = 302, .Grade = SkullGrade::Legendary });
+	LoadSkull({.Name = "영원의 웨어울프", .HeadTexName = "Werewolf_Head4.png", .Index = 300, .Grade = SkullGrade::Legendary});
+	LoadSkull({ .Name = "미노타우로스 3세", .HeadTexName = "Minotaurus_Head3.png", .Index = 301, .Grade = SkullGrade::Legendary });
 
 	if (nullptr == GameEngineTexture::Find("BoneSkull_Idle.png"))
 	{

@@ -46,6 +46,8 @@ protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	BlackAndWihteBuffer Buffer;
 
+	std::shared_ptr<class Player> ColPlayer = nullptr;
+
 	std::shared_ptr<GameEngineCollision> GearBodyCol = nullptr;
 	std::shared_ptr<GameEngineCollision> GearGroundCol = nullptr;
 	Rigidbody2D DropRigid;

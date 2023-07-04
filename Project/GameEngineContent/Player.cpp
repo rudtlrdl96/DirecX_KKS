@@ -27,8 +27,7 @@
 #include "BattleActorDamageFont.h"
 
 #include "ContentLevel.h"
-
-#include "BaseGear.h"
+#include "SkullGear.h"
 
 Player::Player()
 {
@@ -79,7 +78,7 @@ void Player::SetInventoryData()
 	MainSkull->On();
 }
 
-void Player::InsertNewSkull(UINT _SkullIndex)
+void Player::InsertNewSkull(size_t _SkullIndex)
 {
 	const SkullData& CreateData = ContentDatabase<SkullData, SkullGrade>::GetData(_SkullIndex);
 
@@ -90,6 +89,11 @@ void Player::InsertNewSkull(UINT _SkullIndex)
 	}
 	else
 	{
+		std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
+
+		Gear->DropGear(GetTransform()->GetWorldPosition() + float4(0, 20, -1));
+		Gear->Init(MainSkull->Data.Index);
+
 		MainSkull->Death();
 		MainSkull = nullptr;
 		Inventory::SetMainSkull(CreateData);
@@ -367,10 +371,11 @@ void Player::Update(float _DeltaTime)
 		//std::shared_ptr<BaseGear> Gear = GetLevel()->CreateActor<BaseGear>();
 		//Gear->DropGear(GetTransform()->GetWorldPosition());
 
-		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 20); 
+		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, -1); 
 
 		{
-			std::shared_ptr<BaseGear> Gear = GetLevel()->CreateActor<BaseGear>();
+			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
+			Gear->Init(203);
 			Gear->DropGear_Bezier(PlayerPos, PlayerPos);
 			Gear->BlackAndWhiteColorOn();
 			Gear->SetEndCallback([Gear]()
@@ -381,7 +386,8 @@ void Player::Update(float _DeltaTime)
 		}
 
 		{
-			std::shared_ptr<BaseGear> Gear = GetLevel()->CreateActor<BaseGear>();
+			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
+			Gear->Init(300);
 			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(-70, 0));
 			Gear->BlackAndWhiteColorOn();
 			Gear->SetEndCallback([Gear]()
@@ -392,7 +398,8 @@ void Player::Update(float _DeltaTime)
 		}
 
 		{
-			std::shared_ptr<BaseGear> Gear = GetLevel()->CreateActor<BaseGear>();
+			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
+			Gear->Init(301);
 			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(70, 0));
 			Gear->BlackAndWhiteColorOn();
 			Gear->SetEndCallback([Gear]()

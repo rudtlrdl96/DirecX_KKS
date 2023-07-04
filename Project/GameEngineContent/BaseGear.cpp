@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "BaseGear.h"
+#include "Player.h"
 
 BaseGear::BaseGear()
 {
@@ -69,19 +70,43 @@ void BaseGear::Start()
 	DropRigid.SetActiveGravity(true);
 	DropRigid.SetGravity(-2000);
 	DropRigid.SetMaxSpeed(2000);
+
+	if (false == GameEngineInput::IsKey("UseKey"))
+	{
+		GameEngineInput::CreateKey("UseKey", 'F');
+	}
 }
 
 void BaseGear::Update(float _DeltaTime)
 {
 	bool IsBodyCol = false;
-	
-	if (nullptr != GearBodyCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+		
+	if (nullptr != ColPlayer && true == ColPlayer->IsDeath())
 	{
+		ColPlayer = nullptr;
+	}
+
+	std::shared_ptr<GameEngineCollision> Col = GearBodyCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+	if (nullptr != Col)
+	{
+		ColPlayer = Col->GetActor()->DynamicThis<Player>();
+
+		if (nullptr == ColPlayer)
+		{
+			MsgAssert_Rtti<BaseGear>(" - Player 클래스만 Player ColOrder를 가질 수 있습니다.");
+		}
+
 		IsBodyCol = true;
 
 		if (false == IsPrevFrameCol && nullptr != ColEnterCallback)
 		{
 			ColEnterCallback();
+		}
+
+		if (true == GameEngineInput::IsDown("UseKey"))
+		{
+			UseGear();
 		}
 	}
 	else

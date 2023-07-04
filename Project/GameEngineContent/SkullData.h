@@ -12,6 +12,8 @@ class SkullData
 {
 public:
 	std::string Name = "";
+	std::string HeadTexName = "";
+
 	size_t Index = static_cast<size_t>(-1);
 
 	SkullGrade Grade = SkullGrade::Normal;
