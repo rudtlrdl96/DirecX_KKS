@@ -39,6 +39,9 @@ public:
 		// V0 + t * (V1 - V0)
 		return _Start + _Progress * (_End - _Start);
 	}
+
+	static float4 Bezier(std::vector<float4>& _Points, float _Time);
+
 protected:
 	
 private:

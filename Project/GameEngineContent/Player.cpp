@@ -28,6 +28,8 @@
 
 #include "ContentLevel.h"
 
+#include "BaseGear.h"
+
 Player::Player()
 {
 }
@@ -248,6 +250,7 @@ void Player::Start()
 	{
 		GameEngineInput::CreateKey("Cheat_Attack", '7');
 		GameEngineInput::CreateKey("Cheat_HP", '8');
+		GameEngineInput::CreateKey("Cheat_GearTest", '9');
 	}
 
 	CheatDebugComp_Attack = CreateComponent<GameEngineComponent>();
@@ -356,6 +359,47 @@ void Player::Update(float _DeltaTime)
 		else
 		{
 			CheatRender_HP->Off();
+		}
+	}
+
+	if (true == GameEngineInput::IsDown("Cheat_GearTest"))
+	{
+		//std::shared_ptr<BaseGear> Gear = GetLevel()->CreateActor<BaseGear>();
+		//Gear->DropGear(GetTransform()->GetWorldPosition());
+
+		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 20); 
+
+		{
+			std::shared_ptr<BaseGear> Gear = GetLevel()->CreateActor<BaseGear>();
+			Gear->DropGear_Bezier(PlayerPos, PlayerPos);
+			Gear->BlackAndWhiteColorOn();
+			Gear->SetEndCallback([Gear]()
+				{
+					Gear->BlackAndWhiteEffectOn();
+					Gear->ColWaveOn();
+				});
+		}
+
+		{
+			std::shared_ptr<BaseGear> Gear = GetLevel()->CreateActor<BaseGear>();
+			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(-70, 0));
+			Gear->BlackAndWhiteColorOn();
+			Gear->SetEndCallback([Gear]()
+				{
+					Gear->BlackAndWhiteEffectOn();
+					Gear->ColWaveOn();
+				});
+		}
+
+		{
+			std::shared_ptr<BaseGear> Gear = GetLevel()->CreateActor<BaseGear>();
+			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(70, 0));
+			Gear->BlackAndWhiteColorOn();
+			Gear->SetEndCallback([Gear]()
+				{
+					Gear->BlackAndWhiteEffectOn();
+					Gear->ColWaveOn();
+				});
 		}
 	}
 

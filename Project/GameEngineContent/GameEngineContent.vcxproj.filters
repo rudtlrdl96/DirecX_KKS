@@ -379,6 +379,9 @@
     <Filter Include="2_Actor\Gear">
       <UniqueIdentifier>{c7a616bf-256a-49b9-81ed-66344a906813}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Gear\Skull">
+      <UniqueIdentifier>{f1cecb24-2c1b-4966-a61c-5c2d7ebf0bd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">

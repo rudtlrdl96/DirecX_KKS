@@ -49,6 +49,25 @@ std::shared_ptr<class GameEngineCollision> ContentFunc::PlatformColCheck(const s
     return ReslutCol;
 }
 
+float4 ContentFunc::Bezier(std::vector<float4>& _Points, float _Time)
+{
+    std::vector<float4> CopyPoint = _Points;
+
+    int i = CopyPoint.size() - 1;
+
+    while (i > 0) 
+    {
+        for (size_t k = 0; k < i; k++)
+        {
+            CopyPoint[k] = CopyPoint[k] + ((CopyPoint[k + 1] - CopyPoint[k]) * _Time);
+        }
+
+        i--;
+    }
+
+    return CopyPoint[0];
+}
+
 void ContentFunc::ImGuiHelpMarker(const std::string_view& _Text)
 {
 	ImGui::TextDisabled("(?)");
