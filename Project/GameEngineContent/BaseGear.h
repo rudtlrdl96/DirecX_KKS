@@ -58,7 +58,10 @@ protected:
 	bool IsEffectOff = false;
 	bool IsBlackAndWhite = false;
 	bool IsColWave = false;
+	bool IsBodyCol = false;
 	bool IsPrevFrameCol = false;
+
+	static bool GearDoubleCheck;
 
 	float4 WaveCenter = float4::Zero;
 	std::vector<float4> BezierPoint;

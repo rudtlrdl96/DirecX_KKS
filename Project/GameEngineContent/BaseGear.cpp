@@ -2,12 +2,18 @@
 #include "BaseGear.h"
 #include "Player.h"
 
+bool BaseGear::GearDoubleCheck = false;
+
 BaseGear::BaseGear()
 {
 }
 
 BaseGear::~BaseGear()
 {
+	if (true == IsBodyCol || true == IsPrevFrameCol)
+	{
+		GearDoubleCheck = false;
+	}
 }
 
 void BaseGear::DropGear(const float4& _WorldPos)
@@ -79,8 +85,13 @@ void BaseGear::Start()
 
 void BaseGear::Update(float _DeltaTime)
 {
-	bool IsBodyCol = false;
-		
+	if (true == IsPrevFrameCol || true == IsBodyCol)
+	{
+		GearDoubleCheck = false;
+	}
+
+	IsBodyCol = false;
+
 	if (nullptr != ColPlayer && true == ColPlayer->IsDeath())
 	{
 		ColPlayer = nullptr;
@@ -88,9 +99,10 @@ void BaseGear::Update(float _DeltaTime)
 
 	std::shared_ptr<GameEngineCollision> Col = GearBodyCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
 
-	if (nullptr != Col)
+	if (false == GearDoubleCheck && nullptr != Col)
 	{
 		ColPlayer = Col->GetActor()->DynamicThis<Player>();
+		GearDoubleCheck = true;
 
 		if (nullptr == ColPlayer)
 		{
@@ -143,7 +155,6 @@ void BaseGear::Update(float _DeltaTime)
 			ResetLiveTime();
 		}
 	}
-
 
 	switch (State)
 	{
