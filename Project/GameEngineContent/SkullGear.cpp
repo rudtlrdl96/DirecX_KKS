@@ -58,6 +58,7 @@ void SkullGear::UseGear()
 		return;
 	}
 
+	GetContentLevel()->CallEvent("SkullGearPopupOff");
 	ColPlayer->InsertNewSkull(Data.Index);
 	Death();
 }

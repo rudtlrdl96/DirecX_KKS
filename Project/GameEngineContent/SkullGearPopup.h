@@ -41,6 +41,7 @@ private:
 	std::shared_ptr<GameEngineUIRenderer> SkillIconA = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> SkillIconB = nullptr;
 
+	std::shared_ptr<ContentUIFontRenderer> SkullNoteFont = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> SkullNameFont = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> SkullGradeFont = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> SkullTypeFont = nullptr;

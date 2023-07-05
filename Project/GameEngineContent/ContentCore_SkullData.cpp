@@ -17,7 +17,8 @@ void ContentCore::SkullDataLoad()
 		.IconName_SkillA = "SkullThrowing.png", .IconName_SkillB = "Rebone.png",
 		.Index = 0, .Grade = SkullGrade::Normal, .SkullType = SkullType::Balance});
 
-	LoadSkull({.Name = "웨어울프", .HeadTexName = "Werewolf_Head1.png", 
+	LoadSkull({.Name = "웨어울프", .HeadTexName = "Werewolf_Head1.png",
+		.SkullNote = "교대 시 무적상태로 돌진하여 물리데미지를 입힙니다.",
 		.IconName_MainSkull = "Normal_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Normal_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Normal_WereWolf_UI_Inventory.png",
 		.IconName_SkillA = "WereWolf_Predation1.png", .IconName_SkillB = "Empty.png",
 		.Index = 1, .Grade = SkullGrade::Normal, .SkullType = SkullType::Speed , .MoveSpeed = 440.0f, });
@@ -25,11 +26,13 @@ void ContentCore::SkullDataLoad()
 	/////////////////////////// 레어 스컬 /////////////////////////////////
 
 	LoadSkull({.Name = "나이 든 웨어울프", .HeadTexName = "Werewolf_Head2.png",
+		.SkullNote = "교대 시 무적상태로 돌진하여 물리데미지를 입힙니다.",
 		.IconName_MainSkull = "Rare_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Rare_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Rare_WereWolf_UI_Inventory.png",
 		.IconName_SkillA = "WereWolf_Predation2.png", .IconName_SkillB = "Empty.png" ,
 		.Index = 100, .Grade = SkullGrade::Rare, .SkullType = SkullType::Speed , .MoveSpeed = 440.0f });
 
 	LoadSkull({ .Name = "미노타우로스 1세", .HeadTexName = "Minotaurus_Head1.png",
+		.SkullNote = "스킬 사용 시 3초간 주변의 가까운 적에게 물리데미지를 입힙니다.",
 		.IconName_MainSkull = "Rare_Minotaurus_UI_MainSkull.png", .IconName_SubSkull = "Rare_Minotaurus_UI_SubSkull.png", .IconName_Inventory = "Rare_Minotaurus_UI_Inventory.png",
 		.IconName_SkillA = "Minotaurus_Stamp1.png", .IconName_SkillB = "Empty.png" ,
 		.Index = 101, .Grade = SkullGrade::Rare, .SkullType = SkullType::Power , .MoveSpeed = 440.0f });
@@ -38,11 +41,13 @@ void ContentCore::SkullDataLoad()
 	/////////////////////////// 유니크 스컬 /////////////////////////////////
 
 	LoadSkull({.Name = "우두머리 웨어울프", .HeadTexName = "Werewolf_Head3.png",
+		.SkullNote = "교대 시 무적상태로 돌진하여 물리데미지를 입힙니다. 지난 자리에 다수의 칼바람이 일어나 마법데미지를 입힙니다.",
 		.IconName_MainSkull = "Unique_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Unique_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Unique_WereWolf_UI_Inventory.png",
 		.IconName_SkillA = "WereWolf_Predation3.png", .IconName_SkillB = "WereWolf_Hunting3.png" ,
 		.Index = 200, .Grade = SkullGrade::Unique, .SkullType = SkullType::Speed });
 
 	LoadSkull({ .Name = "미노타우로스 2세", .HeadTexName = "Minotaurus_Head2.png",
+		.SkullNote = "스킬 사용 시 땅울림을 4회 일으켜 주변 적에게 물리데미지를 입히고 10% 확률로 기절을 부여합니다.",
 		.IconName_MainSkull = "Unique_Minotaurus_UI_MainSkull.png", .IconName_SubSkull = "Unique_Minotaurus_UI_SubSkull.png", .IconName_Inventory = "Unique_Minotaurus_UI_Inventory.png",
 		.IconName_SkillA = "Minotaurus_Stamp2.png", .IconName_SkillB = "Minotaurus_PlowUp2.png" ,
 		.Index = 201, .Grade = SkullGrade::Unique, .SkullType = SkullType::Power });
@@ -55,11 +60,13 @@ void ContentCore::SkullDataLoad()
 	/////////////////////////// 레전더리 스컬 /////////////////////////////////
 
 	LoadSkull({.Name = "영원의 웨어울프", .HeadTexName = "Werewolf_Head4.png",
+		.SkullNote = "교대 시 무적상태로 돌진하여 물리데미지를 입힙니다. 지난 자리에 다수의 칼바람이 일어나 마법데미지를 입힙니다.이후 5초간 1초마다 지난 자리에 칼바람이 일어나 마법데미지를 입힙니다.",
 		.IconName_MainSkull = "Legandary_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Legandary_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Legandary_WereWolf_UI_Inventory.png",
 		.IconName_SkillA = "WereWolf_Predation4.png", .IconName_SkillB = "WereWolf_Hunting4.png" ,
 		.Index = 300, .Grade = SkullGrade::Legendary, .SkullType = SkullType::Speed });
 
 	LoadSkull({ .Name = "미노타우로스 3세", .HeadTexName = "Minotaurus_Head3.png",
+		.SkullNote = "스킬 사용 시 땅울림을 4회 일으켜 주변 적에게 물리데미지를 입히고 10% 확률로 기절을 부여합니다.",
 		.IconName_MainSkull = "Legendary_Minotaurus_UI_MainSkull.png", .IconName_SubSkull = "Legendary_Minotaurus_UI_SubSkull.png", .IconName_Inventory = "Legendary_Minotaurus_UI_Inventory.png",
 		.IconName_SkillA = "Minotaurus_Stamp3.png", .IconName_SkillB = "Minotaurus_PlowUp3.png" ,
 		.Index = 301, .Grade = SkullGrade::Legendary, .SkullType = SkullType::Power });

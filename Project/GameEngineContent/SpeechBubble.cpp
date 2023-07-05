@@ -116,7 +116,7 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 
 		}
 
-		if (TextureBoardX < MaxY)
+		if (TextureBoardY < MaxY)
 		{
 			BubbleRender->GetTransform()->AddWorldScale(float4(0, MaxY - TextureBoardY + 10));
 		}

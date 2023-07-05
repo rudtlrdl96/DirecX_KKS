@@ -24,7 +24,6 @@ void SkullGearPopup::PopupOn()
 	float4 BackgroundScale = float4(434, 220, 1);
 	float4 NoteScale = float4::Zero;
 
-
 	SkullNameFont->SetText(Data.Name);
 
 	switch (Data.Grade)
@@ -63,11 +62,6 @@ void SkullGearPopup::PopupOn()
 		break;
 	}
 		
-
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(SkullTypeFont->GetTransform());
-	Ptr->On();
-
 	SkillIconA->SetTexture(Data.IconName_SkillA);
 
 	if ("Empty.png" == Data.IconName_SkillB)
@@ -93,17 +87,56 @@ void SkullGearPopup::PopupOn()
 
 
 
+	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	Ptr->SetTarget(NoteRender->GetTransform());
+	Ptr->On();
+
+
 	if ("" == Data.SkullNote)
 	{
 		NoteRender->Off();
+		SkullNoteFont->Off();
 	}
 	else
 	{
 		NoteRender->On();
+		SkullNoteFont->On();
+
+		std::wstring NoteText = GameEngineString::AnsiToUniCode(Data.SkullNote);
+
+		float TextureBoardX = 380.0f;
+		float TextureBoardY = 0.0f;
+
+		float CurX = 0.0f;
+		float CurY = 16.0f;
+
+		for (size_t i = 0; i < NoteText.size(); i++)
+		{
+			CurX += 16.0f * 0.7f;
+
+			if (TextureBoardX < CurX + 16.0f)
+			{
+				CurX = 0;
+				NoteText.insert(NoteText.begin() + i, L'\n');
+				CurY += 16.0f;
+			}
+		}
+
+		NoteScale.x = 414.0f;
+		NoteScale.y = CurY + 20;
+
+		SkullNoteFont->SetText(GameEngineString::UniCodeToAnsi(NoteText));
+
+		NoteRender->GetTransform()->SetLocalScale(NoteScale);
+		NoteRender->GetTransform()->SetLocalPosition(float4(0, -NoteScale.hy() + 20, -0.1f));
+
+		SkullNoteFont->GetTransform()->SetLocalPosition(NoteRender->GetTransform()->GetLocalPosition() + float4(-190, 0, -1));
 	}
 
 
-	SkillFrame->GetTransform()->SetLocalPosition(float4(0, -44, -0.2f));
+	SkillFrame->GetTransform()->SetLocalPosition(float4(0, -44 - NoteScale.y, -0.2f));
+
+	ItemFrameRender->GetTransform()->SetLocalPosition(float4(0, -NoteScale.hy(), 0));
 	ItemFrameRender->GetTransform()->SetLocalScale(BackgroundScale + float4(0, NoteScale.y, 0));
 
 	On();
@@ -137,7 +170,13 @@ void SkullGearPopup::Start()
 
 	NoteRender = CreateComponent<ContentSlice9UIRenderer>();
 	NoteRender->SetTextureAndSlice("ItemPopup_Front.png", 0.1f, 0.1f, 0.3f, 0.3f);
-	NoteRender->GetTransform()->SetLocalPosition(float4(0, 0, -0.1f));
+	NoteRender->GetTransform()->SetLocalPosition(float4(0, -6, -0.1f));
+
+	SkullNoteFont = CreateComponent<ContentUIFontRenderer>();
+	SkullNoteFont->SetFont("³Ø½¼Lv2°íµñ");
+	SkullNoteFont->SetScale(16);
+	SkullNoteFont->SetColor(float4(0.45882f, 0.33725f, 0.33333f, 1));
+	SkullNoteFont->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_LEFT));
 
 	SkillFrame = CreateComponent<GameEngineUIRenderer>();
 	SkillFrame->GetTransform()->SetLocalPosition(float4(0, 0, -0.2f));
