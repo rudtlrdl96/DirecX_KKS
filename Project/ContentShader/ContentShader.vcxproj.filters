@@ -11,5 +11,6 @@
     <FxCompile Include="..\Resources\Shader\ObjectColorShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\SliceShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\BlackAndWhiteShader.hlsl" />
+    <FxCompile Include="..\Resources\Shader\FixedColorShader.hlsl" />
   </ItemGroup>
 </Project>

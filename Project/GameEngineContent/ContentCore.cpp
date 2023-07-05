@@ -323,6 +323,16 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_FixedColor");
+
+		Pipe->SetVertexShader("FixedColorShader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("FixedColorShader.hlsl");
+		Pipe->SetBlendState("ContentAlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
 }
 
 

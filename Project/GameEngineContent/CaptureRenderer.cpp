@@ -49,7 +49,7 @@ void CaptureRenderer::Play(const float4& _StartColor, const float4& _EndColor, f
 void CaptureRenderer::Start()
 {
 	CaptureRender = CreateComponent<GameEngineSpriteRenderer>();
-	CaptureRender->SetPipeLine("2DTexture_Color");
+	CaptureRender->SetPipeLine("2DTexture_FixedColor");
 	CaptureRender->GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
 	CaptureRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	CaptureRender->SetTexture("Empty.png");
