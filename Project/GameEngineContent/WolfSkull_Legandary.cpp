@@ -520,6 +520,7 @@ void WolfSkull_Legandary::Switch_Enter()
 	AttackTypeValue = AttackType::MeleeAttack;
 	IsSwitchMove = false;
 	SwitchMoveProgress = 0.0f;
+	DashAvoidance = true;
 }
 
 void WolfSkull_Legandary::Switch_Update(float _DeltaTime)
@@ -609,6 +610,12 @@ void WolfSkull_Legandary::Switch_Update(float _DeltaTime)
 
 		SwitchCol->Off();
 	}
+}
+
+void WolfSkull_Legandary::Switch_End()
+{
+	PlayerBaseSkull::Switch_End();
+	DashAvoidance = false;
 }
 
 void WolfSkull_Legandary::DataLoad()

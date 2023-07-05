@@ -206,6 +206,7 @@ protected:
 	std::function<void()> BehaviorEndCallback = nullptr;
 	std::function<void()> PauseEndCallback = nullptr;
 
+	bool DashAvoidance = false;
 	bool IsBehaviorAnimPause = false;
 	UINT PauseFrame = 0;
 	float PauseTime = 1.0f;
@@ -317,7 +318,6 @@ private:
 	float DashCoolTime = 1000.0f;
 	float DashTrailCoolTime = 0.0f;
 
-	bool DashAvoidance = false;
 	bool DashCombo = false;
 
 	float WalkSpeed = 350.0f;

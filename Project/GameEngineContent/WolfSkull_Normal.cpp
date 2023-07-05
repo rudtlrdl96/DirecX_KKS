@@ -120,6 +120,7 @@ void WolfSkull_Normal::Switch_Enter()
 	PlayerBaseSkull::Switch_Enter();
 	IsSwitchMove = false;
 	SwitchMoveProgress = 0.0f;
+	DashAvoidance = true;
 }
 
 void WolfSkull_Normal::Switch_Update(float _DeltaTime)
@@ -194,6 +195,12 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 
 		SwitchCol->Off();
 	}
+}
+
+void WolfSkull_Normal::Switch_End()
+{
+	PlayerBaseSkull::Switch_End();
+	DashAvoidance = false;
 }
 
 void WolfSkull_Normal::DataLoad()

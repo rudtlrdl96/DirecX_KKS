@@ -34,6 +34,7 @@ protected:
 
 	void Switch_Enter() override;
 	void Switch_Update(float _DeltaTime) override;
+	void Switch_End() override;
 
 private:
 	bool IsSkillMove = false;
