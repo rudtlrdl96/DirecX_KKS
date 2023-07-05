@@ -254,7 +254,7 @@ void Player::Start()
 	{
 		GameEngineInput::CreateKey("Cheat_Attack", '7');
 		GameEngineInput::CreateKey("Cheat_HP", '8');
-		GameEngineInput::CreateKey("Cheat_GearTest", '9');
+		GameEngineInput::CreateKey("Cheat_GearTest", '0');
 	}
 
 	CheatDebugComp_Attack = CreateComponent<GameEngineComponent>();

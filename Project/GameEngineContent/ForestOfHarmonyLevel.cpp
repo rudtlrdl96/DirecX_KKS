@@ -75,9 +75,37 @@ void ForestOfHarmonyLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage0_0_Map", DoorType::Normal);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage0_0_Map", DoorType::Skull);
+	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage0_0_Map");
+
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage0_1_Map", DoorType::Broken);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage0_1_Map", DoorType::Skull);
+	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage0_1_Map");
+
 	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage0_2_Map", DoorType::MiddleBoss);
 	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage0_2_Map", DoorType::Broken);
+	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage0_2_Map");	
+	
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_MiddleBoss_Map", DoorType::Normal);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_MiddleBoss_Map", DoorType::Broken);
+	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_MiddleBoss_Map");
 
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_SkullUpgrade_Map", DoorType::Skull);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_SkullUpgrade_Map", DoorType::Broken);
+
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage1_0_Map", DoorType::Normal);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage1_0_Map", DoorType::Normal);
+	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage1_0_Map");
+
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage1_1_Map", DoorType::Skull);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage1_1_Map", DoorType::Skull);
+	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage1_1_Map");
+
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage1_2_Map", DoorType::BossInter);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage1_2_Map", DoorType::Broken);
+	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage1_2_Map");
+		
 	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_BossEntrance_Map", DoorType::MainBoss);
 
 	BossFlop = CreateActor<BossRoomFlop>();
@@ -103,7 +131,7 @@ void ForestOfHarmonyLevel::Start()
 	// 업그레이드
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_SkullUpgrade_Map", "DB_ForestOfHarmony_Background_02" });
 
-	// 스테이즈 2
+	// 스테이지 2
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_Stage1_0_Map", "DB_ForestOfHarmony_Background_02" });
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_Stage1_1_Map", "DB_ForestOfHarmony_Background_02" });
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_Stage1_2_Map", "DB_ForestOfHarmony_Background_02" });
@@ -115,9 +143,7 @@ void ForestOfHarmonyLevel::Start()
 	// 보스방
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_BossRoom_Map", "DB_ForestOfHarmony_Background_04" });
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_BossRoomEnd_Map", "DB_ForestOfHarmony_Background_05" });
-
 	
-
 	CurStageIndex = 0;
 	//CurStageIndex = 10;
 	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;

@@ -163,6 +163,34 @@ void BattleArea::SetSecondDoorType(const std::string_view& _StageName, DoorType 
 	FindIter->second->SetSecondDoorType(_Type);
 }
 
+void BattleArea::StageRewardOn(const std::string_view& _StageName)
+{
+	std::string UpperName = GameEngineString::ToUpper(_StageName);
+	std::map<std::string, std::shared_ptr<BattleStage>>::iterator FindIter = BattleStageDatas.find(UpperName);
+
+	if (FindIter == BattleStageDatas.end())
+	{
+		MsgAssert_Rtti<BattleArea>(" - 해당이름의 스테이지가 존재하지 않습니다 : " + UpperName);
+		return;
+	}
+
+	FindIter->second->StageRewardOn();
+}
+
+void BattleArea::StageRewardOff(const std::string_view& _StageName)
+{
+	std::string UpperName = GameEngineString::ToUpper(_StageName);
+	std::map<std::string, std::shared_ptr<BattleStage>>::iterator FindIter = BattleStageDatas.find(UpperName);
+
+	if (FindIter == BattleStageDatas.end())
+	{
+		MsgAssert_Rtti<BattleArea>(" - 해당이름의 스테이지가 존재하지 않습니다 : " + UpperName);
+		return;
+	}
+
+	FindIter->second->StageRewardOff();
+}
+
 void BattleArea::ClearStage()
 {
 	if (nullptr != CurStage)

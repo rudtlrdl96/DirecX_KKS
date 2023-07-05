@@ -10,6 +10,7 @@
 #include "ParticleManager.h"
 #include "MonsterManager.h"
 #include "NPCManager.h"
+#include "StageRewardObject.h"
 
 #include "BattleLevel.h"
 
@@ -50,6 +51,15 @@ void BattleStage::StageReset()
 	NPCMgrPtr->ResetNPC();
 	MonsterMgrPtr->ResetMonster();
 	GetContentLevel()->CallEvent("UnlockMonsterMove");
+
+	IsStageReward = false;
+	IsRewardEnd = false;
+
+	if (nullptr != RewardObject)
+	{
+		RewardObject->Death();
+		RewardObject = nullptr;
+	}
 }
 
 void BattleStage::StagePlay()
@@ -57,6 +67,15 @@ void BattleStage::StagePlay()
 	LockCount = 0;
 	NPCMgrPtr->PlayNPC();
 	ObjectManagerPtr->BehaviorObjectPlay();
+
+	IsStageReward = false;
+	IsRewardEnd = false;
+
+	if (nullptr != RewardObject)
+	{
+		RewardObject->Death();
+		RewardObject = nullptr;
+	}
 }
 
 void BattleStage::Destroy()
@@ -101,7 +120,24 @@ void BattleStage::Start()
 
 void BattleStage::Update(float _DeltaTime)
 {
-	if (MonsterMgrPtr->IsSpawnEnd() && 0 >= LockCount)
+	if (false == IsNoneReward)
+	{
+		if (false == IsStageReward && MonsterMgrPtr->IsSpawnEnd())
+		{
+			IsStageReward = true;
+
+			RewardObject = GetLevel()->CreateActor<StageRewardObject>();
+			RewardObject->GetTransform()->SetParent(GetTransform());
+			RewardObject->GetTransform()->SetLocalPosition(EventManagerPtr->GetDoorPoint());
+		}
+
+		if (true == IsStageReward && nullptr != RewardObject && RewardObject->IsRewardEnd())
+		{
+			IsRewardEnd = true;
+		}
+	}
+
+	if ((true == IsNoneReward || true == IsRewardEnd) && MonsterMgrPtr->IsSpawnEnd() && 0 >= LockCount)
 	{
 		EventManagerPtr->DoorActive();
 	}

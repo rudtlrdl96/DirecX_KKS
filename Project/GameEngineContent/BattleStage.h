@@ -33,6 +33,16 @@ public:
 		EventManagerPtr->SetSecondDoorType(_Type);
 	}
 
+	inline void StageRewardOn()
+	{
+		IsNoneReward = false;
+	}
+
+	inline void StageRewardOff()
+	{
+		IsNoneReward = true;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -44,7 +54,12 @@ private:
 	std::shared_ptr<class ParticleManager> ParticleMgrPtr = nullptr;
 	std::shared_ptr<class MonsterManager> MonsterMgrPtr = nullptr;
 	std::shared_ptr<class NPCManager> NPCMgrPtr = nullptr;
+	std::shared_ptr<class StageRewardObject> RewardObject = nullptr;
 
 	int LockCount = 0;
+
+	bool IsNoneReward = true;
+	bool IsStageReward = false;
+	bool IsRewardEnd = false;
 };
 

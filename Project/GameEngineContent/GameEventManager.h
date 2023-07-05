@@ -29,6 +29,11 @@ public:
 		return SpawnPoint;
 	}
 
+	inline float4 GetDoorPoint() const
+	{
+		return DoorPoint;
+	}
+
 	void DoorActive();
 	void DoorDisable();
 

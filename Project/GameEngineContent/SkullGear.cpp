@@ -10,6 +10,10 @@ SkullGear::SkullGear()
 
 SkullGear::~SkullGear()
 {
+	if (true == IsBodyCol)
+	{
+		GetContentLevel()->CallEvent("SkullGearPopupOff");
+	}
 }
 
 void SkullGear::Init(size_t _SkullIndex)

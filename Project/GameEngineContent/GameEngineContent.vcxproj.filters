@@ -373,6 +373,9 @@
     <Filter Include="2_Actor\UI\Gear">
       <UniqueIdentifier>{082363d4-42a5-45c4-9eb3-2357b01a9760}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\Object\Reward">
+      <UniqueIdentifier>{821f8ead-ef35-4066-b721-1fc3dfc8ea52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -983,6 +986,9 @@
     </ClInclude>
     <ClInclude Include="UINoteActor.h">
       <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="StageRewardObject.h">
+      <Filter>2_Actor\Map\Stage\Object\Reward</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1651,6 +1657,9 @@
     </ClCompile>
     <ClCompile Include="UINoteActor.cpp">
       <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="StageRewardObject.cpp">
+      <Filter>2_Actor\Map\Stage\Object\Reward</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
