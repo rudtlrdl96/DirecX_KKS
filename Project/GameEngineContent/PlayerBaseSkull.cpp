@@ -105,6 +105,8 @@ void PlayerBaseSkull::Start()
 		GameEngineInput::CreateKey("PlayerCollisionDebugSwitch", VK_F2);
 	}
 
+	Type = Data.SkullType;
+
 	PlayerFSM.Init(this);
 
 	PlayerFSM.AddFSM("Idle", &PlayerBaseSkull::Idle_Enter, &PlayerBaseSkull::Idle_Update, &PlayerBaseSkull::Idle_End);

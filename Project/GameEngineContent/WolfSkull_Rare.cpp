@@ -13,8 +13,6 @@ WolfSkull_Rare::~WolfSkull_Rare()
 
 void WolfSkull_Rare::Start()
 {
-	Type = SkullType::Speed;
-
 	PlayerBaseSkull::Start();
 
 	GroundCol->GetTransform()->SetWorldScale(float4(14.0f, 5.0f, 1.0f));

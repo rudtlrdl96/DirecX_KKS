@@ -141,11 +141,11 @@ void BattleLevel::Start()
 			{
 				if (ActorViewDir::Left == MainPlayer->GetViewDir())
 				{
-					SkullGearPopupPtr->GetTransform()->SetLocalPosition(float4(-300, 0));
+					SkullGearPopupPtr->GetTransform()->SetLocalPosition(float4(-300, 30));
 				}
 				else
 				{
-					SkullGearPopupPtr->GetTransform()->SetLocalPosition(float4(300, 0));
+					SkullGearPopupPtr->GetTransform()->SetLocalPosition(float4(300, 30));
 				}
 			}
 		});

@@ -5,13 +5,6 @@
 #include "Rigidbody2D.h"
 #include "SkullData.h"
 
-enum class SkullType
-{
-	Power,
-	Speed,
-	Balance
-};
-
 class PlayerBaseSkull : public BattleActor
 {
 protected:

@@ -14,8 +14,6 @@ WolfSkull_Unique::~WolfSkull_Unique()
 
 void WolfSkull_Unique::Start()
 {
-	Type = SkullType::Speed;
-
 	PlayerBaseSkull::Start();
 
 	GroundCol->GetTransform()->SetWorldScale(float4(14.0f, 5.0f, 1.0f));

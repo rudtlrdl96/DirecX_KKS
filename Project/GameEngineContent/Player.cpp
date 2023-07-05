@@ -375,7 +375,7 @@ void Player::Update(float _DeltaTime)
 
 		{
 			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
-			Gear->Init(203);
+			Gear->Init(1);
 			Gear->DropGear_Bezier(PlayerPos, PlayerPos);
 			Gear->BlackAndWhiteColorOn();
 			Gear->SetEndCallback([Gear]()

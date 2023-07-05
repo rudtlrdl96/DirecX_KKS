@@ -20,8 +20,6 @@ MinotaurusSkull_Legendary::~MinotaurusSkull_Legendary()
 
 void MinotaurusSkull_Legendary::Start()
 {
-	Type = SkullType::Power;
-
 	PlayerBaseSkull::Start();
 
 	IsActiveSkillA_Value = true;

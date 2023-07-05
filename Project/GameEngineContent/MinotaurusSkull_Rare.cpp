@@ -14,8 +14,6 @@ MinotaurusSkull_Rare::~MinotaurusSkull_Rare()
 
 void MinotaurusSkull_Rare::Start()
 {
-	Type = SkullType::Power;
-
 	PlayerBaseSkull::Start();
 
 	IsActiveSkillA_Value = true;

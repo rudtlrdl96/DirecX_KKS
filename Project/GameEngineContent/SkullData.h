@@ -8,6 +8,13 @@ enum class SkullGrade
 	Legendary
 };
 
+enum class SkullType
+{
+	Power,
+	Speed,
+	Balance
+};
+
 class SkullData
 {
 public:
@@ -27,6 +34,7 @@ public:
 	size_t Index = static_cast<size_t>(-1);
 
 	SkullGrade Grade = SkullGrade::Normal;
+	SkullType SkullType = SkullType::Balance;
 
 	float HP = 0;
 	float DamageReduction = 0.0f;

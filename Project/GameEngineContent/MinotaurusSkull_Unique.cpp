@@ -20,8 +20,6 @@ MinotaurusSkull_Unique::~MinotaurusSkull_Unique()
 
 void MinotaurusSkull_Unique::Start()
 {
-	Type = SkullType::Power;
-
 	PlayerBaseSkull::Start();
 
 	IsActiveSkillA_Value = true;

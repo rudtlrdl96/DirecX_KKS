@@ -17,8 +17,6 @@ ChiefGuard::~ChiefGuard()
 
 void ChiefGuard::Start()
 {
-	Type = SkullType::Balance;
-
 	PlayerBaseSkull::Start();
 
 	FlashCol = CreateComponent<GameEngineCollision>();

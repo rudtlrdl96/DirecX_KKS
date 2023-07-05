@@ -13,8 +13,6 @@ WolfSkull_Normal::~WolfSkull_Normal()
 
 void WolfSkull_Normal::Start()
 {
-	Type = SkullType::Speed;
-
 	PlayerBaseSkull::Start();
 
 	GroundCol->GetTransform()->SetWorldScale(float4(14.0f, 5.0f, 1.0f));

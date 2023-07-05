@@ -2,6 +2,7 @@
 #include "BaseContentActor.h"
 #include "SkullData.h"
 #include "ContentSlice9UIRenderer.h"
+#include "ContentUIFontRenderer.h"
 
 class SkullGearPopup : public BaseContentActor
 {
@@ -39,5 +40,10 @@ private:
 	std::shared_ptr<GameEngineUIRenderer> SkillFrame = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> SkillIconA = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> SkillIconB = nullptr;
+
+	std::shared_ptr<ContentUIFontRenderer> SkullNameFont = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> SkullGradeFont = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> SkullTypeFont = nullptr;
+
 };
 
