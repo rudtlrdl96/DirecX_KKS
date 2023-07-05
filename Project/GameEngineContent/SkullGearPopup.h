@@ -46,5 +46,10 @@ private:
 	std::shared_ptr<ContentUIFontRenderer> SkullGradeFont = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> SkullTypeFont = nullptr;
 
+	std::shared_ptr<ContentUIFontRenderer> SkullAFont = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> SkullBFont = nullptr;
+
+	std::shared_ptr<class UINoteActor> SwapFontActor = nullptr;
+
 };
 

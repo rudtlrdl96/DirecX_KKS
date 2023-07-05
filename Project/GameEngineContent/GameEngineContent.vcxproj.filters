@@ -981,6 +981,9 @@
     <ClInclude Include="SkullGearPopup.h">
       <Filter>2_Actor\UI\Gear</Filter>
     </ClInclude>
+    <ClInclude Include="UINoteActor.h">
+      <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1645,6 +1648,9 @@
     </ClCompile>
     <ClCompile Include="SkullGearPopup.cpp">
       <Filter>2_Actor\UI\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="UINoteActor.cpp">
+      <Filter>2_Actor\UI\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

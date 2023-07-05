@@ -31,6 +31,9 @@ public:
 	std::string IconName_SkillA = "Empty.png";
 	std::string IconName_SkillB = "Empty.png";
 
+	std::string Name_SkillA = "";
+	std::string Name_SkillB = "";
+
 	size_t Index = static_cast<size_t>(-1);
 
 	SkullGrade Grade = SkullGrade::Normal;

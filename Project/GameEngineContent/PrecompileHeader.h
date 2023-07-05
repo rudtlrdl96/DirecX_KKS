@@ -18,6 +18,7 @@
 #include "ContentDatabase.h"
 #include "ContentShaderBuffer.h"
 #include "ContentLevel.h"
+#include "ContentUIFontRenderer.h"
 
 #include "EffectManager.h"
 #include "GameEventManager.h"

@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "SkullGearPopup.h"
+#include "UINoteActor.h"
 
 SkullData SkullGearPopup::Data = SkullData();
 
@@ -63,6 +64,7 @@ void SkullGearPopup::PopupOn()
 	}
 		
 	SkillIconA->SetTexture(Data.IconName_SkillA);
+	SkullAFont->SetText(Data.Name_SkillA);
 
 	if ("Empty.png" == Data.IconName_SkillB)
 	{
@@ -76,7 +78,7 @@ void SkullGearPopup::PopupOn()
 	{
 		SkillFrame->SetScaleToTexture("Frame_2SKill.png");
 		SkillIconB->SetTexture(Data.IconName_SkillB);
-
+		SkullBFont->SetText(Data.Name_SkillB);
 
 		SkillIconA->GetTransform()->SetLocalPosition(float4(-101, 18, -1.0f));
 		SkillIconB->GetTransform()->SetLocalPosition(float4(101, 18, -1.0f));
@@ -88,7 +90,7 @@ void SkullGearPopup::PopupOn()
 
 
 	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(NoteRender->GetTransform());
+	Ptr->SetTarget(SwapFontActor->GetTransform());
 	Ptr->On();
 
 
@@ -135,6 +137,7 @@ void SkullGearPopup::PopupOn()
 
 
 	SkillFrame->GetTransform()->SetLocalPosition(float4(0, -44 - NoteScale.y, -0.2f));
+	SwapFontActor->GetTransform()->SetLocalPosition(float4(10, -125 - NoteScale.y, -5.0f));
 
 	ItemFrameRender->GetTransform()->SetLocalPosition(float4(0, -NoteScale.hy(), 0));
 	ItemFrameRender->GetTransform()->SetLocalScale(BackgroundScale + float4(0, NoteScale.y, 0));
@@ -149,7 +152,6 @@ void SkullGearPopup::PopupOff()
 
 void SkullGearPopup::Start()
 {
-	if (nullptr == GameEngineTexture::Find("ItemPopup_Back.png"))
 	{
 		GameEngineDirectory Path;
 
@@ -159,11 +161,15 @@ void SkullGearPopup::Start()
 		Path.Move("0_Common");
 		Path.Move("UI");
 
-		GameEngineTexture::Load(Path.GetPlusFileName("ItemPopup_Back.png").GetFullPath());
-		GameEngineTexture::Load(Path.GetPlusFileName("ItemPopup_Front.png").GetFullPath());
-		GameEngineTexture::Load(Path.GetPlusFileName("Frame_1SKill.png").GetFullPath());
-		GameEngineTexture::Load(Path.GetPlusFileName("Frame_2SKill.png").GetFullPath());
+		if (nullptr == GameEngineTexture::Find("ItemPopup_Back.png"))
+		{
+			GameEngineTexture::Load(Path.GetPlusFileName("ItemPopup_Back.png").GetFullPath());
+			GameEngineTexture::Load(Path.GetPlusFileName("ItemPopup_Front.png").GetFullPath());
+			GameEngineTexture::Load(Path.GetPlusFileName("Frame_1SKill.png").GetFullPath());
+			GameEngineTexture::Load(Path.GetPlusFileName("Frame_2SKill.png").GetFullPath());
+		}
 	}
+
 
 	ItemFrameRender = CreateComponent<ContentSlice9UIRenderer>();
 	ItemFrameRender->SetTextureAndSlice("ItemPopup_Back.png", 0, 0, 0.59f, 0.12f);
@@ -190,10 +196,34 @@ void SkullGearPopup::Start()
 	SkillIconA->GetTransform()->SetLocalPosition(float4(0, 0, -0.3f));
 	SkillIconA->GetTransform()->SetLocalScale(float4(48, 48, 1));
 
+	std::shared_ptr<GameEngineComponent> SkillAPivot = CreateComponent<GameEngineComponent>();
+	SkillAPivot->GetTransform()->SetParent(SkillIconA->GetTransform());
+	SkillAPivot->GetTransform()->SetWorldScale(float4(1, 1, 1));
+
+	SkullAFont = CreateComponent<ContentUIFontRenderer>();
+	SkullAFont->GetTransform()->SetParent(SkillAPivot->GetTransform());
+	SkullAFont->SetFont("³Ø½¼Lv2°íµñ");
+	SkullAFont->SetScale(16);
+	SkullAFont->SetColor(float4(0.29411f, 0.20784f, 0.19607f, 1));
+	SkullAFont->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_CENTER));
+	SkullAFont->GetTransform()->SetLocalPosition(float4(0, -42, -1));
+
 	SkillIconB = CreateComponent<GameEngineUIRenderer>();
 	SkillIconB->GetTransform()->SetParent(SkillIconPivot->GetTransform());
 	SkillIconB->GetTransform()->SetLocalPosition(float4(0, 0, -0.4f));
 	SkillIconB->GetTransform()->SetLocalScale(float4(48, 48, 1));
+
+	std::shared_ptr<GameEngineComponent> SkillBPivot = CreateComponent<GameEngineComponent>();
+	SkillBPivot->GetTransform()->SetParent(SkillIconB->GetTransform());
+	SkillBPivot->GetTransform()->SetWorldScale(float4(1, 1, 1));
+
+	SkullBFont = CreateComponent<ContentUIFontRenderer>();
+	SkullBFont->GetTransform()->SetParent(SkillBPivot->GetTransform());
+	SkullBFont->SetFont("³Ø½¼Lv2°íµñ");
+	SkullBFont->SetScale(16);
+	SkullBFont->SetColor(float4(0.29411f, 0.20784f, 0.19607f, 1));
+	SkullBFont->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_CENTER));
+	SkullBFont->GetTransform()->SetLocalPosition(float4(0, -42, -1));
 
 	SkullNameFont = CreateComponent<ContentUIFontRenderer>();
 	SkullNameFont->SetFont("³Ø½¼Lv2°íµñ");
@@ -215,6 +245,12 @@ void SkullGearPopup::Start()
 	SkullTypeFont->SetColor(float4(0.29411f, 0.20784f, 0.19607f, 1));
 	SkullTypeFont->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_RIGHT));
 	SkullTypeFont->GetTransform()->SetLocalPosition(float4(195, 33, -1));
+
+	SwapFontActor = GetLevel()->CreateActor<UINoteActor>();
+	SwapFontActor->GetTransform()->SetParent(GetTransform());
+	SwapFontActor->GetTransform()->SetLocalPosition(float4(10, -125, -5.0f));
+	SwapFontActor->SetText("¤± ±³Ã¼ÇÏ±â");
+	SwapFontActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
 
 	Off();
 }
