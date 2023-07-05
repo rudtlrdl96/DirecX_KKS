@@ -9,18 +9,45 @@ static void LoadSkull(const SkullData& _Data)
 
 void ContentCore::SkullDataLoad()
 {
-	LoadSkull({ .Name = "리틀본", .HeadTexName = "BoneSkul_Head.png", .Index = 0, .Grade = SkullGrade::Normal });
-	LoadSkull({.Name = "웨어울프", .HeadTexName = "Werewolf_Head1.png", .Index = 1, .Grade = SkullGrade::Normal, .MoveSpeed = 440.0f});
+	LoadSkull({ .Name = "리틀본", .HeadTexName = "BoneSkul_Head.png",
+		.IconName_MainSkull = "Skul_UI_MainSkull.png", .IconName_SubSkull = "Skul_UI_SubSkull.png", .IconName_Inventory = "Skul_UI_Inventory.png",
+		.IconName_SkillA = "SkullThrowing.png", .IconName_SkillB = "Rebone.png" ,
+		.Index = 0, .Grade = SkullGrade::Normal });
+	LoadSkull({.Name = "웨어울프", .HeadTexName = "Werewolf_Head1.png", 
+		.IconName_MainSkull = "Normal_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Normal_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Normal_WereWolf_UI_Inventory.png",
+		.IconName_SkillA = "WereWolf_Predation1.png", .IconName_SkillB = "Empty.png" ,
+		.Index = 1, .Grade = SkullGrade::Normal, .MoveSpeed = 440.0f});
 
-	LoadSkull({.Name = "나이 든 웨어울프", .HeadTexName = "Werewolf_Head2.png", .Index = 100, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
-	LoadSkull({ .Name = "미노타우로스 1세", .HeadTexName = "Minotaurus_Head1.png", .Index = 101, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
+	LoadSkull({.Name = "나이 든 웨어울프", .HeadTexName = "Werewolf_Head2.png",
+		.IconName_MainSkull = "Rare_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Rare_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Rare_WereWolf_UI_Inventory.png",
+		.IconName_SkillA = "WereWolf_Predation2.png", .IconName_SkillB = "Empty.png" ,
+		.Index = 100, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
+	LoadSkull({ .Name = "미노타우로스 1세", .HeadTexName = "Minotaurus_Head1.png",
+		.IconName_MainSkull = "Rare_Minotaurus_UI_MainSkull.png", .IconName_SubSkull = "Rare_Minotaurus_UI_SubSkull.png", .IconName_Inventory = "Rare_Minotaurus_UI_Inventory.png",
+		.IconName_SkillA = "Minotaurus_Stamp1.png", .IconName_SkillB = "Empty.png" ,
+		.Index = 101, .Grade = SkullGrade::Rare, .MoveSpeed = 440.0f });
 
-	LoadSkull({.Name = "우두머리 웨어울프", .HeadTexName = "Werewolf_Head3.png", .Index = 200, .Grade = SkullGrade::Unique});
-	LoadSkull({ .Name = "미노타우로스 2세", .HeadTexName = "Minotaurus_Head2.png", .Index = 201, .Grade = SkullGrade::Unique });
-	LoadSkull({ .Name = "경비대장", .HeadTexName = "ChiefGuard_Head.png", .Index = 203, .Grade = SkullGrade::Unique });
+	LoadSkull({.Name = "우두머리 웨어울프", .HeadTexName = "Werewolf_Head3.png",
+		.IconName_MainSkull = "Unique_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Unique_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Unique_WereWolf_UI_Inventory.png",
+		.IconName_SkillA = "WereWolf_Predation3.png", .IconName_SkillB = "WereWolf_Hunting3.png" ,
+		.Index = 200, .Grade = SkullGrade::Unique});
+	LoadSkull({ .Name = "미노타우로스 2세", .HeadTexName = "Minotaurus_Head2.png",
+		.IconName_MainSkull = "Unique_Minotaurus_UI_MainSkull.png", .IconName_SubSkull = "Unique_Minotaurus_UI_SubSkull.png", .IconName_Inventory = "Unique_Minotaurus_UI_Inventory.png",
+		.IconName_SkillA = "Minotaurus_Stamp2.png", .IconName_SkillB = "Minotaurus_PlowUp2.png" ,
+		.Index = 201, .Grade = SkullGrade::Unique });
+	LoadSkull({ .Name = "경비대장", .HeadTexName = "ChiefGuard_Head.png",
+		.IconName_MainSkull = "ChiefGuard_UI_MainSkull.png", .IconName_SubSkull = "ChiefGuard_UI_SubSkull.png", .IconName_Inventory = "ChiefGuard_UI_Inventory.png",
+		.IconName_SkillA = "ChiefGuard_Skill1.png", .IconName_SkillB = "ChiefGuard_Skill2.png" ,
+		.Index = 203, .Grade = SkullGrade::Unique });
 	
-	LoadSkull({.Name = "영원의 웨어울프", .HeadTexName = "Werewolf_Head4.png", .Index = 300, .Grade = SkullGrade::Legendary});
-	LoadSkull({ .Name = "미노타우로스 3세", .HeadTexName = "Minotaurus_Head3.png", .Index = 301, .Grade = SkullGrade::Legendary });
+	LoadSkull({.Name = "영원의 웨어울프", .HeadTexName = "Werewolf_Head4.png",
+		.IconName_MainSkull = "Legandary_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Legandary_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Legandary_WereWolf_UI_Inventory.png",
+		.IconName_SkillA = "WereWolf_Predation4.png", .IconName_SkillB = "WereWolf_Hunting4.png" ,
+		.Index = 300, .Grade = SkullGrade::Legendary});
+	LoadSkull({ .Name = "미노타우로스 3세", .HeadTexName = "Minotaurus_Head3.png",
+		.IconName_MainSkull = "Legendary_Minotaurus_UI_MainSkull.png", .IconName_SubSkull = "Legendary_Minotaurus_UI_SubSkull.png", .IconName_Inventory = "Legendary_Minotaurus_UI_Inventory.png",
+		.IconName_SkillA = "Minotaurus_Stamp3.png", .IconName_SkillB = "Minotaurus_PlowUp3.png" ,
+		.Index = 301, .Grade = SkullGrade::Legendary });
 
 	if (nullptr == GameEngineTexture::Find("BoneSkull_Idle.png"))
 	{

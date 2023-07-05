@@ -66,27 +66,27 @@ public:
 
 	inline std::string GetTexName_MainSkullUI() const
 	{
-		return TexName_MainSkullUI;
+		return Data.IconName_MainSkull;
 	}
 
 	inline std::string GetTexName_SubSkullUI() const
 	{
-		return TexName_SubSkullUI;
+		return Data.IconName_SubSkull;
 	}
 
 	inline std::string GetTexName_InventoryUI() const
 	{
-		return TexName_InventoryUI;
+		return Data.IconName_Inventory;
 	}	
 
 	inline std::string GetTexName_SkillA() const
 	{
-		return TexName_SkillA;
+		return Data.IconName_SkillA;
 	}
 
 	inline std::string GetTexName_SkillB() const
 	{
-		return TexName_SkillB;
+		return Data.IconName_SkillB;
 	}
 
 	inline bool IsActiveSkillA() const
@@ -146,13 +146,6 @@ protected:
 
 	class Player* ParentPlayer = nullptr;
 	GameEngineTransform* PlayerTrans = nullptr;
-
-	std::string TexName_MainSkullUI = "";
-	std::string TexName_SubSkullUI = "";
-	std::string TexName_InventoryUI = "";
-
-	std::string TexName_SkillA = "";
-	std::string TexName_SkillB = "";
 
 	PlayerFSM_State FsmState = PlayerFSM_State::Idle;
 

@@ -387,13 +387,6 @@ void ChiefGuard::TextureLoad()
 	DeadPartNames.push_back("Skul_DeatParts03.png");
 	DeadPartNames.push_back("Skul_DeatParts04.png");
 	DeadPartNames.push_back("Skul_DeatParts05.png");
-
-	TexName_MainSkullUI = "ChiefGuard_UI_MainSkull.png.png";
-	TexName_SubSkullUI = "ChiefGuard_UI_SubSkull.png";
-	TexName_InventoryUI = "ChiefGuard_UI_Inventory.png";
-
-	TexName_SkillA = "ChiefGuard_Skill1.png";
-	TexName_SkillB = "ChiefGuard_Skill2.png";
 }
 
 void ChiefGuard::CreateAnimation()

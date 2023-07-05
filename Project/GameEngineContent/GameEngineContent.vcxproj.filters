@@ -256,18 +256,6 @@
     <Filter Include="2_Actor\BattleActor\Player\Skull\Minotaurus\Legandary">
       <UniqueIdentifier>{bd5d0109-1054-41d2-ae45-ad846c998baf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\BattleActor\Player\Skull\Alchemist">
-      <UniqueIdentifier>{db4c0849-8663-4610-82b1-0baec5e95bdd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\BattleActor\Player\Skull\Alchemist\Rare">
-      <UniqueIdentifier>{3a2ef9ac-11bb-4028-aaf2-b90c82d3fcc7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\BattleActor\Player\Skull\Alchemist\Unique">
-      <UniqueIdentifier>{b7f52a99-0dd3-4f92-a0b4-6358b45896b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Actor\BattleActor\Player\Skull\Alchemist\Lagandary">
-      <UniqueIdentifier>{99859148-5f52-43fb-8887-f435bc559e31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Actor\BattleActor\Player\Skull\BoneSkull">
       <UniqueIdentifier>{2e5963b7-1936-4419-90ca-a0ff3aa32c46}</UniqueIdentifier>
     </Filter>
@@ -381,6 +369,9 @@
     </Filter>
     <Filter Include="2_Actor\Gear\Skull">
       <UniqueIdentifier>{f1cecb24-2c1b-4966-a61c-5c2d7ebf0bd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\UI\Gear">
+      <UniqueIdentifier>{082363d4-42a5-45c4-9eb3-2357b01a9760}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -986,6 +977,9 @@
     </ClInclude>
     <ClInclude Include="SkullGear.h">
       <Filter>2_Actor\Gear\Skull</Filter>
+    </ClInclude>
+    <ClInclude Include="SkullGearPopup.h">
+      <Filter>2_Actor\UI\Gear</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1648,6 +1642,9 @@
     </ClCompile>
     <ClCompile Include="SkullGear.cpp">
       <Filter>2_Actor\Gear\Skull</Filter>
+    </ClCompile>
+    <ClCompile Include="SkullGearPopup.cpp">
+      <Filter>2_Actor\UI\Gear</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

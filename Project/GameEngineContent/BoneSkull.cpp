@@ -455,13 +455,6 @@ void BoneSkull::TextureLoad()
 	DeadPartNames.push_back("Skul_DeatParts03.png");
 	DeadPartNames.push_back("Skul_DeatParts04.png");
 	DeadPartNames.push_back("Skul_DeatParts05.png");
-
-	TexName_MainSkullUI = "Skul_UI_MainSkull.png";
-	TexName_SubSkullUI = "Skul_UI_SubSkull.png";
-	TexName_InventoryUI = "Skul_UI_Inventory.png";
-
-	TexName_SkillA = "SkullThrowing.png";
-	TexName_SkillB = "Rebone.png";
 }
 
 void BoneSkull::CreateAnimation()

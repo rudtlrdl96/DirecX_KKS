@@ -425,13 +425,6 @@ void WolfSkull_Unique::TextureLoad()
 	DeadPartNames.push_back("Skul_DeatParts03.png");
 	DeadPartNames.push_back("Skul_DeatParts04.png");
 	DeadPartNames.push_back("Skul_DeatParts05.png");
-
-	TexName_MainSkullUI = "Unique_WereWolf_UI_MainSkull.png";
-	TexName_SubSkullUI = "Unique_WereWolf_UI_SubSkull.png";
-	TexName_InventoryUI = "Unique_WereWolf_UI_Inventory.png";
-
-	TexName_SkillA = "WereWolf_Predation3.png";
-	TexName_SkillB = "WereWolf_Hunting3.png";
 }
 
 void WolfSkull_Unique::CreateAnimation()

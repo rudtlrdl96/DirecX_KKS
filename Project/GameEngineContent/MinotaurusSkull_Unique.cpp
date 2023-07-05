@@ -771,13 +771,6 @@ void MinotaurusSkull_Unique::TextureLoad()
 	DeadPartNames.push_back("Skul_DeatParts03.png");
 	DeadPartNames.push_back("Skul_DeatParts04.png");
 	DeadPartNames.push_back("Skul_DeatParts05.png");
-
-	TexName_MainSkullUI = "Unique_Minotaurus_UI_MainSkull.png";
-	TexName_SubSkullUI = "Unique_Minotaurus_UI_SubSkull.png";
-	TexName_InventoryUI = "Unique_Minotaurus_UI_Inventory.png";
-
-	TexName_SkillA = "Minotaurus_Stamp2.png";
-	TexName_SkillB = "Minotaurus_PlowUp2.png";
 }
 
 void MinotaurusSkull_Unique::CreateAnimation()

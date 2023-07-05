@@ -14,6 +14,16 @@ public:
 	std::string Name = "";
 	std::string HeadTexName = "";
 
+	std::string StoryNote = "";
+	std::string SkullNote = "";
+
+	std::string IconName_MainSkull = "";
+	std::string IconName_SubSkull = "";
+	std::string IconName_Inventory = "";
+
+	std::string IconName_SkillA = "";
+	std::string IconName_SkillB = "";
+
 	size_t Index = static_cast<size_t>(-1);
 
 	SkullGrade Grade = SkullGrade::Normal;
