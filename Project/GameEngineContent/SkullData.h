@@ -21,8 +21,8 @@ public:
 	std::string IconName_SubSkull = "";
 	std::string IconName_Inventory = "";
 
-	std::string IconName_SkillA = "";
-	std::string IconName_SkillB = "";
+	std::string IconName_SkillA = "Empty.png";
+	std::string IconName_SkillB = "Empty.png";
 
 	size_t Index = static_cast<size_t>(-1);
 

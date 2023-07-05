@@ -12,6 +12,7 @@
 #include "TalkBox.h"
 #include "BaseMonster.h"
 #include "Minimap.h"
+#include "SkullGearPopup.h"
 
 BattleLevel::BattleLevel()
 {
@@ -52,6 +53,9 @@ void BattleLevel::Start()
 	TalkBoxPtr->GetTransform()->SetLocalPosition(float4(0, -300, -110.0f));
 	TalkBoxPtr->SetReadSpeed(25.0f);
 	TalkBoxPtr->Off();
+
+	SkullGearPopupPtr = CreateActor<SkullGearPopup>();
+	SkullGearPopupPtr->Off();
 
 	AddEvent("NextLevelMove", LevelCode, [this]()
 		{
@@ -127,6 +131,28 @@ void BattleLevel::Start()
 	AddEvent("UnlockMonsterMove", LevelCode, [this]()
 		{
 			BaseMonster::SetMonstersMove(false);
+		});
+
+	AddEvent("SkullGearPopupOn", LevelCode, [this]()
+		{
+			SkullGearPopupPtr->PopupOn();
+
+			if (nullptr != MainPlayer)
+			{
+				if (ActorViewDir::Left == MainPlayer->GetViewDir())
+				{
+					SkullGearPopupPtr->GetTransform()->SetLocalPosition(float4(-300, 0));
+				}
+				else
+				{
+					SkullGearPopupPtr->GetTransform()->SetLocalPosition(float4(300, 0));
+				}
+			}
+		});
+
+	AddEvent("SkullGearPopupOff", LevelCode, [this]()
+		{
+			SkullGearPopupPtr->PopupOff();
 		});
 }
 

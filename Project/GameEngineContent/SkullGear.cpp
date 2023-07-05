@@ -1,8 +1,8 @@
 #include "PrecompileHeader.h"
 #include "SkullGear.h"
-#include "SkullData.h"
 #include "Inventory.h"
 #include "Player.h"
+#include "SkullGearPopup.h"
 
 SkullGear::SkullGear()
 {
@@ -20,9 +20,7 @@ void SkullGear::Init(size_t _SkullIndex)
 		return;
 	}
 
-	SkullIndex = _SkullIndex;
-
-	const SkullData& Data = ContentDatabase<SkullData, SkullGrade>::GetData(SkullIndex);
+	Data = ContentDatabase<SkullData, SkullGrade>::GetData(_SkullIndex);
 
 	Render->SetScaleToTexture(Data.HeadTexName);
 
@@ -38,12 +36,13 @@ void SkullGear::Start()
 
 	ColEnterCallback = [this]()
 	{
-		// SkullPopupOn
+		SkullGearPopup::SetSkullData(Data);
+		GetContentLevel()->CallEvent("SkullGearPopupOn");
 	};
 
 	ColExitCallback = [this]()
 	{
-		// SkullPopupOff
+		GetContentLevel()->CallEvent("SkullGearPopupOff");
 	};
 }
 
@@ -59,6 +58,6 @@ void SkullGear::UseGear()
 		return;
 	}
 
-	ColPlayer->InsertNewSkull(SkullIndex);
+	ColPlayer->InsertNewSkull(Data.Index);
 	Death();
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseGear.h"
+#include "SkullData.h"
 
 class SkullGear : public BaseGear
 {
@@ -19,7 +20,7 @@ protected:
 	void UseGear() override;
 
 private:
-	size_t SkullIndex = 0;
+	SkullData Data = SkullData();
 
 
 };

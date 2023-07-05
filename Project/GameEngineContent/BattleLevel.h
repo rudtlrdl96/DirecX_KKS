@@ -39,6 +39,8 @@ protected:
 	std::shared_ptr<class Player> MainPlayer = nullptr;
 	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
 
+	std::shared_ptr<class SkullGearPopup> SkullGearPopupPtr = nullptr;
+
 	bool IsLevelMove = false;
 
 	void Start() override;
