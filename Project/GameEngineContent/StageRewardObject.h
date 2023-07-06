@@ -1,6 +1,14 @@
 #pragma once
 #include "BaseContentActor.h"
 
+enum class RewardType
+{
+	None,
+	Normal,
+	Skull,
+	MiddleBoss,
+};
+
 class StageRewardObject : public BaseContentActor
 {
 public:
@@ -17,6 +25,8 @@ public:
 		return IsRewardEndValue;
 	}
 
+	void SetReward(RewardType _Type);
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -25,5 +35,11 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> Render = nullptr;
 	std::shared_ptr<GameEngineCollision> RewardCol = nullptr;
 
+	RewardType Type = RewardType::None;
+
 	bool IsRewardEndValue = false;
+
+	void GoldRewardInit();
+	void SkullRewardInit();
+
 };
