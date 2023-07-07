@@ -10,10 +10,7 @@ SkullGear::SkullGear()
 
 SkullGear::~SkullGear()
 {
-	if (true == IsBodyCol)
-	{
-		GetContentLevel()->CallEvent("SkullGearPopupOff");
-	}
+
 }
 
 void SkullGear::Init(size_t _SkullIndex)
@@ -65,4 +62,14 @@ void SkullGear::UseGear()
 	GetContentLevel()->CallEvent("SkullGearPopupOff");
 	ColPlayer->InsertNewSkull(Data.Index);
 	Death();
+}
+
+void SkullGear::Destroy()
+{
+	BaseGear::Destroy();
+
+	if (true == IsBodyCol)
+	{
+		GetContentLevel()->CallEvent("SkullGearPopupOff");
+	}
 }

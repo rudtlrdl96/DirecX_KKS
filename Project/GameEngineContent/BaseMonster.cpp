@@ -31,7 +31,7 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 	HP -= _Damage;
 	HitDamageCheck += _Damage;
 
-	if (0.0f > HP)
+	if (0.0f >= HP)
 	{
 		if (nullptr != _KillEvent)
 		{

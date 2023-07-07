@@ -6,6 +6,7 @@ enum class EffectDeathTrigger
 {
 	Time,
 	AnimEnd,
+	None,
 };
 
 class EffectMetaData

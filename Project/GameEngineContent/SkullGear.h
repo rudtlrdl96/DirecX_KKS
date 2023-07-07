@@ -19,6 +19,8 @@ protected:
 	void Start() override;
 	void UseGear() override;
 
+	void Destroy() override;
+
 private:
 	SkullData Data = SkullData();
 

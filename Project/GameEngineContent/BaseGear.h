@@ -46,6 +46,10 @@ protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	BlackAndWihteBuffer Buffer;
 
+	std::shared_ptr<EffectActor> DeactiveEffect = nullptr;
+	std::shared_ptr<EffectActor> ActiveStartEffect = nullptr;
+	std::shared_ptr<EffectActor> ActiveLoopEffect = nullptr;
+
 	std::shared_ptr<class Player> ColPlayer = nullptr;
 
 	std::shared_ptr<GameEngineCollision> GearBodyCol = nullptr;
@@ -76,6 +80,8 @@ protected:
 
 	void Destroy() override;
 	void SetWaveState(std::shared_ptr<GameEngineCollision> _PlatformCol);
+
+	float4 GetEffectPos();
 
 	virtual void UseGear();
 	virtual void PlayDestroyEffect();

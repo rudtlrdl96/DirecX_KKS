@@ -90,6 +90,10 @@ void EffectActor::Update(float _DeltaTime)
 		}
 	}
 		break;
+
+	case EffectDeathTrigger::None:
+		break;
+
 	default:
 		MsgAssert_Rtti<EffectActor>(" - 알 수 없는 이펙트 DeathTrigger 입니다");
 		break;

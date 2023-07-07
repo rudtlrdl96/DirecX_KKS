@@ -129,19 +129,6 @@ void BaseGear::Update(float _DeltaTime)
 		}
 	}
 
-	if (true == IsBlackAndWhite)
-	{
-		if (false == IsBodyCol)
-		{
-			Buffer.Color.a = 1.0f;
-		}
-		else
-		{
-			Buffer.Color.a = 0.0f;
-		}
-
-	}
-
 	if (true == IsColWave)
 	{
 		if (false == IsBodyCol)
@@ -149,10 +136,95 @@ void BaseGear::Update(float _DeltaTime)
 			State = PrevState;
 			GetTransform()->SetWorldPosition(WaveCenter);
 		}
-		else if(State != GearState::Wave)
+		else if (State != GearState::Wave)
 		{
 			State = GearState::Wave;
 			ResetLiveTime();
+		}
+	}
+
+	if (true == IsBlackAndWhite)
+	{
+		if (State != GearState::Wave && State != GearState::Fixed)
+		{
+			Buffer.Color.a = 1.0f;
+		}
+		else if (false == IsBodyCol)
+		{
+			Buffer.Color.a = 1.0f;
+
+			if (nullptr == DeactiveEffect)
+			{
+				DeactiveEffect = EffectManager::PlayEffect({
+					.EffectName = "GearDeactiveLoop",
+					.Position = GetEffectPos(),
+					.Triger = EffectDeathTrigger::None,
+					});
+
+				DeactiveEffect->GetTransform()->SetParent(GetTransform());
+
+				float4 Pos = DeactiveEffect->GetTransform()->GetWorldPosition();
+				Pos.z = GetTransform()->GetWorldPosition().z + 1.0f;
+				DeactiveEffect->GetTransform()->SetWorldPosition(Pos);
+			}
+
+			if (nullptr != ActiveLoopEffect)
+			{
+				ActiveLoopEffect->Death();
+				ActiveLoopEffect = nullptr;
+			}
+
+			if (nullptr != ActiveStartEffect)
+			{
+				ActiveStartEffect->Death();
+				ActiveStartEffect = nullptr;
+			}
+
+		}
+		else
+		{
+			Buffer.Color.a = 0.0f;
+
+			if (nullptr != DeactiveEffect)
+			{
+				DeactiveEffect->Death();
+				DeactiveEffect = nullptr;
+			}
+
+			if (nullptr == ActiveLoopEffect)
+			{
+				if (nullptr == ActiveStartEffect)
+				{
+					ActiveStartEffect = EffectManager::PlayEffect({
+						.EffectName = "GearActiveStart",
+						.Position = GetEffectPos() + float4(-2, 12),
+						});
+
+					ActiveStartEffect->GetTransform()->SetParent(GetTransform());
+
+					float4 Pos = ActiveStartEffect->GetTransform()->GetWorldPosition();
+					Pos.z = GetTransform()->GetWorldPosition().z + 1.0f;
+					ActiveStartEffect->GetTransform()->SetWorldPosition(Pos);
+
+				}
+				else if (true == ActiveStartEffect->IsAnimationEnd())
+				{
+					ActiveLoopEffect = EffectManager::PlayEffect({
+						.EffectName = "GearActiveLoop",
+						.Position = GetEffectPos(),
+						.Triger = EffectDeathTrigger::None,
+						});
+
+					ActiveLoopEffect->GetTransform()->SetParent(GetTransform());
+				
+					float4 Pos = ActiveLoopEffect->GetTransform()->GetWorldPosition();
+					Pos.z = GetTransform()->GetWorldPosition().z + 1.0f;
+					ActiveLoopEffect->GetTransform()->SetWorldPosition(Pos);
+
+					ActiveStartEffect->Death();
+					ActiveStartEffect = nullptr;
+				}
+			}
 		}
 	}
 
@@ -266,4 +338,16 @@ void BaseGear::SetWaveState(std::shared_ptr<GameEngineCollision> _PlatformCol)
 
 void BaseGear::PlayDestroyEffect()
 {
+}
+
+float4 BaseGear::GetEffectPos()
+{
+	switch (State)
+	{
+	case GearState::Wave:
+		return WaveCenter;
+		break;
+	}
+
+	return GetTransform()->GetWorldPosition();
 }
