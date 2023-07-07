@@ -249,6 +249,18 @@ void ContentCore::CommonTextureLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Appearance_Impact.png").GetFullPath(), 7, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SmokeLargeEffect.png").GetFullPath(), 3, 5);
 
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("DestroyItem.png").GetFullPath(), 2, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("DestroySkull.png").GetFullPath(), 4, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("GearActiveLoop.png").GetFullPath(), 10, 8);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("GearActiveStart.png").GetFullPath(), 9, 5);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("GearDeactiveLoop.png").GetFullPath(), 8, 10);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("LegendaryGear_Behind_Loop.png").GetFullPath(), 12, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("LegendaryGear_Behind_Start.png").GetFullPath(), 22, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("LegendaryGear_Front_Loop.png").GetFullPath(), 12, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("LegendaryGear_Front_Start.png").GetFullPath(), 11, 6);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("PlayerHeal.png").GetFullPath(), 5, 4);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("StageRewardEffect.png").GetFullPath(), 7, 5);
+
 		Path.MoveParent();
 	
 		EffectManager::CreateMetaData("Appearance_Impact", {
@@ -264,6 +276,94 @@ void ContentCore::CommonTextureLoad()
 			.AnimStart = 0,
 			.AnimEnd = 14,
 			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("DestroyItem", {
+			.SpriteName = "DestroyItem.png",
+			.AnimStart = 0,
+			.AnimEnd = 9,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("DestroySkull", {
+			.SpriteName = "DestroySkull.png",
+			.AnimStart = 0,
+			.AnimEnd = 19,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("GearActiveLoop", {
+			.SpriteName = "GearActiveLoop.png",
+			.AnimStart = 0,
+			.AnimEnd = 79,
+			.AnimIter = 0.025f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("GearActiveStart", {
+			.SpriteName = "GearActiveStart.png",
+			.AnimStart = 0,
+			.AnimEnd = 44,
+			.AnimIter = 0.025f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("GearDeactiveLoop", {
+			.SpriteName = "GearDeactiveLoop.png",
+			.AnimStart = 0,
+			.AnimEnd = 79,
+			.AnimIter = 0.025f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("LegendaryGear_Behind_Loop", {
+			.SpriteName = "LegendaryGear_Behind_Loop.png",
+			.AnimStart = 0,
+			.AnimEnd = 35,
+			.AnimIter = 0.025f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("LegendaryGear_Behind_Start", {
+			.SpriteName = "LegendaryGear_Behind_Start.png",
+			.AnimStart = 0,
+			.AnimEnd = 65,
+			.AnimIter = 0.025f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("LegendaryGear_Front_Loop", {
+			.SpriteName = "LegendaryGear_Front_Loop.png",
+			.AnimStart = 0,
+			.AnimEnd = 35,
+			.AnimIter = 0.025f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("LegendaryGear_Front_Start", {
+			.SpriteName = "LegendaryGear_Front_Start.png",
+			.AnimStart = 0,
+			.AnimEnd = 65,
+			.AnimIter = 0.025f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("PlayerHeal", {
+			.SpriteName = "PlayerHeal.png",
+			.AnimStart = 0,
+			.AnimEnd = 19,
+			.AnimIter = 0.05f,
+			.ScaleRatio = 2.0f,
+			});
+
+		EffectManager::CreateMetaData("StageRewardEffect", {
+			.SpriteName = "StageRewardEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 34,
+			.AnimIter = 0.025f,
 			.ScaleRatio = 2.0f,
 			});
 	}
