@@ -20,7 +20,7 @@ void BaseGear::DropGear(const float4& _WorldPos)
 {
 	State = GearState::Drop;
 
-	DropRigid.SetVelocity(float4(0, 950));
+	DropRigid.SetVelocity(float4(0, 850));
 	GetTransform()->SetWorldPosition(_WorldPos);
 }
 
@@ -99,7 +99,9 @@ void BaseGear::Update(float _DeltaTime)
 
 	std::shared_ptr<GameEngineCollision> Col = GearBodyCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
 
-	if (false == GearDoubleCheck && nullptr != Col)
+	if (false == GearDoubleCheck && 
+		(State == GearState::Fixed || State == GearState::Wave)
+		&& nullptr != Col)
 	{
 		ColPlayer = Col->GetActor()->DynamicThis<Player>();
 		GearDoubleCheck = true;
@@ -116,9 +118,23 @@ void BaseGear::Update(float _DeltaTime)
 			ColEnterCallback();
 		}
 
-		if (true == GameEngineInput::IsDown("UseKey"))
+		if (true == GameEngineInput::IsUp("UseKey"))
 		{
 			UseGear();
+			IsUse = true;
+		}
+		else if (GameEngineInput::IsPress("UseKey"))
+		{
+			PressTime += _DeltaTime;
+
+			if (1.0f <= PressTime)
+			{
+				Death();
+			}
+		}
+		else
+		{
+			PressTime = 0.0f;
 		}
 	}
 	else
@@ -244,7 +260,7 @@ void BaseGear::Update(float _DeltaTime)
 				LegendaryFrontStartEffect->GetTransform()->SetParent(GetTransform());
 
 				float4 Pos = LegendaryFrontStartEffect->GetTransform()->GetWorldPosition();
-				Pos.z = GetTransform()->GetWorldPosition().z - 1.0f;
+				Pos.z = Render->GetTransform()->GetWorldPosition().z - 0.1f;
 				LegendaryFrontStartEffect->GetTransform()->SetWorldPosition(Pos);
 			}
 			else if (true == LegendaryFrontStartEffect->IsAnimationEnd())
@@ -261,7 +277,7 @@ void BaseGear::Update(float _DeltaTime)
 				LegendaryFrontLoopEffect->GetTransform()->SetParent(GetTransform());
 
 				float4 Pos = LegendaryFrontLoopEffect->GetTransform()->GetWorldPosition();
-				Pos.z = GetTransform()->GetWorldPosition().z -1.0f;
+				Pos.z = Render->GetTransform()->GetWorldPosition().z - 0.1f;
 				LegendaryFrontLoopEffect->GetTransform()->SetWorldPosition(Pos);
 			}
 
@@ -278,7 +294,7 @@ void BaseGear::Update(float _DeltaTime)
 					LegendaryBehindStartEffect->GetTransform()->SetParent(GetTransform());
 
 					float4 Pos = LegendaryBehindStartEffect->GetTransform()->GetWorldPosition();
-					Pos.z = GetTransform()->GetWorldPosition().z + 1.0f;
+					Pos.z = Render->GetTransform()->GetWorldPosition().z + 0.1f;
 					LegendaryBehindStartEffect->GetTransform()->SetWorldPosition(Pos);
 				}
 				else if (true == LegendaryBehindStartEffect->IsAnimationEnd())
@@ -295,7 +311,7 @@ void BaseGear::Update(float _DeltaTime)
 					LegendaryBehindLoopEffect->GetTransform()->SetParent(GetTransform());
 
 					float4 Pos = LegendaryBehindLoopEffect->GetTransform()->GetWorldPosition();
-					Pos.z = GetTransform()->GetWorldPosition().z + 1.0f;
+					Pos.z = Render->GetTransform()->GetWorldPosition().z + 0.1f;
 					LegendaryBehindLoopEffect->GetTransform()->SetWorldPosition(Pos);
 				}
 			}

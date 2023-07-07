@@ -14,12 +14,15 @@ public:
 	SkullGear& operator=(SkullGear&& _Other) noexcept = delete;
 
 	void Init(size_t _SkullIndex);
+	void Init(const SkullData& _Data);
 
 protected:
 	void Start() override;
 	void UseGear() override;
 
 	void Destroy() override;
+	void PlayDestroyEffect() override;
+
 
 private:
 	SkullData Data = SkullData();

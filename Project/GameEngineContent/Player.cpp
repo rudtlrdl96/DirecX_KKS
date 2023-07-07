@@ -10,6 +10,7 @@
 #include "PlayerHitFade.h"
 #include "PlayerState.h"
 #include "PlayerStateFrame.h"
+#include "PlayerBaseSkull.h"
 #include "Inventory.h"
 #include "BaseQuintessence.h"
 
@@ -28,6 +29,7 @@
 
 #include "ContentLevel.h"
 #include "SkullGear.h"
+#include "CaptureAnimation.h"
 
 Player::Player()
 {
@@ -104,6 +106,13 @@ void Player::InsertNewSkull(size_t _SkullIndex)
 		Inventory::SetMainSkull(CreateData);
 		MainSkull = CreateNewSkull(_SkullIndex);
 		MainSkull->On();
+
+		MainSkull->EffectCaptureAnimation({
+			.SpriteRender = MainSkull->Render,
+			.StartColor = float4(1.0f, 1.0f, 1.0f, 1.0f),
+			.EndColor = float4(1.0, 1.0f, 1.0f, 0.0f),
+			.Speed = 6.0f,
+			.WaitTime = 0.0f });
 	}
 }
 
@@ -373,11 +382,12 @@ void Player::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("Cheat_GearTest"))
 	{
-		//std::shared_ptr<BaseGear> Gear = GetLevel()->CreateActor<BaseGear>();
+		//std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
+		//Gear->Init(0);
 		//Gear->DropGear(GetTransform()->GetWorldPosition());
 
 		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, -1); 
-
+		
 		{
 			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
 			Gear->Init(1);
@@ -389,7 +399,7 @@ void Player::Update(float _DeltaTime)
 					Gear->ColWaveOn();
 				});
 		}
-
+		
 		{
 			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
 			Gear->Init(300);
@@ -400,10 +410,10 @@ void Player::Update(float _DeltaTime)
 					Gear->BlackAndWhiteEffectOn();
 					Gear->ColWaveOn();
 				});
-
+		
 			Gear->LegendaryGearEffectOn();
 		}
-
+		
 		{
 			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
 			Gear->Init(301);
@@ -414,7 +424,7 @@ void Player::Update(float _DeltaTime)
 					Gear->BlackAndWhiteEffectOn();
 					Gear->ColWaveOn();
 				});
-
+		
 			Gear->LegendaryGearEffectOn();
 		}
 	}

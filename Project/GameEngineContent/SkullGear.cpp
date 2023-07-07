@@ -21,7 +21,12 @@ void SkullGear::Init(size_t _SkullIndex)
 		return;
 	}
 
-	Data = ContentDatabase<SkullData, SkullGrade>::GetData(_SkullIndex);
+	Init(ContentDatabase<SkullData, SkullGrade>::GetData(_SkullIndex));
+}
+
+void SkullGear::Init(const SkullData& _Data)
+{
+	Data = _Data;
 
 	Render->SetScaleToTexture(Data.HeadTexName);
 
@@ -72,4 +77,14 @@ void SkullGear::Destroy()
 	{
 		GetContentLevel()->CallEvent("SkullGearPopupOff");
 	}
+}
+
+void SkullGear::PlayDestroyEffect()
+{
+	if (false == IsUse)
+	{
+		EffectManager::PlayEffect({ .EffectName = "DestroySkull",
+	.Position = GetTransform()->GetWorldPosition() });
+	}
+
 }

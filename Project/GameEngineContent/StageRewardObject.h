@@ -1,11 +1,13 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "SkullData.h"
 
 enum class RewardType
 {
 	None,
 	Normal,
 	Skull,
+	Item,
 	MiddleBoss,
 };
 
@@ -33,13 +35,24 @@ protected:
 
 private:
 	std::shared_ptr<GameEngineSpriteRenderer> Render = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> TableRender = nullptr;
+
 	std::shared_ptr<GameEngineCollision> RewardCol = nullptr;
+	std::shared_ptr<GameEngineCollision> EnterCol = nullptr;
+
+	std::vector<std::shared_ptr<GameEngineCollision>> AllPlatformCol;
 
 	RewardType Type = RewardType::None;
 
+	SkullGrade SkullRewardGrade = SkullGrade::Normal;
+
 	bool IsRewardEndValue = false;
+	bool IsPlayerFirstEnter = false;
 
 	void GoldRewardInit();
 	void SkullRewardInit();
+	void MiddleBossRewardInit();
+
+	void DropSkullReward();
 
 };

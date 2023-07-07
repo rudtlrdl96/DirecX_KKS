@@ -6,6 +6,40 @@
 
 void ContentCore::ObjectLoad()
 {
+	if (nullptr == GameEngineSprite::Find("Normal_SkullRewardIdle.png"))
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Reward");
+
+		{
+			Path.Move("Skull");
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Normal_SkullRewardIdle.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Normal_SkullRewardOpen.png").GetFullPath(), 3, 4);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Rare_SkullRewardIdle.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Rare_SkullRewardOpen.png").GetFullPath(), 3, 4);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Unique_SkullRewardIdle.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Unique_SkullRewardOpen.png").GetFullPath(), 4, 4);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Legendary_SkullRewardIdle.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Legendary_SkullRewardOpen.png").GetFullPath(), 5, 3);
+			Path.MoveParent();
+		}
+
+		{
+			Path.Move("Gold");
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GoldReward.png").GetFullPath(), 7, 3);
+			Path.MoveParent();
+		}
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("EmptyAnimation.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Gate_Table.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Gate_ChoiceTable.png").GetFullPath(), 1, 1);
+	}
+
 	{
 		GameEngineDirectory Path;
 		Path.MoveParentToDirectory("Resources");
@@ -365,7 +399,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "StageRewardEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 34,
-			.AnimIter = 0.04f,
+			.AnimIter = 0.007f,
 			.ScaleRatio = 2.0f,
 			});
 	}

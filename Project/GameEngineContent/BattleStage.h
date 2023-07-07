@@ -1,8 +1,19 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "StageRewardObject.h"
 
 class BattleStage : public BaseContentActor
 {
+public:
+	static void SetNextReward(RewardType _Reward)
+	{
+		NextRewardType = _Reward;
+	}
+
+private:
+	static RewardType NextRewardType;
+
+
 public:
 	BattleStage();
 	~BattleStage();
@@ -42,6 +53,7 @@ public:
 	{
 		IsNoneReward = true;
 	}
+
 
 protected:
 	void Start() override;

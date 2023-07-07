@@ -14,6 +14,8 @@
 
 #include "BattleLevel.h"
 
+RewardType BattleStage::NextRewardType = RewardType::None;
+
 BattleStage::BattleStage()
 {
 }
@@ -129,6 +131,9 @@ void BattleStage::Update(float _DeltaTime)
 			RewardObject = GetLevel()->CreateActor<StageRewardObject>();
 			RewardObject->GetTransform()->SetParent(GetTransform());
 			RewardObject->GetTransform()->SetLocalPosition(EventManagerPtr->GetDoorPoint());
+
+			RewardObject->SetReward(NextRewardType);
+
 		}
 
 		if (true == IsStageReward && nullptr != RewardObject && RewardObject->IsRewardEnd())

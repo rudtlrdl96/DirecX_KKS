@@ -6,6 +6,7 @@
 
 #include "BattleLevel.h"
 #include "FieldNoteActor.h"
+#include "StageRewardObject.h"
 
 BaseDoor::BaseDoor()
 {
@@ -198,6 +199,36 @@ void BaseDoor::Update(float _DeltaTime)
 			break;
 		default:
 			LevelPtr->MoveNextStage();
+			break;
+		}
+
+		switch (Type)
+		{
+		case DoorType::Broken:
+			BattleStage::SetNextReward(RewardType::None);
+			break;
+		case DoorType::Normal:
+			BattleStage::SetNextReward(RewardType::Normal);
+			break;
+		case DoorType::Equip:
+			BattleStage::SetNextReward(RewardType::Item);
+			break;
+		case DoorType::Skull:
+			BattleStage::SetNextReward(RewardType::Skull);
+			break;
+		case DoorType::Shop:
+			BattleStage::SetNextReward(RewardType::None);
+			break;
+		case DoorType::MiddleBoss:
+			BattleStage::SetNextReward(RewardType::MiddleBoss);
+			break;
+		case DoorType::BossInter:
+			BattleStage::SetNextReward(RewardType::None);
+			break;
+		case DoorType::MainBoss:
+			BattleStage::SetNextReward(RewardType::None);
+			break;
+		default:
 			break;
 		}
 	}

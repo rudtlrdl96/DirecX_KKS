@@ -76,12 +76,15 @@ protected:
 	bool IsBodyCol = false;
 	bool IsPrevFrameCol = false;
 	bool IsLegendaryGear = false;
+	bool IsUse = false;
 
 	static bool GearDoubleCheck;
+
 
 	float4 WaveCenter = float4::Zero;
 	std::vector<float4> BezierPoint;
 	float BezierProgress = 0.0f;
+	float PressTime = 0.0f;
 
 	std::function<void()> MoveEndCallback = nullptr;
 	std::function<void()> ColEnterCallback = nullptr;

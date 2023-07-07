@@ -75,6 +75,9 @@ void ForestOfHarmonyLevel::Start()
 		DirectoryPath.MoveParent();
 	}
 
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Starting_Map", DoorType::Normal);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Starting_Map", DoorType::Skull);
+
 	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage0_0_Map", DoorType::Normal);
 	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage0_0_Map", DoorType::Skull);
 	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage0_0_Map");
