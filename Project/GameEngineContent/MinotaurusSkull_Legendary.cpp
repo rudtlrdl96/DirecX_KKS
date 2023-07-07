@@ -45,10 +45,10 @@ void MinotaurusSkull_Legendary::Start()
 	SkillACol->Off();
 
 	SkillBCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
-	SkillBCol->GetTransform()->SetLocalPosition(float4(155, 125, 0));
-	SkillBCol->GetTransform()->SetLocalScale(float4(130, 250, 1));
+	SkillBCol->GetTransform()->SetLocalPosition(float4(100, 125, 0));
+	SkillBCol->GetTransform()->SetLocalScale(float4(220, 250, 1));
 	SkillBCol->SetColType(ColType::AABBBOX2D);
-	SkillBCol->Off();
+	//SkillBCol->Off();
 
 	PassiveCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::PlayerAttack);
 	PassiveCol->GetTransform()->SetLocalPosition(float4(0, 15, 0));

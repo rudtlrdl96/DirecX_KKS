@@ -40,7 +40,10 @@ private:
 	std::shared_ptr<GameEngineCollision> RewardCol = nullptr;
 	std::shared_ptr<GameEngineCollision> EnterCol = nullptr;
 
+	std::shared_ptr<class FieldNoteActor> NoteActor = nullptr;
+
 	std::vector<std::shared_ptr<GameEngineCollision>> AllPlatformCol;
+	std::vector<std::shared_ptr<class BaseGear>> CreateGears;
 
 	RewardType Type = RewardType::None;
 
@@ -53,6 +56,6 @@ private:
 	void SkullRewardInit();
 	void MiddleBossRewardInit();
 
-	void DropSkullReward();
+	void DropSkullReward(float4 _Pivot = float4::Zero, bool _GradeReset = false);
 
 };

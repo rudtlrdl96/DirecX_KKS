@@ -42,6 +42,35 @@ public:
 
 	static float4 Bezier(std::vector<float4>& _Points, float _Time);
 
+	template<typename EnumClass>
+	static EnumClass RandEnum(std::vector<float>& _RandPer)
+	{
+		float CheckPer = 0.0f;
+		float AllPer = 0.0f;
+
+		for (size_t i = 0; i < _RandPer.size(); i++)
+		{
+			AllPer += _RandPer[i];
+		}
+
+		float RandPer = GameEngineRandom::MainRandom.RandomFloat(0.0f, AllPer);
+
+		EnumClass Result;
+
+		for (size_t i = 0; i < _RandPer.size(); i++)
+		{
+			CheckPer += _RandPer[i];
+
+			if (CheckPer >= RandPer)
+			{
+				Result = static_cast<EnumClass>(i);
+				break;
+			}
+		}
+
+		return Result;
+	}
+
 protected:
 	
 private:

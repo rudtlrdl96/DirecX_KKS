@@ -47,6 +47,11 @@ public:
 		IsLegendaryGear = true;
 	}
 
+	inline void IsUseOn()
+	{
+		IsUse = true;
+	}
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	BlackAndWihteBuffer Buffer;

@@ -2,6 +2,7 @@
 #include "StageRewardObject.h"
 #include "BaseGear.h"
 #include "SkullGear.h"
+#include "FieldNoteActor.h"
 
 StageRewardObject::StageRewardObject()
 {
@@ -18,6 +19,28 @@ void StageRewardObject::SetReward(RewardType _Type)
 	if (Type == RewardType::MiddleBoss)
 	{
 		TableRender->ChangeAnimation("ChoiceTable");
+
+		AllPlatformCol.resize(3);
+
+		AllPlatformCol[0] = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
+		AllPlatformCol[0]->SetColType(ColType::AABBBOX2D);
+		AllPlatformCol[0]->GetTransform()->SetLocalPosition(TableRender->GetTransform()->GetLocalPosition() + float4(-88, 58.5f, 0));
+		AllPlatformCol[0]->GetTransform()->SetLocalScale(float4(56, 15, 1));
+		AllPlatformCol[0]->Off();
+
+
+		AllPlatformCol[1] = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
+		AllPlatformCol[1]->SetColType(ColType::AABBBOX2D);
+		AllPlatformCol[1]->GetTransform()->SetLocalPosition(TableRender->GetTransform()->GetLocalPosition() + float4(0, 58.5f, 0));
+		AllPlatformCol[1]->GetTransform()->SetLocalScale(float4(120, 15, 1));
+		AllPlatformCol[1]->Off();
+
+		
+		AllPlatformCol[2] = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
+		AllPlatformCol[2]->SetColType(ColType::AABBBOX2D);
+		AllPlatformCol[2]->GetTransform()->SetLocalPosition(TableRender->GetTransform()->GetLocalPosition() + float4(88, 58.5f, 0));
+		AllPlatformCol[2]->GetTransform()->SetLocalScale(float4(56, 15, 1));
+		AllPlatformCol[2]->Off();
 	}
 	else
 	{
@@ -74,18 +97,24 @@ void StageRewardObject::SetReward(RewardType _Type)
 void StageRewardObject::Start()
 {
 	Render = CreateComponent<GameEngineSpriteRenderer>();
-	Render->GetTransform()->SetLocalPosition(float4(0, -90, -2));
+	Render->GetTransform()->SetLocalPosition(float4(0, -90, -11));
 	Render->SetScaleRatio(2.0f);
 	Render->Off();
 
 	TableRender = CreateComponent<GameEngineSpriteRenderer>();
-	TableRender->GetTransform()->SetLocalPosition(float4(0, -120, -1));
+	TableRender->GetTransform()->SetLocalPosition(float4(0, -120, -10));
 	TableRender->SetScaleRatio(2.0f);
 	TableRender->Off();
 
 	TableRender->CreateAnimation({.AnimationName = "SingleTable", .SpriteName = "Gate_Table.png", .ScaleToTexture = true});
-	TableRender->CreateAnimation({.AnimationName = "ChoiceTable", .SpriteName = "Gate_Table.png", .ScaleToTexture = true});
+	TableRender->CreateAnimation({.AnimationName = "ChoiceTable", .SpriteName = "Gate_ChoiceTable.png", .ScaleToTexture = true});
 
+	NoteActor = GetLevel()->CreateActor<FieldNoteActor>();
+	NoteActor->GetTransform()->SetParent(GetTransform());
+	NoteActor->GetTransform()->SetLocalPosition(float4(0, -140, -100.0f));
+	NoteActor->SetText("ㅁ 살펴보기");
+	NoteActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
+	NoteActor->Off();
 
 	RewardCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	RewardCol->GetTransform()->SetLocalScale(float4(150, 150));
@@ -122,6 +151,12 @@ void StageRewardObject::Update(float _DeltaTime)
 			Render->ChangeAnimation("Idle");
 			Render->On();
 		}
+		else
+		{
+			DropSkullReward(float4(-88, 0), true);
+			DropSkullReward(float4(0, 0), true);
+			DropSkullReward(float4(88, 0), true);
+		}
 
 		TableRender->On();
 
@@ -133,13 +168,56 @@ void StageRewardObject::Update(float _DeltaTime)
 	}
 
 
-	if (nullptr == RewardCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	if (RewardType::MiddleBoss == Type)
 	{
-		return;
+		bool IsSelectGear = false;
+
+		for (size_t i = 0; i < CreateGears.size(); i++)
+		{
+			if (true == CreateGears[i]->IsDeath())
+			{
+				IsSelectGear = true;
+			}
+		}
+
+		if (true == IsSelectGear)
+		{
+			IsRewardEndValue = true;
+
+			for (size_t i = 0; i < CreateGears.size(); i++)
+			{
+				CreateGears[i]->IsUseOn();
+				CreateGears[i]->Death();
+				CreateGears[i] = nullptr;
+			}
+
+			CreateGears.clear();
+		}
 	}
 
-	if (false == IsRewardEndValue && true == GameEngineInput::IsDown("UseKey"))
+	for (size_t i = 0; i < CreateGears.size(); i++)
 	{
+		if (true == CreateGears[i]->IsDeath())
+		{
+			CreateGears.clear();
+			break;
+		}
+	}
+
+	if (nullptr == RewardCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	{
+		NoteActor->Off();
+		return;
+	}
+	else if (true == Render->IsUpdate() && false == IsRewardEndValue)
+	{
+		NoteActor->On();
+	}
+
+
+	if (RewardType::MiddleBoss != Type && false == IsRewardEndValue && true == GameEngineInput::IsDown("UseKey"))
+	{
+		NoteActor->Off();
 		IsRewardEndValue = true;
 		Render->ChangeAnimation("Open");
 
@@ -153,11 +231,11 @@ void StageRewardObject::Update(float _DeltaTime)
 			DropSkullReward();
 			break;
 		case RewardType::MiddleBoss:
+
 			break;
 		default:
 			break;
 		}
-
 	}
 }
 
@@ -175,22 +253,9 @@ void StageRewardObject::SkullRewardInit()
 
 	int RandValue = Rand.RandomInt(0, 100);
 
-	if (10 > RandValue)
-	{
-		SkullRewardGrade = SkullGrade::Legendary;
-	}
-	else if (30 > RandValue)
-	{
-		SkullRewardGrade = SkullGrade::Unique;
-	}
-	else if (60 > RandValue)
-	{
-		SkullRewardGrade = SkullGrade::Rare;
-	}
-	else
-	{
-		SkullRewardGrade = SkullGrade::Normal;
-	}
+	std::vector<float> Per = {40.0f, 30.0f, 20.0f, 10.0f };
+		 
+	SkullRewardGrade = ContentFunc::RandEnum<SkullGrade>(Per);
 
 	switch (SkullRewardGrade)
 	{
@@ -223,8 +288,14 @@ void StageRewardObject::MiddleBossRewardInit()
 {
 }
 
-void StageRewardObject::DropSkullReward()
+void StageRewardObject::DropSkullReward(float4 _Pivot /*= float4::Zero*/, bool _GradeReset /*= false*/)
 {
+	if (true == _GradeReset)
+	{
+		std::vector<float> Per = { 40.0f, 30.0f, 20.0f, 10.0f };
+		SkullRewardGrade = ContentFunc::RandEnum<SkullGrade>(Per);
+	}
+
 	std::vector<SkullData> RewardList;
 	ContentDatabase<SkullData, SkullGrade>::CopyGradeDatas(SkullRewardGrade, RewardList);
 		
@@ -233,10 +304,12 @@ void StageRewardObject::DropSkullReward()
 
 	std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
 	Gear->Init(RewardList[RandIndex]);
-	Gear->DropGear(GetTransform()->GetWorldPosition());
+	Gear->DropGear(Render->GetTransform()->GetWorldPosition() + _Pivot);
 
 	if (SkullRewardGrade == SkullGrade::Legendary)
 	{
 		Gear->LegendaryGearEffectOn();
 	}
+
+	CreateGears.push_back(Gear);
 }
