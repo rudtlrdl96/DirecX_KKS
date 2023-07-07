@@ -42,6 +42,11 @@ public:
 		Buffer.Color.a = 0.0f;
 	}
 
+	inline void LegendaryGearEffectOn()
+	{
+		IsLegendaryGear = true;
+	}
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	BlackAndWihteBuffer Buffer;
@@ -49,6 +54,12 @@ protected:
 	std::shared_ptr<EffectActor> DeactiveEffect = nullptr;
 	std::shared_ptr<EffectActor> ActiveStartEffect = nullptr;
 	std::shared_ptr<EffectActor> ActiveLoopEffect = nullptr;
+
+	std::shared_ptr<EffectActor> LegendaryFrontStartEffect = nullptr;
+	std::shared_ptr<EffectActor> LegendaryFrontLoopEffect = nullptr;
+	std::shared_ptr<EffectActor> LegendaryBehindStartEffect = nullptr;
+	std::shared_ptr<EffectActor> LegendaryBehindLoopEffect = nullptr;
+
 
 	std::shared_ptr<class Player> ColPlayer = nullptr;
 
@@ -64,6 +75,7 @@ protected:
 	bool IsColWave = false;
 	bool IsBodyCol = false;
 	bool IsPrevFrameCol = false;
+	bool IsLegendaryGear = false;
 
 	static bool GearDoubleCheck;
 

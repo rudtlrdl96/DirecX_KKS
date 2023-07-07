@@ -241,7 +241,7 @@ void ContentCore::CommonTextureLoad()
 	Path.MoveParentToDirectory("Resources");
 	Path.Move("Resources");
 	Path.Move("Texture");
-	Path.Move("0_Common");
+	Path.Move("0_Common"); 
 
 	{
 		Path.Move("Effect");
@@ -323,7 +323,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "LegendaryGear_Behind_Loop.png",
 			.AnimStart = 0,
 			.AnimEnd = 35,
-			.AnimIter = 0.025f,
+			.AnimIter = 0.03f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -331,7 +331,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "LegendaryGear_Behind_Start.png",
 			.AnimStart = 0,
 			.AnimEnd = 65,
-			.AnimIter = 0.025f,
+			.AnimIter = 0.03f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -339,7 +339,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "LegendaryGear_Front_Loop.png",
 			.AnimStart = 0,
 			.AnimEnd = 35,
-			.AnimIter = 0.025f,
+			.AnimIter = 0.03f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -347,7 +347,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "LegendaryGear_Front_Start.png",
 			.AnimStart = 0,
 			.AnimEnd = 65,
-			.AnimIter = 0.025f,
+			.AnimIter = 0.03f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -363,7 +363,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "StageRewardEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 34,
-			.AnimIter = 0.025f,
+			.AnimIter = 0.03f,
 			.ScaleRatio = 2.0f,
 			});
 	}

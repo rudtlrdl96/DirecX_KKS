@@ -93,6 +93,11 @@ void Player::InsertNewSkull(size_t _SkullIndex)
 
 		Gear->DropGear(GetTransform()->GetWorldPosition() + float4(0, 20, -1));
 		Gear->Init(MainSkull->Data.Index);
+		
+		if (MainSkull->Data.Grade == SkullGrade::Legendary)
+		{
+			Gear->LegendaryGearEffectOn();
+		}
 
 		MainSkull->Death();
 		MainSkull = nullptr;
@@ -395,6 +400,8 @@ void Player::Update(float _DeltaTime)
 					Gear->BlackAndWhiteEffectOn();
 					Gear->ColWaveOn();
 				});
+
+			Gear->LegendaryGearEffectOn();
 		}
 
 		{
@@ -407,6 +414,8 @@ void Player::Update(float _DeltaTime)
 					Gear->BlackAndWhiteEffectOn();
 					Gear->ColWaveOn();
 				});
+
+			Gear->LegendaryGearEffectOn();
 		}
 	}
 

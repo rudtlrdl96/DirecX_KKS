@@ -228,6 +228,80 @@ void BaseGear::Update(float _DeltaTime)
 		}
 	}
 
+
+	if (true == IsLegendaryGear)
+	{
+		if (nullptr == LegendaryFrontLoopEffect && (State == GearState::Wave || State == GearState::Fixed))
+		{
+			if (nullptr == LegendaryFrontStartEffect)
+			{
+				LegendaryFrontStartEffect = EffectManager::PlayEffect({
+					.EffectName = "LegendaryGear_Front_Start",
+					.Position = GetEffectPos() + float4(-5, 250),
+					.Triger = EffectDeathTrigger::None,
+					});
+
+				LegendaryFrontStartEffect->GetTransform()->SetParent(GetTransform());
+
+				float4 Pos = LegendaryFrontStartEffect->GetTransform()->GetWorldPosition();
+				Pos.z = GetTransform()->GetWorldPosition().z - 1.0f;
+				LegendaryFrontStartEffect->GetTransform()->SetWorldPosition(Pos);
+			}
+			else if (true == LegendaryFrontStartEffect->IsAnimationEnd())
+			{
+				LegendaryFrontStartEffect->Death();
+				LegendaryFrontStartEffect = nullptr;
+
+				LegendaryFrontLoopEffect = EffectManager::PlayEffect({
+					.EffectName = "LegendaryGear_Front_Loop",
+					.Position = GetEffectPos() + float4(5, 200),
+					.Triger = EffectDeathTrigger::None,
+					});
+
+				LegendaryFrontLoopEffect->GetTransform()->SetParent(GetTransform());
+
+				float4 Pos = LegendaryFrontLoopEffect->GetTransform()->GetWorldPosition();
+				Pos.z = GetTransform()->GetWorldPosition().z -1.0f;
+				LegendaryFrontLoopEffect->GetTransform()->SetWorldPosition(Pos);
+			}
+
+			if (nullptr == LegendaryBehindLoopEffect)
+			{
+				if (nullptr == LegendaryBehindStartEffect)
+				{
+					LegendaryBehindStartEffect = EffectManager::PlayEffect({
+						.EffectName = "LegendaryGear_Behind_Start",
+						.Position = GetEffectPos() + float4(0, 200),
+						.Triger = EffectDeathTrigger::None,
+						});
+
+					LegendaryBehindStartEffect->GetTransform()->SetParent(GetTransform());
+
+					float4 Pos = LegendaryBehindStartEffect->GetTransform()->GetWorldPosition();
+					Pos.z = GetTransform()->GetWorldPosition().z + 1.0f;
+					LegendaryBehindStartEffect->GetTransform()->SetWorldPosition(Pos);
+				}
+				else if (true == LegendaryBehindStartEffect->IsAnimationEnd())
+				{
+					LegendaryBehindStartEffect->Death();
+					LegendaryBehindStartEffect = nullptr;
+
+					LegendaryBehindLoopEffect = EffectManager::PlayEffect({
+						.EffectName = "LegendaryGear_Behind_Loop",
+						.Position = GetEffectPos() + float4(0, 200),
+						.Triger = EffectDeathTrigger::None,
+						});
+
+					LegendaryBehindLoopEffect->GetTransform()->SetParent(GetTransform());
+
+					float4 Pos = LegendaryBehindLoopEffect->GetTransform()->GetWorldPosition();
+					Pos.z = GetTransform()->GetWorldPosition().z + 1.0f;
+					LegendaryBehindLoopEffect->GetTransform()->SetWorldPosition(Pos);
+				}
+			}
+		}	
+	}
+
 	switch (State)
 	{
 	case GearState::Fixed:
