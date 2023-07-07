@@ -237,7 +237,7 @@ void BaseGear::Update(float _DeltaTime)
 			{
 				LegendaryFrontStartEffect = EffectManager::PlayEffect({
 					.EffectName = "LegendaryGear_Front_Start",
-					.Position = GetEffectPos() + float4(-5, 250),
+					.Position = GetEffectPos() + float4(-5, 270),
 					.Triger = EffectDeathTrigger::None,
 					});
 
@@ -254,7 +254,7 @@ void BaseGear::Update(float _DeltaTime)
 
 				LegendaryFrontLoopEffect = EffectManager::PlayEffect({
 					.EffectName = "LegendaryGear_Front_Loop",
-					.Position = GetEffectPos() + float4(5, 200),
+					.Position = GetEffectPos() + float4(5, 220),
 					.Triger = EffectDeathTrigger::None,
 					});
 
@@ -271,7 +271,7 @@ void BaseGear::Update(float _DeltaTime)
 				{
 					LegendaryBehindStartEffect = EffectManager::PlayEffect({
 						.EffectName = "LegendaryGear_Behind_Start",
-						.Position = GetEffectPos() + float4(0, 200),
+						.Position = GetEffectPos() + float4(0, 220),
 						.Triger = EffectDeathTrigger::None,
 						});
 
@@ -288,7 +288,7 @@ void BaseGear::Update(float _DeltaTime)
 
 					LegendaryBehindLoopEffect = EffectManager::PlayEffect({
 						.EffectName = "LegendaryGear_Behind_Loop",
-						.Position = GetEffectPos() + float4(0, 200),
+						.Position = GetEffectPos() + float4(0, 220),
 						.Triger = EffectDeathTrigger::None,
 						});
 
