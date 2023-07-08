@@ -170,6 +170,25 @@ void ContentCore::BlendCreate()
 {
 	{
 		D3D11_SAMPLER_DESC SamperData = {};
+
+		// 
+		SamperData.Filter = D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
+		SamperData.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		SamperData.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		SamperData.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		// ÅØ½ºÃ³°¡ ¸Ö¸®ÀÖÀ»¶§ ¹¶°¶²¨³Ä
+		// ¾È¹¶°µ´Ù.
+		SamperData.MipLODBias = 0.0f;
+		SamperData.MaxAnisotropy = 1;
+		SamperData.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		SamperData.MinLOD = -FLT_MAX;
+		SamperData.MaxLOD = FLT_MAX;
+
+		GameEngineSampler::Create("TEXMOVESAMPLEER", SamperData);
+	}
+
+	{
+		D3D11_SAMPLER_DESC SamperData = {};
 		SamperData.Filter = D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
 		SamperData.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
 		SamperData.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
@@ -249,16 +268,6 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("TextureMoveShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("TextureMoveShader.hlsl");
-		Pipe->SetBlendState("ContentAlphaBlend");
-		Pipe->SetDepthState("EngineDepth");
-	}
-
-	{
-		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Fade");
-
-		Pipe->SetVertexShader("FadeShader.hlsl");
-		Pipe->SetRasterizer("Engine2DBase");
-		Pipe->SetPixelShader("FadeShader.hlsl");
 		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}

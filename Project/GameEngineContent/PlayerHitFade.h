@@ -24,7 +24,7 @@ private:
 	float4 StartColor = float4::Zero;
 	float4 EndColor = float4::Zero;
 
-	FadeBuffer Buffer;
+	ColorBuffer Buffer;
 
 	bool IsFadeActive = false;
 	float Progress = 0.0f;

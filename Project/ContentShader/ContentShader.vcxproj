@@ -22,7 +22,6 @@
     <FxCompile Include="..\Resources\Shader\BlackAndWhiteShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\ColorShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\ContentShader.hlsl" />
-    <FxCompile Include="..\Resources\Shader\FadeShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\FixedColorShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\ObjectColorShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\OutlineColorShader.hlsl" />

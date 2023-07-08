@@ -105,7 +105,7 @@ void RookieHero::Start()
 	
 	UltimateFade = CreateComponent<ContentSpriteRenderer>();
 	UltimateFade->PipeSetting("2DTexture_Color");
-	UltimateFade->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", UltimateFadeBuffer);
+	UltimateFade->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", UltimateColorBuffer);
 	UltimateFade->SetTexture("FadeImage.png");
 	UltimateFade->GetTransform()->SetWorldPosition(float4(0, 0, -999.0f));
 	UltimateFade->GetTransform()->SetLocalScale(float4(100000, 100000, 1));
@@ -213,7 +213,7 @@ void RookieHero::Update(float _DeltaTime)
 
 		float Progress = UltimateFadeProgress - 0.2f;
 
-		UltimateFadeBuffer.Color = float4::LerpClamp(
+		UltimateColorBuffer.Color = float4::LerpClamp(
 			float4(1, 1, 1, 0.6f), float4(1, 1, 1, 0), Progress);
 
 		if (1.0f <= Progress)
@@ -471,5 +471,5 @@ void RookieHero::UltimateFadeOn()
 	UltimateFadeProgress = 0.0f;
 
 	UltimateFade->On();
-	UltimateFadeBuffer.Color = float4(1.0f, 1.0f, 1.0f, 0.6f);
+	UltimateColorBuffer.Color = float4(1.0f, 1.0f, 1.0f, 0.6f);
 }

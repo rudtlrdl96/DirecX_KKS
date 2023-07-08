@@ -32,8 +32,8 @@ void PlayerHitFade::Start()
 	}
 
 	FadeRender = CreateComponent<ContentUIRender>();
-	FadeRender->PipeSetting("2DTexture_Fade");
-	FadeRender->GetShaderResHelper().SetConstantBufferLink("FadeBuffer", Buffer);
+	FadeRender->PipeSetting("2DTexture_Color");
+	FadeRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
 	FadeRender->SetTexture("PlaherHitFade.png");
 	FadeRender->GetTransform()->SetWorldPosition(float4(0, 0, 50));
 	FadeRender->GetTransform()->SetWorldScale(GameEngineWindow::GetScreenSize());

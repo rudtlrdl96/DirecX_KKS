@@ -990,6 +990,12 @@
     <ClInclude Include="StageRewardObject.h">
       <Filter>2_Actor\Map\Stage\Object\Reward</Filter>
     </ClInclude>
+    <ClInclude Include="WorldLightEffect.h">
+      <Filter>6_PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLightEffect.h">
+      <Filter>6_PostEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1660,6 +1666,12 @@
     </ClCompile>
     <ClCompile Include="StageRewardObject.cpp">
       <Filter>2_Actor\Map\Stage\Object\Reward</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldLightEffect.cpp">
+      <Filter>6_PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLightEffect.cpp">
+      <Filter>6_PostEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

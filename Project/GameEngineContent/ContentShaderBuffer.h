@@ -33,12 +33,6 @@ public:
 	float Progress = 0.0f;
 };
 
-class FadeBuffer
-{
-public:
-	float4 Color = float4::Zero;
-};
-
 class TextureMoveBuffer
 {
 public:    

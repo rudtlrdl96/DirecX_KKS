@@ -45,9 +45,9 @@ private:
 	std::string SubTextureName = "Empty.png";
 	std::string BackTextureName = "Empty.png";
 
-	FadeBuffer MainTexBuffer;
-	FadeBuffer SubTexBuffer;
-	FadeBuffer BackTexBuffer;
+	ColorBuffer MainTexBuffer;
+	ColorBuffer SubTexBuffer;
+	ColorBuffer BackTexBuffer;
 
 	float4 MoveStart = float4::Zero;
 	float4 MoveEnd = float4::Zero;

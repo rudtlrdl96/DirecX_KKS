@@ -21,7 +21,7 @@ protected:
 	ColorBuffer UltimateLightBuffer = ColorBuffer();
 
 	std::shared_ptr<ContentSpriteRenderer> UltimateFade = nullptr;
-	ColorBuffer UltimateFadeBuffer = ColorBuffer();
+	ColorBuffer UltimateColorBuffer = ColorBuffer();
 
 	std::shared_ptr<class Player> FindPlayer = nullptr;
 

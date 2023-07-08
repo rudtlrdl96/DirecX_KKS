@@ -44,7 +44,7 @@ public:
 
 protected:
 	std::shared_ptr<class ContentSpriteRenderer> MainRenderer = nullptr;
-	FadeBuffer Buffer;
+	ColorBuffer Buffer;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
