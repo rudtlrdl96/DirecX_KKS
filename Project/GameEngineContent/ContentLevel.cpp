@@ -97,13 +97,16 @@ void ContentLevel::Start()
 
 	WorldLight = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<WorldLightEffect>();
 
-	std::shared_ptr<PointLightEffect> Effect = CreatePointLight(LightType::Circle);
+	WorldLight->WorldLight = float4(0.5f, 0.5f, 0.5f, 1.0f);
 
-	Effect->LightBuffer.LightColor = float4(0.5f, 0.0f, 0.0f, 1.0f);
-	Effect->LightBuffer.LightPos = float4(1280 / 2, 720 / 2);
-	Effect->LightBuffer.LightOption.x = 200.0f;
-	Effect->LightBuffer.LightOption.y = 1.0f;
+	{
+		std::shared_ptr<PointLightEffect> Effect = CreatePointLight(LightType::Circle);
 
+		Effect->LightBuffer.LightColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
+		Effect->LightBuffer.LightPos = float4(1280 / 2, 720 / 2);
+		Effect->LightBuffer.LightOption.x = 200.0f;
+		Effect->LightBuffer.LightOption.y = 2.0f;
+	}
 }
 
 void ContentLevel::Update(float _DeltaTime)

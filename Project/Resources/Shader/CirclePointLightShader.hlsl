@@ -59,11 +59,11 @@ float4 Texture_PS(OutPut _Value) : SV_Target0
     
     if (Distance < LightOption.x)
     {
-        float4 DistanceColor = LightColor * LightOption.y * map(Distance, 0.0f, LightOption.x, 1.0f, 0.0f);
+        float4 DistanceColor = float4(1, 1, 1, 1) + (LightColor * LightOption.y * map(Distance, 0.0f, LightOption.x, 1.0f, 0.0f));
         
-        DistanceColor.a = 0.0f;
+        DistanceColor.a = 1.0f;
         
-        Color += DistanceColor;
+        Color *= DistanceColor;
     }
     
     return Color;
