@@ -6,7 +6,6 @@
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
-#include "WorldLightEffect.h"
 #include "ContentLevelLightGUI.h"
 
 static UINT NewLevelCode = 0;
@@ -97,6 +96,14 @@ void ContentLevel::Start()
 	FadeCam->GetTransform()->SetLocalRotation(float4::Zero);
 
 	WorldLight = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<WorldLightEffect>();
+
+	std::shared_ptr<PointLightEffect> Effect = CreatePointLight(LightType::Circle);
+
+	Effect->LightBuffer.LightColor = float4(0.5f, 0.0f, 0.0f, 1.0f);
+	Effect->LightBuffer.LightPos = float4(1280 / 2, 720 / 2);
+	Effect->LightBuffer.LightOption.x = 200.0f;
+	Effect->LightBuffer.LightOption.y = 1.0f;
+
 }
 
 void ContentLevel::Update(float _DeltaTime)
@@ -191,4 +198,11 @@ void ContentLevel::StopCustomBgm(float _FadeTime /*= 1.0f*/, bool _IsFade /*= tr
 			}
 		}
 	}
+}
+
+std::shared_ptr<PointLightEffect> ContentLevel::CreatePointLight(LightType _Type)
+{
+	std::shared_ptr<PointLightEffect> NewEffect = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<PointLightEffect>();
+	NewEffect->SetState(_Type);
+	return NewEffect;
 }

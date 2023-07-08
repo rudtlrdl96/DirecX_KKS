@@ -2,6 +2,9 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include "CameraController.h"
 
+#include "WorldLightEffect.h"
+#include "PointLightEffect.h"
+
 class ContentLevel : public GameEngineLevel
 {
 public:
@@ -35,6 +38,8 @@ public:
 		return WorldLight;
 	}
 
+	std::shared_ptr<PointLightEffect> CreatePointLight(LightType _Type);
+
 protected:
 	CameraController MainCamCtrl;
 	std::string BgmName = "";
@@ -54,7 +59,8 @@ private:
 	std::shared_ptr<GameEngineCamera> MainCam = nullptr;
 	std::map<std::string, std::map<UINT, std::function<void(void)>>> EventCallback;
 
-	std::shared_ptr<class WorldLightEffect> WorldLight = nullptr;
+	std::shared_ptr<WorldLightEffect> WorldLight = nullptr;
+	std::vector<std::shared_ptr<PointLightEffect>> PointLightEffects;
 
 	GameEngineSoundPlayer BaseBgmPlayer;
 	GameEngineSoundPlayer CustomBgmPlayer;

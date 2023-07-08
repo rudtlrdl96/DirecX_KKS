@@ -353,6 +353,16 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetBlendState("MergeBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("CirclePointLight");
+
+		Pipe->SetVertexShader("CirclePointLightShader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("CirclePointLightShader.hlsl");
+		Pipe->SetBlendState("MergeBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
 }
 
 

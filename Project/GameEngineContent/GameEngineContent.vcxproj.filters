@@ -1679,4 +1679,9 @@
       <Filter>7_Doc</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Doc\LightShader.txt">
+      <Filter>7_Doc</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
