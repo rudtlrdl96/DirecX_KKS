@@ -45,7 +45,7 @@ void Tilemap::SetDepth(UINT _DepthCount)
 
 			NewRender->TilemapCullingOn();
 			NewRender->GetTransform()->SetLocalPosition(float4(0, -ContentConst::TileSize.hy(), Depth * 100.0f));
-			NewRender->CreateTileMap(TilemapSize.x, TilemapSize.y, ContentConst::TileSize);
+			NewRender->CreateTileMap(TilemapSize.x, TilemapSize.y, 1.0f * Depth, ContentConst::TileSize);
 
 			const TileMetaData& EmptyData = ContentDatabase<TileMetaData, LevelArea>::GetData(0);
 
@@ -105,7 +105,7 @@ void Tilemap::ResizeTilemap(UINT _SizeX, UINT _SizeY)
 		std::shared_ptr<GameEngineTileMapRenderer>& DepthRender = TilemapRenders[Depth];
 
 		DepthRender->Clear();
-		DepthRender->CreateTileMap(TilemapSize.x, TilemapSize.y, ContentConst::TileSize);
+		DepthRender->CreateTileMap(TilemapSize.x, TilemapSize.y, 1.0f * Depth, ContentConst::TileSize);
 	
 		for (int y = 0; y < DepthDatas.size(); y++)
 		{

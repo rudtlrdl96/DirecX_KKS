@@ -645,9 +645,6 @@
     <ClInclude Include="AttackColToolAnimActor.h">
       <Filter>2_Actor\Debug</Filter>
     </ClInclude>
-    <ClInclude Include="TilemapDebugActor.h">
-      <Filter>2_Actor\Debug\Tilemap</Filter>
-    </ClInclude>
     <ClInclude Include="ContentSpriteRenderer.h">
       <Filter>3_Component\Renderer</Filter>
     </ClInclude>
@@ -815,9 +812,6 @@
     </ClInclude>
     <ClInclude Include="StoryFade.h">
       <Filter>2_Actor\UI\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="FadeEffect.h">
-      <Filter>6_PostEffect</Filter>
     </ClInclude>
     <ClInclude Include="ContentFadeRender.h">
       <Filter>3_Component\Renderer</Filter>
@@ -1295,9 +1289,6 @@
     <ClCompile Include="AttackColToolAnimActor.cpp">
       <Filter>2_Actor\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="TilemapDebugActor.cpp">
-      <Filter>2_Actor\Debug\Tilemap</Filter>
-    </ClCompile>
     <ClCompile Include="ContentSpriteRenderer.cpp">
       <Filter>3_Component\Renderer</Filter>
     </ClCompile>
@@ -1468,9 +1459,6 @@
     </ClCompile>
     <ClCompile Include="StoryFade.cpp">
       <Filter>2_Actor\UI\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="FadeEffect.cpp">
-      <Filter>6_PostEffect</Filter>
     </ClCompile>
     <ClCompile Include="ContentFadeRender.cpp">
       <Filter>3_Component\Renderer</Filter>

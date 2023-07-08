@@ -306,10 +306,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="FadeEffect.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="FieldNoteActor.h">
       <SubType>
       </SubType>
@@ -635,10 +631,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ThornBush.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="TilemapDebugActor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -1145,10 +1137,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="FadeEffect.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="FieldNoteActor.cpp">
       <SubType>
       </SubType>
@@ -1460,10 +1448,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ThornBush.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="TilemapDebugActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>

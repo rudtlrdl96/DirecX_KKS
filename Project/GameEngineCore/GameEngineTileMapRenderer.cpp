@@ -34,11 +34,12 @@ void GameEngineTileMapRenderer::Start()
 	
 }
 
-void GameEngineTileMapRenderer::CreateTileMap(int _X, int _Y, const float4& _TileSize, const float4& _RenderSize, TileMapMode _Mode)
+void GameEngineTileMapRenderer::CreateTileMap(int _X, int _Y, float _ZPos, const float4& _TileSize, const float4& _RenderSize, TileMapMode _Mode)
 {
 	TileSize = _TileSize;
 	TileSize.z = 1.0f;
 	TileSizeH = TileSize.half();
+	ZPos = _ZPos;
 
 	if (_RenderSize == float4::Zero)
 	{
@@ -120,7 +121,6 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 	float4 vPos;
 
 	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetMainCamera();
-
 	bool IsDrawY = false;
 	for (size_t y = 0; y < Tiles.size(); y++)
 	{
@@ -145,6 +145,8 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 				default:
 					break;
 				}
+
+				vPos.z = ZPos;
 
 				Scale.Scale(RenderSize);
 				Pos.Pos(vPos);
