@@ -12,12 +12,13 @@ public:
 	WorldLightEffect& operator=(const WorldLightEffect& _Other) = delete;
 	WorldLightEffect& operator=(WorldLightEffect&& _Other) noexcept = delete;
 
+	float4 WorldLight = float4::One;
+
 protected:
 	void Start(GameEngineRenderTarget* _Target) override;
 	void Effect(GameEngineRenderTarget* _Target, float _DeltaTime) override;
 
 private:
-	float4 WorldLight = float4::Zero;
 	std::shared_ptr<GameEngineRenderUnit> LightUnit;
 
 };

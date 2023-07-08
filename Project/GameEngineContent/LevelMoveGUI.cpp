@@ -2,6 +2,8 @@
 #include "LevelMoveGUI.h"
 #include <GameEngineCore/GameEngineCore.h>
 
+#include "ContentLevelLightGUI.h"
+
 LevelMoveGUI::LevelMoveGUI()
 {
 }
@@ -10,10 +12,27 @@ LevelMoveGUI::~LevelMoveGUI()
 {
 }
 
+void LevelMoveGUI::Start()
+{
+}
+
 void LevelMoveGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 {
 	int InputLevelIndex = CurrentLevelIndex;
 	ImGui::Combo("Level", &InputLevelIndex, LevelComboText, IM_ARRAYSIZE(LevelComboText));
+
+	ImGui::Checkbox("Light GUI", &LightGuiOn);
+
+	if (true == LightGuiOn)
+	{
+		std::shared_ptr<ContentLevelLightGUI> FindGUI = GameEngineGUI::FindGUIWindowConvert<ContentLevelLightGUI>("ContentLevelLightGUI");
+		FindGUI->On();
+	}
+	else
+	{
+		std::shared_ptr<ContentLevelLightGUI> FindGUI = GameEngineGUI::FindGUIWindowConvert<ContentLevelLightGUI>("ContentLevelLightGUI");
+		FindGUI->Off();
+	}
 
 	if (InputLevelIndex != CurrentLevelIndex)
 	{

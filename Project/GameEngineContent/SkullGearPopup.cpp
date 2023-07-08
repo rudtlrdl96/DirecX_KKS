@@ -87,13 +87,6 @@ void SkullGearPopup::PopupOn()
 		SkillIconB->On();
 	}
 
-
-
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(SwapFontActor->GetTransform());
-	Ptr->On();
-
-
 	if ("" == Data.SkullNote)
 	{
 		NoteRender->Off();

@@ -21,7 +21,9 @@ private:
 
 	int CurrentLevelIndex = 6;
 
-	void Start() override {}
+	bool LightGuiOn = false;
+
+	void Start() override;
 	void OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime) override;
 };
 

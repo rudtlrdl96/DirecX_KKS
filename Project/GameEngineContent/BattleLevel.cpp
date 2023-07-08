@@ -154,6 +154,7 @@ void BattleLevel::Start()
 		{
 			SkullGearPopupPtr->PopupOff();
 		});
+
 }
 
 void BattleLevel::Update(float _DeltaTime)
@@ -173,6 +174,9 @@ void BattleLevel::Update(float _DeltaTime)
 
 	ContentLevel::Update(_DeltaTime);
 	BattleAreaPtr->UpdateBackground(_DeltaTime, MainCamCtrl.GetCameraPos());
+
+
+
 }
 
 void BattleLevel::SetPlayerPos(const float4& _Pos)

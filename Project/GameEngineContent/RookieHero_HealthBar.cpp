@@ -128,9 +128,5 @@ void RookieHero_HealthBar::Start()
 			Death();
 		});
 
-	//std::shared_ptr<GameEngineActorGUI> GUI = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	//GUI->SetTarget(PictureRedner->GetTransform());
-	//GUI->On();
-
 	GetTransform()->SetWorldRotation(float4::Zero);
 }

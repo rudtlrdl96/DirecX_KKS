@@ -990,6 +990,9 @@
     <ClInclude Include="PointLightEffect.h">
       <Filter>6_PostEffect</Filter>
     </ClInclude>
+    <ClInclude Include="ContentLevelLightGUI.h">
+      <Filter>5_GUI\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1660,6 +1663,9 @@
     </ClCompile>
     <ClCompile Include="PointLightEffect.cpp">
       <Filter>6_PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentLevelLightGUI.cpp">
+      <Filter>5_GUI\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

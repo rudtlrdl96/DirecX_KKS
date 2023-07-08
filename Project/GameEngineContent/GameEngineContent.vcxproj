@@ -89,6 +89,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentLevelLightGUI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BattleStage.h">
       <SubType>
       </SubType>
@@ -863,6 +867,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BattleActorHealFont.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentLevelLightGUI.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -20,6 +20,7 @@
 #include "LevelMoveGUI.h"
 #include "AnimationCollisionToolGUI.h"
 #include "TalkboxDebugGUI.h"
+#include "ContentLevelLightGUI.h"
 
 // Player Level
 #include "TitleLevel.h"
@@ -342,6 +343,16 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}
+
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("WorldLight");
+
+		Pipe->SetVertexShader("WorldLightShader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("WorldLightShader.hlsl");
+		Pipe->SetBlendState("MergeBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
 }
 
 
@@ -364,6 +375,9 @@ void ContentCore::ImGuiCreate()
 
 	std::shared_ptr<GameEngineGUIWindow> TalkboxGUIPtr = GameEngineGUI::GUIWindowCreate<TalkboxDebugGUI>("TalkboxDebugGUI");
 	TalkboxGUIPtr->Off();
+
+	std::shared_ptr<GameEngineGUIWindow> LightGUIPtr = GameEngineGUI::GUIWindowCreate<ContentLevelLightGUI>("ContentLevelLightGUI");
+	LightGUIPtr->Off();
 }
 
 void ContentCore::FontFind()

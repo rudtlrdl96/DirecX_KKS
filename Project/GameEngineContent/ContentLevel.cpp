@@ -6,6 +6,9 @@
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
+#include "WorldLightEffect.h"
+#include "ContentLevelLightGUI.h"
+
 static UINT NewLevelCode = 0;
 
 ContentLevel::ContentLevel() :
@@ -92,6 +95,8 @@ void ContentLevel::Start()
 	FadeCam->SetProjectionType(CameraType::Orthogonal);
 	FadeCam->GetTransform()->SetLocalPosition(float4(0, 0, -5000.0f));
 	FadeCam->GetTransform()->SetLocalRotation(float4::Zero);
+
+	WorldLight = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<WorldLightEffect>();
 }
 
 void ContentLevel::Update(float _DeltaTime)
@@ -103,6 +108,8 @@ void ContentLevel::Update(float _DeltaTime)
 void ContentLevel::LevelChangeStart()
 {
 	PlayBaseBGM();
+
+	GameEngineGUI::FindGUIWindowConvert<ContentLevelLightGUI>("ContentLevelLightGUI")->SetLevel(DynamicThis<ContentLevel>());
 }
 
 void ContentLevel::LevelChangeEnd()

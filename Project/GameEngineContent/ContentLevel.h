@@ -30,6 +30,11 @@ public:
 	void PlayCustomBgm(const std::string_view& _BgmName, bool _IsFade = true, float _FadeTime = 1.0f);
 	void StopCustomBgm(float _FadeTime = 1.0f, bool _IsFade = true);
 
+	inline std::shared_ptr<class WorldLightEffect> GetWorldLight()
+	{
+		return WorldLight;
+	}
+
 protected:
 	CameraController MainCamCtrl;
 	std::string BgmName = "";
@@ -48,6 +53,8 @@ protected:
 private:
 	std::shared_ptr<GameEngineCamera> MainCam = nullptr;
 	std::map<std::string, std::map<UINT, std::function<void(void)>>> EventCallback;
+
+	std::shared_ptr<class WorldLightEffect> WorldLight = nullptr;
 
 	GameEngineSoundPlayer BaseBgmPlayer;
 	GameEngineSoundPlayer CustomBgmPlayer;

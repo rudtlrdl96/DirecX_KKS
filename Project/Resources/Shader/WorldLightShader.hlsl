@@ -22,7 +22,7 @@ OutPut Texture_VS(Input _Value)
 
 cbuffer ColorData : register(b1)
 {
-    float4 FadeValue;
+    float4 LightColor;
 }
 
 
@@ -32,10 +32,7 @@ SamplerState WRAPSAMPLER : register(s0);
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
     float4 Color = DiffuseTex.Sample(WRAPSAMPLER, _Value.UV.xy);
-    float Value = FadeValue.x;
-    
-    Value = saturate(Value);
-    Color.xyz *= Value;
+    Color *= LightColor;
     
     return Color;
 }
