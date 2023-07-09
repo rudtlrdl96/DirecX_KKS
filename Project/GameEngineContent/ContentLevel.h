@@ -7,6 +7,7 @@
 
 class ContentLevel : public GameEngineLevel
 {
+	friend class ContentLevelLightGUI;
 public:
 	ContentLevel();
 	~ContentLevel();

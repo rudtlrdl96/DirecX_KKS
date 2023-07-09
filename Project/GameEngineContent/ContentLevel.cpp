@@ -214,11 +214,24 @@ std::shared_ptr<PointLightEffect> ContentLevel::CreatePointLight(PointLightType 
 {
 	std::shared_ptr<PointLightEffect> NewEffect = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<PointLightEffect>();
 	NewEffect->SetState(_Type);
+	PointLightEffects.push_back(NewEffect);
 	return NewEffect;
 }
 
 void ContentLevel::ReleasePointLight(std::shared_ptr<PointLightEffect> _Effect)
 {
+	std::vector<std::shared_ptr<PointLightEffect>>::iterator LoopIter = PointLightEffects.begin();
+	std::vector<std::shared_ptr<PointLightEffect>>::iterator EndIter = PointLightEffects.end();
+
+	for (; LoopIter != EndIter; ++LoopIter)
+	{
+		if ((*LoopIter) == _Effect)
+		{
+			LoopIter = PointLightEffects.erase(LoopIter);
+			break;
+		}
+	}
+
 	GetCamera((int)CameraOrder::Main)->GetCamTarget()->ReleaseEffect(_Effect);
 }
 

@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "PointLightEffect.h"
+#include <GameEngineCore/imgui.h>
 
 PointLightEffect::PointLightEffect()
 {
@@ -31,6 +32,17 @@ void PointLightEffect::SetState(PointLightType _State)
 
 	LightUnit->ShaderResHelper.SetConstantBufferLink("RenderBaseValue", BaseValue);
 	LightUnit->ShaderResHelper.SetConstantBufferLink("ColorData", LightBuffer);
+}
+
+void PointLightEffect::ShowGUI()
+{
+	float InputLightColor[4] = { LightBuffer.LightColor.x, LightBuffer.LightColor.y, LightBuffer.LightColor.z, LightBuffer.LightColor.w};
+	ImGui::DragFloat4("Light Color", InputLightColor, 0.01f);
+	LightBuffer.LightColor = ContentFunc::ConvertFloat4(InputLightColor);
+
+	float InputLightOption[4] = { LightBuffer.LightOption.x, LightBuffer.LightOption.y, LightBuffer.LightOption.z, LightBuffer.LightOption.w };
+	ImGui::DragFloat4("Light Option", InputLightOption, 0.01f);
+	LightBuffer.LightOption = ContentFunc::ConvertFloat4(InputLightOption);
 }
 
 void PointLightEffect::Start(GameEngineRenderTarget* _Target)

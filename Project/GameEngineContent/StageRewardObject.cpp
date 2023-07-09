@@ -357,8 +357,8 @@ void StageRewardObject::CreateLight()
 		RewardLight = GetContentLevel()->CreatePointLight(PointLightType::CircleAngle);
 
 		RewardLight->LightBuffer.LightColor = float4(0.5f, 0.5f, 0.5f, 1.0f);
-		RewardLight->LightBuffer.LightOption.x = 1.0f;
-		RewardLight->LightBuffer.LightOption.y = 2000.0f;
+		RewardLight->LightBuffer.LightOption.x = 0.6f;
+		RewardLight->LightBuffer.LightOption.y = 955.0f;
 
 		RewardLight->LightBuffer.LightOption.z = 175.0f * GameEngineMath::DegToRad;
 		RewardLight->LightBuffer.LightOption.w = 185.0f * GameEngineMath::DegToRad;

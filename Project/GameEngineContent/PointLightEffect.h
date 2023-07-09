@@ -43,6 +43,8 @@ public:
 
 	void SetState(PointLightType _State);
 
+	void ShowGUI();
+
 protected:
 
 	void Start(GameEngineRenderTarget* _Target) override;
