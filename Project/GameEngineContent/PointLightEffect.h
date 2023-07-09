@@ -1,11 +1,11 @@
 #pragma once
 #include <GameEngineCore/GameEngineRenderTarget.h>
 
-enum class LightType
+enum class PointLightType
 {
 	None,
 	Circle,
-	Box,
+	CircleAngle,
 };
 
 class PointBuffer
@@ -20,10 +20,11 @@ public:
 	/// <summary>
 	/// 포인트 라이트 옵션을 나타냅니다
 	/// </summary>
-	/// <param name="x"> Distance 픽셀 거리를 설정합니다</param>
-	/// <param name="y"> Brightness 라이트의 밝기를 설정합니다</param>
-	/// 
-	float4 LightOption = float4::Null;
+    /// <param name="x"> Brightness 라이트의 밝기를 설정합니다</param>
+    /// <param name="y"> Light의 길이를 나타냅니다</param>
+    /// <param name="z"> Light의 시작 각도를 설정합니다 [Angle Type]</param>
+    /// <param name="w"> Light의 끝 각도를 설정합니다 [Angle Type]</param>
+	float4 LightOption = float4(0, 0, 0.0f, 360.0f);
 };
 
 
@@ -38,11 +39,11 @@ public:
 	PointLightEffect& operator=(const PointLightEffect& _Other) = delete;
 	PointLightEffect& operator=(PointLightEffect&& _Other) noexcept = delete;
 
-	void SetState(LightType _State);
 	PointBuffer LightBuffer;
 
+	void SetState(PointLightType _State);
+
 protected:
-	LightType State = LightType::None;
 
 	void Start(GameEngineRenderTarget* _Target) override;
 	void Effect(GameEngineRenderTarget* _Target, float _DeltaTime) override;
@@ -51,6 +52,8 @@ private:
 	std::shared_ptr<GameEngineRenderUnit> LightUnit;
 
 	RenderBaseValue BaseValue;
+
+	PointLightType State = PointLightType::None;
 
 };
 

@@ -10,6 +10,7 @@ StageRewardObject::StageRewardObject()
 
 StageRewardObject::~StageRewardObject()
 {
+	ReleaseLight();
 }
 
 void StageRewardObject::SetReward(RewardType _Type)
@@ -132,6 +133,33 @@ void StageRewardObject::Start()
 
 void StageRewardObject::Update(float _DeltaTime)
 {
+	if (nullptr != RewardLight)
+	{
+		ContentLevel* Level = GetContentLevel();
+		std::shared_ptr<GameEngineCamera> MainCam = Level->GetMainCamera();
+
+		float4 Result = GetTransform()->GetWorldPosition();
+
+		Result *= MainCam->GetView();
+		Result *= MainCam->GetProjection();
+		Result *= MainCam->GetViewPort();
+
+		RewardLight->LightBuffer.LightPos = Result - float4(0, 800);
+
+		if (true == IsLightStartEffect)
+		{
+			LightProgress += _DeltaTime;
+
+			RewardLight->LightBuffer.LightOption.z = ContentFunc::Lerp<float>(175.0f, 170.0f, LightProgress) * GameEngineMath::DegToRad;
+			RewardLight->LightBuffer.LightOption.w = ContentFunc::Lerp<float>(185.0f, 190.0f, LightProgress) * GameEngineMath::DegToRad;
+
+			if (1.0f <= LightProgress)
+			{
+				IsLightStartEffect = false;
+			}
+		}
+	}
+
 	if (RewardType::None == Type)
 	{
 		return;
@@ -139,6 +167,9 @@ void StageRewardObject::Update(float _DeltaTime)
 
 	if (false == IsPlayerFirstEnter && nullptr != EnterCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
 	{
+		GetContentLevel()->CallEvent("RewardWorldLightOn");
+		CreateLight();
+
 		EffectManager::PlayEffect({
 			.EffectName = "StageRewardEffect",
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 50)
@@ -192,6 +223,8 @@ void StageRewardObject::Update(float _DeltaTime)
 			}
 
 			CreateGears.clear();
+			GetContentLevel()->CallEvent("RewardWorldLightOff");
+			ReleaseLight();
 		}
 	}
 
@@ -236,6 +269,9 @@ void StageRewardObject::Update(float _DeltaTime)
 		default:
 			break;
 		}
+
+		GetContentLevel()->CallEvent("RewardWorldLightOff");
+		ReleaseLight();
 	}
 }
 
@@ -312,4 +348,32 @@ void StageRewardObject::DropSkullReward(float4 _Pivot /*= float4::Zero*/, bool _
 	}
 
 	CreateGears.push_back(Gear);
+}
+
+void StageRewardObject::CreateLight()
+{
+	if (nullptr == RewardLight)
+	{
+		RewardLight = GetContentLevel()->CreatePointLight(PointLightType::CircleAngle);
+
+		RewardLight->LightBuffer.LightColor = float4(0.5f, 0.5f, 0.5f, 1.0f);
+		RewardLight->LightBuffer.LightOption.x = 1.0f;
+		RewardLight->LightBuffer.LightOption.y = 2000.0f;
+
+		RewardLight->LightBuffer.LightOption.z = 175.0f * GameEngineMath::DegToRad;
+		RewardLight->LightBuffer.LightOption.w = 185.0f * GameEngineMath::DegToRad;
+
+		IsLightStartEffect = true;
+		LightProgress = 0.0f;
+	}
+}
+
+void StageRewardObject::ReleaseLight()
+{
+	if (nullptr != RewardLight)
+	{
+		GetContentLevel()->ReleasePointLight(RewardLight);
+		RewardLight = nullptr;
+	}
+
 }

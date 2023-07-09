@@ -333,13 +333,12 @@ void Player::Start()
 			MainSkull->SetViewDir(ActorViewDir::Right);
 		});
 
-
 	{
-		LightEffect = GetContentLevel()->CreatePointLight(LightType::Circle);
+		LightEffect = GetContentLevel()->CreatePointLight(PointLightType::Circle);
 
-		LightEffect->LightBuffer.LightColor = float4(0.3f, 0.3f, 0.3f, 1.0f);
-		LightEffect->LightBuffer.LightOption.x = 200.0f;
-		LightEffect->LightBuffer.LightOption.y = 1.0f;
+		LightEffect->LightBuffer.LightColor = float4(0.2f, 0.2f, 0.2f, 1.0f);
+		LightEffect->LightBuffer.LightOption.x = 1.0f;
+		LightEffect->LightBuffer.LightOption.y = 250.0f;
 	}
 }
 

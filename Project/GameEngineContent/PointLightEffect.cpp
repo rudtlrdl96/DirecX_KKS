@@ -9,11 +9,11 @@ PointLightEffect::~PointLightEffect()
 {
 }
 
-void PointLightEffect::SetState(LightType _State)
+void PointLightEffect::SetState(PointLightType _State)
 {
-	if (LightType::None == _State)
+	if (PointLightType::None != State)
 	{
-		MsgAssert_Rtti<PointLightEffect>(" - 라이트의 타입은 None으로 설정할 수 없습니다");
+		MsgAssert_Rtti<PointLightEffect>(" - 라이트의 타입을 바꿀 수 없습니다");
 		return;
 	}
 
@@ -21,14 +21,13 @@ void PointLightEffect::SetState(LightType _State)
 
 	switch (State)
 	{
-	case LightType::Circle:
-		LightUnit->SetPipeLine("CirclePointLight");
+	case PointLightType::Circle:
+		LightUnit->SetPipeLine("PointLight");
 		break;
-	case LightType::Box:
-		LightUnit->SetPipeLine("CirclePointLight");
+	case PointLightType::CircleAngle:
+		LightUnit->SetPipeLine("AnglePointLight");
 		break;
 	}
-
 
 	LightUnit->ShaderResHelper.SetConstantBufferLink("RenderBaseValue", BaseValue);
 	LightUnit->ShaderResHelper.SetConstantBufferLink("ColorData", LightBuffer);
@@ -46,9 +45,9 @@ void PointLightEffect::Start(GameEngineRenderTarget* _Target)
 
 void PointLightEffect::Effect(GameEngineRenderTarget* _Target, float _DeltaTime)
 {
-	if (LightType::None == State)
+	if (PointLightType::None == State)
 	{
-		MsgAssert_Rtti<PointLightEffect>(" - 포인트 라이트의 타입을 설정하지 않았습니다.");
+		MsgAssert_Rtti<PointLightEffect>(" - 라이트의 타입을 설정하지 않았습니다");
 		return;
 	}
 

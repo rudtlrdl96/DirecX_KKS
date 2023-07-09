@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 #include "SkullData.h"
+#include "PointLightEffect.h"
 
 enum class RewardType
 {
@@ -40,6 +41,7 @@ private:
 	std::shared_ptr<GameEngineCollision> RewardCol = nullptr;
 	std::shared_ptr<GameEngineCollision> EnterCol = nullptr;
 
+	std::shared_ptr<PointLightEffect> RewardLight = nullptr;
 	std::shared_ptr<class FieldNoteActor> NoteActor = nullptr;
 
 	std::vector<std::shared_ptr<GameEngineCollision>> AllPlatformCol;
@@ -51,11 +53,17 @@ private:
 
 	bool IsRewardEndValue = false;
 	bool IsPlayerFirstEnter = false;
+	bool IsLightStartEffect = false;
+
+	float LightProgress = 0.0f;
 
 	void GoldRewardInit();
 	void SkullRewardInit();
 	void MiddleBossRewardInit();
 
 	void DropSkullReward(float4 _Pivot = float4::Zero, bool _GradeReset = false);
+
+	void CreateLight();
+	void ReleaseLight();
 
 };

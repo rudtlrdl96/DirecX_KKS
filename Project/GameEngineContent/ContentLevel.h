@@ -38,9 +38,11 @@ public:
 		return WorldLight;
 	}
 
-	std::shared_ptr<PointLightEffect> CreatePointLight(LightType _Type);
+	std::shared_ptr<PointLightEffect> CreatePointLight(PointLightType _Type);
 
 	void ReleasePointLight(std::shared_ptr<PointLightEffect> _Effect);
+
+	void FadeWorldLightEffect(const float4& _Start, const float4& _End, float _Speed);
 
 protected:
 	CameraController MainCamCtrl;
@@ -66,4 +68,11 @@ private:
 
 	GameEngineSoundPlayer BaseBgmPlayer;
 	GameEngineSoundPlayer CustomBgmPlayer;
+
+	float4 WorldLightStart = float4::One;
+	float4 WorldLightEnd= float4::One;
+
+	float WorldLightProgress = 1.0f;
+	float WorldLightSpeed = 1.0f;
+
 };

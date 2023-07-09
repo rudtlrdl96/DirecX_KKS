@@ -355,14 +355,24 @@ void ContentCore::ContentPipeLineCreate()
 	}
 
 	{
-		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("CirclePointLight");
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("PointLight");
 
-		Pipe->SetVertexShader("CirclePointLightShader.hlsl");
+		Pipe->SetVertexShader("PointLightShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
-		Pipe->SetPixelShader("CirclePointLightShader.hlsl");
+		Pipe->SetPixelShader("PointLightShader.hlsl");
 		Pipe->SetBlendState("MergeBlend");
 		Pipe->SetDepthState("EngineDepth");
-	}
+	}		
+	
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("AnglePointLight");
+
+		Pipe->SetVertexShader("AnglePointLightShader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("AnglePointLightShader.hlsl");
+		Pipe->SetBlendState("MergeBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}	
 }
 
 

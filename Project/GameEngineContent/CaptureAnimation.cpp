@@ -48,6 +48,7 @@ void CaptureAnimation::Update(float _DeltaTime)
 
 		CaptureRender->SetTexture(Target->GetTexName());
 		CaptureRender->GetTransform()->SetWorldScale(Target->GetTransform()->GetWorldScale());
+		CaptureRender->GetTransform()->SetWorldRotation(Target->GetTransform()->GetWorldRotation());
 		GetTransform()->SetWorldPosition(Target->GetTransform()->GetWorldPosition() + float4(0, 0, -1.0f));
 
 		AtlasData = Target->GetAtlasData();

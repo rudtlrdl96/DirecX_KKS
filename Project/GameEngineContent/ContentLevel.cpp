@@ -97,10 +97,27 @@ void ContentLevel::Start()
 
 	WorldLight = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<WorldLightEffect>();
 	WorldLight->WorldLight = float4(1.0f, 1.0f, 1.0f, 1.0f);
+
+
+	AddEvent("RewardWorldLightOn", LevelCode, [this]()
+		{
+			FadeWorldLightEffect(WorldLight->WorldLight, float4(0.8f, 0.8f, 0.8f, 1.0f), 2.0f);
+		});
+
+	AddEvent("RewardWorldLightOff", LevelCode, [this]()
+		{
+			FadeWorldLightEffect(WorldLight->WorldLight, float4::One, 2.0f);
+		});
 }
 
 void ContentLevel::Update(float _DeltaTime)
 {
+	if (1.0f > WorldLightProgress)
+	{
+		WorldLightProgress += _DeltaTime * WorldLightSpeed;
+		WorldLight->WorldLight = float4::LerpClamp(WorldLightStart, WorldLightEnd, WorldLightProgress);
+	}
+
 	GameEngineLevel::Update(_DeltaTime);
 	MainCamCtrl.Update(_DeltaTime);
 }
@@ -193,7 +210,7 @@ void ContentLevel::StopCustomBgm(float _FadeTime /*= 1.0f*/, bool _IsFade /*= tr
 	}
 }
 
-std::shared_ptr<PointLightEffect> ContentLevel::CreatePointLight(LightType _Type)
+std::shared_ptr<PointLightEffect> ContentLevel::CreatePointLight(PointLightType _Type)
 {
 	std::shared_ptr<PointLightEffect> NewEffect = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<PointLightEffect>();
 	NewEffect->SetState(_Type);
@@ -203,4 +220,13 @@ std::shared_ptr<PointLightEffect> ContentLevel::CreatePointLight(LightType _Type
 void ContentLevel::ReleasePointLight(std::shared_ptr<PointLightEffect> _Effect)
 {
 	GetCamera((int)CameraOrder::Main)->GetCamTarget()->ReleaseEffect(_Effect);
+}
+
+void ContentLevel::FadeWorldLightEffect(const float4& _Start, const float4& _End, float _Speed)
+{
+	WorldLightStart = _Start;
+	WorldLightEnd = _End;
+
+	WorldLightProgress = 0.0f;
+	WorldLightSpeed = _Speed;
 }

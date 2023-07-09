@@ -12,6 +12,7 @@
     <FxCompile Include="..\Resources\Shader\BlackAndWhiteShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\FixedColorShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\WorldLightShader.hlsl" />
-    <FxCompile Include="..\Resources\Shader\CirclePointLightShader.hlsl" />
+    <FxCompile Include="..\Resources\Shader\PointLightShader.hlsl" />
+    <FxCompile Include="..\Resources\Shader\AnglePointLightShader.hlsl" />
   </ItemGroup>
 </Project>

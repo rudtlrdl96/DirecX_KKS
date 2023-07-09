@@ -29,10 +29,10 @@ cbuffer RenderBaseValue : register(b11)
 cbuffer ColorData : register(b1)
 {
     float4 LightPos;
-    float4 LightColor;    
-    
-    /// <param name="x"> Distance 픽셀 거리를 설정합니다</param>
-    /// <param name="y"> Brightness 라이트의 밝기를 설정합니다</param>
+    float4 LightColor;
+        
+    /// <param name="x"> Brightness 라이트의 밝기를 설정합니다</param>
+    /// <param name="y"> Distance 라이트의 길이를 설정합니다</param>
     float4 LightOption;
 }
 
@@ -56,13 +56,11 @@ float4 Texture_PS(OutPut _Value) : SV_Target0
         
     float2 LightDir = UvScreenPos - LightPos.xy;       
     float Distance = sqrt((LightDir.x * LightDir.x) + (LightDir.y * LightDir.y));
-    
-    if (Distance < LightOption.x)
+          
+    if (Distance < LightOption.y)
     {
-        float4 DistanceColor = float4(1, 1, 1, 1) + (LightColor * LightOption.y * map(Distance, 0.0f, LightOption.x, 1.0f, 0.0f));
-        
+        float4 DistanceColor = float4(1, 1, 1, 1) + (LightColor * LightOption.x * map(Distance, 0.0f, LightOption.y, 1.0f, 0.0f));
         DistanceColor.a = 1.0f;
-        
         Color *= DistanceColor;
     }
     
