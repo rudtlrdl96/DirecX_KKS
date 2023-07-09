@@ -96,19 +96,7 @@ void ContentLevel::Start()
 	FadeCam->GetTransform()->SetLocalRotation(float4::Zero);
 
 	WorldLight = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<WorldLightEffect>();
-
-	WorldLight->WorldLight = float4(0.5f, 0.5f, 0.5f, 1.0f);
-
-	{
-		std::shared_ptr<PointLightEffect> Effect = CreatePointLight(LightType::Circle);
-
-		Effect->LightBuffer.LightColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
-		Effect->LightBuffer.LightPos = float4(1280 / 2, 720 / 2);
-		Effect->LightBuffer.LightOption.x = 200.0f;
-		Effect->LightBuffer.LightOption.y = 2.0f;
-
-		GetCamera(0)->GetCamTarget()->ReleaseEffect(Effect);
-	}
+	WorldLight->WorldLight = float4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void ContentLevel::Update(float _DeltaTime)
@@ -210,4 +198,9 @@ std::shared_ptr<PointLightEffect> ContentLevel::CreatePointLight(LightType _Type
 	std::shared_ptr<PointLightEffect> NewEffect = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<PointLightEffect>();
 	NewEffect->SetState(_Type);
 	return NewEffect;
+}
+
+void ContentLevel::ReleasePointLight(std::shared_ptr<PointLightEffect> _Effect)
+{
+	GetCamera((int)CameraOrder::Main)->GetCamTarget()->ReleaseEffect(_Effect);
 }

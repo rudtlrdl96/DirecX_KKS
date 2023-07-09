@@ -48,6 +48,11 @@ Player::~Player()
 		HitFade->Death();
 		HitFade = nullptr;
 	}
+
+	if (nullptr != LightEffect)
+	{
+		GetContentLevel()->ReleasePointLight(LightEffect);
+	}
 }
 
 void Player::Destroy()
@@ -327,10 +332,33 @@ void Player::Start()
 		{
 			MainSkull->SetViewDir(ActorViewDir::Right);
 		});
+
+
+	{
+		LightEffect = GetContentLevel()->CreatePointLight(LightType::Circle);
+
+		LightEffect->LightBuffer.LightColor = float4(0.3f, 0.3f, 0.3f, 1.0f);
+		LightEffect->LightBuffer.LightOption.x = 200.0f;
+		LightEffect->LightBuffer.LightOption.y = 1.0f;
+	}
 }
 
 void Player::Update(float _DeltaTime)
 {
+	if (nullptr != LightEffect)
+	{
+		ContentLevel* Level = GetContentLevel();
+		std::shared_ptr<GameEngineCamera> MainCam = Level->GetMainCamera();
+
+		float4 Result = GetTransform()->GetWorldPosition();
+
+		Result *= MainCam->GetView();
+		Result *= MainCam->GetProjection();
+		Result *= MainCam->GetViewPort();
+
+		LightEffect->LightBuffer.LightPos = Result;
+	}
+
 	if (true == IsInputUnlockWaitEnd)
 	{
 		IsInputUnlockWaitEnd = false;

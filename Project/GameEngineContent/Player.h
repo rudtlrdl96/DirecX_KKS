@@ -93,6 +93,7 @@ private:
 
 	bool IsInputLockValue = false;
 	
+	std::shared_ptr<PointLightEffect> LightEffect = nullptr;
 
 	std::shared_ptr<class PlayerHitFade> HitFade = nullptr;
 

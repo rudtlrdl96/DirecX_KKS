@@ -37,7 +37,7 @@ cbuffer ColorData : register(b1)
 }
 
 Texture2D DiffuseTex : register(t0);
-SamplerState WRAPSAMPLER : register(s0);
+SamplerState SAMPLER : register(s0);
 
 float map(float value, float originalMin, float originalMax, float newMin, float newMax)
 {
@@ -47,7 +47,7 @@ float map(float value, float originalMin, float originalMax, float newMin, float
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
     float2 Uv = _Value.UV.xy;
-    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, Uv);
+    float4 Color = DiffuseTex.Sample(SAMPLER, Uv);
     
     float2 UvScreenPos;
     

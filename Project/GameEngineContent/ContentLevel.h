@@ -40,6 +40,8 @@ public:
 
 	std::shared_ptr<PointLightEffect> CreatePointLight(LightType _Type);
 
+	void ReleasePointLight(std::shared_ptr<PointLightEffect> _Effect);
+
 protected:
 	CameraController MainCamCtrl;
 	std::string BgmName = "";
