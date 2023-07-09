@@ -48,6 +48,13 @@ struct OutPut
 };
 
 
+cbuffer RenderBaseValue : register(b11)
+{
+    float4 Time;
+    float4 ScreenSize;
+    float4 Mouse;
+}
+
 cbuffer AtlasData : register(b1)
 {
     float2 FramePos;
@@ -63,7 +70,7 @@ OutPut Texture_VS(Input _Value)
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
     OutPutValue.UV.x = (_Value.UV.x * FrameScale.x) + FramePos.x;
     OutPutValue.UV.y = (_Value.UV.y * FrameScale.y) + FramePos.y;
-    
+        
     return OutPutValue;
 }
 
@@ -85,16 +92,23 @@ float4 Texture_PS(OutPut _Value) : SV_Target0
     Color.xyz += OutColor.xyz;
     Color *= OutColor.a;
     
+    float2 OnePixelUV;    
+    float2 TextureScale;
+    DiffuseTex.GetDimensions(TextureScale.x, TextureScale.y);
+    
+    OnePixelUV.x = 1.0f / TextureScale.x;
+    OnePixelUV.y = 1.0f / TextureScale.y;
+    
     if (Color.a == 0)
     {
-        float4 pixelUp = DiffuseTex.Sample(SAMPLER, Uv + float2(0, 0.001f));
-        float4 pixelDown = DiffuseTex.Sample(SAMPLER, Uv - float2(0, 0.001f));
-        float4 pixelRight = DiffuseTex.Sample(SAMPLER, Uv + float2(0.0005f, 0));
-        float4 pixelLeft = DiffuseTex.Sample(SAMPLER, Uv - float2(0.0005f, 0));
+        float4 pixelUp = DiffuseTex.Sample(SAMPLER, Uv + float2(0, OnePixelUV.y));
+        float4 pixelDown = DiffuseTex.Sample(SAMPLER, Uv - float2(0, OnePixelUV.y));
+        float4 pixelRight = DiffuseTex.Sample(SAMPLER, Uv + float2(OnePixelUV.x, 0));
+        float4 pixelLeft = DiffuseTex.Sample(SAMPLER, Uv - float2(OnePixelUV.x, 0));
                 		 
         if (pixelUp.a != 0 || pixelDown.a != 0 || pixelRight.a != 0 || pixelLeft.a != 0)
         {
-            Color += OutlineColor;
+            Color = OutlineColor;
         }
     }
     

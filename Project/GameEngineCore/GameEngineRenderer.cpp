@@ -112,7 +112,7 @@ void GameEngineRenderer::Render(float _Delta)
 	{
 		Units[i]->Render(_Delta);
 	}
-
+	
 }
 
 std::shared_ptr<GameEngineRenderingPipeLine> GameEngineRenderer::GetPipeLine(int _index/* = 0*/) 

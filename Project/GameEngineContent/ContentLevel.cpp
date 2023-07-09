@@ -106,6 +106,8 @@ void ContentLevel::Start()
 		Effect->LightBuffer.LightPos = float4(1280 / 2, 720 / 2);
 		Effect->LightBuffer.LightOption.x = 200.0f;
 		Effect->LightBuffer.LightOption.y = 2.0f;
+
+		GetCamera(0)->GetCamTarget()->ReleaseEffect(Effect);
 	}
 }
 
