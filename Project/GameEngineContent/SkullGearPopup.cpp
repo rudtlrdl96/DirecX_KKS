@@ -12,8 +12,6 @@ SkullGearPopup::~SkullGearPopup()
 {
 }
 
-#include "GameEngineActorGUI.h"
-
 void SkullGearPopup::PopupOn()
 {
 	if (false == ContentDatabase<SkullData, SkullGrade>::IsVaild(Data.Index))
@@ -31,18 +29,30 @@ void SkullGearPopup::PopupOn()
 	{
 	case SkullGrade::Normal:
 		SkullGradeFont->SetText("일반");
+		BrokenFontActor->SetText("　파괴하기 (　 " + std::to_string(ContentConst::Goods_Bone_Normal) + ")");
+		BrokenKeyRender->GetTransform()->SetLocalPosition(float4(-62, 0, -1));
+		BrokenBoneRender->GetTransform()->SetLocalPosition(float4(34, 0, -1));
 		break;
 
-	case SkullGrade::Rare:
+	case SkullGrade::Rare: 
 		SkullGradeFont->SetText("레어");
+		BrokenFontActor->SetText("　파괴하기 (　 " + std::to_string(ContentConst::Goods_Bone_Rare) + ")");
+		BrokenKeyRender->GetTransform()->SetLocalPosition(float4(-67, 0, -1));
+		BrokenBoneRender->GetTransform()->SetLocalPosition(float4(30, 0, -1));
 		break;
 
 	case SkullGrade::Unique:
 		SkullGradeFont->SetText("유니크");
+		BrokenFontActor->SetText("　파괴하기 (　 " + std::to_string(ContentConst::Goods_Bone_Unique) + ")");
+		BrokenKeyRender->GetTransform()->SetLocalPosition(float4(-67, 0, -1));
+		BrokenBoneRender->GetTransform()->SetLocalPosition(float4(30, 0, -1));
 		break;
 
 	case SkullGrade::Legendary:
 		SkullGradeFont->SetText("레전더리");
+		BrokenFontActor->SetText("　파괴하기 (　 " + std::to_string(ContentConst::Goods_Bone_Legendary) + ")");
+		BrokenKeyRender->GetTransform()->SetLocalPosition(float4(-67, 0, -1));
+		BrokenBoneRender->GetTransform()->SetLocalPosition(float4(30, 0, -1));
 		break;
 	default:
 		break;
@@ -131,6 +141,7 @@ void SkullGearPopup::PopupOn()
 
 	SkillFrame->GetTransform()->SetLocalPosition(float4(0, -44 - NoteScale.y, -0.2f));
 	SwapFontActor->GetTransform()->SetLocalPosition(float4(10, -125 - NoteScale.y, -5.0f));
+	BrokenFontActor->GetTransform()->SetLocalPosition(float4(10, -155 - NoteScale.y, -5.0f));
 
 	ItemFrameRender->GetTransform()->SetLocalPosition(float4(0, -NoteScale.hy(), 0));
 	ItemFrameRender->GetTransform()->SetLocalScale(BackgroundScale + float4(0, NoteScale.y, 0));
@@ -244,6 +255,12 @@ void SkullGearPopup::Start()
 	SwapFontActor->GetTransform()->SetLocalPosition(float4(10, -125, -5.0f));
 	SwapFontActor->SetText("ㅁ 교체하기");
 	SwapFontActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
+
+	BrokenFontActor = GetLevel()->CreateActor<UINoteActor>();
+	BrokenFontActor->GetTransform()->SetParent(GetTransform());
+	BrokenFontActor->GetTransform()->SetLocalPosition(float4(10, -155, -5.0f));
+	BrokenKeyRender = BrokenFontActor->AddKeyImage("KeyUI_F_Press.png", float4(0, 0, -1));
+	BrokenBoneRender = BrokenFontActor->AddKeyImage("BoneChip_Icon.png", float4(0, 0, -1));
 
 	Off();
 }

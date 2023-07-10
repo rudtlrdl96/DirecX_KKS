@@ -4,6 +4,9 @@
 SkullData Inventory::MainSkullData;
 SkullData Inventory::SubSkullData;
 
+int Inventory::Goods_Gold = 0;
+int Inventory::Goods_Bone = 0;
+
 Inventory::Inventory()
 {
 }
@@ -17,6 +20,26 @@ void Inventory::SwapSkull()
 	SkullData TempSkullData = MainSkullData; 
 	MainSkullData = SubSkullData;
 	SubSkullData = TempSkullData;
+}
+
+void Inventory::AddGoods_Gold(int _Gold)
+{
+	Goods_Gold += _Gold;
+}
+
+void Inventory::AddGoods_Bone(int _Bone)
+{
+	Goods_Bone += _Bone;
+}
+
+int Inventory::GetGoodsCount_Gold()
+{
+	return Goods_Gold;
+}
+
+int Inventory::GetGoodsCount_Bone()
+{
+	return Goods_Bone;
 }
 
 void Inventory::SetMainSkull(SkullData _SkullData)

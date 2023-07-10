@@ -10,6 +10,29 @@ static void LoadItem(const ItemData& _Data)
 
 void ContentCore::ItemDataLoad()
 {
+	{
+		GameEngineDirectory Path;
+
+		Path.MoveParentToDirectory("Resources");
+		Path.Move("Resources");
+		Path.Move("Texture");
+		Path.Move("0_Common");
+		Path.Move("Goods");
+
+		{
+			Path.Move("Bone");
+
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineTexture::Load(Files[i].GetFullPath());
+			}
+
+			Path.MoveParent();
+		}
+	}
+
 	LoadItem({.Name = "보급형 칼레온 검", .Note = "#R물리공격력#E이 30% 증가합니다.", .Index = 0,
 		.Grade = ItemGrade::Normal, .Synergy1 = Synergy::Courage, .Synergy2 = Synergy::Antique,
 		.MeleeAttack = 0.3f});

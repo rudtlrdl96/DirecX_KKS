@@ -138,7 +138,7 @@ void BaseGear::Update(float _DeltaTime)
 
 				if (1.0f <= PressTime)
 				{
-					Death();
+					Death(); 
 				}
 			}
 			else

@@ -164,9 +164,6 @@ void PlayerStateFrame::Start()
 }
 
 
-
-#include "GameEngineActorGUI.h"
-
 void PlayerStateFrame::Update(float _DeltaTime)
 {
 	switch (State)
@@ -198,10 +195,6 @@ void PlayerStateFrame::Update(float _DeltaTime)
 	}
 	break;
 	}
-
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(GetTransform());
-	Ptr->On();
 
 	if (nullptr == ParentPlayer)
 	{

@@ -83,6 +83,11 @@ void SkullGear::Destroy()
 	{
 		GetContentLevel()->CallEvent("SkullGearPopupOff");
 	}
+
+	if (false == IsUse)
+	{
+		GetContentLevel()->CallEvent("PlayerGetSkullGoodsEffect");
+	}
 }
 
 void SkullGear::PlayDestroyEffect()

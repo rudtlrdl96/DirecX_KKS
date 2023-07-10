@@ -14,7 +14,7 @@ public:
 	UINoteActor& operator=(UINoteActor&& _Other) noexcept = delete;
 
 	void SetText(const std::string_view& _Text);
-	void AddKeyImage(const std::string_view& _KeyImage, const float4& _Pos);
+	std::shared_ptr<GameEngineUIRenderer> AddKeyImage(const std::string_view& _KeyImage, const float4& _Pos);
 
 protected:
 	void Start() override;

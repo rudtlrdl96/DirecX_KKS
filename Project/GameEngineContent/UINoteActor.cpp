@@ -15,7 +15,7 @@ void UINoteActor::SetText(const std::string_view& _Text)
 	TextRender->SetText(NoteText);
 }
 
-void UINoteActor::AddKeyImage(const std::string_view& _KeyImage, const float4& _Pos)
+std::shared_ptr<GameEngineUIRenderer> UINoteActor::AddKeyImage(const std::string_view& _KeyImage, const float4& _Pos)
 {
 	std::shared_ptr<GameEngineUIRenderer> NewImageRender = CreateComponent<GameEngineUIRenderer>();
 
@@ -25,6 +25,8 @@ void UINoteActor::AddKeyImage(const std::string_view& _KeyImage, const float4& _
 	NewImageRender->GetTransform()->SetLocalScale(Scale * 1.5f);
 
 	KeyImageRenders.push_back(NewImageRender);
+
+	return NewImageRender;
 }
 
 void UINoteActor::Start()

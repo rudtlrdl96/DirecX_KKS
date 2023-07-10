@@ -111,6 +111,8 @@ private:
 	std::shared_ptr<GameEngineFontRenderer> CheatRender_Attack = nullptr;
 	std::shared_ptr<GameEngineFontRenderer> CheatRender_HP = nullptr;
 
+	std::vector<std::string> BoneEffectNames;
+
 	bool IsInputUnlockWait = false;
 	bool IsInputUnlockWaitEnd = false;
 

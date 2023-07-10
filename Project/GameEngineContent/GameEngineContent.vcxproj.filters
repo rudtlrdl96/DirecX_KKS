@@ -379,6 +379,9 @@
     <Filter Include="2_Actor\UI\Stage">
       <UniqueIdentifier>{c8afc6d4-226b-432b-899e-4f62a4b167b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\UI\Inventory\Goods">
+      <UniqueIdentifier>{673a96b6-aa27-4ba0-87c6-055a115ffef5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -998,6 +1001,9 @@
     </ClInclude>
     <ClInclude Include="StageInfoFrame.h">
       <Filter>2_Actor\UI\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="GoodsUI.h">
+      <Filter>2_Actor\UI\Inventory\Goods</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1675,6 +1681,9 @@
     </ClCompile>
     <ClCompile Include="StageInfoFrame.cpp">
       <Filter>2_Actor\UI\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="GoodsUI.cpp">
+      <Filter>2_Actor\UI\Inventory\Goods</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

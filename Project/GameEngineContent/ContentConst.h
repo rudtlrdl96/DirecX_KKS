@@ -10,6 +10,14 @@ public:
 
 	// Tile
 	static const float4 TileSize;
+
+	// Goods
+	static const int Goods_Bone_Normal;
+	static const int Goods_Bone_Rare;
+	static const int Goods_Bone_Unique;
+	static const int Goods_Bone_Legendary;
+
+
 private:
 	ContentConst();
 	~ContentConst();

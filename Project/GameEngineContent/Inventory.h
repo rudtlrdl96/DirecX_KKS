@@ -14,11 +14,20 @@ public:
 
 	static void SwapSkull();
 
+	static void AddGoods_Gold(int _Gold);
+	static void AddGoods_Bone(int _Bone);
+
+	static int GetGoodsCount_Gold();
+	static int GetGoodsCount_Bone();
+
 protected:
 	
 private:
 	static SkullData MainSkullData;
 	static SkullData SubSkullData;
+
+	static int Goods_Gold;
+	static int Goods_Bone;
 
 	Inventory();
 	~Inventory();
