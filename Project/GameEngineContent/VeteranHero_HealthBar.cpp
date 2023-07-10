@@ -19,14 +19,9 @@ void VeteranHero_HealthBar::UpFrame()
 {
 }
 
-#include "GameEngineActorGUI.h"
 
 void VeteranHero_HealthBar::UpdateBar(float _Progress, float _DeltaTime)
 {
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(GetTransform());
-	Ptr->On();
-
 	GameEngineTransform* GetTrans = GetTransform();
 
 	BarBuffer.ColorProgress.SizeX = _Progress;
