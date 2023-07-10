@@ -150,6 +150,14 @@ void BattleLevel::Start()
 			}
 		});
 
+	AddEvent("SkullGearPopupCheck", LevelCode, [this]()
+		{
+			if (false == SkullGearPopupPtr->IsUpdate())
+			{
+				SkullGearPopupPtr->PopupOn();
+			}
+		});
+
 	AddEvent("SkullGearPopupOff", LevelCode, [this]()
 		{
 			SkullGearPopupPtr->PopupOff();

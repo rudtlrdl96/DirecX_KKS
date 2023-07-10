@@ -2,18 +2,13 @@
 #include "BaseGear.h"
 #include "Player.h"
 
-bool BaseGear::GearDoubleCheck = false;
-
 BaseGear::BaseGear()
 {
 }
 
 BaseGear::~BaseGear()
 {
-	if (true == IsBodyCol || true == IsPrevFrameCol)
-	{
-		GearDoubleCheck = false;
-	}
+
 }
 
 void BaseGear::DropGear(const float4& _WorldPos)
@@ -50,6 +45,15 @@ void BaseGear::ColWaveOn()
 	WaveCenter = GetTransform()->GetWorldPosition();
 }
 
+void BaseGear::CallUseEvent()
+{
+	if (State == GearState::Fixed || State == GearState::Wave)
+	{
+		UseGear();
+		IsUse = true;
+	}
+}
+
 void BaseGear::Start()
 {
 	Render = CreateComponent<ContentSpriteRenderer>();
@@ -64,7 +68,7 @@ void BaseGear::Start()
 	GearGroundCol->GetTransform()->SetLocalScale(float4(40, 40, 1));
 	GearGroundCol->SetColType(ColType::AABBBOX2D);
 		
-	GearBodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	GearBodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::UseEvent);
 	GearBodyCol->GetTransform()->SetLocalScale(float4(40, 40, 1));
 	GearBodyCol->SetColType(ColType::AABBBOX2D);
 
@@ -85,69 +89,68 @@ void BaseGear::Start()
 
 void BaseGear::Update(float _DeltaTime)
 {
-	if (true == IsPrevFrameCol || true == IsBodyCol)
-	{
-		GearDoubleCheck = false;
-	}
-
-	IsBodyCol = false;
-
 	if (nullptr != ColPlayer && true == ColPlayer->IsDeath())
 	{
 		ColPlayer = nullptr;
 	}
 
-	std::shared_ptr<GameEngineCollision> Col = GearBodyCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
-
-	if (false == GearDoubleCheck && 
-		(State == GearState::Fixed || State == GearState::Wave)
-		&& nullptr != Col)
+	if (false == IsFocus())
 	{
-		ColPlayer = Col->GetActor()->DynamicThis<Player>();
-		GearDoubleCheck = true;
-
-		if (nullptr == ColPlayer)
-		{
-			MsgAssert_Rtti<BaseGear>(" - Player 클래스만 Player ColOrder를 가질 수 있습니다.");
-		}
-
-		IsBodyCol = true;
-
-		if (false == IsPrevFrameCol && nullptr != ColEnterCallback)
-		{
-			ColEnterCallback();
-		}
-
-		if (true == GameEngineInput::IsUp("UseKey"))
-		{
-			UseGear();
-			IsUse = true;
-		}
-		else if (GameEngineInput::IsPress("UseKey"))
-		{
-			PressTime += _DeltaTime;
-
-			if (1.0f <= PressTime)
-			{
-				Death();
-			}
-		}
-		else
-		{
-			PressTime = 0.0f;
-		}
-	}
-	else
-	{
-		if (true == IsPrevFrameCol && nullptr != ColExitCallback)
+		if (true == IsEnterCheck && nullptr != ColExitCallback)
 		{
 			ColExitCallback();
 		}
+
+		IsEnterCheck = false;
+	}
+	
+	if (true == IsFocus() && (State == GearState::Fixed || State == GearState::Wave))
+	{
+		std::shared_ptr<GameEngineCollision> Col = GearBodyCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		if (nullptr != Col)
+		{
+			ColPlayer = Col->GetActor()->DynamicThis<Player>();
+
+			if (nullptr == ColPlayer)
+			{
+				MsgAssert_Rtti<BaseGear>(" - Player 클래스만 Player ColOrder를 가질 수 있습니다.");
+			}
+
+			if (false == IsEnterCheck)
+			{
+				if (nullptr != ColEnterCallback)
+				{
+					ColEnterCallback();
+				}
+
+				IsEnterCheck = true;
+			}
+
+			if (nullptr != ColUpdateCallback)
+			{
+				ColUpdateCallback();
+			}
+
+			if (GameEngineInput::IsPress("UseKey"))
+			{
+				PressTime += _DeltaTime;
+
+				if (1.0f <= PressTime)
+				{
+					Death();
+				}
+			}
+			else
+			{
+				PressTime = 0.0f;
+			}
+		}		
 	}
 
 	if (true == IsColWave)
 	{
-		if (false == IsBodyCol)
+		if (false == IsFocus())
 		{
 			State = PrevState;
 			GetTransform()->SetWorldPosition(WaveCenter);
@@ -165,7 +168,7 @@ void BaseGear::Update(float _DeltaTime)
 		{
 			Buffer.Color.a = 1.0f;
 		}
-		else if (false == IsBodyCol)
+		else if (false == IsFocus())
 		{
 			Buffer.Color.a = 1.0f;
 
@@ -391,8 +394,6 @@ void BaseGear::Update(float _DeltaTime)
 	}
 		break;
 	}
-
-	IsPrevFrameCol = IsBodyCol;
 }
 
 void BaseGear::Destroy()

@@ -4,6 +4,8 @@
 
 static UINT NextCode = 1;
 
+std::shared_ptr<BaseContentActor> BaseContentActor::IsFocusPtr = nullptr;
+
 BaseContentActor::BaseContentActor() :
 	Code(++NextCode)
 {

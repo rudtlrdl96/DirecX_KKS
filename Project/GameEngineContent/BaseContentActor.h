@@ -25,8 +25,28 @@ public:
 	virtual void ShowGUI() {}
 
 	class ContentLevel* GetContentLevel() const;
+
+	virtual void CallUseEvent() {}
+
+	bool IsFocus()
+	{
+		return  DynamicThis<BaseContentActor>() == IsFocusPtr;
+	}
+
+	inline void FocusOn()
+	{
+		IsFocusPtr = DynamicThis<BaseContentActor>();
+	}
+
+	static void FocusOff()
+	{
+		IsFocusPtr = nullptr;
+	}
+
 protected:
 
 private:
 	const UINT Code;
+
+	static std::shared_ptr<BaseContentActor> IsFocusPtr;
 };

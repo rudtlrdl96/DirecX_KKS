@@ -132,6 +132,61 @@ void BaseDoor::ActiveOff()
 	IsActiveDoor = false;
 }
 
+void BaseDoor::CallUseEvent()
+{
+	if (nullptr == LevelPtr)
+	{
+		return;
+	}
+
+	if (false == IsActiveDoor)
+	{
+		return;
+	}
+
+	switch (Type)
+	{
+	case DoorType::Broken:
+		return;
+	case DoorType::Shop:
+		LevelPtr->MoveLevel("Shop");
+		break;
+	default:
+		LevelPtr->MoveNextStage();
+		break;
+	}
+
+	switch (Type)
+	{
+	case DoorType::Broken:
+		BattleStage::SetNextReward(RewardType::None);
+		break;
+	case DoorType::Normal:
+		BattleStage::SetNextReward(RewardType::Normal);
+		break;
+	case DoorType::Equip:
+		BattleStage::SetNextReward(RewardType::Item);
+		break;
+	case DoorType::Skull:
+		BattleStage::SetNextReward(RewardType::Skull);
+		break;
+	case DoorType::Shop:
+		BattleStage::SetNextReward(RewardType::None);
+		break;
+	case DoorType::MiddleBoss:
+		BattleStage::SetNextReward(RewardType::MiddleBoss);
+		break;
+	case DoorType::BossInter:
+		BattleStage::SetNextReward(RewardType::None);
+		break;
+	case DoorType::MainBoss:
+		BattleStage::SetNextReward(RewardType::None);
+		break;
+	default:
+		break;
+	}
+}
+
 void BaseDoor::Start()
 {
 	DoorRender = CreateComponent<ContentSpriteRenderer>();
@@ -141,14 +196,10 @@ void BaseDoor::Start()
 	DoorRender->GetTransform()->SetLocalPosition(float4(0, 10, 0));
 	DoorRender->SetScaleRatio(2.0f);
 
-	DoorCollision = CreateComponent<GameEngineCollision>();
+	DoorCollision = CreateComponent<GameEngineCollision>((int)CollisionOrder::UseEvent);
 	DoorCollision->GetTransform()->SetLocalPosition(float4(0, 0, 0));
 	DoorCollision->GetTransform()->SetWorldScale(float4(150, 200, 0));
-
-	if (false == GameEngineInput::IsKey("UseKey"))
-	{
-		GameEngineInput::CreateKey("UseKey", 'F');
-	}
+	DoorCollision->SetColType(ColType::AABBBOX2D);
 
 	NoteActor = GetLevel()->CreateActor<FieldNoteActor>();
 	NoteActor->GetTransform()->SetParent(GetTransform());
@@ -172,7 +223,7 @@ void BaseDoor::Update(float _DeltaTime)
 		return;
 	}
 
-	if (nullptr == DoorCollision->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	if (false == IsFocus())
 	{
 		return;
 	}
@@ -187,49 +238,4 @@ void BaseDoor::Update(float _DeltaTime)
 		break;
 	}
 
-
-	if (true == GameEngineInput::IsDown("UseKey"))
-	{
-		switch (Type)
-		{
-		case DoorType::Broken:
-			return;
-		case DoorType::Shop:
-			LevelPtr->MoveLevel("Shop");
-			break;
-		default:
-			LevelPtr->MoveNextStage();
-			break;
-		}
-
-		switch (Type)
-		{
-		case DoorType::Broken:
-			BattleStage::SetNextReward(RewardType::None);
-			break;
-		case DoorType::Normal:
-			BattleStage::SetNextReward(RewardType::Normal);
-			break;
-		case DoorType::Equip:
-			BattleStage::SetNextReward(RewardType::Item);
-			break;
-		case DoorType::Skull:
-			BattleStage::SetNextReward(RewardType::Skull);
-			break;
-		case DoorType::Shop:
-			BattleStage::SetNextReward(RewardType::None);
-			break;
-		case DoorType::MiddleBoss:
-			BattleStage::SetNextReward(RewardType::MiddleBoss);
-			break;
-		case DoorType::BossInter:
-			BattleStage::SetNextReward(RewardType::None);
-			break;
-		case DoorType::MainBoss:
-			BattleStage::SetNextReward(RewardType::None);
-			break;
-		default:
-			break;
-		}
-	}
 }

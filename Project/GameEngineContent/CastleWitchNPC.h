@@ -12,6 +12,8 @@ public:
 	CastleWitchNPC& operator=(const CastleWitchNPC& _Other) = delete;
 	CastleWitchNPC& operator=(CastleWitchNPC&& _Other) noexcept = delete;
 
+	void CallUseEvent() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

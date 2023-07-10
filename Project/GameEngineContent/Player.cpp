@@ -98,7 +98,7 @@ void Player::InsertNewSkull(size_t _SkullIndex)
 	{
 		std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
 
-		Gear->DropGear(GetTransform()->GetWorldPosition() + float4(0, 20, -1));
+		Gear->DropGear(GetTransform()->GetWorldPosition() + float4(0, 20, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f)));
 		Gear->Init(MainSkull->Data.Index);
 		
 		if (MainSkull->Data.Grade == SkullGrade::Legendary)
@@ -276,6 +276,11 @@ void Player::Start()
 		GameEngineInput::CreateKey("Cheat_GearTest", '0');
 	}
 
+	if (false == GameEngineInput::IsKey("UseKey"))
+	{
+		GameEngineInput::CreateKey("UseKey", 'F');
+	}
+
 	CheatDebugComp_Attack = CreateComponent<GameEngineComponent>();
 	CheatDebugComp_Attack->GetTransform()->SetLocalPosition(float4(-30, 60, 0));
 	CheatDebugComp_Attack->GetTransform()->SetLocalScale(float4(10, 10, 1));
@@ -333,6 +338,16 @@ void Player::Start()
 			MainSkull->SetViewDir(ActorViewDir::Right);
 		});
 
+	GetContentLevel()->AddEvent("UseKeyOn", GetActorCode(), [this]()
+		{
+			IsUseKeyValue = true;
+		});
+
+	GetContentLevel()->AddEvent("UseKeyOff", GetActorCode(), [this]()
+		{
+			IsUseKeyValue = false;
+		});
+
 	{
 		LightEffect = GetContentLevel()->CreatePointLight(PointLightType::Circle);
 
@@ -344,6 +359,36 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime)
 {
+	std::vector<std::shared_ptr<GameEngineCollision>> UseCols;
+
+	if (true == IsUseKeyValue && true == PlayerBodyCol->CollisionAll((int)CollisionOrder::UseEvent, UseCols, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	{
+		std::vector<std::shared_ptr<BaseContentActor>> CastingActors;
+		CastingActors.resize(UseCols.size());
+
+		for (size_t i = 0; i < UseCols.size(); i++)
+		{
+			CastingActors[i] = UseCols[i]->GetActor()->DynamicThis<BaseContentActor>();
+		}
+
+		std::sort(CastingActors.begin(), CastingActors.end(),
+			[](std::shared_ptr<BaseContentActor>& _Left, std::shared_ptr<BaseContentActor>& _Right)
+			{
+				return _Left->GetTransform()->GetWorldPosition().z < _Right->GetTransform()->GetWorldPosition().z;
+			});
+
+		CastingActors[0]->FocusOn();
+
+		if (true == GameEngineInput::IsUp("UseKey"))
+		{
+			CastingActors[0]->CallUseEvent();
+		}
+	}
+	else
+	{
+		BaseContentActor::FocusOff();
+	}
+
 	if (nullptr != LightEffect)
 	{
 		ContentLevel* Level = GetContentLevel();
@@ -413,7 +458,7 @@ void Player::Update(float _DeltaTime)
 		//Gear->Init(0);
 		//Gear->DropGear(GetTransform()->GetWorldPosition());
 
-		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, -1); 
+		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f));
 		
 		{
 			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();

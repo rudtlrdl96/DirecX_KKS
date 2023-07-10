@@ -35,6 +35,8 @@ public:
 	void ActiveOn();
 	void ActiveOff();
 
+	void CallUseEvent() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

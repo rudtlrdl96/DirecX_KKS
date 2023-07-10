@@ -30,6 +30,8 @@ public:
 
 	void SetReward(RewardType _Type);
 
+	void CallUseEvent() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

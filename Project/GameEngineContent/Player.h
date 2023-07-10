@@ -92,6 +92,7 @@ private:
 	float HitWaitTime = 0.0f;
 
 	bool IsInputLockValue = false;
+	bool IsUseKeyValue = true;
 	
 	std::shared_ptr<PointLightEffect> LightEffect = nullptr;
 

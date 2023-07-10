@@ -105,6 +105,7 @@ void NPC_TalkBox::On()
 	GetContentLevel()->CallEvent("StoryFadeIn");
 	GetContentLevel()->CallEvent("PlayerInputLock");
 	GetContentLevel()->CallEvent("PlayerFrameDisable");
+	GetContentLevel()->CallEvent("UseKeyOff");
 	ResetButton();
 }
 
@@ -202,6 +203,7 @@ void NPC_TalkBox::Start()
 			GetContentLevel()->CallEvent("PlayerInputUnlock");
 			GetContentLevel()->CallEvent("StoryFadeOut");
 			GetContentLevel()->CallEvent("PlayerFrameActive");
+			GetContentLevel()->CallEvent("UseKeyOn");
 		});
 }
 

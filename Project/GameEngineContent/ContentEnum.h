@@ -10,7 +10,8 @@ enum class CollisionOrder
 	BrokenObject,
 	Platform_Normal,
 	Platform_Half,
-	BoneHead
+	BoneHead,
+	UseEvent
 };
 
 enum class LevelArea

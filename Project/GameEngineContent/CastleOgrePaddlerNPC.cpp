@@ -11,6 +11,22 @@ CastleOgrePaddlerNPC::~CastleOgrePaddlerNPC()
 {
 }
 
+void CastleOgrePaddlerNPC::CallUseEvent()
+{
+	if (true == IsGiveItem)
+	{
+		NpcTalkBox->On();
+		PlayNextGiveItemScript();
+
+		IsGiveItem = false;
+	}
+	else
+	{
+		NpcTalkBox->ButtonActive();
+		NpcTalkBox->On();
+	}
+}
+
 void CastleOgrePaddlerNPC::Start()
 {
 	BaseNPC::Start();
@@ -45,15 +61,10 @@ void CastleOgrePaddlerNPC::Start()
 	NpcTalkBox->AddMainText(L"보물. 원해? 나, 화난다.");
 	NpcTalkBox->Off();
 
-	TalkEventCol = CreateComponent<GameEngineCollision>();
+	TalkEventCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::UseEvent);
 	TalkEventCol->SetColType(ColType::AABBBOX2D);
 	TalkEventCol->GetTransform()->SetLocalScale(float4(160, 200, 1));
 	TalkEventCol->GetTransform()->SetLocalPosition(float4(-25, -155));
-
-	if (false == GameEngineInput::IsKey("UseKey"))
-	{
-		GameEngineInput::CreateKey("UseKey", 'F');
-	}
 
 	NoteActor = GetLevel()->CreateActor<FieldNoteActor>();
 	NoteActor->GetTransform()->SetParent(GetTransform());
@@ -101,7 +112,7 @@ void CastleOgrePaddlerNPC::Update(float _DeltaTime)
 		PlayBubble();
 	}
 
-	if (nullptr == TalkEventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	if (false == IsFocus())
 	{
 		NoteActor->Off();
 		return;
@@ -109,22 +120,6 @@ void CastleOgrePaddlerNPC::Update(float _DeltaTime)
 	else
 	{
 		NoteActor->On();
-	}
-
-	if (true == GameEngineInput::IsDown("UseKey"))
-	{
-		if (true == IsGiveItem)
-		{
-			NpcTalkBox->On();
-			PlayNextGiveItemScript();
-
-			IsGiveItem = false;
-		}
-		else
-		{
-			NpcTalkBox->ButtonActive();
-			NpcTalkBox->On();
-		}
 	}
 }
 
@@ -229,6 +224,7 @@ void CastleOgrePaddlerNPC::TalkEndCallback()
 	GetContentLevel()->CallEvent("PlayerInputUnlock");
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
+	GetContentLevel()->CallEvent("UseKeyOn");
 }
 
 void CastleOgrePaddlerNPC::CreateGiveItemScript()
@@ -298,4 +294,5 @@ void CastleOgrePaddlerNPC::GiveItemEndCallback()
 	GetContentLevel()->CallEvent("PlayerInputUnlock");
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
+	GetContentLevel()->CallEvent("UseKeyOff");
 }

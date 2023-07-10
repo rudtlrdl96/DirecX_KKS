@@ -2,6 +2,7 @@
 #include "CastleFoxHunterNPC.h"
 #include "NPC_TalkBox.h"
 #include "FieldNoteActor.h"
+#include "SkullGear.h"
 
 CastleFoxHunterNPC::CastleFoxHunterNPC()
 {
@@ -9,6 +10,22 @@ CastleFoxHunterNPC::CastleFoxHunterNPC()
 
 CastleFoxHunterNPC::~CastleFoxHunterNPC()
 {
+}
+
+void CastleFoxHunterNPC::CallUseEvent()
+{
+	if (true == IsGiveItem)
+	{
+		NpcTalkBox->On();
+		PlayNextGiveHeadScript();
+
+		IsGiveItem = false;
+	}
+	else
+	{
+		NpcTalkBox->ButtonActive();
+		NpcTalkBox->On();
+	}
 }
 
 void CastleFoxHunterNPC::Start()
@@ -47,15 +64,10 @@ void CastleFoxHunterNPC::Start()
 	NpcTalkBox->AddMainText(L"아직도 나에게 볼일이 남았나?");
 	NpcTalkBox->Off();
 
-	TalkEventCol = CreateComponent<GameEngineCollision>();
+	TalkEventCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::UseEvent);
 	TalkEventCol->SetColType(ColType::AABBBOX2D);
 	TalkEventCol->GetTransform()->SetLocalScale(float4(130, 150, 1));
 	TalkEventCol->GetTransform()->SetLocalPosition(float4(-15, -180));
-
-	if (false == GameEngineInput::IsKey("UseKey"))
-	{
-		GameEngineInput::CreateKey("UseKey", 'F');
-	}
 
 	NoteActor = GetLevel()->CreateActor<FieldNoteActor>();
 	NoteActor->GetTransform()->SetParent(GetTransform());
@@ -103,7 +115,7 @@ void CastleFoxHunterNPC::Update(float _DeltaTime)
 		PlayBubble();
 	}
 
-	if (nullptr == TalkEventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	if (false == IsFocus())
 	{
 		NoteActor->Off();
 		return;
@@ -111,22 +123,6 @@ void CastleFoxHunterNPC::Update(float _DeltaTime)
 	else
 	{
 		NoteActor->On();
-	}
-
-	if (true == GameEngineInput::IsDown("UseKey"))
-	{
-		if (true == IsGiveItem)
-		{
-			NpcTalkBox->On();
-			PlayNextGiveHeadScript();
-
-			IsGiveItem = false;
-		}
-		else
-		{
-			NpcTalkBox->ButtonActive();
-			NpcTalkBox->On();
-		}
 	}
 }
 
@@ -280,6 +276,7 @@ void CastleFoxHunterNPC::TalkEndCallback()
 	GetContentLevel()->CallEvent("PlayerInputUnlock");
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
+	GetContentLevel()->CallEvent("UseKeyOn");
 }
 
 void CastleFoxHunterNPC::CreateGiveHeadScript()
@@ -345,8 +342,29 @@ void CastleFoxHunterNPC::PlayNextGiveHeadScript()
 
 void CastleFoxHunterNPC::GiveHeadEndCallback()
 {
+	std::vector<float> RandPer = {50.0f, 50.0f};
+
+	SkullGrade RandGrade = ContentFunc::RandEnum<SkullGrade>(RandPer);
+
+	std::vector<SkullData> GradeDatas;
+
+	ContentDatabase<SkullData, SkullGrade>::CopyGradeDatas(RandGrade, GradeDatas);
+
+	size_t RandIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(GradeDatas.size()) - 1);
+
+	std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
+
+	Gear->DropGear(GetTransform()->GetWorldPosition() + float4(0, -100, -1));
+	Gear->Init(GradeDatas[RandIndex]);
+
+	if (RandGrade == SkullGrade::Legendary)
+	{
+		Gear->LegendaryGearEffectOn();
+	}
+
 	NpcTalkBox->Off();
 	GetContentLevel()->CallEvent("PlayerInputUnlock");
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
+	GetContentLevel()->CallEvent("UseKeyOn");
 }

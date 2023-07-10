@@ -11,6 +11,12 @@ CastleWitchNPC::~CastleWitchNPC()
 {
 }
 
+void CastleWitchNPC::CallUseEvent()
+{
+	NpcTalkBox->ButtonActive();
+	NpcTalkBox->On();
+}
+
 void CastleWitchNPC::Start()
 {
 	BaseNPC::Start();
@@ -45,15 +51,10 @@ void CastleWitchNPC::Start()
 	NpcTalkBox->AddMainText(L"무슨 일이죠 스컬? 나에게 할 말이라도?");
 	NpcTalkBox->Off();
 
-	TalkEventCol = CreateComponent<GameEngineCollision>();
+	TalkEventCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::UseEvent);
 	TalkEventCol->SetColType(ColType::AABBBOX2D);
 	TalkEventCol->GetTransform()->SetLocalScale(float4(120, 200, 1));
 	TalkEventCol->GetTransform()->SetLocalPosition(float4(185, -155));
-
-	if (false == GameEngineInput::IsKey("UseKey"))
-	{
-		GameEngineInput::CreateKey("UseKey", 'F');
-	}
 
 	NoteActor = GetLevel()->CreateActor<FieldNoteActor>();
 	NoteActor->GetTransform()->SetParent(GetTransform());
@@ -96,7 +97,7 @@ void CastleWitchNPC::Update(float _DeltaTime)
 		PlayBubble();
 	}
 
-	if (nullptr == TalkEventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D))
+	if (false == IsFocus())
 	{
 		NoteActor->Off();
 		return;
@@ -104,12 +105,6 @@ void CastleWitchNPC::Update(float _DeltaTime)
 	else
 	{
 		NoteActor->On();
-	}
-
-	if (true == GameEngineInput::IsDown("UseKey"))
-	{
-		NpcTalkBox->ButtonActive();
-		NpcTalkBox->On();
 	}
 }
 
@@ -327,4 +322,5 @@ void CastleWitchNPC::TalkEndCallback()
 	GetContentLevel()->CallEvent("PlayerInputUnlock");
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
+	GetContentLevel()->CallEvent("UseKeyOn");
 }

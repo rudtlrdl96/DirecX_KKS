@@ -46,6 +46,12 @@ void SkullGear::Start()
 		GetContentLevel()->CallEvent("SkullGearPopupOn");
 	};
 
+	ColUpdateCallback = [this]()
+	{
+		SkullGearPopup::SetSkullData(Data);
+		GetContentLevel()->CallEvent("SkullGearPopupCheck");
+	};
+
 	ColExitCallback = [this]()
 	{
 		GetContentLevel()->CallEvent("SkullGearPopupOff");
@@ -73,7 +79,7 @@ void SkullGear::Destroy()
 {
 	BaseGear::Destroy();
 
-	if (true == IsBodyCol)
+	if (true == IsFocus())
 	{
 		GetContentLevel()->CallEvent("SkullGearPopupOff");
 	}

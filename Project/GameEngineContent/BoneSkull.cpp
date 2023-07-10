@@ -379,8 +379,6 @@ void BoneSkull::Skill_SlotB_Enter()
 	EffectManager::PlayEffect({ "LandSmoke", HeadPos - float4(0, 50) });
 
 	PlayerBaseSkull::Skill_SlotB_Enter();
-
-
 }
 
 void BoneSkull::Switch_Enter()

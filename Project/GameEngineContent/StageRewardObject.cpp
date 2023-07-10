@@ -95,6 +95,35 @@ void StageRewardObject::SetReward(RewardType _Type)
 
 }
 
+void StageRewardObject::CallUseEvent()
+{
+	if (RewardType::MiddleBoss != Type && false == IsRewardEndValue)
+	{
+		NoteActor->Off();
+		IsRewardEndValue = true;
+		Render->ChangeAnimation("Open");
+
+		switch (Type)
+		{
+		case RewardType::None:
+			break;
+		case RewardType::Normal:
+			break;
+		case RewardType::Skull:
+			DropSkullReward();
+			break;
+		case RewardType::MiddleBoss:
+
+			break;
+		default:
+			break;
+		}
+
+		GetContentLevel()->CallEvent("RewardWorldLightOff");
+		ReleaseLight();
+	}
+}
+
 void StageRewardObject::Start()
 {
 	Render = CreateComponent<GameEngineSpriteRenderer>();
@@ -117,18 +146,13 @@ void StageRewardObject::Start()
 	NoteActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
 	NoteActor->Off();
 
-	RewardCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
+	RewardCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::UseEvent);
 	RewardCol->GetTransform()->SetLocalScale(float4(150, 150));
 	RewardCol->SetColType(ColType::AABBBOX2D);
 
 	EnterCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	EnterCol->GetTransform()->SetLocalScale(float4(1100, 300));
 	EnterCol->SetColType(ColType::AABBBOX2D);
-
-	if (false == GameEngineInput::IsKey("UseKey"))
-	{
-		GameEngineInput::CreateKey("UseKey", 'F');
-	}
 }
 
 void StageRewardObject::Update(float _DeltaTime)
@@ -245,34 +269,7 @@ void StageRewardObject::Update(float _DeltaTime)
 	else if (true == Render->IsUpdate() && false == IsRewardEndValue)
 	{
 		NoteActor->On();
-	}
-
-
-	if (RewardType::MiddleBoss != Type && false == IsRewardEndValue && true == GameEngineInput::IsDown("UseKey"))
-	{
-		NoteActor->Off();
-		IsRewardEndValue = true;
-		Render->ChangeAnimation("Open");
-
-		switch (Type)
-		{
-		case RewardType::None:
-			break;
-		case RewardType::Normal:
-			break;
-		case RewardType::Skull:
-			DropSkullReward();
-			break;
-		case RewardType::MiddleBoss:
-
-			break;
-		default:
-			break;
-		}
-
-		GetContentLevel()->CallEvent("RewardWorldLightOff");
-		ReleaseLight();
-	}
+	}	
 }
 
 void StageRewardObject::GoldRewardInit()

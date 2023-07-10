@@ -13,6 +13,8 @@ public:
 	CastleFoxHunterNPC& operator=(const CastleFoxHunterNPC& _Other) = delete;
 	CastleFoxHunterNPC& operator=(CastleFoxHunterNPC&& _Other) noexcept = delete;
 
+	void CallUseEvent() override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

@@ -52,6 +52,8 @@ public:
 		IsUse = true;
 	}
 
+	void CallUseEvent() override;
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	BlackAndWihteBuffer Buffer;
@@ -78,13 +80,9 @@ protected:
 	bool IsEffectOff = false;
 	bool IsBlackAndWhite = false;
 	bool IsColWave = false;
-	bool IsBodyCol = false;
-	bool IsPrevFrameCol = false;
 	bool IsLegendaryGear = false;
 	bool IsUse = false;
-
-	static bool GearDoubleCheck;
-
+	bool IsEnterCheck = false;
 
 	float4 WaveCenter = float4::Zero;
 	std::vector<float4> BezierPoint;
@@ -93,6 +91,7 @@ protected:
 
 	std::function<void()> MoveEndCallback = nullptr;
 	std::function<void()> ColEnterCallback = nullptr;
+	std::function<void()> ColUpdateCallback = nullptr;
 	std::function<void()> ColExitCallback = nullptr;
 
 	void Start() override;
