@@ -13,6 +13,7 @@
 #include "BaseMonster.h"
 #include "Minimap.h"
 #include "SkullGearPopup.h"
+#include "StageInfoFrame.h"
 
 BattleLevel::BattleLevel()
 {
@@ -56,6 +57,8 @@ void BattleLevel::Start()
 
 	SkullGearPopupPtr = CreateActor<SkullGearPopup>();
 	SkullGearPopupPtr->Off();
+
+	StageInfoFramePtr = CreateActor<StageInfoFrame>();
 
 	AddEvent("NextLevelMove", LevelCode, [this]()
 		{

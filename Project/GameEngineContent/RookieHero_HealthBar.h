@@ -28,6 +28,9 @@ protected:
 	ColorBuffer FrameBuffer = ColorBuffer();
 	ColorBuffer PictureBuffer = ColorBuffer();
 
+	std::shared_ptr<ContentUIFontRenderer> NameFontRender = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> LevelFontRender = nullptr;
+
 	bool IsSubUpdate = false;
 	float ProgressTime = 0.0f;
 

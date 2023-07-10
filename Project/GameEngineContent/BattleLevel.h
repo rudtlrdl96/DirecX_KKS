@@ -40,6 +40,7 @@ protected:
 	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
 
 	std::shared_ptr<class SkullGearPopup> SkullGearPopupPtr = nullptr;
+	std::shared_ptr<class StageInfoFrame> StageInfoFramePtr = nullptr;
 
 	bool IsLevelMove = false;
 

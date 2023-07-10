@@ -15,6 +15,7 @@ void RookieHero_HealthBar::SetDeathPicture()
 	PictureRedner->SetTexture("RookieHero_UI_Dead.png");
 }
 
+
 void RookieHero_HealthBar::UpdateBar(float _Progress, float _DeltaTime)
 {
 	GameEngineTransform* GetTrans = GetTransform();
@@ -122,6 +123,25 @@ void RookieHero_HealthBar::Start()
 	PictureRedner->GetTransform()->SetWorldRotation(float4(0, 0, 0));
 	PictureRedner->SetScaleToTexture("RookieHero_UI_Portrait.png");
 	PictureRedner->GetTransform()->SetLocalScale(float4(52, 52, 1));
+
+
+
+	NameFontRender = CreateComponent<ContentUIFontRenderer>();
+	NameFontRender->SetFont("≥ÿΩºLv2∞ÌµÒ");
+	NameFontRender->GetTransform()->SetLocalPosition(float4(-32, 4, -1));
+	NameFontRender->SetScale(16);
+	NameFontRender->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_CENTER | FW1_VCENTER));
+	NameFontRender->SetColor(float4(0.7647f, 0.7098f, 0.6627f, 1));
+	NameFontRender->SetText("æ»µÂ∑π¿Ã 13ºº");
+
+	LevelFontRender = CreateComponent<ContentUIFontRenderer>();
+	LevelFontRender->SetFont("≥ÿΩºLv2∞ÌµÒ");
+	LevelFontRender->GetTransform()->SetLocalPosition(float4(53, -15, -1));
+	LevelFontRender->SetScale(14);
+	LevelFontRender->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_CENTER | FW1_VCENTER));
+	LevelFontRender->SetColor(float4(0.7647f, 0.7098f, 0.6627f, 1));
+	LevelFontRender->SetText("6");
+
 
 	GetContentLevel()->AddEvent("MoveStage", GetActorCode(), [this]()
 		{

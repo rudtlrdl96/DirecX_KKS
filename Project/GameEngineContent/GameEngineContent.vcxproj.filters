@@ -376,6 +376,9 @@
     <Filter Include="2_Actor\Map\Stage\Object\Reward">
       <UniqueIdentifier>{821f8ead-ef35-4066-b721-1fc3dfc8ea52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\UI\Stage">
+      <UniqueIdentifier>{c8afc6d4-226b-432b-899e-4f62a4b167b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -992,6 +995,9 @@
     </ClInclude>
     <ClInclude Include="ContentLevelLightGUI.h">
       <Filter>5_GUI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="StageInfoFrame.h">
+      <Filter>2_Actor\UI\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1666,6 +1672,9 @@
     </ClCompile>
     <ClCompile Include="ContentLevelLightGUI.cpp">
       <Filter>5_GUI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="StageInfoFrame.cpp">
+      <Filter>2_Actor\UI\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

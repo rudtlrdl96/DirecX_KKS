@@ -8,6 +8,7 @@
 #include "Tilemap.h"
 #include "StoryLevel.h"
 #include "BossRoomFlop.h"
+#include "StageInfoFrame.h"
 
 // Debug¿ë
 #include "FPSCheckGUI.h"
@@ -199,6 +200,16 @@ void ForestOfHarmonyLevel::Update(float _DeltaTime)
 
 void ForestOfHarmonyLevel::ChangeStage()
 {
+	if (0 == CurStageIndex)
+	{
+		StageInfoFramePtr->FrameOn("Á¶È­ÀÇ ½£", "1-1", "±íÀº ½£");
+	}
+
+	if (5 == CurStageIndex)
+	{
+		StageInfoFramePtr->FrameOn("Á¶È­ÀÇ ½£", "1-2", "Ä®·¹¿Â ±¹°æÁö´ë");
+	}
+
 	IntroTilemap->Off();
 	BattleLevel::ChangeStage();
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "ContentUIFontRenderer.h"
 
 class VeteranHero_HealthBar : public BaseContentActor
 {
@@ -22,6 +23,9 @@ private:
 	std::shared_ptr<class ContentUIRender> BarFrameRedner = nullptr;
 	std::shared_ptr<class ContentUIRender> TopFrameRedner = nullptr;
 	std::shared_ptr<class ContentUIRender> BottomFrameRedner = nullptr;
+
+	std::shared_ptr<ContentUIFontRenderer> NameFontRender = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> SubFontRender = nullptr;
 
 	ProgressBuffer BarBuffer = ProgressBuffer();
 	ProgressBuffer SubBarBuffer = ProgressBuffer();

@@ -115,5 +115,21 @@ void VeteranHero_HealthBar::Start()
 	float4 BottomFrameScale = BottomFrameRedner->GetTransform()->GetLocalScale();
 	BottomFrameRedner->GetTransform()->SetLocalScale(BottomFrameScale * 2.0f);
 	
+	NameFontRender = CreateComponent<ContentUIFontRenderer>();
+	NameFontRender->SetFont("³Ø½¼Lv2°íµñ");
+	NameFontRender->GetTransform()->SetLocalPosition(float4(0, 27, -1));
+	NameFontRender->SetScale(22);
+	NameFontRender->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_CENTER | FW1_VCENTER));
+	NameFontRender->SetColor(float4(0.7647f, 0.7098f, 0.6627f, 1));
+	NameFontRender->SetText("°ß½À ¿ë»ç");
+
+	SubFontRender = CreateComponent<ContentUIFontRenderer>();
+	SubFontRender->SetFont("³Ø½¼Lv2°íµñ");
+	SubFontRender->GetTransform()->SetLocalPosition(float4(0, -24, -1));
+	SubFontRender->SetScale(17);
+	SubFontRender->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_CENTER | FW1_VCENTER));
+	SubFontRender->SetColor(float4(0.7647f, 0.7098f, 0.6627f, 1));
+	SubFontRender->SetText("Ä®·¹¿ÂÀÇ Èñ¸Á");
+
 	GetTransform()->SetWorldRotation(float4::Zero);
 }

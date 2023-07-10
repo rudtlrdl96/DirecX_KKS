@@ -29,8 +29,6 @@ void PlayerHealthBar::SetScale(float _Scale)
 	SubBarRedner->GetTransform()->SetWorldScale(SubBarRedner->GetTransform()->GetWorldScale() * _Scale);
 }
 
-#include "GameEngineActorGUI.h"
-
 void PlayerHealthBar::Start()
 {
 	BarRedner = CreateComponent<ContentUIRender>();
@@ -61,11 +59,6 @@ void PlayerHealthBar::Start()
 void PlayerHealthBar::UpdateBar(float _CurHP, float _MaxHP, float _DeltaTime)
 {
 	float Progress = _CurHP / _MaxHP;
-
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-
-	Ptr->SetTarget(HpFontRender->GetTransform());
-	Ptr->On();
 
 	HpFontRender->SetText(std::to_string((int)_CurHP) +  " / " + std::to_string((int)_MaxHP));
 
