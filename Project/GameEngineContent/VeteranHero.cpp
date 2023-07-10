@@ -67,7 +67,6 @@ void VeteranHero::Start()
 	HealthBarPtr->Off();
 
 	HeroHealthBar = GetLevel()->CreateActor<VeteranHero_HealthBar>();
-	HeroHealthBar->GetTransform()->SetLocalPosition(float4(0, 290));
 	HeroHealthBar->Off();
 
 	BodyCol->GetTransform()->SetLocalPosition(float4(0, 60, 1));
@@ -203,6 +202,7 @@ void VeteranHero::Start()
 	LevelPtr->AddEvent("VeteranHero_Script02_End", GetActorCode(), [this]()
 		{
 			IsIntro = false;
+			HeroHealthBar->DropFrame();
 			HeroHealthBar->On();
 			GetContentLevel()->PlayCustomBgm("Chapter1_Boss.wav");
 		});

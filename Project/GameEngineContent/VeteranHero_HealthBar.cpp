@@ -10,8 +10,23 @@ VeteranHero_HealthBar::~VeteranHero_HealthBar()
 {
 }
 
+void VeteranHero_HealthBar::DropFrame()
+{
+	IsDrop = true;
+}
+
+void VeteranHero_HealthBar::UpFrame()
+{
+}
+
+#include "GameEngineActorGUI.h"
+
 void VeteranHero_HealthBar::UpdateBar(float _Progress, float _DeltaTime)
 {
+	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	Ptr->SetTarget(GetTransform());
+	Ptr->On();
+
 	GameEngineTransform* GetTrans = GetTransform();
 
 	BarBuffer.ColorProgress.SizeX = _Progress;
@@ -132,4 +147,56 @@ void VeteranHero_HealthBar::Start()
 	SubFontRender->SetText("Ä®·¹¿ÂÀÇ Èñ¸Á");
 
 	GetTransform()->SetWorldRotation(float4::Zero);
+
+	Rigid.SetMaxSpeed(500.0f);
+
+	StartPos = float4(0, 400);
+	EndPos = float4(0, 290);
+
+	GetTransform()->SetWorldPosition(StartPos);
+}
+
+void VeteranHero_HealthBar::Update(float _DeltaTime)
+{
+	if (true == IsDrop)
+	{
+		if (1 < GroundColCount)
+		{
+			Rigid.AddForce(float4(0, -900));
+		}
+		else
+		{
+			Rigid.AddForce(float4(0, -600));
+		}
+
+		Rigid.UpdateForce(_DeltaTime);
+
+		float4 TotalVel = Rigid.GetVelocity();
+		float4 FrameVel = TotalVel * _DeltaTime;
+
+		float4 CurPos = GetTransform()->GetWorldPosition();
+
+		if (0.0f > FrameVel.y && EndPos.y > CurPos.y + FrameVel.y)
+		{
+			++GroundColCount;
+
+			if (125.0f < TotalVel.Size())
+			{
+				TotalVel.y = -TotalVel.y * 0.5f;
+				Rigid.SetVelocity(TotalVel);
+
+				TotalVel = Rigid.GetVelocity();
+				FrameVel = TotalVel * _DeltaTime;
+			}
+			else
+			{
+				IsDrop = false;
+				GetTransform()->SetWorldPosition(EndPos);
+				return;
+			}
+		}
+
+		GetTransform()->AddWorldPosition(FrameVel);
+	}
+
 }
