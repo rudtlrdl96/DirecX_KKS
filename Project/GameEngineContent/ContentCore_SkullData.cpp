@@ -15,15 +15,17 @@ void ContentCore::SkullDataLoad()
 	LoadSkull({ .Name = "리틀본", .HeadTexName = "BoneSkul_Head.png",
 		.IconName_MainSkull = "Skul_UI_MainSkull.png", .IconName_SubSkull = "Skul_UI_SubSkull.png", .IconName_Inventory = "Skul_UI_Inventory.png",
 		.IconName_SkillA = "SkullThrowing.png", .IconName_SkillB = "Rebone.png",
-		.Name_SkillA = "두개골 투척", .Name_SkillB = "머리가 본체",
-		.Index = 0, .Grade = SkullGrade::Normal, .SkullType = SkullType::Balance});
+		.Name_SkillA = "두개골 투척", .Name_SkillB = "머리가 본체",		
+		.Index = 0, .Grade = SkullGrade::Normal, .SkullType = SkullType::Balance,
+		.MeleeAttack = 1.0f, .MagicAttack = 1.0f});
 
 	LoadSkull({.Name = "웨어울프", .HeadTexName = "Werewolf_Head1.png",
 		.SkullNote = "교대 시 무적상태로 돌진하여 물리데미지를 입힙니다.",
 		.IconName_MainSkull = "Normal_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Normal_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Normal_WereWolf_UI_Inventory.png",
 		.IconName_SkillA = "WereWolf_Predation1.png", .IconName_SkillB = "Empty.png",
 		.Name_SkillA = "포식", .Name_SkillB = "",
-		.Index = 1, .Grade = SkullGrade::Normal, .SkullType = SkullType::Speed , .MoveSpeed = 440.0f, });
+		.Index = 1, .Grade = SkullGrade::Normal, .SkullType = SkullType::Speed,
+		.MeleeAttack = 1.0f, .MagicAttack = 1.0f, .MoveSpeed = 440.0f, });
 
 	/////////////////////////// 레어 스컬 /////////////////////////////////
 
@@ -32,14 +34,16 @@ void ContentCore::SkullDataLoad()
 		.IconName_MainSkull = "Rare_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Rare_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Rare_WereWolf_UI_Inventory.png",
 		.IconName_SkillA = "WereWolf_Predation2.png", .IconName_SkillB = "Empty.png" ,
 		.Name_SkillA = "포식", .Name_SkillB = "",
-		.Index = 100, .Grade = SkullGrade::Rare, .SkullType = SkullType::Speed , .MoveSpeed = 440.0f });
+		.Index = 100, .Grade = SkullGrade::Rare, .SkullType = SkullType::Speed,
+		.MeleeAttack = 1.2f, .MagicAttack = 1.2f, .MoveSpeed = 440.0f });
 
 	LoadSkull({ .Name = "미노타우로스 1세", .HeadTexName = "Minotaurus_Head1.png",
 		.SkullNote = "스킬 사용 시 3초간 주변의 가까운 적에게 물리데미지를 입힙니다.",
 		.IconName_MainSkull = "Rare_Minotaurus_UI_MainSkull.png", .IconName_SubSkull = "Rare_Minotaurus_UI_SubSkull.png", .IconName_Inventory = "Rare_Minotaurus_UI_Inventory.png",
 		.IconName_SkillA = "Minotaurus_Stamp1.png", .IconName_SkillB = "Empty.png" ,
 		.Name_SkillA = "짓밟기", .Name_SkillB = "",
-		.Index = 101, .Grade = SkullGrade::Rare, .SkullType = SkullType::Power , .MoveSpeed = 440.0f });
+		.Index = 101, .Grade = SkullGrade::Rare, .SkullType = SkullType::Power,
+		.MeleeAttack = 1.2f, .MagicAttack = 1.2f , .MoveSpeed = 440.0f });
 
 
 	/////////////////////////// 유니크 스컬 /////////////////////////////////
@@ -49,20 +53,23 @@ void ContentCore::SkullDataLoad()
 		.IconName_MainSkull = "Unique_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Unique_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Unique_WereWolf_UI_Inventory.png",
 		.IconName_SkillA = "WereWolf_Predation3.png", .IconName_SkillB = "WereWolf_Hunting3.png" ,
 		.Name_SkillA = "포식", .Name_SkillB = "찢기",
-		.Index = 200, .Grade = SkullGrade::Unique, .SkullType = SkullType::Speed });
+		.Index = 200, .Grade = SkullGrade::Unique, .SkullType = SkullType::Speed,
+		.MeleeAttack = 1.4f, .MagicAttack = 1.4f });
 
 	LoadSkull({ .Name = "미노타우로스 2세", .HeadTexName = "Minotaurus_Head2.png",
 		.SkullNote = "스킬 사용 시 땅울림을 4회 일으켜 주변 적에게 물리데미지를 입히고 10% 확률로 기절을 부여합니다.",
 		.IconName_MainSkull = "Unique_Minotaurus_UI_MainSkull.png", .IconName_SubSkull = "Unique_Minotaurus_UI_SubSkull.png", .IconName_Inventory = "Unique_Minotaurus_UI_Inventory.png",
 		.IconName_SkillA = "Minotaurus_Stamp2.png", .IconName_SkillB = "Minotaurus_PlowUp2.png",
 		.Name_SkillA = "짓밟기", .Name_SkillB = "뒤엎기",
-		.Index = 201, .Grade = SkullGrade::Unique, .SkullType = SkullType::Power });
+		.Index = 201, .Grade = SkullGrade::Unique, .SkullType = SkullType::Power,
+		.MeleeAttack = 1.4f, .MagicAttack = 1.4f });
 
 	LoadSkull({ .Name = "경비대장", .HeadTexName = "ChiefGuard_Head.png",
 		.IconName_MainSkull = "ChiefGuard_UI_MainSkull.png", .IconName_SubSkull = "ChiefGuard_UI_SubSkull.png", .IconName_Inventory = "ChiefGuard_UI_Inventory.png",
 		.IconName_SkillA = "ChiefGuard_Skill1.png", .IconName_SkillB = "ChiefGuard_Skill2.png" ,
 		.Name_SkillA = "휘두르기", .Name_SkillB = "화염구",
-		.Index = 203, .Grade = SkullGrade::Unique, .SkullType = SkullType::Balance });
+		.Index = 203, .Grade = SkullGrade::Unique, .SkullType = SkullType::Balance,
+		.MeleeAttack = 1.4f, .MagicAttack = 1.4f });
 	
 	/////////////////////////// 레전더리 스컬 /////////////////////////////////
 
@@ -71,14 +78,16 @@ void ContentCore::SkullDataLoad()
 		.IconName_MainSkull = "Legandary_WereWolf_UI_MainSkull.png", .IconName_SubSkull = "Legandary_WereWolf_UI_SubSkull.png", .IconName_Inventory = "Legandary_WereWolf_UI_Inventory.png",
 		.IconName_SkillA = "WereWolf_Predation4.png", .IconName_SkillB = "WereWolf_Hunting4.png" ,
 		.Name_SkillA = "포식", .Name_SkillB = "찢기",
-		.Index = 300, .Grade = SkullGrade::Legendary, .SkullType = SkullType::Speed });
+		.Index = 300, .Grade = SkullGrade::Legendary, .SkullType = SkullType::Speed,
+		.MeleeAttack = 1.8f, .MagicAttack = 1.8f });
 
 	LoadSkull({ .Name = "미노타우로스 3세", .HeadTexName = "Minotaurus_Head3.png",
 		.SkullNote = "스킬 사용 시 땅울림을 4회 일으켜 주변 적에게 물리데미지를 입히고 10% 확률로 기절을 부여합니다.",
 		.IconName_MainSkull = "Legendary_Minotaurus_UI_MainSkull.png", .IconName_SubSkull = "Legendary_Minotaurus_UI_SubSkull.png", .IconName_Inventory = "Legendary_Minotaurus_UI_Inventory.png",
 		.IconName_SkillA = "Minotaurus_Stamp3.png", .IconName_SkillB = "Minotaurus_PlowUp3.png" ,
 		.Name_SkillA = "짓밟기", .Name_SkillB = "뒤엎기",
-		.Index = 301, .Grade = SkullGrade::Legendary, .SkullType = SkullType::Power });
+		.Index = 301, .Grade = SkullGrade::Legendary, .SkullType = SkullType::Power,
+		.MeleeAttack = 1.8f, .MagicAttack = 1.8f });
 
 	if (nullptr == GameEngineTexture::Find("BoneSkull_Idle.png"))
 	{

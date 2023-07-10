@@ -661,8 +661,8 @@ void WolfSkull_Legandary::AnimationColLoad()
 	Path.Move("Wolf");
 	Path.Move("Legendary");
 
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Legendary_AttackA").GetFullPath()), 0.07f);
-	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Legendary_AttackB").GetFullPath()), 0.06f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Legendary_AttackA").GetFullPath()), 0.06f);
+	Pushback_Attack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Legendary_AttackB").GetFullPath()), 0.05f);
 	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Legendary_JumpAttack").GetFullPath()), 0.05f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Legendary_SkillA").GetFullPath()), 0.08f);
 	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Legendary_SkillB").GetFullPath()), 0.05f);

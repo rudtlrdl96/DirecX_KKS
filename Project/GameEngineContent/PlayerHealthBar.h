@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "ContentUIFontRenderer.h"
 
 class PlayerHealthBar : public BaseContentActor
 {
@@ -15,7 +16,7 @@ public:
 	void SetTexture(const std::string_view& _BarName, const std::string_view& _SubBarName);
 	void SetScale(float _Scale);
 
-	void UpdateBar(float _Progress, float _DeltaTime);
+	void UpdateBar(float _CurHP, float _MaxHP, float _DeltaTime);
 
 protected:
 	void Start() override;
@@ -23,6 +24,7 @@ protected:
 private:
 	std::shared_ptr<class ContentUIRender> BarRedner = nullptr;
 	std::shared_ptr<class ContentUIRender> SubBarRedner = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> HpFontRender = nullptr;
 
 	ProgressBuffer BarBuffer = ProgressBuffer();
 	ProgressBuffer SubBarBuffer = ProgressBuffer();

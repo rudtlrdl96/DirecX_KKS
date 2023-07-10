@@ -20,6 +20,7 @@ void PlayerHealthBar::SetTexture(const std::string_view& _BarName, const std::st
 
 	BarRedner->On();
 	SubBarRedner->On();
+	HpFontRender->On();
 }
 
 void PlayerHealthBar::SetScale(float _Scale)
@@ -27,6 +28,8 @@ void PlayerHealthBar::SetScale(float _Scale)
 	BarRedner->GetTransform()->SetWorldScale(BarRedner->GetTransform()->GetWorldScale() * _Scale);
 	SubBarRedner->GetTransform()->SetWorldScale(SubBarRedner->GetTransform()->GetWorldScale() * _Scale);
 }
+
+#include "GameEngineActorGUI.h"
 
 void PlayerHealthBar::Start()
 {
@@ -44,14 +47,31 @@ void PlayerHealthBar::Start()
 	SubBarRedner->GetTransform()->SetWorldRotation(float4(0, 0, 0));
 	SubBarRedner->Off();
 
+	HpFontRender = CreateComponent<ContentUIFontRenderer>();
+	HpFontRender->SetFont("ÈÞ¸ÕµÕ±ÙÇìµå¶óÀÎ");
+	HpFontRender->GetTransform()->SetLocalPosition(float4(0, 0, -1));
+	HpFontRender->SetScale(18);
+	HpFontRender->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_CENTER | FW1_VCENTER));
+	HpFontRender->SetColor(float4(0.9f, 0.9f, 0.9f, 1));
+	HpFontRender->Off();
+
 	GetTransform()->SetWorldRotation(float4::Zero);
 }
 
-void PlayerHealthBar::UpdateBar(float _Progress, float _DeltaTime)
+void PlayerHealthBar::UpdateBar(float _CurHP, float _MaxHP, float _DeltaTime)
 {
+	float Progress = _CurHP / _MaxHP;
+
+	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+
+	Ptr->SetTarget(HpFontRender->GetTransform());
+	Ptr->On();
+
+	HpFontRender->SetText(std::to_string((int)_CurHP) +  " / " + std::to_string((int)_MaxHP));
+
 	GameEngineTransform* GetTrans = GetTransform();
 
-	BarBuffer.ColorProgress.SizeX = _Progress;
+	BarBuffer.ColorProgress.SizeX = Progress;
 
 	if (false == IsSubUpdate && BarBuffer.ColorProgress.SizeX != SubBarBuffer.ColorProgress.SizeX)
 	{
