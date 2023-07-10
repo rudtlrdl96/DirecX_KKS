@@ -3,6 +3,13 @@
 
 class PlayerStateFrame : public BaseContentActor
 {
+private:
+	enum class FrameState
+	{
+		None,
+		On,
+		Off,
+	};
 public:
 	PlayerStateFrame();
 	~PlayerStateFrame();
@@ -13,6 +20,9 @@ public:
 	PlayerStateFrame& operator=(PlayerStateFrame&& _Other) noexcept = delete;
 
 	void SetParentPlayer(class Player* _Player);
+
+	void FrameOn();
+	void FrameOff();
 
 protected:
 	void Start() override;
@@ -53,6 +63,14 @@ private:
 	std::shared_ptr<class ContentUIRender> QuintessenceFrame = nullptr;
 
 	ColorBuffer Buffer;
+
+	FrameState State = FrameState::None;
+
+	float4 StartPos = float4::Zero;
+	float4 EndPos = float4::Zero;
+
+	float Progress = 0.0f;
+
 
 	void RenderCreate(std::shared_ptr<class ContentUIRender>& _Render, const float4& _LocalPos, const std::string_view& _TextureName = "Empty.png");
 

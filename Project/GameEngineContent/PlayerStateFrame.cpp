@@ -24,6 +24,19 @@ void PlayerStateFrame::SetParentPlayer(Player* _Player)
 	ParentPlayer = _Player;
 }
 
+void PlayerStateFrame::FrameOn()
+{
+	Progress = 0.0f;
+	State = FrameState::On;
+	On();
+}
+
+void PlayerStateFrame::FrameOff()
+{
+	State = FrameState::Off;
+	Progress = 0.0f;
+}
+
 void PlayerStateFrame::Start()
 {
 	if (nullptr == GameEngineTexture::Find("Player_MainFrame.png"))
@@ -145,10 +158,51 @@ void PlayerStateFrame::Start()
 	HealthBarPtr->GetTransform()->SetLocalPosition(float4(1, -16, 0));
 	HealthBarPtr->SetTexture("PlayerHealthBar.png", "PlayerSubBar.png");
 	HealthBarPtr->SetScale(1.325f);
+
+	StartPos = float4(-439, -430);
+	EndPos = float4(-439, -293);
 }
+
+
+
+#include "GameEngineActorGUI.h"
 
 void PlayerStateFrame::Update(float _DeltaTime)
 {
+	switch (State)
+	{
+	case FrameState::On:
+	{
+		Progress += _DeltaTime * 2.0f;
+
+		GetTransform()->SetWorldPosition(float4::LerpClamp(StartPos, EndPos, Progress));
+
+		if (1.0f <= Progress)
+		{
+			State = FrameState::None;
+		}
+	}
+	break;
+	case FrameState::Off:
+	{
+		Progress += _DeltaTime * 2.0f;
+
+		GetTransform()->SetWorldPosition(float4::LerpClamp(EndPos, StartPos, Progress));
+
+		if (1.0f <= Progress)
+		{
+			Off();
+			State = FrameState::None;
+		}
+
+	}
+	break;
+	}
+
+	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	Ptr->SetTarget(GetTransform());
+	Ptr->On();
+
 	if (nullptr == ParentPlayer)
 	{
 		MsgAssert_Rtti<PlayerStateFrame>(" - 플레이어가 설정되지 않았습니다");

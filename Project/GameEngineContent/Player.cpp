@@ -251,12 +251,12 @@ void Player::InputUnlock()
 
 void Player::ActivePlayerFrame()
 {
-	StateFrame->On();
+	StateFrame->FrameOn();
 }
 
 void Player::DisablePlayerFrame()
 {
-	StateFrame->Off();
+	StateFrame->FrameOff();
 }
 
 void Player::PlayStoryMove(const float4& _StoryMovePos, std::function<void()> _EndCallback)

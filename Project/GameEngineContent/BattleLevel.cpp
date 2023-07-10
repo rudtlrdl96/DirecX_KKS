@@ -39,7 +39,7 @@ void BattleLevel::Start()
 	BattleAreaPtr = CreateActor<BattleArea>();
 
 	MinimapPtr = CreateActor<Minimap>();
-	MinimapPtr->GetTransform()->SetLocalPosition(float4(530, -295));
+	MinimapPtr->MinimapOn();
 
 	FadeActorPtr = CreateActor<FadeActor>();
 	FadeActorPtr->GetTransform()->AddLocalPosition(float4(0, 0, -20.0f));
@@ -94,12 +94,12 @@ void BattleLevel::Start()
 
 	AddEvent("MinimapOn", LevelCode, [this]()
 		{
-			MinimapPtr->On();
+			MinimapPtr->MinimapOn();
 		});
 
 	AddEvent("MinimapOff", LevelCode, [this]()
 		{
-			MinimapPtr->Off();
+			MinimapPtr->MinimapOff();
 		});
 
 	AddEvent("FadeOut_White", LevelCode, [this]()

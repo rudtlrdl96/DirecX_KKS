@@ -3,16 +3,16 @@
 #include "ContentUIFontRenderer.h"
 #include "Rigidbody2D.h"
 
-enum class StageFrameState
-{
-	None, 
-	Down,
-	Wait,
-	Up
-};
-
 class StageInfoFrame : public BaseContentActor
 {
+private:
+	enum class StageFrameState
+	{
+		None,
+		Down,
+		Wait,
+		Up
+	};
 public:
 	StageInfoFrame();
 	~StageInfoFrame();
