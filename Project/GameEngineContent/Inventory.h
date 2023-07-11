@@ -16,9 +16,11 @@ public:
 
 	static void AddGoods_Gold(int _Gold);
 	static void AddGoods_Bone(int _Bone);
+	static void AddGoods_ManaStone(int _ManaStone);
 
 	static int GetGoodsCount_Gold();
 	static int GetGoodsCount_Bone();
+	static int GetGoodsCount_ManaStone();
 
 protected:
 	
@@ -28,6 +30,7 @@ private:
 
 	static int Goods_Gold;
 	static int Goods_Bone;
+	static int Goods_ManaStone;
 
 	Inventory();
 	~Inventory();

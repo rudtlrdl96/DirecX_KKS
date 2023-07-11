@@ -17,10 +17,18 @@ void Minimap::MinimapOn()
 	On();
 }
 
-void Minimap::MinimapOff()
+void Minimap::MinimapOff(bool _Force /*= false*/)
 {
-	State = MinimapState::Off;
-	Progress = 0.0f;
+	if (true == _Force)
+	{
+		GetTransform()->SetWorldPosition(EndPos);
+		Off();
+	}
+	else
+	{
+		State = MinimapState::Off;
+		Progress = 0.0f;
+	}
 }
 
 void Minimap::Start()

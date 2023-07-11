@@ -41,6 +41,7 @@ protected:
 
 	std::shared_ptr<class SkullGearPopup> SkullGearPopupPtr = nullptr;
 	std::shared_ptr<class StageInfoFrame> StageInfoFramePtr = nullptr;
+	std::shared_ptr<class GoodsUI> GoodsUIPtr = nullptr;
 
 	bool IsLevelMove = false;
 

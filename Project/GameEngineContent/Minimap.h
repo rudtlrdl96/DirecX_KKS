@@ -20,7 +20,7 @@ public:
 	Minimap& operator=(Minimap&& _Other) noexcept = delete;
 
 	void MinimapOn();
-	void MinimapOff();
+	void MinimapOff(bool _Force = false);
 
 protected:
 	void Start() override;

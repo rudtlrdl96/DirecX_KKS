@@ -87,6 +87,25 @@ void SkullGear::Destroy()
 	if (false == IsUse)
 	{
 		GetContentLevel()->CallEvent("PlayerGetSkullGoodsEffect");
+		
+		switch (Data.Grade)
+		{
+		case SkullGrade::Normal:
+			Inventory::AddGoods_Bone(ContentConst::Goods_Bone_Normal);
+			break;
+		case SkullGrade::Rare:
+			Inventory::AddGoods_Bone(ContentConst::Goods_Bone_Rare);
+			break;
+		case SkullGrade::Unique:
+			Inventory::AddGoods_Bone(ContentConst::Goods_Bone_Unique);
+			break;
+		case SkullGrade::Legendary:
+			Inventory::AddGoods_Bone(ContentConst::Goods_Bone_Legendary);
+			break;
+		default:
+			break;
+		}
+
 	}
 }
 

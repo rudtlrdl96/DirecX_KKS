@@ -88,6 +88,13 @@ void PlayerStateFrame::Start()
 			.AnimEnd = 19,
 			.AnimIter = 0.04f,
 			.ScaleRatio = 2.0f });
+
+		EffectManager::CreateMetaData("AddGoodsEffect", {
+			.SpriteName = "MainSwitchCooldownEffect.png",
+			.AnimStart = 0,
+			.AnimEnd = 19,
+			.AnimIter = 0.04f,
+			.ScaleRatio = 0.4f });
 	}
 
 	RenderCreate(MainFrame, float4(0, 0, 5.0f), "Player_MainFrame.png");

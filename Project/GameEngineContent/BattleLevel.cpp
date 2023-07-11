@@ -3,17 +3,21 @@
 
 #include <GameEnginePlatform/GameEngineInput.h>
 
+// Game
 #include "GameEventManager.h"
 #include "EffectManager.h"
 #include "BattleArea.h"
 #include "Player.h"
+#include "BaseMonster.h"
+
+// UI
 #include "FadeActor.h"
 #include "StoryFade.h"
 #include "TalkBox.h"
-#include "BaseMonster.h"
 #include "Minimap.h"
 #include "SkullGearPopup.h"
 #include "StageInfoFrame.h"
+#include "GoodsUI.h"
 
 BattleLevel::BattleLevel()
 {
@@ -60,6 +64,9 @@ void BattleLevel::Start()
 
 	StageInfoFramePtr = CreateActor<StageInfoFrame>();
 
+	GoodsUIPtr = CreateActor<GoodsUI>();
+	GoodsUIPtr->GoodsUIOn(true);
+
 	AddEvent("NextLevelMove", LevelCode, [this]()
 		{
 			AreaClear();
@@ -100,6 +107,11 @@ void BattleLevel::Start()
 	AddEvent("MinimapOff", LevelCode, [this]()
 		{
 			MinimapPtr->MinimapOff();
+		});
+	
+	AddEvent("MinimapOff_Force", LevelCode, [this]()
+		{
+			MinimapPtr->MinimapOff(true);
 		});
 
 	AddEvent("FadeOut_White", LevelCode, [this]()
@@ -164,6 +176,16 @@ void BattleLevel::Start()
 	AddEvent("SkullGearPopupOff", LevelCode, [this]()
 		{
 			SkullGearPopupPtr->PopupOff();
+		});	
+
+	AddEvent("GoodsUIOn", LevelCode, [this]()
+		{
+			GoodsUIPtr->GoodsUIOn(MinimapPtr->IsUpdate());
+		});	
+	
+	AddEvent("GoodsUIOff", LevelCode, [this]()
+		{
+			GoodsUIPtr->GoodsUIOff(MinimapPtr->IsUpdate());
 		});
 
 }
@@ -364,5 +386,4 @@ void BattleLevel::MoveLevel(const std::string_view& _Level)
 			GameEngineCore::ChangeLevel(_Level);
 			IsLevelMove = false;
 		});
-
 }

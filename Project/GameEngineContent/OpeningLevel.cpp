@@ -80,6 +80,7 @@ void OpeningLevel::LevelChangeStart()
 	BattleLevel::LevelChangeStart();
 	IsMongalEncounter = false;
 
+	CallEvent("GoodsUIOn");
 	CallEvent("MinimapOff");
 }
 

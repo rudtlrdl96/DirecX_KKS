@@ -294,5 +294,5 @@ void CastleOgrePaddlerNPC::GiveItemEndCallback()
 	GetContentLevel()->CallEvent("PlayerInputUnlock");
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
-	GetContentLevel()->CallEvent("UseKeyOff");
+	GetContentLevel()->CallEvent("UseKeyOn");
 }
