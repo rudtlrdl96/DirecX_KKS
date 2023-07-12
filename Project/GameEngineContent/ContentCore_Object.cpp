@@ -107,7 +107,7 @@ void ContentCore::ObjectLoad()
 
 				std::string Name = Tex->GetNameToString();
 				ContentDatabase<ObjectMetaData, LevelArea>::InsertData(
-					{ .Name = Name, .Index = 1000 + i, .Grade = LevelArea::ForestOfHamory, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
+					{ .Name = Name, .Index = 1000 + i, .Grade = LevelArea::ForestOfHarmory, .Size = float4(Tex->GetWidth(), Tex->GetHeight()) });
 			}
 
 			Path.MoveParent();
@@ -116,22 +116,22 @@ void ContentCore::ObjectLoad()
 
 		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
 			.Index = 200,
-			.Grade = LevelArea::ForestOfHamory,
+			.Grade = LevelArea::ForestOfHarmory,
 			.Name = "FireFlower_Preview.png" });
 
 		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
 			.Index = 201,
-			.Grade = LevelArea::ForestOfHamory,
+			.Grade = LevelArea::ForestOfHarmory,
 			.Name = "ThornBush_Preview.png" });
 
 		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
 			.Index = 202,
-			.Grade = LevelArea::ForestOfHamory,
+			.Grade = LevelArea::ForestOfHarmory,
 			.Name = "Vine_Preview.png" });
 
 		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
 			.Index = 203,
-			.Grade = LevelArea::ForestOfHamory,
+			.Grade = LevelArea::ForestOfHarmory,
 			.Name = "Mushroom_Preview.png" });
 
 		{
@@ -255,7 +255,7 @@ void ContentCore::ObjectLoad()
 	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::Opening, Opening_Object_Datas);
 
 	std::vector<ObjectMetaData> ForestOfHarmony_Object_Datas;
-	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestOfHarmony_Object_Datas);
+	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHarmory, ForestOfHarmony_Object_Datas);
 
 	std::vector<ObjectMetaData> GranHall_Object_Datas;
 	ContentDatabase<ObjectMetaData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GranHall_Object_Datas);

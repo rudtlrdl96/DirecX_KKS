@@ -35,6 +35,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ArachneNPC.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="AttackColToolAnimActor.h" />
     <ClInclude Include="AnimationAttackMetaData.h">
       <SubType>
@@ -845,6 +849,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="AnimAttackCheck.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ArachneNPC.cpp">
       <SubType>
       </SubType>
     </ClCompile>

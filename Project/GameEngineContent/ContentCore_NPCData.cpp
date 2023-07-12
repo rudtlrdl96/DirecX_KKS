@@ -136,4 +136,11 @@ void ContentCore::NPCDataLoad()
 		.Index = 102, .Grade = LevelArea::Castle,
 		.Name = "오우거 보부상", .TalkboxNameTag = "오우거 보부상",
 		.PreviewName = "OgrePeddler_Castle_Preview.png" });
+
+
+	// ForestOfHarmony
+	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
+	.Index = 200, .Grade = LevelArea::ForestOfHarmory,
+	.Name = "아라크네", .TalkboxNameTag = "아라크네",
+	.PreviewName = "Arachne_Preview.png" });
 }

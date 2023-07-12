@@ -41,7 +41,7 @@ void BackgroundToolGUI::Start()
 	BackgroundDatasLoad(LevelArea::None);
 	BackgroundDatasLoad(LevelArea::Opening);
 	BackgroundDatasLoad(LevelArea::Castle);
-	BackgroundDatasLoad(LevelArea::ForestOfHamory);
+	BackgroundDatasLoad(LevelArea::ForestOfHarmory);
 	BackgroundDatasLoad(LevelArea::GrandHall);
 	BackgroundDatasLoad(LevelArea::HolyCourtyard);
 	BackgroundDatasLoad(LevelArea::Shop);

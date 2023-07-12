@@ -13,6 +13,8 @@
 #include "CastleFoxHunterNPC.h"
 #include "CastleOgrePaddlerNPC.h"
 
+#include "ArachneNPC.h"
+
 std::shared_ptr<BaseNPC> NPCManager::CreateNPC(const NPCMetaData& _NewNPCData)
 {
 	std::shared_ptr<BaseNPC> NewNPC = nullptr;
@@ -70,6 +72,10 @@ std::shared_ptr<BaseNPC> NPCManager::CreateNPC(const NPCMetaData& _NewNPCData)
 		NewNPC = GetLevel()->CreateActor<CastleOgrePaddlerNPC>();
 	}
 	break;
+	case 200: // 아라크네
+		NewNPC = GetLevel()->CreateActor<ArachneNPC>();
+		break;
+
 	default:
 		break;
 	}

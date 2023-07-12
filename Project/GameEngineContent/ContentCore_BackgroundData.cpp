@@ -68,7 +68,7 @@ void ContentCore::BackgroundDataLoad()
 			float4 TexSize = { (float)LoadTex->GetWidth(), (float)LoadTex->GetHeight() };
 
 			ContentDatabase<BackgroundMetaData, LevelArea>::InsertData({
-			.Name = LoadTex->GetNameToString(), .Index = 300 + i, .Grade = LevelArea::ForestOfHamory, .TextureSize = TexSize });
+			.Name = LoadTex->GetNameToString(), .Index = 300 + i, .Grade = LevelArea::ForestOfHarmory, .TextureSize = TexSize });
 		}
 
 		Path.MoveParent();
@@ -142,7 +142,7 @@ void ContentCore::BackgroundDataLoad()
 	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(LevelArea::Castle, CastleDatas);
 
 	std::vector<BackgroundMetaData> ForestOfHarmonyDatas;
-	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestOfHarmonyDatas);
+	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHarmory, ForestOfHarmonyDatas);
 
 	std::vector<BackgroundMetaData> GrandHallDatas;
 	ContentDatabase<BackgroundMetaData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GrandHallDatas);

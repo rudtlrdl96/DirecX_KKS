@@ -63,7 +63,7 @@ void BaseDoor::SetDoorType(LevelArea _Area, DoorType _Type)
 	switch (Area)
 	{
 	case LevelArea::Opening:
-	case LevelArea::ForestOfHamory:
+	case LevelArea::ForestOfHarmory:
 	{	
 		switch (Type)
 		{

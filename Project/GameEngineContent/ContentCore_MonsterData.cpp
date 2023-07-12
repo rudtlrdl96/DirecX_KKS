@@ -17,27 +17,27 @@ void ContentCore::MonsterDataLoad()
 	LoadMonster({ .Name = "몬갈", .ImageName = "Preview_Mongal.png", .Index = 90, .Grade = LevelArea::Opening,
 		.HP = 300, .Attack = 12});
 	
-	LoadMonster({ .Name = "엔트", .ImageName = "Preview_Ent.png", .Index = 100, .Grade = LevelArea::ForestOfHamory,
+	LoadMonster({ .Name = "엔트", .ImageName = "Preview_Ent.png", .Index = 100, .Grade = LevelArea::ForestOfHarmory,
 		.HP = 55, .Attack = 6});
-	LoadMonster({ .Name = "꽃 엔트", .ImageName = "Preview_BlossomEnt.png", .Index = 101, .Grade = LevelArea::ForestOfHamory,
+	LoadMonster({ .Name = "꽃 엔트", .ImageName = "Preview_BlossomEnt.png", .Index = 101, .Grade = LevelArea::ForestOfHarmory,
 		.HP = 55, .Attack = 3});
-	LoadMonster({ .Name = "뿌리 엔트", .ImageName = "Preview_RootEnt.png", .Index = 102, .Grade = LevelArea::ForestOfHamory,
+	LoadMonster({ .Name = "뿌리 엔트", .ImageName = "Preview_RootEnt.png", .Index = 102, .Grade = LevelArea::ForestOfHarmory,
 		.HP = 45, .Attack = 5});
-	LoadMonster({ .Name = "숲지기", .ImageName = "Preview_GiganticEnt.png", .Index = 103, .Grade = LevelArea::ForestOfHamory,
+	LoadMonster({ .Name = "숲지기", .ImageName = "Preview_GiganticEnt.png", .Index = 103, .Grade = LevelArea::ForestOfHarmory,
 		.HP = 200, .Attack = 7});
 
-	LoadMonster({ .Name = "칼레온 중보병", .ImageName = "Preview_CarleonManAtArms.png", .Index = 106, .Grade = LevelArea::ForestOfHamory,
+	LoadMonster({ .Name = "칼레온 중보병", .ImageName = "Preview_CarleonManAtArms.png", .Index = 106, .Grade = LevelArea::ForestOfHarmory,
 		.HP = 150, .Attack = 7});
-	//LoadMonster({ .Name = "칼레온 암살자", .ImageName = "Preview_CarleonRecruit.png", .Index = 107, .Grade = LevelArea::ForestOfHamory,
+	//LoadMonster({ .Name = "칼레온 암살자", .ImageName = "Preview_CarleonRecruit.png", .Index = 107, .Grade = LevelArea::ForestOfHarmory,
 	//	.HP = 55, .Attack = 6});
-	LoadMonster({ .Name = "화염 마도사", .ImageName = "Preview_FireFlower.png", .Index = 108, .Grade = LevelArea::ForestOfHamory,
+	LoadMonster({ .Name = "화염 마도사", .ImageName = "Preview_FireFlower.png", .Index = 108, .Grade = LevelArea::ForestOfHarmory,
 		.HP = 45, .Attack = 7});
-	LoadMonster({ .Name = "빙결 마도사", .ImageName = "Preview_GlacialWizard.png", .Index = 109, .Grade = LevelArea::ForestOfHamory,
+	LoadMonster({ .Name = "빙결 마도사", .ImageName = "Preview_GlacialWizard.png", .Index = 109, .Grade = LevelArea::ForestOfHarmory,
 		.HP = 45, .Attack = 7});
 
-	LoadMonster({ .Name = "견습 용사", .ImageName = "Preview_RookieHero.png", .Index = 180, .Grade = LevelArea::ForestOfHamory
+	LoadMonster({ .Name = "견습 용사", .ImageName = "Preview_RookieHero.png", .Index = 180, .Grade = LevelArea::ForestOfHarmory
 		,.HP = 1350, .Attack = 6});
-	LoadMonster({ .Name = "각성 용사", .ImageName = "Preview_VeteranHero.png", .Index = 190, .Grade = LevelArea::ForestOfHamory,
+	LoadMonster({ .Name = "각성 용사", .ImageName = "Preview_VeteranHero.png", .Index = 190, .Grade = LevelArea::ForestOfHarmory,
 		.HP = 2050, .Attack = 12});
 
 	//LoadMonster({ .Name = "빛나는 신병", .ImageName = "GoldCarleonRecruit", .Index = 200, .Grade = LevelArea::GrandHall,
@@ -91,7 +91,7 @@ void ContentCore::MonsterDataLoad()
 	ContentDatabase<MonsterData, LevelArea>::CopyGradeDatas(LevelArea::Opening, OpeningDatas);
 
 	std::vector<MonsterData> ForestDatas;
-	ContentDatabase<MonsterData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestDatas);
+	ContentDatabase<MonsterData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHarmory, ForestDatas);
 
 	std::vector<MonsterData> GrandHallDatas;
 	ContentDatabase<MonsterData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GrandHallDatas);

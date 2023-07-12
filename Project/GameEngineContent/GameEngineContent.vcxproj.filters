@@ -385,6 +385,9 @@
     <Filter Include="2_Actor\BattleActor\Particle">
       <UniqueIdentifier>{ceecbbd9-82d2-4ec8-822a-fada14a59409}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\NPC\NPC\ForestOfHarmony">
+      <UniqueIdentifier>{2573c8ee-b7db-47e4-8a1e-a1938f3866f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -1010,6 +1013,9 @@
     </ClInclude>
     <ClInclude Include="AnimationPartParticle.h">
       <Filter>2_Actor\BattleActor\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ArachneNPC.h">
+      <Filter>2_Actor\NPC\NPC\ForestOfHarmony</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1693,6 +1699,9 @@
     </ClCompile>
     <ClCompile Include="AnimationPartParticle.cpp">
       <Filter>2_Actor\BattleActor\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="ArachneNPC.cpp">
+      <Filter>2_Actor\NPC\NPC\ForestOfHarmony</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

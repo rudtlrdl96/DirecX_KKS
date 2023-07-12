@@ -47,6 +47,8 @@ void NPC_TalkBox::AddMainText(const std::wstring_view& _MainText)
 
 void NPC_TalkBox::SetNextText()
 {
+	FontTextRender->SetText("");
+
 	++ReadTalkIndex;
 
 	if (ReadTalkIndex >= TalkList.size())
@@ -65,6 +67,7 @@ void NPC_TalkBox::SetNextText()
 
 void NPC_TalkBox::SetTalkMainText(const std::wstring_view& _Text, std::function<void()> _TalkEndCallback)
 {
+	FontTextRender->SetText("");
 	MainText = _Text;
 	IsReadEnd = false;
 	Progress = 0.0f;
@@ -105,6 +108,8 @@ void NPC_TalkBox::On()
 	GetContentLevel()->CallEvent("StoryFadeIn");
 	GetContentLevel()->CallEvent("PlayerInputLock");
 	GetContentLevel()->CallEvent("PlayerFrameDisable");
+	GetContentLevel()->CallEvent("MinimapOff");
+	GetContentLevel()->CallEvent("GoodsUIOff");
 	GetContentLevel()->CallEvent("UseKeyOff");
 	ResetButton();
 }
@@ -203,6 +208,8 @@ void NPC_TalkBox::Start()
 			GetContentLevel()->CallEvent("PlayerInputUnlock");
 			GetContentLevel()->CallEvent("StoryFadeOut");
 			GetContentLevel()->CallEvent("PlayerFrameActive");
+			GetContentLevel()->CallEvent("MinimapOn");
+			GetContentLevel()->CallEvent("GoodsUIOn");
 			GetContentLevel()->CallEvent("UseKeyOn");
 		});
 }

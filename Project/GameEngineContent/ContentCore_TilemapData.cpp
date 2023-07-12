@@ -107,7 +107,7 @@ void ContentCore::TileDataLoad()
 		{
 			std::shared_ptr<GameEngineSprite> Tex = GameEngineSprite::LoadSheet(Files[i].GetFullPath(), 1, 1);
 			std::string Name = Tex->GetNameToString();
-			TileLoad({ .Name = Name, .Index = 3000 + i, .Grade = LevelArea::ForestOfHamory });
+			TileLoad({ .Name = Name, .Index = 3000 + i, .Grade = LevelArea::ForestOfHarmory });
 		}
 
 		Path.MoveParent();
@@ -173,7 +173,7 @@ void ContentCore::TileDataLoad()
 	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::Castle, CastleDatas);
 
 	std::vector<TileMetaData> ForestDatas;
-	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHamory, ForestDatas);
+	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::ForestOfHarmory, ForestDatas);
 
 	std::vector<TileMetaData> GrandHallDatas;
 	ContentDatabase<TileMetaData, LevelArea>::CopyGradeDatas(LevelArea::GrandHall, GrandHallDatas);
