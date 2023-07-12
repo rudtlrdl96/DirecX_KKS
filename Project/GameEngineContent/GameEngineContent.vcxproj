@@ -1699,7 +1699,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\Doc\LightShader.txt" />
+    <Text Include="..\Doc\아라크네.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

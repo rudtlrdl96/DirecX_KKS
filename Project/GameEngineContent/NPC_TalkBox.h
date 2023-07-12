@@ -18,9 +18,11 @@ public:
 
 	void SetTalkBoxName(const std::string_view& _Name, const float4& _NamePivot = float4::Zero, const float4& _ForceSize = float4::Zero);
 	void AddMainText(const std::wstring_view& _MainText);
+	void ClearMainText();
 
 	void SetNextText();
 	void SetTalkMainText(const std::wstring_view& _Text, std::function<void()> _TalkEndCallback);
+	void PlayText(const std::wstring_view& _Text);
 
 	inline void SetReadSpeed(float _ReadSpeed)
 	{
@@ -40,6 +42,9 @@ public:
 	void ButtonActive();
 	void ButtonDisable();
 
+	void YesOrNoActive(const std::wstring_view& _Text, std::function<void()> _YesCallback, std::function<void()> _NoCallback);
+	void YesOrNoDisable();
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -52,6 +57,7 @@ private:
 	std::shared_ptr<GameEngineComponent> ButtonPivot = nullptr;
 
 	std::vector<std::shared_ptr<TalkButton>> TalkButtonActors;
+	std::vector<std::shared_ptr<TalkButton>> YesOrNoButtonActors;
 
 	std::string NameText = "";
 	std::wstring MainText = L"";
@@ -66,6 +72,7 @@ private:
 	bool IsButtonActive = false;
 	bool IsTalk = false;
 	bool IsBoost = false;
+	bool IsYesOrNo = false;
 
 	float ReadSpeed = 25.0f;
 	float Progress = 0.0f;
@@ -77,6 +84,7 @@ private:
 	int ButtonIndex = 0;
 	int ReadSoundCount = 0;
 	int PrevAddIndex = 0;
+	int YesOrNoButtoneIndex = 0;
 
 	float BoostSpeed = 1.0f;
 
@@ -87,6 +95,12 @@ private:
 	void ButtonUse();
 	void ButtonCancel();
 	void ResetButton();
+
+	void YesOrNoButtonUp();
+	void YesOrNoButtonDown();
+	void YesOrNoButtonUse();
+	void YesOrNoButtonCancel();
+	void YesOrNoResetButton();
 
 };
 

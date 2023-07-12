@@ -2,6 +2,8 @@
 #include "ArachneNPC.h"
 #include "NPC_TalkBox.h"
 #include "FieldNoteActor.h"
+#include "Inventory.h"
+#include "Player.h"
 
 ArachneNPC::ArachneNPC()
 {
@@ -31,9 +33,8 @@ void ArachneNPC::Start()
 	BaseNPC::Start();
 
 	MainRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Arachne_Idle.png", .ScaleToTexture = true });
-	MainRender->CreateAnimation({ .AnimationName = "Ready", .SpriteName = "Arachne_Ready.png", .ScaleToTexture = true });
-	MainRender->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Arachne_Attack.png", .ScaleToTexture = true });
-
+	MainRender->CreateAnimation({ .AnimationName = "Ready", .SpriteName = "Arachne_Ready.png", .FrameInter = 0.12f, .Loop = false, .ScaleToTexture = true });
+	MainRender->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Arachne_Attack.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 
 	PlayAnimation("Idle", false);
 
@@ -42,7 +43,10 @@ void ArachneNPC::Start()
 	NpcTalkBox->GetTransform()->SetWorldPosition(float4(0, -300, -110.0f));
 	NpcTalkBox->SetButtonInterval(float4(0, 35));
 	NpcTalkBox->AddButton("대화", [this]() {PlayNextScript(); });
-	NpcTalkBox->AddButton("각성", [this]() {});
+	NpcTalkBox->AddButton("각성", [this]() 
+		{
+			SkullUpgrade();
+		});
 
 	NpcTalkBox->SetTalkBoxName("아라크네", float4(3, 0));
 
@@ -68,15 +72,41 @@ void ArachneNPC::Start()
 	BubblePivot->GetTransform()->SetLocalPosition(float4(-25, 270, -100));
 }
 
-#include "GameEngineActorGUI.h"
-
-
 void ArachneNPC::Update(float _DeltaTime)
 {
-	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	//
-	//Ptr->SetTarget(NoteActor->GetTransform());
-	//Ptr->On();
+	if (true == IsUpgradePlay)
+	{
+		if (nullptr == PlayerPtr)
+		{
+			MsgAssert_Rtti<ArachneNPC>(" - 몬가 몬가 몬가가 잘못됐음");
+			return;
+		}
+
+		if (false == IsAttack && true == MainRender->IsAnimationEnd())
+		{
+			IsAttack = true;
+			MainRender->ChangeAnimation("Attack");
+		}
+		else if (true == IsAttack && nullptr == CocoonRender && MainRender->IsAnimationEnd())
+		{
+			CocoonRender = CreateComponent<GameEngineSpriteRenderer>();
+		}
+	}
+
+	if (nullptr != PlayerPtr && PlayerPtr->IsDeath())
+	{
+		PlayerPtr = nullptr;
+	}
+
+	if (nullptr == PlayerPtr)
+	{
+		std::shared_ptr<GameEngineCollision> Col = TalkEventCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+		if (nullptr != Col)
+		{
+			PlayerPtr = Col->GetActor()->DynamicThis<Player>();
+		}
+	}
 
 	if (true == NpcTalkBox->IsUpdate())
 	{
@@ -122,6 +152,11 @@ void ArachneNPC::SpriteLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Arachne_Attack.png").GetFullPath(), 8, 1);
 	}
 
+}
+
+void ArachneNPC::ResetBehavior()
+{
+	IsSkullUpgradeEnd = false;
 }
 
 void ArachneNPC::CreateBubbleScript()
@@ -271,6 +306,7 @@ void ArachneNPC::PlayNextScript()
 
 void ArachneNPC::TalkEndCallback()
 {
+
 	NpcTalkBox->Off();
 	GetContentLevel()->CallEvent("PlayerInputUnlock");
 	GetContentLevel()->CallEvent("StoryFadeOut");
@@ -330,4 +366,120 @@ void ArachneNPC::PlayFirstTalkScript()
 
 	NpcTalkBox->SetTalkMainText(L"그래, 너구나. 그녀가 말하던 작은 스켈레톤이.", Talk1);
 	NpcTalkBox->ButtonDisable();
+}
+
+void ArachneNPC::SkullUpgrade()
+{
+
+	const SkullData& Data = Inventory::GetMainSkull();
+
+	if (0 == Data.Index)
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			TalkEndCallback();
+		};
+
+		std::function<void()> Talk2 = [this, TalkEnd]()
+		{
+			NpcTalkBox->SetTalkMainText(L"뼛조각으로 만든 모자가 필요한 게 아니라면, 다른 머리를 들고 오는 게 좋을 것 같구나.", TalkEnd);
+		};
+
+		std::function<void()> Talk1 = [this, Talk2]()
+		{
+			NpcTalkBox->SetTalkMainText(L"지금의 네 머리는 그냥 너잖아. 심지어 지금 보다 강했던 적도 없어 보이고...", Talk2);
+		};
+
+		NpcTalkBox->SetTalkMainText(L"말 했을 텐데... 네가 가져온 머리의 본래 주인이 가졌었던 힘을 찾게 해주겠다고.", Talk1);
+		NpcTalkBox->ButtonDisable();
+	}
+
+	else if (static_cast<size_t>(-1) == Data.UpgradeIndex)
+	{
+		std::function<void()> TalkEnd = [this]()
+		{
+			TalkEndCallback();
+		};
+
+		NpcTalkBox->SetTalkMainText(L"그 머리는 불가능해, 꼬마야. 이미 머리가 가진 모든 힘을 사용하고 있어.\n더 이상은 뼛조각도 도움이 되지 않을 거야.", TalkEnd);
+		NpcTalkBox->ButtonDisable();
+	}
+	else
+	{
+		const SkullData& UpgradeData = ContentDatabase<SkullData, SkullGrade>::GetData(Data.UpgradeIndex);
+
+		size_t Price = 0;
+
+		switch (UpgradeData.Grade)
+		{
+		case SkullGrade::Rare:
+			Price = 10;
+			break;
+
+		case SkullGrade::Unique:
+			Price = 30;
+			break;
+
+		case SkullGrade::Legendary:
+			Price = 100;
+			break;
+		default:
+			break;
+		}
+
+		NpcTalkBox->YesOrNoActive(L"결심했나 보구나. 좋아, 지금 상태를 보아하니... " + std::to_wstring(Price) + L"개 정도의 뼛조각이라면 충분히 강해질 수 있겠는데?",
+			[this, Price, UpgradeData]() // Yes Callback
+			{
+				if (Inventory::GetGoodsCount_Bone() < Price)
+				{
+					std::function<void()> TalkEnd = [this]()
+					{
+						TalkEndCallback();
+					};
+
+					NpcTalkBox->SetTalkMainText(L"아무리 내가 뛰어나도, 없는걸 창조해 낼 수는 없어.지금 네가 가진 뼛조각들로는 턱없이 부족해.", TalkEnd);
+					NpcTalkBox->YesOrNoDisable();
+				}
+				else
+				{
+					std::function<void()> TalkEnd = [this, Price, UpgradeData]()
+					{
+
+						if (nullptr == PlayerPtr)
+						{
+							MsgAssert_Rtti<ArachneNPC>(" - 몬가 몬가 잘못됐음");
+							return;
+						}
+
+						float4 PlayerPos = PlayerPtr->GetTransform()->GetWorldPosition();
+						float4 DestPos = GetTransform()->GetWorldPosition() + float4(-190, 0);
+						DestPos.z = PlayerPos.z;
+
+						PlayerPtr->PlayStoryMove(DestPos, [this, Price, UpgradeData]()
+							{
+								GetContentLevel()->CallEvent("PlayerLookRight");
+								IsUpgradePlay = true;
+
+								Inventory::AddGoods_Bone(-static_cast<int>(Price));
+								UpgradeIndex = UpgradeData.Index;
+
+								MainRender->ChangeAnimation("Ready");
+								IsAttack = false;
+							});
+
+						NpcTalkBox->Off();
+					};
+
+					NpcTalkBox->SetTalkMainText(L"좋아, 충분하구나. 뼛조각을 들고 내 앞에 서라.", TalkEnd);
+					NpcTalkBox->YesOrNoDisable();
+
+					IsSkullUpgradeEnd = true;
+				}
+			},
+			[this]() // No Callback
+			{
+				TalkEndCallback();
+			}
+		);
+	}
 }

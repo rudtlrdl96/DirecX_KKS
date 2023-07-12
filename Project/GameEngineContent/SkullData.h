@@ -35,6 +35,7 @@ public:
 	std::string Name_SkillB = "";
 
 	size_t Index = static_cast<size_t>(-1);
+	size_t UpgradeIndex = static_cast<size_t>(-1);
 
 	SkullGrade Grade = SkullGrade::Normal;
 	SkullType SkullType = SkullType::Balance;

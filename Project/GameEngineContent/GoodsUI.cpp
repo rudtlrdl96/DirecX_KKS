@@ -168,11 +168,16 @@ void GoodsUI::Start()
 
 void GoodsUI::Update(float _DeltaTime)
 {
-	if (true == GameEngineInput::IsDown("UseKey"))
+	if (false == GameEngineInput::IsKey("GetGoods"))
 	{
-		Inventory::AddGoods_Bone(100);
-		Inventory::AddGoods_Gold(100);
-		Inventory::AddGoods_ManaStone(100);
+		GameEngineInput::CreateKey("GetGoods", VK_NUMPAD0);
+	}
+
+	if (true == GameEngineInput::IsDown("GetGoods"))
+	{
+		Inventory::AddGoods_Bone(10);
+		Inventory::AddGoods_Gold(10);
+		Inventory::AddGoods_ManaStone(10);
 	}
 
 	int CurFrame_GoldCount = Inventory::GetGoodsCount_Gold();

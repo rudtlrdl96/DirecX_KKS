@@ -45,6 +45,11 @@ void NPC_TalkBox::AddMainText(const std::wstring_view& _MainText)
 	TalkList.push_back(AddText);
 }
 
+void NPC_TalkBox::ClearMainText()
+{
+	TalkList.clear();
+}
+
 void NPC_TalkBox::SetNextText()
 {
 	FontTextRender->SetText("");
@@ -100,6 +105,41 @@ void NPC_TalkBox::SetTalkMainText(const std::wstring_view& _Text, std::function<
 	}
 }
 
+void NPC_TalkBox::PlayText(const std::wstring_view& _Text)
+{
+	FontTextRender->SetText("");
+
+	MainText = _Text;
+
+	float TextureSclaeX = 610.0f;
+	float CurX = 0.0f;
+	float FontX = FontSize * 0.7f;
+
+	for (size_t i = 0; i < MainText.size(); i++)
+	{
+		CurX += FontX;
+
+		if (MainText[i] == L'\n')
+		{
+			CurX = 0.0f;
+			continue;
+		}
+
+		if (CurX + FontX >= TextureSclaeX)
+		{
+			CurX = 0.0f;
+			MainText.insert(MainText.begin() + i, L'\n');
+		}
+	}
+
+	IsReadEnd = false;
+	Progress = 0.0f;
+	ReadSoundCount = 0;
+	IsTalk = false;
+	IsBoost = false;
+	BoostSpeed = 1.0f;
+}
+
 void NPC_TalkBox::On()
 {
 	BaseContentActor::On();
@@ -112,6 +152,9 @@ void NPC_TalkBox::On()
 	GetContentLevel()->CallEvent("GoodsUIOff");
 	GetContentLevel()->CallEvent("UseKeyOff");
 	ResetButton();
+	YesOrNoDisable();
+
+	IsYesOrNo = false;
 }
 
 void NPC_TalkBox::Off()
@@ -151,6 +194,55 @@ void NPC_TalkBox::ButtonDisable()
 	{
 		TalkButtonActors[i]->Off();
 	}
+}
+
+void NPC_TalkBox::YesOrNoActive(const std::wstring_view& _Text, std::function<void()> _YesCallback, std::function<void()> _NoCallback)
+{
+	PlayText(_Text);
+
+	if (0 == YesOrNoButtonActors.size())
+	{
+		YesOrNoButtonActors.resize(2);
+
+		std::shared_ptr<TalkButton> NoButton = GetLevel()->CreateActor<TalkButton>();
+
+		NoButton->GetTransform()->SetParent(ButtonPivot->GetTransform());
+		NoButton->GetTransform()->SetLocalPosition(ButtonInterval * 1);
+		NoButton->SetText("아니요");
+
+		YesOrNoButtonActors[0] = NoButton;
+
+		std::shared_ptr<TalkButton> YesButton = GetLevel()->CreateActor<TalkButton>();
+
+		YesButton->GetTransform()->SetParent(ButtonPivot->GetTransform());
+		YesButton->GetTransform()->SetLocalPosition(ButtonInterval * 2);
+		YesButton->SetText("예");
+
+		YesOrNoButtonActors[1] = YesButton;
+	}
+
+	YesOrNoButtonActors[0]->AddCallback(_NoCallback);
+	YesOrNoButtonActors[1]->AddCallback(_YesCallback);
+
+	ButtonDisable();
+	YesOrNoResetButton();
+	
+	for (size_t i = 0; i < YesOrNoButtonActors.size(); i++)
+	{
+		YesOrNoButtonActors[i]->On();
+	}
+
+	IsYesOrNo = true;
+}
+
+void NPC_TalkBox::YesOrNoDisable()
+{
+	for (size_t i = 0; i < YesOrNoButtonActors.size(); i++)
+	{
+		YesOrNoButtonActors[i]->Off();
+	}
+
+	IsYesOrNo = false;
 }
 
 void NPC_TalkBox::Start()
@@ -216,7 +308,26 @@ void NPC_TalkBox::Start()
 
 void NPC_TalkBox::Update(float _DeltaTime)
 {
-	if (true == IsButtonActive)
+	if (true == IsYesOrNo)
+	{
+		if (true == GameEngineInput::IsDown("ButtonUp"))
+		{
+			YesOrNoButtonUp();
+		}
+		else if (true == GameEngineInput::IsDown("ButtonDown"))
+		{
+			YesOrNoButtonDown();
+		}
+		else if (true == GameEngineInput::IsUp("ButtonUse"))
+		{
+			YesOrNoButtonUse();
+		}
+		else if (true == GameEngineInput::IsUp("TalkCancel"))
+		{
+			YesOrNoButtonCancel();
+		}
+	}
+	else if (true == IsButtonActive)
 	{
 		if (true == GameEngineInput::IsDown("ButtonUp"))
 		{
@@ -369,4 +480,51 @@ void NPC_TalkBox::ResetButton()
 
 	ButtonIndex = 0;
 	TalkButtonActors[ButtonIndex]->HoverOn(); 
+}
+
+void NPC_TalkBox::YesOrNoButtonUp()
+{
+	YesOrNoButtonActors[YesOrNoButtoneIndex]->HoverOff();
+	++YesOrNoButtoneIndex;
+
+	if (YesOrNoButtoneIndex >= YesOrNoButtonActors.size())
+	{
+		YesOrNoButtoneIndex = 0;
+	}
+
+	YesOrNoButtonActors[YesOrNoButtoneIndex]->HoverOn();
+}
+
+void NPC_TalkBox::YesOrNoButtonDown()
+{
+	YesOrNoButtonActors[YesOrNoButtoneIndex]->HoverOff();
+	--YesOrNoButtoneIndex;
+
+	if (YesOrNoButtoneIndex < 0)
+	{
+		YesOrNoButtoneIndex = static_cast<int>(YesOrNoButtonActors.size() - 1);
+	}
+
+	YesOrNoButtonActors[YesOrNoButtoneIndex]->HoverOn();
+}
+
+void NPC_TalkBox::YesOrNoButtonUse()
+{
+	YesOrNoButtonActors[YesOrNoButtoneIndex]->UseButton();
+}
+
+void NPC_TalkBox::YesOrNoButtonCancel()
+{
+	YesOrNoButtonActors[0]->UseButton();
+}
+
+void NPC_TalkBox::YesOrNoResetButton()
+{
+	for (size_t i = 0; i < YesOrNoButtonActors.size(); i++)
+	{
+		YesOrNoButtonActors[i]->HoverOff();
+	}
+
+	YesOrNoButtoneIndex = 0;
+	YesOrNoButtonActors[YesOrNoButtoneIndex]->HoverOn();
 }

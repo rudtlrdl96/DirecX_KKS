@@ -19,6 +19,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 	void SpriteLoad() override;
+	void ResetBehavior() override;
 
 private:
 	std::shared_ptr<class FieldNoteActor> NoteActor = nullptr;
@@ -29,13 +30,21 @@ private:
 	std::vector<std::string> BubbleScripts;
 
 	std::shared_ptr<GameEngineComponent> BubblePivot = nullptr;
+	std::shared_ptr<class Player> PlayerPtr = nullptr;
+
+	std::shared_ptr<GameEngineSpriteRenderer> CocoonRender = nullptr;
 
 	int TalkScriptNumber = -1;
 	int BubbleScriptNumber = -1;
 
 	bool IsFirstTalk = true;
+	bool IsSkullUpgradeEnd = false;
+	bool IsUpgradePlay = false;
+	bool IsAttack = false;
 
 	float BubbleTalkTime = -10.0f;
+
+	size_t UpgradeIndex = -1;
 
 	void CreateBubbleScript();
 	void PlayBubble();
@@ -45,5 +54,7 @@ private:
 	void TalkEndCallback();
 
 	void PlayFirstTalkScript();
+	void SkullUpgrade();
+
 };
 
