@@ -6,7 +6,7 @@
 
 #include "CollisionDebugRender.h"
 #include "HitParticle.h"
-#include "DeadPartParticle.h"
+#include "TexturePartParticle.h"
 #include "Player.h"
 
 #include "BattleActorDamageFont.h"

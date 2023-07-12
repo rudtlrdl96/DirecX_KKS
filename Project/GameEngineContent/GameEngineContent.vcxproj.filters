@@ -382,6 +382,9 @@
     <Filter Include="2_Actor\UI\Inventory\Goods">
       <UniqueIdentifier>{673a96b6-aa27-4ba0-87c6-055a115ffef5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\BattleActor\Particle">
+      <UniqueIdentifier>{ceecbbd9-82d2-4ec8-822a-fada14a59409}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -723,9 +726,6 @@
     <ClInclude Include="HealthBar.h">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="DeadPartParticle.h">
-      <Filter>2_Actor\BattleActor\Monster\Particle</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerStateFrame.h">
       <Filter>2_Actor\UI\Player</Filter>
     </ClInclude>
@@ -1004,6 +1004,12 @@
     </ClInclude>
     <ClInclude Include="GoodsUI.h">
       <Filter>2_Actor\UI\Inventory\Goods</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturePartParticle.h">
+      <Filter>2_Actor\BattleActor\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationPartParticle.h">
+      <Filter>2_Actor\BattleActor\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1379,9 +1385,6 @@
     <ClCompile Include="HealthBar.cpp">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="DeadPartParticle.cpp">
-      <Filter>2_Actor\BattleActor\Monster\Particle</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerStateFrame.cpp">
       <Filter>2_Actor\UI\Player</Filter>
     </ClCompile>
@@ -1684,6 +1687,12 @@
     </ClCompile>
     <ClCompile Include="GoodsUI.cpp">
       <Filter>2_Actor\UI\Inventory\Goods</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturePartParticle.cpp">
+      <Filter>2_Actor\BattleActor\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationPartParticle.cpp">
+      <Filter>2_Actor\BattleActor\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

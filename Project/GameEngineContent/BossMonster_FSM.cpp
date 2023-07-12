@@ -278,7 +278,7 @@ void BossMonster::Hit_Update(float _DeltaTime)
 		BossFsm.ChangeState("Idle");
 	}
 
-	if (false == IsStiffen && false == IsIntro && 0.0f < CurWaitTime)
+	if (false == IsIntro && 0.0f < CurWaitTime)
 	{
 		BossFsm.ChangeState("BackDash");
 	}

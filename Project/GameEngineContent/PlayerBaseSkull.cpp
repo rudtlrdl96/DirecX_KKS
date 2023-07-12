@@ -9,7 +9,7 @@
 #include "CaptureTrail.h"
 #include "Player.h"
 #include "BaseMonster.h"
-#include "DeadPartParticle.h"
+#include "TexturePartParticle.h"
 #include "CaptureRenderer.h"
 #include "CaptureAnimation.h"
 
@@ -52,7 +52,7 @@ std::shared_ptr<GameEngineActor> PlayerBaseSkull::SkullDeath()
 
 	for (size_t i = 0; i < DeadPartNames.size(); i++)
 	{
-		std::shared_ptr<DeadPartParticle> NewDeadPart = GetLevel()->CreateActor<DeadPartParticle>();
+		std::shared_ptr<TexturePartParticle> NewDeadPart = GetLevel()->CreateActor<TexturePartParticle>();
 
 		if (nullptr == ReturnActor)
 		{

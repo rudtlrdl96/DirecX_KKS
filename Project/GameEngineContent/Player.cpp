@@ -30,7 +30,7 @@
 #include "ContentLevel.h"
 #include "SkullGear.h"
 #include "CaptureAnimation.h"
-#include "DeadPartParticle.h"
+#include "TexturePartParticle.h"
 
 Player::Player()
 {
@@ -365,7 +365,7 @@ void Player::Start()
 			{
 				size_t RandIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(BoneEffectNames.size()) - 1);
 
-				std::shared_ptr<DeadPartParticle> DeadPart = GetLevel()->CreateActor<DeadPartParticle>();
+				std::shared_ptr<TexturePartParticle> DeadPart = GetLevel()->CreateActor<TexturePartParticle>();
 
 				GameEngineTransform* PartTrans = DeadPart->GetTransform();
 

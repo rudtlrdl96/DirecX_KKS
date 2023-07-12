@@ -4,7 +4,8 @@
 
 #include "HealthBar.h"
 #include "Player.h"
-#include "DeadPartParticle.h"
+#include "TexturePartParticle.h"
+#include "AnimationPartParticle.h"
 
 NormalMonster::NormalMonster()
 {
@@ -313,7 +314,7 @@ void NormalMonster::MonsterDeath()
 
 	for (size_t i = 0; i < DeadPartNames.size(); i++)
 	{
-		std::shared_ptr<DeadPartParticle> DeadPart = GetLevel()->CreateActor<DeadPartParticle>();
+		std::shared_ptr<TexturePartParticle> DeadPart = GetLevel()->CreateActor<TexturePartParticle>();
 
 		GameEngineTransform* PartTrans = DeadPart->GetTransform();
 
@@ -327,6 +328,41 @@ void NormalMonster::MonsterDeath()
 		PartTrans->SetWorldScale(PartTrans->GetWorldScale() * DeathPartScale);
 	}
 
+	//for (size_t i = 0; i < 6; i++) // Drop Gold
+	//{
+	//	size_t RandIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(BoneEffectNames.size()) - 1);
+	//
+	//	std::shared_ptr<AnimationPartParticle> DeadPart = GetLevel()->CreateActor<AnimationPartParticle>();
+	//
+	//	GameEngineTransform* PartTrans = DeadPart->GetTransform();
+	//
+	//	GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+	//
+	//	float4 Dir = float4::Up;
+	//	Dir.RotaitonZDeg(MainRand.RandomFloat(-20, 20));
+	//	DeadPart->Init(BoneEffectNames[RandIndex], Dir, MainRand.RandomFloat(700.0f, 900.0f), 1.0f);
+	//	PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 40));
+	//
+	//	PartTrans->SetWorldScale(PartTrans->GetWorldScale() * 2.0f);
+	//}
+	
+	//for (size_t i = 0; i < 6; i++) // Drop ManaStone
+	//{
+	//	size_t RandIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(BoneEffectNames.size()) - 1);
+	//
+	//	std::shared_ptr<TexturePartParticle> DeadPart = GetLevel()->CreateActor<TexturePartParticle>();
+	//
+	//	GameEngineTransform* PartTrans = DeadPart->GetTransform();
+	//
+	//	GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+	//
+	//	float4 Dir = float4::Up;
+	//	Dir.RotaitonZDeg(MainRand.RandomFloat(-20, 20));
+	//	DeadPart->Init(BoneEffectNames[RandIndex], Dir, MainRand.RandomFloat(700.0f, 900.0f), 1.0f);
+	//	PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 40));
+	//
+	//	PartTrans->SetWorldScale(PartTrans->GetWorldScale() * 2.0f);
+	//}
 }
 
 bool NormalMonster::Walk(float _DeltaTime)

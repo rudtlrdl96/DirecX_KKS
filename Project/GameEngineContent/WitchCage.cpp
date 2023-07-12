@@ -1,6 +1,6 @@
 #include "PrecompileHeader.h"
 #include "WitchCage.h"
-#include "DeadPartParticle.h"
+#include "TexturePartParticle.h"
 
 WitchCage::WitchCage()
 {
@@ -139,7 +139,7 @@ void WitchCage::PlayBrokenParticle()
 	{
 		for (size_t i = 0; i < DeadPartNames.size(); i++)
 		{
-			std::shared_ptr<DeadPartParticle> DeadPart = GetLevel()->CreateActor<DeadPartParticle>();
+			std::shared_ptr<TexturePartParticle> DeadPart = GetLevel()->CreateActor<TexturePartParticle>();
 
 			GameEngineTransform* PartTrans = DeadPart->GetTransform();
 			GameEngineRandom& MainRand = GameEngineRandom::MainRandom;

@@ -61,6 +61,9 @@ protected:
 	float4 StunPivot = float4(0, 100);
 	float StunScale = 0.8f;
 
+	int RewardGold = 5;
+	int RewardManaStone = 5;
+
 	void Start() override;
 	void Update(float _DeltaTime);
 
