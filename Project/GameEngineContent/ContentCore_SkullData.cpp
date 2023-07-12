@@ -851,175 +851,175 @@ void ContentCore::SkullDataLoad()
 			.SpriteName = "StampEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 21,
-			.AnimIter = 0.02f,
+			.AnimInter = 0.02f,
 			.ScaleRatio = 2.0f,});
 
 		EffectManager::CreateMetaData("Minotaurus_Rare_Passive", {
 			.SpriteName = "Minotaurus_Rare_Passive.png",
 			.AnimStart = 0,
 			.AnimEnd = 34,
-			.AnimIter = 0.035f,
+			.AnimInter = 0.035f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("MinoSkillA_Smoke", {
 			.SpriteName = "MinoSkillA_Smoke.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.035f,
+			.AnimInter = 0.035f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_PlowUp_Smoke", {
 			.SpriteName = "Minotaurus_PlowUp_Smoke.png",
 			.AnimStart = 0,
 			.AnimEnd = 11,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Projectile_Hit", {
 			.SpriteName = "Minotaurus_Projectile_Hit.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.07f,
+			.AnimInter = 0.07f,
 			.ScaleRatio = 1.5f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Projectile_Hit2", {
 			.SpriteName = "Minotaurus_Projectile_Hit2.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.07f,
+			.AnimInter = 0.07f,
 			.ScaleRatio = 1.5f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp", {
 			.SpriteName = "Minotaurus_Rare_PlowUp.png",
 			.AnimStart = 0,
 			.AnimEnd = 2,
-			.AnimIter = 0.035f,
+			.AnimInter = 0.035f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp_Explosion", {
 			.SpriteName = "Minotaurus_Rare_PlowUp_Explosion.png",
 			.AnimStart = 0,
 			.AnimEnd = 24,
-			.AnimIter = 0.035f,
+			.AnimInter = 0.035f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp_Projectile1", {
 			.SpriteName = "Minotaurus_Rare_PlowUp_Projectile1.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp_Projectile2", {
 			.SpriteName = "Minotaurus_Rare_PlowUp_Projectile2.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp_Projectile3", {
 			.SpriteName = "Minotaurus_Rare_PlowUp_Projectile3.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Rare_PlowUp_Projectile4", {
 			.SpriteName = "Minotaurus_Rare_PlowUp_Projectile4.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minitaurus_Unique_Passive", {
 			.SpriteName = "Minitaurus_Unique_Passive.png",
 			.AnimStart = 0,
 			.AnimEnd = 21,
-			.AnimIter = 0.02f,
+			.AnimInter = 0.02f,
 			.ScaleRatio = 1.5f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Legendary_PlowUp", {
 			.SpriteName = "Minotaurus_Legendary_PlowUp.png",
 			.AnimStart = 0,
 			.AnimEnd = 2,
-			.AnimIter = 0.035f,
+			.AnimInter = 0.035f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Legendary_PlowUpExplosion", {
 			.SpriteName = "Minotaurus_Legendary_PlowUpExplosion.png",
 			.AnimStart = 0,
 			.AnimEnd = 23,
-			.AnimIter = 0.035f,
+			.AnimInter = 0.035f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Legendary_PlowUpSkome", {
 			.SpriteName = "Minotaurus_Legendary_PlowUpSkome.png",
 			.AnimStart = 0,
 			.AnimEnd = 11,
-			.AnimIter = 0.035f,
+			.AnimInter = 0.035f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Debris_Projectile1", {
 			.SpriteName = "Minotaurus_Debris_Projectile1.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Debris_Projectile2", {
 			.SpriteName = "Minotaurus_Debris_Projectile2.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_Debris_Projectile3", {
 			.SpriteName = "Minotaurus_Debris_Projectile3.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_3_PlowUp_Rock1", {
 			.SpriteName = "Minotaurus_3_PlowUp_Rock1.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_3_PlowUp_Rock2", {
 			.SpriteName = "Minotaurus_3_PlowUp_Rock2.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_3_PlowUp_Rock3", {
 			.SpriteName = "Minotaurus_3_PlowUp_Rock3.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });		
 
 		EffectManager::CreateMetaData("Minotaurus_3_PlowUp_Remains_0", {
 			.SpriteName = "Minotaurus_3_PlowUp_Remains_0.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });		
 		
 		EffectManager::CreateMetaData("Minotaurus_3_Swap_Rock_0", {
 			.SpriteName = "Minotaurus_3_Swap_Rock_0.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("Minotaurus_WaveSmoke_Effect", {
 			.SpriteName = "Minotaurus_WaveSmoke_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 15,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f });
 	}
 

@@ -206,7 +206,7 @@ void FlameWizard::TextureLoad()
 			.SpriteName = "FireHitEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 11,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f,
 			});
 	
@@ -214,7 +214,7 @@ void FlameWizard::TextureLoad()
 			.SpriteName = "FlameWizardProjcetile.png",
 			.AnimStart = 0,
 			.AnimEnd = 23,
-			.AnimIter = 0.03f,
+			.AnimInter = 0.03f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -222,7 +222,7 @@ void FlameWizard::TextureLoad()
 			.SpriteName = "WizardEffectTeleportIn.png",
 			.AnimStart = 0,
 			.AnimEnd = 2,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -230,7 +230,7 @@ void FlameWizard::TextureLoad()
 			.SpriteName = "WizardEffectTeleportOut.png",
 			.AnimStart = 0,
 			.AnimEnd = 4,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f,
 			});
 	}

@@ -301,7 +301,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "Appearance_Impact.png",
 			.AnimStart = 0,
 			.AnimEnd = 13,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 0.5f,
 			});
 
@@ -309,7 +309,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "SmokeLargeEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 14,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -317,7 +317,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "DestroyItem.png",
 			.AnimStart = 0,
 			.AnimEnd = 9,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -325,7 +325,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "DestroySkull.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -333,7 +333,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "GearActiveLoop.png",
 			.AnimStart = 0,
 			.AnimEnd = 79,
-			.AnimIter = 0.025f,
+			.AnimInter = 0.025f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -341,7 +341,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "GearActiveStart.png",
 			.AnimStart = 0,
 			.AnimEnd = 44,
-			.AnimIter = 0.025f,
+			.AnimInter = 0.025f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -349,7 +349,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "GearDeactiveLoop.png",
 			.AnimStart = 0,
 			.AnimEnd = 79,
-			.AnimIter = 0.025f,
+			.AnimInter = 0.025f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -357,7 +357,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "LegendaryGear_Behind_Loop.png",
 			.AnimStart = 0,
 			.AnimEnd = 35,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f,
 			.Color = float4(0, 0, 0, 0.9f),
 			});
@@ -366,7 +366,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "LegendaryGear_Behind_Start.png",
 			.AnimStart = 0,
 			.AnimEnd = 65,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f,
 			.Color = float4(0, 0, 0, 0.9f),
 			});
@@ -375,7 +375,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "LegendaryGear_Front_Loop.png",
 			.AnimStart = 0,
 			.AnimEnd = 35,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -383,7 +383,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "LegendaryGear_Front_Start.png",
 			.AnimStart = 0,
 			.AnimEnd = 65,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -391,7 +391,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "PlayerHeal.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -399,7 +399,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "StageRewardEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 34,
-			.AnimIter = 0.007f,
+			.AnimInter = 0.007f,
 			.ScaleRatio = 2.0f,
 			});
 	}

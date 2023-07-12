@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "TexturePartParticle.h"
 #include "AnimationPartParticle.h"
+#include "Inventory.h"
 
 NormalMonster::NormalMonster()
 {
@@ -328,41 +329,73 @@ void NormalMonster::MonsterDeath()
 		PartTrans->SetWorldScale(PartTrans->GetWorldScale() * DeathPartScale);
 	}
 
-	//for (size_t i = 0; i < 6; i++) // Drop Gold
-	//{
-	//	size_t RandIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(BoneEffectNames.size()) - 1);
-	//
-	//	std::shared_ptr<AnimationPartParticle> DeadPart = GetLevel()->CreateActor<AnimationPartParticle>();
-	//
-	//	GameEngineTransform* PartTrans = DeadPart->GetTransform();
-	//
-	//	GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
-	//
-	//	float4 Dir = float4::Up;
-	//	Dir.RotaitonZDeg(MainRand.RandomFloat(-20, 20));
-	//	DeadPart->Init(BoneEffectNames[RandIndex], Dir, MainRand.RandomFloat(700.0f, 900.0f), 1.0f);
-	//	PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 40));
-	//
-	//	PartTrans->SetWorldScale(PartTrans->GetWorldScale() * 2.0f);
-	//}
-	
-	//for (size_t i = 0; i < 6; i++) // Drop ManaStone
-	//{
-	//	size_t RandIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(BoneEffectNames.size()) - 1);
-	//
-	//	std::shared_ptr<TexturePartParticle> DeadPart = GetLevel()->CreateActor<TexturePartParticle>();
-	//
-	//	GameEngineTransform* PartTrans = DeadPart->GetTransform();
-	//
-	//	GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
-	//
-	//	float4 Dir = float4::Up;
-	//	Dir.RotaitonZDeg(MainRand.RandomFloat(-20, 20));
-	//	DeadPart->Init(BoneEffectNames[RandIndex], Dir, MainRand.RandomFloat(700.0f, 900.0f), 1.0f);
-	//	PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 40));
-	//
-	//	PartTrans->SetWorldScale(PartTrans->GetWorldScale() * 2.0f);
-	//}
+	if (0 < RewardGold)
+	{
+		Inventory::AddGoods_Gold(RewardGold);
+
+		for (size_t i = 0; i < 6; i++)
+		{
+			std::shared_ptr<AnimationPartParticle> DeadPart = GetLevel()->CreateActor<AnimationPartParticle>();
+
+			GameEngineTransform* PartTrans = DeadPart->GetTransform();
+
+			GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+
+			float4 Dir = float4::Up;
+			Dir.RotaitonZDeg(MainRand.RandomFloat(-15, 15));
+			DeadPart->Init(
+				{ .AnimationName = "Idle", .SpriteName = "Goods_Gold.png", .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true }, 2.0f, Dir, MainRand.RandomFloat(700.0f, 800.0f), 0.8f);
+
+			DeadPart->RotOff();
+
+			DeadPart->SetEndCallback([DeadPart]()
+				{
+					float4 DeathPos = DeadPart->GetTransform()->GetWorldPosition();
+
+					EffectManager::PlayEffect({ .EffectName = "GoldGoodsEffect", .Position = DeathPos });
+
+				});
+
+			PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 40));
+		}
+	}
+
+	if (0 < RewardManaStone)
+	{
+		static std::vector<std::string> ManaStoneParts = {"DarkQuartz_1.png", "DarkQuartz_2.png", "DarkQuartz_3.png", "DarkQuartz_4.png"};
+
+		Inventory::AddGoods_ManaStone(RewardManaStone);
+
+		for (size_t i = 0; i < 4; i++)
+		{
+			std::shared_ptr<AnimationPartParticle> DeadPart = GetLevel()->CreateActor<AnimationPartParticle>();
+
+			GameEngineTransform* PartTrans = DeadPart->GetTransform();
+
+			GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+
+			int RandIndex = 0;
+
+			RandIndex = MainRand.RandomInt(0, static_cast<int>(ManaStoneParts.size()) - 1);
+
+			float4 Dir = float4::Up;
+			Dir.RotaitonZDeg(MainRand.RandomFloat(-15, 15));
+			DeadPart->Init(
+				{ .AnimationName = "Idle", .SpriteName = ManaStoneParts[RandIndex], .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true}, 2.0f, Dir, MainRand.RandomFloat(700.0f, 800.0f), 0.8f);
+
+			DeadPart->RotOff();
+
+			DeadPart->SetEndCallback([DeadPart]()
+				{
+					float4 DeathPos = DeadPart->GetTransform()->GetWorldPosition();
+
+					EffectManager::PlayEffect({ .EffectName = "ManaStoneGoodsEffect", .Position = DeathPos });
+
+				});
+
+			PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 40));
+		}
+	}
 }
 
 bool NormalMonster::Walk(float _DeltaTime)

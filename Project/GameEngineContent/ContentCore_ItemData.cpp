@@ -22,15 +22,52 @@ void ContentCore::ItemDataLoad()
 		{
 			Path.Move("Bone");
 
-			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".png" });
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneChip_1.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneChip_2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneChip_3.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneChip_4.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("BoneGoodsEffect.png").GetFullPath(), 6, 5);
 
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				GameEngineTexture::Load(Files[i].GetFullPath());
-			}
+			EffectManager::CreateMetaData("BoneGoodsEffect",{
+				.SpriteName = "BoneGoodsEffect.png",
+				.AnimStart = 0, .AnimEnd = 28, .AnimInter = 0.025f,
+				.ScaleRatio = 2.0f,});
+	
+			Path.MoveParent();			
+		}
+
+
+		{
+			Path.Move("Gold");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("Goods_Gold.png").GetFullPath(), 3, 3);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GoldGoodsEffect.png").GetFullPath(), 6, 5);
+
+			EffectManager::CreateMetaData("GoldGoodsEffect", {
+				.SpriteName = "GoldGoodsEffect.png",
+				.AnimStart = 0, .AnimEnd = 28, .AnimInter = 0.025f,
+				.ScaleRatio = 2.0f, });
 
 			Path.MoveParent();
 		}
+
+		{
+			Path.Move("ManaStone");
+
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("DarkQuartz_1.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("DarkQuartz_2.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("DarkQuartz_3.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("DarkQuartz_4.png").GetFullPath(), 1, 1);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("ManaStoneGoodsEffect.png").GetFullPath(), 6, 5);
+
+			EffectManager::CreateMetaData("ManaStoneGoodsEffect", {
+				.SpriteName = "ManaStoneGoodsEffect.png",
+				.AnimStart = 0, .AnimEnd = 28, .AnimInter = 0.025f,
+				.ScaleRatio = 2.0f, });
+
+			Path.MoveParent();
+		}
+
 	}
 
 	LoadItem({.Name = "보급형 칼레온 검", .Note = "#R물리공격력#E이 30% 증가합니다.", .Index = 0,

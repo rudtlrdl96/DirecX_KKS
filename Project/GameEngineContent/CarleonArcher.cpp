@@ -27,6 +27,9 @@ void CarleonArcher::DataLoad()
 {
 	Data = ContentDatabase<MonsterData, LevelArea>::GetData(1); // 1 = Ä®·¹¿Â ¾ÆÃÄ
 	AttackWaitEndTime = 2.0f;
+
+	RewardGold = 3;
+	RewardManaStone = 3;
 }
 
 void CarleonArcher::TextureLoad()
@@ -63,7 +66,7 @@ void CarleonArcher::TextureLoad()
 			.SpriteName = "AttackSign_Archer.png",
 			.AnimStart = 0,
 			.AnimEnd = 18,
-			.AnimIter = 0.025f,
+			.AnimInter = 0.025f,
 			.ScaleRatio = 2.0f,
 			});
 	}

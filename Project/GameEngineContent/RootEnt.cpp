@@ -128,7 +128,7 @@ void RootEnt::TextureLoad()
 			.SpriteName = "RootEntAttackSign.png",
 			.AnimStart = 0,
 			.AnimEnd = 22,
-			.AnimIter = 0.045f,
+			.AnimInter = 0.045f,
 			.ScaleRatio = 1.5f,
 			});
 
@@ -136,7 +136,7 @@ void RootEnt::TextureLoad()
 			.SpriteName = "RootEntAttackEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 8,
-			.AnimIter = 0.03f,
+			.AnimInter = 0.03f,
 			.ScaleRatio = 1.5f,
 			});
 	}

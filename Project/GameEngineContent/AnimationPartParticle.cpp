@@ -56,7 +56,11 @@ void AnimationPartParticle::Update(float _DeltaTime)
 
 	float4 Velocity = ParticleRigid.GetVelocity() * _DeltaTime;
 	GetTransform()->AddLocalPosition(Velocity);
-	GetTransform()->AddWorldRotation(RandRot * _DeltaTime);
+
+	if (true == IsRot)
+	{
+		GetTransform()->AddWorldRotation(RandRot * _DeltaTime);
+	}
 }
 
 void AnimationPartParticle::LevelChangeEnd()

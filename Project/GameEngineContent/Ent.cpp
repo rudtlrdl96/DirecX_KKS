@@ -13,6 +13,9 @@ Ent::~Ent()
 void Ent::DataLoad()
 {
 	Data = ContentDatabase<MonsterData, LevelArea>::GetData(100); // 100 = ¿£Æ®
+
+	RewardGold = 3;
+	RewardManaStone = 3;
 }
 
 void Ent::TextureLoad()
@@ -41,7 +44,7 @@ void Ent::TextureLoad()
 			.SpriteName = "EntAttackEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 10,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f,
 			});
 	}

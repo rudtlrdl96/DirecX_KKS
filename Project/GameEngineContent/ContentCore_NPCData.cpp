@@ -52,35 +52,35 @@ void ContentCore::NPCDataLoad()
 			.SpriteName = "FirstHero_BigbangReady_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 22,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("FirstHero_Landing", {
 			.SpriteName = "FirstHero_Landing_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 42,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("FirstHero_OrbLoop", {
 			.SpriteName = "FirstHero_OrbLoop_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 37,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("FirstHero_OrbStart", {
 			.SpriteName = "FirstHero_OrbStart_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 4,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 3.0f });
 
 		EffectManager::CreateMetaData("FirstHero_OrbTrail", {
 			.SpriteName = "FirstHero_OrbTrail_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 21,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f });
 
 	}

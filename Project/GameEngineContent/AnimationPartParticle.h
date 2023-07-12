@@ -20,6 +20,11 @@ public:
 		EndCallback = _EndCallback;
 	}
 
+	inline void RotOff()
+	{
+		IsRot = false;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -32,6 +37,8 @@ private:
 	float LiveTime = 1.0f;
 
 	float4 RandRot = float4::Zero;
+
+	bool IsRot = true;
 
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	ColorBuffer Buffer;

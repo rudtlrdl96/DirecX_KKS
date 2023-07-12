@@ -71,7 +71,7 @@ void Mongal::TextureLoad()
 			.SpriteName = "MongalDeathEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 22,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f,
 			});
 	}

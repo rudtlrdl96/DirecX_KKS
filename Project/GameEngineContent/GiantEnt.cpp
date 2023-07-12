@@ -31,6 +31,9 @@ void GiantEnt::DataLoad()
 
 	RangeAttackPauseTimes[1] = 0.5f;
 	RangeAttackPauseTimes[3] = 0.5f;
+
+	RewardGold = 7;
+	RewardManaStone = 7;
 }
 
 void GiantEnt::TextureLoad()
@@ -71,7 +74,7 @@ void GiantEnt::TextureLoad()
 			.SpriteName = "GaintEntStampEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 21,
-			.AnimIter = 0.02f,
+			.AnimInter = 0.02f,
 			.ScaleRatio = 1.5f,
 			});
 
@@ -79,7 +82,7 @@ void GiantEnt::TextureLoad()
 			.SpriteName = "GiantEntProjectile.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -87,7 +90,7 @@ void GiantEnt::TextureLoad()
 			.SpriteName = "GiantEntProjectileEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 6,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f,
 			});
 	}

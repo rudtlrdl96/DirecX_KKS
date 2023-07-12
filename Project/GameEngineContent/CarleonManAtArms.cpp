@@ -27,6 +27,9 @@ void CarleonManAtArms::DataLoad()
 	TacklePauseTimes[0] = 0.5f;
 	TacklePauseTimes[1] = 0.6f;
 	TacklePauseTimes[2] = 0.4f;
+	
+	RewardGold = 7;
+	RewardManaStone = 7;
 }
 
 void CarleonManAtArms::TextureLoad()
@@ -57,7 +60,7 @@ void CarleonManAtArms::TextureLoad()
 			.SpriteName = "ManAtArms_StempEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 11,
-			.AnimIter = 0.025f,
+			.AnimInter = 0.025f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -65,7 +68,7 @@ void CarleonManAtArms::TextureLoad()
 			.SpriteName = "ManAtArms_TackleFlash.png",
 			.AnimStart = 0,
 			.AnimEnd = 13,
-			.AnimIter = 0.07f,
+			.AnimInter = 0.07f,
 			.ScaleRatio = 3.0f,
 			});
 
@@ -73,7 +76,7 @@ void CarleonManAtArms::TextureLoad()
 			.SpriteName = "ManAtArms_TackleSmoke.png",
 			.AnimStart = 0,
 			.AnimEnd = 16,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f,
 			});
 	}

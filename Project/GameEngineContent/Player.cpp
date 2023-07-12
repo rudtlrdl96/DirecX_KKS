@@ -30,7 +30,7 @@
 #include "ContentLevel.h"
 #include "SkullGear.h"
 #include "CaptureAnimation.h"
-#include "TexturePartParticle.h"
+#include "AnimationPartParticle.h"
 
 Player::Player()
 {
@@ -365,18 +365,26 @@ void Player::Start()
 			{
 				size_t RandIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(BoneEffectNames.size()) - 1);
 
-				std::shared_ptr<TexturePartParticle> DeadPart = GetLevel()->CreateActor<TexturePartParticle>();
+				std::shared_ptr<AnimationPartParticle> DeadPart = GetLevel()->CreateActor<AnimationPartParticle>();
 
 				GameEngineTransform* PartTrans = DeadPart->GetTransform();
 
 				GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
 
 				float4 Dir = float4::Up;
-				Dir.RotaitonZDeg(MainRand.RandomFloat(-20, 20));
-				DeadPart->Init(BoneEffectNames[RandIndex], Dir, MainRand.RandomFloat(700.0f, 900.0f), 1.0f);
-				PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 40));
+				Dir.RotaitonZDeg(MainRand.RandomFloat(-15, 15));
+				DeadPart->Init(
+					{.AnimationName = "Idle", .SpriteName = BoneEffectNames[RandIndex], .ScaleToTexture = true}, 2.0f, Dir, MainRand.RandomFloat(700.0f, 800.0f), 0.8f);
 
-				PartTrans->SetWorldScale(PartTrans->GetWorldScale() * 2.0f);
+				DeadPart->SetEndCallback([DeadPart]()
+					{
+						float4 DeathPos = DeadPart->GetTransform()->GetWorldPosition();
+
+						EffectManager::PlayEffect({.EffectName = "BoneGoodsEffect", .Position = DeathPos });
+
+					});
+
+				PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 40));
 			}
 		});
 

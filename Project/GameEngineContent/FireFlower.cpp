@@ -36,7 +36,7 @@ void FireFlower::Start()
 			.SpriteName = "FireFlower_Projectile.png",
 			.AnimStart = 0,
 			.AnimEnd = 11,
-			.AnimIter = 0.025f,
+			.AnimInter = 0.025f,
 			.ScaleRatio = 0.5f
 			});
 
@@ -44,7 +44,7 @@ void FireFlower::Start()
 			.SpriteName = "FireFlowerProjectileEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.025f,
+			.AnimInter = 0.025f,
 			.ScaleRatio = 1.0f
 			});
 	}

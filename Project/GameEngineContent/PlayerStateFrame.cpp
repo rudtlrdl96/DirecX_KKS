@@ -79,21 +79,21 @@ void PlayerStateFrame::Start()
 			.SpriteName = "MainSkillCooldownEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("MainSwitchCooldownEffect", {
 			.SpriteName = "MainSwitchCooldownEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("AddGoodsEffect", {
 			.SpriteName = "MainSwitchCooldownEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 0.4f });
 	}
 

@@ -379,28 +379,28 @@ void ContentCore::MonsterDataLoad()
 			.SpriteName = "RookieHero_ExplosionEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 17,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("RookieHero_EnergyBall", {
 			.SpriteName = "RookieHero_EnergyBall_Projectile.png",
 			.AnimStart = 0,
 			.AnimEnd = 47,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("VeteranHero_EnergyBall", {
 			.SpriteName = "VeteranHero_EnergyBall_Projectile.png",
 			.AnimStart = 0,
 			.AnimEnd = 38,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("RookieHero_EnergyBallExplosion", {
 			.SpriteName = "RookieHero_EnergyBallExplosion_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 1.0f });
 
 
@@ -408,175 +408,175 @@ void ContentCore::MonsterDataLoad()
 			.SpriteName = "RookieHero_EnergyBallExplosion_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("RookieHero_EnergyBallShot", {
 			.SpriteName = "RookieHero_EnergyBallShot_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 18,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("RookieHero_Ultimate_Projectile", {
 			.SpriteName = "RookieHero_Ultimate_Projectile.png",
 			.AnimStart = 0,
 			.AnimEnd = 23,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.5f });
 
 		EffectManager::CreateMetaData("RookieHero_UltimateAura", {
 			.SpriteName = "RookieHero_UltimateAura_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 21,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("RookieHero_UltimateComplete", {
 			.SpriteName = "RookieHero_UltimateComplete_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 13,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("RookieHero_UltimateFail", {
 			.SpriteName = "RookieHero_UltimateFail_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 17,
-			.AnimIter = 0.03f,
+			.AnimInter = 0.03f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("RookieHero_UltimateSmoke", {
 			.SpriteName = "RookieHero_UltimateSmoke_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 5,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("VeteranHero_SwordWave", {
 			.SpriteName = "VeteranHero_SwordWave_Projectile.png",
 			.AnimStart = 0,
 			.AnimEnd = 26,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f });		
 
 		EffectManager::CreateMetaData("VeteranHero_ComboWave", {
 			.SpriteName = "VeteranHero_ComboAttack_Projectile.png",
 			.AnimStart = 0,
 			.AnimEnd = 12,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_Explosion", {
 			.SpriteName = "VeteranHero_EnergyBlast_Explosion.png",
 			.AnimStart = 0,
 			.AnimEnd = 18,
-			.AnimIter = 0.035f,
+			.AnimInter = 0.035f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_EnergyCharging", {
 			.SpriteName = "VeteranHero_EnergyBlast_Charging.png",
 			.AnimStart = 0,
 			.AnimEnd = 46,
-			.AnimIter = 0.045f,
+			.AnimInter = 0.045f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_EnergyBlast", {
 			.SpriteName = "VeteranHero_EnergyBlastStart_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 11,
-			.AnimIter = 0.045f,
+			.AnimInter = 0.045f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_WaveSmoke", {
 			.SpriteName = "VeteranHero_WaveSmoke_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 15,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_Stinger", {
 			.SpriteName = "VeteranHero_Stinger_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_StingerSlash", {
 			.SpriteName = "VeteranHero_StingerSlash_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 9,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_WaveReady", {
 			.SpriteName = "VeteranHero_WaveReady_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 20,
-			.AnimIter = 0.035f,
+			.AnimInter = 0.035f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_Wave", {
 			.SpriteName = "VeteranHero_Wave_Projectile.png",
 			.AnimStart = 0,
 			.AnimEnd = 26,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_LandingSmoke_Small", {
 			.SpriteName = "VeteranHero_LandingSmoke_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 14,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 1.5f });
 
 		EffectManager::CreateMetaData("VeteranHero_LandingSmoke", {
 			.SpriteName = "VeteranHero_LandingSmoke_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 14,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_JumpSmoke", {
 			.SpriteName = "VeteranHero_JumpSmoke_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 24,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_LandingAttackSign", {
 			.SpriteName = "VeteranHero_LandingAttack_Sign.png",
 			.AnimStart = 0,
 			.AnimEnd = 23,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_LandingMagicSword", {
 			.SpriteName = "VeteranHero_LandingMagicSword_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 2,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_Aura", {
 			.SpriteName = "VeteranHero_Aura_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 39,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_StingerFinish", {
 			.SpriteName = "VeteranHero_StingerFinish_Effect.png",
 			.AnimStart = 0,
 			.AnimEnd = 53,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
 		EffectManager::CreateMetaData("VeteranHero_SecondUlt_Electric", {
 			.SpriteName = "VeteranHero_SecondUlt_Electric.png",
 			.AnimStart = 0,
 			.AnimEnd = 9,
-			.AnimIter = 0.05f,
+			.AnimInter = 0.05f,
 			.ScaleRatio = 2.0f});		
 		
 		Path.MoveParent();
@@ -606,42 +606,42 @@ void ContentCore::MonsterDataLoad()
 			.SpriteName = "FindPlayerSightEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 14,
-			.AnimIter = 0.025f,
+			.AnimInter = 0.025f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("HitSlashEffect", {
 			.SpriteName = "HitSlashEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 4,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f,});
 
 		EffectManager::CreateMetaData("MonsterDeath", {
 			.SpriteName = "MonsterDeathEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 5,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("MonsterAppear", {
 			.SpriteName = "MonsterAppear.png",
 			.AnimStart = 0,
 			.AnimEnd = 10,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("MonsterHeal", {
 			.SpriteName = "Monster_HealEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 17,
-			.AnimIter = 0.04f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f });		
 		
 		EffectManager::CreateMetaData("Monster_Stun", {
 			.SpriteName = "Monster_Stun.png",
 			.AnimStart = 0,
 			.AnimEnd = 2,
-			.AnimIter = 0.09f,
+			.AnimInter = 0.09f,
 			.ScaleRatio = 2.0f });
 
 		Path.MoveParent();

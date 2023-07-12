@@ -13,6 +13,9 @@ CarleonRecruit::~CarleonRecruit()
 void CarleonRecruit::DataLoad()
 {
 	Data = ContentDatabase<MonsterData, LevelArea>::GetData(0); // 0 = Ä®·¹¿Â ½Åº´
+
+	RewardGold = 3;
+	RewardManaStone = 3;
 }
 
 void CarleonRecruit::TextureLoad()

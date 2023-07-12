@@ -47,7 +47,7 @@ void GlacialWizard::TextureLoad()
 			.SpriteName = "Icicle.png",
 			.AnimStart = 0,
 			.AnimEnd = 0,
-			.AnimIter = 0.1f,
+			.AnimInter = 0.1f,
 			.ScaleRatio = 2.0f,
 			});
 
@@ -55,7 +55,7 @@ void GlacialWizard::TextureLoad()
 			.SpriteName = "IcicleSpawnEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 18,
-			.AnimIter = 0.03f,
+			.AnimInter = 0.03f,
 			.ScaleRatio = 2.0f,
 			});
 	}

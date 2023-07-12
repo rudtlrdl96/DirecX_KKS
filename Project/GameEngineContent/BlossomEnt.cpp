@@ -44,7 +44,7 @@ void BlossomEnt::TextureLoad()
 			.SpriteName = "BlossomEntAttackEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 27,
-			.AnimIter = 0.07f,
+			.AnimInter = 0.07f,
 			.ScaleRatio = 1.5f,
 			});
 	}

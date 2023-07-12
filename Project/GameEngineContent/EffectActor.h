@@ -19,7 +19,7 @@ public:
 	UINT AnimStart = 0;
 	UINT AnimEnd = 0;
 
-	float AnimIter = 0.1f;
+	float AnimInter = 0.1f;
 	float ScaleRatio = 1.0f;
 
 	float4 Color = float4::Zero;

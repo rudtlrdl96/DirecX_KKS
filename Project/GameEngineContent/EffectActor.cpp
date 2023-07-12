@@ -118,7 +118,7 @@ void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _Deat
 	_MetaData.SpriteName,
 	_MetaData.AnimStart,
 	_MetaData.AnimEnd,
-	_MetaData.AnimIter,
+	_MetaData.AnimInter,
 	Loop,
 	true });
 
