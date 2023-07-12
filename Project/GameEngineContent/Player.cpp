@@ -70,6 +70,18 @@ void Player::Destroy()
 
 void Player::SetInventoryData()
 {
+	if (nullptr != MainSkull)
+	{
+		MainSkull->Death();
+		MainSkull = nullptr;
+	}
+
+	if (nullptr != SubSkull)
+	{
+		SubSkull->Death();
+		SubSkull = nullptr;
+	}
+
 	const SkullData& MainData = Inventory::GetMainSkull();
 	const SkullData& SubData = Inventory::GetSubSkull();
 
@@ -398,7 +410,7 @@ void Player::Start()
 
 
 }
-
+ 
 void Player::Update(float _DeltaTime)
 {
 	std::vector<std::shared_ptr<GameEngineCollision>> UseCols;
@@ -516,7 +528,7 @@ void Player::Update(float _DeltaTime)
 		
 		{
 			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
-			Gear->Init(301);
+			Gear->Init(100);
 			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(-70, 0));
 			Gear->BlackAndWhiteColorOn();
 			Gear->SetEndCallback([Gear]()
@@ -530,7 +542,7 @@ void Player::Update(float _DeltaTime)
 		
 		{
 			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
-			Gear->Init(300);
+			Gear->Init(200);
 			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(70, 0));
 			Gear->BlackAndWhiteColorOn();
 			Gear->SetEndCallback([Gear]()

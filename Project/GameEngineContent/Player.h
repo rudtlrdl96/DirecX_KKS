@@ -75,6 +75,11 @@ public:
 
 	void PlayStoryMove(const float4& _StoryMovePos, std::function<void()> _EndCallback);
 
+	inline void MainSkullOff()
+	{
+		MainSkull->Off();
+	}
+
 protected:	
 	void Start() override;
 	void Update(float _DeltaTime);

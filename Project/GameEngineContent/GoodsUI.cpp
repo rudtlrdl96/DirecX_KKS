@@ -170,7 +170,7 @@ void GoodsUI::Update(float _DeltaTime)
 {
 	if (false == GameEngineInput::IsKey("GetGoods"))
 	{
-		GameEngineInput::CreateKey("GetGoods", VK_NUMPAD0);
+		GameEngineInput::CreateKey("GetGoods", 'I');
 	}
 
 	if (true == GameEngineInput::IsDown("GetGoods"))

@@ -101,7 +101,7 @@ void EffectActor::Update(float _DeltaTime)
 
 }
 
-void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime, bool _IsForceLoopOff, bool _IsFadeDeath, float _FadeSpeed)
+void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime, bool _IsForceLoopOff, bool _IsFadeDeath, bool _IsFadeIntro, float _FadeSpeed)
 {
 	DeathTime = _DeathTime;
 	DeathTrigger = _DeathTrigger;
@@ -132,5 +132,6 @@ void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _Deat
 
 	Buffer.Color = _MetaData.Color;
 	IsFadeDeath = _IsFadeDeath;
+	IsFadeIntroValue = _IsFadeIntro;
 	DeathFadeSpeed = _FadeSpeed;
 }

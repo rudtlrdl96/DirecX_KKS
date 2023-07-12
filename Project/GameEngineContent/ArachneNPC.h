@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseNPC.h"
+#include "SkullData.h"
 
 class ArachneNPC : public BaseNPC
 {
@@ -34,6 +35,8 @@ private:
 
 	std::shared_ptr<GameEngineSpriteRenderer> CocoonRender = nullptr;
 
+	std::vector<std::shared_ptr<EffectActor>> LegendaryLights;
+
 	int TalkScriptNumber = -1;
 	int BubbleScriptNumber = -1;
 
@@ -41,10 +44,13 @@ private:
 	bool IsSkullUpgradeEnd = false;
 	bool IsUpgradePlay = false;
 	bool IsAttack = false;
+	bool IsLegendaryEffect = false;
+	bool IsLegendaryCamEffect = false;
 
 	float BubbleTalkTime = -10.0f;
+	float CocoonTime = 0.0f;
 
-	size_t UpgradeIndex = -1;
+	SkullData UpgradeData;
 
 	void CreateBubbleScript();
 	void PlayBubble();

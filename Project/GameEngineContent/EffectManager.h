@@ -18,6 +18,7 @@ public:
 	bool IsUI = false;
 	bool IsForceLoopOff = false;
 	bool IsFadeDeath = false;
+	bool IsFadeIntro = false;
 
 	float4 Color = float4::Zero;
 

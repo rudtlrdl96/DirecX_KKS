@@ -34,7 +34,7 @@ void ArachneNPC::Start()
 
 	MainRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Arachne_Idle.png", .ScaleToTexture = true });
 	MainRender->CreateAnimation({ .AnimationName = "Ready", .SpriteName = "Arachne_Ready.png", .FrameInter = 0.12f, .Loop = false, .ScaleToTexture = true });
-	MainRender->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Arachne_Attack.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	MainRender->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Arachne_Attack.png", .FrameInter = 0.11f, .Loop = false, .ScaleToTexture = true });
 
 	PlayAnimation("Idle", false);
 
@@ -70,6 +70,11 @@ void ArachneNPC::Start()
 
 	BubblePivot = CreateComponent<GameEngineComponent>();
 	BubblePivot->GetTransform()->SetLocalPosition(float4(-25, 270, -100));
+
+	// Test Debug
+	IsFirstTalk = false;
+
+	LegendaryLights.reserve(3);
 }
 
 void ArachneNPC::Update(float _DeltaTime)
@@ -86,10 +91,88 @@ void ArachneNPC::Update(float _DeltaTime)
 		{
 			IsAttack = true;
 			MainRender->ChangeAnimation("Attack");
-		}
-		else if (true == IsAttack && nullptr == CocoonRender && MainRender->IsAnimationEnd())
-		{
+			PlayerPtr->MainSkullOff();
+
 			CocoonRender = CreateComponent<GameEngineSpriteRenderer>();
+			CocoonRender->SetScaleRatio(2.0f);
+			CocoonRender->CreateAnimation({ .AnimationName = "Legendary", .SpriteName = "CocoonLegendaryAnim.png", .FrameInter = 0.07f, .Loop = false, .ScaleToTexture = true });
+			CocoonRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Cocoon.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+			CocoonRender->ChangeAnimation("Idle");
+
+			float4 PlayerPos = PlayerPtr->GetTransform()->GetWorldPosition();
+
+			PlayerPos.z = GetTransform()->GetWorldPosition().z + 1;
+			CocoonRender->GetTransform()->SetWorldPosition(PlayerPos);
+
+			Inventory::SetMainSkull(UpgradeData);
+			CocoonTime = 0.0f;
+			IsLegendaryEffect = false;
+			IsLegendaryCamEffect = false;
+		}
+		
+		if (nullptr != CocoonRender)
+		{
+			CocoonTime += _DeltaTime;
+
+			if (true == IsLegendaryEffect && false == IsLegendaryCamEffect && 16 == CocoonRender->GetCurrentFrame())
+			{
+				GetContentLevel()->GetCamCtrl().CameraShake(2, 60, 1000);
+				IsLegendaryCamEffect = true;
+			}
+
+			if (true == IsLegendaryEffect && 0 == LegendaryLights.size() && 16 == CocoonRender->GetCurrentFrame())
+			{
+			
+			}
+
+			if (true == IsLegendaryEffect && 1 == LegendaryLights.size() && 24 == CocoonRender->GetCurrentFrame())
+			{
+
+			}
+
+			if (true == IsLegendaryEffect && 2 == LegendaryLights.size() && 32 == CocoonRender->GetCurrentFrame())
+			{
+
+			}
+
+			if (true == IsLegendaryEffect && true == CocoonRender->IsAnimationEnd())
+			{
+				EffectManager::PlayEffect({ .EffectName = "CocoonEffect", .Position = CocoonRender->GetTransform()->GetWorldPosition() + float4(0, 50) });
+				EffectManager::PlayEffect({ .EffectName = "CocoonLegendarySmokeEffect", .Position = CocoonRender->GetTransform()->GetWorldPosition()});
+
+				PlayerPtr->SetInventoryData();
+				CocoonRender->Death();
+				CocoonRender = nullptr;
+				TalkEndCallback();
+				MainRender->ChangeAnimation("Idle");
+				IsUpgradePlay = false;
+				GetContentLevel()->GetCamCtrl().CameraShake(0, 1, 0);
+
+				for (size_t i = 0; i < LegendaryLights.size(); i++)
+				{
+					LegendaryLights[i]->Death();
+					LegendaryLights[i] = nullptr;
+				}
+
+				LegendaryLights.clear();
+			}
+
+			if (SkullGrade::Legendary == UpgradeData.Grade && 0.5f <= CocoonTime && false == IsLegendaryEffect)
+			{
+				CocoonRender->ChangeAnimation("Legendary");
+				IsLegendaryEffect = true;
+			}
+			else if (1.5f <= CocoonTime && false == IsLegendaryEffect)
+			{
+				EffectManager::PlayEffect({ .EffectName = "CocoonEffect", .Position = CocoonRender->GetTransform()->GetWorldPosition() + float4(0, 50) });
+
+				PlayerPtr->SetInventoryData();
+				CocoonRender->Death();
+				CocoonRender = nullptr;
+				TalkEndCallback();
+				MainRender->ChangeAnimation("Idle");
+				IsUpgradePlay = false;
+			}
 		}
 	}
 
@@ -150,6 +233,22 @@ void ArachneNPC::SpriteLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Arachne_Idle.png").GetFullPath(), 9, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Arachne_Ready.png").GetFullPath(), 6, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Arachne_Attack.png").GetFullPath(), 8, 1);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Cocoon.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("CocoonLegendaryAnim.png").GetFullPath(), 8, 6);
+
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("CocoonEffect.png").GetFullPath(), 5, 6);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("CocoonLegendaryLightEffect.png").GetFullPath(), 23, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("CocoonLegendarySmokeEffect.png").GetFullPath(), 4, 8);
+
+		EffectManager::CreateMetaData("CocoonEffect", { .SpriteName = "CocoonEffect.png",
+			.AnimStart = 0, .AnimEnd = 25, .AnimInter = 0.035f, .ScaleRatio = 2.0f,});
+
+		EffectManager::CreateMetaData("CocoonLegendaryLightEffect", { .SpriteName = "CocoonLegendaryLightEffect.png",
+			.AnimStart = 0, .AnimEnd = 44, .AnimInter = 0.07f, .ScaleRatio = 2.0f, });
+
+		EffectManager::CreateMetaData("CocoonLegendarySmokeEffect", { .SpriteName = "CocoonLegendarySmokeEffect.png",
+			.AnimStart = 0, .AnimEnd = 30, .AnimInter = 0.035f, .ScaleRatio = 2.0f, });
 	}
 
 }
@@ -406,7 +505,7 @@ void ArachneNPC::SkullUpgrade()
 	}
 	else
 	{
-		const SkullData& UpgradeData = ContentDatabase<SkullData, SkullGrade>::GetData(Data.UpgradeIndex);
+		UpgradeData = ContentDatabase<SkullData, SkullGrade>::GetData(Data.UpgradeIndex);
 
 		size_t Price = 0;
 
@@ -428,7 +527,7 @@ void ArachneNPC::SkullUpgrade()
 		}
 
 		NpcTalkBox->YesOrNoActive(L"결심했나 보구나. 좋아, 지금 상태를 보아하니... " + std::to_wstring(Price) + L"개 정도의 뼛조각이라면 충분히 강해질 수 있겠는데?",
-			[this, Price, UpgradeData]() // Yes Callback
+			[this, Price]() // Yes Callback
 			{
 				if (Inventory::GetGoodsCount_Bone() < Price)
 				{
@@ -442,7 +541,7 @@ void ArachneNPC::SkullUpgrade()
 				}
 				else
 				{
-					std::function<void()> TalkEnd = [this, Price, UpgradeData]()
+					std::function<void()> TalkEnd = [this, Price]()
 					{
 
 						if (nullptr == PlayerPtr)
@@ -455,14 +554,12 @@ void ArachneNPC::SkullUpgrade()
 						float4 DestPos = GetTransform()->GetWorldPosition() + float4(-190, 0);
 						DestPos.z = PlayerPos.z;
 
-						PlayerPtr->PlayStoryMove(DestPos, [this, Price, UpgradeData]()
+						PlayerPtr->PlayStoryMove(DestPos, [this, Price]()
 							{
 								GetContentLevel()->CallEvent("PlayerLookRight");
 								IsUpgradePlay = true;
 
 								Inventory::AddGoods_Bone(-static_cast<int>(Price));
-								UpgradeIndex = UpgradeData.Index;
-
 								MainRender->ChangeAnimation("Ready");
 								IsAttack = false;
 							});
