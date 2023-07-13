@@ -69,6 +69,7 @@ void BaseDoor::SetDoorType(LevelArea _Area, DoorType _Type)
 		{
 		case DoorType::Broken:
 			SetSprite("ForestOfHarmony_BrokenDoor.png", "ForestOfHarmony_BrokenDoor.png");
+			MinimapImageRender->Off();
 			break;
 		case DoorType::Normal:
 			SetSprite("ForestOfHarmony_NormalDoor_Active.png", "ForestOfHarmony_NormalDoor_Disable.png");
@@ -207,7 +208,18 @@ void BaseDoor::Start()
 	NoteActor->SetText("ㅁ 들어가기");
 	NoteActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
 	NoteActor->Off();
+
+	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		MinimapImageRender = CreateComponent<ContentMinimapRender>();
+		MinimapImageRender->SetTexture("MinimapImage.png");
+		MinimapImageRender->ColorOptionValue.PlusColor = float4(0, 0.8f, 0, 0.0f);
+		MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, -60, 0));
+		MinimapImageRender->GetTransform()->SetLocalScale(float4(85, 120, 1));
+	}
+
 }
+//#include "GameEngineActorGUI.h"
 
 void BaseDoor::Update(float _DeltaTime)
 {

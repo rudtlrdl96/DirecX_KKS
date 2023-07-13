@@ -128,6 +128,12 @@ void NormalMonster::Start()
 	HealthBarPtr->SetTexture("EnemyHpFrame.png", "EnemyHpBar.png", "EnemySubBar.png", HealthBarScale);
 	HealthBarPtr->Off();
 
+	MinimapImageRender = CreateComponent<ContentMinimapRender>();
+	MinimapImageRender->SetTexture("MinimapImage.png");
+	MinimapImageRender->ColorOptionValue.PlusColor = float4(0.9254f, 0.023f, 0.035f, 0.0f);
+	MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, 40, 0));
+	MinimapImageRender->GetTransform()->SetLocalScale(float4(50, 80, 1));
+
 	IsAppear = true;
 
 	Render->Off();

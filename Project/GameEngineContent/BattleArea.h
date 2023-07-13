@@ -30,7 +30,8 @@ public:
 		return CurStage->GetSpawnPoint();
 	}
 
-	void SetCameraLock(class CameraController& _CameraCtrl);
+	/// <param name="_Correction">x = Top, y = Bottom, z = Left, w = Right</param>
+	void SetCameraLock(class CameraController& _CameraCtrl, float4 _Correction);
 
 	void SetParentToBackground(const std::string_view& _BackgroundName, size_t _Index, GameEngineTransform * _Actor);
 

@@ -31,6 +31,7 @@ protected:
 	std::string MainStageName = "";
 	std::string MainBackgroundName = "";
 	float4 BackgroundPivot = float4::Zero;
+	float4 CamCorrection = float4::Null;
 
 	std::shared_ptr<class Minimap> MinimapPtr = nullptr;
 	std::shared_ptr<class FadeActor> FadeActorPtr = nullptr;

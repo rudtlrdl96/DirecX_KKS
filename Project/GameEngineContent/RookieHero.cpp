@@ -281,8 +281,6 @@ void RookieHero::Update(float _DeltaTime)
 
 		if (nullptr != PlayerCol)
 		{
-			GetContentLevel()->CallEvent("GoodsUIOff");
-			GetContentLevel()->CallEvent("MinimapOff");
 			GetContentLevel()->CallEvent("RookieHero_Intro");
 
 			IsPlayerEnter = true;

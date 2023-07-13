@@ -35,6 +35,9 @@ void ForestOfHarmonyLevel::Start()
 	DirectoryPath.Move("Data");
 	DirectoryPath.Move("3_ForestOfHarmony");
 
+	CamCorrection.z = 640;
+	CamCorrection.w = -640;
+
 	{
 		DirectoryPath.Move("Background");
 		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_ForestOfHarmony_Background_00");
@@ -208,6 +211,12 @@ void ForestOfHarmonyLevel::ChangeStage()
 	if (5 == CurStageIndex)
 	{
 		StageInfoFramePtr->FrameOn("조화의 숲", "1-2", "칼레온 국경지대");
+	}
+
+	if (4 == CurStageIndex)
+	{
+		CallEvent("MinimapOff");
+		CallEvent("GoodsUIOff");
 	}
 
 	if (9 == CurStageIndex)

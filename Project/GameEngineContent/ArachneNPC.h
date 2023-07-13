@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseNPC.h"
 #include "SkullData.h"
+#include "ContentMinimapRender.h"
 
 class ArachneNPC : public BaseNPC
 {
@@ -23,6 +24,8 @@ protected:
 	void ResetBehavior() override;
 
 private:
+	std::shared_ptr<ContentMinimapRender> MinimapImageRender = nullptr;
+
 	std::shared_ptr<class FieldNoteActor> NoteActor = nullptr;
 	std::shared_ptr<class NPC_TalkBox> NpcTalkBox = nullptr;
 	std::shared_ptr<GameEngineCollision> TalkEventCol = nullptr;

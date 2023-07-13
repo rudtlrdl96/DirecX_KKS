@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseMonster.h"
+#include "ContentMinimapRender.h"
 
 class NormalMonster : public BaseMonster
 {
@@ -34,6 +35,7 @@ protected:
 	std::vector<std::string> DeadPartNames;
 
 	std::shared_ptr<GameEngineActor> PlayerActor = nullptr;
+	std::shared_ptr<ContentMinimapRender> MinimapImageRender = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> HitFindCol = nullptr;
 	std::shared_ptr<class GameEngineCollision> BodyCol = nullptr;

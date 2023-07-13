@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseContentActor.h"
+#include "ContentMinimapRender.h"
 
 enum class DoorType
 {
@@ -44,6 +45,8 @@ protected:
 private:
 	std::shared_ptr<class FieldNoteActor> NoteActor = nullptr;
 	std::shared_ptr<ContentSpriteRenderer> DoorRender = nullptr;
+	std::shared_ptr<ContentMinimapRender> MinimapImageRender = nullptr;
+
 	ColorBuffer Buffer;
 
 	LevelArea Area = LevelArea::None;

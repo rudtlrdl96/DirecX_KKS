@@ -105,7 +105,7 @@ void BattleArea::ChangeBackground(const std::string_view _Name, const float4& _P
 	CurBackground->On();
 }
 
-void BattleArea::SetCameraLock(CameraController& _CameraCtrl)
+void BattleArea::SetCameraLock(CameraController& _CameraCtrl, float4 _Correction)
 {
 	if (nullptr == CurStage)
 	{
@@ -115,10 +115,10 @@ void BattleArea::SetCameraLock(CameraController& _CameraCtrl)
 
 	TilemapMetaData TileMeta = CurStage->GetTilemapMetaData();
 
-	_CameraCtrl.SetMinHeight(TileMeta.Bottom);
-	_CameraCtrl.SetMaxHeight(TileMeta.Top);
-	_CameraCtrl.SetMinWidth(TileMeta.Left);
-	_CameraCtrl.SetMaxWidth(TileMeta.Right);
+	_CameraCtrl.SetMaxHeight(TileMeta.Top + _Correction.x);
+	_CameraCtrl.SetMinHeight(TileMeta.Bottom + _Correction.y);
+	_CameraCtrl.SetMinWidth(TileMeta.Left + _Correction.z);
+	_CameraCtrl.SetMaxWidth(TileMeta.Right + _Correction.w);
 }
 
 void BattleArea::SetParentToBackground(const std::string_view& _BackgroundName, size_t _Index, GameEngineTransform* _Actor)

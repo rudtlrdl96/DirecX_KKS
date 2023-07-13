@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 #include "PlayerBaseSkull.h"
-
+#include "ContentMinimapRender.h"
 
 class Player : public BaseContentActor
 {
@@ -112,6 +112,8 @@ private:
 
 	std::shared_ptr<GameEngineComponent> CheatDebugComp_Attack = nullptr;
 	std::shared_ptr<GameEngineComponent> CheatDebugComp_HP = nullptr;
+
+	std::shared_ptr<ContentMinimapRender> MinimapImageRender = nullptr;
 
 	std::shared_ptr<GameEngineFontRenderer> CheatRender_Attack = nullptr;
 	std::shared_ptr<GameEngineFontRenderer> CheatRender_HP = nullptr;

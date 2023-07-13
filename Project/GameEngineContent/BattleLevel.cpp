@@ -282,7 +282,7 @@ void BattleLevel::ChangeStage()
 {
 	BattleAreaPtr->ChangeBackground(MainBackgroundName, BackgroundPivot);
 	BattleAreaPtr->ChangeMap(MainStageName);
-	BattleAreaPtr->SetCameraLock(MainCamCtrl);
+	BattleAreaPtr->SetCameraLock(MainCamCtrl, CamCorrection);
 
 	float4 SpawnPos = BattleAreaPtr->GetSpawnPoint();
 
