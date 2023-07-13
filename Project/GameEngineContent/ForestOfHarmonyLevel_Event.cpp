@@ -26,7 +26,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 			MainCamCtrl.SetLookatSpeed(0.5f);
 			MainCamCtrl.SetMaxHeight(7000);
 
-			MainCamCtrl.ActiveForceLookAt(float4(896, 1600, 0));
+			MainCamCtrl.ActiveForceLookAt(float4(1536, 1600, 0));
 			IntroTilemap->FadeOut(1.0f);
 		});
 
@@ -124,13 +124,13 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 			CallEvent("PlayerInputLock");
 			CallEvent("PlayerFrameDisable");
 			CallEvent("StoryFadeIn");
-			MainPlayer->PlayStoryMove(float4(790, 250, 1), [this]()
+			MainPlayer->PlayStoryMove(float4(1430, 250, 1), [this]()
 				{
 					CallEvent("PlayerLookRight");
 				});
 
 			MainCamCtrl.SetLookatSpeed(2.0f);
-			MainCamCtrl.ActiveForceLookAt(float4(1248, 250, 1));
+			MainCamCtrl.ActiveForceLookAt(float4(1888, 250, 1));
 		
 			TimeEvent.AddEvent(2.5f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*)
 				{
@@ -220,13 +220,13 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 			CallEvent("PlayerInputLock");
 			CallEvent("PlayerFrameDisable");
 			CallEvent("StoryFadeIn");
-			MainPlayer->PlayStoryMove(float4(840, 250, 1), [this]()
+			MainPlayer->PlayStoryMove(float4(1480, 250, 1), [this]()
 				{
 					CallEvent("PlayerLookRight");
 				});
 
 			MainCamCtrl.SetLookatSpeed(2.0f);
-			MainCamCtrl.ActiveForceLookAt(float4(1376, 250, 1));
+			MainCamCtrl.ActiveForceLookAt(float4(2016, 250, 1));
 
 			TimeEvent.AddEvent(2.5f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*)
 				{

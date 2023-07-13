@@ -82,7 +82,7 @@ void VeteranHero::Start()
 	GroundCol->GetTransform()->SetLocalScale(float4(20, 5.0f, 1));
 
 	EventCol = CreateComponent<GameEngineCollision>();
-	EventCol->GetTransform()->SetWorldPosition(float4(1248, 564, 1));
+	EventCol->GetTransform()->SetWorldPosition(float4(1888, 564, 1));
 	EventCol->GetTransform()->SetLocalScale(float4(1220, 640, 1));
 	EventCol->SetColType(ColType::AABBBOX2D);
 
@@ -158,14 +158,14 @@ void VeteranHero::Start()
 
 	Battle_Platform_Left = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Normal);
 	Battle_Platform_Left->SetColType(ColType::AABBBOX2D);
-	Battle_Platform_Left->GetTransform()->SetWorldPosition(float4(705, 565, 1));
+	Battle_Platform_Left->GetTransform()->SetWorldPosition(float4(1345, 565, 1));
 	Battle_Platform_Left->GetTransform()->SetWorldScale(float4(64, 640, 1));
 	Battle_Platform_Left->GetTransform()->SetWorldRotation(float4::Zero);
 	Battle_Platform_Left->Off();
 
 	Battle_Platform_Right = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Normal);
 	Battle_Platform_Right->SetColType(ColType::AABBBOX2D);
-	Battle_Platform_Right->GetTransform()->SetWorldPosition(float4(2050, 565, 1));
+	Battle_Platform_Right->GetTransform()->SetWorldPosition(float4(2690, 565, 1));
 	Battle_Platform_Right->GetTransform()->SetWorldScale(float4(64, 640, 1));
 	Battle_Platform_Right->GetTransform()->SetWorldRotation(float4::Zero);
 	Battle_Platform_Right->Off();
@@ -228,20 +228,13 @@ void VeteranHero::Start()
 			IsIntroJump = true;
 			PlayAnimation("Intro_LandReady");
 
-			GetTransform()->SetWorldPosition(float4(1970, 800));
+			GetTransform()->SetWorldPosition(float4(2610, 800));
 			BossRigidbody.SetVelocity(float4(-1000, -500, 0));
 			BossRigidbody.SetGravity(ContentConst::Gravity_f - 1000.0f);
 			IsGroundUp = false;
 
 			SetViewDir(ActorViewDir::Left);
 		});
-
-	if (false == GameEngineInput::IsKey("Debug_VeteranHeroMove"))
-	{
-		GameEngineInput::CreateKey("Debug_VeteranHeroMove", 'L');
-	}
-
-	//IsIntro = false;
 
 	//처음 패턴 강제설정
 	Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
@@ -262,11 +255,6 @@ void VeteranHero::Update(float _DeltaTime)
 	if (nullptr != LandingSignEffect && true == LandingSignEffect->IsDeath())
 	{
 		LandingSignEffect = nullptr;
-	}
-
-	if (true == GameEngineInput::IsDown("Debug_VeteranHeroMove"))
-	{
-		GetTransform()->SetWorldPosition(float4(800, 250));
 	}
 
 	if (true == IsSwordThrowing)

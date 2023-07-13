@@ -1570,14 +1570,7 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 				.Scale = 2.0f });
 			break;
 		}
-
-	
-		
-		//EffectManager::PlayEffect({
-		//	.EffectName = "VeteranHero_EnergyBlast",
-		//	.Position = GetTransform()->GetWorldPosition() + float4(0, 70, 0),
-		//	.Scale = 2.0f });
-		//
+				
 		EffectManager::PlayEffect({
 			.EffectName = "VeteranHero_EnergyBlast",
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 70, 0),

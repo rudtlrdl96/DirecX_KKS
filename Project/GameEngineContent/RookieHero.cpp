@@ -71,8 +71,9 @@ void RookieHero::Start()
 	GroundCol->GetTransform()->SetLocalScale(float4(20, 5.0f, 1));
 
 	EventCol = CreateComponent<GameEngineCollision>();
-	EventCol->GetTransform()->SetWorldPosition(float4(1248, 564, 1));
+	EventCol->GetTransform()->SetWorldPosition(float4(1888, 564, 1));
 	EventCol->GetTransform()->SetLocalScale(float4(1220, 640, 1));
+	EventCol->SetColType(ColType::AABBBOX2D);
 
 	AttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
 	AttackCol->SetColType(ColType::AABBBOX2D);
@@ -83,14 +84,14 @@ void RookieHero::Start()
 
 	Battle_Platform_Left = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Normal);
 	Battle_Platform_Left->SetColType(ColType::AABBBOX2D);
-	Battle_Platform_Left->GetTransform()->SetWorldPosition(float4(576, 564, 1));
+	Battle_Platform_Left->GetTransform()->SetWorldPosition(float4(1216, 564, 1));
 	Battle_Platform_Left->GetTransform()->SetWorldScale(float4(64, 640, 1));
 	Battle_Platform_Left->GetTransform()->SetWorldRotation(float4::Zero);
 	Battle_Platform_Left->Off();
 
 	Battle_Platform_Right = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Normal);
 	Battle_Platform_Right->SetColType(ColType::AABBBOX2D);
-	Battle_Platform_Right->GetTransform()->SetWorldPosition(float4(1922, 564, 1));
+	Battle_Platform_Right->GetTransform()->SetWorldPosition(float4(2562, 564, 1));
 	Battle_Platform_Right->GetTransform()->SetWorldScale(float4(64, 640, 1));
 	Battle_Platform_Right->GetTransform()->SetWorldRotation(float4::Zero);
 	Battle_Platform_Right->Off();

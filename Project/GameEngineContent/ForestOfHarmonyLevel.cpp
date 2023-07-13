@@ -210,6 +210,14 @@ void ForestOfHarmonyLevel::ChangeStage()
 		StageInfoFramePtr->FrameOn("조화의 숲", "1-2", "칼레온 국경지대");
 	}
 
+	if (9 == CurStageIndex)
+	{
+		CallEvent("MinimapOff");
+		CallEvent("GoodsUIOff");
+
+		StopBaseBGM();
+	}
+
 	IntroTilemap->Off();
 	BattleLevel::ChangeStage();
 }
