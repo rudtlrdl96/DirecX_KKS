@@ -167,7 +167,7 @@ void MinotaurusSkull_Legendary::Update(float _DeltaTime)
 					.Position = PlatformPos + float4(0, 43),
 					.Triger = EffectDeathTrigger::Time,
 					.Time = 1.5f,
-					.FadeSpeed = 2.0f,
+					.DeathFadeSpeed = 2.0f,
 					.FlipX = IsFlipX,
 					.IsFadeDeath = true,
 					});
@@ -858,7 +858,7 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 				.Position = GetTransform()->GetWorldPosition() + float4(-150, 28),
 				.Triger = EffectDeathTrigger::Time,
 				.Time = 3.0f,
-				.FadeSpeed = 2.0f,
+				.DeathFadeSpeed = 2.0f,
 				.FlipX = true,
 				.IsFadeDeath = true,
 				});
@@ -877,7 +877,7 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 				.Position = GetTransform()->GetWorldPosition() + float4(150, 28),
 				.Triger = EffectDeathTrigger::Time,
 				.Time = 3.0f,
-				.FadeSpeed = 2.0f,
+				.DeathFadeSpeed = 2.0f,
 				.IsFadeDeath = true,
 				});
 			break;

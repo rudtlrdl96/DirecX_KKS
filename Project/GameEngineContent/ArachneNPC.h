@@ -49,6 +49,7 @@ private:
 
 	float BubbleTalkTime = -10.0f;
 	float CocoonTime = 0.0f;
+	float LegendaryEffectWaitTime = 0.0f;
 
 	SkullData UpgradeData;
 
@@ -61,6 +62,5 @@ private:
 
 	void PlayFirstTalkScript();
 	void SkullUpgrade();
-
 };
 

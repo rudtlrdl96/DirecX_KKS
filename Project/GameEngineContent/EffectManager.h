@@ -12,7 +12,9 @@ public:
 	EffectDeathTrigger Triger = EffectDeathTrigger::AnimEnd;
 	float Time = 0.0f;
 	float WaitTime = 0.0f;
-	float FadeSpeed = 1.0f;
+
+	float IntroFadeSpeed = 1.0f;
+	float DeathFadeSpeed = 1.0f;
 
 	bool FlipX = false;
 	bool IsUI = false;
@@ -21,6 +23,7 @@ public:
 	bool IsFadeIntro = false;
 
 	float4 Color = float4::Zero;
+
 
 };
 

@@ -75,6 +75,7 @@ void ArachneNPC::Start()
 	IsFirstTalk = false;
 
 	LegendaryLights.reserve(3);
+
 }
 
 void ArachneNPC::Update(float _DeltaTime)
@@ -108,53 +109,93 @@ void ArachneNPC::Update(float _DeltaTime)
 			CocoonTime = 0.0f;
 			IsLegendaryEffect = false;
 			IsLegendaryCamEffect = false;
+			LegendaryEffectWaitTime = 0.0f;
 		}
 		
 		if (nullptr != CocoonRender)
 		{
 			CocoonTime += _DeltaTime;
 
-			if (true == IsLegendaryEffect && false == IsLegendaryCamEffect && 16 == CocoonRender->GetCurrentFrame())
+			if (true == IsLegendaryEffect && false == IsLegendaryCamEffect && 14 == CocoonRender->GetCurrentFrame())
 			{
 				GetContentLevel()->GetCamCtrl().CameraShake(2, 60, 1000);
 				IsLegendaryCamEffect = true;
 			}
 
-			if (true == IsLegendaryEffect && 0 == LegendaryLights.size() && 16 == CocoonRender->GetCurrentFrame())
+			if (true == IsLegendaryEffect && 0 == LegendaryLights.size() && 15 == CocoonRender->GetCurrentFrame())
 			{
+				std::shared_ptr<EffectActor> LightEffect = EffectManager::PlayEffect({ .EffectName = "CocoonLegendaryLightEffect"
+					,.Position = CocoonRender->GetTransform()->GetWorldPosition() + float4(391, 72, 1),
+					.Triger = EffectDeathTrigger::None,
+					.IntroFadeSpeed = 2.0f, .IsFadeIntro = true,
+					});
 			
+				float4 LightPos = LightEffect->GetTransform()->GetWorldPosition();
+				LightPos.z = CocoonRender->GetTransform()->GetWorldPosition().z + 1;
+				LightEffect->GetTransform()->SetWorldPosition(LightPos);
+
+				LightEffect->GetTransform()->SetLocalRotation(float4(0, 0, -81));
+				LegendaryLights.push_back(LightEffect);
 			}
-
-			if (true == IsLegendaryEffect && 1 == LegendaryLights.size() && 24 == CocoonRender->GetCurrentFrame())
+			
+			if (true == IsLegendaryEffect && 1 == LegendaryLights.size() && 21 == CocoonRender->GetCurrentFrame())
 			{
+				std::shared_ptr<EffectActor> LightEffect = EffectManager::PlayEffect({ .EffectName = "CocoonLegendaryLightEffect"
+					,.Position = CocoonRender->GetTransform()->GetWorldPosition() + float4(106, 455, 1),
+					.Triger = EffectDeathTrigger::None,
+					.IntroFadeSpeed = 2.0f, .IsFadeIntro = true,
+					});
+			
+				float4 LightPos = LightEffect->GetTransform()->GetWorldPosition();
+				LightPos.z = CocoonRender->GetTransform()->GetWorldPosition().z + 1;
+				LightEffect->GetTransform()->SetWorldPosition(LightPos);
 
+				LightEffect->GetTransform()->SetLocalRotation(float4(0, 0, -14));
+				LegendaryLights.push_back(LightEffect);
 			}
-
-			if (true == IsLegendaryEffect && 2 == LegendaryLights.size() && 32 == CocoonRender->GetCurrentFrame())
+			
+			if (true == IsLegendaryEffect && 2 == LegendaryLights.size() && 27 == CocoonRender->GetCurrentFrame())
 			{
+				std::shared_ptr<EffectActor> LightEffect = EffectManager::PlayEffect({ .EffectName = "CocoonLegendaryLightEffect"
+					,.Position = CocoonRender->GetTransform()->GetWorldPosition() + float4(-373, 152, 1),
+					.Triger = EffectDeathTrigger::None,
+					.IntroFadeSpeed = 2.0f, .IsFadeIntro = true,
+					});
+			
+				float4 LightPos = LightEffect->GetTransform()->GetWorldPosition();
+				LightPos.z = CocoonRender->GetTransform()->GetWorldPosition().z + 1;
+				LightEffect->GetTransform()->SetWorldPosition(LightPos);
 
+				LightEffect->GetTransform()->SetWorldRotation(float4(0, 0, 71));
+				LegendaryLights.push_back(LightEffect);
 			}
 
 			if (true == IsLegendaryEffect && true == CocoonRender->IsAnimationEnd())
 			{
-				EffectManager::PlayEffect({ .EffectName = "CocoonEffect", .Position = CocoonRender->GetTransform()->GetWorldPosition() + float4(0, 50) });
-				EffectManager::PlayEffect({ .EffectName = "CocoonLegendarySmokeEffect", .Position = CocoonRender->GetTransform()->GetWorldPosition()});
+				LegendaryEffectWaitTime += _DeltaTime;
 
-				PlayerPtr->SetInventoryData();
-				CocoonRender->Death();
-				CocoonRender = nullptr;
-				TalkEndCallback();
-				MainRender->ChangeAnimation("Idle");
-				IsUpgradePlay = false;
-				GetContentLevel()->GetCamCtrl().CameraShake(0, 1, 0);
-
-				for (size_t i = 0; i < LegendaryLights.size(); i++)
+				if (0.5f <= LegendaryEffectWaitTime)
 				{
-					LegendaryLights[i]->Death();
-					LegendaryLights[i] = nullptr;
-				}
+					EffectManager::PlayEffect({ .EffectName = "CocoonEffect", .Position = CocoonRender->GetTransform()->GetWorldPosition() + float4(0, 50) });
+					EffectManager::PlayEffect({ .EffectName = "CocoonLegendarySmokeEffect", .Position = CocoonRender->GetTransform()->GetWorldPosition() });
+					EffectManager::PlayEffect({ .EffectName = "CocoonLegendaryThunder", .Position = CocoonRender->GetTransform()->GetWorldPosition() + float4(0, 300)});
 
-				LegendaryLights.clear();
+					PlayerPtr->SetInventoryData();
+					CocoonRender->Death();
+					CocoonRender = nullptr;
+					TalkEndCallback();
+					MainRender->ChangeAnimation("Idle");
+					IsUpgradePlay = false;
+					GetContentLevel()->GetCamCtrl().CameraShake(0, 1, 0);
+
+					for (size_t i = 0; i < LegendaryLights.size(); i++)
+					{
+						LegendaryLights[i]->Death();
+						LegendaryLights[i] = nullptr;
+					}
+
+					LegendaryLights.clear();
+				}
 			}
 
 			if (SkullGrade::Legendary == UpgradeData.Grade && 0.5f <= CocoonTime && false == IsLegendaryEffect)
@@ -240,6 +281,7 @@ void ArachneNPC::SpriteLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("CocoonEffect.png").GetFullPath(), 5, 6);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("CocoonLegendaryLightEffect.png").GetFullPath(), 23, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("CocoonLegendarySmokeEffect.png").GetFullPath(), 4, 8);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("CocoonLegendaryThunder.png").GetFullPath(), 8, 3);
 
 		EffectManager::CreateMetaData("CocoonEffect", { .SpriteName = "CocoonEffect.png",
 			.AnimStart = 0, .AnimEnd = 25, .AnimInter = 0.035f, .ScaleRatio = 2.0f,});
@@ -248,7 +290,10 @@ void ArachneNPC::SpriteLoad()
 			.AnimStart = 0, .AnimEnd = 44, .AnimInter = 0.07f, .ScaleRatio = 2.0f, });
 
 		EffectManager::CreateMetaData("CocoonLegendarySmokeEffect", { .SpriteName = "CocoonLegendarySmokeEffect.png",
-			.AnimStart = 0, .AnimEnd = 30, .AnimInter = 0.035f, .ScaleRatio = 2.0f, });
+			.AnimStart = 0, .AnimEnd = 30, .AnimInter = 0.035f, .ScaleRatio = 2.0f, });		
+		
+		EffectManager::CreateMetaData("CocoonLegendaryThunder", { .SpriteName = "CocoonLegendaryThunder.png",
+			.AnimStart = 0, .AnimEnd = 22, .AnimInter = 0.045f, .ScaleRatio = 2.0f, });
 	}
 
 }

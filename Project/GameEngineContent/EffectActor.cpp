@@ -30,6 +30,19 @@ void EffectActor::Start()
 
 void EffectActor::Update(float _DeltaTime)
 {
+	if (true == IsFadeIntroValue)
+	{
+		IntroProgress += _DeltaTime * IntroFadeSpeed;
+
+		if (1.0f <= IntroProgress)
+		{
+			IntroProgress = 1.0f;
+			IsFadeIntroValue = false;
+		}
+
+		Buffer.Color.a = EffectAlpha * IntroProgress;
+	}
+
 	if (true == IsFadeDeathValue)
 	{
 		DeathProgress += _DeltaTime * DeathFadeSpeed;
@@ -40,7 +53,7 @@ void EffectActor::Update(float _DeltaTime)
 			Death();
 		}
 
-		Buffer.Color.a = 1.0f - DeathProgress;
+		Buffer.Color.a = EffectAlpha - (DeathProgress * EffectAlpha);
 		return;
 	}
 
@@ -101,14 +114,14 @@ void EffectActor::Update(float _DeltaTime)
 
 }
 
-void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _DeathTrigger, float _DeathTime, float _WaitTime, bool _IsForceLoopOff, bool _IsFadeDeath, bool _IsFadeIntro, float _FadeSpeed)
+void EffectActor::Init(const EffectMetaData& _MetaData, const EffectParameter& _Parameter)
 {
-	DeathTime = _DeathTime;
-	DeathTrigger = _DeathTrigger;
+	DeathTime = _Parameter.Time;
+	DeathTrigger = _Parameter.Triger;
 	
-	bool Loop = _DeathTrigger != EffectDeathTrigger::AnimEnd;
+	bool Loop = _Parameter.Triger != EffectDeathTrigger::AnimEnd;
 
-	if (true == _IsForceLoopOff)
+	if (true == _Parameter.IsForceLoopOff)
 	{
 		Loop = false;
 	}
@@ -128,10 +141,13 @@ void EffectActor::Init(const EffectMetaData& _MetaData, EffectDeathTrigger _Deat
 	EffectRender->ChangeAnimation(_MetaData.SpriteName);
 	EffectRender->On();
 
-	WaitTime = _WaitTime;
+	WaitTime = _Parameter.WaitTime;
 
 	Buffer.Color = _MetaData.Color;
-	IsFadeDeath = _IsFadeDeath;
-	IsFadeIntroValue = _IsFadeIntro;
-	DeathFadeSpeed = _FadeSpeed;
+	EffectAlpha = Buffer.Color.a;
+
+	IsFadeDeath = _Parameter.IsFadeDeath;
+	IsFadeIntroValue = _Parameter.IsFadeIntro;
+	DeathFadeSpeed = _Parameter.DeathFadeSpeed;
+	IntroFadeSpeed = _Parameter.IntroFadeSpeed;
 }
