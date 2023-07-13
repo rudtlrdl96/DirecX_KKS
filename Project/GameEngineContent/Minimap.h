@@ -27,7 +27,10 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	std::shared_ptr<class ContentUIRender> MinimapImageRender = nullptr;
 	std::shared_ptr<class ContentUIRender> MinimapFrameRender = nullptr;
+	std::shared_ptr<class GameEngineCamera> MinimapCamera = nullptr;
+
 	ColorBuffer Buffer;
 
 	float4 StartPos = float4::Zero;
@@ -36,5 +39,7 @@ private:
 	float Progress = 0.0f;
 
 	MinimapState State = MinimapState::None;
+
+	std::shared_ptr<GameEngineRenderTarget> MinimapTarget = nullptr;
 };
 

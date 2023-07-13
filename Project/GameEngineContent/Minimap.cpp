@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "Minimap.h"
+#include <GameEngineCore/GameEngineCamera.h>
 #include "ContentUIRender.h"
 
 Minimap::Minimap()
@@ -43,8 +44,24 @@ void Minimap::Start()
 		Path.Move("UI");
 
 		GameEngineTexture::Load(Path.GetPlusFileName("Minimap_Frame.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("MinimapBG.png").GetFullPath());
 	}
 
+	std::shared_ptr<GameEngineCamera> MinimapCam = GetLevel()->GetCamera((int)CameraOrder::MiniMap);
+
+	if (nullptr == MinimapCam)
+	{
+		MsgAssert_Rtti<Minimap>(" - 미니맵 카메라가 존재하지 않습니다");
+		return;
+	}
+
+	MinimapImageRender = CreateComponent<ContentUIRender>();
+	MinimapImageRender->PipeSetting("2DTexture_Minimap");
+	MinimapImageRender->SetTexture("MinimapBG.png");
+	MinimapImageRender->GetTransform()->SetLocalPosition(float4(-5, 4, 2));
+	MinimapImageRender->GetTransform()->SetWorldScale(float4(208, 117, 1));
+	MinimapImageRender->GetShaderResHelper().SetTexture("CameraTex", MinimapCam->GetCamTarget()->GetTexture(0));
+	
 	MinimapFrameRender = CreateComponent<ContentUIRender>();
 	MinimapFrameRender->PipeSetting("2DTexture_Color");
 	MinimapFrameRender->GetShaderResHelper().SetConstantBufferLink("ColorBuffer", Buffer);
@@ -52,15 +69,21 @@ void Minimap::Start()
 	float4 FrameScale = MinimapFrameRender->GetTransform()->GetLocalScale();
 	MinimapFrameRender->GetTransform()->SetLocalScale(FrameScale * 2.0f);
 
-
 	StartPos = float4(530, -430);
 	EndPos = float4(530, -295);
 
 	GetTransform()->SetWorldPosition(StartPos);
 }
 
+#include "GameEngineActorGUI.h"
+
 void Minimap::Update(float _DeltaTime)
 {
+	if (nullptr != MinimapCamera)
+	{
+		MinimapCamera->GetCamTarget()->GetTexture(0);
+	}
+
 	switch (State)
 	{
 	case MinimapState::On:

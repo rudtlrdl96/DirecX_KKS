@@ -78,15 +78,13 @@ public:
 		return RenderCamera;
 	}
 
-	// 업데이트에서 할것이기 때문에 그냥 하겠습니다. 
-	// 랜더 도중에 카메라를 바꾸거나 한다면 이상한 일이 발생할수 있다.
+	// 한개의 랜더러를 여러 타겟에서 그리기 위해 public으로 변경
+	void PushCameraRender(int _CameraOrder);
 
 protected:
 	void Start();
 
 	void Render(float _Delta) override;
-
-	void PushCameraRender(int _CameraOrder);
 
 private:
 	bool IsCameraCulling = false;

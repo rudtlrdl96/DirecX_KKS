@@ -230,8 +230,13 @@ void GameEngineLevel::ActorRender(float _DeltaTime)
 	for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
 	{
 		std::shared_ptr<GameEngineCamera> Camera = Pair.second;
-		std::shared_ptr<GameEngineRenderTarget> Target = Camera->GetCamTarget();
 
+		if (true == Camera->IsMergeOff)
+		{
+			continue;
+		}
+
+		std::shared_ptr<GameEngineRenderTarget> Target = Camera->GetCamTarget();
 		LastTarget->Merge(Target);
 	}
 

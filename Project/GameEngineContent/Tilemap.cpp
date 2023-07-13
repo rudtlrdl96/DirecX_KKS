@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "Tilemap.h"
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineTileMapRenderer.h>
 #include <GameEngineCore/imgui.h>
 #include "TileActor.h"
 
@@ -42,6 +43,11 @@ void Tilemap::SetDepth(UINT _DepthCount)
 		if (nullptr == TilemapRenders[Depth])
 		{
 			std::shared_ptr<GameEngineTileMapRenderer> NewRender = CreateComponent<GameEngineTileMapRenderer>();
+
+			if (0 == Depth && nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+			{		
+				NewRender->PushCameraRender((int)CameraOrder::MiniMap);
+			}
 
 			NewRender->TilemapCullingOn();
 			NewRender->GetTransform()->SetLocalPosition(float4(0, -ContentConst::TileSize.hy(), Depth * 100.0f));

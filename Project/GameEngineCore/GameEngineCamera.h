@@ -95,6 +95,11 @@ public:
 		return ZoomRatio;
 	}
 
+	inline void MergeOff()
+	{
+		IsMergeOff = true;
+	}
+
 
 protected:
 	void Start() override;
@@ -106,6 +111,7 @@ private:
 	DirectX::BoundingBox Box;
 
 	bool FreeCamera = false;
+	bool IsMergeOff = false;
 
 	float ZoomRatio = 1.0f;
 

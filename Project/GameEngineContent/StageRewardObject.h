@@ -64,6 +64,7 @@ private:
 	void MiddleBossRewardInit();
 
 	void DropSkullReward(float4 _Pivot = float4::Zero, bool _GradeReset = false);
+	void DropGoldReward();
 
 	void CreateLight();
 	void ReleaseLight();

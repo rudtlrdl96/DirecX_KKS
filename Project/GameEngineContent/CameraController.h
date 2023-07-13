@@ -19,7 +19,7 @@ public:
 	CameraController& operator=(const CameraController& _Other) = delete;
 	CameraController& operator=(CameraController&& _Other) noexcept = delete;
 
-	void Start(std::shared_ptr<class GameEngineCamera> _MainCam);
+	void Start(GameEngineCamera* _MainCam);
 	void Update(float _DeltaTime);
 
 	// Z°ª Àû¿ë X
@@ -89,7 +89,7 @@ public:
 protected:
 	
 private:
-	std::shared_ptr<class GameEngineCamera> MainCamera = nullptr;
+	GameEngineCamera* MainCamera = nullptr;
 	std::shared_ptr<class GameEngineActor> LookAtTarget = nullptr;
 
 	bool IsForceTarget = false;

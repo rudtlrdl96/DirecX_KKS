@@ -242,8 +242,10 @@ void GameEngineCamera::CameraTransformUpdate()
 	float4 Dir = GetTransform()->GetLocalForwardVector();
 	Box.Center = (WorldPos + (Dir * Far * 0.5f)).DirectFloat3;
 	Box.Extents.z = Far * 0.6f;
-	Box.Extents.x = Width * 0.6f;
-	Box.Extents.y = Height * 0.6f;
+
+	Box.Extents.x = Width * 0.6f * ZoomRatio;
+	Box.Extents.y = Height * 0.6f * ZoomRatio; // Zoom 비율에 따라서 컬링박스 크기도 변경
+
 	//Box.Orientation = GetTransform()->GetWorldQuaternion().DirectFloat4;
 
 }

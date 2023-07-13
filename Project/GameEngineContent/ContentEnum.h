@@ -34,6 +34,7 @@ enum class ActorViewDir
 enum class CameraOrder
 {
 	Main = 0,
+	MiniMap = 99,
 	UI = 100,
 	Fade = 101
 };

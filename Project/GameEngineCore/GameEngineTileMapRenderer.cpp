@@ -111,7 +111,6 @@ bool GameEngineTileMapRenderer::IsOver(int _X, int _Y) const
 void GameEngineTileMapRenderer::Render(float _Delta)
 {
 	const TransformData& TransData = GetTransform()->GetTransDataRef();
-	// 
 
 	TransformData TileTransData = TransData;
 
@@ -120,7 +119,13 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 	float4x4 Rot;
 	float4 vPos;
 
-	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetMainCamera();
+	GameEngineCamera* Camera = GetCamera();
+
+	if (nullptr == Camera)
+	{
+		MsgAssert(" - 타일맵 랜더러의 카메라가 존재하지 않습니다");
+	}
+
 	bool IsDrawY = false;
 	for (size_t y = 0; y < Tiles.size(); y++)
 	{

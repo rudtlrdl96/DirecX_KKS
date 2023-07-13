@@ -77,10 +77,10 @@ void ContentLevel::Start()
 {
 	GameEngineLevel::Start();
 
-	MainCam = GetMainCamera();
+	MainCam = GetMainCamera().get();
 	MainCamCtrl.Start(MainCam);
 	MainCam->SetSortType(0, SortType::ZSort);
-	MainCam->GetTransform()->SetLocalPosition({0, 0, -5000});
+	MainCam->GetTransform()->SetLocalPosition({ 0, 0, -5000 });
 	MainCam->GetTransform()->SetLocalRotation(float4::Zero);
 
 	std::shared_ptr<GameEngineCamera> UICam = GetCamera(100);
@@ -88,12 +88,13 @@ void ContentLevel::Start()
 	UICam->SetSortType(0, SortType::ZSort);
 	UICam->GetTransform()->SetLocalPosition({ 0, 0, -5000 });
 
-	std::shared_ptr<GameEngineCamera> FadeCam = CreateNewCamera(101);
+	std::shared_ptr<GameEngineCamera> FadeCam = CreateNewCamera((int)CameraOrder::Fade);
 
 	FadeCam->SetSortType(0, SortType::ZSort);
 	FadeCam->SetProjectionType(CameraType::Orthogonal);
 	FadeCam->GetTransform()->SetLocalPosition(float4(0, 0, -5000.0f));
 	FadeCam->GetTransform()->SetLocalRotation(float4::Zero);
+
 
 	WorldLight = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<WorldLightEffect>();
 	WorldLight->WorldLight = float4(1.0f, 1.0f, 1.0f, 1.0f);

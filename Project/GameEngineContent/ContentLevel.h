@@ -61,7 +61,8 @@ protected:
 	void LevelChangeEnd() override;
 
 private:
-	std::shared_ptr<GameEngineCamera> MainCam = nullptr;
+	GameEngineCamera* MainCam = nullptr;
+
 	std::map<std::string, std::map<UINT, std::function<void(void)>>> EventCallback;
 
 	std::shared_ptr<WorldLightEffect> WorldLight = nullptr;

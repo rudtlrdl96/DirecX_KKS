@@ -345,6 +345,16 @@ void ContentCore::ContentPipeLineCreate()
 	}
 
 	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_Minimap");
+
+		Pipe->SetVertexShader("MinimapShader.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("MinimapShader.hlsl");
+		Pipe->SetBlendState("MergeBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}
+
+	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("WorldLight");
 
 		Pipe->SetVertexShader("WorldLightShader.hlsl");

@@ -93,8 +93,7 @@ void GameEngineRenderer::RenderTransformUpdate(GameEngineCamera* _Camera)
 		return;
 	}
 
-	// RenderCamera = _Camera;
-
+	RenderCamera = _Camera; // 카메라 포인터 저장 주석해제
 	GetTransform()->SetCameraMatrix(_Camera->GetView(), _Camera->GetProjection());
 }
 

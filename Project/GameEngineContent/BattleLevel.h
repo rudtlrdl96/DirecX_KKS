@@ -23,6 +23,8 @@ public:
 	BattleLevel& operator=(BattleLevel&& _Other) noexcept = delete;
 
 protected:
+	GameEngineCamera* MinimapCam = nullptr;
+
 	std::vector<LoadStageInfo> StageNameInfos;
 	UINT CurStageIndex = 0;
 

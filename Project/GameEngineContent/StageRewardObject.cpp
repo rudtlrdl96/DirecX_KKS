@@ -3,6 +3,8 @@
 #include "BaseGear.h"
 #include "SkullGear.h"
 #include "FieldNoteActor.h"
+#include "Inventory.h"
+#include "AnimationPartParticle.h"
 
 StageRewardObject::StageRewardObject()
 {
@@ -108,6 +110,7 @@ void StageRewardObject::CallUseEvent()
 		case RewardType::None:
 			break;
 		case RewardType::Normal:
+			DropGoldReward();
 			break;
 		case RewardType::Skull:
 			DropSkullReward();
@@ -345,6 +348,37 @@ void StageRewardObject::DropSkullReward(float4 _Pivot /*= float4::Zero*/, bool _
 	}
 
 	CreateGears.push_back(Gear);
+}
+
+void StageRewardObject::DropGoldReward()
+{
+	Inventory::AddGoods_Gold(100);
+
+	for (size_t i = 0; i < 50; i++)
+	{
+		std::shared_ptr<AnimationPartParticle> DeadPart = GetLevel()->CreateActor<AnimationPartParticle>();
+
+		GameEngineTransform* PartTrans = DeadPart->GetTransform();
+
+		GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+
+		float4 Dir = float4::Up;
+		Dir.RotaitonZDeg(MainRand.RandomFloat(-15, 15));
+		DeadPart->Init(
+			{ .AnimationName = "Idle", .SpriteName = "Goods_Gold.png", .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true }, 2.0f, Dir, MainRand.RandomFloat(700.0f, 900.0f), 0.8f);
+
+		DeadPart->RotOff();
+
+		DeadPart->SetEndCallback([DeadPart]()
+			{
+				float4 DeathPos = DeadPart->GetTransform()->GetWorldPosition();
+
+				EffectManager::PlayEffect({ .EffectName = "GoldGoodsEffect", .Position = DeathPos });
+
+			});
+
+		PartTrans->SetWorldPosition(Render->GetTransform()->GetWorldPosition() + float4(0, 40));
+	}
 }
 
 void StageRewardObject::CreateLight()

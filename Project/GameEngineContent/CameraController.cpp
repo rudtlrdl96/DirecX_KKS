@@ -13,7 +13,7 @@ CameraController::~CameraController()
 {
 }
 
-void CameraController::Start(std::shared_ptr<GameEngineCamera> _MainCam)
+void CameraController::Start(GameEngineCamera* _MainCam)
 {
 	if (nullptr == _MainCam)
 	{
@@ -22,6 +22,7 @@ void CameraController::Start(std::shared_ptr<GameEngineCamera> _MainCam)
 
 	MainCamera = _MainCam;
 	MainCamera->SetProjectionType(CameraType::Orthogonal);
+
 	WindowSize = GameEngineWindow::GetScreenSize();
 	WindowSizeHalf = WindowSize.half();
 }
@@ -201,7 +202,7 @@ void CameraController::CameraShake(float _ShakeDis, float _ShakeSpeed, int _Shak
 void CameraController::SetCameraPos(const float4& _Pos)
 {
 	CamPos = _Pos;
-	MainCamera->GetTransform()->SetWorldPosition(_Pos);
+	MainCamera->GetTransform()->SetWorldPosition(CamPos);
 }
 
 void CameraController::AddCameraPos(const float4& _Pos)
