@@ -334,11 +334,14 @@ void Player::Start()
 	CheatRender_Attack->SetColor(float4(1, 0, 0, 1));
 	CheatRender_Attack->Off();
 
-	MinimapImageRender = CreateComponent<ContentMinimapRender>();
-	MinimapImageRender->SetTexture("MinimapImage.png");
-	MinimapImageRender->ColorOptionValue.PlusColor = float4(1, 1, 0.1f, 0.0f);
-	MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, 30, 0));
-	MinimapImageRender->GetTransform()->SetLocalScale(float4(50, 60, 1));
+	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		MinimapImageRender = CreateComponent<ContentMinimapRender>();
+		MinimapImageRender->SetTexture("MinimapImage.png");
+		MinimapImageRender->ColorOptionValue.PlusColor = float4(1, 1, 0.1f, 0.0f);
+		MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, 30, 0));
+		MinimapImageRender->GetTransform()->SetLocalScale(float4(50, 60, 1));	
+	}
 
 	BoneEffectNames.resize(4);
 

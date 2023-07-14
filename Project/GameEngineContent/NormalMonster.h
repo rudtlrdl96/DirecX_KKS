@@ -74,6 +74,7 @@ protected:
 
 	float RandIdleTime = 0.0f;
 	float RandWalkTime = 0.0f;
+	float OrbPer = 5.0f;
 
 	float4 DeathEffectLocalPos = float4::Zero;
 	float DeathPartScale = 2.0f;

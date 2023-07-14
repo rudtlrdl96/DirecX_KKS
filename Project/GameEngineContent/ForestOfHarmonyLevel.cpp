@@ -217,7 +217,7 @@ void ForestOfHarmonyLevel::ChangeStage()
 
 	if (4 == CurStageIndex)
 	{
-		if (true == MinimapPtr->IsUpdate())
+		if (nullptr != MinimapPtr && true == MinimapPtr->IsUpdate())
 		{
 			CallEvent("MinimapOff");
 			CallEvent("GoodsUIOff");
@@ -225,7 +225,7 @@ void ForestOfHarmonyLevel::ChangeStage()
 	}
 	else if (9 == CurStageIndex)
 	{
-		if (true == MinimapPtr->IsUpdate())
+		if (nullptr != MinimapPtr && true == MinimapPtr->IsUpdate())
 		{
 			CallEvent("MinimapOff");
 			CallEvent("GoodsUIOff");
@@ -235,14 +235,14 @@ void ForestOfHarmonyLevel::ChangeStage()
 	}
 	else if(10 == CurStageIndex)
 	{
-		if (true == MinimapPtr->IsUpdate())
+		if (nullptr != MinimapPtr && true == MinimapPtr->IsUpdate())
 		{
 			CallEvent("MinimapOff");
 			CallEvent("GoodsUIOff");
 		}
 
 	}
-	else if (false == MinimapPtr->IsUpdate())
+	else if (nullptr != MinimapPtr && false == MinimapPtr->IsUpdate())
 	{
 		CallEvent("MinimapOn");
 		CallEvent("GoodsUIOn");

@@ -72,7 +72,6 @@ protected:
 	std::shared_ptr<EffectActor> LegendaryBehindStartEffect = nullptr;
 	std::shared_ptr<EffectActor> LegendaryBehindLoopEffect = nullptr;
 
-
 	std::shared_ptr<class Player> ColPlayer = nullptr;
 
 	std::shared_ptr<GameEngineCollision> GearBodyCol = nullptr;

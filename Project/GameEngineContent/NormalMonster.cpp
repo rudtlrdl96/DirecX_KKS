@@ -8,6 +8,8 @@
 #include "AnimationPartParticle.h"
 #include "Inventory.h"
 
+#include "LifeOrb.h"
+
 NormalMonster::NormalMonster()
 {
 }
@@ -128,11 +130,14 @@ void NormalMonster::Start()
 	HealthBarPtr->SetTexture("EnemyHpFrame.png", "EnemyHpBar.png", "EnemySubBar.png", HealthBarScale);
 	HealthBarPtr->Off();
 
-	MinimapImageRender = CreateComponent<ContentMinimapRender>();
-	MinimapImageRender->SetTexture("MinimapImage.png");
-	MinimapImageRender->ColorOptionValue.PlusColor = float4(0.9254f, 0.023f, 0.035f, 0.0f);
-	MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, 40, 0));
-	MinimapImageRender->GetTransform()->SetLocalScale(float4(50, 80, 1));
+	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		MinimapImageRender = CreateComponent<ContentMinimapRender>();
+		MinimapImageRender->SetTexture("MinimapImage.png");
+		MinimapImageRender->ColorOptionValue.PlusColor = float4(0.9254f, 0.023f, 0.035f, 0.0f);
+		MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, 40, 0));
+		MinimapImageRender->GetTransform()->SetLocalScale(float4(50, 80, 1));
+	}
 
 	IsAppear = true;
 
@@ -318,6 +323,14 @@ void NormalMonster::MonsterDeath()
 	EffectManager::PlayEffect({
 		.EffectName = "MonsterDeath",
 		.Position = GetTransform()->GetWorldPosition() + DeathEffectLocalPos });
+
+	float RandPer = GameEngineRandom::MainRandom.RandomFloat(0.0f, 100.0f);
+
+	if (OrbPer >= RandPer)
+	{
+		std::shared_ptr<LifeOrb> NewOrb = GetLevel()->CreateActor<LifeOrb>();
+		NewOrb->DropOrb(GetTransform()->GetWorldPosition());
+	}
 
 	for (size_t i = 0; i < DeadPartNames.size(); i++)
 	{

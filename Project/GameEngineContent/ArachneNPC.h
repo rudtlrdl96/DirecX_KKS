@@ -34,7 +34,7 @@ private:
 	std::vector<std::string> BubbleScripts;
 
 	std::shared_ptr<GameEngineComponent> BubblePivot = nullptr;
-	std::shared_ptr<class Player> PlayerPtr = nullptr;
+	class Player* PlayerPtr = nullptr;
 
 	std::shared_ptr<GameEngineSpriteRenderer> CocoonRender = nullptr;
 

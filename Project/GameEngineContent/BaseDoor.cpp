@@ -69,7 +69,11 @@ void BaseDoor::SetDoorType(LevelArea _Area, DoorType _Type)
 		{
 		case DoorType::Broken:
 			SetSprite("ForestOfHarmony_BrokenDoor.png", "ForestOfHarmony_BrokenDoor.png");
-			MinimapImageRender->Off();
+
+			if (nullptr != MinimapImageRender)
+			{
+				MinimapImageRender->Off();
+			}
 			break;
 		case DoorType::Normal:
 			SetSprite("ForestOfHarmony_NormalDoor_Active.png", "ForestOfHarmony_NormalDoor_Disable.png");

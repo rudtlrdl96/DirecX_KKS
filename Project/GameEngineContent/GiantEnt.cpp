@@ -19,8 +19,14 @@ void GiantEnt::Start()
 	StunPivot = float4(0, 150);
 	HealthBarScale = float4(1.3f, 1.3f, 1.5f, 1.0f);
 	NormalMonster::Start();
-	MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, 70, 0));
-	MinimapImageRender->GetTransform()->SetLocalScale(float4(120, 140, 1));
+
+	if (nullptr != MinimapImageRender)
+	{
+		MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, 70, 0));
+		MinimapImageRender->GetTransform()->SetLocalScale(float4(120, 140, 1));
+	}
+
+	OrbPer = 20.0f;
 }
 
 void GiantEnt::DataLoad()

@@ -76,11 +76,14 @@ void ArachneNPC::Start()
 
 	LegendaryLights.reserve(3);
 
-	MinimapImageRender = CreateComponent<ContentMinimapRender>();
-	MinimapImageRender->SetTexture("MinimapImage.png");
-	MinimapImageRender->ColorOptionValue.PlusColor = float4(0.004f, 0.9568f, 0.9882f, 0.0f);
-	MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, 70, 0));
-	MinimapImageRender->GetTransform()->SetLocalScale(float4(100, 140, 1));
+	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		MinimapImageRender = CreateComponent<ContentMinimapRender>();
+		MinimapImageRender->SetTexture("MinimapImage.png");
+		MinimapImageRender->ColorOptionValue.PlusColor = float4(0.004f, 0.9568f, 0.9882f, 0.0f);
+		MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, 70, 0));
+		MinimapImageRender->GetTransform()->SetLocalScale(float4(100, 140, 1));
+	}
 
 }
 
@@ -234,7 +237,7 @@ void ArachneNPC::Update(float _DeltaTime)
 
 		if (nullptr != Col)
 		{
-			PlayerPtr = Col->GetActor()->DynamicThis<Player>();
+			PlayerPtr = Col->GetActor()->DynamicThis<Player>().get();
 		}
 	}
 

@@ -388,8 +388,8 @@
     <Filter Include="2_Actor\NPC\NPC\ForestOfHarmony">
       <UniqueIdentifier>{2573c8ee-b7db-47e4-8a1e-a1938f3866f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Actor\Map\Minimap">
-      <UniqueIdentifier>{61fb9c2a-6846-47db-86b8-4deabd99fcdc}</UniqueIdentifier>
+    <Filter Include="2_Actor\LifeOrb">
+      <UniqueIdentifier>{4a667dce-b349-406c-b7dd-64f16ca17402}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1020,11 +1020,11 @@
     <ClInclude Include="ArachneNPC.h">
       <Filter>2_Actor\NPC\NPC\ForestOfHarmony</Filter>
     </ClInclude>
-    <ClInclude Include="MinimapDrawActor.h">
-      <Filter>2_Actor\Map\Minimap</Filter>
-    </ClInclude>
     <ClInclude Include="ContentMinimapRender.h">
       <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="LifeOrb.h">
+      <Filter>2_Actor\LifeOrb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1712,11 +1712,11 @@
     <ClCompile Include="ArachneNPC.cpp">
       <Filter>2_Actor\NPC\NPC\ForestOfHarmony</Filter>
     </ClCompile>
-    <ClCompile Include="MinimapDrawActor.cpp">
-      <Filter>2_Actor\Map\Minimap</Filter>
-    </ClCompile>
     <ClCompile Include="ContentMinimapRender.cpp">
       <Filter>3_Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="LifeOrb.cpp">
+      <Filter>2_Actor\LifeOrb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

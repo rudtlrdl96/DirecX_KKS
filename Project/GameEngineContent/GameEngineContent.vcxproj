@@ -269,7 +269,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentVertex.h" />
-    <ClInclude Include="MinimapDrawActor.h">
+    <ClInclude Include="LifeOrb.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -940,15 +940,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="LifeOrb.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Minimap.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="BattleActorDamageFont.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="MinimapDrawActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>
