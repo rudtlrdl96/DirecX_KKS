@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "LifeOrb.h"
 #include "Player.h"
+#include "PlayerState.h"
 
 LifeOrb::LifeOrb()
 {
@@ -12,10 +13,13 @@ LifeOrb::~LifeOrb()
 
 void LifeOrb::DropOrb(const float4& _WorldPos)
 {
+	float4 OrbPos = _WorldPos;
+	OrbPos.z = GameEngineRandom::MainRandom.RandomFloat(-40, -31);
+
 	State = OrbState::Drop;
 
 	DropRigid.SetVelocity(float4(0, 850));
-	GetTransform()->SetWorldPosition(_WorldPos);
+	GetTransform()->SetWorldPosition(OrbPos);
 }
 
 void LifeOrb::Start()
@@ -39,12 +43,13 @@ void LifeOrb::Start()
 		});
 
 	OrbRender = CreateComponent<GameEngineSpriteRenderer>();
-	OrbRender->CreateAnimation({.AnimationName = "Idle", .SpriteName = "LifeorbSmall.png", .Start = 0, .End = 68});
+	OrbRender->CreateAnimation({.AnimationName = "Idle", .SpriteName = "LifeorbSmall.png", .Start = 0, .End = 68, .Loop = true, .ScaleToTexture = true});
 	OrbRender->ChangeAnimation("Idle");
+	OrbRender->SetScaleRatio(2.0f);
 
 	OrbGroundCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	OrbGroundCol->GetTransform()->SetLocalPosition(float4(0, -20, 0));
-	OrbGroundCol->GetTransform()->SetLocalScale(float4(40, 40, 1));
+	OrbGroundCol->GetTransform()->SetLocalScale(float4(40, 20, 1));
 	OrbGroundCol->SetColType(ColType::AABBBOX2D);
 
 	OrbBodyCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::UseEvent);
@@ -64,9 +69,15 @@ void LifeOrb::Update(float _DeltaTime)
 		break;
 	case OrbState::Wave:
 	{
-		GetTransform()->SetWorldPosition(WaveCenter + float4(0, -sinf(GetLiveTime() * 3.0f) * 7.0f, 0));
+		GetTransform()->SetWorldPosition(WaveCenter + float4(0, -sinf(GetLiveTime() * 3.0f) * 5.0f, 0));
 	
+		if (PlayerState::HP >= PlayerState::MaxHP)
+		{
+			return;
+		}
+
 		std::shared_ptr<GameEngineCollision> PlayerCol = OrbBodyCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
 
 		if (nullptr != PlayerCol)
 		{
@@ -77,6 +88,11 @@ void LifeOrb::Update(float _DeltaTime)
 				MsgAssert_Rtti<LifeOrb>(" - Player Class만 Player ColOrder를 가질 수 있습니다");
 				return;
 			}
+
+			EffectManager::PlayEffect({
+				.EffectName = "PlayerHeal",
+				.Position = GetTransform()->GetWorldPosition() + float4(0, 40),
+				});
 
 			PlayerPtr->HealPlayer(10, float4::Up);
 			Death();
@@ -129,7 +145,7 @@ void LifeOrb::SetWaveState(std::shared_ptr<GameEngineCollision> _PlatformCol)
 	GameEngineTransform* ColTrans = _PlatformCol->GetTransform();
 
 	float4 GreaPos = GetTransform()->GetWorldPosition();
-	float PlatformUp = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy() + OrbRender->GetTransform()->GetWorldScale().hy() + 20;
+	float PlatformUp = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy() + OrbRender->GetTransform()->GetWorldScale().hy();
 
 	GreaPos.y = PlatformUp;
 

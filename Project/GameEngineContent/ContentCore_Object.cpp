@@ -391,7 +391,7 @@ void ContentCore::CommonTextureLoad()
 			.SpriteName = "PlayerHeal.png",
 			.AnimStart = 0,
 			.AnimEnd = 19,
-			.AnimInter = 0.05f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f,
 			});
 
