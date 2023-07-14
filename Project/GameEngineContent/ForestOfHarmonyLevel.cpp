@@ -209,12 +209,13 @@ void ForestOfHarmonyLevel::ChangeStage()
 	if (0 == CurStageIndex)
 	{
 		StageInfoFramePtr->FrameOn("Á¶È­ÀÇ ½£", "1-1", "±íÀº ½£");
+		ResultInfo::StageName = "±íÀº ½£";
 	}
 	else if (5 == CurStageIndex)
 	{
 		StageInfoFramePtr->FrameOn("Á¶È­ÀÇ ½£", "1-2", "Ä®·¹¿Â ±¹°æÁö´ë");
+		ResultInfo::StageName = "Ä®·¹¿Â ±¹°æÁö´ë";
 	}
-
 
 	if (4 == CurStageIndex)
 	{
@@ -241,7 +242,6 @@ void ForestOfHarmonyLevel::ChangeStage()
 			CallEvent("MinimapOff");
 			CallEvent("GoodsUIOff");
 		}
-
 	}
 	else if (nullptr != MinimapPtr && false == MinimapPtr->IsUpdate())
 	{

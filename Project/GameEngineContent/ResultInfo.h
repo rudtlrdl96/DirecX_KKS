@@ -22,6 +22,8 @@ public:
 	static int GetItemCount;
 	static int GetQuintessenceCount;
 
+	static std::string StageName;
+
 	static void ResultReset();
 
 protected:

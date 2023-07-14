@@ -18,6 +18,8 @@ int ResultInfo::GetSkullCount = 0;
 int ResultInfo::GetItemCount = 0;
 int ResultInfo::GetQuintessenceCount = 0;
 
+std::string ResultInfo::StageName = "알 수 없음";
+
 void ResultInfo::ResultReset()
 {
 	PlayTime = 0.0f;
@@ -36,6 +38,8 @@ void ResultInfo::ResultReset()
 	GetSkullCount = 0;
 	GetItemCount = 0;
 	GetQuintessenceCount = 0;
+
+	StageName = "알 수 없음";
 }
 
 ResultInfo::ResultInfo()

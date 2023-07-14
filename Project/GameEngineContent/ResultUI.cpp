@@ -17,7 +17,7 @@ void ResultUI::ResultUIOn()
 	MoveProgress = 0.0f;
 	On();
 
-	//ResultInfo::
+	StageNameFont->SetText(ResultInfo::StageName);
 	int TotalTime = static_cast<int>(ResultInfo::PlayTime);
 
 	int Time_H = TotalTime / 3600;
