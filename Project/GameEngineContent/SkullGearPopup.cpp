@@ -259,8 +259,8 @@ void SkullGearPopup::Start()
 	BrokenFontActor = GetLevel()->CreateActor<UINoteActor>();
 	BrokenFontActor->GetTransform()->SetParent(GetTransform());
 	BrokenFontActor->GetTransform()->SetLocalPosition(float4(10, -155, -5.0f));
-	BrokenKeyRender = BrokenFontActor->AddKeyImage("KeyUI_F_Press.png", float4(0, 0, -1));
-	BrokenBoneRender = BrokenFontActor->AddKeyImage("BoneChip_Icon.png", float4(0, 0, -1));
+	BrokenKeyRender = BrokenFontActor->AddKeyImage("KeyUI_F_Press.png", float4(0, 0, -1)).get();
+	BrokenBoneRender = BrokenFontActor->AddKeyImage("BoneChip_Icon.png", float4(0, 0, -1)).get();
 
 	Off();
 }

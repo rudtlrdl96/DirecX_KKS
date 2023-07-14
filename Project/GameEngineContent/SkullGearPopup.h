@@ -52,8 +52,8 @@ private:
 	std::shared_ptr<class UINoteActor> SwapFontActor = nullptr;
 	std::shared_ptr<class UINoteActor> BrokenFontActor = nullptr;
 
-	std::shared_ptr<GameEngineUIRenderer> BrokenKeyRender = nullptr;
-	std::shared_ptr<GameEngineUIRenderer> BrokenBoneRender = nullptr;
+	GameEngineUIRenderer* BrokenKeyRender = nullptr;
+	GameEngineUIRenderer* BrokenBoneRender = nullptr;
 
 };
 
