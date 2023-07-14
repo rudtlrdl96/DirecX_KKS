@@ -402,9 +402,10 @@ void StageRewardObject::DropGoldReward()
 
 		DeadPart->RotOff();
 
-		DeadPart->SetEndCallback([DeadPart]()
+		AnimationPartParticle* GetPtr = DeadPart.get();
+		DeadPart->SetEndCallback([GetPtr]()
 			{
-				float4 DeathPos = DeadPart->GetTransform()->GetWorldPosition();
+				float4 DeathPos = GetPtr->GetTransform()->GetWorldPosition();
 
 				EffectManager::PlayEffect({ .EffectName = "GoldGoodsEffect", .Position = DeathPos });
 
