@@ -32,6 +32,8 @@
 #include "CaptureAnimation.h"
 #include "AnimationPartParticle.h"
 
+#include "ResultInfo.h"
+
 Player::Player()
 {
 }
@@ -178,6 +180,7 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 	}
 
 	PlayerState::HP -= _Damage;
+	ResultInfo::HitDamage += _Damage;
 
 	if (true == Cheat_HP && 1.0f > PlayerState::HP)
 	{
@@ -211,9 +214,11 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 void Player::HealPlayer(float _Heal, const float4& _HealForce)
 {
 	PlayerState::HP += _Heal;
+	ResultInfo::HealValue += _Heal;
 
 	if (PlayerState::HP > PlayerState::MaxHP)
 	{
+		ResultInfo::HealValue -= PlayerState::HP - PlayerState::MaxHP;
 		PlayerState::HP = PlayerState::MaxHP;
 	}
 
@@ -587,8 +592,10 @@ void Player::Update(float _DeltaTime)
 			CamCtrl.DisalbeForceLookAt();
 		}
 				
+		++ResultInfo::DeathCount;
 		StateFrame->Death();
 		Death();
+
 		return;
 	}
 

@@ -9,6 +9,7 @@
 #include "BattleArea.h"
 #include "Player.h"
 #include "BaseMonster.h"
+#include "ResultInfo.h"
 
 // UI
 #include "FadeActor.h"
@@ -219,6 +220,8 @@ void BattleLevel::Start()
 
 void BattleLevel::Update(float _DeltaTime)
 {
+	ResultInfo::PlayTime += _DeltaTime;
+
 	ContentLevel::Update(_DeltaTime);
 
 	if (true == IsPlayerDeath)

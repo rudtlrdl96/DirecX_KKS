@@ -1032,6 +1032,9 @@
     <ClInclude Include="ResultUI.h">
       <Filter>2_Actor\UI\Result</Filter>
     </ClInclude>
+    <ClInclude Include="ResultInfo.h">
+      <Filter>1_Class\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1726,6 +1729,9 @@
     </ClCompile>
     <ClCompile Include="ResultUI.cpp">
       <Filter>2_Actor\UI\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultInfo.cpp">
+      <Filter>1_Class\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

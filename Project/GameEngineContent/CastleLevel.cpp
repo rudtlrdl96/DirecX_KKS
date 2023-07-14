@@ -4,6 +4,7 @@
 #include "MultiBackground.h"
 #include "Inventory.h"
 #include "PlayerState.h"
+#include "ResultInfo.h"
 
 CastleLevel::CastleLevel()
 {
@@ -64,6 +65,9 @@ void CastleLevel::Update(float _DeltaTime)
 void CastleLevel::LevelChangeStart()
 {
 	Inventory::ResetSkull();
+	Inventory::GoodsReset();
+	ResultInfo::ResultReset();
+
 	PlayerState::HP = PlayerState::MaxHP;
 
 	BattleLevel::LevelChangeStart();

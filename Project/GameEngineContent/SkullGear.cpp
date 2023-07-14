@@ -3,6 +3,7 @@
 #include "Inventory.h"
 #include "Player.h"
 #include "SkullGearPopup.h"
+#include "ResultInfo.h"
 
 SkullGear::SkullGear()
 {
@@ -70,6 +71,7 @@ void SkullGear::UseGear()
 		return;
 	}
 
+	++ResultInfo::GetSkullCount;
 	GetContentLevel()->CallEvent("SkullGearPopupOff");
 	ColPlayer->InsertNewSkull(Data.Index);
 	Death();
@@ -92,15 +94,19 @@ void SkullGear::Destroy()
 		{
 		case SkullGrade::Normal:
 			Inventory::AddGoods_Bone(ContentConst::Goods_Bone_Normal);
+			ResultInfo::GetBone += ContentConst::Goods_Bone_Normal;
 			break;
 		case SkullGrade::Rare:
 			Inventory::AddGoods_Bone(ContentConst::Goods_Bone_Rare);
+			ResultInfo::GetBone += ContentConst::Goods_Bone_Rare;
 			break;
 		case SkullGrade::Unique:
 			Inventory::AddGoods_Bone(ContentConst::Goods_Bone_Unique);
+			ResultInfo::GetBone += ContentConst::Goods_Bone_Unique;
 			break;
 		case SkullGrade::Legendary:
 			Inventory::AddGoods_Bone(ContentConst::Goods_Bone_Legendary);
+			ResultInfo::GetBone += ContentConst::Goods_Bone_Legendary;
 			break;
 		default:
 			break;

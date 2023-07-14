@@ -11,6 +11,7 @@
 #include "StageInfoFrame.h"
 
 #include "Minimap.h"
+#include "ResultInfo.h"
 
 // Debug¿ë
 #include "FPSCheckGUI.h"
@@ -254,6 +255,7 @@ void ForestOfHarmonyLevel::ChangeStage()
 
 void ForestOfHarmonyLevel::LevelChangeStart()
 {
+	ResultInfo::PlayTime = 0.0f;
 	BattleLevel::LevelChangeStart();
 	FPS_GUI->Reset();
 	FPS_GUI->On();

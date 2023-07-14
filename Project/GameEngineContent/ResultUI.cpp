@@ -2,6 +2,7 @@
 #include "ResultUI.h"
 #include <GameEngineCore/GameEngineCore.h>
 #include "BattleLevel.h"
+#include "ResultInfo.h"
 
 ResultUI::ResultUI()
 {
@@ -15,6 +16,68 @@ void ResultUI::ResultUIOn()
 {
 	MoveProgress = 0.0f;
 	On();
+
+	//ResultInfo::
+	int TotalTime = static_cast<int>(ResultInfo::PlayTime);
+
+	int Time_H = TotalTime / 3600;
+	TotalTime = TotalTime % 3600;	
+
+	int Time_M = TotalTime / 60;
+	TotalTime = TotalTime % 60;
+
+	int Time_S = TotalTime;
+
+	std::string TimeText = "";
+
+	if (10 > Time_H)
+	{
+		TimeText += "0" + std::to_string(Time_H);
+	}
+	else
+	{
+		TimeText += std::to_string(Time_H);
+	}
+
+	TimeText += ":";
+
+	if (10 > Time_M)
+	{
+		TimeText += "0" + std::to_string(Time_M);
+	}
+	else
+	{
+		TimeText += std::to_string(Time_M);
+	}
+
+	TimeText += ":";
+
+	if (10 > Time_S)
+	{
+		TimeText += "0" + std::to_string(Time_S);
+	}
+	else
+	{
+		TimeText += std::to_string(Time_S);
+	}
+
+	PlayTimeValueFont->SetText(TimeText);
+	DeathCountValueFont->SetText(std::to_string(ResultInfo::DeathCount));
+	KillCountValueFont->SetText(std::to_string(ResultInfo::KillCount));
+
+	GetManaStoneValueFont->SetText(std::to_string(ResultInfo::GetManaStone));
+	GetGoldValueFont->SetText(std::to_string(ResultInfo::GetGold));
+	GetBoneValueFont->SetText(std::to_string(ResultInfo::GetBone));
+
+	TotalDamageValueFont->SetText(std::to_string(static_cast<int>(ResultInfo::TotalDamage)));
+	MaxDamageValueFont->SetText(std::to_string(static_cast<int>(ResultInfo::MaxDamage)));
+	HitDamageValueFont->SetText(std::to_string(static_cast<int>(ResultInfo::HitDamage)));
+	HealValueFont->SetText(std::to_string(static_cast<int>(ResultInfo::HealValue)));
+
+	GetSkullCountValueFont->SetText(std::to_string(ResultInfo::GetSkullCount));
+	GetItemCountValueFont->SetText(std::to_string(ResultInfo::GetItemCount));
+	GetQuintessenceValueFont->SetText(std::to_string(ResultInfo::GetQuintessenceCount));
+
 }
 
 void ResultUI::ResultUIOff()

@@ -10,6 +10,7 @@
 #include "Player.h"
 
 #include "BattleActorDamageFont.h"
+#include "ResultInfo.h"
 
 bool BaseMonster::MonsterUnMove = false;
 
@@ -28,6 +29,13 @@ BaseMonster::~BaseMonster()
 
 void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, HitEffectType _Type, std::function<void()> _KillEvent /*= nullptr*/)
 {
+	ResultInfo::TotalDamage += _Damage;
+
+	if (ResultInfo::MaxDamage < _Damage)
+	{
+		ResultInfo::MaxDamage = _Damage;
+	}
+
 	HP -= _Damage;
 	HitDamageCheck += _Damage;
 

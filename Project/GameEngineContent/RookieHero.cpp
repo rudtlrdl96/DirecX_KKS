@@ -4,6 +4,7 @@
 #include "RookieHero_HealthBar.h"
 #include "MonsterDeadBodyActor.h"
 #include "ContentLevel.h"
+#include "ResultInfo.h"
 
 RookieHero::RookieHero()
 {
@@ -253,6 +254,8 @@ void RookieHero::Update(float _DeltaTime)
 
 		if (true == Render->IsAnimationEnd())
 		{
+
+			++ResultInfo::KillCount;
 			GetContentLevel()->CallEvent("MinimapOn");
 			GetContentLevel()->CallEvent("GoodsUIOn");
 			GetContentLevel()->CallEvent("RookieHero_Death");

@@ -53,6 +53,12 @@ int Inventory::GetGoodsCount_ManaStone()
 	return Goods_ManaStone;
 }
 
+void Inventory::GoodsReset()
+{
+	Goods_Gold = 0;
+	Goods_Bone = 0;
+}
+
 void Inventory::SetMainSkull(SkullData _SkullData)
 {
 	MainSkullData = _SkullData;

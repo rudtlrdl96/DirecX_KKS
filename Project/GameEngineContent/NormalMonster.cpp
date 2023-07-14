@@ -7,8 +7,9 @@
 #include "TexturePartParticle.h"
 #include "AnimationPartParticle.h"
 #include "Inventory.h"
-
 #include "LifeOrb.h"
+
+#include "ResultInfo.h"
 
 NormalMonster::NormalMonster()
 {
@@ -320,6 +321,8 @@ void NormalMonster::MonsterDeath()
 {
 	Death();
 
+	++ResultInfo::KillCount;
+
 	EffectManager::PlayEffect({
 		.EffectName = "MonsterDeath",
 		.Position = GetTransform()->GetWorldPosition() + DeathEffectLocalPos });
@@ -351,6 +354,7 @@ void NormalMonster::MonsterDeath()
 	if (0 < RewardGold)
 	{
 		Inventory::AddGoods_Gold(RewardGold);
+		ResultInfo::GetGold += RewardGold;
 
 		for (size_t i = 0; i < 6; i++)
 		{
@@ -385,6 +389,7 @@ void NormalMonster::MonsterDeath()
 		static std::vector<std::string> ManaStoneParts = {"DarkQuartz_1.png", "DarkQuartz_2.png", "DarkQuartz_3.png", "DarkQuartz_4.png"};
 
 		Inventory::AddGoods_ManaStone(RewardManaStone);
+		ResultInfo::GetManaStone = RewardManaStone;
 
 		for (size_t i = 0; i < 4; i++)
 		{

@@ -273,6 +273,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ResultInfo.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ResultUI.h">
       <SubType>
       </SubType>
@@ -1144,6 +1148,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentVertex.cpp" />
+    <ClCompile Include="ResultInfo.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ResultUI.cpp">
       <SubType>
       </SubType>

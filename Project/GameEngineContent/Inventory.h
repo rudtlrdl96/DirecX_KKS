@@ -22,6 +22,8 @@ public:
 	static int GetGoodsCount_Bone();
 	static int GetGoodsCount_ManaStone();
 
+	static void GoodsReset();
+
 protected:
 	
 private:

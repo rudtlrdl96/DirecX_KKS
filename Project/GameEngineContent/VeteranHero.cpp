@@ -5,6 +5,7 @@
 #include "MonsterDeadBodyActor.h"
 #include "Player.h"
 #include "VeteranHeroMagicSword.h"
+#include "ResultInfo.h"
 
 VeteranHero::VeteranHero()
 {
@@ -404,6 +405,7 @@ void VeteranHero::Update(float _DeltaTime)
 
 		if (true == Render->IsAnimationEnd())
 		{
+			++ResultInfo::KillCount;
 			Death();
 
 			std::shared_ptr<MonsterDeadBodyActor> DeadBody = GetLevel()->CreateActor<MonsterDeadBodyActor>();
