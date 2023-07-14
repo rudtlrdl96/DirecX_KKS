@@ -22,6 +22,8 @@ public:
 	BattleLevel& operator=(const BattleLevel& _Other) = delete;
 	BattleLevel& operator=(BattleLevel&& _Other) noexcept = delete;
 
+	void MoveCastle();
+
 protected:
 	GameEngineCamera* MinimapCam = nullptr;
 
@@ -45,6 +47,7 @@ protected:
 	std::shared_ptr<class SkullGearPopup> SkullGearPopupPtr = nullptr;
 	std::shared_ptr<class StageInfoFrame> StageInfoFramePtr = nullptr;
 	std::shared_ptr<class GoodsUI> GoodsUIPtr = nullptr;
+	std::shared_ptr<class ResultUI> ResultUIPtr = nullptr;
 
 	bool IsLevelMove = false;
 
@@ -61,9 +64,15 @@ protected:
 	void MoveNextStage(bool _ForceMove = false);
 
 	void MoveLevel(const std::string_view& _Level);
+
 	virtual void AreaClear() {}
 
 private:
+	bool IsPlayerDeath = false;
 
+	float DeathTime = 0.0f;
+
+	float4 PivotStart = float4::Zero;
+	float4 PivotEnd = float4::Zero;
 };
 

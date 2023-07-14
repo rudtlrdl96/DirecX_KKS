@@ -518,10 +518,6 @@ void Player::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("Cheat_GearTest"))
 	{
-		//std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
-		//Gear->Init(0);
-		//Gear->DropGear(GetTransform()->GetWorldPosition());
-
 		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f));
 		
 		{
@@ -576,6 +572,8 @@ void Player::Update(float _DeltaTime)
 
 		CameraController& CamCtrl = CastingLevel->GetCamCtrl();
 
+		CastingLevel->CallEvent("ResultOn");
+
 		CamCtrl.EffectScaleRatio(1.0f, 0.7f, 1.5f);
 
 		GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(0.1f);
@@ -588,7 +586,7 @@ void Player::Update(float _DeltaTime)
 			CamCtrl.SetLookatTarget(HeadPart);
 			CamCtrl.DisalbeForceLookAt();
 		}
-		
+				
 		StateFrame->Death();
 		Death();
 		return;

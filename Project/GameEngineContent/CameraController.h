@@ -86,6 +86,11 @@ public:
 		LookatSpeed = _Speed;
 	}
 
+	inline void SetWorldPivot(const float4& _Pivot)
+	{
+		WorldPivotPos = _Pivot;
+	}
+
 protected:
 	
 private:
@@ -127,6 +132,7 @@ private:
 
 	float4 StartShakePos = float4::Zero;
 	float4 EndShakePos = float4::Zero;
+	float4 WorldPivotPos = float4::Zero;
 
 	float4 CameraEffectPos = float4::Zero;
 

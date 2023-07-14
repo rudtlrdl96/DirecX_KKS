@@ -18,6 +18,7 @@
 #include "SkullGearPopup.h"
 #include "StageInfoFrame.h"
 #include "GoodsUI.h"
+#include "ResultUI.h"
 
 BattleLevel::BattleLevel()
 {
@@ -74,6 +75,14 @@ void BattleLevel::Start()
 
 	GoodsUIPtr = CreateActor<GoodsUI>();
 	GoodsUIPtr->GoodsUIOn(true);
+
+	ResultUIPtr = CreateActor<ResultUI>();
+	ResultUIPtr->GetTransform()->SetWorldPosition(float4(0, 0, -4500));
+	ResultUIPtr->SetBattleLevel(this);
+	ResultUIPtr->Off();
+
+	PivotStart = float4(-225, -305, 0);
+	PivotEnd = float4(-225, -130, 0);
 
 	AddEvent("NextLevelMove", LevelCode, [this]()
 		{
@@ -194,12 +203,44 @@ void BattleLevel::Start()
 	AddEvent("GoodsUIOff", LevelCode, [this]()
 		{
 			GoodsUIPtr->GoodsUIOff(MinimapPtr->IsUpdate());
+		});	
+	
+	AddEvent("ResultOn", LevelCode, [this]()
+		{
+			IsPlayerDeath = true;
+		});	
+	
+	AddEvent("ResultOff", LevelCode, [this]()
+		{
+			ResultUIPtr->ResultUIOff();
 		});
 
 }
 
 void BattleLevel::Update(float _DeltaTime)
 {
+	ContentLevel::Update(_DeltaTime);
+
+	if (true == IsPlayerDeath)
+	{
+		DeathTime += GameEngineTime::GlobalTime.GetDeltaTime();
+
+		if (true == ResultUIPtr->IsUpdate())
+		{
+			MainCamCtrl.SetWorldPivot(PivotEnd);
+		}
+
+		if (false == ResultUIPtr->IsUpdate() && 2.5f <= DeathTime)
+		{
+			GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(0.0f);
+			GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(0.0f);
+
+			ResultUIPtr->ResultUIOn();
+		}
+
+		return;
+	}
+
 	MinimapCam->GetTransform()->SetWorldPosition(GetMainCamera()->GetTransform()->GetWorldPosition() + float4(0, 256));
 
 	if (true == GameEngineInput::IsDown("LevelMovePrev"))
@@ -214,12 +255,8 @@ void BattleLevel::Update(float _DeltaTime)
 	{
 		IsDebugSwitch();
 	}
-
-	ContentLevel::Update(_DeltaTime);
+	
 	BattleAreaPtr->UpdateBackground(_DeltaTime, MainCamCtrl.GetCameraPos());
-
-
-
 }
 
 void BattleLevel::SetPlayerPos(const float4& _Pos)
@@ -232,6 +269,8 @@ void BattleLevel::SetPlayerPos(const float4& _Pos)
 
 void BattleLevel::LevelChangeStart()
 {
+	IsPlayerDeath = false;
+
 	ContentLevel::LevelChangeStart();
 
 	BaseMonster::SetMonstersMove(false);
@@ -255,6 +294,7 @@ void BattleLevel::LevelChangeStart()
 
 	ChangeStage();
 	MainCamCtrl.ResetScale();
+	MainCamCtrl.SetWorldPivot(float4::Zero);
 
 	GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(1.0f);
 	GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(1.0f);
@@ -395,5 +435,27 @@ void BattleLevel::MoveLevel(const std::string_view& _Level)
 		{
 			GameEngineCore::ChangeLevel(_Level);
 			IsLevelMove = false;
+		});
+}
+
+void BattleLevel::MoveCastle()
+{
+	if (true == IsLevelMove)
+	{
+		return;
+	}
+
+	IsLevelMove = true;
+	
+	FadeActorPtr->SetWaitTime(0.0f);
+	FadeActorPtr->SetSpeed(1.5f);
+	FadeActorPtr->FadeIn([this]()
+		{
+			GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(1.0f);
+			GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(1.0f);
+
+			GameEngineCore::ChangeLevel("Castle");
+			IsLevelMove = false;
+			ResultUIPtr->Off();
 		});
 }

@@ -391,6 +391,9 @@
     <Filter Include="2_Actor\LifeOrb">
       <UniqueIdentifier>{4a667dce-b349-406c-b7dd-64f16ca17402}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\UI\Result">
+      <UniqueIdentifier>{83c8d145-c439-4466-8aeb-02239ed25bb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -1025,6 +1028,9 @@
     </ClInclude>
     <ClInclude Include="LifeOrb.h">
       <Filter>2_Actor\LifeOrb</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultUI.h">
+      <Filter>2_Actor\UI\Result</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1717,6 +1723,9 @@
     </ClCompile>
     <ClCompile Include="LifeOrb.cpp">
       <Filter>2_Actor\LifeOrb</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultUI.cpp">
+      <Filter>2_Actor\UI\Result</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

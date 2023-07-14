@@ -31,7 +31,7 @@ void CameraController::Update(float _DeltaTime)
 {
 	if (true == IsScaleRatio)
 	{
-		CurScaleProgress += _DeltaTime * ScaleSpeed;
+		CurScaleProgress += GameEngineTime::GlobalTime.GetDeltaTime() * ScaleSpeed;
 
 
 		MainCamera->SetZoomRatio(ContentFunc::Lerp<float>(StartScale, EndScale ,CurScaleProgress));
@@ -93,7 +93,7 @@ void CameraController::Update(float _DeltaTime)
 	}
 	case CameraController::CamCtrlType::Move:
 	{
-		LerpMoveProgress += _DeltaTime * LerpMoveSpeed;
+		LerpMoveProgress += GameEngineTime::GlobalTime.GetDeltaTime() * LerpMoveSpeed;
 		TargetWorldPos = float4::LerpClamp(MoveStartPos, MoveEndPos, LerpMoveProgress);
 
 		if (LerpMoveProgress >= 1.0f)
@@ -119,7 +119,7 @@ void CameraController::Update(float _DeltaTime)
 		float4 DiffDir = float4(DiffX, DiffY);
 		float DiffSize = DiffDir.Size();
 
-		float CamMove = _DeltaTime * DiffSize * LookatSpeed;
+		float CamMove = GameEngineTime::GlobalTime.GetDeltaTime() * DiffSize * LookatSpeed;
 
 
 		if (DiffSize > 1.0f)
@@ -156,7 +156,7 @@ void CameraController::Update(float _DeltaTime)
 
 	if (0 < ShakeCount)
 	{
-		ShakeProgress += _DeltaTime * ShakeSpeed;
+		ShakeProgress += GameEngineTime::GlobalTime.GetDeltaTime() * ShakeSpeed;
 		CameraEffectPos = float4::LerpClamp(StartShakePos, EndShakePos, ShakeProgress);
 	
 		if (1.0f <= ShakeProgress)
@@ -168,6 +168,7 @@ void CameraController::Update(float _DeltaTime)
 	}
 
 	LastCameraPos += CameraEffectPos;
+	LastCameraPos += WorldPivotPos;
 	
 	MainCamera->GetTransform()->SetWorldPosition(LastCameraPos);
 	MainCamera->GetTransform()->SetWorldRotation(LastCameraRot);

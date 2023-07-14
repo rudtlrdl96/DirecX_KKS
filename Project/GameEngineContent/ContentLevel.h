@@ -72,7 +72,7 @@ private:
 	GameEngineSoundPlayer CustomBgmPlayer;
 
 	float4 WorldLightStart = float4::One;
-	float4 WorldLightEnd= float4::One;
+	float4 WorldLightEnd = float4::One;
 
 	float WorldLightProgress = 1.0f;
 	float WorldLightSpeed = 1.0f;

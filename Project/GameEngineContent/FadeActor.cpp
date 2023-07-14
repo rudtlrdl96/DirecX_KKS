@@ -77,7 +77,7 @@ void FadeActor::Start()
 
 void FadeActor::Update(float _DeltaTime)
 {
-	CurWaitTime += _DeltaTime;
+	CurWaitTime += GameEngineTime::GlobalTime.GetDeltaTime();
 
 	if (CurWaitTime < WaitTime)
 	{
@@ -87,7 +87,7 @@ void FadeActor::Update(float _DeltaTime)
 	switch (State)
 	{
 	case FadeActor::FadeState::FadeIn:
-		Buffer.Color.w += _DeltaTime *= FadeSpeed;
+		Buffer.Color.w += GameEngineTime::GlobalTime.GetDeltaTime() * FadeSpeed;
 
 		if (Buffer.Color.w >= 1.0f)
 		{
@@ -105,7 +105,7 @@ void FadeActor::Update(float _DeltaTime)
 
 		break;
 	case FadeActor::FadeState::FadeOut:
-		Buffer.Color.w -= _DeltaTime *= FadeSpeed;
+		Buffer.Color.w -= GameEngineTime::GlobalTime.GetDeltaTime() * FadeSpeed;
 
 		if (Buffer.Color.w <= 0.0f)
 		{
