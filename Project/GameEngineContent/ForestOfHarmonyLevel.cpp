@@ -10,6 +10,8 @@
 #include "BossRoomFlop.h"
 #include "StageInfoFrame.h"
 
+#include "Minimap.h"
+
 // Debug¿ë
 #include "FPSCheckGUI.h"
 
@@ -207,24 +209,43 @@ void ForestOfHarmonyLevel::ChangeStage()
 	{
 		StageInfoFramePtr->FrameOn("Á¶È­ÀÇ ½£", "1-1", "±íÀº ½£");
 	}
-
-	if (5 == CurStageIndex)
+	else if (5 == CurStageIndex)
 	{
 		StageInfoFramePtr->FrameOn("Á¶È­ÀÇ ½£", "1-2", "Ä®·¹¿Â ±¹°æÁö´ë");
 	}
 
+
 	if (4 == CurStageIndex)
 	{
-		CallEvent("MinimapOff");
-		CallEvent("GoodsUIOff");
+		if (true == MinimapPtr->IsUpdate())
+		{
+			CallEvent("MinimapOff");
+			CallEvent("GoodsUIOff");
+		}
 	}
-
-	if (9 == CurStageIndex)
+	else if (9 == CurStageIndex)
 	{
-		CallEvent("MinimapOff");
-		CallEvent("GoodsUIOff");
+		if (true == MinimapPtr->IsUpdate())
+		{
+			CallEvent("MinimapOff");
+			CallEvent("GoodsUIOff");
+		}
 
 		StopBaseBGM();
+	}
+	else if(10 == CurStageIndex)
+	{
+		if (true == MinimapPtr->IsUpdate())
+		{
+			CallEvent("MinimapOff");
+			CallEvent("GoodsUIOff");
+		}
+
+	}
+	else if (false == MinimapPtr->IsUpdate())
+	{
+		CallEvent("MinimapOn");
+		CallEvent("GoodsUIOn");
 	}
 
 	IntroTilemap->Off();

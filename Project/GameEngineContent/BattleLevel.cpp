@@ -44,7 +44,7 @@ void BattleLevel::Start()
 	MinimapCam->SetProjectionType(CameraType::Orthogonal);
 	MinimapCam->GetTransform()->SetLocalPosition(float4(0, 0, -5000.0f));
 	MinimapCam->GetTransform()->SetLocalRotation(float4::Zero);
-	MinimapCam->SetZoomRatio(2.0f);
+	MinimapCam->SetZoomRatio(1.75f);
 	MinimapCam->MergeOff();
 
 	float4 HalfWindowSize = GameEngineWindow::GetScreenSize().half();

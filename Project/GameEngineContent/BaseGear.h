@@ -54,6 +54,11 @@ public:
 
 	void CallUseEvent() override;
 
+	inline std::shared_ptr<GameEngineCollision> GetBodyCol()
+	{
+		return GearBodyCol;
+	}
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	BlackAndWihteBuffer Buffer;

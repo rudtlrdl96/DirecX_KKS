@@ -99,6 +99,8 @@ void StageRewardObject::SetReward(RewardType _Type)
 
 void StageRewardObject::CallUseEvent()
 {
+	MinimapImageRender->Off();
+
 	if (RewardType::MiddleBoss != Type && false == IsRewardEndValue)
 	{
 		NoteActor->Off();
@@ -156,6 +158,15 @@ void StageRewardObject::Start()
 	EnterCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	EnterCol->GetTransform()->SetLocalScale(float4(1100, 300));
 	EnterCol->SetColType(ColType::AABBBOX2D);
+
+	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		MinimapImageRender = CreateComponent<ContentMinimapRender>();
+		MinimapImageRender->SetTexture("MinimapImage.png");
+		MinimapImageRender->ColorOptionValue.PlusColor = float4(0, 0.8f, 0, 0.0f);
+		MinimapImageRender->Off();
+	}
+
 }
 
 void StageRewardObject::Update(float _DeltaTime)
@@ -208,12 +219,32 @@ void StageRewardObject::Update(float _DeltaTime)
 		{
 			Render->ChangeAnimation("Idle");
 			Render->On();
+
+			if (nullptr != MinimapImageRender)
+			{
+				MinimapImageRender->GetTransform()->SetWorldPosition(TableRender->GetTransform()->GetWorldPosition() + float4(0, 50));
+				MinimapImageRender->GetTransform()->SetWorldScale(float4(80, 100, 1));
+
+				MinimapImageRender->On();
+			}
 		}
 		else
 		{
-			DropSkullReward(float4(-88, 0), true);
-			DropSkullReward(float4(0, 0), true);
-			DropSkullReward(float4(88, 0), true);
+			std::shared_ptr<SkullGear> FirstGear = DropSkullReward(float4(-88, 0), true);
+			std::shared_ptr<GameEngineCollision> FirstCol = FirstGear->GetBodyCol();
+			FirstCol->GetTransform()->AddLocalPosition(float4(0, -25));
+			FirstCol->GetTransform()->AddLocalScale(float4(0, 50));
+
+			std::shared_ptr<SkullGear> SecondGear = DropSkullReward(float4(0, 0), true);
+			std::shared_ptr<GameEngineCollision> SecondCol = SecondGear->GetBodyCol();
+			SecondCol->GetTransform()->AddLocalPosition(float4(0, -25));
+			SecondCol->GetTransform()->AddLocalScale(float4(0, 50));
+
+
+			std::shared_ptr<SkullGear> ThirdGear = DropSkullReward(float4(88, 0), true);
+			std::shared_ptr<GameEngineCollision> ThirdCol = ThirdGear->GetBodyCol();
+			ThirdCol->GetTransform()->AddLocalPosition(float4(0, -25));
+			ThirdCol->GetTransform()->AddLocalScale(float4(0, 50));
 		}
 
 		TableRender->On();
@@ -324,7 +355,7 @@ void StageRewardObject::MiddleBossRewardInit()
 {
 }
 
-void StageRewardObject::DropSkullReward(float4 _Pivot /*= float4::Zero*/, bool _GradeReset /*= false*/)
+std::shared_ptr<SkullGear> StageRewardObject::DropSkullReward(float4 _Pivot /*= float4::Zero*/, bool _GradeReset /*= false*/)
 {
 	if (true == _GradeReset)
 	{
@@ -348,6 +379,8 @@ void StageRewardObject::DropSkullReward(float4 _Pivot /*= float4::Zero*/, bool _
 	}
 
 	CreateGears.push_back(Gear);
+
+	return Gear;
 }
 
 void StageRewardObject::DropGoldReward()

@@ -2,6 +2,7 @@
 #include "BaseContentActor.h"
 #include "SkullData.h"
 #include "PointLightEffect.h"
+#include "ContentMinimapRender.h"
 
 enum class RewardType
 {
@@ -39,6 +40,7 @@ protected:
 private:
 	std::shared_ptr<GameEngineSpriteRenderer> Render = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> TableRender = nullptr;
+	std::shared_ptr<ContentMinimapRender> MinimapImageRender = nullptr;
 
 	std::shared_ptr<GameEngineCollision> RewardCol = nullptr;
 	std::shared_ptr<GameEngineCollision> EnterCol = nullptr;
@@ -63,7 +65,7 @@ private:
 	void SkullRewardInit();
 	void MiddleBossRewardInit();
 
-	void DropSkullReward(float4 _Pivot = float4::Zero, bool _GradeReset = false);
+	std::shared_ptr<class SkullGear> DropSkullReward(float4 _Pivot = float4::Zero, bool _GradeReset = false);
 	void DropGoldReward();
 
 	void CreateLight();
