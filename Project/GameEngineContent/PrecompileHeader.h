@@ -22,3 +22,4 @@
 
 #include "EffectManager.h"
 #include "GameEventManager.h"
+#include "SoundDoubleCheck.h"

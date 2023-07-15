@@ -113,6 +113,8 @@ void ContentLevel::Start()
 
 void ContentLevel::Update(float _DeltaTime)
 {
+	SoundDoubleCheck::SoundListReset();
+
 	if (1.0f > WorldLightProgress)
 	{
 		WorldLightProgress += _DeltaTime * WorldLightSpeed;

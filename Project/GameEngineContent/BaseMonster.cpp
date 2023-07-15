@@ -102,6 +102,8 @@ void BaseMonster::Stun(float _Time)
 		return;
 	}
 
+	SoundDoubleCheck::Play("Stun.wav");
+
 	std::shared_ptr<EffectActor> StunEffect = EffectManager::PlayEffect({ 
 		.EffectName = "Monster_Stun", .Position = GetTransform()->GetWorldPosition() + StunPivot, .Scale = StunScale, .Triger = EffectDeathTrigger::Time, .Time = _Time, });
 

@@ -58,6 +58,7 @@ void PlayerBaseSkull::Idle_Update(float _DeltaTime)
 			}
 		}
 
+		GameEngineSound::Play("Default_Jump.wav");
 		Jump();
 		PlayerFSM.ChangeState("Jump");
 	}
@@ -131,6 +132,7 @@ void PlayerBaseSkull::Jump_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({.EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition()});
 
+		GameEngineSound::Play("Default_Jump_Air.wav");
 		Jump();
 		DoubleJump = false;
 	}
@@ -239,6 +241,7 @@ void PlayerBaseSkull::Walk_Update(float _DeltaTime)
 			}
 		}
 
+		GameEngineSound::Play("Default_Jump.wav");
 		Jump();
 		PlayerFSM.ChangeState("Jump");
 	}
@@ -354,6 +357,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 		{
 			EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
+			GameEngineSound::Play("Default_Jump_Air.wav");
 			Jump();
 			PlayerFSM.ChangeState("Jump");
 
@@ -362,6 +366,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 			return;
 		}
 
+		GameEngineSound::Play("Default_Jump.wav");
 		Jump();
 		PlayerFSM.ChangeState("Jump");
 		return;
@@ -371,6 +376,7 @@ void PlayerBaseSkull::Dash_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
+		GameEngineSound::Play("Default_Jump_Air.wav");
 		Jump();
 		PlayerFSM.ChangeState("Jump");
 		DoubleJump = false;
@@ -513,6 +519,7 @@ void PlayerBaseSkull::Fall_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
+		GameEngineSound::Play("Default_Jump_Air.wav");
 		Jump();
 		PlayerFSM.ChangeState("Jump");
 		DoubleJump = false;
@@ -685,6 +692,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 	}
 	else if (false == ParentPlayer->IsInputLock() && true == CanJump && GameEngineInput::IsDown("PlayerMove_Jump"))
 	{
+		GameEngineSound::Play("Default_Jump.wav");
 		Jump();
 		PlayerFSM.ChangeState("Jump");
 		return;
@@ -845,6 +853,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 	{
 		EffectManager::PlayEffect({ .EffectName = "PlayerJumpEffect", .Position = PlayerTrans->GetWorldPosition() });
 
+		GameEngineSound::Play("Default_Jump_Air.wav");
 		Jump();
 		DoubleJump = false;
 	}
@@ -1040,6 +1049,8 @@ void PlayerBaseSkull::Skill_SlotB_End()
 
 void PlayerBaseSkull::Switch_Enter()
 {
+	GameEngineSound::Play("Default_Switch.wav");
+
 	if (0 == AnimColMeta_Switch.size())
 	{
 		MsgAssert_Rtti<PlayerBaseSkull>(" - 스컬의 스위치 정보가 없습니다");

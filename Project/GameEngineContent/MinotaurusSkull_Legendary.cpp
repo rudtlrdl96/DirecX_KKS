@@ -90,6 +90,8 @@ void MinotaurusSkull_Legendary::Start()
 	LargeProjectileEffectNames[0] = "Minotaurus_3_PlowUp_Rock1";
 	LargeProjectileEffectNames[1] = "Minotaurus_3_PlowUp_Rock2";
 	LargeProjectileEffectNames[2] = "Minotaurus_3_PlowUp_Rock3";
+
+	DashSound = "Default_Dash_Tackle.wav";
 }
 
 void MinotaurusSkull_Legendary::Update(float _DeltaTime)
@@ -162,6 +164,8 @@ void MinotaurusSkull_Legendary::Update(float _DeltaTime)
 
 				bool IsFlipX = SwitchEarthquakeInter.x < 0;
 
+				GameEngineSound::Play("Minotaurus_SwapPillar.wav");
+
 				EffectManager::PlayEffect({
 					.EffectName = "Minotaurus_3_Swap_Rock_0",
 					.Position = PlatformPos + float4(0, 43),
@@ -228,6 +232,7 @@ void MinotaurusSkull_Legendary::Update(float _DeltaTime)
 		if (0.0f < PassiveTime)
 		{
 			PassiveTime -= 1.0f;
+			GameEngineSound::Play("MinoTaurus_Passive_RepeatedStomp.wav");
 
 			EffectManager::PlayEffect({
 			.EffectName = "Minitaurus_Unique_Passive",
@@ -292,6 +297,8 @@ void MinotaurusSkull_Legendary::Attack_End()
 
 void MinotaurusSkull_Legendary::JumpAttack_Enter()
 {
+	GameEngineSound::Play("MinoTaurus_JumpAttack.wav");
+
 	Render->ChangeAnimation("JumpAttack");
 
 	AttackRigidbody.SetActiveGravity(true);
@@ -359,6 +366,7 @@ void MinotaurusSkull_Legendary::JumpAttack_Update(float _DeltaTime)
 
 	if (false == IsDownPlatformCheckOff && false == IsJumpAttackLand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
+		GameEngineSound::Play("Atk_Stomp_Large.wav");
 		Render->ChangeAnimation("JumpAttack_Land");
 		IsJumpAttackLand = true;
 
@@ -539,7 +547,7 @@ void MinotaurusSkull_Legendary::Dash_Update(float _DeltaTime)
 				return;
 			}
 
-			CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::Normal);
+			CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
 			AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
 		}
 	}
@@ -555,6 +563,7 @@ void MinotaurusSkull_Legendary::Dash_End()
 void MinotaurusSkull_Legendary::Skill_SlotA_Enter()
 {
 	PlayerBaseSkull::Skill_SlotA_Enter();
+	GameEngineSound::Play("Atk_Stomp_Large.wav");
 	AttackDoubleCheck.clear();
 
 	switch (GetViewDir())
@@ -611,6 +620,7 @@ void MinotaurusSkull_Legendary::Skill_SlotA_Update(float _DeltaTime)
 
 	if (false == IsDownPlatformCheckOff && false == IsSkillALand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
+		GameEngineSound::Play("MinoTaurus_PowerStompLand.wav");
 		SkillALandTime = 0.0f;
 		IsSkillALand = true;
 		Render->ChangeAnimation("JumpAttack_Land");
@@ -739,6 +749,7 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 
 	if (false == IsSkillBEffect && 3 == Render->GetCurrentFrame())
 	{
+		GameEngineSound::Play("Minotaurus_PlowUp_Stonecrash.wav");
 		IsSkillBEffect = true;
 		IsSKillBProjectileShot = true;
 
@@ -831,6 +842,7 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 
 	if (3 <= Render->GetCurrentFrame() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
+		GameEngineSound::Play("Atk_Explosion_Large.wav");
 		GetContentLevel()->GetCamCtrl().CameraShake(15, 120, 20);
 		IsSKillBDoubleAttack = true;
 
@@ -994,6 +1006,21 @@ void MinotaurusSkull_Legendary::AnimationColLoad()
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Legendary_SkillA").GetFullPath()), 0.08f);
 	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Legendary_SkillB").GetFullPath()), 0.1f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Legendary_Switch").GetFullPath()), 0.1f);
+
+	Render->SetAnimationStartEvent("AttackA", 3, []()
+		{
+			GameEngineSound::Play("MinoTaurus_ATKA.wav");
+		});
+
+	Render->SetAnimationStartEvent("AttackB", 2, []()
+		{
+			GameEngineSound::Play("MinoTaurus_JumpAttack.wav");
+		});
+
+	Render->SetAnimationStartEvent("Switch", 3, []()
+		{
+			GameEngineSound::Play("MinoTaurus_Swap.wav");
+		});
 }
 
 void MinotaurusSkull_Legendary::PassiveCheck()
@@ -1058,6 +1085,8 @@ void MinotaurusSkull_Legendary::ShotProjectile(size_t _TextureIndex)
 
 			CastingActor->HitMonster(_HitData.Attack, LookDir, true, true, false, HitEffectType::None);
 
+			SoundDoubleCheck::Play("MinoTaurus_Debris_despawn.wav");
+
 			EffectManager::PlayEffect({
 				.EffectName = "Minotaurus_Projectile_Hit2",
 				.Position = _HitData.ProjectilePos});
@@ -1066,6 +1095,8 @@ void MinotaurusSkull_Legendary::ShotProjectile(size_t _TextureIndex)
 		},
 		.DeathEvent = [Level](const float4& _DeathPos)
 		{
+			SoundDoubleCheck::Play("MinoTaurus_Debris_despawn.wav");
+
 			EffectManager::PlayEffect({
 				.EffectName = "Minotaurus_Projectile_Hit2",
 				.Position = _DeathPos});

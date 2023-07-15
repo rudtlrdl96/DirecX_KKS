@@ -360,6 +360,7 @@ void BoneSkull::Skill_SlotA_Update(float _DeltaTime)
 		HeadActor->ShotHead(GetViewDir());
 		HeadActor->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(8, 50));
 		HeadActor->On();
+		GameEngineSound::Play("ThrowSkull.wav");
 	}
 }
 
@@ -373,6 +374,8 @@ void BoneSkull::Skill_SlotB_Enter()
 	float4 HeadPos = HeadTrans->GetWorldPosition();
 
 	PlayerTrans->SetWorldPosition(HeadPos - float4(0, 15));
+
+	GameEngineSound::Play("Skul_Reborn_Rise.wav");
 
 	EffectManager::PlayEffect({ "SkullAppearance", PlayerPos });
 	EffectManager::PlayEffect({ "SkullAppearance", HeadPos - float4(0, 0) });
@@ -390,11 +393,19 @@ void BoneSkull::Switch_Enter()
 	Vel.y = 0;
 	BattleActorRigidbody.SetVelocity(Vel);
 
-	//JumpDir.y = 0;
+	SwitchSoundTime = 0.0f;
 }
 
 void BoneSkull::Switch_Update(float _DeltaTime)
 {
+	SwitchSoundTime += _DeltaTime;
+
+	if (0.0f <= SwitchSoundTime)
+	{
+		GameEngineSound::Play("Atk_BluntWeapon_Large.wav");
+		SwitchSoundTime = -0.18f;
+	}
+
 	BattleActorRigidbody.AddVelocity(float4(0, _DeltaTime * ContentConst::Gravity_f, 0));
 	PlayerTrans->AddLocalPosition(BattleActorRigidbody.GetVelocity() * _DeltaTime);
 
@@ -505,6 +516,17 @@ void BoneSkull::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "Castle_Reborn", .SpriteName = "BoneSkull_Normal_RebornCastle.png",
 		.Start = 0, .End = 26, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Idle_Wait", .SpriteName = "BoneSkull_Wait.png", .FrameInter = 0.11f, .ScaleToTexture = true });
+
+	Render->SetAnimationStartEvent("Castle_Reborn", 1, []()
+		{
+			GameEngineSound::Play("Skul_Reborn_Rise.wav");
+		});
+
+	Render->SetAnimationStartEvent("Castle_Reborn", 14, []()
+		{
+			GameEngineSound::Play("Skul_Reborn_Cape.wav");
+		});
+
 }
 
 void BoneSkull::AnimationColLoad()
@@ -530,6 +552,37 @@ void BoneSkull::AnimationColLoad()
 		Pushback_Switch(SwitchMeta, 0.06f);
 		Pushback_Switch(SwitchMeta, 0.06f);
 	}
+
+	Render->SetAnimationStartEvent("AttackA", 2, []()
+		{
+			GameEngineSound::Play("Skul_Atk 2.wav");
+		});
+
+	Render->SetAnimationStartEvent("AttackA_NoHead", 2, []()
+		{
+			GameEngineSound::Play("Skul_Atk 2.wav");
+		});
+
+	Render->SetAnimationStartEvent("AttackB", 1, []()
+		{
+			GameEngineSound::Play("Skul_Atk 1.wav");
+		});
+
+	Render->SetAnimationStartEvent("AttackB_NoHead", 1, []()
+		{
+			GameEngineSound::Play("Skul_Atk 1.wav");
+		});
+
+	Render->SetAnimationStartEvent("JumpAttack", 1, []()
+		{
+			GameEngineSound::Play("Skul_Jump_Atk.wav");
+		});
+
+	Render->SetAnimationStartEvent("JumpAttack_NoHead", 1, []()
+		{
+			GameEngineSound::Play("Skul_Jump_Atk.wav");
+		});		
+
 }
 
 void BoneSkull::HeadReturn()

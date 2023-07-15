@@ -547,13 +547,11 @@ void Player::Update(float _DeltaTime)
 					Gear->BlackAndWhiteEffectOn();
 					Gear->ColWaveOn();
 				});
-		
-			Gear->LegendaryGearEffectOn();
 		}
 		
 		{
 			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
-			Gear->Init(200);
+			Gear->Init(301);
 			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(70, 0));
 			Gear->BlackAndWhiteColorOn();
 			Gear->SetEndCallback([Gear]()
@@ -561,8 +559,6 @@ void Player::Update(float _DeltaTime)
 					Gear->BlackAndWhiteEffectOn();
 					Gear->ColWaveOn();
 				});
-		
-			Gear->LegendaryGearEffectOn();
 		}
 	}
 

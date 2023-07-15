@@ -671,6 +671,8 @@ void WolfSkull_Legandary::AnimationColLoad()
 
 void WolfSkull_Legandary::Dash()
 {
+	GameEngineSound::Play("Default_Dash.wav");
+
 	switch (GetViewDir())
 	{
 	case ActorViewDir::Left:

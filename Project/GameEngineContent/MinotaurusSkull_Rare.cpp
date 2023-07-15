@@ -52,6 +52,8 @@ void MinotaurusSkull_Rare::Start()
 	SkillARigidbody.SetFricCoeff(1000.0f);
 
 	SkillA_DamageRatio = 2.0f;
+
+	DashSound = "Default_Dash_Tackle.wav";
 }
 
 void MinotaurusSkull_Rare::Update(float _DeltaTime)
@@ -87,6 +89,7 @@ void MinotaurusSkull_Rare::Update(float _DeltaTime)
 					continue;
 				}
 
+				SoundDoubleCheck::Play("Hit_Skull.wav");
 				CastingCol->HitMonster(GetMeleeAttackDamage() * 0.5f, GetViewDir(), true, false, false, HitEffectType::Normal);
 				PassiveDoubleCheck[CastingCol->GetActorCode()] = -0.5f;
 			}
@@ -128,6 +131,8 @@ void MinotaurusSkull_Rare::Attack_End()
 void MinotaurusSkull_Rare::JumpAttack_Enter()
 {
 	Render->ChangeAnimation("JumpAttack");
+
+	GameEngineSound::Play("MinoTaurus_JumpAttack.wav");
 
 	AttackRigidbody.SetActiveGravity(true);
 	AttackRigidbody.SetGravity(-13000.0f);
@@ -194,6 +199,7 @@ void MinotaurusSkull_Rare::JumpAttack_Update(float _DeltaTime)
 
 	if (false == IsDownPlatformCheckOff && false == IsJumpAttackLand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
+		GameEngineSound::Play("Atk_Stomp_Large.wav");
 		Render->ChangeAnimation("JumpAttack_Land");
 		IsJumpAttackLand = true;
 
@@ -235,6 +241,7 @@ void MinotaurusSkull_Rare::JumpAttack_End()
 void MinotaurusSkull_Rare::Switch_Enter()
 {
 	PlayerBaseSkull::Switch_Enter();
+	PassiveCheck();
 	IsSwitchMove = false;
 }
 
@@ -309,6 +316,8 @@ void MinotaurusSkull_Rare::Dash_Update(float _DeltaTime)
 				return;
 			}
 
+			SoundDoubleCheck::Play("MinoTaurus_ATK_Hit.wav");
+
 			CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::Normal);
 			AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
 		}
@@ -324,6 +333,8 @@ void MinotaurusSkull_Rare::Dash_End()
 
 void MinotaurusSkull_Rare::Skill_SlotA_Enter()
 {
+	GameEngineSound::Play("MinoTaurus_JumpAttack.wav");
+
 	PlayerBaseSkull::Skill_SlotA_Enter();
 	AttackDoubleCheck.clear();	
 
@@ -380,6 +391,8 @@ void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
 
 	if (false == IsDownPlatformCheckOff && false == IsSkillALand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
+		GameEngineSound::Play("MinoTaurus_PowerStompLand.wav");
+
 		IsSkillALand = true;
 		Render->ChangeAnimation("JumpAttack_Land");
 		GetContentLevel()->GetCamCtrl().CameraShake(15, 120, 20);
@@ -485,6 +498,21 @@ void MinotaurusSkull_Rare::AnimationColLoad()
 	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_JumpAttack").GetFullPath()), 0.08f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_SkillA").GetFullPath()), 0.08f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Rare_Switch").GetFullPath()), 0.1f);
+
+	Render->SetAnimationStartEvent("AttackA", 3, []()
+		{
+			GameEngineSound::Play("Atk_BluntWeapon_Large.wav");
+		});
+
+	Render->SetAnimationStartEvent("AttackB", 2, []()
+		{
+			GameEngineSound::Play("Atk_BluntWeapon_Large.wav");
+		});
+
+	Render->SetAnimationStartEvent("SkillB", 3, []()
+		{
+			GameEngineSound::Play("Atk_BluntWeapon_Large.wav");
+		});
 }
 
 void MinotaurusSkull_Rare::PassiveCheck()

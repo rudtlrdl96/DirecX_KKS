@@ -471,5 +471,18 @@ void ContentCore::SoundLoad()
 				GameEngineSound::Load(Files[i].GetFullPath());
 			}
 		}
+
+		Path.MoveParent();
+		Path.Move("Effect");
+
+		{
+			std::vector<GameEngineFile> Files = Path.GetAllFile({ ".wav" });
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				GameEngineSound::Load(Files[i].GetFullPath());
+			}
+		}
+
 	}
 }

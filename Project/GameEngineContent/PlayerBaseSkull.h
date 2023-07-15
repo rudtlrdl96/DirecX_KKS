@@ -217,6 +217,8 @@ protected:
 	std::function<void()> HitEvent = nullptr;
 	std::function<void()> KillEvent = nullptr;
 
+	std::string DashSound = "Default_Dash.wav";
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	

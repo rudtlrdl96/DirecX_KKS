@@ -159,6 +159,7 @@ void BoneHead::Update(float _DeltaTime)
 				PlayEndEffect();
 			}
 
+			GameEngineSound::Play("Hit_Skull.wav");
 			IsMoveEnd = true;
 
 			if (true == IsActorHit)

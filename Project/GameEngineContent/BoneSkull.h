@@ -48,6 +48,7 @@ private:
 	std::shared_ptr<class BoneHead> HeadActor = nullptr;
 	
 	float WaitTime = 0.0f;
+	float SwitchSoundTime = 0.0f;
 
 	void DataLoad() override;
 	void TextureLoad() override;

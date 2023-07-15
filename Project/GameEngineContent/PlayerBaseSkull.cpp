@@ -430,6 +430,8 @@ void PlayerBaseSkull::Jump()
 
 void PlayerBaseSkull::Dash()
 {
+	GameEngineSound::Play(DashSound);
+
 	switch (ViewDir)
 	{
 	case ActorViewDir::Left:

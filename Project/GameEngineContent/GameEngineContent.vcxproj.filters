@@ -394,6 +394,9 @@
     <Filter Include="2_Actor\UI\Result">
       <UniqueIdentifier>{83c8d145-c439-4466-8aeb-02239ed25bb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1_Class\Sound">
+      <UniqueIdentifier>{9d614def-bb61-49aa-8ff6-dc6f8902478d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -1034,6 +1037,9 @@
     </ClInclude>
     <ClInclude Include="ResultInfo.h">
       <Filter>1_Class\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundDoubleCheck.h">
+      <Filter>1_Class\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1732,6 +1738,9 @@
     </ClCompile>
     <ClCompile Include="ResultInfo.cpp">
       <Filter>1_Class\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundDoubleCheck.cpp">
+      <Filter>1_Class\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -77,6 +77,8 @@ void MinotaurusSkull_Unique::Start()
 	ProjectileEffectNames[1] = "Minotaurus_Rare_PlowUp_Projectile2";
 	ProjectileEffectNames[2] = "Minotaurus_Rare_PlowUp_Projectile3";
 	ProjectileEffectNames[3] = "Minotaurus_Rare_PlowUp_Projectile4";
+
+	DashSound = "Default_Dash_Tackle.wav";
 }
 
 void MinotaurusSkull_Unique::Update(float _DeltaTime)
@@ -90,6 +92,8 @@ void MinotaurusSkull_Unique::Update(float _DeltaTime)
 		if (0.0f < PassiveTime)
 		{
 			PassiveTime -= 1.0f;
+
+			GameEngineSound::Play("Atk_Stomp_Medium.wav");
 
 			EffectManager::PlayEffect({
 			.EffectName = "Minitaurus_Unique_Passive",
@@ -156,6 +160,8 @@ void MinotaurusSkull_Unique::JumpAttack_Enter()
 {
 	Render->ChangeAnimation("JumpAttack");
 
+	GameEngineSound::Play("MinoTaurus_JumpAttack.wav");
+
 	AttackRigidbody.SetActiveGravity(true);
 	AttackRigidbody.SetGravity(-13000.0f);
 	AttackRigidbody.SetMaxSpeed(5000.0f);
@@ -221,6 +227,7 @@ void MinotaurusSkull_Unique::JumpAttack_Update(float _DeltaTime)
 
 	if (false == IsDownPlatformCheckOff && false == IsJumpAttackLand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
+		GameEngineSound::Play("Atk_Stomp_Large.wav");
 		Render->ChangeAnimation("JumpAttack_Land");
 		IsJumpAttackLand = true;
 
@@ -390,7 +397,7 @@ void MinotaurusSkull_Unique::Dash_Update(float _DeltaTime)
 				return;
 			}
 
-			CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::Normal);
+			CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
 			AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
 		}
 	}
@@ -405,6 +412,8 @@ void MinotaurusSkull_Unique::Dash_End()
 
 void MinotaurusSkull_Unique::Skill_SlotA_Enter()
 {
+	GameEngineSound::Play("MinoTaurus_JumpAttack.wav");
+
 	PlayerBaseSkull::Skill_SlotA_Enter();
 	AttackDoubleCheck.clear();
 
@@ -462,6 +471,8 @@ void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 
 	if (false == IsDownPlatformCheckOff && false == IsSkillALand && nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
 	{
+		GameEngineSound::Play("MinoTaurus_PowerStompLand.wav");
+
 		SkillALandTime = 0.0f;
 		IsSkillALand = true;
 		Render->ChangeAnimation("JumpAttack_Land");
@@ -573,6 +584,8 @@ void MinotaurusSkull_Unique::Skill_SlotB_Update(float _DeltaTime)
 
 	if (false == IsSkillBEffect && 3 == Render->GetCurrentFrame())
 	{
+		GameEngineSound::Play("Minotaurus_PlowUp_Stonecrash.wav");
+
 		IsSkillBEffect = true;
 		IsSKillBProjectileShot = true;
 
@@ -666,6 +679,7 @@ void MinotaurusSkull_Unique::Skill_SlotB_Update(float _DeltaTime)
 
 	if (3 <= Render->GetCurrentFrame() && true == GameEngineInput::IsDown("PlayerMove_Skill_B"))
 	{
+		GameEngineSound::Play("Atk_Explosion_Large.wav");
 		GetContentLevel()->GetCamCtrl().CameraShake(15, 120, 20);
 		IsSKillBDoubleAttack = true;
 	
@@ -806,6 +820,21 @@ void MinotaurusSkull_Unique::AnimationColLoad()
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_SkillA").GetFullPath()), 0.08f);
 	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_SkillB").GetFullPath()), 0.1f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Minotaurus_Unique_Switch").GetFullPath()), 0.1f);
+
+	Render->SetAnimationStartEvent("AttackA", 3, []()
+		{
+			GameEngineSound::Play("MinoTaurus_ATKA.wav");
+		});
+
+	Render->SetAnimationStartEvent("AttackB", 2, []()
+		{
+			GameEngineSound::Play("MinoTaurus_JumpAttack.wav");
+		});
+
+	Render->SetAnimationStartEvent("Switch", 3, []()
+		{
+			GameEngineSound::Play("MinoTaurus_Swap.wav");
+		});
 }
 
 void MinotaurusSkull_Unique::PassiveCheck()
@@ -875,6 +904,8 @@ void MinotaurusSkull_Unique::ShotProjectile(size_t _TextureIndex)
 				.Position = _HitData.ProjectilePos});
 		
 			Level->GetCamCtrl().CameraShake(5, 30, 5);
+
+			SoundDoubleCheck::Play("MinoTaurus_Debris_despawn.wav");
 		},
 		.DeathEvent = [Level](const float4& _DeathPos)
 		{
@@ -883,6 +914,8 @@ void MinotaurusSkull_Unique::ShotProjectile(size_t _TextureIndex)
 				.Position = _DeathPos});
 
 			Level->GetCamCtrl().CameraShake(5, 30, 5);
+
+			SoundDoubleCheck::Play("MinoTaurus_Debris_despawn.wav");
 		}
 		});
 

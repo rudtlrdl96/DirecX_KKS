@@ -102,6 +102,7 @@ void BattleActor::HitEffect(HitEffectType _Type)
 	switch (_Type)
 	{
 	case HitEffectType::Normal:
+
 		switch (HitDir)
 		{
 		case ActorViewDir::Left:
@@ -119,6 +120,8 @@ void BattleActor::HitEffect(HitEffectType _Type)
 		}
 		break;
 	case HitEffectType::Skull:
+		SoundDoubleCheck::Play("Hit_Skull.wav");
+
 		switch (HitDir)
 		{
 		case ActorViewDir::Left:
@@ -166,6 +169,8 @@ void BattleActor::HitEffect(HitEffectType _Type)
 	break;
 	case HitEffectType::MinoTaurus:
 	{
+		SoundDoubleCheck::Play("MinoTaurus_ATK_Hit.wav");
+
 		std::shared_ptr<EffectActor> Effect = nullptr;
 
 		switch (HitDir)
