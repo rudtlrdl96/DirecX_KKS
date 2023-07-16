@@ -120,6 +120,11 @@ void NormalMonster::Start()
 			default:
 				break;
 			}
+
+			if (nullptr != HitEvent)
+			{
+				HitEvent();
+			}
 		});
 
 	AttackCheck.SetColData(AnimColMeta_Attack);
@@ -322,6 +327,8 @@ void NormalMonster::MonsterDeath()
 	Death();
 
 	++ResultInfo::KillCount;
+
+	SoundDoubleCheck::Play("Enemy_Dead.wav");
 
 	EffectManager::PlayEffect({
 		.EffectName = "MonsterDeath",

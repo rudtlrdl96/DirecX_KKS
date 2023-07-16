@@ -221,6 +221,7 @@ void CarleonArcher::Attack_Enter()
 	NormalMonster::Attack_Enter();
 	IsAttackShot = false;
 	IsAttackSign = false;
+
 }
 
 void CarleonArcher::Attack_Update(float _DeltaTime)
@@ -229,6 +230,8 @@ void CarleonArcher::Attack_Update(float _DeltaTime)
 
 	if (false == IsAttackSign && 2 == Render->GetCurrentFrame())
 	{
+		GameEngineSound::Play("Crossbow_Ready.wav");
+
 		IsAttackSign = true;
 
 		float4 EffectPos = GetTransform()->GetWorldPosition();
@@ -254,6 +257,8 @@ void CarleonArcher::Attack_Update(float _DeltaTime)
 
 	if (false == IsAttackShot && 3 == Render->GetCurrentFrame())
 	{
+		GameEngineSound::Play("Crossbow_Fire.wav");
+
 		IsAttackShot = true;
 
 		std::shared_ptr<Projectile> ShotArrow = GetLevel()->CreateActor<Projectile>();

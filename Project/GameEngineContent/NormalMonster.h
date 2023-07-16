@@ -85,6 +85,8 @@ protected:
 
 	bool IsUnWalkable = false;
 
+	std::function<void()> HitEvent = nullptr;
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
 

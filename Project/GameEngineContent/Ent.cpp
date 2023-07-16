@@ -189,8 +189,28 @@ void Ent::DeathPartLoad()
 	}
 }
 
-void Ent::Attack_Enter()
+void Ent::Walk_Enter()
 {
+	NormalMonster::Walk_Enter();
+
+	IsAttackSoundPlay = false;
+}
+
+void Ent::Attack_Enter()
+{	
+	if (false == IsAttackSoundPlay)
+	{
+		SoundDoubleCheck::Play("Ent_Atk_Ready.wav");
+		IsAttackSoundPlay = true;
+	}
+	else
+	{
+		if (25 > GameEngineRandom::MainRandom.RandomInt(0, 99))
+		{
+			SoundDoubleCheck::Play("Ent_Atk_Ready.wav");
+		}
+	}
+
 	NormalMonster::Attack_Enter();
 	IsAttackMove = false;
 }
@@ -201,6 +221,8 @@ void Ent::Attack_Update(float _DeltaTime)
 
 	if (false == IsAttackMove && 1 == Render->GetCurrentFrame())
 	{
+
+		SoundDoubleCheck::Play("Hit_Skull.wav");
 		IsAttackMove = true;
 
 		switch (Dir)

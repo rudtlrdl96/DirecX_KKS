@@ -44,8 +44,8 @@ void BlossomEnt::TextureLoad()
 			.SpriteName = "BlossomEntAttackEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 27,
-			.AnimInter = 0.07f,
-			.ScaleRatio = 1.5f,
+			.AnimInter = 0.05f,
+			.ScaleRatio = 2.0f,
 			});
 	}
 }
@@ -206,6 +206,8 @@ void BlossomEnt::Attack_Update(float _DeltaTime)
 	if (false == IsAttackStart && 9 == Render->GetCurrentFrame())
 	{
 		IsAttackStart = true;
+
+		SoundDoubleCheck::Play("Atk_Smoke_Small.wav");
 		
 		EffectManager::PlayEffect({
 			.EffectName = "BlossomEntAttackEffect",

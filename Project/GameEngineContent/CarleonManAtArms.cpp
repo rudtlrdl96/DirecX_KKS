@@ -24,6 +24,12 @@ void CarleonManAtArms::Start()
 	}
 
 	OrbPer = 20.0f;
+
+	HitEvent = []()
+	{
+		GameEngineSound::Play("Legacy_Hit (Unused).wav");
+	};
+
 }
 
 void CarleonManAtArms::DataLoad()
@@ -136,6 +142,11 @@ void CarleonManAtArms::AnimationAttackMetaDataLoad()
 			.Loop = false,
 			.ScaleToTexture = true });
 	}
+
+	Render->SetAnimationStartEvent("Attack", 3, []()
+		{
+			GameEngineSound::Play("Atk_Stomp_Medium.wav");
+		});
 }
 
 void CarleonManAtArms::SetColData()
@@ -249,6 +260,7 @@ void CarleonManAtArms::Attack_Enter()
 	
 	if (0 == GameEngineRandom::MainRandom.RandomInt(0, 1))
 	{
+		SoundDoubleCheck::Play("MAA_Tackle_Ready.wav");
 		IsTackleAttack = true;
 		IsTackleEffect = false;
 
@@ -268,6 +280,7 @@ void CarleonManAtArms::Attack_Enter()
 	}
 	else
 	{
+		SoundDoubleCheck::Play("MAA_Atk_Ready.wav");
 		NormalMonster::Attack_Enter();	
 		AttackCheck.SetColData(AnimColMeta_Attack);
 		AttakPushRatio = 1.0f;
@@ -289,7 +302,7 @@ void CarleonManAtArms::Attack_Update(float _DeltaTime)
 			{
 				IsTackleEffect = true;
 
-				// ManAtArms_TackleFlash
+				GameEngineSound::Play("MAA_Tackle.wav");
 
 				float4 SmokeEffectPos = GetTransform()->GetWorldPosition();
 

@@ -109,6 +109,13 @@ void BaseDoor::SetDoorType(LevelArea _Area, DoorType _Type)
 
 void BaseDoor::ActiveOn()
 {
+	if (true == IsActiveDoor)
+	{
+		return;
+	}
+
+	SoundDoubleCheck::Play("Object_GateActivate.wav");
+
 	if ("" == ActiveSpriteName)
 	{
 		return;

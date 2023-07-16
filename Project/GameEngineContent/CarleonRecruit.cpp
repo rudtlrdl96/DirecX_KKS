@@ -10,6 +10,16 @@ CarleonRecruit::~CarleonRecruit()
 {
 }
 
+void CarleonRecruit::Start()
+{
+	NormalMonster::Start();
+
+	HitEvent = []()
+	{
+		SoundDoubleCheck::Play("Hit_Sword_Small.wav");
+	};
+}
+
 void CarleonRecruit::DataLoad()
 {
 	Data = ContentDatabase<MonsterData, LevelArea>::GetData(0); // 0 = Ä®·¹¿Â ½Åº´
@@ -58,6 +68,11 @@ void CarleonRecruit::AnimationAttackMetaDataLoad()
 			.Loop = false,
 			.ScaleToTexture = true});
 	}
+
+	Render->SetAnimationStartEvent("Attack", 1, []()
+		{
+			SoundDoubleCheck::Play("Atk_Sword_Small 5.wav");
+		});
 }
 
 void CarleonRecruit::SetColData()
@@ -159,6 +174,29 @@ void CarleonRecruit::DeathPartLoad()
 
 void CarleonRecruit::Attack_Enter()
 {
+	int Rand = GameEngineRandom::MainRandom.RandomInt(0, 3);
+	int SoundRand = GameEngineRandom::MainRandom.RandomInt(0, 99);
+
+	if (35 > SoundRand)
+	{
+		if (0 == Rand)
+		{
+			SoundDoubleCheck::Play("Recruit_Atk_Ready01.wav");
+		}
+		else if (1 == Rand)
+		{
+			SoundDoubleCheck::Play("Recruit_Atk_Ready02.wav");
+		}
+		else if (2 == Rand)
+		{
+			SoundDoubleCheck::Play("Recruit_Atk_Ready03.wav");
+		}
+		else if (3 == Rand)
+		{
+			SoundDoubleCheck::Play("Recruit_Atk_Ready04.wav");
+		}
+	}
+
 	NormalMonster::Attack_Enter();	
 	IsAttackMove = false;
 }
