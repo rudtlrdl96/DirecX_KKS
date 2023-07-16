@@ -34,7 +34,7 @@ void VeteranHeroMagicSword::Update(float _DeltaTime)
 
 	ColDatas.clear();
 
-	if (true == IsPlatformCol)
+	if (true == IsNormalPlatformCol)
 	{
 		if (nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Normal, ColType::SPHERE2D, ColType::AABBBOX2D))
 		{
@@ -46,7 +46,10 @@ void VeteranHeroMagicSword::Update(float _DeltaTime)
 			Death();
 			return;
 		}
+	}
 
+	if (true == IsHalfPlatformCol)
+	{
 		if (nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Half, ColType::SPHERE2D, ColType::AABBBOX2D))
 		{
 			if (nullptr != DeathEvent)
@@ -58,6 +61,7 @@ void VeteranHeroMagicSword::Update(float _DeltaTime)
 			return;
 		}
 	}
+
 
 	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ColType::MAX, ColType::AABBBOX2D))
 	{

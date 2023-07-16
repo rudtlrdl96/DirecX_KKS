@@ -33,6 +33,9 @@ protected:
 
 private:
 	bool IsProjectileShot = false;
+	bool IsAttackSound = false;
+
+	float AttackSoundWaitTime = 0.0f;
 
 	static void ProjectileEndEffect(const float4& _EndPos);
 	static void PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, const class ProjectileHitParameter& _Parameter);

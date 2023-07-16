@@ -27,6 +27,11 @@ void GiantEnt::Start()
 	}
 
 	OrbPer = 20.0f;
+
+	HitEvent = []()
+	{
+		GameEngineSound::Play("Legacy_Hit (Unused).wav");
+	};
 }
 
 void GiantEnt::DataLoad()
@@ -109,9 +114,12 @@ void GiantEnt::LoadAnimation()
 	Render->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "GiganticEnt_Idle.png", .Start = 0, .End = 4, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Walk",  .SpriteName = "GiganticEnt_Idle.png", .Start = 0, .End = 0, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Hit1",  .SpriteName = "GiganticEnt_Idle.png", .Start = 0, .End = 0, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "Hit2",  .SpriteName = "GiganticEnt_Idle.png", .Start = 0, .End = 0, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Hit2",  .SpriteName = "GiganticEnt_Idle.png", .Start = 0, .End = 0, .ScaleToTexture = true }); 
 	Render->CreateAnimation({ .AnimationName = "Death", .SpriteName = "GiganticEnt_Idle.png", .Start = 0, .End = 0, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "RangeAttack", .SpriteName = "GiganticEnt_RangeAttack.png", .Start = 0, .End = 3, .ScaleToTexture = true });
+
+	std::vector<float> RangeAnimFrame = {0.1f, 1.2f, 0.1f, 0.1f};
+
+	Render->CreateAnimation({ .AnimationName = "RangeAttack", .SpriteName = "GiganticEnt_RangeAttack.png", .Start = 0, .End = 3, .ScaleToTexture = true, .FrameTime = RangeAnimFrame});
 }
 
 void GiantEnt::AnimationAttackMetaDataLoad()
@@ -142,6 +150,17 @@ void GiantEnt::AnimationAttackMetaDataLoad()
 			.Loop = false,
 			.ScaleToTexture = true });
 	}
+
+	Render->SetAnimationStartEvent("Attack", 1, []()
+		{
+			GameEngineSound::Play("GiganticEnt_MeleeAttackReady.wav");
+		});
+
+	Render->SetAnimationStartEvent("Attack", 4, []()
+		{
+			GameEngineSound::Play("Atk_Stomp_Large.wav");
+		});
+
 }
 
 void GiantEnt::SetColData()
@@ -300,6 +319,8 @@ void GiantEnt::ProjectileEndEffect(const float4& _EndPos)
 void GiantEnt::PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, const ProjectileHitParameter& _Parameter)
 {
 	ProjectileEndEffect(_Parameter.ProjectilePos);
+
+	SoundDoubleCheck::Play("Hit_Energy_Medium.wav");
 
 	std::shared_ptr<Player> CastringPtr = _HitActor->DynamicThis<Player>();
 

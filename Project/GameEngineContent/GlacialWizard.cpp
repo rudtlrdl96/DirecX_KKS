@@ -320,6 +320,8 @@ void GlacialWizard::Attack_Enter()
 {
 	NormalMonster::Attack_Enter();
 	IsProjectileShot = false;
+	IsAttackSound = false;
+	AttackSoundWaitTime = 0.0f;
 }
 
 void GlacialWizard::Attack_Update(float _DeltaTime)
@@ -329,6 +331,17 @@ void GlacialWizard::Attack_Update(float _DeltaTime)
 	if (nullptr == PlayerActor || true == PlayerActor->IsDeath())
 	{
 		return;
+	}
+
+	if (false == IsAttackSound && 3 == Render->GetCurrentFrame())
+	{
+		AttackSoundWaitTime += _DeltaTime;
+
+		if (0.2f <= AttackSoundWaitTime)
+		{
+			SoundDoubleCheck::Play("CarleonIceWizard_Atk_Ready.wav");
+			IsAttackSound = true;
+		}
 	}
 
 	if (false == IsProjectileShot && 4 == Render->GetCurrentFrame())
@@ -354,7 +367,7 @@ void GlacialWizard::Attack_Update(float _DeltaTime)
 			.IsColDeath = true,
 			.Damage = Data.Attack,
 			.Speed = 3000.0f,
-			.LiveTime = 2.0f,
+			.LiveTime = 1.5f,
 			.WaitTime = 0.3f,
 			.EnterEvent = &PlayerHit,
 			.DeathEvent = &ProjectileEndEffect,
@@ -368,6 +381,8 @@ void GlacialWizard::Attack_Update(float _DeltaTime)
 
 void GlacialWizard::ProjectileEndEffect(const float4& _EndPos)
 {
+	GameEngineSound::Play("Hit_Ice_Small.wav");
+
 	EffectManager::PlayEffect({
 	.EffectName = "HitSlashEffect",
 	.Position = _EndPos,

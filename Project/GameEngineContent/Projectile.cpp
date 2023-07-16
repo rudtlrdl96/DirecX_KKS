@@ -53,11 +53,14 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 	TrackingPivot = _Parameter.TrackingPivot;
 	ColOrder = _Parameter.ColOrder;
 
-	IsPlatformCol = _Parameter.IsPlatformCol;
+	IsNormalPlatformCol = _Parameter.IsNormalPlatformCol;
+	IsHalfPlatformCol = _Parameter.IsHalfPlatformCol;
+
 	IsColDeath = _Parameter.IsColDeath;
 	IsRot = _Parameter.IsRot;
 	IsEffectEndDeath = _Parameter.IsEffectEndDeath;
 
+	WaitEndEvent = _Parameter.WaitEndEvent;
 	EnterEvent = _Parameter.EnterEvent;
 	UpdateEvent = _Parameter.UpdateEvent;
 	DeathEvent = _Parameter.DeathEvent;
@@ -136,12 +139,18 @@ void Projectile::Update(float _DeltaTime)
 		return;
 	}
 
+	if (nullptr != WaitEndEvent)
+	{
+		WaitEndEvent();
+		WaitEndEvent = nullptr;
+	}
+
 	IsWaitEndValue = true;
 	Trans->AddLocalPosition(Dir * _DeltaTime * Speed);
 
 	ColDatas.clear();
 
-	if (true == IsPlatformCol)
+	if (true == IsNormalPlatformCol)
 	{
 		if(nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Normal, ProjectileColType, ColType::AABBBOX2D))
 		{
@@ -153,7 +162,10 @@ void Projectile::Update(float _DeltaTime)
 			Death();
 			return;
 		}
+	}
 
+	if (true == IsHalfPlatformCol)
+	{
 		if (nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Half, ProjectileColType, ColType::AABBBOX2D))
 		{
 			if (nullptr != DeathEvent)
@@ -165,6 +177,7 @@ void Projectile::Update(float _DeltaTime)
 			return;
 		}
 	}
+
 
 	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ProjectileColType, ColType::AABBBOX2D))
 	{

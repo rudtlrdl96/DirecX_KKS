@@ -22,6 +22,8 @@ void TeleportIn_Enter(NormalMonster* _this)
 	.EffectName = "WizardEffectTeleportIn",
 	.Position = _this->GetTransform()->GetWorldPosition() + float4(0, 60, -5.0f),
 		});
+
+	GameEngineSound::Play("Common_Teleport_In 1.wav");
 }
 
 void TeleportIn_Update(NormalMonster* _this, float _DeltaTime)
@@ -114,6 +116,8 @@ void TeleportOut_Enter(NormalMonster* _this)
 		}
 	}
 
+	GameEngineSound::Play("Common_Teleport_Out_short.wav");
+
 	EffectManager::PlayEffect({
 	.EffectName = "WizardEffectTeleportOut",
 	.Position = CastingPtr->GetTransform()->GetWorldPosition() + float4(0, 60, -5.0f),
@@ -168,6 +172,23 @@ void FlameWizard::Update(float _DeltaTime)
 	}
 
 	TeleportCoolTime -= _DeltaTime;
+}
+
+void FlameWizard::Destroy()
+{
+	NormalMonster::Destroy();
+
+	if (true == AttackStartSound.IsValid())
+	{
+		bool IsPlay = false;
+
+		AttackStartSound.isPlaying(&IsPlay);
+
+		if (true == IsPlay)
+		{
+			AttackStartSound.Stop();
+		}
+	}
 }
 
 void FlameWizard::DataLoad()
@@ -520,6 +541,8 @@ void FlameWizard::Attack_Update(float _DeltaTime)
 
 	if (false == IsAttackLoop && true == Render->IsAnimationEnd())
 	{
+		AttackStartSound = GameEngineSound::Play("Common_Flame.wav");
+
 		IsAttackLoop = true;
 		CreateProjectile(1.5f);
 		Render->ChangeAnimation("AttackLoop");
@@ -569,11 +592,13 @@ void FlameWizard::CreateProjectile(float _WaitTime)
 		.Dir = ShotDir,
 		.ColScale = float4(50, 50, 1),
 		.ColOrder = (int)CollisionOrder::Player,
+		.IsNormalPlatformCol = true,
 		.IsColDeath = true,
 		.Damage = Data.Attack,
 		.Speed = 500.0f,
 		.LiveTime = 2.0f + _WaitTime,
 		.WaitTime = _WaitTime,
+		.WaitEndEvent = []() {SoundDoubleCheck::Play("Atk_Flame_Very_Small.wav"); },
 		.EnterEvent = &PlayerHit,
 		.DeathEvent = &ProjectileEndEffect,
 		});
@@ -586,6 +611,8 @@ void FlameWizard::ProjectileEndEffect(const float4& _EndPos)
 	.EffectName = "FireHitEffect",
 	.Position = _EndPos,
 		});
+
+	GameEngineSound::Play("Hit_Flame_Small.wav");
 }
 
 void FlameWizard::PlayerHit(std::shared_ptr<class BaseContentActor> _HitActor, const ProjectileHitParameter& _Parameter)

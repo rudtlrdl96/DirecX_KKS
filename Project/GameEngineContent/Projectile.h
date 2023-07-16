@@ -25,7 +25,9 @@ public:
 	int ColOrder = -1;
 	ColType ProjectileColType = ColType::SPHERE2D;
 
-	bool IsPlatformCol = false;
+	bool IsNormalPlatformCol = false;
+	bool IsHalfPlatformCol = false;
+
 	bool IsColDeath = false;
 	bool IsRot = true;
 	bool IsFlipX = false;
@@ -39,6 +41,7 @@ public:
 	float WaitTime = 0.0f;
 	float TrackingSpeed = 100.0f;
 
+	std::function<void()> WaitEndEvent = nullptr;
 	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> EnterEvent = nullptr;
 	std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> UpdateEvent = nullptr;
 	std::function<void(const float4& _Pos)> DeathEvent = nullptr;
@@ -76,7 +79,8 @@ protected:
 	int ColOrder = -1;
 	ColType ProjectileColType = ColType::SPHERE2D;
 
-	bool IsPlatformCol = false;
+	bool IsNormalPlatformCol = false;
+	bool IsHalfPlatformCol = false;
 	bool IsColDeath = false;
 	bool IsWaitEndValue = false;
 	bool IsRot = false;
@@ -89,6 +93,7 @@ protected:
 	float Speed = 100.0f;
 	float TrackingSpeed = 1.0f;
 
+	std::function<void()> WaitEndEvent = nullptr;
 	std::function<void(std::shared_ptr<class BaseContentActor>, const ProjectileHitParameter&)> EnterEvent = nullptr;
 	std::function<void(std::shared_ptr<class BaseContentActor>, const ProjectileHitParameter&)> UpdateEvent = nullptr;
 	std::function<void(const float4&)> DeathEvent = nullptr;

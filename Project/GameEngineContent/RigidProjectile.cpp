@@ -57,7 +57,7 @@ void RigidProjectile::Update(float _DeltaTime)
 	ProjectileRigidbody.UpdateForce(_DeltaTime);
 	Trans->AddLocalPosition(ProjectileRigidbody.GetVelocity() * _DeltaTime);
 
-	if (true == IsPlatformCol)
+	if (true == IsNormalPlatformCol)
 	{
 		if (nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Normal, ProjectileColType, ColType::AABBBOX2D))
 		{
@@ -69,7 +69,10 @@ void RigidProjectile::Update(float _DeltaTime)
 			Death();
 			return;
 		}
+	}
 
+	if (true == IsHalfPlatformCol)
+	{
 		if (nullptr != ProjectileCol->Collision((int)CollisionOrder::Platform_Half, ProjectileColType, ColType::AABBBOX2D))
 		{
 			if (nullptr != DeathEvent)
@@ -81,6 +84,7 @@ void RigidProjectile::Update(float _DeltaTime)
 			return;
 		}
 	}
+
 
 	ColDatas.clear();
 	if (true == ProjectileCol->CollisionAll(ColOrder, ColDatas, ProjectileColType, ColType::AABBBOX2D))

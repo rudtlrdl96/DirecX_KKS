@@ -40,12 +40,29 @@ void BlossomEnt::TextureLoad()
 			Path.MoveParent();
 		}
 	
+		// 0 ~ 7 0.05f 8 ~ 27 = 0.075f
+
+		std::vector<float> FrameTime;
+
+		FrameTime.resize(28);
+
+		for (size_t i = 0; i < 8; i++)
+		{
+			FrameTime[i] = 0.05f;
+		}
+
+		for (size_t i = 8; i < 28; i++)
+		{
+			FrameTime[i] = 0.1f;
+		}
+
 		EffectManager::CreateMetaData("BlossomEntAttackEffect", {
 			.SpriteName = "BlossomEntAttackEffect.png",
 			.AnimStart = 0,
 			.AnimEnd = 27,
-			.AnimInter = 0.05f,
+			.AnimInter = 0.075f,
 			.ScaleRatio = 2.0f,
+			.FrameAnimIter = FrameTime
 			});
 	}
 }
@@ -61,7 +78,7 @@ void BlossomEnt::LoadAnimation()
 
 void BlossomEnt::AnimationAttackMetaDataLoad()
 {
-	AnimPauseTimes[9] = 1.5f;
+	AnimPauseTimes[9] = 2.0f;
 
 	AttackRigidbody.SetMaxSpeed(300.0f);
 	AttackRigidbody.SetFricCoeff(1000.0f);
@@ -211,7 +228,7 @@ void BlossomEnt::Attack_Update(float _DeltaTime)
 		
 		EffectManager::PlayEffect({
 			.EffectName = "BlossomEntAttackEffect",
-			.Position = GetTransform()->GetWorldPosition() + float4(0, 55, -0.1f)
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 60, -0.1f)
 			});
 	}
 
@@ -228,9 +245,8 @@ void BlossomEnt::Attack_Update(float _DeltaTime)
 
 		GameEngineTransform* ColTrans = AttackCol->GetTransform();
 
-
-		ColTrans->SetLocalPosition(float4(5, 55, 0));
-		ColTrans->SetLocalScale(float4(250, 135, 1));
+		ColTrans->SetLocalPosition(float4(5, 70, 0));
+		ColTrans->SetLocalScale(float4(300, 165, 1));
 
 		std::shared_ptr<GameEngineCollision> ColPtr = AttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
 		 
@@ -252,9 +268,10 @@ void BlossomEnt::Attack_Update(float _DeltaTime)
 
 			CastingPtr->HitPlayer(Data.Attack, float4::Zero);
 
-			AttackCoolTime = 1.0f;
+			AttackCoolTime = 0.5f;
 		}
 
+		AttackCol->Off();
 	}
 }
 
@@ -265,4 +282,5 @@ void BlossomEnt::Attack_End()
 
 	NormalMonster::Attack_End();
 	Buffer.OutlineColor = float4::Null;
+
 }

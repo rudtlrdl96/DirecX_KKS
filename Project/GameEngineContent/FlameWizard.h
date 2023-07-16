@@ -17,6 +17,7 @@ public:
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
+	void Destroy() override;
 
 	void DataLoad() override;
 	void TextureLoad() override;
@@ -37,6 +38,7 @@ protected:
 	void Attack_Enter() override;
 	void Attack_Update(float _DeltaTime) override;
 
+
 private:
 	bool IsAttackLoop = false;
 	float4 AttackPos = float4::Zero;
@@ -50,6 +52,8 @@ private:
 	std::vector<std::shared_ptr<GameEngineCollision>> PlatformCols;
 
 	std::shared_ptr<class Projectile> ShotProjectile = nullptr;
+
+	GameEngineSoundPlayer AttackStartSound;
 
 	void CreateProjectile(float _WaitTime);
 

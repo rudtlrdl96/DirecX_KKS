@@ -47,6 +47,12 @@ void RootEnt::Update(float _DeltaTime)
 			return;
 		}
 
+		if (false == IsEffectDownSoundPlay && 5 == AttackEffectActor->GetCurrentFrame())
+		{
+			GameEngineSound::Play("RootEnt_Atk_Down.wav");
+			IsEffectDownSoundPlay = true;
+		}
+
 		if (false == IsAttackEffectPause && 3 == AttackEffectActor->GetCurrentFrame())
 		{
 			IsAttackEffectPause = true;
@@ -302,8 +308,11 @@ void RootEnt::Attack_Enter()
 {
 	NormalMonster::Attack_Enter();
 
+	GameEngineSound::Play("RootEnt_Atk_Ready.wav");
+
 	IsAttackSign = false;
 	IsAttackEffect = false;
+	IsEffectDownSoundPlay = false;
 
 	AttackPos = PlayerActor->GetTransform()->GetWorldPosition() + float4(0, 0, -10.0f);
 
@@ -368,6 +377,8 @@ void RootEnt::Attack_Update(float _DeltaTime)
 
 	if (false == IsAttackEffect && 3 == Render->GetCurrentFrame())
 	{
+		GameEngineSound::Play("RootEnt_Atk_Up.wav");
+
 		IsAttackEffect = true;
 		IsAttackEffectPause = false;
 

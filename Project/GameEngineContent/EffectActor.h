@@ -22,6 +22,8 @@ public:
 	float AnimInter = 0.1f;
 	float ScaleRatio = 1.0f;
 
+	std::vector<float> FrameAnimIter;
+
 	float4 Color = float4::Zero;
 };
 

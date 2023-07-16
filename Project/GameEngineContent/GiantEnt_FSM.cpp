@@ -120,6 +120,7 @@ void GiantEnt::Attack_Enter()
 	{
 		IsRangeAttack = true;
 		Render->ChangeAnimation("RangeAttack");
+		GameEngineSound::Play("GiganticEnt_RangeAttackReady.wav");
 	}
 }
 
@@ -153,6 +154,7 @@ void GiantEnt::Attack_Update(float _DeltaTime)
 
 		if (false == IsRnageProjectile && 2 == CurFrame)
 		{
+			GameEngineSound::Play("GiganticEnt_RangeAttack.wav");
 			IsRnageProjectile = true;
 
 			ShotProjectile(35.0f);

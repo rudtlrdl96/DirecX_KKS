@@ -33,6 +33,7 @@ private:
 	bool IsAttackSign = false;
 	bool IsAttackEffect = false;
 	bool IsAttackEffectPause = false;
+	bool IsEffectDownSoundPlay = false;
 
 	float4 AttackPos = float4::Zero;
 

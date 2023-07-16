@@ -127,13 +127,15 @@ void EffectActor::Init(const EffectMetaData& _MetaData, const EffectParameter& _
 	}
 
 	EffectRender->CreateAnimation({
-	_MetaData.SpriteName,
-	_MetaData.SpriteName,
-	_MetaData.AnimStart,
-	_MetaData.AnimEnd,
-	_MetaData.AnimInter,
-	Loop,
-	true });
+	.AnimationName = _MetaData.SpriteName,
+	.SpriteName = _MetaData.SpriteName,
+	.Start = _MetaData.AnimStart,
+	.End = _MetaData.AnimEnd,
+	.FrameInter = _MetaData.AnimInter,
+	.Loop = Loop,
+	.ScaleToTexture = true,
+	.FrameTime = _MetaData.FrameAnimIter,
+	});
 
 	GameEngineTransform* RenderTrans = EffectRender->GetTransform();
 	RenderTrans->SetLocalPosition(_MetaData.RenderPivot);
