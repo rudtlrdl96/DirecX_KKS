@@ -142,6 +142,8 @@ void BattleActor::HitEffect(HitEffectType _Type)
 		break;
 	case HitEffectType::Sword:
 	{
+		SoundDoubleCheck::Play("Hit_Sword_Small.wav");
+
 		std::shared_ptr<EffectActor> Effect = nullptr;
 
 		switch (HitDir)

@@ -68,6 +68,8 @@ void WolfSkull_Normal::Skill_SlotA_Update(float _DeltaTime)
 
 	if (false == IsSkillMove && 4 == Render->GetCurrentFrame())
 	{
+		GameEngineSound::Play("Common_bite_strong.wav");
+
 		switch (GetViewDir())
 		{
 		case ActorViewDir::Left:
@@ -136,6 +138,7 @@ void WolfSkull_Normal::Switch_Update(float _DeltaTime)
 
 	if (false == IsSwitchMove && 1 == Render->GetCurrentFrame())
 	{
+		GameEngineSound::Play("Atk_Whoosh_High.wav");
 		IsSwitchMove = true;
 		SwitchMoveProgress = 0.0f;
 		float4 DashPos = GetTransform()->GetWorldPosition();
@@ -251,6 +254,22 @@ void WolfSkull_Normal::AnimationColLoad()
 	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_JumpAttack").GetFullPath()), 0.05f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_SkillA").GetFullPath()), 0.08f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Normal_Switch").GetFullPath()), 0.1f);
+
+	Render->SetAnimationStartEvent("AttackA", 2, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Small 1.wav");
+		});
+	
+	Render->SetAnimationStartEvent("AttackB", 2, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Small 2.wav");
+		});
+
+	Render->SetAnimationStartEvent("JumpAttack", 2, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Small 2.wav");
+		});
+
 }
 
 void WolfSkull_Normal::Dash()

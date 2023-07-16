@@ -47,6 +47,7 @@ void EndingLogoLevel::Update(float _DeltaTime)
 
 		if (1.0f <= LogoWaitTime)
 		{
+			GameEngineSound::Play("Logo.wav");
 			LogoPtr->On();
 		}
 	}

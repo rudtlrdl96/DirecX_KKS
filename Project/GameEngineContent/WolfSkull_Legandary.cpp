@@ -44,9 +44,10 @@ void WolfSkull_Legandary::Update(float _DeltaTime)
 
 		if (1.0f <= TrailCalwProgress)
 		{
+			GameEngineSound::Play("Atk_Sword_Small 5.wav");
+
 			++TrailClawCount;
 			TrailCalwProgress -= 1.0f;
-
 
 			std::shared_ptr<Projectile> TrailProjectile = GetLevel()->CreateActor<Projectile>();
 			ActorViewDir Dir = GetViewDir();
@@ -102,10 +103,12 @@ void WolfSkull_Legandary::Update(float _DeltaTime)
 
 	if (true == IsSwitchTrailAttack)
 	{
-		TrailAttackProgress += _DeltaTime * 7.5f;
+		TrailAttackProgress += _DeltaTime * 10.0f;
 
 		if (1.0f <= TrailAttackProgress)
 		{
+			GameEngineSound::Play("Atk_Sword_Small 5.wav");
+
 			std::shared_ptr<Projectile> TrailProjectile = GetLevel()->CreateActor<Projectile>();
 			ActorViewDir Dir = GetViewDir();
 
@@ -214,6 +217,8 @@ void WolfSkull_Legandary::Skill_SlotA_Update(float _DeltaTime)
 
 			if (false == IsSkillASecondMove && 1 == Render->GetCurrentFrame())
 			{
+				GameEngineSound::Play("LegendaryWolf_SkillB.wav");
+
 				IsSkillASecondMove = true;
 				SwitchMoveProgress = 0.0f;
 				float4 DashPos = GetTransform()->GetWorldPosition();
@@ -324,6 +329,8 @@ void WolfSkull_Legandary::Skill_SlotA_Update(float _DeltaTime)
 
 	if (false == IsSkillMove && 4 == Render->GetCurrentFrame())
 	{
+		GameEngineSound::Play("Common_bite_strong.wav");
+
 		switch (GetViewDir())
 		{
 		case ActorViewDir::Left:
@@ -390,6 +397,7 @@ void WolfSkull_Legandary::Skill_SlotB_Update(float _DeltaTime)
 
 	if (false == IsSwitchMove && 1 == Render->GetCurrentFrame())
 	{
+		GameEngineSound::Play("LegendaryWolf_SkillB.wav");
 		IsSwitchMove = true;
 		SwitchMoveProgress = 0.0f;
 		float4 DashPos = GetTransform()->GetWorldPosition();
@@ -667,6 +675,21 @@ void WolfSkull_Legandary::AnimationColLoad()
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Legendary_SkillA").GetFullPath()), 0.08f);
 	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Legendary_SkillB").GetFullPath()), 0.05f);
 	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Wolf_Legendary_Switch").GetFullPath()), 0.05f);
+
+	Render->SetAnimationStartEvent("AttackA", 2, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Small 1.wav");
+		});
+
+	Render->SetAnimationStartEvent("AttackB", 2, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Small 2.wav");
+		});
+
+	Render->SetAnimationStartEvent("JumpAttack", 2, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Small 2.wav");
+		});
 }
 
 void WolfSkull_Legandary::Dash()
