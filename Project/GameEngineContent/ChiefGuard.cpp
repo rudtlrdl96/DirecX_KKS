@@ -27,6 +27,11 @@ void ChiefGuard::Start()
 	SkillA_DamageRatio = 0.5f;
 	SkillB_DamageRatio = 2.7f;
 	Switch_DamageRatio = 1.5f;
+
+	HitEvent = []()
+	{
+		SoundDoubleCheck::Play("Hit_Sword_Small.wav");
+	};
 }
 
 void ChiefGuard::Skill_SlotA_Enter()
@@ -128,6 +133,8 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 
 	if (false == IsProjecTileShot && 6 == Render->GetCurrentFrame())
 	{
+		GameEngineSound::Play("Atk_Flame_Large 1.wav");
+
 		IsProjecTileShot = true;
 
 		std::shared_ptr<Projectile> NewProjectile = GetLevel()->CreateActor<Projectile>();
@@ -155,6 +162,8 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 				MsgAssert_Rtti<BaseMonster>(" - BaseMonster를 상속받은 클래스만 MonsterCol Order로 설정할 수 있습니다");
 				return;
 			}
+
+			SoundDoubleCheck::Play("Hit_Flame_Small.wav");
 
 			if (Dir.x > 0)
 			{
@@ -248,17 +257,20 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 		if (0 == Render->GetCurrentFrame())
 		{
 			IsFlash_0 = true;
+			GameEngineSound::Play("Atk_Sword_Large (Slash Down).wav");
 		}
 
 		if (3 == Render->GetCurrentFrame())
 		{
 			IsFlash_1 = true;
 			Flip = -1.0f;
+			GameEngineSound::Play("Atk_Sword_Large (Slash Down)_2.wav");
 		}
 
 		if (6 == Render->GetCurrentFrame())
 		{
 			IsFlash_2 = true;
+			GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav");
 		}
 
 		GameEngineTransform* ColTrans = FlashCol->GetTransform();
@@ -302,6 +314,8 @@ void ChiefGuard::Switch_Update(float _DeltaTime)
 				MsgAssert_Rtti<ChiefGuard>(" - BaseMonster를 상속받은 클래스만 CollisionOrder::Monster에 들어갈 수 있습니다");
 				return;
 			}
+
+			SoundDoubleCheck::Play("Hit_Sword_Small.wav");
 
 			switch (GetViewDir())
 			{
@@ -419,7 +433,72 @@ void ChiefGuard::AnimationColLoad()
 	Pushback_JumpAttack(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_JumpAttack").GetFullPath()), 0.07f);
 	Pushback_SkillA(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_SkillA").GetFullPath()), 0.045f);
 	Pushback_SkillB(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_SkillB").GetFullPath()), 0.09f);
-	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_Switch").GetFullPath()), 0.1f);
+	Pushback_Switch(ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("ChiefGuard_Unique_Switch").GetFullPath()), 0.06f);
+
+	Render->SetAnimationStartEvent("AttackA", 2, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Small 1.wav");
+		});
+
+	Render->SetAnimationStartEvent("AttackB", 2, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Small 2.wav");
+		});
+
+	Render->SetAnimationStartEvent("AttackC", 3, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Small 3.wav");
+		});	
+	
+	Render->SetAnimationStartEvent("SkillA", 1, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Large (Slash Down).wav");
+		});
+
+	Render->SetAnimationStartEvent("SkillA", 3, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav");
+		});
+
+	Render->SetAnimationStartEvent("SkillA", 5, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Large (Slash Down).wav");
+		});
+
+	Render->SetAnimationStartEvent("SkillA", 7, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav");
+		});
+
+	Render->SetAnimationStartEvent("SkillA", 9, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Large (Slash Down).wav");
+		});
+
+	Render->SetAnimationStartEvent("SkillA", 11, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav");
+		});	
+	
+	Render->SetAnimationStartEvent("SkillA", 13, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Large (Slash Down).wav");
+		});
+
+	Render->SetAnimationStartEvent("SkillA", 15, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav");
+		});	
+	
+	Render->SetAnimationStartEvent("SkillA", 17, []()
+		{
+			GameEngineSound::Play("Atk_BluntWeapon_Small 1.wav");
+		});	
+	
+	Render->SetAnimationStartEvent("SkillA", 19, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav");
+		});
 }
 
 float4 ChiefGuard::GetFlashPosition(ActorViewDir _Dir)
