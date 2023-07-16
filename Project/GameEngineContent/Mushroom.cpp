@@ -75,6 +75,26 @@ void Mushroom::Update(float _DeltaTime)
 				float4 Vel = CastingPlayerPtr->GetBattleRigidVelocity();
 				Vel.y = 2800.0f;
 				CastingPlayerPtr->SetPushPlayer(Vel);
+
+				int RandSound = GameEngineRandom::MainRandom.RandomInt(0, 3);
+
+				if (0 == RandSound)
+				{
+					GameEngineSound::Play("Trap_Jump 1.wav");
+				}
+				else if (1 == RandSound)
+				{
+					GameEngineSound::Play("Trap_Jump 2.wav");
+				}
+				else if (2 == RandSound)
+				{
+					GameEngineSound::Play("Trap_Jump 3.wav");
+				}
+				else if (3 == RandSound)
+				{
+					GameEngineSound::Play("Trap_Jump 4.wav");
+				}
+
 			}
 		}
 

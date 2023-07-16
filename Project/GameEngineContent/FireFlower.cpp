@@ -85,6 +85,8 @@ void FireFlower::Update(float _DeltaTime)
 
 		float4 SpawnPos = GetTransform()->GetWorldPosition() + (ShotDir * 25.0f);
 
+		SoundDoubleCheck::Play("Atk_Flame_Very_Small.wav");
+
 		NewProjectile->ShotProjectile({
 			.EffectName = "FireFlower_Projectile",
 			.Pos = SpawnPos,
@@ -105,6 +107,8 @@ void FireFlower::Update(float _DeltaTime)
 					MsgAssert_Rtti<FireFlower>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
 					return;
 				}
+
+				GameEngineSound::Play("Hit_Flame_Small.wav");
 
 				std::shared_ptr<EffectActor> Actor =
 					EffectManager::PlayEffect({

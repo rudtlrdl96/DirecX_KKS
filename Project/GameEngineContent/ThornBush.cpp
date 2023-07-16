@@ -66,6 +66,7 @@ void ThornBush::Update(float _DeltaTime)
 
 		CastingPtr->SetThornHitCoolTime(1.5f);
 		CastingPtr->HitMonster(30.0f, ActorViewDir::Right, false, false, false, HitEffectType::Normal);
+		GameEngineSound::Play("Hit_Sword_Small.wav");
 	}
 
 	std::shared_ptr<GameEngineCollision> PlayerCol = AttackCol->Collision((int)CollisionOrder::Player, ColType::OBBBOX2D, ColType::AABBBOX2D);
@@ -92,6 +93,7 @@ void ThornBush::Update(float _DeltaTime)
 
 		CastingPtr->SetThornHitCoolTime(1.5f);
 		CastingPtr->HitPlayer(10.0f, Dir);
+		GameEngineSound::Play("Hit_Sword_Small.wav");
 	}
 }
 

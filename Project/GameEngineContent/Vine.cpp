@@ -79,6 +79,7 @@ void Vine::Update(float _DeltaTime)
 		{
 			State = Vine::VineState::AttackReady;
 			Render->ChangeAnimation("AttackReady");
+			GameEngineSound::Play("Vine_Ready.wav");
 		}
 	}
 		break;
@@ -114,6 +115,12 @@ void Vine::Update(float _DeltaTime)
 	{
 		if (false == IsPlayerHit && 4 == Render->GetCurrentFrame())
 		{
+			if (false == IsAttackSound)
+			{
+				GameEngineSound::Play("Atk_BluntWeapon_Small 1.wav");
+				IsAttackSound = true;
+			}
+
 			std::shared_ptr<GameEngineCollision> PlayerCol = AttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
 
 			if (nullptr != PlayerCol)
@@ -126,6 +133,7 @@ void Vine::Update(float _DeltaTime)
 					return;
 				}
 
+				GameEngineSound::Play("Hit_Blunt_Large.wav");
 				CastingPtr->HitPlayer(10, float4(200, 400));
 				IsPlayerHit = true;
 			}
@@ -133,6 +141,7 @@ void Vine::Update(float _DeltaTime)
 
 		if (true == Render->IsAnimationEnd())
 		{
+			IsAttackSound = false;
 			State = Vine::VineState::BattleIdle;
 			Render->ChangeAnimation("BattleIdle");
 		}

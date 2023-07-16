@@ -114,12 +114,12 @@ void BaseDoor::ActiveOn()
 		return;
 	}
 
-	SoundDoubleCheck::Play("Object_GateActivate.wav");
-
 	if ("" == ActiveSpriteName)
 	{
 		return;
 	}
+
+	SoundDoubleCheck::Play("Object_GateActivate.wav");
 
 	if (nullptr != DoorRender->FindAnimation(ActiveSpriteName))
 	{

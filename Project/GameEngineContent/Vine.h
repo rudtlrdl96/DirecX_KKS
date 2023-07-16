@@ -34,6 +34,7 @@ private:
 	std::shared_ptr<class GameEngineCollision> AttackCol = nullptr;
 
 	bool IsPlayerHit = false;
+	bool IsAttackSound = false;
 
 	float AttackCoolTime = 0.0f;
 };
