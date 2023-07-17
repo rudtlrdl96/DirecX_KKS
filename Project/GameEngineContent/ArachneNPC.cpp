@@ -103,9 +103,11 @@ void ArachneNPC::Update(float _DeltaTime)
 			MainRender->ChangeAnimation("Attack");
 			PlayerPtr->MainSkullOff();
 
+			GameEngineSound::Play("Arachne_Cocoon.wav");
+
 			CocoonRender = CreateComponent<GameEngineSpriteRenderer>();
 			CocoonRender->SetScaleRatio(2.0f);
-			CocoonRender->CreateAnimation({ .AnimationName = "Legendary", .SpriteName = "CocoonLegendaryAnim.png", .FrameInter = 0.07f, .Loop = false, .ScaleToTexture = true });
+			CocoonRender->CreateAnimation({ .AnimationName = "Legendary", .SpriteName = "CocoonLegendaryAnim.png", .FrameInter = 0.06f, .Loop = false, .ScaleToTexture = true });
 			CocoonRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Cocoon.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 			CocoonRender->ChangeAnimation("Idle");
 
@@ -189,6 +191,10 @@ void ArachneNPC::Update(float _DeltaTime)
 					EffectManager::PlayEffect({ .EffectName = "CocoonLegendarySmokeEffect", .Position = CocoonRender->GetTransform()->GetWorldPosition() });
 					EffectManager::PlayEffect({ .EffectName = "CocoonLegendaryThunder", .Position = CocoonRender->GetTransform()->GetWorldPosition() + float4(0, 300)});
 
+
+					GameEngineSound::Play("Arachne_Release.wav");
+					GameEngineSound::Play("Arachene_LegendaryAwake_Done.wav");
+
 					PlayerPtr->SetInventoryData();
 					CocoonRender->Death();
 					CocoonRender = nullptr;
@@ -210,11 +216,15 @@ void ArachneNPC::Update(float _DeltaTime)
 			if (SkullGrade::Legendary == UpgradeData.Grade && 0.5f <= CocoonTime && false == IsLegendaryEffect)
 			{
 				CocoonRender->ChangeAnimation("Legendary");
+				GameEngineSound::Play("Arachene_LegendaryAwake.wav");
 				IsLegendaryEffect = true;
 			}
 			else if (1.5f <= CocoonTime && false == IsLegendaryEffect)
 			{
 				EffectManager::PlayEffect({ .EffectName = "CocoonEffect", .Position = CocoonRender->GetTransform()->GetWorldPosition() + float4(0, 50) });
+
+				GameEngineSound::Play("Arachne_Release.wav");
+				GameEngineSound::Play("Default_Upgrade.wav");
 
 				PlayerPtr->SetInventoryData();
 				CocoonRender->Death();
