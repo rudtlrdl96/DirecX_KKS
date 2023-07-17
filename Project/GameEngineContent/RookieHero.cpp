@@ -158,6 +158,7 @@ void RookieHero::Start()
 			SetViewDir(ActorViewDir::Left);
 			IsBehaviorLoop = true;
 			PlayBehaviorAnim = "Intro_Who";
+			GameEngineSound::Play("Atk_BluntWeapon_Small 1.wav");
 			BossFsm.ChangeState("Behavior");
 		});
 
@@ -236,8 +237,16 @@ void RookieHero::Update(float _DeltaTime)
 			Bubble = nullptr;
 		}
 
+		if (true == ChargeSound.IsValid())
+		{
+			ChargeSound.Stop();
+		}
+
 		if (false == IsDeathIntro)
 		{
+			GameEngineSound::Play("AdventurerHero_Voice_Dead.wav");
+			ChargeSound = GameEngineSound::Play("Adventurer_Charge_Start.wav");
+
 			if (true == UltimateLight->IsUpdate())
 			{
 				UltimateLightOff();
@@ -394,6 +403,26 @@ void RookieHero::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "SwordEnergyReady", .SpriteName = "RookieHero_SwordEnergyReady.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "SwordEnergy", .SpriteName = "RookieHero_SwordEnergy.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "DeathIntro", .SpriteName = "RookieHero_DeadIntro.png", .Loop = true, .ScaleToTexture = true });
+
+	Render->SetAnimationStartEvent("Intro_ComboA", 1, []() {GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav"); });
+	Render->SetAnimationStartEvent("Intro_ComboA", 5, []() {GameEngineSound::Play("Atk_Sword_Large (Slash Down).wav");});
+	Render->SetAnimationStartEvent("Intro_ComboA", 9, []() {GameEngineSound::Play("Atk_Flame_Very_Small.wav");});
+	Render->SetAnimationStartEvent("Intro_ComboA", 31, []() {GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav"); });
+	Render->SetAnimationStartEvent("Intro_ComboA", 36, []() {GameEngineSound::Play("Atk_Sword_Large (Slash Down).wav");});
+	Render->SetAnimationStartEvent("Intro_ComboA", 40, []() {GameEngineSound::Play("Atk_Flame_Very_Small.wav");});
+
+	Render->SetAnimationStartEvent("Intro_ComboB", 1, []() {GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav"); });
+	Render->SetAnimationStartEvent("Intro_ComboB", 5, []() {GameEngineSound::Play("Atk_Sword_Large (Slash Down).wav"); });
+	Render->SetAnimationStartEvent("Intro_ComboB", 9, []() {GameEngineSound::Play("Atk_Flame_Very_Small.wav"); });
+	Render->SetAnimationStartEvent("Intro_ComboB", 13, []() {GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav"); });
+	Render->SetAnimationStartEvent("Intro_ComboB", 17, []() {GameEngineSound::Play("AdventurerHero_Voice_SpecialMove.wav"); GameEngineSound::Play("Hit_Sword_Large.wav"); });
+
+	Render->SetAnimationStartEvent("AttackA", 5, []() {GameEngineSound::Play("AdventurerHero_ComboA.wav");});
+	Render->SetAnimationStartEvent("AttackB", 1, []() {GameEngineSound::Play("AdventurerHero_ComboB.wav");});
+	Render->SetAnimationStartEvent("AttackD", 1, []() {GameEngineSound::Play("AdventurerHero_ComboD.wav");});
+
+	Render->SetAnimationStartEvent("BackDash", 1, []() {GameEngineSound::Play("AdventurerHero_BackDash.wav");});
+	
 }
 
 void RookieHero::SelectPattern()

@@ -182,9 +182,9 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 	PlayerState::HP -= _Damage;
 	ResultInfo::HitDamage += _Damage;
 
-	if (true == Cheat_HP && 1.0f > PlayerState::HP)
+	if (true == Cheat_HP)
 	{
-		PlayerState::HP = 1.0f;
+		PlayerState::HP = PlayerState::MaxHP;
 	}
 
 	std::shared_ptr<BattleActorDamageFont> NewDamageFont = GetLevel()->CreateActor<BattleActorDamageFont>();
@@ -202,9 +202,12 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 		.LiveTime = 0.8f,
 		});
 
+	float4 HitDir = _HitForce;
+	HitDir.z = 0.0f;
+
 	HitWaitTime = 0.1f;
 	HitFade->Active();
-	MainSkull->BattleActorRigidbody.AddVelocity(_HitForce);
+	MainSkull->BattleActorRigidbody.AddVelocity(HitDir);
 	MainSkull->IsHit = true;
 	MainSkull->IsHitEffectOn = true;
 	MainSkull->HitEffect(HitEffectType::Normal);

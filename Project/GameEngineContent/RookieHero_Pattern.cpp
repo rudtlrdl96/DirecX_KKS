@@ -19,6 +19,8 @@ void RookieHero::ComboAttack_Enter()
 				return;
 			}
 
+			GameEngineSound::Play("Hit_Sword_Large.wav");
+
 			EffectManager::PlayEffect({
 				.EffectName = "HitSlashEffect",
 				.Position = CastPtr->GetTransform()->GetWorldPosition() + float4(0, 40, 0),
@@ -62,6 +64,8 @@ void RookieHero::ComboAttack_Update(float _DeltaTime)
 		PlayAnimation(AttackA_Data.GetAnimationName());
 		++ComboAttackIndex;
 		ComboDashCheck = false;
+
+		GameEngineSound::Play("AdventurerHero_Voice_Short.wav");
 	}
 	
 	if (1 == ComboAttackIndex)
@@ -192,6 +196,8 @@ void RookieHero::EnergyBall_Update(float _DeltaTime)
 	{
 		if (true == Render->IsAnimationEnd())
 		{
+			GameEngineSound::Play("Atk_Explosion_Small.wav");
+
 			PlayAnimation("EnergyBall");
 			IsEnergyBallShot = true;
 
@@ -228,6 +234,8 @@ void RookieHero::EnergyBall_Update(float _DeltaTime)
 				EffectManager::PlayEffect({
 					.EffectName = "RookieHero_EnergyBallExplosion",
 					.Position = _Parameter.ProjectilePos});
+
+				GameEngineSound::Play("Hit_Energy_Small.wav");
 			};
 
 			std::function<void(const float4& _Pos)> DeathCallback = [](const float4& _Pos)
@@ -235,6 +243,8 @@ void RookieHero::EnergyBall_Update(float _DeltaTime)
 				EffectManager::PlayEffect({
 					.EffectName = "RookieHero_EnergyBallExplosion",
 					.Position = _Pos });
+
+				GameEngineSound::Play("Hit_Energy_Small.wav");
 			};
 
 			ShotProjectile->ShotProjectile({
@@ -276,6 +286,8 @@ void RookieHero::Potion_Update(float _DeltaTime)
 
 	if (0.0f <= PotionHealTime)
 	{
+		GameEngineSound::Play("Adventurer_Drink.wav");
+
 		EffectManager::PlayEffect({
 			.EffectName = "MonsterHeal",
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 78, 0),
@@ -335,15 +347,18 @@ void RookieHero::Explosion_Enter()
 		PlaySpeechBubble("칼레온을 위하여!", 4.0f);
 		SpeechCoolTime = -10.0f;
 	}
+
+	GameEngineSound::Play("AdventurerHero_Voice_Short.wav");
 }
 
 void RookieHero::Explosion_Update(float _DeltaTime)
 {
-
-	if (true == Render->IsAnimationEnd())
+	if (false == IsExplosionEffect && true == Render->IsAnimationEnd())
 	{
 		IsExplosionEffect = true;
 		PlayAnimation("Explosion", false);
+
+		GameEngineSound::Play("AdventurerHero_EndAction_AttackReady.wav");
 	}
 
 	if (true == IsExplosionEffect)
@@ -371,6 +386,8 @@ void RookieHero::Explosion_Update(float _DeltaTime)
 			.EffectName = "RookieHero_Explosion",
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 130, 0),
 			.AddSetZ = -10.0f });
+
+		GameEngineSound::Play("Atk_Explosion_Large.wav");
 	}
 
 	if (false == IsExplosionAttackEnd && 
@@ -389,6 +406,8 @@ void RookieHero::Explosion_Update(float _DeltaTime)
 				MsgAssert_Rtti<RookieHero>(" - 플레이어만 Player Col Order를 가질 수 있습니다.");
 				return;
 			}
+
+			GameEngineSound::Play("Hit_Energy_Medium.wav");
 
 			EffectManager::PlayEffect({
 				.EffectName = "HitNormal",
@@ -432,6 +451,8 @@ void RookieHero::Ultimate_Enter()
 	IsUltimateComplete = false;
 
 	UltimateLightOn();
+	GameEngineSound::Play("AdventurerHero_Voice_Casting.wav");
+	ChargeSound = GameEngineSound::Play("Adventurer_Charge_Start.wav");
 }
 
 void RookieHero::Ultimate_Update(float _DeltaTime)
@@ -463,6 +484,12 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 
 	if (false == IsUltimateShotReady && 100.0f <= HitDamageCheck)
 	{
+		if (true == ChargeSound.IsValid())
+		{
+			ChargeSound.Stop();
+			ChargeSound.Clear();
+		}
+
 		EffectManager::PlayEffect({
 			.EffectName = "RookieHero_UltimateFail",
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
@@ -481,6 +508,9 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 			.EffectName = "RookieHero_UltimateComplete",
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
 			.AddSetZ = -20.0f });
+
+		GameEngineSound::Play("Adventurer_Charge_End.wav");
+		ChargeSound.Clear();
 	}
 
 	if (false == IsUltimateShotReady && 4.0f <= UltimateLiveTime)
@@ -514,13 +544,16 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 		true == IsUltimateShotReady && 
 		true == Render->IsAnimationEnd())
 	{
+		GameEngineSound::Play("AdventurerHero_Voice_SpecialMove.wav");
+		GameEngineSound::Play("AdventurerHero_EndAction_AttackReady.wav");
+		GameEngineSound::Play("Atk_Smoke_Medium.wav");
+
 		UltimateFadeOn();
 
 		IsUltimateShotReady = true;
 		IsUltimateShot = true;
 		PlayAnimation("SwordEnergy", false);
-
-	
+			
 		std::shared_ptr<Projectile> ShotProjectile = GetLevel()->CreateActor<Projectile>();
 
 		float4 Pivot = float4::Zero;
@@ -554,6 +587,8 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 			EffectManager::PlayEffect({
 				.EffectName = "RookieHero_EnergyBallExplosion",
 				.Position = _Parameter.ProjectilePos });
+
+			GameEngineSound::Play("Hit_Sword_Large.wav");
 		};
 
 		std::function<void(const float4& _Pos)> DeathCallback = [](const float4& _Pos)

@@ -431,7 +431,11 @@ void BaseGear::Update(float _DeltaTime)
 
 void BaseGear::Destroy()
 {
-	SoundDoubleCheck::Play("Object_DestroyItem_Completed.wav");
+	if (false == IsUse)
+	{
+		SoundDoubleCheck::Play("Object_DestroyItem_Completed.wav");
+	}
+
 	GetContentLevel()->RemoveEvent("MoveStage", GetActorCode());
 
 	if (false == IsEffectOff)
