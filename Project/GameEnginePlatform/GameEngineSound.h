@@ -25,6 +25,11 @@ public:
 		return (nullptr != Channel);
 	}
 
+	inline void Clear()
+	{
+		Channel = nullptr;
+	}
+
 	inline void isPlaying(bool* _IsPlaying) const
 	{
 		if (false == IsValid())

@@ -2,6 +2,7 @@
 #include "LifeOrb.h"
 #include "Player.h"
 #include "PlayerState.h"
+#include "CaptureAnimation.h"
 
 LifeOrb::LifeOrb()
 {
@@ -93,6 +94,13 @@ void LifeOrb::Update(float _DeltaTime)
 				.EffectName = "PlayerHeal",
 				.Position = GetTransform()->GetWorldPosition() + float4(0, 40),
 				});
+
+			PlayerPtr->GetMainSkull()->EffectCaptureAnimation({
+					.SpriteRender = PlayerPtr->GetMainSkull()->GetMainRender(),
+					.StartColor = float4(0.6f, 0.035f, 0.82f, 0.8f), .EndColor = float4(0.6f, 0.035f, 0.82f, 0.0f),
+					.Speed = 3.0f,
+					.WaitTime = 0.0f
+					});
 
 			PlayerPtr->HealPlayer(10, float4::Up);
 			Death();

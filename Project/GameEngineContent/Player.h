@@ -70,6 +70,11 @@ public:
 		return MainSkull->GetViewDir();
 	}
 
+	inline std::shared_ptr<PlayerBaseSkull> GetMainSkull()
+	{
+		return MainSkull;
+	}
+
 	void ActivePlayerFrame();
 	void DisablePlayerFrame();
 

@@ -47,8 +47,14 @@ void BaseGear::ColWaveOn()
 
 void BaseGear::CallUseEvent()
 {
+	if (0.2f <= PressTime)
+	{
+		return;
+	}
+
 	if (State == GearState::Fixed || State == GearState::Wave)
 	{
+		GameEngineSound::Play("Object_GainItem.wav");
 		UseGear();
 		IsUse = true;
 	}
@@ -96,9 +102,17 @@ void BaseGear::Update(float _DeltaTime)
 
 	if (false == IsFocus())
 	{
+		PressTime = 0.0f;
+
 		if (true == IsEnterCheck && nullptr != ColExitCallback)
 		{
 			ColExitCallback();
+		}
+
+		if (true == DestroySound.IsValid())
+		{
+			DestroySound.Stop();
+			DestroySound.Clear();
 		}
 
 		IsEnterCheck = false;
@@ -134,16 +148,35 @@ void BaseGear::Update(float _DeltaTime)
 
 			if (GameEngineInput::IsPress("UseKey"))
 			{
+				if (0.2f <= PressTime && false == DestroySound.IsValid())
+				{
+					DestroySound = GameEngineSound::Play("Object_DestroyItem_loop.wav");
+					DestroySound.SetLoop();
+				}
+
 				PressTime += _DeltaTime;
 
 				if (1.0f <= PressTime)
 				{
 					Death(); 
+					DestroySound.Stop();
 				}
 			}
 			else
 			{
 				PressTime = 0.0f;
+
+				if (true == DestroySound.IsValid())
+				{
+					bool IsPlay = false;
+					DestroySound.isPlaying(&IsPlay);
+
+					if (true == IsPlay)
+					{
+						DestroySound.Stop();
+						DestroySound.Clear();
+					}
+				}
 			}
 		}		
 	}
@@ -398,11 +431,18 @@ void BaseGear::Update(float _DeltaTime)
 
 void BaseGear::Destroy()
 {
+	SoundDoubleCheck::Play("Object_DestroyItem_Completed.wav");
 	GetContentLevel()->RemoveEvent("MoveStage", GetActorCode());
 
 	if (false == IsEffectOff)
 	{
 		PlayDestroyEffect();
+	}
+
+	if (true == DestroySound.IsValid())
+	{
+		DestroySound.Stop();
+		DestroySound.Clear();
 	}
 }
 

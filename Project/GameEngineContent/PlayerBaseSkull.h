@@ -129,7 +129,14 @@ public:
 		return Type;
 	}
 
+	inline std::shared_ptr<ContentSpriteRenderer> GetMainRender()
+	{
+		return Render;
+	}
+
 	void PlayStoryMove(const float4& _MovePos, std::function<void()> _EndCallback = nullptr);
+	void RendererEffect(const float4& _StartColor, const float4& _EndColor, float _Speed);
+	void EffectCaptureAnimation(const class CaptureAnimParameter& _Parameter);
 
 protected:
 	SkullType Type = SkullType::Balance;
@@ -335,8 +342,6 @@ private:
 
 	void CreateColDebugRender();
 	void CreateAttackAnim(const AnimationAttackMetaData& _AnimData, float _InterTime);
-	void RendererEffect(const float4& _StartColor, const float4& _EndColor, float _Speed);
 	void CaptureRenderTex(const float4& _StartColor, const float4& _EndColor, float _Speed);
-	void EffectCaptureAnimation(const class CaptureAnimParameter& _Parameter);
 };
 

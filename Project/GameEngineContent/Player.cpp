@@ -394,13 +394,15 @@ void Player::Start()
 				std::shared_ptr<AnimationPartParticle> DeadPart = GetLevel()->CreateActor<AnimationPartParticle>();
 
 				GameEngineTransform* PartTrans = DeadPart->GetTransform();
-
 				GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+
+				int RandLiveTime = MainRand.RandomInt(0, 2);
+
 
 				float4 Dir = float4::Up;
 				Dir.RotaitonZDeg(MainRand.RandomFloat(-15, 15));
 				DeadPart->Init(
-					{.AnimationName = "Idle", .SpriteName = BoneEffectNames[RandIndex], .ScaleToTexture = true}, 2.0f, Dir, MainRand.RandomFloat(700.0f, 800.0f), 0.8f);
+					{.AnimationName = "Idle", .SpriteName = BoneEffectNames[RandIndex], .ScaleToTexture = true}, 2.0f, Dir, MainRand.RandomFloat(700.0f, 800.0f), 0.7f + (0.05f * RandLiveTime));
 
 				AnimationPartParticle* GetPtr = DeadPart.get();
 				DeadPart->SetEndCallback([GetPtr]()
@@ -409,6 +411,7 @@ void Player::Start()
 
 						EffectManager::PlayEffect({.EffectName = "BoneGoodsEffect", .Position = DeathPos });
 
+						SoundDoubleCheck::Play("Object_GainBone.wav");
 					});
 
 				PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 40));

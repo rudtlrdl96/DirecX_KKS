@@ -309,10 +309,7 @@ void WolfSkull_Legandary::Skill_SlotA_Update(float _DeltaTime)
 							return;
 						}
 
-						CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Sword, [this]()
-							{
-								CurSkillBTime = GetSkillBEndTime();
-							});
+						CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Sword);
 					}
 				}
 

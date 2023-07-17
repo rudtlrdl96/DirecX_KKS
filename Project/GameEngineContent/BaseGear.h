@@ -98,6 +98,8 @@ protected:
 	std::function<void()> ColUpdateCallback = nullptr;
 	std::function<void()> ColExitCallback = nullptr;
 
+	GameEngineSoundPlayer DestroySound;
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
 

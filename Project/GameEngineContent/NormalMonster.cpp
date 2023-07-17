@@ -360,7 +360,11 @@ void NormalMonster::MonsterDeath()
 
 	if (0 < RewardGold)
 	{
-		Inventory::AddGoods_Gold(RewardGold);
+		GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+		int RandBonusRewad = MainRand.RandomInt(0, 4);
+
+
+		Inventory::AddGoods_Gold(RewardGold + RandBonusRewad);
 		ResultInfo::GetGold += RewardGold;
 
 		for (size_t i = 0; i < 6; i++)
@@ -369,12 +373,13 @@ void NormalMonster::MonsterDeath()
 
 			GameEngineTransform* PartTrans = DeadPart->GetTransform();
 
-			GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
+
+			int RandLiveTime = MainRand.RandomInt(0, 2);
 
 			float4 Dir = float4::Up;
 			Dir.RotaitonZDeg(MainRand.RandomFloat(-15, 15));
 			DeadPart->Init(
-				{ .AnimationName = "Idle", .SpriteName = "Goods_Gold.png", .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true }, 2.0f, Dir, MainRand.RandomFloat(700.0f, 800.0f), 0.8f);
+				{ .AnimationName = "Idle", .SpriteName = "Goods_Gold.png", .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true }, 2.0f, Dir, MainRand.RandomFloat(700.0f, 800.0f), 0.7f + (0.05f * RandLiveTime));
 
 			DeadPart->RotOff();
 			
@@ -385,9 +390,11 @@ void NormalMonster::MonsterDeath()
 
 					EffectManager::PlayEffect({ .EffectName = "GoldGoodsEffect", .Position = DeathPos });
 
+					SoundDoubleCheck::Play("Object_GainGold.wav");
 				});
 
 			PartTrans->SetWorldPosition(GetTransform()->GetWorldPosition() + float4(0, 40));
+
 		}
 	}
 

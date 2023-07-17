@@ -395,10 +395,12 @@ void StageRewardObject::DropGoldReward()
 
 		GameEngineRandom& MainRand = GameEngineRandom::MainRandom;
 
+		int RandLiveTime = MainRand.RandomInt(0, 2);
+
 		float4 Dir = float4::Up;
 		Dir.RotaitonZDeg(MainRand.RandomFloat(-15, 15));
 		DeadPart->Init(
-			{ .AnimationName = "Idle", .SpriteName = "Goods_Gold.png", .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true }, 2.0f, Dir, MainRand.RandomFloat(700.0f, 900.0f), 0.8f);
+			{ .AnimationName = "Idle", .SpriteName = "Goods_Gold.png", .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true }, 2.0f, Dir, MainRand.RandomFloat(700.0f, 900.0f), 0.7f + (0.05f * RandLiveTime));
 
 		DeadPart->RotOff();
 
@@ -408,7 +410,7 @@ void StageRewardObject::DropGoldReward()
 				float4 DeathPos = GetPtr->GetTransform()->GetWorldPosition();
 
 				EffectManager::PlayEffect({ .EffectName = "GoldGoodsEffect", .Position = DeathPos });
-
+				SoundDoubleCheck::Play("Object_GainGold.wav");
 			});
 
 		PartTrans->SetWorldPosition(Render->GetTransform()->GetWorldPosition() + float4(0, 40));
