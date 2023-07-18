@@ -32,6 +32,7 @@ void Mongal::Start()
 		{
 			State = DeathState::Laugh;
 			Render->ChangeAnimation("Laugh");
+			GameEngineSound::Play("Tutorial_Ogre_Laugh.wav");
 		});
 }
 
@@ -89,12 +90,15 @@ void Mongal::LoadAnimation()
 	Render->CreateAnimation({ .AnimationName = "Walk_NoBattle", .SpriteName = "Mongal_Walk.png", .Start = 0, .End = 7, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Wakeup", .SpriteName = "Mongal_WakeUp.png", .Start = 0, .End = 20, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Laugh", .SpriteName = "Mongal_Laugh.png", .Start = 0, .End = 2, .ScaleToTexture = true });
+
+	Render->SetAnimationStartEvent("Wakeup", 7, []() {GameEngineSound::Play("Tutorial_Ogre_Confuse.wav"); });
+	Render->SetAnimationStartEvent("Wakeup", 16, []() {GameEngineSound::Play("Tutorial_Ogre_Wakeup.wav"); });
 }
 
 void Mongal::AnimationAttackMetaDataLoad()
 {
-	AttackRigidbody.SetMaxSpeed(300.0f);
-	AttackRigidbody.SetFricCoeff(1000.0f);
+	AttackRigidbody.SetMaxSpeed(500.0f);
+	AttackRigidbody.SetFricCoeff(2000.0f);
 
 	{
 		GameEngineDirectory Path;
@@ -107,15 +111,20 @@ void Mongal::AnimationAttackMetaDataLoad()
 
 		AnimColMeta_Attack = ContentFunc::LoadAnimAttackMetaData(Path.GetPlusFileName("Mongal_Attack").GetFullPath());
 
+		std::vector<float> AttackFrameTime = {0.2f, 0.2f, 0.2f, 0.1f, 0.1f, 0.1f, 0.1f};
+
 		Render->CreateAnimation({
 			.AnimationName = AnimColMeta_Attack.GetAnimationName().data(),
 			.SpriteName = AnimColMeta_Attack.GetSpriteName().data(),
 			.Start = AnimColMeta_Attack.GetStartFrame(),
 			.End = AnimColMeta_Attack.GetEndFrame(),
-			.FrameInter = 0.15f,
+			.FrameInter = 0.1f,
 			.Loop = false,
-			.ScaleToTexture = true });
+			.ScaleToTexture = true,
+			.FrameTime = AttackFrameTime });
 	}
+
+	HitEvent = []() {GameEngineSound::Play("Hit_Blunt_Large.wav"); };
 }
 
 void Mongal::SetColData()
@@ -230,6 +239,11 @@ void Mongal::Attack_Enter()
 
 	}
 
+	if (0 == AttackLoopCount)
+	{
+		GameEngineSound::Play("Tutorial_Ogre_Atk_Ready.wav");
+	}
+
 	Render->ChangeAnimation(AnimColMeta_Attack.GetAnimationName());
 	AttackRigidbody.SetVelocity(float4::Zero);
 
@@ -259,15 +273,17 @@ void Mongal::Attack_Update(float _DeltaTime)
 
 	if (false == IsAttackMove && 3 == CurFrame)
 	{
+		GameEngineSound::Play("Atk_BluntWeapon_Large.wav");
+
 		IsAttackMove = true;
 
 		switch (Dir)
 		{
 		case ActorViewDir::Left:
-			AttackRigidbody.AddVelocity(float4::Left * 300.0f);
+			AttackRigidbody.AddVelocity(float4::Left * 500.0f);
 			break;
 		case ActorViewDir::Right:
-			AttackRigidbody.AddVelocity(float4::Right * 300.0f);
+			AttackRigidbody.AddVelocity(float4::Right * 500.0f);
 			break;
 		default:
 			break;
@@ -324,6 +340,7 @@ void Mongal::Attack_End()
 
 void Mongal::MonsterDeath()
 {
+	GameEngineSound::Play("Enemy_Big_Dead.wav");
 	IsMongalDeath = true;
 	State = DeathState::BattleDeath;
 	DeathTimeCheck = 0.0f;

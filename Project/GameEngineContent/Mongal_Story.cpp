@@ -69,6 +69,8 @@ void Mongal::StoryUpdate(float _DeltaTime)
 
 				GetContentLevel()->CallEvent("StoryFadeIn");
 
+				GameEngineSound::Play("Tutorial_MongalDead.wav");
+
 				EffectManager::PlayEffect({
 					.EffectName = "MongalDeathEffect",
 					.Position = GetTransform()->GetWorldPosition() + DeathEffectPlusPos,
@@ -88,7 +90,7 @@ void Mongal::StoryUpdate(float _DeltaTime)
 
 			DeathTimeCheck += _DeltaTime;
 
-			if (2.5f < DeathTimeCheck)
+			if (2.1f < DeathTimeCheck)
 			{
 				Render->SetAnimPauseOff();
 			}
@@ -207,6 +209,8 @@ void Mongal::StoryUpdate(float _DeltaTime)
 				.MoveSpeed = 100.0f,
 				.LiveTime = 1.0f,
 				});
+
+			GameEngineSound::Play("Tutorial_FirstHeroLanding.wav");
 
 			std::shared_ptr<StoryHero_FirstHero_Opening> FirstHero = GetLevel()->CreateActor<StoryHero_FirstHero_Opening>();
 

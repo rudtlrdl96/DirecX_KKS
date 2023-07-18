@@ -74,10 +74,29 @@ void WitchOpening::Start()
 
 	GetContentLevel()->AddEvent("OpeningWitch_Script00_End", GetActorCode(), [this]()
 		{
+			GameEngineSound::Play("Witch_Polymorph.wav");
 			PlayAnimation("Polymorp", true);
 
 			Callback = [this]()
 			{
+				if (nullptr != Bubble)
+				{
+					Bubble->Death();
+					Bubble = nullptr;
+				}
+
+				Bubble = GetLevel()->CreateActor<SpeechBubble>();
+
+				Bubble->PlayBubble({
+					.Target = DynamicThis<GameEngineActor>(),
+					.Text = "출발이다냥",
+					.Pivot = float4(0, 95, -100),
+					.IsLoop = false,
+					.LiveTime = 3.0f,
+					.IsAutoScale = true
+					});
+
+				GameEngineSound::Play("Tutorial_Meow.wav");
 				GetTransform()->AddLocalPosition(float4(0, 0, -5.0f));
 
 				PlayAnimation("CageIdle", true);
@@ -100,6 +119,11 @@ void WitchOpening::Start()
 
 void WitchOpening::Update(float _DeltaTime)
 {
+	if (nullptr != Bubble && Bubble->IsDeath())
+	{
+		Bubble = nullptr;
+	}
+	
 	BaseNPC::Update(_DeltaTime);
 
 	if (nullptr == PlayerPtr && true == IsPolymorpEnd)
@@ -215,6 +239,12 @@ void WitchOpening::Update(float _DeltaTime)
 
 void WitchOpening::ResetBehavior()
 {
+	if (nullptr != Bubble)
+	{
+		Bubble->Death();
+		Bubble = nullptr;
+	}
+
 	IsPolymorpEnd = false;
 	PlayerPtr = nullptr;
 	CagePtr->Off();
@@ -223,6 +253,12 @@ void WitchOpening::ResetBehavior()
 
 void WitchOpening::PlayBehavior()
 {
+	if (nullptr != Bubble)
+	{
+		Bubble->Death();
+		Bubble = nullptr;
+	}
+
 	IsPolymorpEnd = false;
 	PlayerPtr = nullptr;
 	CagePtr->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition());

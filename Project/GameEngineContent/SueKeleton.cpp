@@ -45,6 +45,8 @@ void SueKeleton::Start()
 			PlayAnimation("GiveWeapon", true);
 			IsGiveWeapon = true;
 		});
+
+	MainRender->SetAnimationStartEvent("Dead", 1, []() {GameEngineSound::Play("Object_GearChange (Unused).wav"); });
 }
 
 void SueKeleton::Update(float _DeltaTime)

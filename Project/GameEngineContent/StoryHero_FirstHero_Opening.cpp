@@ -109,6 +109,8 @@ void StoryHero_FirstHero_Opening::Update(float _DeltaTime)
 			State = HeroState::CastingLoop;
 			MainRender->ChangeAnimation("CastingLoop");
 
+			GameEngineSound::Play("Hero_Charging.wav");
+
 			BigbangReadyEffect = EffectManager::PlayEffect({
 				.EffectName = "FirstHero_BigbangReady",
 				.Position = GetTransform()->GetWorldPosition() + float4(-70, 250, 0) });

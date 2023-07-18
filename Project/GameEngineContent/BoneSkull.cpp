@@ -217,12 +217,12 @@ void BoneSkull::Start()
 				EffectManager::PlayEffect({
 					.EffectName = "GetSkull_Legendary_ElectricUp",
 					.Position = EffectPos,
-					.WaitTime = 0.95f });
+					.WaitTime = 0.7f });
 
 				EffectManager::PlayEffect({
 					.EffectName = "GetSkull_Legendary_ElectricSide",
 					.Position = EffectPos,
-					.WaitTime = 1.9f });
+					.WaitTime = 1.5f });
 			};
 
 			std::function<void()> PauseCall01 = [this, PauseCall02]()
@@ -507,12 +507,12 @@ void BoneSkull::CreateAnimation()
 	// Behavior Anim
 	Render->CreateAnimation({ .AnimationName = "Intro_Idle", .SpriteName = "BoneSkull_Intro_Idle.png", .FrameInter = 0.1f, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_WakeUp", .SpriteName = "BoneSkull_Intro_WlakUp.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	Render->CreateAnimation({ .AnimationName = "Intro_GetHead", .SpriteName = "BoneSkull_Intro_GetHead.png", .FrameInter = 0.08f, .Loop = false, .ScaleToTexture = true });
+	Render->CreateAnimation({ .AnimationName = "Intro_GetHead", .SpriteName = "BoneSkull_Intro_GetHead.png", .FrameInter = 0.065f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_Getbone", .SpriteName = "BoneSkull_Intro_Getbone.png", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_Awkward", .SpriteName = "BoneSkull_Intro_Awkward.png",
 		.Start = 0, .End = 18, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Intro_GetChiefHead", .SpriteName = "BoneSkull_Normal_Getskull.png",
-		.Start = 0, .End = 44, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+		.Start = 0, .End = 44, .FrameInter = 0.09f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Castle_Reborn", .SpriteName = "BoneSkull_Normal_RebornCastle.png",
 		.Start = 0, .End = 26, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Idle_Wait", .SpriteName = "BoneSkull_Wait.png", .FrameInter = 0.11f, .ScaleToTexture = true });
@@ -526,6 +526,13 @@ void BoneSkull::CreateAnimation()
 		{
 			GameEngineSound::Play("Skul_Reborn_Cape.wav");
 		});
+
+	Render->SetAnimationStartEvent("Intro_GetHead", 2, []() {GameEngineSound::Play("Tutorial_Bone00.wav"); });
+	Render->SetAnimationStartEvent("Intro_GetHead", 19, []() {GameEngineSound::Play("Tutorial_Bone01.wav"); });
+	Render->SetAnimationStartEvent("Intro_GetHead", 51, []() {GameEngineSound::Play("183_Skull_Get_a_v1.wav"); });
+
+	Render->SetAnimationStartEvent("Intro_GetChiefHead", 10, []() {GameEngineSound::Play("Tutorial_ThrowHead.wav"); });
+	Render->SetAnimationStartEvent("Intro_GetChiefHead", 22, []() {GameEngineSound::Play("Tutorial_GetChiefHead.wav"); });
 
 }
 

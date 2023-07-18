@@ -40,9 +40,19 @@ void SkeleTong::Start()
 	MainRender->CreateAnimation({
 		.AnimationName = "Talk", .SpriteName = "SkeleTong_Talk.png", .FrameInter = 0.15f, .ScaleToTexture = true });
 
+	std::vector<float> WalkFrameTime;
+	WalkFrameTime.resize(13);
+
+	for (size_t i = 0; i < WalkFrameTime.size(); i++)
+	{
+		WalkFrameTime[i] = 0.15f;
+	}
+
+	WalkFrameTime[12] = 0.5f;
+
 	MainRender->CreateAnimation({
 		.AnimationName = "Walk", .SpriteName = "SkeleTong_Walk.png",
-		.Start = 0, .End = 12, .FrameInter = 0.15f, .Loop = false, .ScaleToTexture = true });
+		.Start = 0, .End = 12, .FrameInter = 0.15f, .Loop = false, .ScaleToTexture = true, .FrameTime = WalkFrameTime });
 
 	AnimFramePause["Idle"][0] = 1.5f;
 	PlayAnimation("Idle", true);
@@ -102,6 +112,8 @@ void SkeleTong::Start()
 				});
 
 		});
+
+	MainRender->SetAnimationStartEvent("Walk", 1, []() {GameEngineSound::Play("Skeletong_Crawl.wav"); });
 }
 
 
@@ -178,6 +190,8 @@ void SkeleTong::Update(float _DeltaTime)
 
 void SkeleTong::PlayBehavior()
 {
+	return;
+
 	if (nullptr != Bubble)
 	{
 		Bubble->Death();

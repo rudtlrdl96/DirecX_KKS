@@ -41,14 +41,14 @@ void ChiefGuardNPC::Start()
 			.SpriteName = "GetSkull_Legendary_ElectricSide.png",
 			.AnimStart = 0,
 			.AnimEnd = 11,
-			.AnimInter = 0.05f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f});
 
 		EffectManager::CreateMetaData("GetSkull_Legendary_ElectricUp", {
 			.SpriteName = "GetSkull_Legendary_ElectricUp.png",
 			.AnimStart = 0,
 			.AnimEnd = 14,
-			.AnimInter = 0.05f,
+			.AnimInter = 0.04f,
 			.ScaleRatio = 2.0f });
 
 		EffectManager::CreateMetaData("GetSkull_Legendary_Smoke", {
