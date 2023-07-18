@@ -19,10 +19,20 @@ void Mongal::Destroy()
 {
 	ContentLevel* LevelPtr = GetContentLevel();
 	LevelPtr->RemoveEvent("Mongal_Laugh", GetActorCode());
+	LevelPtr->RemoveEvent("MongalDeath_Appear_End", GetActorCode());
+
+	if (nullptr != BossHealthBar)
+	{
+		BossHealthBar->Death();
+		BossHealthBar = nullptr;
+	}
 }
 
 void Mongal::Start()
 {
+	BossHealthBar = GetLevel()->CreateActor<Mongal_HealthBar>();
+	BossHealthBar->Off();
+
 	NormalMonster::Start();
 	SetViewDir(ActorViewDir::Left, true);
 	IsUnWalkable = true;
@@ -34,10 +44,21 @@ void Mongal::Start()
 			Render->ChangeAnimation("Laugh");
 			GameEngineSound::Play("Tutorial_Ogre_Laugh.wav");
 		});
+
+	GetContentLevel()->AddEvent("MongalDeath_Appear_End", GetActorCode(), [this]()
+		{
+			BossHealthBar->DropFrame();
+			BossHealthBar->On();
+		});
 }
 
 void Mongal::Update(float _DeltaTime)
 {
+	if (nullptr != BossHealthBar)
+	{
+		BossHealthBar->UpdateBar(HP / Data.HP, _DeltaTime);
+	}
+
 	if (true == IsMongalDeath)
 	{
 		StoryUpdate(_DeltaTime);
@@ -340,6 +361,11 @@ void Mongal::Attack_End()
 
 void Mongal::MonsterDeath()
 {
+	if (nullptr != BossHealthBar)
+	{
+		BossHealthBar->UpFrame();
+	}
+
 	GameEngineSound::Play("Enemy_Big_Dead.wav");
 	IsMongalDeath = true;
 	State = DeathState::BattleDeath;

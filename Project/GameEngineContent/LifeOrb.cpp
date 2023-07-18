@@ -17,6 +17,8 @@ void LifeOrb::DropOrb(const float4& _WorldPos)
 	float4 OrbPos = _WorldPos;
 	OrbPos.z = GameEngineRandom::MainRandom.RandomFloat(-40, -31);
 
+	DropStartY = OrbPos.y;
+
 	State = OrbState::Drop;
 
 	DropRigid.SetVelocity(float4(0, 850));
@@ -111,11 +113,17 @@ void LifeOrb::Update(float _DeltaTime)
 	{
 		DropRigid.UpdateForce(_DeltaTime);
 
+		float4 CurFramePos = GetTransform()->GetWorldPosition();
 		float4 DropVel = DropRigid.GetVelocity();
 
 		GetTransform()->AddWorldPosition(DropVel * _DeltaTime);
 
 		if (-300 < DropVel.y)
+		{
+			return;
+		}
+
+		if (CurFramePos.y > DropStartY + 100)
 		{
 			return;
 		}

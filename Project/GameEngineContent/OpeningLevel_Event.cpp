@@ -409,6 +409,7 @@ void OpeningLevel::CreateOpeningEvent()
 						TalkBoxPtr->Off();
 						CallEvent("UnLockCam");
 						CallEvent("StoryFadeOut");
+						CallEvent("MongalDeath_Appear_End");
 					});
 			};
 

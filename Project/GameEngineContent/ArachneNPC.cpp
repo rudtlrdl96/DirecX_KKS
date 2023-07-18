@@ -71,9 +71,6 @@ void ArachneNPC::Start()
 	BubblePivot = CreateComponent<GameEngineComponent>();
 	BubblePivot->GetTransform()->SetLocalPosition(float4(-25, 270, -100));
 
-	// Test Debug
-	IsFirstTalk = false;
-
 	LegendaryLights.reserve(3);
 
 	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))

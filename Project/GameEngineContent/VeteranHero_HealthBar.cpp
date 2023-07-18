@@ -13,10 +13,15 @@ VeteranHero_HealthBar::~VeteranHero_HealthBar()
 void VeteranHero_HealthBar::DropFrame()
 {
 	IsDrop = true;
+	IsUp = false;
+	Rigid.SetVelocity(float4::Zero);
 }
 
 void VeteranHero_HealthBar::UpFrame()
 {
+	IsDrop = false;
+	IsUp = true;
+	Rigid.SetVelocity(float4::Zero);
 }
 
 
@@ -153,7 +158,27 @@ void VeteranHero_HealthBar::Start()
 
 void VeteranHero_HealthBar::Update(float _DeltaTime)
 {
-	if (true == IsDrop)
+	if (true == IsUp)
+	{
+		Rigid.AddForce(float4(0, 600));
+		Rigid.UpdateForce(_DeltaTime);
+
+		float4 TotalVel = Rigid.GetVelocity();
+		float4 FrameVel = TotalVel * _DeltaTime;
+
+		float4 CurPos = GetTransform()->GetWorldPosition();
+
+		if (CurPos.y > StartPos.y)
+		{
+			GetTransform()->SetWorldPosition(StartPos);
+			IsUp = false;
+		}
+		else
+		{
+			GetTransform()->AddWorldPosition(FrameVel);
+		}
+	}
+	else if (true == IsDrop)
 	{
 		if (1 < GroundColCount)
 		{

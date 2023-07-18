@@ -19,6 +19,9 @@ public:
 
 	void UpdateBar(float _Progress, float _DeltaTime);
 protected:
+	std::shared_ptr<ContentUIFontRenderer> NameFontRender = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> SubFontRender = nullptr;
+
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
@@ -28,9 +31,6 @@ private:
 	std::shared_ptr<class ContentUIRender> BarFrameRedner = nullptr;
 	std::shared_ptr<class ContentUIRender> TopFrameRedner = nullptr;
 	std::shared_ptr<class ContentUIRender> BottomFrameRedner = nullptr;
-
-	std::shared_ptr<ContentUIFontRenderer> NameFontRender = nullptr;
-	std::shared_ptr<ContentUIFontRenderer> SubFontRender = nullptr;
 
 	Rigidbody2D Rigid;
 
@@ -45,6 +45,7 @@ private:
 	float ProgressTime = 0.0f;
 	
 	bool IsDrop = false;
+	bool IsUp = false;
 	bool IsSubUpdate = false;
 
 
@@ -52,8 +53,5 @@ private:
 	float4 EndProgress;
 	float4 StartPos = float4::Zero;
 	float4 EndPos = float4::Zero;
-
-
-
 };
 

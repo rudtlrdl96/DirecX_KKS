@@ -37,6 +37,7 @@ private:
 	OrbState State = OrbState::None;
 
 	float4 WaveCenter = float4::Zero;
+	float DropStartY = 0.0f;
 
 	void SetWaveState(std::shared_ptr<GameEngineCollision> _PlatformCol);
 };

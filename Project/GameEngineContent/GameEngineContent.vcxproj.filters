@@ -1041,6 +1041,9 @@
     <ClInclude Include="SoundDoubleCheck.h">
       <Filter>1_Class\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="Mongal_HealthBar.h">
+      <Filter>2_Actor\UI\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1741,6 +1744,9 @@
     </ClCompile>
     <ClCompile Include="SoundDoubleCheck.cpp">
       <Filter>1_Class\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Mongal_HealthBar.cpp">
+      <Filter>2_Actor\UI\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

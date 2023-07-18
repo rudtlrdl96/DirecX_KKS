@@ -1,5 +1,6 @@
 #pragma once
 #include "NormalMonster.h"
+#include "Mongal_HealthBar.h"
 
 class Mongal : public NormalMonster
 {
@@ -44,6 +45,8 @@ protected:
 
 private:
 	int AttackLoopCount = 0;
+
+	std::shared_ptr<Mongal_HealthBar> BossHealthBar = nullptr;
 
 	bool IsMongalDeath = false;
 	bool IsAttackMove = false;
