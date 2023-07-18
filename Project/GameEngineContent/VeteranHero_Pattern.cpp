@@ -1309,6 +1309,8 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 	{
 		IsUltimateCharge = true;
 
+		GameEngineSound::Play("Adventurer_Charge_End.wav");
+
 		UltimateSmokeEffect = EffectManager::PlayEffect({
 			.EffectName = "RookieHero_UltimateComplete",
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 70, 0),
@@ -1354,6 +1356,8 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 		LookPlayer();
 		PlayAnimation("SwordEnergyReady");
 
+		GameEngineSound::Play("Atk_Explosion_Medium.wav");
+
 		EffectManager::PlayEffect({
 			.EffectName = "VeteranHero_EnergyBlast",
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 70, 0),
@@ -1372,6 +1376,9 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 	if (true == IsSwordEnergyReadyStart && false == IsSwordEnergyReadyEnd &&
 		true == Render->IsAnimationEnd())
 	{
+		GameEngineSound::Play("AdventurerHero_Voice_SpecialMove.wav");
+		GameEngineSound::Play("Atk_Smoke_Medium.wav");
+
 		IsSwordEnergyReadyEnd = true;
 		PlayAnimation("SwordEnergy");
 
@@ -1415,6 +1422,8 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 			EffectManager::PlayEffect({
 				.EffectName = "RookieHero_EnergyBallExplosion",
 				.Position = _Parameter.ProjectilePos });
+
+			GameEngineSound::Play("Hit_Sword_Large.wav");
 		};
 
 		std::function<void(const float4& _Pos)> DeathCallback = [](const float4& _Pos)
@@ -1462,6 +1471,7 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 
 		if (0.0f <= SwordEnergyWaveTime)
 		{
+			GameEngineSound::Play("Atk_Smoke_Small.wav");
 			SwordEnergyWaveTime -= 0.1f;
 
 			switch (SmokeDir)
@@ -1497,6 +1507,8 @@ void VeteranHero::Ultimate_Update(float _DeltaTime)
 
 				if (nullptr != SmokeCol)
 				{
+					GameEngineSound::Play("Hit_Skull.wav");
+
 					std::shared_ptr<Player> CastingPtr = SmokeCol->GetActor()->DynamicThis<Player>();
 
 					if (nullptr == CastingPtr)
@@ -1587,12 +1599,15 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 {
 	if (false == IsSecondUltimateReadyEnd && true == Render->IsAnimationEnd())
 	{
+		GameEngineSound::Play("SuperUltraMove_Start.wav");
 		PlayAnimation("Explosion");
 		IsSecondUltimateReadyEnd = true;
 	}
 
 	if (nullptr != SecondUltimateAuraEffect && true == SecondUltimateAuraEffect->IsAnimationEnd())
 	{
+		GameEngineSound::Play("SuperUltraMove_End.wav");
+
 		LookPlayer();
 		PlayAnimation("StingerReady");
 		SecondUltimateAuraEffect = nullptr;
@@ -1626,6 +1641,8 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 
 	if (true == IsSecondUltimateJumpReady && true == Render->IsAnimationEnd())
 	{
+		GameEngineSound::Play("Default_Jump.wav");
+
 		PlayAnimation("Jump");
 
 		EffectManager::PlayEffect({
@@ -1735,6 +1752,7 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 
 		++SecondUltimateStingerCount;	
 		IsSecondUltimateStingerUpdate = true;
+		IsSecondUltimateStingerSound = false;
 
 		IsGroundUpOff = true;
 		IsSecondUltimatePlayerHit = false;
@@ -1756,6 +1774,8 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 
 			if (nullptr != PlayerCol)
 			{
+				GameEngineSound::Play("Hit_Sword_Large.wav");
+
 				std::shared_ptr<Player> CastingPtr = PlayerCol->GetActor()->DynamicThis<Player>();
 
 				if (0.0f > SecondStingerForwardDir.x)
@@ -1766,7 +1786,15 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 				{
 					CastingPtr->HitPlayer(Data.Attack, float4(250, 400));
 				}
+
+				IsSecondUltimatePlayerHit = true;
 			}
+		}
+
+		if (false == IsSecondUltimateStingerSound && 0.25f <= SecondUltimateStingerProgress)
+		{
+			GameEngineSound::Play("AdventurerHero_Slash_withAura.wav");
+			IsSecondUltimateStingerSound = true;
 		}
 
 		if (1.0f <= SecondUltimateStingerProgress)
@@ -1865,6 +1893,10 @@ void VeteranHero::SecondUltimate_Update(float _DeltaTime)
 
 	if (nullptr != LandingSignEffect && true == LandingSignEffect->IsAnimationEnd())
 	{
+		GameEngineSound::Play("AdventurerHero_Voice_SpecialMove.wav");
+		GameEngineSound::Play("AdventurerHero_UltraLanding.wav");
+		GameEngineSound::Play("Hit_Sword_Large.wav");
+
 		SetViewDir(ActorViewDir::Right);
 		PlayAnimation("AttackE");
 		GetTransform()->SetWorldPosition(LandingAttackPos);

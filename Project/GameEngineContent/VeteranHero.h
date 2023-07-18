@@ -161,6 +161,7 @@ protected:
 	bool IsSecondUltimateJump = false;
 	bool IsSecondUltimateStingerStart = false;
 	bool IsSecondUltimateStingerUpdate = false;
+	bool IsSecondUltimateStingerSound = false;
 	bool IsSecondUltimatePlayerHit = false;
 	bool IsSecondUltimateLandingStart = false;
 	bool IsSecondUltimateEnd = false;

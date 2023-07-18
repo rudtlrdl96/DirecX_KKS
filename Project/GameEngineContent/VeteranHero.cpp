@@ -240,10 +240,10 @@ void VeteranHero::Start()
 		});
 
 	//처음 패턴 강제설정
-	Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
-	AttackDistance = 600.0f;
+	//Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
+	//Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
+	//Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
+	//AttackDistance = 600.0f;
 }
 
 void VeteranHero::Update(float _DeltaTime)
@@ -383,6 +383,8 @@ void VeteranHero::Update(float _DeltaTime)
 
 		if (false == IsDeathIntro)
 		{
+			GameEngineSound::Play("AdventurerHero_Voice_Dead.wav");
+
 			if (nullptr != SecondUltimateStingerEffect)
 			{
 				SecondUltimateStingerEffect->IsFadeDeathOn(1.5f);
@@ -580,12 +582,6 @@ void VeteranHero::CreateAnimation()
 
 void VeteranHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&VeteranHero::ComboAttack_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::ComboAttack_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::ComboAttack_End, this);
-	AttackDistance = 400.0f;
-	return;
-
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
 	float CurHpRatio = HP / Data.HP;
