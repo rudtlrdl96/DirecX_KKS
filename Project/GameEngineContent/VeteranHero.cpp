@@ -214,6 +214,8 @@ void VeteranHero::Start()
 			PlayBehaviorAnim = "Intro_Throwing";
 			BossFsm.ChangeState("Behavior");
 
+			GameEngineSound::Play("AdventurerHero_SwordThrowing.wav");
+
 			SwordRigidbody.SetActiveGravity(true);
 			SwordRigidbody.SetVelocity(float4(0, 700, 0));
 			SwordRigidbody.SetGravity(-900.0f);
@@ -270,13 +272,16 @@ void VeteranHero::Update(float _DeltaTime)
 
 		if (170.0f > SwordRender->GetTransform()->GetLocalPosition().y)
 		{
+			GameEngineSound::Play("AdventurerHero_EndAction_AttackReady.wav");
+			GameEngineSound::Play("AdventurerHero_Voice_Short.wav");
+
 			SwordRender->Off();
 			SwordRigidbody.SetActiveGravity(false);
 			SwordRigidbody.SetVelocity(float4::Zero);
 			IsSwordThrowing = false;
 
 			IsBehaviorLoop = false;
-			PlayBehaviorAnim = "Intro_LandEnd";
+			PlayBehaviorAnim = "Intro_LandEnd"; 
 			BossFsm.ChangeState("Behavior");
 
 			BehaviorEndCallback = [this]()
@@ -299,6 +304,8 @@ void VeteranHero::Update(float _DeltaTime)
 			IsBehaviorLoop = false;
 			PlayBehaviorAnim = "Intro_Land";
 			BossFsm.ChangeState("Behavior");
+
+			GameEngineSound::Play("Hero_Landing.wav");
 
 			BehaviorEndCallback = [this]()
 			{
@@ -564,10 +571,20 @@ void VeteranHero::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "StingerReady", .SpriteName = "RookieHero_StingerReady.png", .Loop = false, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Stinger", .SpriteName = "RookieHero_Stinger.png", .Loop = true, .ScaleToTexture = true });
 	Render->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "RookieHero_Jump.png", .Loop = true, .ScaleToTexture = true });
+
+	Render->SetAnimationStartEvent("AttackA", 5, []() {GameEngineSound::Play("AdventurerHero_ComboA.wav"); });
+	Render->SetAnimationStartEvent("AttackB", 1, []() {GameEngineSound::Play("AdventurerHero_ComboB.wav"); });
+	Render->SetAnimationStartEvent("AttackD", 1, []() {GameEngineSound::Play("AdventurerHero_ComboD.wav"); });
 }
 
 void VeteranHero::SelectPattern()
 {
+	Cur_Pattern_Enter = std::bind(&VeteranHero::LandingAttack_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::LandingAttack_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::LandingAttack_End, this);
+	AttackDistance = 2000.0f;
+	return;
+
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 
 	float CurHpRatio = HP / Data.HP;

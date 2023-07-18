@@ -995,6 +995,8 @@ void VeteranHero::LandingAttack_Enter()
 		PlaySpeechBubble("제 2의 초대 용사! 뭔가 이상하지만.", 4.0f);
 		SpeechCoolTime = -10.0f;
 	}
+
+	GameEngineSound::Play("AdventurerHero_Voice_Casting.wav");
 }
 
 void VeteranHero::LandingAttack_Update(float _DeltaTime)
@@ -1005,6 +1007,8 @@ void VeteranHero::LandingAttack_Update(float _DeltaTime)
 	{
 		IsLandingUpReady = true;
 		PlayAnimation("Jump");
+
+		GameEngineSound::Play("Default_Jump.wav");
 
 		EffectManager::PlayEffect({
 			.EffectName = "VeteranHero_JumpSmoke",
@@ -1112,6 +1116,8 @@ void VeteranHero::LandingAttack_Update(float _DeltaTime)
 		LandingAttackCol->On();
 		std::shared_ptr<GameEngineCollision> PlayerCol = LandingAttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
 
+		GameEngineSound::Play("Hit_Sword_Large.wav");
+
 		if (nullptr != PlayerCol)
 		{
 			std::shared_ptr<Player> CastingPtr = PlayerCol->GetActor()->DynamicThis<Player>();
@@ -1131,6 +1137,8 @@ void VeteranHero::LandingAttack_Update(float _DeltaTime)
 			{
 				CastingPtr->HitPlayer(Data.Attack, float4(250, 400));
 			}
+
+			GameEngineSound::Play("Hit_Sword_Small.wav");
 
 			EffectManager::PlayEffect({
 			.EffectName = "HitNormal",
@@ -1157,6 +1165,8 @@ void VeteranHero::LandingAttack_Update(float _DeltaTime)
 				return;
 			}
 
+			GameEngineSound::Play("Hit_Sword_Large.wav");
+
 			MagicSwordInter.x += 130.0f;
 			++MagicSwordCount;
 			LandingMagicSwordTime -= 0.2f;
@@ -1179,6 +1189,7 @@ void VeteranHero::LandingAttack_Update(float _DeltaTime)
 					+ float4(GameEngineRandom::MainRandom.RandomFloat(-20, 20),
 					50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20)) });
 
+				GameEngineSound::Play("Hit_Sword_Small.wav");
 			};
 
 			float4 LeftMagicSwordPos = LandingAttackPos + MagicSwordInter;

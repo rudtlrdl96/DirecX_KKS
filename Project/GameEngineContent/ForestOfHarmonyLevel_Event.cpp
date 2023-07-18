@@ -23,7 +23,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 
 	AddEvent("BossIntroUp", LevelCode, [this]()
 		{
-			MainCamCtrl.SetLookatSpeed(0.5f);
+			MainCamCtrl.SetLookatSpeed(1.0f);
 			MainCamCtrl.SetMaxHeight(7000);
 
 			MainCamCtrl.ActiveForceLookAt(float4(1536, 1600, 0));

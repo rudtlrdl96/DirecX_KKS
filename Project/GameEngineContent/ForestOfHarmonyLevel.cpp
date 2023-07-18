@@ -155,7 +155,7 @@ void ForestOfHarmonyLevel::Start()
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_BossRoomEnd_Map", "DB_ForestOfHarmony_Background_05" });
 	
 	//CurStageIndex = 0;
-	CurStageIndex = 5;
+	CurStageIndex = 10;
 	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
 	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 

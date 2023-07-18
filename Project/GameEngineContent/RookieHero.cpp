@@ -339,7 +339,7 @@ void RookieHero::DataLoad()
 void RookieHero::CreateAnimation()
 {
 	{
-		GameEngineDirectory Path;
+		GameEngineDirectory Path; 
 
 		Path.MoveParentToDirectory("Resources");
 		Path.Move("Resources");
