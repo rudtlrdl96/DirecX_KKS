@@ -11,6 +11,16 @@ BossMonster::~BossMonster()
 {
 }
 
+void BossMonster::Stun(float _Time)
+{
+	if (false == StateIsIdle && false == StateIsHit)
+	{
+		return;
+	}
+
+	BaseMonster::Stun(_Time);
+}
+
 void BossMonster::Start()
 {
 	BaseMonster::Start();

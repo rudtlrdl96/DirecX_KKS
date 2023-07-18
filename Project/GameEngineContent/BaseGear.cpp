@@ -456,12 +456,16 @@ void BaseGear::UseGear()
 
 void BaseGear::SetWaveState(std::shared_ptr<GameEngineCollision> _PlatformCol)
 {
+	DropRigid.SetVelocity(float4::Zero);
+
+	GameEngineSound::Play("DropGear.wav");
+
 	State = GearState::Wave;
 
 	GameEngineTransform* ColTrans = _PlatformCol->GetTransform();
 
 	float4 GreaPos = GetTransform()->GetWorldPosition();
-	float PlatformUp = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy() + Render->GetTransform()->GetWorldScale().hy() + 20;
+	float PlatformUp = ColTrans->GetWorldPosition().y + ColTrans->GetWorldScale().hy() + 40;
 
 	GreaPos.y = PlatformUp;
 

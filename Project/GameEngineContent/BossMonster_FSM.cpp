@@ -6,6 +6,7 @@
 void BossMonster::Idle_Enter() 
 {
 	PlayAnimation("Idle");
+	StateIsIdle = true;
 }
 
 void BossMonster::Idle_Update(float _DeltaTime) 
@@ -81,7 +82,7 @@ void BossMonster::Idle_Update(float _DeltaTime)
 
 void BossMonster::Idle_End() 
 {
-
+	StateIsIdle = false;
 }
 
 
@@ -223,6 +224,8 @@ void BossMonster::Hit_Enter()
 	default:
 		break;
 	}
+
+	StateIsHit = true;
 }
 
 void BossMonster::Hit_Update(float _DeltaTime)
@@ -287,6 +290,7 @@ void BossMonster::Hit_Update(float _DeltaTime)
 void BossMonster::Hit_End()
 {
 	CurWaitTime += 2.0f;
+	StateIsHit = false;
 }
 
 void BossMonster::Groggy_Enter()

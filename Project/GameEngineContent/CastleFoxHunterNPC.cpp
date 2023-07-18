@@ -354,7 +354,7 @@ void CastleFoxHunterNPC::GiveHeadEndCallback()
 
 	std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
 
-	Gear->DropGear(GetTransform()->GetWorldPosition() + float4(0, -100, -1));
+	Gear->DropGear(GetTransform()->GetWorldPosition() + float4(0, -200, -1));
 	Gear->Init(GradeDatas[RandIndex]);
 
 	if (RandGrade == SkullGrade::Legendary)

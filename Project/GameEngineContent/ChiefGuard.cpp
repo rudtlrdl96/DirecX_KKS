@@ -438,7 +438,7 @@ void ChiefGuard::AnimationColLoad()
 	Render->SetAnimationStartEvent("AttackA", 2, []()
 		{
 			GameEngineSound::Play("Atk_Sword_Small 1.wav");
-		});
+		});	
 
 	Render->SetAnimationStartEvent("AttackB", 2, []()
 		{
@@ -449,6 +449,11 @@ void ChiefGuard::AnimationColLoad()
 		{
 			GameEngineSound::Play("Atk_Sword_Small 3.wav");
 		});	
+
+	Render->SetAnimationStartEvent("JumpAttack", 2, []()
+		{
+			GameEngineSound::Play("Atk_Sword_Small 3.wav");
+		});
 	
 	Render->SetAnimationStartEvent("SkillA", 1, []()
 		{

@@ -12,6 +12,8 @@ public:
 	BossMonster& operator=(const BossMonster& _Other) = delete;
 	BossMonster& operator=(BossMonster&& _Other) noexcept = delete;
 
+	void Stun(float _Time) override;
+
 protected:
 	std::weak_ptr<class Player> FindPlayer;
 	std::map<std::string, std::map<UINT, float>> PauseTimes;
@@ -28,6 +30,9 @@ protected:
 
 	bool IsGroundUp = false;
 	bool IsGroundUpOff = false;
+
+	bool StateIsIdle = false;
+	bool StateIsHit = false;
 
 	float GroundY = 0.0f;
 
