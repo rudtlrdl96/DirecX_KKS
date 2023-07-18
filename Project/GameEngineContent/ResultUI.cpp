@@ -152,6 +152,13 @@ void ResultUI::Start()
 	KeyInfoFont->SetColor(float4(0.45f, 0.294f, 0.2784f, 1.0f));
 	KeyInfoFont->SetScale(20);
 
+	CreateLeftFont(ResultTitle0, float4(0, 317, -1), "산산조각 났습니다!");
+	ResultTitle0->SetScale(30);
+	ResultTitle0->SetColor(float4(0.294f, 0.2078f, 0.196f, 1.0f));
+
+	CreateLeftFont(ResultTitle1, float4(0, 280, -1), "당신은 적의 경험치가 되었습니다!!");
+	ResultTitle1->SetScale(26);
+
 	StartPos = float4(0, 175, -4500);
 	EndPos = float4(0, 0, -4500);
 }

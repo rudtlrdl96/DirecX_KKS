@@ -68,6 +68,9 @@ private:
 	std::shared_ptr<ContentUIFontRenderer> DeathInfoFont = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> KeyInfoFont = nullptr;
 
+	std::shared_ptr<ContentUIFontRenderer> ResultTitle0 = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> ResultTitle1 = nullptr;
+
 	float MoveProgress = 0.0f;
 
 	float4 StartPos = float4::Zero;

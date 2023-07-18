@@ -288,9 +288,6 @@ void Player::PlayStoryMove(const float4& _StoryMovePos, std::function<void()> _E
 	MainSkull->PlayStoryMove(_StoryMovePos, _EndCallback);
 }
 
-
-#include "ContentUIRender.h"
-
 void Player::Start()
 {
 	if (false == GameEngineInput::IsKey("Cheat_Attack"))
@@ -570,6 +567,8 @@ void Player::Update(float _DeltaTime)
 
 	if (PlayerState::HP <= 0.0f)
 	{
+		GameEngineSound::Play("Default_Dead.wav");
+
 		std::shared_ptr<ContentLevel> CastingLevel = GetLevel()->DynamicThis<ContentLevel>();
 
 		if (nullptr == CastingLevel) 
