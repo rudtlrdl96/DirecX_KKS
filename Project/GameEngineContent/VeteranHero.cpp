@@ -54,8 +54,9 @@ void VeteranHero::Start()
 	BossRigidbody.SetGravity(ContentConst::Gravity_f - 2000.0f);
 	BossRigidbody.SetActiveGravity(true);
 	BossRigidbody.SetFricCoeff(3000.0f);
-	DashPower = 1450.0f;
-	BackDashPower = 1050.0f;
+
+	DashPower = 2000.0f;
+	BackDashPower = 1500.0f;
 
 	PatternWaitTime = 1.5f;
 
@@ -103,7 +104,8 @@ void VeteranHero::Start()
 	WaveSmokeCol->Off();
 
 	StingerSwordAttackCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::MonsterAttack);
-	StingerSwordAttackCol->GetTransform()->SetWorldScale(float4(330, 240, 1));
+	StingerSwordAttackCol->GetTransform()->SetLocalPosition(float4(0, 65, 0));
+	StingerSwordAttackCol->GetTransform()->SetWorldScale(float4(410, 220, 1));
 	StingerSwordAttackCol->GetTransform()->SetWorldRotation(float4::Zero);
 	StingerSwordAttackCol->SetColType(ColType::AABBBOX2D);
 	StingerSwordAttackCol->Off();
@@ -192,8 +194,6 @@ void VeteranHero::Start()
 	AttackCheck.SetCol(AttackCol, (UINT)CollisionOrder::Player);
 	AttackCheck.SetRender(Render);
 	
-
-
 	SwordRigidbody.SetMaxSpeed(3000.0f);
 	SwordRigidbody.SetFricCoeff(500.0f);
 
@@ -295,11 +295,12 @@ void VeteranHero::Update(float _DeltaTime)
 	if (true == IsIntroJump)
 	{
 		BossRigidbody.UpdateForce(_DeltaTime);
-		float4 IntroVel =  BossRigidbody.GetVelocity();
+		float4 IntroVel = BossRigidbody.GetVelocity();
 
 		if (true == IsGroundUp)
 		{
 			BossRigidbody.SetVelocity(float4::Zero);
+			BossRigidbody.SetFricCoeff(4500.0f);
 
 			IsBehaviorLoop = false;
 			PlayBehaviorAnim = "Intro_Land";
@@ -573,16 +574,16 @@ void VeteranHero::CreateAnimation()
 	Render->CreateAnimation({ .AnimationName = "Jump", .SpriteName = "RookieHero_Jump.png", .Loop = true, .ScaleToTexture = true });
 
 	Render->SetAnimationStartEvent("AttackA", 5, []() {GameEngineSound::Play("AdventurerHero_ComboA.wav"); });
-	Render->SetAnimationStartEvent("AttackB", 1, []() {GameEngineSound::Play("AdventurerHero_ComboB.wav"); });
+	Render->SetAnimationStartEvent("AttackB", 1, []() {GameEngineSound::Play("Atk_Sword_Large (Heavy)_2.wav"); });
 	Render->SetAnimationStartEvent("AttackD", 1, []() {GameEngineSound::Play("AdventurerHero_ComboD.wav"); });
 }
 
 void VeteranHero::SelectPattern()
 {
-	Cur_Pattern_Enter = std::bind(&VeteranHero::LandingAttack_Enter, this);
-	Cur_Pattern_Update = std::bind(&VeteranHero::LandingAttack_Update, this, std::placeholders::_1);
-	Cur_Pattern_End = std::bind(&VeteranHero::LandingAttack_End, this);
-	AttackDistance = 2000.0f;
+	Cur_Pattern_Enter = std::bind(&VeteranHero::ComboAttack_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::ComboAttack_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::ComboAttack_End, this);
+	AttackDistance = 400.0f;
 	return;
 
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
@@ -675,6 +676,18 @@ void VeteranHero::SelectPattern()
 		MsgAssert_Rtti<VeteranHero>(" - 존재하지 않는 패턴으로 설정하려 했습니다");
 		break;
 	}
+}
+
+void VeteranHero::Dash_Enter()
+{
+	BossMonster::Dash_Enter();
+	GameEngineSound::Play("AdventurerHero_BackDash.wav");
+}
+
+void VeteranHero::BackDash_Enter()
+{
+	BossMonster::BackDash_Enter();
+	GameEngineSound::Play("AdventurerHero_BackDash.wav");
 }
 
 

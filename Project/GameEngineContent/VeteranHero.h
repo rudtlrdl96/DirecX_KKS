@@ -80,6 +80,7 @@ protected:
 	bool IsExplosion = false;
 	bool IsExplosionEffect = false;
 	bool IsExplosionChargeEffect = false;
+	bool IsExplosionSound = false;
 
 	float4 ExplosionChargeScaleStart = float4::One;
 	float4 ExplosionChargeScaleEnd = float4::One;
@@ -190,6 +191,9 @@ protected:
 	void CreateAnimation() override;
 
 	void SelectPattern() override;
+
+	void Dash_Enter() override;
+	void BackDash_Enter() override;
 
 	void ComboAttack_Enter();
 	void ComboAttack_Update(float _DeltaTime);

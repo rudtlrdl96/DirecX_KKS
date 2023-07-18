@@ -12,6 +12,8 @@ void VeteranHero::ComboAttack_Enter()
 
 	AttackCheck.SetEvent([this](std::shared_ptr<BaseContentActor> _Ptr, const AttackColMetaData& _Data)
 		{
+			GameEngineSound::Play("Hit_Sword_Small.wav");
+
 			std::shared_ptr <Player> CastPtr = std::static_pointer_cast<Player>(_Ptr);
 
 			if (nullptr == CastPtr)
@@ -81,10 +83,10 @@ void VeteranHero::ComboAttack_Update(float _DeltaTime)
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				BossRigidbody.SetVelocity(float4::Left * 800.0f);
+				BossRigidbody.SetVelocity(float4::Left * 1100.0f);
 				break;
 			case ActorViewDir::Right:
-				BossRigidbody.SetVelocity(float4::Right * 800.0f);
+				BossRigidbody.SetVelocity(float4::Right * 1100.0f);
 				break;
 			default:
 				break;
@@ -109,10 +111,10 @@ void VeteranHero::ComboAttack_Update(float _DeltaTime)
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				BossRigidbody.SetVelocity(float4::Left * 800.0f);
+				BossRigidbody.SetVelocity(float4::Left * 1100.0f);
 				break;
 			case ActorViewDir::Right:
-				BossRigidbody.SetVelocity(float4::Right * 800.0f);
+				BossRigidbody.SetVelocity(float4::Right * 1100.0f);
 				break;
 			default:
 				break;
@@ -128,15 +130,17 @@ void VeteranHero::ComboAttack_Update(float _DeltaTime)
 		}
 		else if (false == ComboDashCheck && 1 == Render->GetCurrentFrame())
 		{
+			GameEngineSound::Play("Atk_Sword_Thin.wav");
+
 			ComboDashCheck = true;
 
 			switch (Dir)
 			{
 			case ActorViewDir::Left:
-				BossRigidbody.SetVelocity(float4::Left * 800.0f);
+				BossRigidbody.SetVelocity(float4::Left * 1100.0f);
 				break;
 			case ActorViewDir::Right:
-				BossRigidbody.SetVelocity(float4::Right * 800.0f);
+				BossRigidbody.SetVelocity(float4::Right * 1100.0f);
 				break;
 			default:
 				break;
@@ -162,6 +166,8 @@ void VeteranHero::ComboAttack_Update(float _DeltaTime)
 			std::function<void(std::shared_ptr<class BaseContentActor>, ProjectileHitParameter _Parameter)> HitCallback =
 				[](std::shared_ptr<class BaseContentActor> _ColActor, ProjectileHitParameter _Parameter)
 			{
+				GameEngineSound::Play("Hit_Sword_Large.wav");
+
 				std::shared_ptr<Player> CastingPtr = _ColActor->DynamicThis<Player>();
 
 				if (nullptr == CastingPtr)
@@ -204,6 +210,8 @@ void VeteranHero::EnergyBall_Enter()
 	PlayAnimation("EnergyBallReady");
 	IsEnergyBallShot = false;
 
+	GameEngineSound::Play("AdventurerHero_EnergyBall.wav");
+
 	switch (Dir)
 	{
 	case ActorViewDir::Left:
@@ -238,6 +246,8 @@ void VeteranHero::EnergyBall_Update(float _DeltaTime)
 	{
 		if (true == Render->IsAnimationEnd())
 		{
+			GameEngineSound::Play("Atk_Explosion_Small.wav");
+
 			PlayAnimation("EnergyBall");
 			IsEnergyBallShot = true;
 
@@ -316,6 +326,8 @@ void VeteranHero::EnergyBallShot(float _Rot, float _LiveTime)
 		EffectManager::PlayEffect({
 			.EffectName = "RookieHero_EnergyBallExplosion_Large",
 			.Position = _Parameter.ProjectilePos });
+
+		SoundDoubleCheck::Play("Hit_Energy_Small.wav");
 	};
 
 	ContentLevel* Level = GetContentLevel();
@@ -370,6 +382,7 @@ void VeteranHero::Explosion_Enter()
 		PlaySpeechBubble("떨어져!", 4.0f);
 		SpeechCoolTime = -10.0f;
 	}
+	IsExplosionSound = false;
 }
 
 void VeteranHero::Explosion_Update(float _DeltaTime)
@@ -386,6 +399,8 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 	{
 		IsExplosionChargeEffect = true;
 
+		GameEngineSound::Play("AdventurerHero_EnergyBlast_Charging.wav");
+
 		EffectManager::PlayEffect({
 			.EffectName = "VeteranHero_EnergyCharging",
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 170, 0) });
@@ -401,7 +416,7 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 			float4::LerpClamp(ExplosionChargeScaleStart, ExplosionChargeScaleEnd, ExplosionChargeProgress));
 
 		if (0.0f < ExplosionChargeDamageCoolTime)
-		{	
+		{
 			std::shared_ptr<GameEngineCollision> ExploCol = ExplosionCol->Collision((int)CollisionOrder::Player, ColType::SPHERE2D, ColType::AABBBOX2D);
 
 			if (nullptr != ExploCol)
@@ -454,6 +469,12 @@ void VeteranHero::Explosion_Update(float _DeltaTime)
 	if (false == IsExplosionAttackEnd &&
 		nullptr != ExplosionEffect && 4 == ExplosionEffect->GetCurrentFrame())
 	{
+		if (false == IsExplosionSound)
+		{
+			GameEngineSound::Play("Atk_Explosion_Large.wav");
+			IsExplosionSound = true;
+		}
+
 		ExplosionCol->On();
 		std::shared_ptr<GameEngineCollision> ExploCol = ExplosionCol->Collision((int)CollisionOrder::Player, ColType::SPHERE2D, ColType::AABBBOX2D);
 
@@ -513,7 +534,7 @@ void VeteranHero::Stinger_Enter()
 	IsStingerSwordHit = false;
 
 	PrevRigdFricCoeff = BossRigidbody.GetFricCoeff();
-	BossRigidbody.SetFricCoeff(1200.0f);
+	BossRigidbody.SetFricCoeff(3000.0f);
 	BossRigidbody.SetActiveGravity(false);
 
 	if (0.0f <= SpeechCoolTime)
@@ -521,6 +542,9 @@ void VeteranHero::Stinger_Enter()
 		PlaySpeechBubble("용사 검술, 제 2장!", 4.0f);
 		SpeechCoolTime = -10.0f;
 	}
+
+	GameEngineSound::Play("AdventurerHero_EndAction_AttackReady.wav");
+	GameEngineSound::Play("AdventurerHero_Voice_Short.wav");
 }
 
 void VeteranHero::Stinger_Update(float _DeltaTime)
@@ -528,6 +552,9 @@ void VeteranHero::Stinger_Update(float _DeltaTime)
 	if (false == IsStingerReadyEnd && Render->IsAnimationEnd())
 	{
 		StingerAttackCol->On();
+
+		GameEngineSound::Play("AdventurerHero_Stinger.wav");
+		GameEngineSound::Play("AdventurerHero_Voice_SpecialMove.wav");
 
 		StingerEffect = EffectManager::PlayEffect({
 			.EffectName = "VeteranHero_Stinger",
@@ -542,10 +569,10 @@ void VeteranHero::Stinger_Update(float _DeltaTime)
 		switch (Dir)
 		{
 		case ActorViewDir::Left:
-			BossRigidbody.SetVelocity(float4::Left * 1300.0f);
+			BossRigidbody.SetVelocity(float4::Left * 2000.0f);
 			break;
 		case ActorViewDir::Right:
-			BossRigidbody.SetVelocity(float4::Right * 1300.0f);
+			BossRigidbody.SetVelocity(float4::Right * 2000.0f);
 			break;
 		}
 
@@ -612,21 +639,13 @@ void VeteranHero::Stinger_Update(float _DeltaTime)
 	if (false == IsStingerSwordHit &&
 		true == IsStingerEnd &&  1 == Render->GetCurrentFrame())
 	{
-		switch (Dir)
-		{
-		case ActorViewDir::Left:
-			StingerSwordAttackCol->GetTransform()->SetLocalPosition(float4(-20, 65, 1));
-			break;
-		case ActorViewDir::Right:
-			StingerSwordAttackCol->GetTransform()->SetLocalPosition(float4(20, 65, 1));
-			break;
-		}
-
 		StingerSwordAttackCol->On();
 		std::shared_ptr<GameEngineCollision> SwrodCol = StingerSwordAttackCol->Collision((int)CollisionOrder::Player, ColType::SPHERE2D, ColType::AABBBOX2D);
 
 		if (nullptr != SwrodCol)
 		{
+			GameEngineSound::Play("Hit_Sword_Large.wav");
+
 			std::shared_ptr<Player> CastPtr = SwrodCol->GetActor()->DynamicThis<Player>();
 
 			if (nullptr == CastPtr)
@@ -670,6 +689,8 @@ void VeteranHero::Stinger_Update(float _DeltaTime)
 			Pivot = float4(0, 60, 0);
 			break;
 		}
+
+		GameEngineSound::Play("AdventurerHero_StingerSword.wav");
 
 		StingerEffect = EffectManager::PlayEffect({
 			.EffectName = "VeteranHero_StingerSlash",
@@ -719,6 +740,8 @@ void VeteranHero::SwordWave_Enter()
 		PlaySpeechBubble("한발 한발에 진심 담기!", 4.0f);
 		SpeechCoolTime = -10.0f;
 	}
+
+	GameEngineSound::Play("AdventurerHero_ComboD.wav");
 }
 
 void VeteranHero::SwordWave_Update(float _DeltaTime)
@@ -750,6 +773,8 @@ void VeteranHero::SwordWave_End()
 
 void VeteranHero::SworWaveShot()
 {
+	GameEngineSound::Play("Atk_Sword_Thin.wav");
+
 	std::shared_ptr<Projectile> ShotProjectile = GetLevel()->CreateActor<Projectile>();
 
 	float4 Pivot = float4::Zero;
@@ -777,6 +802,8 @@ void VeteranHero::SworWaveShot()
 			MsgAssert_Rtti<VeteranHero>(" - 플레이어 클래스만 Player ColOrder를 가질 수 있습니다");
 			return;
 		}
+
+		GameEngineSound::Play("Hit_Sword_Large.wav");
 
 		CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 300.0f);
 
@@ -813,6 +840,7 @@ void VeteranHero::JumpAttack_Enter()
 	IsJumpAttackLandSmoke = false;
 
 	PrevRigdGravity = BossRigidbody.GetGravity();
+	BossRigidbody.SetVelocity(float4::Zero);
 
 	if (0.0f <= SpeechCoolTime)
 	{
@@ -875,6 +903,8 @@ void VeteranHero::JumpAttack_Update(float _DeltaTime)
 				50 + GameEngineRandom::MainRandom.RandomFloat(-20, 20)) });
 		}		
 
+		GameEngineSound::Play("Atk_Sword_Large (Slash Up).wav");
+
 		GetTransform()->AddLocalPosition(float4(0, 5, 0));
 		switch (Dir)
 		{
@@ -906,6 +936,9 @@ void VeteranHero::JumpAttack_Update(float _DeltaTime)
 	if (false == IsJumpAttackLandSmoke && true == IsJumpAttackEnd &&
 		true == IsGroundUp)
 	{
+		GameEngineSound::Play("Hit_Sword_Large.wav");
+		GameEngineSound::Play("AdventurerHero_Voice_SpecialMove.wav");
+
 		JumpAttackCol->GetTransform()->SetLocalPosition(float4(0, 40, 0));
 		JumpAttackCol->GetTransform()->SetLocalScale(float4(300, 80, 1));
 		JumpAttackCol->On();
@@ -932,6 +965,8 @@ void VeteranHero::JumpAttack_Update(float _DeltaTime)
 			{
 				CastingPtr->HitPlayer(Data.Attack, float4(250, 400));
 			}
+
+			GameEngineSound::Play("Hit_Sword_Large.wav");
 
 			EffectManager::PlayEffect({
 			.EffectName = "HitNormal",
@@ -1117,6 +1152,7 @@ void VeteranHero::LandingAttack_Update(float _DeltaTime)
 		std::shared_ptr<GameEngineCollision> PlayerCol = LandingAttackCol->Collision((int)CollisionOrder::Player, ColType::AABBBOX2D, ColType::AABBBOX2D);
 
 		GameEngineSound::Play("Hit_Sword_Large.wav");
+		GameEngineSound::Play("AdventurerHero_Voice_SpecialMove.wav");
 
 		if (nullptr != PlayerCol)
 		{
