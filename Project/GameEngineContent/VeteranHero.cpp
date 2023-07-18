@@ -240,10 +240,10 @@ void VeteranHero::Start()
 		});
 
 	//처음 패턴 강제설정
-	//Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
-	//Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
-	//Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
-	//AttackDistance = 600.0f;
+	Cur_Pattern_Enter = std::bind(&VeteranHero::Stinger_Enter, this);
+	Cur_Pattern_Update = std::bind(&VeteranHero::Stinger_Update, this, std::placeholders::_1);
+	Cur_Pattern_End = std::bind(&VeteranHero::Stinger_End, this);
+	AttackDistance = 600.0f;
 }
 
 void VeteranHero::Update(float _DeltaTime)
