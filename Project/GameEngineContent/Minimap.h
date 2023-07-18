@@ -22,6 +22,8 @@ public:
 	void MinimapOn();
 	void MinimapOff(bool _Force = false);
 
+	void MonsterCountUpdate(size_t _Count);
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -29,7 +31,10 @@ protected:
 private:
 	std::shared_ptr<class ContentUIRender> MinimapImageRender = nullptr;
 	std::shared_ptr<class ContentUIRender> MinimapFrameRender = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> MonsterCountRender = nullptr;
 	std::shared_ptr<class GameEngineCamera> MinimapCamera = nullptr;
+
+	std::shared_ptr<ContentUIFontRenderer> MonsterCountFont = nullptr;
 
 	ColorBuffer Buffer;
 

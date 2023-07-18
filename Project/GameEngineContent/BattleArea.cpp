@@ -198,3 +198,15 @@ void BattleArea::ClearStage()
 		CurStage->StageReset();
 	}
 }
+
+size_t BattleArea::GetMonsterCount() const
+{
+	if (nullptr == CurStage)
+	{
+		return 0;
+	}
+	else
+	{
+		return CurStage->GetMonsterCount();
+	}
+}

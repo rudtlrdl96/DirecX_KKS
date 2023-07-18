@@ -224,6 +224,9 @@ void BattleLevel::Update(float _DeltaTime)
 
 	ContentLevel::Update(_DeltaTime);
 
+	MinimapPtr->MonsterCountUpdate(BattleAreaPtr->GetMonsterCount());
+
+
 	if (true == IsPlayerDeath)
 	{
 		DeathTime += GameEngineTime::GlobalTime.GetDeltaTime();

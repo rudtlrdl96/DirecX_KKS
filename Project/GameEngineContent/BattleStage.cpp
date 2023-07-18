@@ -86,6 +86,11 @@ void BattleStage::Destroy()
 	GetContentLevel()->RemoveEvent("DoorLockMinus", GetActorCode());
 }
 
+size_t BattleStage::GetMonsterCount() const
+{
+	return MonsterMgrPtr->GetMonsterCount();
+}
+
 void BattleStage::Start()
 {
 	std::shared_ptr<GameEngineLevel> LevelPtr = GetLevel()->DynamicThis<GameEngineLevel>();

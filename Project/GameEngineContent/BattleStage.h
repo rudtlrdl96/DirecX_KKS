@@ -54,6 +54,8 @@ public:
 		IsNoneReward = true;
 	}
 
+	size_t GetMonsterCount() const;
+
 
 protected:
 	void Start() override;

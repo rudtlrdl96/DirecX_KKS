@@ -32,6 +32,11 @@ void Minimap::MinimapOff(bool _Force /*= false*/)
 	}
 }
 
+void Minimap::MonsterCountUpdate(size_t _Count)
+{
+	MonsterCountFont->SetText(std::to_string(_Count));
+}
+
 void Minimap::Start()
 {
 	if (nullptr == GameEngineTexture::Find("Minimap_Frame.png"))
@@ -69,13 +74,25 @@ void Minimap::Start()
 	float4 FrameScale = MinimapFrameRender->GetTransform()->GetLocalScale();
 	MinimapFrameRender->GetTransform()->SetLocalScale(FrameScale * 2.0f);
 
+	MonsterCountRender = CreateComponent<GameEngineUIRenderer>();
+	MonsterCountRender->GetTransform()->SetLocalPosition(float4(88, 77));
+	MonsterCountRender->SetScaleToTexture("Enemy_Icon.png");
+	float4 RenderScale = MonsterCountRender->GetTransform()->GetLocalScale();
+	MonsterCountRender->GetTransform()->SetLocalScale(RenderScale * 2.0f);
+
+	MonsterCountFont = CreateComponent<ContentUIFontRenderer>();
+	MonsterCountFont->GetTransform()->SetLocalPosition(float4(72, 75, 0));
+	MonsterCountFont->SetFont("ÈÞ¸ÕµÕ±ÙÇìµå¶óÀÎ");
+	MonsterCountFont->SetScale(15);
+	MonsterCountFont->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_RIGHT | FW1_VCENTER));
+	MonsterCountFont->SetColor(float4(0.9f, 0.9f, 0.9f, 1));
+	MonsterCountFont->SetText("0");
+
 	StartPos = float4(530, -430);
 	EndPos = float4(530, -295);
 
 	GetTransform()->SetWorldPosition(StartPos);
 }
-
-#include "GameEngineActorGUI.h"
 
 void Minimap::Update(float _DeltaTime)
 {

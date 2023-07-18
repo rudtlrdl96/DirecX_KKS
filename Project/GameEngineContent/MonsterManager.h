@@ -84,6 +84,8 @@ public:
 
 	void ResetMonster();
 
+	size_t GetMonsterCount() const;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime);

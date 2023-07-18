@@ -502,6 +502,18 @@ void MonsterManager::ResetMonster()
 	}
 }
 
+size_t MonsterManager::GetMonsterCount() const
+{
+	size_t MonsterCount = 0;
+
+	for (size_t i = 0; i < MonsterActors.size(); i++)
+	{
+		MonsterCount += MonsterActors[i].size();
+	}
+
+	return MonsterCount;
+}
+
 void MonsterManager::Start()
 {
 	WaveCollision = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);

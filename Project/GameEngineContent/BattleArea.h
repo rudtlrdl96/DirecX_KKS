@@ -43,6 +43,8 @@ public:
 
 	void ClearStage();
 
+	size_t GetMonsterCount() const;
+
 protected:
 
 private:
