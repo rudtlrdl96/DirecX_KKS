@@ -25,6 +25,7 @@ public:
 	BehaviorObject& operator=(const BehaviorObject& _Other) = delete;
 	BehaviorObject& operator=(BehaviorObject&& _Other) noexcept = delete;
 
+	virtual void Init() {}
 	virtual void ResetBehavior() = 0;
 	virtual void PlayBehavior() = 0;
 

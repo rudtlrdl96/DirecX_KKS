@@ -7,6 +7,10 @@
 #include <GameEngineCore/imgui.h>
 
 // BehaviorObject
+#include "Bat.h"
+#include "Mouse.h"
+#include "Spider.h"
+
 #include "FireFlower.h"
 #include "ThornBush.h"
 #include "Vine.h"
@@ -45,6 +49,15 @@ std::shared_ptr<BehaviorObject> ObjectManager::CreateBehaviorObject(const Behavi
 
 	switch (_MetaData.Index)
 	{
+	case 100: // Bat
+		NewBehaviorObject = GetLevel()->CreateActor<Bat>();
+		break;
+	case 101: // Mouse
+		NewBehaviorObject = GetLevel()->CreateActor<Mouse>();
+		break;
+	case 102: // Spider
+		NewBehaviorObject = GetLevel()->CreateActor<Spider>();
+		break;
 	case 200: // FireFlower
 		NewBehaviorObject = GetLevel()->CreateActor<FireFlower>();
 		break;
@@ -76,6 +89,8 @@ std::shared_ptr<BehaviorObject> ObjectManager::CreateBehaviorObject(const Behavi
 	ObjectTrans->SetParent(GetTransform());
 	ObjectTrans->SetLocalPosition(_MetaData.Position);
 	ObjectTrans->SetLocalRotation(_MetaData.Rotation);
+
+	NewBehaviorObject->Init();
 
 	BehaviorObjectActors.push_back(NewBehaviorObject);
 

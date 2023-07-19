@@ -397,6 +397,9 @@
     <Filter Include="1_Class\Sound">
       <UniqueIdentifier>{9d614def-bb61-49aa-8ff6-dc6f8902478d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\Object\BehaviorObject\Castle">
+      <UniqueIdentifier>{3553158c-275c-478e-9bdf-de1cfde1b0f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -1049,6 +1052,15 @@
     </ClInclude>
     <ClInclude Include="BossNameFont.h">
       <Filter>2_Actor\UI\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="Spider.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Castle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1759,6 +1771,15 @@
     </ClCompile>
     <ClCompile Include="BossNameFont.cpp">
       <Filter>2_Actor\UI\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="Spider.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Castle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

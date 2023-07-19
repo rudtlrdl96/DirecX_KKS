@@ -114,6 +114,20 @@ void ContentCore::ObjectLoad()
 			Path.MoveParent();
 		}
 
+
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 100,
+			.Grade = LevelArea::Castle,
+			.Name = "Bat_Preview.png" });
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 101,
+			.Grade = LevelArea::Castle,
+			.Name = "Mouse_Preview.png" });
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 102,
+			.Grade = LevelArea::Castle,
+			.Name = "Spider_Preview.png" });
+
 		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
 			.Index = 200,
 			.Grade = LevelArea::ForestOfHarmory,
