@@ -3,6 +3,7 @@
 #include "TalkBox.h"
 #include "Player.h"
 #include "FadeActor.h"
+#include "BossNameFont.h"
 
 void OpeningLevel::CreateOpeningEvent()
 {
@@ -404,12 +405,16 @@ void OpeningLevel::CreateOpeningEvent()
 				TalkBoxPtr->ActiveTalkBox("오우거", float4(0, 0), float4(110, 0 ));
 				TalkBoxPtr->SetMainText(L"...", [this]()
 					{
-						MainCamCtrl.SetLookatSpeed();
-						MainPlayer->InputUnlock();
 						TalkBoxPtr->Off();
-						CallEvent("UnLockCam");
-						CallEvent("StoryFadeOut");
-						CallEvent("MongalDeath_Appear_End");
+
+						BossNamePtr->ShowBossName("몬갈", "오우거", [this]()
+							{
+								MainCamCtrl.SetLookatSpeed();
+								MainPlayer->InputUnlock();
+								CallEvent("UnLockCam");
+								CallEvent("StoryFadeOut");
+								CallEvent("MongalDeath_Appear_End");
+							});
 					});
 			};
 

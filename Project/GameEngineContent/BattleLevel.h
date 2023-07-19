@@ -23,6 +23,7 @@ public:
 	BattleLevel& operator=(BattleLevel&& _Other) noexcept = delete;
 
 	void MoveCastle();
+	void ShowBossName(const std::string_view& _Name, const std::string_view& _Note, std::function<void()> _EndCallback = nullptr);
 
 protected:
 	GameEngineCamera* MinimapCam = nullptr;
@@ -40,6 +41,7 @@ protected:
 	std::shared_ptr<class FadeActor> FadeActorPtr_White = nullptr;
 	std::shared_ptr<class StoryFade> StoryFadePtr = nullptr;
 	std::shared_ptr<class TalkBox> TalkBoxPtr = nullptr;
+	std::shared_ptr<class BossNameFont> BossNamePtr = nullptr;
 
 	std::shared_ptr<class Player> MainPlayer = nullptr;
 	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;

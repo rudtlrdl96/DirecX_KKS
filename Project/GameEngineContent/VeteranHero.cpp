@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "VeteranHeroMagicSword.h"
 #include "ResultInfo.h"
+#include "BattleLevel.h"
 
 VeteranHero::VeteranHero()
 {

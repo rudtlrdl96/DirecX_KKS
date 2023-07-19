@@ -152,6 +152,8 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 
 	AddEvent("VeteranHero_Script02", LevelCode, [this]()
 		{
+			ShowBossName("견습용사", "칼레온의 희망");
+
 			TalkBoxPtr->ActiveTalkBox("견습 용사");
 			TalkBoxPtr->SetMainText(L"정의의 검을 받을 준비는 되었나?", [this]()
 				{

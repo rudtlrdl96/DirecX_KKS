@@ -97,6 +97,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BossNameFont.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentLevelLightGUI.h">
       <SubType>
       </SubType>
@@ -919,6 +923,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BattleActorHealFont.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BossNameFont.cpp">
       <SubType>
       </SubType>
     </ClCompile>

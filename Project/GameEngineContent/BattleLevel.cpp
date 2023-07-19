@@ -20,6 +20,7 @@
 #include "StageInfoFrame.h"
 #include "GoodsUI.h"
 #include "ResultUI.h"
+#include "BossNameFont.h"
 
 BattleLevel::BattleLevel()
 {
@@ -84,6 +85,9 @@ void BattleLevel::Start()
 
 	PivotStart = float4(-225, -305, 0);
 	PivotEnd = float4(-225, -130, 0);
+
+	BossNamePtr = CreateActor<BossNameFont>();
+	BossNamePtr->GetTransform()->SetLocalPosition(float4(620, -300, -200));
 
 	AddEvent("NextLevelMove", LevelCode, [this]()
 		{
@@ -217,9 +221,14 @@ void BattleLevel::Start()
 		});
 
 }
+#include "GameEngineActorGUI.h"
 
 void BattleLevel::Update(float _DeltaTime)
 {
+	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	Ptr->SetTarget(BossNamePtr->GetTransform());
+	Ptr->On();
+
 	ResultInfo::PlayTime += _DeltaTime;
 
 	ContentLevel::Update(_DeltaTime);
@@ -464,4 +473,9 @@ void BattleLevel::MoveCastle()
 			IsLevelMove = false;
 			ResultUIPtr->Off();
 		});
+}
+
+void BattleLevel::ShowBossName(const std::string_view& _Name, const std::string_view& _Note, std::function<void()> _EndCallback /*= nullptr*/)
+{
+	BossNamePtr->ShowBossName(_Name, _Note, _EndCallback);
 }
