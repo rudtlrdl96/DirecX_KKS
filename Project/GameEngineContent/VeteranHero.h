@@ -41,6 +41,7 @@ protected:
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Left = nullptr;
 	std::shared_ptr<GameEngineCollision> Battle_Platform_Right = nullptr;
 
+	bool IsSoundEnd = false;
 	bool IsPlayerEnter = false;
 	UINT PatternIndex = 0;
 

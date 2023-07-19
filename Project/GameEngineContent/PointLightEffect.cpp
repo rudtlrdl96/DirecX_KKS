@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "PointLightEffect.h"
 #include <GameEngineCore/imgui.h>
+#include <GameEngineCore/GameEngineDevice.h>
 
 PointLightEffect::PointLightEffect()
 {

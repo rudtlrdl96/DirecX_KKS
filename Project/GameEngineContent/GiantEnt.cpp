@@ -32,6 +32,9 @@ void GiantEnt::Start()
 	{
 		GameEngineSound::Play("Legacy_Hit (Unused).wav");
 	};
+
+
+	DeadSound = "Legacy_Dead_Temp (Unused).wav";
 }
 
 void GiantEnt::DataLoad()

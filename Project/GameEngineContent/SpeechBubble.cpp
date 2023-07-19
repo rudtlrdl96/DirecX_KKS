@@ -17,6 +17,7 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 	if (nullptr == Target.lock())
 	{
 		BubbleRender->Off();
+		BottomRender->Off();
 		return;
 	}
 
@@ -32,17 +33,6 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 	Pivot = _BubbleParameter.Pivot;
 
 	IsLoop = _BubbleParameter.IsLoop;
-
-	if (true == _BubbleParameter.IsLarge)
-	{
-		BubbleRender->SetTextureAndSlice("SpeechBubble_Large.png", 0.03f, 0.03f, 0.06f, 0.2f);
-		FontRender->GetTransform()->SetLocalPosition(float4(0, 5, -0.1f));
-	}
-	else
-	{
-		BubbleRender->SetTextureAndSlice("SpeechBubble.png", 0.034f, 0.034f, 0.49f, 0.49f);
-		FontRender->GetTransform()->SetLocalPosition(float4(0, 5, -0.1f));
-	}
 
 	KeyImages.resize(_BubbleParameter.KeyImages.size());
 
@@ -67,19 +57,8 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 	{
 		std::wstring BubbleText = GameEngineString::AnsiToUniCode(TalkText);
 
-		float TextureBoardX = 0.0f;
-		float TextureBoardY = 0.0f;
-		
-		if (true == _BubbleParameter.IsLarge)
-		{
-			TextureBoardX = 195.0f;
-			TextureBoardY = 55.0f;
-		}
-		else
-		{
-			TextureBoardX = 120.0f;
-			TextureBoardY = 30.0f;
-		}
+		float TextureBoardX = 120.0f;
+		float TextureBoardY = 30.0f;
 
 		float CurX = 0.0f;
 		float CurY = _BubbleParameter.FontSize;
@@ -122,12 +101,16 @@ void SpeechBubble::PlayBubble(const SpeechBubbleParameter& _BubbleParameter)
 		}
 	}
 
+	SetBottomRenderTransform();
+
 	BubbleRender->On();
+	BottomRender->On();
 }
 
 void SpeechBubble::SetBubbleScale(const float4& _Scale)
 {
 	BubbleRender->GetTransform()->SetLocalScale(_Scale);
+	SetBottomRenderTransform();
 }
 
 
@@ -138,7 +121,7 @@ void SpeechBubble::On()
 
 void SpeechBubble::Start()
 {
-	if (nullptr == GameEngineTexture::Find("SpeechBubble.png"))
+	if (nullptr == GameEngineTexture::Find("SpeechBubble_Top.png"))
 	{
 		GameEngineDirectory Path;
 
@@ -148,17 +131,23 @@ void SpeechBubble::Start()
 		Path.Move("0_Common");
 		Path.Move("UI");
 
-		GameEngineTexture::Load(Path.GetPlusFileName("SpeechBubble.png").GetFullPath());
-		GameEngineTexture::Load(Path.GetPlusFileName("SpeechBubble_Large.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("SpeechBubble_Top.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("SpeechBubble_Bottom.png").GetFullPath());
 	}
 
 	BubbleRender = CreateComponent<ContentSlice9Renderer>();
+	BubbleRender->SetTextureAndSlice("SpeechBubble_Top.png", 0.034f, 0.034f, 0.49f, 0.49f);
 	BubbleRender->Off();
+
+	BottomRender = CreateComponent<GameEngineSpriteRenderer>();
+	BottomRender->SetScaleToTexture("SpeechBubble_Bottom.png");
+	BottomRender->Off();
 
 	FontRender = CreateComponent<GameEngineFontRenderer>();
 	FontRender->SetFont("³Ø½¼Lv2°íµñ");
 	FontRender->SetScale(15);
 	FontRender->SetColor(float4(1, 1, 1, 1));
+	FontRender->GetTransform()->SetLocalPosition(float4(0, 5, -0.1f));
 	FontRender->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_CENTER));
 
 	FontRender->Off();
@@ -174,6 +163,7 @@ void SpeechBubble::Update(float _DeltaTime)
 	if (nullptr == Target.lock())
 	{
 		BubbleRender->Off();
+		BottomRender->Off();
 		FontRender->Off();
 
 		for (size_t i = 0; i < KeyImages.size(); i++)
@@ -186,6 +176,7 @@ void SpeechBubble::Update(float _DeltaTime)
 	else
 	{
 		BubbleRender->On();
+		BottomRender->On();
 		FontRender->On();
 
 		for (size_t i = 0; i < KeyImages.size(); i++)
@@ -199,6 +190,7 @@ void SpeechBubble::Update(float _DeltaTime)
 	if (0.0f > OffTime)
 	{
 		BubbleRender->Off();
+		BottomRender->Off();
 		FontRender->Off();
 
 		for (size_t i = 0; i < KeyImages.size(); i++)
@@ -227,4 +219,12 @@ void SpeechBubble::Update(float _DeltaTime)
 		}
 	}
 
+}
+
+void SpeechBubble::SetBottomRenderTransform()
+{
+	GameEngineTransform* TopTrans = BubbleRender->GetTransform();
+	GameEngineTransform* BottomTrans = BottomRender->GetTransform();
+	
+	BottomTrans->SetLocalPosition(TopTrans->GetLocalPosition() - float4(0, TopTrans->GetLocalScale().hy() - 8, 1));
 }

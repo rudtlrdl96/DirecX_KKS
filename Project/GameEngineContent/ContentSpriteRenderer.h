@@ -150,11 +150,11 @@ public:
 	void PipeSetting(const std::string_view _PipeName, bool _IsAtlasData = true);
 
 protected:
+	void Render(float _Delta) override;
 
 private:
 	void Update(float _Delta) override;
 
-	void Render(float _Delta) override;
 
 	std::map<std::string, std::shared_ptr<ContentAnimationInfo>> Animations;
 

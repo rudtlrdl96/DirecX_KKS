@@ -18,7 +18,18 @@ VeteranHero::~VeteranHero()
 void VeteranHero::Death()
 {
 	BossMonster::Death();
-	GetContentLevel()->StopCustomBgm();
+
+	if (false == IsSoundEnd)
+	{
+		GetContentLevel()->StopCustomBgm();
+		GetContentLevel()->PlayBaseBGM();
+	}
+
+	if (nullptr != HeroHealthBar)
+	{
+		HeroHealthBar->Death();
+		HeroHealthBar = nullptr;
+	}
 }
 
 void VeteranHero::Destroy()
@@ -405,8 +416,7 @@ void VeteranHero::Update(float _DeltaTime)
 
 			IsDeathIntro = true;
 			HealthBarPtr->Off();
-			HeroHealthBar->Death();
-			HeroHealthBar = nullptr;
+			HeroHealthBar->UpFrame();
 
 			PlayAnimation("DeathIntro", false);
 			GetContentLevel()->CallEvent("VeteranHero_Death");
@@ -415,6 +425,9 @@ void VeteranHero::Update(float _DeltaTime)
 
 		if (true == Render->IsAnimationEnd())
 		{
+			IsSoundEnd = true;
+			GetContentLevel()->StopCustomBgm();
+
 			++ResultInfo::KillCount;
 			Death();
 

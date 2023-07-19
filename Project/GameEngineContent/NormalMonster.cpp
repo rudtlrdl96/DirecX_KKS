@@ -328,7 +328,11 @@ void NormalMonster::MonsterDeath()
 
 	++ResultInfo::KillCount;
 
-	SoundDoubleCheck::Play("Enemy_Dead.wav");
+	if ("" != DeadSound)
+	{
+		SoundDoubleCheck::Play(DeadSound);
+	}
+
 
 	EffectManager::PlayEffect({
 		.EffectName = "MonsterDeath",

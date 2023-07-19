@@ -86,6 +86,8 @@ protected:
 	bool IsUnWalkable = false;
 
 	std::function<void()> HitEvent = nullptr;
+	
+	std::string DeadSound = "Enemy_Dead.wav";
 
 	void Start() override;
 	void Update(float _DeltaTime) override;

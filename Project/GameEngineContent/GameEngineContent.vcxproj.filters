@@ -1044,6 +1044,9 @@
     <ClInclude Include="Mongal_HealthBar.h">
       <Filter>2_Actor\UI\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="ContentSpriteUIRenderer_Clear.h">
+      <Filter>3_Component\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1747,6 +1750,9 @@
     </ClCompile>
     <ClCompile Include="Mongal_HealthBar.cpp">
       <Filter>2_Actor\UI\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentSpriteUIRenderer_Clear.cpp">
+      <Filter>3_Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

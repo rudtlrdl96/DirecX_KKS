@@ -53,7 +53,6 @@ void SkeletonB::PlayBehavior()
 		.Target = DynamicThis<GameEngineActor>(),
 		.Text = " .. ..  로 내려갈 수 있어.\n어서 인간들을 쫓아가",
 		.Pivot = float4(0, 105, 0),
-		.IsLarge = false,
 		.IsLoop = true,
 		.LiveTime = 3.0f,
 		.IsAutoScale = true,
@@ -67,8 +66,11 @@ void SkeletonB::PlayBehavior()
 
 void SkeletonB::ResetBehavior()
 {
-	Bubble->Death();
-	Bubble = nullptr;
+	if (nullptr != Bubble)
+	{
+		Bubble->Death();
+		Bubble = nullptr;
+	}
 }
 
 void SkeletonB::SpriteLoad()

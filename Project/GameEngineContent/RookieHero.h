@@ -48,6 +48,8 @@ protected:
 	float HealthBarActiveTime = 0.0f;
 	float SpeechCoolTime = 0.0f;
 
+	bool IsCustomSoundEnd = false;
+
 	// 패턴 변수
 
 	float PotionTime = 0.0f;

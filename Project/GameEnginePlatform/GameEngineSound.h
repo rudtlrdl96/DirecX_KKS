@@ -41,6 +41,16 @@ public:
 		Channel->isPlaying(_IsPlaying);
 	}
 
+	inline FMOD_RESULT getPause(bool* _IsPause) const
+	{
+		if (false == IsValid())
+		{
+			MsgAssert("유효하지 않은 사운드의 퍼즈 여부를 확인하려 했습니다.");
+		}
+
+		return Channel->getPaused(_IsPause);
+	}
+
 	void Stop()
 	{
 		Channel->stop();

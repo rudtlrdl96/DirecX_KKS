@@ -141,12 +141,16 @@ void ContentLevel::PlayBaseBGM(bool _IsFade /*= true*/)
 {
 	if ("" != BgmName)
 	{
-		BaseBgmPlayer = GameEngineSound::Play(BgmName);
-		BaseBgmPlayer.SetLoop();
-
-		if (true == _IsFade)
+		if (false == BaseBgmPlayer.IsValid())
 		{
-			BaseBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, 1.0f);
+			BaseBgmPlayer = GameEngineSound::Play(BgmName);
+			BaseBgmPlayer.SetLoop();
+
+			if (true == _IsFade)
+			{
+				BaseBgmPlayer.setPosition(0);
+				BaseBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, 1.0f);
+			}
 		}
 	}
 }
@@ -156,8 +160,8 @@ void ContentLevel::StopBaseBGM(bool _IsFade /*= true*/)
 	if (true == BaseBgmPlayer.IsValid())
 	{
 		bool IsPlaying = false;
-		BaseBgmPlayer.isPlaying(&IsPlaying);
-
+		BaseBgmPlayer.isPlaying(&IsPlaying);		
+		
 		if (true == IsPlaying)
 		{
 			if (true == _IsFade)
@@ -166,10 +170,12 @@ void ContentLevel::StopBaseBGM(bool _IsFade /*= true*/)
 			}
 			else
 			{
-				BaseBgmPlayer.SetPause(true);
+				BaseBgmPlayer.Stop();
 			}
 		}
 	}
+
+	BaseBgmPlayer.Clear();
 }
 
 void ContentLevel::PlayCustomBgm(const std::string_view& _BgmName, bool _IsFade /*= true*/, float _FadeTime /*= 1.0f*/)
@@ -211,6 +217,8 @@ void ContentLevel::StopCustomBgm(float _FadeTime /*= 1.0f*/, bool _IsFade /*= tr
 			}
 		}
 	}
+
+	CustomBgmPlayer.Clear();
 }
 
 std::shared_ptr<PointLightEffect> ContentLevel::CreatePointLight(PointLightType _Type)

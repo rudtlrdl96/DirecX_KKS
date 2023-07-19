@@ -29,7 +29,6 @@ void CarleonManAtArms::Start()
 	{
 		GameEngineSound::Play("Legacy_Hit (Unused).wav");
 	};
-
 }
 
 void CarleonManAtArms::DataLoad()

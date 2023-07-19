@@ -26,6 +26,12 @@ void RookieHero::Destroy()
 	LevelPtr->RemoveEvent("RookieHero_IntroWho", GetActorCode());
 	LevelPtr->RemoveEvent("RookieHero_IntroPotion", GetActorCode());
 	LevelPtr->RemoveEvent("RookieHero_Script00_End", GetActorCode());
+
+	if (false == IsCustomSoundEnd)
+	{
+		LevelPtr->StopCustomBgm();
+		GetContentLevel()->PlayBaseBGM();
+	}
 }
 
 void RookieHero::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, HitEffectType _Type, std::function<void()> _KillEvent /*= nullptr*/)
@@ -257,6 +263,7 @@ void RookieHero::Update(float _DeltaTime)
 			HeroHealthBar->SetDeathPicture();
 			PlayAnimation("DeathIntro", false);
 
+			IsCustomSoundEnd = true;
 			GetContentLevel()->StopCustomBgm();
 			GetContentLevel()->PlayBaseBGM();
 		}

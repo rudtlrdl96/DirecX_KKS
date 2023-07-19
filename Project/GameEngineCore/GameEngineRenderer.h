@@ -82,8 +82,9 @@ public:
 	void PushCameraRender(int _CameraOrder);
 
 protected:
-	void Start();
+	std::vector<std::shared_ptr<GameEngineRenderUnit>> Units;
 
+	void Start();
 	void Render(float _Delta) override;
 
 private:
@@ -93,7 +94,6 @@ private:
 
 	GameEngineCamera* RenderCamera;
 
-	std::vector<std::shared_ptr<GameEngineRenderUnit>> Units;
 
 	// Pipe와
 	//// GameEngineShaderResHelper 가 합쳐져야 랜더링 이 되는 식이 됩니다.

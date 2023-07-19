@@ -17,7 +17,6 @@ public:
 	const std::string_view& Text = "";
 	const float4& Pivot = float4::Zero;
 
-	bool IsLarge = false;
 	bool IsLoop = false;
 	
 	float FontSize = 0.0f;
@@ -56,6 +55,7 @@ protected:
 	
 private:
 	std::shared_ptr<ContentSlice9Renderer> BubbleRender = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> BottomRender = nullptr;
 	std::shared_ptr<GameEngineFontRenderer> FontRender = nullptr;
 	ColorBuffer Buffer = ColorBuffer();
 
@@ -71,5 +71,8 @@ private:
 	bool IsLoop = false;
 
 	std::vector<std::shared_ptr<GameEngineSpriteRenderer>> KeyImages;
+
+	void SetBottomRenderTransform();
+
 };
 

@@ -2,6 +2,7 @@
 #include "Minimap.h"
 #include <GameEngineCore/GameEngineCamera.h>
 #include "ContentUIRender.h"
+#include "ContentSpriteUIRenderer_Clear.h"
 
 Minimap::Minimap()
 {
@@ -60,7 +61,7 @@ void Minimap::Start()
 		return;
 	}
 
-	MinimapImageRender = CreateComponent<ContentUIRender>();
+	MinimapImageRender = CreateComponent<ContentSpriteUIRenderer_Clear>();
 	MinimapImageRender->PipeSetting("2DTexture_Minimap");
 	MinimapImageRender->SetTexture("MinimapBG.png");
 	MinimapImageRender->GetTransform()->SetLocalPosition(float4(-5, 4, 2));
@@ -96,11 +97,6 @@ void Minimap::Start()
 
 void Minimap::Update(float _DeltaTime)
 {
-	if (nullptr != MinimapCamera)
-	{
-		MinimapCamera->GetCamTarget()->GetTexture(0);
-	}
-
 	switch (State)
 	{
 	case MinimapState::On:
