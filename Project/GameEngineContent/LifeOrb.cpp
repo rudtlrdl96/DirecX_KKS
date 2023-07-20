@@ -74,7 +74,7 @@ void LifeOrb::Update(float _DeltaTime)
 	{
 		GetTransform()->SetWorldPosition(WaveCenter + float4(0, -sinf(GetLiveTime() * 3.0f) * 5.0f, 0));
 	
-		if (PlayerState::HP >= PlayerState::MaxHP)
+		if (PlayerState::GetHP() >= PlayerState::GetMaxHP())
 		{
 			return;
 		}

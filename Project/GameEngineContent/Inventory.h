@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayerBaseSkull.h"
+#include "ItemData.h"
 
 class Inventory
 {
@@ -24,6 +25,13 @@ public:
 
 	static void GoodsReset();
 
+	// Item
+	static void ItemReset();
+	static void InsertItem(const ItemData& _Data);
+	static ItemData PopItem(size_t _Index);
+
+	static size_t GetItemCount();
+
 protected:
 	
 private:
@@ -33,6 +41,30 @@ private:
 	static int Goods_Gold;
 	static int Goods_Bone;
 	static int Goods_ManaStone;
+
+	static std::vector<ItemData> PlayerItemDatas;
+
+	// Item State
+
+	static float MeleeAttack;
+	static float MagicAttack;
+
+	static float HP;
+
+	static float AttackSpeed;
+	static float MoveSpeed;
+	static float CastingSpeed;
+
+	static float SkillCoolDown;
+	static float SwitchCoolDown;
+	static float QuintessenceCoolDown;
+
+	static float CriticalPercent;
+	static float CriticalDamage;
+
+	static float GoldPercent;
+
+	static void CalItemState();
 
 	Inventory();
 	~Inventory();

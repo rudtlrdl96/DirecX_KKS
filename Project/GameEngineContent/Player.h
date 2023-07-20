@@ -21,16 +21,6 @@ public:
 	void InsertNewSkull(size_t _SkullIndex);
 	void ForceSwapSkull();
 
-	inline float GetMeleeAttack() const
-	{
-		return MeleeAttack;
-	}
-
-	inline float GetMagicAttack() const
-	{
-		return MagicAttack;
-	}
-
 	void HitPlayer(float _Damage, const float4& _HitForce);
 	void HealPlayer(float _Heal, const float4& _HealForce);
 
@@ -92,13 +82,7 @@ protected:
 	void LevelChangeEnd() override;
 
 private:
-	float SwitchCoolTime = 5.0f;
-	float SwitchCoolEndTime = 5.0f;
-
-	float MeleeAttack = 10.0f;
-	float MagicAttack = 10.0f;
-	float HP = 100.0f;
-	
+	float SwitchCoolTime = 0.0f;	
 	float HitWaitTime = 0.0f;
 
 	bool IsInputLockValue = false;

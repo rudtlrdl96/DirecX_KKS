@@ -19,27 +19,6 @@
     <Filter Include="1_Class\Base\PCH">
       <UniqueIdentifier>{868ce0c2-a748-42ee-b9b6-5206a05e0839}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_Class\Base\Data">
-      <UniqueIdentifier>{54c8fbd0-2ee5-4eb9-a7a6-d9133363eeac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_Class\Base\Data\Item">
-      <UniqueIdentifier>{3949bbe4-b1d5-4adb-b814-50e7171e28be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_Class\Base\Data\Skull">
-      <UniqueIdentifier>{bef6db0e-3e52-4a83-9bb9-2e7707f31099}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_Class\Base\Data\Battle">
-      <UniqueIdentifier>{4f916763-5a54-4b02-888d-dfcaf48219c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_Class\Base\Data\Monster">
-      <UniqueIdentifier>{60e7fe7a-3522-4e92-b8ba-6f1eb6f6afd7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_Class\Base\Data\Quintessence">
-      <UniqueIdentifier>{6eb19772-fcfe-4da2-9bc5-62b98cf3d38a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_Class\Base\Data\Tile">
-      <UniqueIdentifier>{3371415e-0a4d-479f-bfed-e30e4858d0f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1_Class\Base\Debug">
       <UniqueIdentifier>{df8e5d72-6eee-44f8-a646-94ef8724ed4b}</UniqueIdentifier>
     </Filter>
@@ -400,6 +379,27 @@
     <Filter Include="2_Actor\Map\Stage\Object\BehaviorObject\Castle">
       <UniqueIdentifier>{3553158c-275c-478e-9bdf-de1cfde1b0f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1_Class\Data">
+      <UniqueIdentifier>{54c8fbd0-2ee5-4eb9-a7a6-d9133363eeac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Data\Item">
+      <UniqueIdentifier>{3949bbe4-b1d5-4adb-b814-50e7171e28be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Data\Skull">
+      <UniqueIdentifier>{bef6db0e-3e52-4a83-9bb9-2e7707f31099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Data\Battle">
+      <UniqueIdentifier>{4f916763-5a54-4b02-888d-dfcaf48219c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Data\Monster">
+      <UniqueIdentifier>{60e7fe7a-3522-4e92-b8ba-6f1eb6f6afd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Data\Quintessence">
+      <UniqueIdentifier>{6eb19772-fcfe-4da2-9bc5-62b98cf3d38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Class\Data\Tile">
+      <UniqueIdentifier>{3371415e-0a4d-479f-bfed-e30e4858d0f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -418,40 +418,40 @@
       <Filter>1_Class\Base\PCH</Filter>
     </ClInclude>
     <ClInclude Include="ContentDatabase.h">
-      <Filter>1_Class\Base\Data</Filter>
+      <Filter>1_Class\Data</Filter>
     </ClInclude>
     <ClInclude Include="SkullData.h">
-      <Filter>1_Class\Base\Data\Skull</Filter>
+      <Filter>1_Class\Data\Skull</Filter>
     </ClInclude>
     <ClInclude Include="ItemData.h">
-      <Filter>1_Class\Base\Data\Item</Filter>
+      <Filter>1_Class\Data\Item</Filter>
     </ClInclude>
     <ClInclude Include="ContentEnum.h">
       <Filter>1_Class\Base\Common</Filter>
     </ClInclude>
     <ClInclude Include="BaseCommonData.h">
-      <Filter>1_Class\Base\Data</Filter>
+      <Filter>1_Class\Data</Filter>
     </ClInclude>
     <ClInclude Include="ContentVertex.h">
       <Filter>1_Class\Shader\ContentVertex</Filter>
     </ClInclude>
     <ClInclude Include="AbilityCommonData.h">
-      <Filter>1_Class\Base\Data</Filter>
+      <Filter>1_Class\Data</Filter>
     </ClInclude>
     <ClInclude Include="ContentDebug.h">
       <Filter>1_Class\Base\Debug</Filter>
     </ClInclude>
     <ClInclude Include="MonsterData.h">
-      <Filter>1_Class\Base\Data\Monster</Filter>
+      <Filter>1_Class\Data\Monster</Filter>
     </ClInclude>
     <ClInclude Include="QuintessenceData.h">
-      <Filter>1_Class\Base\Data\Quintessence</Filter>
+      <Filter>1_Class\Data\Quintessence</Filter>
     </ClInclude>
     <ClInclude Include="Rigidbody2D.h">
       <Filter>1_Class\Physics</Filter>
     </ClInclude>
     <ClInclude Include="TileMetaData.h">
-      <Filter>1_Class\Base\Data\Tile</Filter>
+      <Filter>1_Class\Data\Tile</Filter>
     </ClInclude>
     <ClInclude Include="TileActor.h">
       <Filter>2_Actor\Map\Stage\Tile</Filter>
@@ -1095,40 +1095,40 @@
       <Filter>1_Class\Base\PCH</Filter>
     </ClCompile>
     <ClCompile Include="ContentDatabase.cpp">
-      <Filter>1_Class\Base\Data</Filter>
+      <Filter>1_Class\Data</Filter>
     </ClCompile>
     <ClCompile Include="SkullData.cpp">
-      <Filter>1_Class\Base\Data\Skull</Filter>
+      <Filter>1_Class\Data\Skull</Filter>
     </ClCompile>
     <ClCompile Include="ItemData.cpp">
-      <Filter>1_Class\Base\Data\Item</Filter>
+      <Filter>1_Class\Data\Item</Filter>
     </ClCompile>
     <ClCompile Include="ContentEnum.cpp">
       <Filter>1_Class\Base\Common</Filter>
     </ClCompile>
     <ClCompile Include="BaseCommonData.cpp">
-      <Filter>1_Class\Base\Data</Filter>
+      <Filter>1_Class\Data</Filter>
     </ClCompile>
     <ClCompile Include="ContentVertex.cpp">
       <Filter>1_Class\Shader\ContentVertex</Filter>
     </ClCompile>
     <ClCompile Include="AbilityCommonData.cpp">
-      <Filter>1_Class\Base\Data</Filter>
+      <Filter>1_Class\Data</Filter>
     </ClCompile>
     <ClCompile Include="ContentDebug.cpp">
       <Filter>1_Class\Base\Debug</Filter>
     </ClCompile>
     <ClCompile Include="MonsterData.cpp">
-      <Filter>1_Class\Base\Data\Monster</Filter>
+      <Filter>1_Class\Data\Monster</Filter>
     </ClCompile>
     <ClCompile Include="QuintessenceData.cpp">
-      <Filter>1_Class\Base\Data\Quintessence</Filter>
+      <Filter>1_Class\Data\Quintessence</Filter>
     </ClCompile>
     <ClCompile Include="Rigidbody2D.cpp">
       <Filter>1_Class\Physics</Filter>
     </ClCompile>
     <ClCompile Include="TileMetaData.cpp">
-      <Filter>1_Class\Base\Data\Tile</Filter>
+      <Filter>1_Class\Data\Tile</Filter>
     </ClCompile>
     <ClCompile Include="TileActor.cpp">
       <Filter>2_Actor\Map\Stage\Tile</Filter>

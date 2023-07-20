@@ -179,12 +179,12 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 		_Damage *= 0.8f;
 	}
 
-	PlayerState::HP -= _Damage;
+	PlayerState::AddHP(-_Damage);
 	ResultInfo::HitDamage += _Damage;
 
 	if (true == Cheat_HP)
 	{
-		PlayerState::HP = PlayerState::MaxHP;
+		PlayerState::SetHP(PlayerState::GetMaxHP());
 	}
 
 	std::shared_ptr<BattleActorDamageFont> NewDamageFont = GetLevel()->CreateActor<BattleActorDamageFont>();
@@ -216,13 +216,13 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 
 void Player::HealPlayer(float _Heal, const float4& _HealForce)
 {
-	PlayerState::HP += _Heal;
+	PlayerState::AddHP(_Heal);
 	ResultInfo::HealValue += _Heal;
 
-	if (PlayerState::HP > PlayerState::MaxHP)
+	if (PlayerState::GetHP() > PlayerState::GetMaxHP())
 	{
-		ResultInfo::HealValue -= PlayerState::HP - PlayerState::MaxHP;
-		PlayerState::HP = PlayerState::MaxHP;
+		ResultInfo::HealValue -= PlayerState::GetHP() - PlayerState::GetMaxHP();
+		PlayerState::SetHP(PlayerState::GetMaxHP());
 	}
 
 	std::shared_ptr<BattleActorHealFont> NewDamageFont = GetLevel()->CreateActor<BattleActorHealFont>();
@@ -496,15 +496,15 @@ void Player::Update(float _DeltaTime)
 
 		if (true == Cheat_Attack)
 		{
-			MeleeAttack = 100;
-			MagicAttack = 100;
+			PlayerState::SetMeleeAttack(100);
+			PlayerState::SetMagicAttack(100);
 
 			CheatRender_Attack->On();
 		}
 		else
 		{
-			MeleeAttack = 10;
-			MagicAttack = 10;
+			PlayerState::SetMeleeAttack(10);
+			PlayerState::SetMagicAttack(10);
 
 			CheatRender_Attack->Off();
 		}
@@ -565,7 +565,7 @@ void Player::Update(float _DeltaTime)
 		}
 	}
 
-	if (PlayerState::HP <= 0.0f)
+	if (PlayerState::GetHP() <= 0.0f)
 	{
 		GameEngineSound::Play("Default_Dead.wav");
 
@@ -619,9 +619,9 @@ void Player::Update(float _DeltaTime)
 		return;
 	}
 
-	if (nullptr != SubSkull && true == MainSkull->IsSwitch() && SwitchCoolTime >= SwitchCoolEndTime)
+	if (nullptr != SubSkull && true == MainSkull->IsSwitch() && 0.0f <= SwitchCoolTime)
 	{
-		SwitchCoolTime = 0.0f;
+		SwitchCoolTime = -5.0f;
 		DebugOff();
 
 		ActorViewDir Dir = MainSkull->GetViewDir();

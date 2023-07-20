@@ -218,10 +218,10 @@ void PlayerStateFrame::Update(float _DeltaTime)
 	TexRender_MainSkull->SetScaleToTexture(ParentPlayer->MainSkull->GetTexName_MainSkullUI());
 	TexRender_MainSkull->On();
 
-	HealthBarPtr->UpdateBar(PlayerState::HP, PlayerState::MaxHP, _DeltaTime);
+	HealthBarPtr->UpdateBar(PlayerState::GetHP(), PlayerState::GetMaxHP(), _DeltaTime);
 
 	{
-		float SwitchProgress = ParentPlayer->SwitchCoolTime / ParentPlayer->SwitchCoolEndTime;
+		float SwitchProgress = (ParentPlayer->SwitchCoolTime + 5.0f) / 5.0f;
 
 		Progress_Switch->UpdateProgress(SwitchProgress);
 

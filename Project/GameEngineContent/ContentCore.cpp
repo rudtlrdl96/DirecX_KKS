@@ -92,9 +92,9 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<BrokenObjectTool>("BrokenObjectTool");
 
 	Inventory::ResetSkull();
+	Inventory::ItemReset();
 
 	GameEngineCore::ChangeLevel("ForestOfHarmony");
-
 }
 
 void ContentCore::CoreEnd()

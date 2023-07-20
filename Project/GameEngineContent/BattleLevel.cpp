@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "BaseMonster.h"
 #include "ResultInfo.h"
+#include "PlayerState.h"
 
 // UI
 #include "FadeActor.h"
@@ -287,8 +288,10 @@ void BattleLevel::LevelChangeStart()
 	IsPlayerDeath = false;
 
 	ContentLevel::LevelChangeStart();
-
 	BaseMonster::SetMonstersMove(false);
+
+	PlayerState::SetMeleeAttack(10);
+	PlayerState::SetMagicAttack(10);
 
 	StoryFadePtr->Reset();
 

@@ -66,9 +66,10 @@ void CastleLevel::LevelChangeStart()
 {
 	Inventory::ResetSkull();
 	Inventory::GoodsReset();
-	ResultInfo::ResultReset();
+	Inventory::ItemReset();
 
-	PlayerState::HP = PlayerState::MaxHP;
+	ResultInfo::ResultReset();
+	PlayerState::SetHP(PlayerState::GetMaxHP());
 
 	BattleLevel::LevelChangeStart();
 

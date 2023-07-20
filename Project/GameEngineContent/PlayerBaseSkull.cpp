@@ -12,6 +12,7 @@
 #include "TexturePartParticle.h"
 #include "CaptureRenderer.h"
 #include "CaptureAnimation.h"
+#include "PlayerState.h"
 
 PlayerBaseSkull::PlayerBaseSkull()
 {
@@ -23,12 +24,12 @@ PlayerBaseSkull::~PlayerBaseSkull()
 
 float PlayerBaseSkull::GetMeleeAttackDamage() const
 {
-	return ParentPlayer->GetMeleeAttack() * Data.MeleeAttack;
+	return PlayerState::GetMeleeAttack() * Data.MeleeAttack;
 }
 
 float PlayerBaseSkull::GetMagicAttackDamage() const
 {
-	return ParentPlayer->GetMagicAttack() * Data.MagicAttack;
+	return PlayerState::GetMagicAttack() * Data.MagicAttack;
 }
 
 void PlayerBaseSkull::SetPlayer(std::shared_ptr<class Player> _ParentPlayer)
