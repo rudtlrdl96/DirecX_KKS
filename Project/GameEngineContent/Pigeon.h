@@ -3,6 +3,12 @@
 
 class Pigeon : public BehaviorObject
 {
+	enum class PigeonState
+	{
+		Idle,
+		Ready,
+		Fly,
+	};
 public:
 	Pigeon();
 	~Pigeon();
@@ -16,10 +22,17 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	
+	void Init() override;
 	void ResetBehavior() override;
 	void PlayBehavior() override;
 private:
 
+	std::shared_ptr<GameEngineCollision> EventCol = nullptr;
 
+	float4 StartPos = float4::Zero;
+	float4 EndPos = float4::Zero;
+
+	PigeonState State = PigeonState::Idle;
+
+	float MoveProgress = 0.0f;
 };
-
