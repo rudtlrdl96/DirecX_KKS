@@ -7,6 +7,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 
 #include "ContentLevelLightGUI.h"
+#include "MouseCursor.h"
 
 static UINT NewLevelCode = 0;
 
@@ -19,14 +20,16 @@ ContentLevel::~ContentLevel()
 {
 }
 
-float4 ContentLevel::GetMousePos() const
+float4 ContentLevel::GetMousePos(int _CamOrder /*= 0*/)
 {
+	std::shared_ptr<GameEngineCamera> Cam = GetCamera(_CamOrder);
+	
 	float4 Result = GameEngineWindow::GetMousePosition();
-	float4 CameraPos = MainCam->GetTransform()->GetWorldPosition();
+	float4 CameraPos = Cam->GetTransform()->GetWorldPosition();
 
-	Result *= MainCam->GetViewPort().InverseReturn();
-	Result *= MainCam->GetProjection().InverseReturn();
-	Result *= MainCam->GetView().InverseReturn();
+	Result *= Cam->GetViewPort().InverseReturn();
+	Result *= Cam->GetProjection().InverseReturn();
+	Result *= Cam->GetView().InverseReturn();
 
 	return Result;
 }
@@ -98,6 +101,8 @@ void ContentLevel::Start()
 
 	WorldLight = GetCamera((int)CameraOrder::Main)->GetCamTarget()->CreateEffect<WorldLightEffect>();
 	WorldLight->WorldLight = float4(1.0f, 1.0f, 1.0f, 1.0f);
+
+	CreateActor<MouseCursor>();
 
 
 	AddEvent("RewardWorldLightOn", LevelCode, [this]()

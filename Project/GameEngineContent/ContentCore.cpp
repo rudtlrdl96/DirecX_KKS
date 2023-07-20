@@ -74,6 +74,8 @@ void ContentCore::CoreLoading()
 	SoundLoad();
 	FontLoad();
 
+	ShowCursor(FALSE);
+
 	// GameLevel Create
 	GameEngineCore::CreateLevel<TitleLevel>("Title");
 	GameEngineCore::CreateLevel<OpeningLevel>("Opening");

@@ -17,7 +17,7 @@ public:
 	ContentLevel& operator=(const ContentLevel& _Other) = delete;
 	ContentLevel& operator=(ContentLevel&& _Other) noexcept = delete;
 
-	float4 GetMousePos() const;
+	float4 GetMousePos(int _CamOrder = 0);
 
 	inline CameraController& GetCamCtrl()
 	{

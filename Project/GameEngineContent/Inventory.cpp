@@ -149,7 +149,6 @@ size_t Inventory::GetItemCount()
 	return PlayerItemDatas.size();
 }
 
-
 void Inventory::CalItemState()
 {
 	MeleeAttack = 0.0f;
