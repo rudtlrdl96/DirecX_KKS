@@ -400,7 +400,7 @@ void WolfSkull_Legandary::Skill_SlotB_Update(float _DeltaTime)
 		float4 DashPos = GetTransform()->GetWorldPosition();
 		DashPos.y += WalkCol->GetTransform()->GetWorldScale().hy() + 6;
 
-		float Inter = GroundCol->GetTransform()->GetWorldScale().x;
+		float Inter = GroundCol->GetTransform()->GetWorldScale().x + 5;
 
 		SwitchMoveStart = GetTransform()->GetWorldPosition();
 		SwitchMoveEnd = GetTransform()->GetWorldPosition();

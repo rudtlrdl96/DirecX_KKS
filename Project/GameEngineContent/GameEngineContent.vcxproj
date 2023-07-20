@@ -285,6 +285,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentVertex.h" />
+    <ClInclude Include="FlagA.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FlagB.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="LifeOrb.h">
       <SubType>
       </SubType>
@@ -294,6 +302,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Mouse.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Observatory.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -995,6 +1007,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="FlagA.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FlagB.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ForestOfHarmonyLevel_Event.cpp" />
     <ClCompile Include="GoodsUI.cpp">
       <SubType>
@@ -1208,6 +1228,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentVertex.cpp" />
+    <ClCompile Include="Observatory.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Pigeon.cpp">
       <SubType>
       </SubType>

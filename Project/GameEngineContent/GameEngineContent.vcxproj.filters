@@ -1068,6 +1068,15 @@
     <ClInclude Include="Pigeon.h">
       <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
     </ClInclude>
+    <ClInclude Include="FlagA.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="Observatory.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagB.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1791,6 +1800,15 @@
       <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
     </ClCompile>
     <ClCompile Include="Pigeon.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagA.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="Observatory.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagB.cpp">
       <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
     </ClCompile>
   </ItemGroup>

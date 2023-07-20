@@ -17,6 +17,9 @@
 #include "Mushroom.h"
 #include "Bug.h"
 #include "Pigeon.h"
+#include "FlagA.h"
+#include "FlagB.h"
+#include "Observatory.h"
 
 ObjectManager::ObjectManager()
 {
@@ -77,6 +80,15 @@ std::shared_ptr<BehaviorObject> ObjectManager::CreateBehaviorObject(const Behavi
 		break;
 	case 251: // Pigeon
 		NewBehaviorObject = GetLevel()->CreateActor<Pigeon>();
+		break;
+	case 252: // FlagA
+		NewBehaviorObject = GetLevel()->CreateActor<FlagA>();
+		break;
+	case 253: // FlagB
+		NewBehaviorObject = GetLevel()->CreateActor<FlagB>();
+		break;
+	case 254: // Observatory
+		NewBehaviorObject = GetLevel()->CreateActor<Observatory>();
 		break;
 	default:
 	{
