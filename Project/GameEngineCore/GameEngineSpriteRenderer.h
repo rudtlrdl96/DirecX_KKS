@@ -107,6 +107,16 @@ public:
 		ScaleRatio = _Ratio;
 	}
 
+	inline void SetPositiveFlipX()
+	{
+		Flip.x = 0.0f;
+	}
+
+	inline void SetNegativeFlipX()
+	{
+		Flip.x = 1.0f;
+	}
+
 	void SetFlipX();
 	void SetFlipY();
 
