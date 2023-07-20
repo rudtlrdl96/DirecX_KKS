@@ -148,6 +148,17 @@ void ContentCore::ObjectLoad()
 			.Grade = LevelArea::ForestOfHarmory,
 			.Name = "Mushroom_Preview.png" });
 
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 250,
+			.Grade = LevelArea::ForestOfHarmory,
+			.Name = "Bug_Preview.png" });
+
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 251,
+			.Grade = LevelArea::ForestOfHarmory,
+			.Name = "WB_Preview.png" });
+
+
 		{
 			Path.Move("4_GrandHall");
 			Path.Move("Object");

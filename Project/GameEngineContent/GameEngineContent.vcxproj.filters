@@ -1062,6 +1062,12 @@
     <ClInclude Include="Spider.h">
       <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Castle</Filter>
     </ClInclude>
+    <ClInclude Include="Bug.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClInclude>
+    <ClInclude Include="Pigeon.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1780,6 +1786,12 @@
     </ClCompile>
     <ClCompile Include="Spider.cpp">
       <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="Bug.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
+    </ClCompile>
+    <ClCompile Include="Pigeon.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\ForestOfHarmony</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

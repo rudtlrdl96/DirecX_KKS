@@ -15,6 +15,8 @@
 #include "ThornBush.h"
 #include "Vine.h"
 #include "Mushroom.h"
+#include "Bug.h"
+#include "Pigeon.h"
 
 ObjectManager::ObjectManager()
 {
@@ -69,6 +71,12 @@ std::shared_ptr<BehaviorObject> ObjectManager::CreateBehaviorObject(const Behavi
 		break;
 	case 203: //Mushroom
 		NewBehaviorObject = GetLevel()->CreateActor<Mushroom>();
+		break;
+	case 250: // Bug
+		NewBehaviorObject = GetLevel()->CreateActor<Bug>();
+		break;
+	case 251: // Pigeon
+		NewBehaviorObject = GetLevel()->CreateActor<Pigeon>();
 		break;
 	default:
 	{
