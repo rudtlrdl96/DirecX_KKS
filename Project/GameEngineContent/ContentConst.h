@@ -17,6 +17,11 @@ public:
 	static const int Goods_Bone_Unique;
 	static const int Goods_Bone_Legendary;
 
+	static const int Goods_Item_Normal;
+	static const int Goods_Item_Rare;
+	static const int Goods_Item_Unique;
+	static const int Goods_Item_Legendary;
+
 
 private:
 	ContentConst();

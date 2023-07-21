@@ -62,10 +62,7 @@ public:
 		SlotSelectRender->Off();
 	}
 
-	inline void SetDataIndex(size_t _Index)
-	{
-		DataIndex = _Index;
-	}
+	void SetDataIndex(size_t _Index);
 
 	inline size_t GetDataIndex() const
 	{

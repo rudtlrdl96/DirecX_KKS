@@ -17,6 +17,7 @@
 #include "StoryFade.h"
 #include "TalkBox.h"
 #include "Minimap.h"
+#include "ItemGearPopup.h"
 #include "SkullGearPopup.h"
 #include "StageInfoFrame.h"
 #include "GoodsUI.h"
@@ -71,6 +72,9 @@ void BattleLevel::Start()
 	TalkBoxPtr->GetTransform()->SetLocalPosition(float4(0, -300, -110.0f));
 	TalkBoxPtr->SetReadSpeed(25.0f);
 	TalkBoxPtr->Off();
+
+	ItemGearPopupPtr = CreateActor<ItemGearPopup>();
+	ItemGearPopupPtr->Off();
 
 	SkullGearPopupPtr = CreateActor<SkullGearPopup>();
 	SkullGearPopupPtr->Off();
@@ -173,6 +177,36 @@ void BattleLevel::Start()
 	AddEvent("UnlockMonsterMove", -1, [this]()
 		{
 			BaseMonster::SetMonstersMove(false);
+		});
+	
+	AddEvent("ItemGearPopupOn", -1, [this]()
+		{
+			ItemGearPopupPtr->PopupOn();
+
+			if (nullptr != MainPlayer)
+			{
+				if (ActorViewDir::Left == MainPlayer->GetViewDir())
+				{
+					ItemGearPopupPtr->GetTransform()->SetLocalPosition(float4(-300, 30));
+				}
+				else
+				{
+					ItemGearPopupPtr->GetTransform()->SetLocalPosition(float4(300, 30));
+				}
+			}
+		});
+
+	AddEvent("ItemGearPopupCheck", -1, [this]()
+		{
+			if (false == ItemGearPopupPtr->IsUpdate())
+			{
+				ItemGearPopupPtr->PopupOn();
+			}
+		});
+
+	AddEvent("ItemGearPopupOff", -1, [this]()
+		{
+			ItemGearPopupPtr->PopupOff();
 		});
 
 	AddEvent("SkullGearPopupOn", -1, [this]()

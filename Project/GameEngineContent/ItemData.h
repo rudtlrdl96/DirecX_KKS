@@ -28,12 +28,17 @@ class ItemData
 public:
 	std::string Name = "";
 	std::string Note = "";
+	std::string Story = "";
+
 	size_t Index = 0;
 
 	ItemGrade Grade = ItemGrade::Normal;
 
 	Synergy Synergy1 = Synergy::None;
 	Synergy Synergy2 = Synergy::None;
+
+	std::string ItemTexName = "Empty.png";
+	std::string InventoryTexName = "Empty.png";
 
 	float HP = 0;
 	float DamageReduction = 0.0f;
@@ -53,4 +58,9 @@ public:
 	float CriticalDamage = 0.0f;
 
 	float GoldPercent = 0.0f;
+
+	static std::string GetSynergyIconTextureName(Synergy _Type, size_t SynergyCount = -1);
+	static std::string GetSynergyName(Synergy _Type);
+	static std::vector<int> GetSynergyGrade(Synergy _Type);
+
 };

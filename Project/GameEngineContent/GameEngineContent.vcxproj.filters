@@ -400,6 +400,9 @@
     <Filter Include="1_Class\Data\Tile">
       <UniqueIdentifier>{3371415e-0a4d-479f-bfed-e30e4858d0f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Gear\Item">
+      <UniqueIdentifier>{0bb48900-5c57-4cb4-aa99-e4a06b1900b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -1079,6 +1082,12 @@
     </ClInclude>
     <ClInclude Include="MouseCursor.h">
       <Filter>2_Actor\UI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemGearPopup.h">
+      <Filter>2_Actor\UI\Gear</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemGear.h">
+      <Filter>2_Actor\Gear\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1816,6 +1825,12 @@
     </ClCompile>
     <ClCompile Include="MouseCursor.cpp">
       <Filter>2_Actor\UI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemGearPopup.cpp">
+      <Filter>2_Actor\UI\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemGear.cpp">
+      <Filter>2_Actor\Gear\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -163,7 +163,7 @@ void Inventory::CalItemState()
 	MoveSpeed = 0.0f;
 	CastingSpeed = 0.0f;
 
-	SkillCoolDown = 1.0f;
+	SkillCoolDown = 0.0f;
 	SwitchCoolDown = 0.0f;
 	QuintessenceCoolDown = 0.0f;
 

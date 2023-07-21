@@ -28,7 +28,7 @@ void InventoryStatPopup::Start()
 		PopupFrameRender = CreateComponent<GameEngineUIRenderer>();
 		PopupFrameRender->SetTexture("Inventory_Stat_Frame.png");
 		PopupFrameRender->GetTransform()->SetLocalScale(TexSize);
-		PopupFrameRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
+		//PopupFrameRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
 	}
 
 	{
@@ -48,7 +48,7 @@ void InventoryStatPopup::Start()
 		PopupBackRender->SetTexture("Inventory_Stat_Back.png");
 		PopupBackRender->GetTransform()->SetLocalPosition(float4(-465, 1, 0));
 		PopupBackRender->GetTransform()->SetLocalScale(TexSize);
-		PopupBackRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
+		//PopupBackRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
 
 	}
 }

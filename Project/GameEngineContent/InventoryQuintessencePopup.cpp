@@ -27,5 +27,5 @@ void InventoryQuintessencePopup::Start()
 	PopupFrameRender = CreateComponent<GameEngineUIRenderer>();
 	PopupFrameRender->SetTexture("Inventory_Quintessence_Frame.png");
 	PopupFrameRender->GetTransform()->SetLocalScale(TexSize);
-	PopupFrameRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
+	//PopupFrameRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
 }

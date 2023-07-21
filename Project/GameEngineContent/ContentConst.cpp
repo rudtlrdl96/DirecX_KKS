@@ -15,6 +15,11 @@ const int ContentConst::Goods_Bone_Rare = 11;
 const int ContentConst::Goods_Bone_Unique = 23;
 const int ContentConst::Goods_Bone_Legendary = 44;
 
+const int ContentConst::Goods_Item_Normal = 352;
+const int ContentConst::Goods_Item_Rare = 422;
+const int ContentConst::Goods_Item_Unique = 562;
+const int ContentConst::Goods_Item_Legendary = 842;
+
 ContentConst::ContentConst()
 {
 }

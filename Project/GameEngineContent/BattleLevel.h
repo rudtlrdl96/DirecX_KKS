@@ -46,6 +46,7 @@ protected:
 	std::shared_ptr<class Player> MainPlayer = nullptr;
 	std::shared_ptr<class BattleArea> BattleAreaPtr = nullptr;
 
+	std::shared_ptr<class ItemGearPopup> ItemGearPopupPtr = nullptr;
 	std::shared_ptr<class SkullGearPopup> SkullGearPopupPtr = nullptr;
 	std::shared_ptr<class StageInfoFrame> StageInfoFramePtr = nullptr;
 	std::shared_ptr<class GoodsUI> GoodsUIPtr = nullptr;

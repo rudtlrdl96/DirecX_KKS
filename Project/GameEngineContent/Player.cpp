@@ -29,6 +29,7 @@
 #include "BattleActorDamageFont.h"
 
 #include "ContentLevel.h"
+#include "ItemGear.h"
 #include "SkullGear.h"
 #include "CaptureAnimation.h"
 #include "AnimationPartParticle.h"
@@ -301,7 +302,8 @@ void Player::Start()
 	{
 		GameEngineInput::CreateKey("Cheat_Attack", '7');
 		GameEngineInput::CreateKey("Cheat_HP", '8');
-		GameEngineInput::CreateKey("Cheat_GearTest", '0');
+		GameEngineInput::CreateKey("Cheat_SkullGearTest", '0');
+		GameEngineInput::CreateKey("Cheat_ItemGearTest", VK_PRIOR);
 	}
 
 	if (false == GameEngineInput::IsKey("UseKey"))
@@ -537,7 +539,7 @@ void Player::Update(float _DeltaTime)
 		}
 	}
 
-	if (true == GameEngineInput::IsDown("Cheat_GearTest"))
+	if (true == GameEngineInput::IsDown("Cheat_SkullGearTest"))
 	{
 		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f));
 		
@@ -568,6 +570,47 @@ void Player::Update(float _DeltaTime)
 		{
 			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
 			Gear->Init(200);
+			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(70, 0));
+			Gear->BlackAndWhiteColorOn();
+			Gear->SetEndCallback([Gear]()
+				{
+					Gear->BlackAndWhiteEffectOn();
+					Gear->ColWaveOn();
+				});
+		}
+	}
+
+	if (true == GameEngineInput::IsDown("Cheat_ItemGearTest"))
+	{
+		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f));
+
+		{
+			std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
+			Gear->Init(200);
+			Gear->DropGear_Bezier(PlayerPos, PlayerPos);
+			Gear->BlackAndWhiteColorOn();
+			Gear->SetEndCallback([Gear]()
+				{
+					Gear->BlackAndWhiteEffectOn();
+					Gear->ColWaveOn();
+				});
+		}
+
+		{
+			std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
+			Gear->Init(201);
+			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(-70, 0));
+			Gear->BlackAndWhiteColorOn();
+			Gear->SetEndCallback([Gear]()
+				{
+					Gear->BlackAndWhiteEffectOn();
+					Gear->ColWaveOn();
+				});
+		}
+
+		{
+			std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
+			Gear->Init(202);
 			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(70, 0));
 			Gear->BlackAndWhiteColorOn();
 			Gear->SetEndCallback([Gear]()

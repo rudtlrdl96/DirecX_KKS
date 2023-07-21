@@ -156,6 +156,7 @@ void SkullGearPopup::PopupOff()
 
 void SkullGearPopup::Start()
 {
+	if (nullptr == GameEngineTexture::Find("ItemPopup_Back.png"))
 	{
 		GameEngineDirectory Path;
 
@@ -165,13 +166,10 @@ void SkullGearPopup::Start()
 		Path.Move("0_Common");
 		Path.Move("UI");
 
-		if (nullptr == GameEngineTexture::Find("ItemPopup_Back.png"))
-		{
-			GameEngineTexture::Load(Path.GetPlusFileName("ItemPopup_Back.png").GetFullPath());
-			GameEngineTexture::Load(Path.GetPlusFileName("ItemPopup_Front.png").GetFullPath());
-			GameEngineTexture::Load(Path.GetPlusFileName("Frame_1SKill.png").GetFullPath());
-			GameEngineTexture::Load(Path.GetPlusFileName("Frame_2SKill.png").GetFullPath());
-		}
+		GameEngineTexture::Load(Path.GetPlusFileName("ItemPopup_Back.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("ItemPopup_Front.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("Frame_1SKill.png").GetFullPath());
+		GameEngineTexture::Load(Path.GetPlusFileName("Frame_2SKill.png").GetFullPath());
 	}
 
 

@@ -41,11 +41,12 @@ void InventoryUI::InventoryOn()
 
 	for (size_t i = 0; i < Inventory::GetItemCount(); i++)
 	{
-		InventorySlotDatas[3 + i]->SetDataIndex(Inventory::GetItemIndex(3 + i));
+		InventorySlotDatas[3 + i]->SetDataIndex(Inventory::GetItemIndex(i));
 	}
 
 	SlotIndex = 0;
 	InventorySlotDatas[SlotIndex]->SelectOn();
+	GameEngineSound::Play("UI_Inventory_Open.wav");
 	On();
 }
 
@@ -56,6 +57,7 @@ void InventoryUI::InventoryOff()
 
 	GetContentLevel()->CallEvent("PlayerInputUnLock");
 	GetContentLevel()->CallEvent("UseKeyOn");
+	GameEngineSound::Play("UI_Inventory_Close.wav");
 	Off();
 }
 
@@ -77,13 +79,13 @@ void InventoryUI::Start()
 	InventoryBackRender->SetTexture("Inventory_Background.png");
 	InventoryBackRender->GetTransform()->SetLocalScale(GameEngineWindow::GetScreenSize());
 	InventoryBackRender->GetTransform()->SetLocalPosition(float4::Zero);
-	InventoryBackRender->ColorOptionValue.MulColor = float4(0.5f, 0.5f, 0.5f, 1.0f);
+	//InventoryBackRender->ColorOptionValue.MulColor = float4(0.5f, 0.5f, 0.5f, 1.0f);
 
 	MainFrameRender = CreateComponent<GameEngineUIRenderer>();
 	MainFrameRender->SetTexture("Inventory_Main_Frame.png");
 	MainFrameRender->GetTransform()->SetLocalScale(GameEngineWindow::GetScreenSize());
 	MainFrameRender->GetTransform()->SetLocalPosition({0, 0, -1.0f});
-	MainFrameRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
+	//MainFrameRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
 
 	GameEngineTransform* Trans = GetTransform();
 	Trans->SetLocalPosition(float4(0, 0, -4900.0f));
@@ -246,6 +248,7 @@ void InventoryUI::UpdateInventoryFrame()
 		break;
 
 	case InventorySlotType::Item:
+		ItemPopup->UpdateItemData(InventorySlotDatas[SlotIndex]->GetDataIndex());
 		ItemPopup->On();
 		break;
 	default:
@@ -261,6 +264,7 @@ void InventoryUI::MoveSlot_Up()
 		InventorySlotDatas[SlotIndex]->SelectOff();
 		SlotIndex = InventorySlotDatas[SlotIndex]->GetUpIndex();
 		InventorySlotDatas[SlotIndex]->SelectOn();
+		GameEngineSound::Play("UI_Move.wav");
 	}
 }
 
@@ -271,6 +275,7 @@ void InventoryUI::MoveSlot_Down()
 		InventorySlotDatas[SlotIndex]->SelectOff();
 		SlotIndex = InventorySlotDatas[SlotIndex]->GetDownIndex();
 		InventorySlotDatas[SlotIndex]->SelectOn();
+		GameEngineSound::Play("UI_Move.wav");
 	}
 }
 
@@ -281,6 +286,7 @@ void InventoryUI::MoveSlot_Left()
 		InventorySlotDatas[SlotIndex]->SelectOff();
 		SlotIndex = InventorySlotDatas[SlotIndex]->GetLeftIndex();
 		InventorySlotDatas[SlotIndex]->SelectOn();
+		GameEngineSound::Play("UI_Move.wav");
 	}
 }
 
@@ -291,5 +297,6 @@ void InventoryUI::MoveSlot_Right()
 		InventorySlotDatas[SlotIndex]->SelectOff();
 		SlotIndex = InventorySlotDatas[SlotIndex]->GetRightIndex();
 		InventorySlotDatas[SlotIndex]->SelectOn();
+		GameEngineSound::Play("UI_Move.wav");
 	}
 }

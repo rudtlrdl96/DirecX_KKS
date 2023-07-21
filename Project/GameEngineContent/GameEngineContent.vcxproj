@@ -293,6 +293,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ItemGear.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemGearPopup.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="LifeOrb.h">
       <SubType>
       </SubType>
@@ -1021,6 +1029,14 @@
     </ClCompile>
     <ClCompile Include="ForestOfHarmonyLevel_Event.cpp" />
     <ClCompile Include="GoodsUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemGear.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemGearPopup.cpp">
       <SubType>
       </SubType>
     </ClCompile>

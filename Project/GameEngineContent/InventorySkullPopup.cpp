@@ -149,7 +149,7 @@ void InventorySkullPopup::Start()
 	PopupFrameRender = CreateComponent<GameEngineUIRenderer>();
 	PopupFrameRender->SetTexture("Inventory_Skul_Single_Frame.png");
 	PopupFrameRender->GetTransform()->SetLocalScale(TexSize);
-	PopupFrameRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
+	//PopupFrameRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
 
 	SkullIcon = CreateComponent<GameEngineUIRenderer>();
 	SkullIcon->GetTransform()->SetLocalPosition(float4(0, 0, -1));
@@ -175,15 +175,6 @@ void InventorySkullPopup::Start()
 	SkillIconB->GetTransform()->SetLocalScale(float4(50, 50, 1));
 }
 
-#include "GameEngineActorGUI.h"
-
-void InventorySkullPopup::Update(float _DeltaTime)
-{
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(SkullNoteFont->GetTransform());
-	Ptr->On();
-}
-
 std::shared_ptr<ContentUIFontRenderer> InventorySkullPopup::CreateNewFont(const float4& _Pos, float FontSize, const float4& _Color, FW1_TEXT_FLAG _Sort)
 {
 	std::shared_ptr<ContentUIFontRenderer> NewFont = CreateComponent<ContentUIFontRenderer>();
@@ -193,8 +184,6 @@ std::shared_ptr<ContentUIFontRenderer> InventorySkullPopup::CreateNewFont(const 
 	NewFont->SetScale(FontSize);
 	NewFont->SetColor(_Color);
 	NewFont->SetFontFlag(_Sort);
-
-	//static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_RIGHT)
 
 	return NewFont;
 }
