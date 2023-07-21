@@ -25,13 +25,10 @@ void InventoryStatPopup::Start()
 		TexSize.x *= 2.0f;
 		TexSize.y *= 2.0f;
 
-		PopupFrameRender = CreateComponent<ContentUIRender>();
-		PopupFrameRender->PipeSetting("2DTexture_Color");
-		PopupFrameRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupFrameColor);
+		PopupFrameRender = CreateComponent<GameEngineUIRenderer>();
 		PopupFrameRender->SetTexture("Inventory_Stat_Frame.png");
 		PopupFrameRender->GetTransform()->SetLocalScale(TexSize);
-
-		PopupFrameColor.w = 1.21f;
+		PopupFrameRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
 	}
 
 	{
@@ -47,13 +44,11 @@ void InventoryStatPopup::Start()
 		TexSize.x *= 2.1f;
 		TexSize.y *= 2.0f;
 
-		PopupBackRender = CreateComponent<ContentUIRender>();
-		PopupBackRender->PipeSetting("2DTexture_Color");
-		PopupBackRender->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", PopupBackColor);
+		PopupBackRender = CreateComponent<GameEngineUIRenderer>();
 		PopupBackRender->SetTexture("Inventory_Stat_Back.png");
 		PopupBackRender->GetTransform()->SetLocalPosition(float4(-465, 1, 0));
 		PopupBackRender->GetTransform()->SetLocalScale(TexSize);
+		PopupBackRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
 
-		PopupBackColor.w = 1.21f;
 	}
 }

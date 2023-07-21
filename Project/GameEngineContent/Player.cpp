@@ -6,6 +6,7 @@
 
 #include "BattleActorHealFont.h"
 #include "CollisionDebugRender.h"
+#include "BattleLevel.h"
 
 #include "PlayerHitFade.h"
 #include "PlayerState.h"
@@ -33,6 +34,7 @@
 #include "AnimationPartParticle.h"
 
 #include "ResultInfo.h"
+#include "Inventory.h"
 
 Player::Player()
 {
@@ -176,7 +178,12 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 
 	if (SkullType::Power == MainSkull->GetSkullType())
 	{
-		_Damage *= 0.8f;
+		_Damage *= 0.8f * Inventory::GetDamageReduction();
+	}
+	else
+	{
+
+		_Damage *= Inventory::GetDamageReduction();
 	}
 
 	PlayerState::AddHP(-_Damage);
@@ -184,7 +191,7 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 
 	if (true == Cheat_HP)
 	{
-		PlayerState::SetHP(PlayerState::GetMaxHP());
+		PlayerState::SetHP(PlayerState::GetMaxHP() + Inventory::GetMaxHP());
 	}
 
 	std::shared_ptr<BattleActorDamageFont> NewDamageFont = GetLevel()->CreateActor<BattleActorDamageFont>();
@@ -219,10 +226,10 @@ void Player::HealPlayer(float _Heal, const float4& _HealForce)
 	PlayerState::AddHP(_Heal);
 	ResultInfo::HealValue += _Heal;
 
-	if (PlayerState::GetHP() > PlayerState::GetMaxHP())
+	if (PlayerState::GetHP() > PlayerState::GetMaxHP() + Inventory::GetMaxHP())
 	{
-		ResultInfo::HealValue -= PlayerState::GetHP() - PlayerState::GetMaxHP();
-		PlayerState::SetHP(PlayerState::GetMaxHP());
+		ResultInfo::HealValue -= PlayerState::GetHP() - (PlayerState::GetMaxHP() + Inventory::GetMaxHP());
+		PlayerState::SetHP(PlayerState::GetMaxHP() + Inventory::GetMaxHP());
 	}
 
 	std::shared_ptr<BattleActorHealFont> NewDamageFont = GetLevel()->CreateActor<BattleActorHealFont>();
@@ -300,6 +307,7 @@ void Player::Start()
 	if (false == GameEngineInput::IsKey("UseKey"))
 	{
 		GameEngineInput::CreateKey("UseKey", 'F');
+		GameEngineInput::CreateKey("InventoryOn", VK_TAB);
 	}
 
 	CheatDebugComp_Attack = CreateComponent<GameEngineComponent>();
@@ -431,6 +439,11 @@ void Player::Start()
  
 void Player::Update(float _DeltaTime)
 {
+	if (false == IsInventoryLock && true == GameEngineInput::IsDown("InventoryOn"))
+	{
+		GetContentLevel()->CallEvent("InventoryOn");
+	}
+
 	std::vector<std::shared_ptr<GameEngineCollision>> UseCols;
 
 	if (true == IsUseKeyValue && true == PlayerBodyCol->CollisionAll((int)CollisionOrder::UseEvent, UseCols, ColType::AABBBOX2D, ColType::AABBBOX2D))

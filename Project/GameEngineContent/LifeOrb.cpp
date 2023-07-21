@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "PlayerState.h"
 #include "CaptureAnimation.h"
+#include "Inventory.h"
 
 LifeOrb::LifeOrb()
 {
@@ -74,7 +75,7 @@ void LifeOrb::Update(float _DeltaTime)
 	{
 		GetTransform()->SetWorldPosition(WaveCenter + float4(0, -sinf(GetLiveTime() * 3.0f) * 5.0f, 0));
 	
-		if (PlayerState::GetHP() >= PlayerState::GetMaxHP())
+		if (PlayerState::GetHP() >= PlayerState::GetMaxHP() + Inventory::GetMaxHP())
 		{
 			return;
 		}

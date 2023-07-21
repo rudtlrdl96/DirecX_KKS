@@ -303,7 +303,7 @@ void ContentSpriteRenderer::Update(float _Delta)
 {
 	if (nullptr != CurAnimation)
 	{
-		CurAnimation->Update(_Delta);
+		CurAnimation->Update(_Delta * AnimationSpeedScale);
 		const SpriteInfo& Info = CurAnimation->CurSpriteInfo();
 
 		GetShaderResHelper().SetTexture("DiffuseTex", Info.Texture);
@@ -328,7 +328,6 @@ void ContentSpriteRenderer::Update(float _Delta)
 
 void ContentSpriteRenderer::Render(float _Delta)
 {
-
 	GameEngineRenderer::Render(_Delta);
 }
 

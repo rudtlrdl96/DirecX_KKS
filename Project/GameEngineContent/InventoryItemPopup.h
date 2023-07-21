@@ -16,8 +16,6 @@ protected:
 	void Start() override;
 
 private:
-	std::shared_ptr<class ContentUIRender> PopupFrameRender = nullptr;
-
-	ColorBuffer Buffer = ColorBuffer();
+	std::shared_ptr<GameEngineUIRenderer> PopupFrameRender = nullptr;
 };
 

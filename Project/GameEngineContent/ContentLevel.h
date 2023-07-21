@@ -49,8 +49,6 @@ protected:
 	CameraController MainCamCtrl;
 	std::string BgmName = "";
 
-	const UINT LevelCode = 0;
-
 	float BGM_FadeIn_Time = 1.0f;
 	float BGM_FadeOut_Time = 1.0f;
 

@@ -22,6 +22,7 @@
 #include "GoodsUI.h"
 #include "ResultUI.h"
 #include "BossNameFont.h"
+#include "InventoryUI.h"
 
 BattleLevel::BattleLevel()
 {
@@ -90,88 +91,91 @@ void BattleLevel::Start()
 	BossNamePtr = CreateActor<BossNameFont>();
 	BossNamePtr->GetTransform()->SetLocalPosition(float4(620, -300, -200));
 
-	AddEvent("NextLevelMove", LevelCode, [this]()
+	InventoryUIPtr = CreateActor<InventoryUI>();
+	InventoryUIPtr->Off();
+
+	AddEvent("NextLevelMove", -1, [this]()
 		{
 			AreaClear();
 		}); 
 
-	AddEvent("PlayerFrameActive", LevelCode, [this]()
+	AddEvent("PlayerFrameActive", -1, [this]()
 		{
 			MainPlayer->ActivePlayerFrame();
 		});
 
-	AddEvent("PlayerFrameDisable", LevelCode, [this]()
+	AddEvent("PlayerFrameDisable", -1, [this]()
 		{
 			MainPlayer->DisablePlayerFrame();
 		});
 
-	AddEvent("FadeIn", LevelCode, [this]()
+	AddEvent("FadeIn", -1, [this]()
 		{
 			FadeActorPtr->FadeIn();
 		});
 
-	AddEvent("FadeOut", LevelCode, [this]()
+	AddEvent("FadeOut", -1, [this]()
 		{
 			FadeActorPtr->FadeOut();
 		});
 
-	AddEvent("FadeIn_White", LevelCode, [this]()
+	AddEvent("FadeIn_White", -1, [this]()
 		{
 			FadeActorPtr_White->SetWaitTime(0.0f);
 			FadeActorPtr_White->SetSpeed(2.0f);
 			FadeActorPtr_White->FadeIn(nullptr, float4::White);
 		});
 
-	AddEvent("MinimapOn", LevelCode, [this]()
+	AddEvent("MinimapOn", -1, [this]()
 		{
 			MinimapPtr->MinimapOn();
 		});
 
-	AddEvent("MinimapOff", LevelCode, [this]()
+	AddEvent("MinimapOff", -1, [this]()
 		{
 			MinimapPtr->MinimapOff();
 		});
 	
-	AddEvent("MinimapOff_Force", LevelCode, [this]()
+	AddEvent("MinimapOff_Force", -1, [this]()
 		{
 			MinimapPtr->MinimapOff(true);
 		});
 
-	AddEvent("FadeOut_White", LevelCode, [this]()
+	AddEvent("FadeOut_White", -1, [this]()
 		{
 			FadeActorPtr_White->SetWaitTime(0.0f);
 			FadeActorPtr_White->SetSpeed(2.0f);
 			FadeActorPtr_White->FadeOut(nullptr, float4::White);
 		});
 
-	AddEvent("StoryFadeIn", LevelCode, [this]()
+	AddEvent("StoryFadeIn", -1, [this]()
 		{
 			StoryFadePtr->SetSpeed(2.0f);
 			StoryFadePtr->FadeIn();
 		});
 
-	AddEvent("StoryFadeOut", LevelCode, [this]()
+	AddEvent("StoryFadeOut", -1, [this]()
 		{
 			StoryFadePtr->SetSpeed(2.0f);
 			StoryFadePtr->FadeOut();
 		});
 
-	AddEvent("UnLockCam", LevelCode, [this]()
+	AddEvent("UnLockCam", -1, [this]()
 		{
 			MainCamCtrl.DisalbeForceLookAt();
 		});
 
-	AddEvent("LockMonsterMove", LevelCode, [this]()
+	AddEvent("LockMonsterMove", -1, [this]()
 		{
 			BaseMonster::SetMonstersMove(true);
 		});
 
-	AddEvent("UnlockMonsterMove", LevelCode, [this]()
+	AddEvent("UnlockMonsterMove", -1, [this]()
 		{
 			BaseMonster::SetMonstersMove(false);
 		});
 
-	AddEvent("SkullGearPopupOn", LevelCode, [this]()
+	AddEvent("SkullGearPopupOn", -1, [this]()
 		{
 			SkullGearPopupPtr->PopupOn();
 
@@ -188,7 +192,7 @@ void BattleLevel::Start()
 			}
 		});
 
-	AddEvent("SkullGearPopupCheck", LevelCode, [this]()
+	AddEvent("SkullGearPopupCheck", -1, [this]()
 		{
 			if (false == SkullGearPopupPtr->IsUpdate())
 			{
@@ -196,40 +200,53 @@ void BattleLevel::Start()
 			}
 		});
 
-	AddEvent("SkullGearPopupOff", LevelCode, [this]()
+	AddEvent("SkullGearPopupOff", -1, [this]()
 		{
 			SkullGearPopupPtr->PopupOff();
 		});	
 
-	AddEvent("GoodsUIOn", LevelCode, [this]()
+	AddEvent("GoodsUIOn", -1, [this]()
 		{
 			GoodsUIPtr->GoodsUIOn(MinimapPtr->IsUpdate());
 		});	
 	
-	AddEvent("GoodsUIOff", LevelCode, [this]()
+	AddEvent("GoodsUIOff", -1, [this]()
 		{
 			GoodsUIPtr->GoodsUIOff(MinimapPtr->IsUpdate());
 		});	
 	
-	AddEvent("ResultOn", LevelCode, [this]()
+	AddEvent("ResultOn", -1, [this]()
 		{
 			IsPlayerDeath = true;
 		});	
 	
-	AddEvent("ResultOff", LevelCode, [this]()
+	AddEvent("ResultOff", -1, [this]()
 		{
 			ResultUIPtr->ResultUIOff();
 		});
 
+	AddEvent("InventoryOn", -1, [this]()
+		{
+			if (false == IsInventoryDoubleCheck && false == InventoryUIPtr->IsUpdate())
+			{
+				InventoryUIPtr->InventoryOn();
+				IsInventoryDoubleCheck = true; 
+			}
+		});
+
+	AddEvent("InventoryOff", -1, [this]()
+		{
+			if (false == IsInventoryDoubleCheck && true == InventoryUIPtr->IsUpdate())
+			{
+				InventoryUIPtr->InventoryOff();
+				IsInventoryDoubleCheck = true;
+			}
+		});
+
 }
-#include "GameEngineActorGUI.h"
 
 void BattleLevel::Update(float _DeltaTime)
 {
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(BossNamePtr->GetTransform());
-	Ptr->On();
-
 	ResultInfo::PlayTime += _DeltaTime;
 
 	ContentLevel::Update(_DeltaTime);
@@ -273,6 +290,7 @@ void BattleLevel::Update(float _DeltaTime)
 	}
 	
 	BattleAreaPtr->UpdateBackground(_DeltaTime, MainCamCtrl.GetCameraPos());
+	IsInventoryDoubleCheck = false;
 }
 
 void BattleLevel::SetPlayerPos(const float4& _Pos)

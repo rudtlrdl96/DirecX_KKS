@@ -10,6 +10,7 @@
 #include "ProgressUI_Circle.h"
 #include "PlayerHealthBar.h"
 #include "PlayerState.h"
+#include "Inventory.h"
 
 PlayerStateFrame::PlayerStateFrame()
 {
@@ -218,7 +219,7 @@ void PlayerStateFrame::Update(float _DeltaTime)
 	TexRender_MainSkull->SetScaleToTexture(ParentPlayer->MainSkull->GetTexName_MainSkullUI());
 	TexRender_MainSkull->On();
 
-	HealthBarPtr->UpdateBar(PlayerState::GetHP(), PlayerState::GetMaxHP(), _DeltaTime);
+	HealthBarPtr->UpdateBar(PlayerState::GetHP(), PlayerState::GetMaxHP() + Inventory::GetMaxHP(), _DeltaTime);
 
 	{
 		float SwitchProgress = (ParentPlayer->SwitchCoolTime + 5.0f) / 5.0f;

@@ -31,6 +31,38 @@ public:
 	static ItemData PopItem(size_t _Index);
 
 	static size_t GetItemCount();
+	static size_t GetItemIndex(size_t _Index);
+
+
+	static float GetMaxHP()
+	{
+		return HP;
+	}
+
+	static float GetMeleeAttack()
+	{
+		return 1.0f + MeleeAttack;
+	}
+
+	static float GetMagicAttack()
+	{
+		return 1.0f + MagicAttack;
+	}
+
+	static float GetAttackSpeed()
+	{
+		return 1.0f + AttackSpeed;
+	}
+
+	static float GetSkillCoolDown()
+	{
+		return 1.0f + SkillCoolDown;
+	}
+
+	static float GetDamageReduction()
+	{
+		return 1.0f - DamageReduction;
+	}
 
 protected:
 	
@@ -50,6 +82,7 @@ private:
 	static float MagicAttack;
 
 	static float HP;
+	static float DamageReduction;
 
 	static float AttackSpeed;
 	static float MoveSpeed;

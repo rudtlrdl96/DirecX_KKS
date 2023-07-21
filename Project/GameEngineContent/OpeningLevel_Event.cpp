@@ -8,7 +8,7 @@
 void OpeningLevel::CreateOpeningEvent()
 {
 	// 스켈레통 이벤트
-	AddEvent("SkeleTong_Script00", LevelCode, [this]()
+	AddEvent("SkeleTong_Script00", -1, [this]()
 		{
 			std::function<void()> SkeleTongTalk_4 = [this]()
 			{
@@ -45,7 +45,7 @@ void OpeningLevel::CreateOpeningEvent()
 			MainPlayer->DisablePlayerFrame();
 		});
 
-	AddEvent("SkeleTong_Script01", LevelCode, [this]()
+	AddEvent("SkeleTong_Script01", -1, [this]()
 		{
 			std::function<void()> SkeleTongTalk_1 = [this]()
 			{
@@ -60,7 +60,7 @@ void OpeningLevel::CreateOpeningEvent()
 			TalkBoxPtr->SetMainText(L"오!! 다행이다. 아직 살아있었구나...", SkeleTongTalk_1);
 		});
 
-	AddEvent("SkeleTong_Script02", LevelCode, [this]()
+	AddEvent("SkeleTong_Script02", -1, [this]()
 		{
 			TalkBoxPtr->ActiveTalkBox("스켈레-통");
 			TalkBoxPtr->SetMainText(L"이상한 놈이네... 아무튼 다행이야.", [this]()
@@ -70,7 +70,7 @@ void OpeningLevel::CreateOpeningEvent()
 				});
 		});
 
-	AddEvent("SkeleTong_Script03", LevelCode, [this]()
+	AddEvent("SkeleTong_Script03", -1, [this]()
 		{
 			std::function<void()> SkeleTongTalk_6 = [this]()
 			{
@@ -113,7 +113,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 	// 수켈레톤 이벤트
 
-	AddEvent("Suekeleton_Script00", LevelCode, [this]()
+	AddEvent("Suekeleton_Script00", -1, [this]()
 		{
 			std::function<void()> SuekeletonTalk_4 = [this]()
 			{
@@ -154,7 +154,7 @@ void OpeningLevel::CreateOpeningEvent()
 			MainPlayer->DisablePlayerFrame();
 		});
 
-	AddEvent("PlayerMove_Suekeleton", LevelCode, [this]()
+	AddEvent("PlayerMove_Suekeleton", -1, [this]()
 		{
 			CallEvent("StoryFadeIn");
 			MainPlayer->InputLock();
@@ -167,7 +167,7 @@ void OpeningLevel::CreateOpeningEvent()
 				});
 		});
 
-	AddEvent("Suekeleton_Script01", LevelCode, [this]()
+	AddEvent("Suekeleton_Script01", -1, [this]()
 		{
 			std::function<void()> SuekeletonTalk_5 = [this]()
 			{
@@ -202,7 +202,7 @@ void OpeningLevel::CreateOpeningEvent()
 			TalkBoxPtr->SetMainText(L"크, 크, 큰일이야! 마왕님과 의원님들이 이, 이, 인간 놈들에게 잡혀가버렸어..!", SuekeletonTalk_1);
 		});
 
-	AddEvent("Suekeleton_Script02", LevelCode, [this]()
+	AddEvent("Suekeleton_Script02", -1, [this]()
 		{
 			std::function<void()> SuekeletonTalk_2 = [this]()
 			{
@@ -231,7 +231,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 	// 마녀 이벤트
 
-	AddEvent("OpeningWitch_Script00", LevelCode, [this]()
+	AddEvent("OpeningWitch_Script00", -1, [this]()
 		{
 			std::function<void()> WitchTalk_5 = [this]()
 			{
@@ -268,7 +268,7 @@ void OpeningLevel::CreateOpeningEvent()
 		});
 
 
-	AddEvent("WitchCageOut", LevelCode, [this]()
+	AddEvent("WitchCageOut", -1, [this]()
 		{
 			CallEvent("StoryFadeIn");
 			CallEvent("PlayerInputLock");
@@ -283,7 +283,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 	// 경비대장 이벤트
 
-	AddEvent("ChiefGuard_Script00", LevelCode, [this]()
+	AddEvent("ChiefGuard_Script00", -1, [this]()
 		{
 			std::function<void()> ScriptEnd = [this]()
 			{
@@ -372,7 +372,7 @@ void OpeningLevel::CreateOpeningEvent()
 			TalkBoxPtr->SetMainText(L"너는 경비대장이 아니냥? 이게 다 어떻게 된 일이다냥?", ChiefGuardTalk_0);
 		});
 
-	AddEvent("ChiefGuard_PlayerMove", LevelCode, [this]()
+	AddEvent("ChiefGuard_PlayerMove", -1, [this]()
 		{
 			CallEvent("PlayerInputLock");
 			CallEvent("StoryFadeIn");
@@ -387,7 +387,7 @@ void OpeningLevel::CreateOpeningEvent()
 
 
 	// 몬갈 이벤트
-	AddEvent("MongalDeath_Appear", LevelCode, [this]()
+	AddEvent("MongalDeath_Appear", -1, [this]()
 		{
 			if (true == IsMongalEncounter)
 			{
@@ -429,7 +429,7 @@ void OpeningLevel::CreateOpeningEvent()
 			TalkBoxPtr->SetMainText(L"저기 성앞에 서있는 게 경비대장이 말한 오우가 아니냥-!?", WitchTalk_1);
 		});
 
-	AddEvent("MongalWalkUp_Talk", LevelCode, [this]()
+	AddEvent("MongalWalkUp_Talk", -1, [this]()
 		{
 			std::function<void()> WitchTalk_2 = [this]()
 			{
@@ -449,7 +449,7 @@ void OpeningLevel::CreateOpeningEvent()
 			TalkBoxPtr->SetMainText(L"경비대장이 말한 오우거가 이녀석이었냥.", WitchTalk_1);
 		});
 
-	AddEvent("MongalDeath", LevelCode, [this]()
+	AddEvent("MongalDeath", -1, [this]()
 		{
 			MainPlayer->InputLock();
 
@@ -467,7 +467,7 @@ void OpeningLevel::CreateOpeningEvent()
 		});
 
 
-	AddEvent("Story_FirstHeroTalk0", LevelCode, [this]()
+	AddEvent("Story_FirstHeroTalk0", -1, [this]()
 		{
 			std::function<void()> FirstHeroTalk_1 = [this]()
 			{
@@ -488,7 +488,7 @@ void OpeningLevel::CreateOpeningEvent()
 			TalkBoxPtr->SetMainText(L"요..용사!?", FirstHeroTalk_0);
 		});
 
-	AddEvent("PlayerMove_MongalWalkup", LevelCode, [this]()
+	AddEvent("PlayerMove_MongalWalkup", -1, [this]()
 		{
 			CallEvent("PlayerLookRight");
 

@@ -13,6 +13,7 @@
 #include "CaptureRenderer.h"
 #include "CaptureAnimation.h"
 #include "PlayerState.h"
+#include "Inventory.h"
 
 PlayerBaseSkull::PlayerBaseSkull()
 {
@@ -24,12 +25,12 @@ PlayerBaseSkull::~PlayerBaseSkull()
 
 float PlayerBaseSkull::GetMeleeAttackDamage() const
 {
-	return PlayerState::GetMeleeAttack() * Data.MeleeAttack;
+	return PlayerState::GetMeleeAttack() * Inventory::GetMeleeAttack() * Data.MeleeAttack;
 }
 
 float PlayerBaseSkull::GetMagicAttackDamage() const
 {
-	return PlayerState::GetMagicAttack() * Data.MagicAttack;
+	return PlayerState::GetMagicAttack() * Inventory::GetMagicAttack() * Data.MagicAttack;
 }
 
 void PlayerBaseSkull::SetPlayer(std::shared_ptr<class Player> _ParentPlayer)
@@ -410,8 +411,8 @@ void PlayerBaseSkull::CoolTimeCheck(float _DeltaTime)
 		DashCoolTime = 0.0f;
 	}
 
-	CurSkillATime += _DeltaTime;
-	CurSkillBTime += _DeltaTime;
+	CurSkillATime += _DeltaTime * Inventory::GetSkillCoolDown();
+	CurSkillBTime += _DeltaTime * Inventory::GetSkillCoolDown();
 
 	RenderEffectProgress += _DeltaTime * RenderEffectSpeed;
 

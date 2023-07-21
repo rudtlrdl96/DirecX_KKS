@@ -34,6 +34,8 @@ void MouseCursor::Start()
 void MouseCursor::Update(float _DeltaTime)
 {
 	float4 Pos = GetContentLevel()->GetMousePos((int)CameraOrder::Fade);
+	Pos.z = -4999.0f;
+
 	float4 CursorScale = CursorRender->GetTransform()->GetWorldScale();
 
 	if (Pos != PrevPos)

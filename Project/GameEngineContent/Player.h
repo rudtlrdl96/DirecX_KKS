@@ -75,6 +75,11 @@ public:
 		MainSkull->Off();
 	}
 
+	inline void SetInventoryLock(bool _Lock)
+	{
+		IsInventoryLock = _Lock;
+	}
+
 protected:	
 	void Start() override;
 	void Update(float _DeltaTime);
@@ -109,6 +114,7 @@ private:
 
 	std::vector<std::string> BoneEffectNames;
 
+	bool IsInventoryLock = false;
 	bool IsInputUnlockWait = false;
 	bool IsInputUnlockWaitEnd = false;
 

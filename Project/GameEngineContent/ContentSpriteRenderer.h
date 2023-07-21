@@ -149,6 +149,11 @@ public:
 
 	void PipeSetting(const std::string_view _PipeName, bool _IsAtlasData = true);
 
+	inline void SetAnimationSpeedScale(float _TimeScale)
+	{
+		AnimationSpeedScale = _TimeScale;
+	}
+
 protected:
 	void Render(float _Delta) override;
 
@@ -168,6 +173,7 @@ private:
 
 
 	float ScaleRatio = 1.0f;
+	float AnimationSpeedScale = 1.0f;
 
 	void Start() override;
 };

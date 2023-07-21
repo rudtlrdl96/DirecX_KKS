@@ -6,7 +6,7 @@
 
 void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 {
-	AddEvent("BossIntroDown", LevelCode, [this]()
+	AddEvent("BossIntroDown", -1, [this]()
 		{
 			static bool FirstCheck = false;
 
@@ -21,7 +21,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 			}
 		});
 
-	AddEvent("BossIntroUp", LevelCode, [this]()
+	AddEvent("BossIntroUp", -1, [this]()
 		{
 			MainCamCtrl.SetLookatSpeed(1.0f);
 			MainCamCtrl.SetMaxHeight(7000);
@@ -30,7 +30,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 			IntroTilemap->FadeOut(1.0f);
 		});
 
-	AddEvent("BossIntroUpOut", LevelCode, [this]()
+	AddEvent("BossIntroUpOut", -1, [this]()
 		{
 			MainCamCtrl.SetLookatSpeed(7.0f);
 			IntroTilemap->FadeIn(1.0f);
@@ -38,13 +38,13 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 
 	// 견습 용사
 
-	AddEvent("RookieHero_Death", LevelCode, [this]()
+	AddEvent("RookieHero_Death", -1, [this]()
 		{
 			MainCamCtrl.SetLookatSpeed();
 			MainCamCtrl.DisalbeForceLookAt();
 		});
 
-	AddEvent("RookieHero_Script00", LevelCode, [this]()
+	AddEvent("RookieHero_Script00", -1, [this]()
 		{
 			std::function<void()> Talk11 = [this]()
 			{
@@ -119,7 +119,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 			TalkBoxPtr->SetMainText(L"하나둘 셋! 하나둘 셋!", Talk01);
 		});
 
-	AddEvent("RookieHero_Intro", LevelCode, [this]()
+	AddEvent("RookieHero_Intro", -1, [this]()
 		{
 			CallEvent("PlayerInputLock");
 			CallEvent("PlayerFrameDisable");
@@ -139,7 +139,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 		});
 
 	// 각성 용사
-	AddEvent("VeteranHero_Death", LevelCode, [this]()
+	AddEvent("VeteranHero_Death", -1, [this]()
 		{
 			CallEvent("PlayerInputLock");
 			CallEvent("PlayerFrameDisable");
@@ -150,7 +150,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 			IsBossClear = true;
 		});
 
-	AddEvent("VeteranHero_Script02", LevelCode, [this]()
+	AddEvent("VeteranHero_Script02", -1, [this]()
 		{
 			ShowBossName("견습용사", "칼레온의 희망");
 
@@ -167,7 +167,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 				});
 		});
 
-	AddEvent("VeteranHero_Script01", LevelCode, [this]()
+	AddEvent("VeteranHero_Script01", -1, [this]()
 		{
 			std::function<void()> VeteranHeroTalk06 = [this]()
 			{
@@ -207,7 +207,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 			TalkBoxPtr->SetMainText(L"스켈레톤 주제에 여기까지 오다니! 마침 내가 혼자일 때 만나서 다행이야. 개인적인 빚을 이제서야 갚아줄 수 있겠어.", VeteranHeroTalk01);
 		});
 
-	AddEvent("VeteranHero_Script00", LevelCode, [this]()
+	AddEvent("VeteranHero_Script00", -1, [this]()
 		{			
 			TalkBoxPtr->ActiveTalkBox("견습 용사");
 			TalkBoxPtr->SetMainText(L"드디어 만났군!", [this]()
@@ -217,7 +217,7 @@ void ForestOfHarmonyLevel::CreateForestOfHarmonyEvent()
 				});
 		});
 
-	AddEvent("VeteranHero_Intro", LevelCode, [this]()
+	AddEvent("VeteranHero_Intro", -1, [this]()
 		{
 			CallEvent("PlayerInputLock");
 			CallEvent("PlayerFrameDisable");

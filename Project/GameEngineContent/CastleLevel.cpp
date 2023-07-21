@@ -45,13 +45,13 @@ void CastleLevel::Start()
 	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
 	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 
-	AddEvent("CastleInCameraLock", LevelCode, [this]()
+	AddEvent("CastleInCameraLock", -1, [this]()
 		{
 			MainCamCtrl.SetMinHeight(64);
 			MainCamCtrl.SetMaxHeight(64 + GameEngineWindow::GetScreenSize().y);
 		});
 
-	AddEvent("CastleOutCameraLock", LevelCode, [this]()
+	AddEvent("CastleOutCameraLock", -1, [this]()
 		{
 			MainCamCtrl.SetMinHeight(-3800);
 		});
@@ -69,7 +69,7 @@ void CastleLevel::LevelChangeStart()
 	Inventory::ItemReset();
 
 	ResultInfo::ResultReset();
-	PlayerState::SetHP(PlayerState::GetMaxHP());
+	PlayerState::SetHP(PlayerState::GetMaxHP() + Inventory::GetMaxHP());
 
 	BattleLevel::LevelChangeStart();
 

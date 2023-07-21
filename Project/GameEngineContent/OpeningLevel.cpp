@@ -78,6 +78,7 @@ void OpeningLevel::Update(float _DeltaTime)
 void OpeningLevel::LevelChangeStart()
 {
 	BattleLevel::LevelChangeStart();
+	MainPlayer->SetInventoryLock(true);
 	IsMongalEncounter = false;
 
 	CallEvent("MinimapOff_Force");

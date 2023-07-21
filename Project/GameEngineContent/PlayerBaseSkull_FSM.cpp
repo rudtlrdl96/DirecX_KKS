@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "BaseMonster.h"
 #include "CaptureAnimation.h"
+#include "Inventory.h"
 
 void PlayerBaseSkull::Idle_Enter()
 {
@@ -636,6 +637,8 @@ void PlayerBaseSkull::Attack_Enter()
 	FsmState = PlayerFSM_State::Attack;
 
 	CurDamageRatio = Attack_DamageRatio;
+
+	Render->SetAnimationSpeedScale(Inventory::GetAttackSpeed());
 }
 
 void PlayerBaseSkull::Attack_Update(float _DeltaTime) 
@@ -751,6 +754,7 @@ void PlayerBaseSkull::Attack_Update(float _DeltaTime)
 
 void PlayerBaseSkull::Attack_End() 
 {
+	Render->SetAnimationSpeedScale(1.0f);
 	AttackEnterCheck.Reset();
 }
 
@@ -769,6 +773,8 @@ void PlayerBaseSkull::JumpAttack_Enter()
 	FsmState = PlayerFSM_State::JumpAttack;
 
 	CurDamageRatio = Attack_DamageRatio;
+
+	Render->SetAnimationSpeedScale(Inventory::GetAttackSpeed());
 }
 
 void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
@@ -899,6 +905,7 @@ void PlayerBaseSkull::JumpAttack_Update(float _DeltaTime)
 
 void PlayerBaseSkull::JumpAttack_End()
 {
+	Render->SetAnimationSpeedScale(1.0f);
 	AttackEnterCheck.Reset();
 }
 

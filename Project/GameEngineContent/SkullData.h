@@ -33,6 +33,7 @@ public:
 
 	std::string Name_SkillA = "";
 	std::string Name_SkillB = "";
+	std::string Name_Switch = "";
 
 	size_t Index = static_cast<size_t>(-1);
 	size_t UpgradeIndex = static_cast<size_t>(-1);

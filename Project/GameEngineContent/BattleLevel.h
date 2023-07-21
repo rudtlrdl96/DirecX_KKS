@@ -50,7 +50,9 @@ protected:
 	std::shared_ptr<class StageInfoFrame> StageInfoFramePtr = nullptr;
 	std::shared_ptr<class GoodsUI> GoodsUIPtr = nullptr;
 	std::shared_ptr<class ResultUI> ResultUIPtr = nullptr;
+	std::shared_ptr<class InventoryUI> InventoryUIPtr = nullptr;
 
+	bool IsInventoryDoubleCheck = false;
 	bool IsLevelMove = false;
 
 	void Start() override;

@@ -9,10 +9,7 @@
 #include "ContentLevelLightGUI.h"
 #include "MouseCursor.h"
 
-static UINT NewLevelCode = 0;
-
-ContentLevel::ContentLevel() :
-	LevelCode(++NewLevelCode)
+ContentLevel::ContentLevel()
 {
 }
 
@@ -105,12 +102,12 @@ void ContentLevel::Start()
 	CreateActor<MouseCursor>();
 
 
-	AddEvent("RewardWorldLightOn", LevelCode, [this]()
+	AddEvent("RewardWorldLightOn", -1, [this]()
 		{
 			FadeWorldLightEffect(WorldLight->WorldLight, float4(0.8f, 0.8f, 0.8f, 1.0f), 2.0f);
 		});
 
-	AddEvent("RewardWorldLightOff", LevelCode, [this]()
+	AddEvent("RewardWorldLightOff", -1, [this]()
 		{
 			FadeWorldLightEffect(WorldLight->WorldLight, float4::One, 2.0f);
 		});

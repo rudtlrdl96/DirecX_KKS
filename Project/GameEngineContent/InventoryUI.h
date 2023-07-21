@@ -12,26 +12,33 @@ public:
 	InventoryUI& operator=(const InventoryUI& _Other) = delete;
 	InventoryUI& operator=(InventoryUI&& _Other) noexcept = delete;
 
+	void InventoryOn();
+	void InventoryOff();
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class ContentUIRender> MainFrameRender = nullptr;
-	std::shared_ptr<class ContentUIRender> InventoryBackRender = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> MainFrameRender = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> InventoryBackRender = nullptr;
 
 	std::shared_ptr<class InventorySlot> CurSelectSlot = nullptr;
 
-	std::vector<std::shared_ptr<class InventorySlot>> SkullSlotDatas;
-	std::vector<std::shared_ptr<class InventorySlot>> QuintessenceSlotDatas;
-	std::vector<std::shared_ptr<class InventorySlot>> ItemSlotDatas;
+	std::vector<std::shared_ptr<class InventorySlot>> InventorySlotDatas;
+
+	size_t SlotIndex = 0;
 
 	std::shared_ptr<class InventoryItemPopup> ItemPopup = nullptr;
 	std::shared_ptr<class InventoryQuintessencePopup> QuintessencePopup = nullptr;
 	std::shared_ptr<class InventorySkullPopup> SkullPopup = nullptr;
 	std::shared_ptr<class InventoryStatPopup> StatPopup = nullptr;
 
-	ColorBuffer MainFrameTex;
-	ColorBuffer BackFrameTex;
+	void UpdateInventoryFrame();
+
+	void MoveSlot_Up();
+	void MoveSlot_Down();
+	void MoveSlot_Left();
+	void MoveSlot_Right();
 };
 

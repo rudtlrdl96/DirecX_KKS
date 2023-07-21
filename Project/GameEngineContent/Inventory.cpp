@@ -14,6 +14,9 @@ float Inventory::MeleeAttack = 0.0f;
 float Inventory::MagicAttack = 0.0f;
 
 float Inventory::HP = 0.0f;
+float Inventory::DamageReduction = 0.0f;
+
+float Inventory::AttackSpeed = 0.0f;
 float Inventory::MoveSpeed = 0.0f;
 float Inventory::CastingSpeed = 0.0f;
 
@@ -23,6 +26,8 @@ float Inventory::QuintessenceCoolDown = 0.0f;
 
 float Inventory::CriticalPercent = 0.0f;
 float Inventory::CriticalDamage = 0.0f;
+
+float Inventory::GoldPercent = 0.0f;
 
 
 Inventory::Inventory()
@@ -42,6 +47,11 @@ void Inventory::SwapSkull()
 
 void Inventory::AddGoods_Gold(int _Gold)
 {
+	if (0 < _Gold)
+	{
+		_Gold += static_cast<int>(_Gold * GoldPercent);
+	}
+
 	Goods_Gold += _Gold;
 }
 
@@ -89,19 +99,6 @@ void Inventory::SetSubSkull(SkullData _SkullData)
 void Inventory::ResetSkull()
 {
 	MainSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(0);
-
-	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(1); //웨어울프_노말
-	
-	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(100); //웨어울프_레어
-	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(200); //웨어울프_유니크
-	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(203); //경비 대장
-	 
-	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(300); //웨어울프_레전더리
-
-	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(101); //미노타우르스_레어
-	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(201); //미노타우르스_유니크
-	//SubSkullData = ContentDatabase<SkullData, SkullGrade>::GetData(301); //미노타우르스_레전더리
-
 	SubSkullData.Reset();
 }
 
@@ -149,32 +146,41 @@ size_t Inventory::GetItemCount()
 	return PlayerItemDatas.size();
 }
 
+size_t Inventory::GetItemIndex(size_t _Index)
+{
+	return PlayerItemDatas[_Index].Index;
+}
+
 void Inventory::CalItemState()
 {
 	MeleeAttack = 0.0f;
 	MagicAttack = 0.0f;
 
 	HP = 0.0f;
+	DamageReduction = 0.0f;
 
+	AttackSpeed = 0.0f;
 	MoveSpeed = 0.0f;
 	CastingSpeed = 0.0f;
 
-	SkillCoolDown = 0.0f;
+	SkillCoolDown = 1.0f;
 	SwitchCoolDown = 0.0f;
 	QuintessenceCoolDown = 0.0f;
 
 	CriticalPercent = 0.0f;
 	CriticalDamage = 0.0f;
 
+	GoldPercent = 0.0f;
+
 	for (size_t i = 0; i < PlayerItemDatas.size(); i++)
 	{
-		PlayerItemDatas[i].MagicAttack;
-
 		MeleeAttack += PlayerItemDatas[i].MeleeAttack;
 		MagicAttack += PlayerItemDatas[i].MagicAttack;
 
 		HP += PlayerItemDatas[i].HP;
+		DamageReduction += (1.0f - DamageReduction) * PlayerItemDatas[i].DamageReduction;
 
+		AttackSpeed += PlayerItemDatas[i].AttackSpeed;
 		MoveSpeed += PlayerItemDatas[i].MoveSpeed;
 		CastingSpeed += PlayerItemDatas[i].CastingSpeed;
 
