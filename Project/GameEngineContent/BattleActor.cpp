@@ -99,19 +99,30 @@ void BattleActor::HitEffect(HitEffectType _Type, bool _IsCritical)
 		}
 	}
 
+	std::string EffectName = "";
+
 	switch (_Type)
 	{
 	case HitEffectType::Normal:
 
+		if (true == _IsCritical)
+		{
+			EffectName = "HitNormalCritical";
+		}
+		else
+		{
+			EffectName = "HitNormal";
+		}
+
 		switch (HitDir)
 		{
 		case ActorViewDir::Left:
-			EffectManager::PlayEffect({ .EffectName = "HitNormal",
+			EffectManager::PlayEffect({ .EffectName = EffectName,
 				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-30, -20), Rand.RandomFloat(25, 70), 0),
 				.FlipX = true });
 			break;
 		case ActorViewDir::Right:
-			EffectManager::PlayEffect({ .EffectName = "HitNormal",
+			EffectManager::PlayEffect({ .EffectName = EffectName,
 					.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(20, 30), Rand.RandomFloat(25, 70), 0),
 					.FlipX = false });
 			break;
@@ -146,18 +157,27 @@ void BattleActor::HitEffect(HitEffectType _Type, bool _IsCritical)
 
 		std::shared_ptr<EffectActor> Effect = nullptr;
 
+		if (true == _IsCritical)
+		{
+			EffectName = "HitSlashCritical";
+		}
+		else
+		{
+			EffectName = "HitSkeletonSword";
+		}
+
 		switch (HitDir)
 		{
 		case ActorViewDir::Left:
 
-			Effect = EffectManager::PlayEffect({ .EffectName = "HitSkeletonSword",
+			Effect = EffectManager::PlayEffect({ .EffectName = EffectName,
 				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-55, -35), Rand.RandomFloat(25, 70), 0),
 				.Scale = Rand.RandomFloat(0.8f, 1.2f),
 				.FlipX = true });
 
 			break;
 		case ActorViewDir::Right:
-			Effect = EffectManager::PlayEffect({ .EffectName = "HitSkeletonSword",
+			Effect = EffectManager::PlayEffect({ .EffectName = EffectName,
 				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(35, 55), Rand.RandomFloat(25, 70), 0),
 				.Scale = Rand.RandomFloat(0.8f, 1.2f),
 				.FlipX = true });
@@ -175,18 +195,27 @@ void BattleActor::HitEffect(HitEffectType _Type, bool _IsCritical)
 
 		std::shared_ptr<EffectActor> Effect = nullptr;
 
+		if (true == _IsCritical)
+		{
+			EffectName = "HitSpecialCritical";
+		}
+		else
+		{
+			EffectName = "HitMinotaurus";
+		}
+
 		switch (HitDir)
 		{
 		case ActorViewDir::Left:
 
-			Effect = EffectManager::PlayEffect({ .EffectName = "HitMinotaurus",
+			Effect = EffectManager::PlayEffect({ .EffectName = EffectName,
 				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(-55, -35), Rand.RandomFloat(25, 70), 0),
 				.Scale = Rand.RandomFloat(0.7f, 0.9f),
 				.FlipX = true });
 
 			break;
 		case ActorViewDir::Right:
-			Effect = EffectManager::PlayEffect({ .EffectName = "HitMinotaurus",
+			Effect = EffectManager::PlayEffect({ .EffectName = EffectName,
 				.Position = GetTransform()->GetLocalPosition() + float4(Rand.RandomFloat(35, 55), Rand.RandomFloat(25, 70), 0),
 				.Scale = Rand.RandomFloat(0.7f, 0.9f),
 				.FlipX = true });

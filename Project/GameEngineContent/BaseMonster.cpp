@@ -79,16 +79,37 @@ void BaseMonster::HitMonster(float _Damage, float _CriDamagePer, ActorViewDir _H
 
 	if (true == _IsMagicAttack)
 	{
-		FontColor = float4(0.54117f, 0.8392f, 0.90196f, 1);
+		if (true == _IsCritical)
+		{
+			FontColor = float4(0.345f, 1.0f, 0.9333f, 1);
+		}
+		else
+		{
+			FontColor = float4(0.54117f, 0.8392f, 0.90196f, 1);
+		}
 	}
 	else
 	{
-		FontColor = float4(0.85f, 0.705f, 0.17254f, 1);
+		if (true == _IsCritical)
+		{
+			FontColor = float4(0.957f, 1.0f, 0.012f, 1);
+		}
+		else
+		{
+			FontColor = float4(0.85f, 0.705f, 0.17254f, 1);
+		}
+	}
+
+	float FontSize = 28.0f;
+
+	if (true == _IsCritical)
+	{
+		FontSize = 36.0f;
 	}
 
 	NewDamageFont->InitFont({
 		.Damage = _Damage,
-		.FontSize = 30,
+		.FontSize = FontSize,
 		.FontColor = FontColor,
 		.Pos = GetTransform()->GetWorldPosition() + float4(0, 50, -100) + DamageFontPivot,
 		.Dir = FontDir,

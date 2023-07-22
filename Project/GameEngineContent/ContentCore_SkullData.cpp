@@ -668,6 +668,10 @@ void ContentCore::SkullDataLoad()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkul.png").GetFullPath(), 5, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitNormal.png").GetFullPath(), 6, 2);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSkeletonSword.png").GetFullPath(), 5, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitNormalCritical.png").GetFullPath(), 4, 2);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSpecialCritical.png").GetFullPath(), 4, 3);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("HitSlashCritical.png").GetFullPath(), 4, 2);
+
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("StampEffect.png").GetFullPath(), 11, 2);
 
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("SkullAppearance.png").GetFullPath(), 7, 1);
@@ -756,6 +760,27 @@ void ContentCore::SkullDataLoad()
 			float4::Zero,
 			0, 14,
 			0.03f,
+			1.5f });
+
+		EffectManager::CreateMetaData("HitNormalCritical", {
+			"HitNormalCritical.png" ,
+			float4::Zero,
+			0, 6,
+			0.04f,
+			1.5f });
+
+		EffectManager::CreateMetaData("HitSpecialCritical", {
+			"HitSpecialCritical.png" ,
+			float4::Zero,
+			0, 10,
+			0.03f,
+			1.5f });
+
+		EffectManager::CreateMetaData("HitSlashCritical", {
+			"HitSlashCritical.png" ,
+			float4::Zero,
+			0, 6,
+			0.04f,
 			1.5f });
 
 		EffectManager::CreateMetaData("LandSmoke", {

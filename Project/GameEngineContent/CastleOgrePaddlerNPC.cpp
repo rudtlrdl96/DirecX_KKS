@@ -2,6 +2,8 @@
 #include "CastleOgrePaddlerNPC.h"
 #include "NPC_TalkBox.h"
 #include "FieldNoteActor.h"
+#include "ItemData.h"
+#include "ItemGear.h"
 
 CastleOgrePaddlerNPC::CastleOgrePaddlerNPC()
 {
@@ -290,6 +292,26 @@ void CastleOgrePaddlerNPC::PlayNextGiveItemScript()
 
 void CastleOgrePaddlerNPC::GiveItemEndCallback()
 {
+	std::vector<float> RandPer = { 50.0f, 50.0f };
+
+	ItemGrade RandGrade = ContentFunc::RandEnum<ItemGrade>(RandPer);
+
+	std::vector<ItemData> GradeDatas;
+
+	ContentDatabase<ItemData, ItemGrade>::CopyGradeDatas(RandGrade, GradeDatas);
+
+	size_t RandIndex = GameEngineRandom::MainRandom.RandomInt(0, static_cast<int>(GradeDatas.size()) - 1);
+
+	std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
+
+	Gear->DropGear(GetTransform()->GetWorldPosition() + float4(0, -200, -1));
+	Gear->Init(GradeDatas[RandIndex]);
+
+	if (RandGrade == ItemGrade::Legendary)
+	{
+		Gear->LegendaryGearEffectOn();
+	}
+
 	NpcTalkBox->Off();
 	GetContentLevel()->CallEvent("PlayerInputUnlock");
 	GetContentLevel()->CallEvent("StoryFadeOut");
