@@ -64,7 +64,7 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
-	void HitEffect(HitEffectType _Type);
+	void HitEffect(HitEffectType _Type, bool _IsCritical);
 	void HitPush();
 
 	void ColorEffectOn(float _Speed, float _WaitTime, const float4& _StartColor, const float4& _EndColor);

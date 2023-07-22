@@ -62,6 +62,8 @@ void WolfSkull_Unique::Update(float _DeltaTime)
 				.IsRot = false,
 				.IsEffectEndDeath = true,
 				.Damage = GetMeleeAttackDamage(),
+				.CriDamage = GetCiriticalDamage(),
+				.IsCritical = IsCritical(),
 				.Speed = 0.0f,
 				.EnterEvent = [Dir](std::shared_ptr<BaseContentActor> _ColActor, const ProjectileHitParameter& _Hit)
 				{
@@ -73,7 +75,7 @@ void WolfSkull_Unique::Update(float _DeltaTime)
 						return;
 					}
 
-					CastingPtr->HitMonster(_Hit.Attack, Dir, true, false, false, HitEffectType::Sword);
+					CastingPtr->HitMonster(_Hit.Attack, _Hit.CriDamager, Dir, true, false, false, _Hit.IsCritical, HitEffectType::Sword);
 				}
 				});
 
@@ -284,7 +286,7 @@ void WolfSkull_Unique::Skill_SlotB_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Sword, [this]()
+				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::Sword, [this]()
 					{
 						CurSkillBTime = GetSkillBEndTime();
 					});
@@ -407,7 +409,7 @@ void WolfSkull_Unique::Switch_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetViewDir(), true, true, false, HitEffectType::Sword);
+				CastingPtr->HitMonster(GetMeleeAttackDamage() * Switch_DamageRatio, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::Sword);
 			}
 		}
 

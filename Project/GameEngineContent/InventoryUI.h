@@ -26,6 +26,7 @@ private:
 	std::shared_ptr<class InventorySlot> CurSelectSlot = nullptr;
 
 	std::vector<std::shared_ptr<class InventorySlot>> InventorySlotDatas;
+	std::vector<std::shared_ptr<class InventorySynergyFrame>> SynergyFrames;
 
 	size_t SlotIndex = 0;
 
@@ -34,7 +35,15 @@ private:
 	std::shared_ptr<class InventorySkullPopup> SkullPopup = nullptr;
 	std::shared_ptr<class InventoryStatPopup> StatPopup = nullptr;
 
+	std::shared_ptr<ContentUIFontRenderer> SkullTitleFont = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> ItemTitleFont = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> QuintessenceTitleFont = nullptr;
+
+	std::shared_ptr<ContentUIFontRenderer> CreateNewFont(const float4& _Pos, float FontSize, const float4& _Color, FW1_TEXT_FLAG _Sort);
+	std::shared_ptr<class InventorySynergyFrame> CreateSynergyFrame();
+
 	void UpdateInventoryFrame();
+	void SortSynergyFrame();
 
 	void MoveSlot_Up();
 	void MoveSlot_Down();

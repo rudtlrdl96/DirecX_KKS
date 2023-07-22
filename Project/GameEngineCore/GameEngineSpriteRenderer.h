@@ -98,7 +98,7 @@ public:
 	GameEngineSpriteRenderer& operator=(const GameEngineSpriteRenderer& _Other) = delete;
 	GameEngineSpriteRenderer& operator=(GameEngineSpriteRenderer&& _Other) noexcept = delete;
 
-	void SetScaleToTexture(const std::string_view& _Name);
+	void SetScaleToTexture(const std::string_view& _Name, float _ScaleRatio = 1.0f);
 
 	void SetTexture(const std::string_view& _Name);
 

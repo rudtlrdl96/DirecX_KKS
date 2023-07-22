@@ -6,8 +6,10 @@ class ProjectileHitParameter
 {
 public:
 	float Attack = 0.0f;
+	float CriDamager = 0.0f;
 	float4 ProjectilePos = float4::Zero;
 	float4 AttackDir = float4::Zero;
+	bool IsCritical = false;
 };
 
 class ProjectileParameter
@@ -35,6 +37,8 @@ public:
 	bool IsEffectEndDeath = false;
 
 	float Damage = 1.0f;
+	float CriDamage = 0.0f;
+	bool IsCritical = false;
 
 	float Speed = 100.0f;
 	float LiveTime = 1.0f;
@@ -87,6 +91,8 @@ protected:
 	bool IsEffectEndDeath = false;
 
 	float Damage = 1.0f;
+	float CriDamage = 0.0f;
+	bool IsCritical = false;
 
 	float WaitTime = 0.0f;
 	float LiveTime = 1.0f;

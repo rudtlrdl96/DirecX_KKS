@@ -41,7 +41,7 @@ void InventoryStatPopup::Start()
 		}
 
 		float4 TexSize = { static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()), 1.0f};
-		TexSize.x *= 2.1f;
+		TexSize.x *= 2.0f;
 		TexSize.y *= 2.0f;
 
 		PopupBackRender = CreateComponent<GameEngineUIRenderer>();

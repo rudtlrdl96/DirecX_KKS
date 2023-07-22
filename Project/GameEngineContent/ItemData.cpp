@@ -238,49 +238,52 @@ std::vector<int> ItemData::GetSynergyGrade(Synergy _Type)
 	std::vector<int> SynergyGrades;
 	SynergyGrades.resize(2);
 	
-	switch (_Type)
-	{
-	case Synergy::Courage:
-		SynergyGrades[0] = 2;
-		SynergyGrades[1] = 4;
-		break;
-	case Synergy::Antique:
-		SynergyGrades[0] = 2;
-		SynergyGrades[1] = 4;
-		break;
-	case Synergy::Heritage:
-		SynergyGrades[0] = 1;
-		SynergyGrades[1] = 3;
-		break;
-	case Synergy::Misfortune:
-		SynergyGrades[0] = 2;
-		SynergyGrades[1] = 4;
-		break;
-	case Synergy::Rapidity:
-		SynergyGrades[0] = 2;
-		SynergyGrades[1] = 4;
-		break;
-	case Synergy::Soar:
-		SynergyGrades[0] = 2;
-		SynergyGrades[1] = 4;
-		break;
-	case Synergy::Strike:
-		SynergyGrades[0] = 2;
-		SynergyGrades[1] = 4;
-		break;
-	case Synergy::Wisdom:
-		SynergyGrades[0] = 2;
-		SynergyGrades[1] = 4;
-		break;
-	case Synergy::Chase:
-		SynergyGrades[0] = 2;
-		SynergyGrades[1] = 4;
-		break;
-	case Synergy::ManaCycle:
-		SynergyGrades[0] = 2;
-		SynergyGrades[1] = 4;
-		break;
-	}
+	SynergyGrades[0] = 2;
+	SynergyGrades[1] = 4;
+
+	//switch (_Type)
+	//{
+	//case Synergy::Courage:
+	//	SynergyGrades[0] = 2;
+	//	SynergyGrades[1] = 4;
+	//	break;
+	//case Synergy::Antique:
+	//	SynergyGrades[0] = 2;
+	//	SynergyGrades[1] = 4;
+	//	break;
+	//case Synergy::Heritage:
+	//	SynergyGrades[0] = 2;
+	//	SynergyGrades[1] = 4;
+	//	break;
+	//case Synergy::Misfortune:
+	//	SynergyGrades[0] = 2;
+	//	SynergyGrades[1] = 4;
+	//	break;
+	//case Synergy::Rapidity:
+	//	SynergyGrades[0] = 2;
+	//	SynergyGrades[1] = 4;
+	//	break;
+	//case Synergy::Soar:
+	//	SynergyGrades[0] = 2;
+	//	SynergyGrades[1] = 4;
+	//	break;
+	//case Synergy::Strike:
+	//	SynergyGrades[0] = 2;
+	//	SynergyGrades[1] = 4;
+	//	break;
+	//case Synergy::Wisdom:
+	//	SynergyGrades[0] = 2;
+	//	SynergyGrades[1] = 4;
+	//	break;
+	//case Synergy::Chase:
+	//	SynergyGrades[0] = 2;
+	//	SynergyGrades[1] = 4;
+	//	break;
+	//case Synergy::ManaCycle:
+	//	SynergyGrades[0] = 2;
+	//	SynergyGrades[1] = 4;
+	//	break;
+	//}
 
 	return SynergyGrades;
 }

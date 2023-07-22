@@ -144,7 +144,7 @@ void GameEngineSpriteRenderer::SetFlipY()
 	//GetTransform()->SetLocalScale(LocalScale);
 }
 
-void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
+void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name, float _ScaleRatio /*= 1.0f*/)
 {
 	GetShaderResHelper().SetTexture("DiffuseTex", _Name);
 	std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(_Name);
@@ -156,7 +156,7 @@ void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
 	}
 
 	float4 Scale = float4(static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()), 1);
-	GetTransform()->SetLocalScale(Scale);
+	GetTransform()->SetLocalScale(Scale * _ScaleRatio);
 	CurTexture = FindTex;
 
 

@@ -30,6 +30,46 @@ float Inventory::CriticalDamage = 0.0f;
 float Inventory::GoldPercent = 0.0f;
 
 
+int Inventory::Synergy_Courage = 0;
+int Inventory::Synergy_Antique = 0;
+int Inventory::Synergy_Heritage = 0;
+int Inventory::Synergy_Misfortune = 0;
+int Inventory::Synergy_Rapidity = 0;
+int Inventory::Synergy_Soar = 0;
+int Inventory::Synergy_Strike = 0;
+int Inventory::Synergy_Wisdom = 0;
+int Inventory::Synergy_Chase = 0;
+int Inventory::Synergy_ManaCycle = 0;
+
+int Inventory::GetSynergyCount(Synergy _Synergy)
+{
+	switch (_Synergy)
+	{
+	case Synergy::Courage:
+		return Synergy_Courage;
+	case Synergy::Antique:
+		return Synergy_Antique;
+	case Synergy::Heritage:
+		return Synergy_Heritage;
+	case Synergy::Misfortune:
+		return Synergy_Misfortune;
+	case Synergy::Rapidity:
+		return Synergy_Rapidity;
+	case Synergy::Soar:
+		return Synergy_Soar;
+	case Synergy::Strike:
+		return Synergy_Strike;
+	case Synergy::Wisdom:
+		return Synergy_Wisdom;
+	case Synergy::Chase:
+		return Synergy_Chase;
+	case Synergy::ManaCycle:
+		return Synergy_ManaCycle;
+	}
+
+	return 0;
+}
+
 Inventory::Inventory()
 {
 }
@@ -151,6 +191,43 @@ size_t Inventory::GetItemIndex(size_t _Index)
 	return PlayerItemDatas[_Index].Index;
 }
 
+void Inventory::AddSynergy(Synergy _Synergy)
+{
+	switch (_Synergy)
+	{
+	case Synergy::Courage:
+		++Synergy_Courage;
+		break;
+	case Synergy::Antique:
+		++Synergy_Antique;
+		break;
+	case Synergy::Heritage:
+		++Synergy_Heritage;
+		break;
+	case Synergy::Misfortune:
+		++Synergy_Misfortune;
+		break;
+	case Synergy::Rapidity:
+		++Synergy_Rapidity;
+		break;
+	case Synergy::Soar:
+		++Synergy_Soar;
+		break;
+	case Synergy::Strike:
+		++Synergy_Strike;
+		break;
+	case Synergy::Wisdom:
+		++Synergy_Wisdom;
+		break;
+	case Synergy::Chase:
+		++Synergy_Chase;
+		break;
+	case Synergy::ManaCycle:
+		++Synergy_ManaCycle;
+		break;
+	}
+}
+
 void Inventory::CalItemState()
 {
 	MeleeAttack = 0.0f;
@@ -172,6 +249,17 @@ void Inventory::CalItemState()
 
 	GoldPercent = 0.0f;
 
+	Synergy_Courage = 0;
+	Synergy_Antique = 0;
+	Synergy_Heritage = 0;
+	Synergy_Misfortune = 0;
+	Synergy_Rapidity = 0;
+	Synergy_Soar = 0;
+	Synergy_Strike = 0;
+	Synergy_Wisdom = 0;
+	Synergy_Chase = 0;
+	Synergy_ManaCycle = 0;
+
 	for (size_t i = 0; i < PlayerItemDatas.size(); i++)
 	{
 		MeleeAttack += PlayerItemDatas[i].MeleeAttack;
@@ -190,5 +278,71 @@ void Inventory::CalItemState()
 
 		CriticalPercent += PlayerItemDatas[i].CriticalPercent;
 		CriticalDamage += PlayerItemDatas[i].CriticalDamage;
+
+		AddSynergy(PlayerItemDatas[i].Synergy1);
+		AddSynergy(PlayerItemDatas[i].Synergy2);
+	}
+
+
+	// 강타 시너지 효과
+	if (2 <= Synergy_Strike)
+	{
+		CriticalDamage += 0.2f;
+	}
+	if (4 <= Synergy_Strike)
+	{
+		CriticalDamage += 0.3f;
+	}
+
+	// 골동품 시너지 효과
+	if (2 <= Synergy_Antique)
+	{
+		HP += 35;
+	}
+
+	// 마나순환 시너지 효과
+	if (2 <= Synergy_ManaCycle)
+	{
+		SkillCoolDown += 0.5f;
+	}
+
+	// 불운 시너지 효과
+	if (2 <= Synergy_Misfortune)
+	{
+		CriticalPercent += 0.15f;
+	}
+	if (4 <= Synergy_Misfortune)
+	{
+		CriticalPercent += 0.15f;
+	}
+
+	// 용기 시너지 효과
+	if (2 <= Synergy_Courage)
+	{
+		MeleeAttack += 0.2f;
+	}
+	if (4 <= Synergy_Courage)
+	{
+		MeleeAttack += 0.3f;
+	}
+
+	//지혜 시너지 효과
+	if (2 <= Synergy_Wisdom)
+	{
+		MagicAttack += 0.2f;
+	}
+	if (4 <= Synergy_Wisdom)
+	{
+		MagicAttack += 0.3f;
+	}
+
+	// 신속 시너지 효과
+	if (2 <= Synergy_Rapidity)
+	{
+		AttackSpeed += 0.15f;
+	}
+	if (4 <= Synergy_Rapidity)
+	{
+		AttackSpeed += 0.15f;
 	}
 }

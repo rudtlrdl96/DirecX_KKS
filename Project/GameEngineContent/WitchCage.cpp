@@ -102,7 +102,7 @@ void WitchCage::Update(float _DeltaTime)
 		{
 			GameEngineSound::Play("Hit_Skull.wav");
 
-			HitEffect(HitEffectType::Normal);
+			HitEffect(HitEffectType::Normal, false);
 			++HitCount;
 			HitCoolTime = -0.3f;
 

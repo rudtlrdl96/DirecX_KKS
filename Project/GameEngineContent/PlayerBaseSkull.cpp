@@ -25,12 +25,60 @@ PlayerBaseSkull::~PlayerBaseSkull()
 
 float PlayerBaseSkull::GetMeleeAttackDamage() const
 {
-	return PlayerState::GetMeleeAttack() * Inventory::GetMeleeAttack() * Data.MeleeAttack;
+	float SynergyDamage = 1.0f;
+
+	if (false == IsGround && 4 <= Inventory::GetSynergyCount(Synergy::Soar))
+	{
+		SynergyDamage += 0.4f;
+	}
+	
+	if (true == IsSkillUpdate && 4 <= Inventory::GetSynergyCount(Synergy::ManaCycle))
+	{
+		SynergyDamage += 0.3f;
+	}
+
+	return PlayerState::GetMeleeAttack() * Inventory::GetMeleeAttack() * Data.MeleeAttack * SynergyDamage;
 }
 
 float PlayerBaseSkull::GetMagicAttackDamage() const
 {
-	return PlayerState::GetMagicAttack() * Inventory::GetMagicAttack() * Data.MagicAttack;
+	float SynergyDamage = 1.0f;
+	
+	if (false == IsGround && 4 <= Inventory::GetSynergyCount(Synergy::Soar))
+	{
+		SynergyDamage += 0.4f;
+	}
+
+	if (true == IsSkillUpdate && 4 <= Inventory::GetSynergyCount(Synergy::ManaCycle))
+	{
+		SynergyDamage += 0.3f;
+	}
+
+	return PlayerState::GetMagicAttack() * Inventory::GetMagicAttack() * Data.MagicAttack * SynergyDamage;
+}
+
+float PlayerBaseSkull::GetCiriticalDamage() const
+{
+	return 1.0f + Inventory::GetCriDamage();
+}
+
+bool PlayerBaseSkull::IsCritical() const
+{
+	float RandPer = GameEngineRandom::MainRandom.RandomFloat(0.0f, 100.0f);
+	float CriPer = Inventory::GetCriPer();
+
+	if (2 < Inventory::GetSynergyCount(Synergy::Soar) && false == IsGround)
+	{
+		CriPer += 0.2f;
+	}
+
+
+	if (CriPer > RandPer)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 void PlayerBaseSkull::SetPlayer(std::shared_ptr<class Player> _ParentPlayer)
@@ -203,10 +251,10 @@ void PlayerBaseSkull::Start()
 				switch (AttackTypeValue)
 				{
 				case PlayerBaseSkull::AttackType::MeleeAttack:
-					CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio * _Data.AttackRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, false, AttackEffectType, KillEvent);
+					CastPtr->HitMonster(GetMeleeAttackDamage() * CurDamageRatio * _Data.AttackRatio, GetCiriticalDamage(), GetViewDir(), _Data.IsStiffen, _Data.IsPush, false, IsCritical(), AttackEffectType, KillEvent);
 					break;
 				case PlayerBaseSkull::AttackType::MagicAttack:
-					CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio * _Data.AttackRatio, GetViewDir(), _Data.IsStiffen, _Data.IsPush, true, AttackEffectType, KillEvent);
+					CastPtr->HitMonster(GetMagicAttackDamage() * CurDamageRatio * _Data.AttackRatio, GetCiriticalDamage(), GetViewDir(), _Data.IsStiffen, _Data.IsPush, true, IsCritical(), AttackEffectType, KillEvent);
 					break;
 				default:
 					break;
@@ -222,6 +270,15 @@ void PlayerBaseSkull::Start()
 
 void PlayerBaseSkull::Update(float _DeltaTime)
 {
+	if (nullptr != ContentFunc::PlatformColCheck(GroundCol, true))
+	{
+		IsGround = true;
+	}
+	else
+	{
+		IsGround = false;
+	}
+
 	BattleActorRigidbody.UpdateForce(_DeltaTime);
 	float4 HitVelocity = BattleActorRigidbody.GetVelocity();
 	float4 DashVelocity = DashRigidbody.GetVelocity();
@@ -405,11 +462,25 @@ void PlayerBaseSkull::CoolTimeCheck(float _DeltaTime)
 		DashCoolTime += _DeltaTime;
 	}
 
-	if (DashCoolTime >= 0.9f)
+
+	if (2 <= Inventory::GetSynergyCount(Synergy::Chase))
 	{
-		CanDash = true;
-		DashCoolTime = 0.0f;
+		if (DashCoolTime >= 0.54f)
+		{
+			CanDash = true;
+			DashCoolTime = 0.0f;
+		}
 	}
+	else
+	{
+		if (DashCoolTime >= 0.9f)
+		{
+			CanDash = true;
+			DashCoolTime = 0.0f;
+		}
+	}
+
+
 
 	CurSkillATime += _DeltaTime * Inventory::GetSkillCoolDown();
 	CurSkillBTime += _DeltaTime * Inventory::GetSkillCoolDown();

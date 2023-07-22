@@ -10,7 +10,6 @@ enum class ItemGrade
 
 enum class Synergy
 {
-	None,		// 디버그용 None
 	Courage,	// 용기
 	Antique,	// 골동품
 	Heritage,	// 고대의 힘
@@ -21,6 +20,7 @@ enum class Synergy
 	Wisdom,		// 지혜
 	Chase,		// 추적
 	ManaCycle,  // 마나 순환
+	Count
 };
 
 class ItemData
@@ -34,8 +34,8 @@ public:
 
 	ItemGrade Grade = ItemGrade::Normal;
 
-	Synergy Synergy1 = Synergy::None;
-	Synergy Synergy2 = Synergy::None;
+	Synergy Synergy1 = Synergy::Count;
+	Synergy Synergy2 = Synergy::Count;
 
 	std::string ItemTexName = "Empty.png";
 	std::string InventoryTexName = "Empty.png";

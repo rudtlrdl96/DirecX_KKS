@@ -65,7 +65,7 @@ void BattleActor::Update(float _DeltaTime)
 	}
 }
 
-void BattleActor::HitEffect(HitEffectType _Type)
+void BattleActor::HitEffect(HitEffectType _Type, bool _IsCritical)
 {
 	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
 

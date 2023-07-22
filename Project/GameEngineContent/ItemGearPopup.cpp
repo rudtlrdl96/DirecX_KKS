@@ -61,7 +61,7 @@ void ItemGearPopup::PopupOn()
 	SynergyIconA->SetTexture(Data.GetSynergyIconTextureName(Data.Synergy1));
 	SynergyAFont->SetText(Data.GetSynergyName(Data.Synergy1));
 
-	if (Synergy::None == Data.Synergy2)
+	if (Synergy::Count == Data.Synergy2) 
 	{
 		SynergyFrame->SetScaleToTexture("Frame_1SKill.png");
 		SynergyIconA->GetTransform()->SetLocalPosition(float4(-1, 18, -1.0f));

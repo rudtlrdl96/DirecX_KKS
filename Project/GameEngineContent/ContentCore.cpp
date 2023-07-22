@@ -58,6 +58,8 @@ void ContentCore::CoreLoading()
 	ShaderCreate();
 	ContentPipeLineCreate();
 
+	SwitchShowCursor();
+
 	// DB Load
 	ItemDataLoad();
 	SkullDataLoad();
@@ -74,7 +76,6 @@ void ContentCore::CoreLoading()
 	SoundLoad();
 	FontLoad();
 
-	ShowCursor(FALSE);
 
 	// GameLevel Create
 	GameEngineCore::CreateLevel<TitleLevel>("Title");
@@ -102,6 +103,21 @@ void ContentCore::CoreLoading()
 void ContentCore::CoreEnd()
 {
 
+}
+
+void ContentCore::SwitchShowCursor()
+{
+	static bool MouseCursorShow = true;
+	MouseCursorShow = !MouseCursorShow;
+
+	if (true == MouseCursorShow)
+	{
+		ShowCursor(TRUE);
+	}
+	else
+	{
+		ShowCursor(FALSE);
+	}
 }
 
 void ContentCore::VertextBufferCreate()

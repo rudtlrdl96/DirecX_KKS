@@ -34,9 +34,9 @@ void RookieHero::Destroy()
 	}
 }
 
-void RookieHero::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, HitEffectType _Type, std::function<void()> _KillEvent /*= nullptr*/)
+void RookieHero::HitMonster(float _Damage, float _CriDamage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, bool _IsCritical, HitEffectType _Type, std::function<void()> _KillEvent /*= nullptr*/)
 {
-	BossMonster::HitMonster(_Damage, _HitDir, _IsStiffen, _IsPush, _IsMagicAttack, _Type, _KillEvent);
+	BossMonster::HitMonster(_Damage, _CriDamage, _HitDir, _IsStiffen, _IsPush, _IsMagicAttack, _IsCritical, _Type, _KillEvent);
 
 	HealthBarActiveTime = 3.0f;
 }

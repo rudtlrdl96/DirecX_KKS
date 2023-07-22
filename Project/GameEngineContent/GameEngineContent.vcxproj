@@ -293,6 +293,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="InventorySynergyFrame.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="InventorySynergyGrade.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ItemGear.h">
       <SubType>
       </SubType>
@@ -1029,6 +1037,14 @@
     </ClCompile>
     <ClCompile Include="ForestOfHarmonyLevel_Event.cpp" />
     <ClCompile Include="GoodsUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventorySynergyFrame.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventorySynergyGrade.cpp">
       <SubType>
       </SubType>
     </ClCompile>

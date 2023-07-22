@@ -64,6 +64,18 @@ public:
 		return 1.0f - DamageReduction;
 	}
 
+	static float GetCriPer()
+	{
+		return CriticalPercent;
+	}
+	
+	static float GetCriDamage()
+	{
+		return CriticalDamage;
+	}
+
+	static int GetSynergyCount(Synergy _Synergy);
+
 protected:
 	
 private:
@@ -97,7 +109,19 @@ private:
 
 	static float GoldPercent;
 
+	static int Synergy_Courage;
+	static int Synergy_Antique;
+	static int Synergy_Heritage;
+	static int Synergy_Misfortune;
+	static int Synergy_Rapidity;
+	static int Synergy_Soar;
+	static int Synergy_Strike;
+	static int Synergy_Wisdom;
+	static int Synergy_Chase;
+	static int Synergy_ManaCycle;
+
 	static void CalItemState();
+	static void AddSynergy(Synergy _Synergy);
 
 	Inventory();
 	~Inventory();
@@ -105,6 +129,6 @@ private:
 	Inventory(const Inventory& _Other) = delete;
 	Inventory(Inventory&& _Other) noexcept = delete;
 	Inventory& operator=(const Inventory& _Other) = delete;
-	Inventory& operator=(Inventory&& _Other) noexcept = delete;
+	Inventory& operator=(Inventory&& _Other) noexcept = delete;	
 };
 

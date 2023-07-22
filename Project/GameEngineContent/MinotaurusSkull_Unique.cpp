@@ -2,6 +2,7 @@
 #include "MinotaurusSkull_Unique.h"
 #include "BaseMonster.h"
 #include "RigidProjectile.h"
+#include "Inventory.h"
 
 MinotaurusSkull_Unique::MinotaurusSkull_Unique()
 {
@@ -115,7 +116,7 @@ void MinotaurusSkull_Unique::Update(float _DeltaTime)
 						return;
 					}
 
-					CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, false, false, HitEffectType::MinoTaurus);
+					CastingCol->HitMonster(GetMeleeAttackDamage(), GetCiriticalDamage(), GetViewDir(), true, false, false, IsCritical(), HitEffectType::MinoTaurus);
 
 					if (10.0f >= GameEngineRandom::MainRandom.RandomFloat(0.0f, 100.0f))
 					{
@@ -219,7 +220,7 @@ void MinotaurusSkull_Unique::JumpAttack_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+				CastingCol->HitMonster(GetMeleeAttackDamage(), GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 				AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
 			}
 		}
@@ -397,7 +398,14 @@ void MinotaurusSkull_Unique::Dash_Update(float _DeltaTime)
 				return;
 			}
 
-			CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+			float SynergyDamage = 1.0f;
+
+			if (4 <= Inventory::GetSynergyCount(Synergy::Chase))
+			{
+				SynergyDamage += 0.5f;
+			}
+
+			CastingCol->HitMonster(GetMeleeAttackDamage() * SynergyDamage, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 			AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
 		}
 	}
@@ -510,7 +518,7 @@ void MinotaurusSkull_Unique::Skill_SlotA_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillA_DamageRatio, GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillA_DamageRatio, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 			}
 		}
 
@@ -648,7 +656,7 @@ void MinotaurusSkull_Unique::Skill_SlotB_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio * 2.0f, GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio * 2.0f, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 			}
 		}
 
@@ -724,7 +732,7 @@ void MinotaurusSkull_Unique::Skill_SlotB_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio, GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 				GetContentLevel()->GetCamCtrl().CameraShake(5, 30, 5);
 			}
 		}
@@ -886,6 +894,8 @@ void MinotaurusSkull_Unique::ShotProjectile(size_t _TextureIndex)
 		.IsColDeath = true,
 		.IsFlipX = ActorViewDir::Left == GetViewDir(),
 		.Damage = GetMeleeAttackDamage() * 0.7f,
+		.CriDamage = GetCiriticalDamage(),
+		.IsCritical = IsCritical(),
 		.Speed = 0.0f,
 		.LiveTime = 10.0f,
 		.EnterEvent = [LookDir, Level](std::shared_ptr<BaseContentActor> _HitActor, ProjectileHitParameter _HitData)
@@ -898,7 +908,7 @@ void MinotaurusSkull_Unique::ShotProjectile(size_t _TextureIndex)
 				return;
 			}
 
-			CastingActor->HitMonster(_HitData.Attack, LookDir, true, true, false, HitEffectType::None);
+			CastingActor->HitMonster(_HitData.Attack, _HitData.CriDamager, LookDir, true, true, false, _HitData.IsCritical, HitEffectType::None);
 
 			EffectManager::PlayEffect({
 				.EffectName = "Minotaurus_Projectile_Hit",

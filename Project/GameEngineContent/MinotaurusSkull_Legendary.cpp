@@ -2,6 +2,7 @@
 #include "MinotaurusSkull_Legendary.h"
 #include "BaseMonster.h"
 #include "RigidProjectile.h"
+#include "Inventory.h"
 
 MinotaurusSkull_Legendary::MinotaurusSkull_Legendary()
 {
@@ -209,7 +210,7 @@ void MinotaurusSkull_Legendary::Update(float _DeltaTime)
 							return;
 						}
 
-						CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+						CastingCol->HitMonster(GetMeleeAttackDamage(), GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 					}
 				}
 				EarthquakeAttackCol->Off();
@@ -254,7 +255,7 @@ void MinotaurusSkull_Legendary::Update(float _DeltaTime)
 						return;
 					}
 
-					CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, false, false, HitEffectType::MinoTaurus);
+					CastingCol->HitMonster(GetMeleeAttackDamage(), GetCiriticalDamage(), GetViewDir(), true, false, false, IsCritical(), HitEffectType::MinoTaurus);
 
 					if (10.0f >= GameEngineRandom::MainRandom.RandomFloat(0.0f, 100.0f))
 					{
@@ -358,7 +359,7 @@ void MinotaurusSkull_Legendary::JumpAttack_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+				CastingCol->HitMonster(GetMeleeAttackDamage(), GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 				AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
 			}
 		}
@@ -547,7 +548,14 @@ void MinotaurusSkull_Legendary::Dash_Update(float _DeltaTime)
 				return;
 			}
 
-			CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+			float SynergyDamage = 1.0f;
+
+			if (4 <= Inventory::GetSynergyCount(Synergy::Chase))
+			{
+				SynergyDamage += 0.5f;
+			}
+
+			CastingCol->HitMonster(GetMeleeAttackDamage() * SynergyDamage, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 			AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
 		}
 	}
@@ -675,7 +683,7 @@ void MinotaurusSkull_Legendary::Skill_SlotA_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillA_DamageRatio, GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillA_DamageRatio, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 			}
 		}
 
@@ -811,7 +819,7 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio * 2.0f, GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio * 2.0f, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 			}
 		}
 
@@ -910,7 +918,7 @@ void MinotaurusSkull_Legendary::Skill_SlotB_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio, GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 				GetContentLevel()->GetCamCtrl().CameraShake(5, 30, 5);
 			}
 		}
@@ -1068,10 +1076,12 @@ void MinotaurusSkull_Legendary::ShotProjectile(size_t _TextureIndex)
 		.ColScale = float4(30, 30, 1),
 		.ColOrder = (int)CollisionOrder::Monster,
 		.IsNormalPlatformCol = true,
-		.IsHalfPlatformCol = true, 
+		.IsHalfPlatformCol = true,
 		.IsColDeath = true,
 		.IsFlipX = ActorViewDir::Left == GetViewDir(),
 		.Damage = GetMeleeAttackDamage() * 0.7f,
+		.CriDamage = GetCiriticalDamage(),
+		.IsCritical = IsCritical(),
 		.Speed = 0.0f,
 		.LiveTime = 10.0f,
 		.EnterEvent = [LookDir, Level](std::shared_ptr<BaseContentActor> _HitActor, ProjectileHitParameter _HitData)
@@ -1084,7 +1094,7 @@ void MinotaurusSkull_Legendary::ShotProjectile(size_t _TextureIndex)
 				return;
 			}
 
-			CastingActor->HitMonster(_HitData.Attack, LookDir, true, true, false, HitEffectType::None);
+			CastingActor->HitMonster(_HitData.Attack, _HitData.CriDamager, LookDir, true, true, false, _HitData.IsCritical, HitEffectType::None);
 
 			SoundDoubleCheck::Play("MinoTaurus_Debris_despawn.wav");
 
@@ -1162,6 +1172,8 @@ void MinotaurusSkull_Legendary::ShotLargeProjectile(size_t _TextureIndex)
 		.IsColDeath = false,
 		.IsFlipX = ActorViewDir::Left == GetViewDir(),
 		.Damage = GetMeleeAttackDamage() * 1.2f,
+		.CriDamage = GetCiriticalDamage(),
+		.IsCritical = IsCritical(),
 		.Speed = 0.0f,
 		.LiveTime = 4.0f,
 		.EnterEvent = [LookDir, Level](std::shared_ptr<BaseContentActor> _HitActor, ProjectileHitParameter _HitData)
@@ -1174,7 +1186,7 @@ void MinotaurusSkull_Legendary::ShotLargeProjectile(size_t _TextureIndex)
 				return;
 			}
 
-			CastingActor->HitMonster(_HitData.Attack, LookDir, true, true, false, HitEffectType::MinoTaurus);
+			CastingActor->HitMonster(_HitData.Attack, _HitData.CriDamager, LookDir, true, true, false, _HitData.IsCritical, HitEffectType::MinoTaurus);
 			Level->GetCamCtrl().CameraShake(5, 30, 5);
 		}});
 

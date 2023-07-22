@@ -1089,6 +1089,12 @@
     <ClInclude Include="ItemGear.h">
       <Filter>2_Actor\Gear\Item</Filter>
     </ClInclude>
+    <ClInclude Include="InventorySynergyGrade.h">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="InventorySynergyFrame.h">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1831,6 +1837,12 @@
     </ClCompile>
     <ClCompile Include="ItemGear.cpp">
       <Filter>2_Actor\Gear\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="InventorySynergyGrade.cpp">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="InventorySynergyFrame.cpp">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

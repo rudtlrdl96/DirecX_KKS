@@ -35,6 +35,9 @@ private:
 	std::shared_ptr<ContentUIFontRenderer> SynergyAFont = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> SynergyBFont = nullptr;
 
+	std::shared_ptr<class InventorySynergyGrade> SynergyAGrade = nullptr;
+	std::shared_ptr<class InventorySynergyGrade> SynergyBGrade = nullptr;
+
 	std::shared_ptr<ContentUIFontRenderer> CreateNewFont(const float4& _Pos, float FontSize, const float4& _Color, FW1_TEXT_FLAG _Sort);
 };
 

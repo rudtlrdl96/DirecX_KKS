@@ -6,6 +6,7 @@
 
 #include "BoneSkull.h"
 #include "BaseMonster.h"
+#include "Inventory.h"
 
 BoneHead::BoneHead()
 {
@@ -99,7 +100,7 @@ void BoneHead::Update(float _DeltaTime)
 				return;
 			}
 
-			MonsterPtr->HitMonster(ParentSkull->GetMagicAttackDamage() * 2.5f, Dir, true, true, true, HitEffectType::Skull);
+			MonsterPtr->HitMonster(ParentSkull->GetMagicAttackDamage() * 2.5f, ParentSkull->GetCiriticalDamage(), Dir, true, true, true, ParentSkull->IsCritical(), HitEffectType::Skull);
 			IsMonsterHit = true;
 		}
 	}

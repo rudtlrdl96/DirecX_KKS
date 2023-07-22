@@ -27,8 +27,13 @@ BaseMonster::~BaseMonster()
 {
 }
 
-void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, HitEffectType _Type, std::function<void()> _KillEvent /*= nullptr*/)
+void BaseMonster::HitMonster(float _Damage, float _CriDamagePer, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, bool _IsCritical, HitEffectType _Type, std::function<void()> _KillEvent /*= nullptr*/)
 {
+	if (true == _IsCritical)
+	{
+		_Damage *= (1.0f + _CriDamagePer);
+	}
+
 	ResultInfo::TotalDamage += _Damage;
 
 	if (ResultInfo::MaxDamage < _Damage)
@@ -92,7 +97,7 @@ void BaseMonster::HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffe
 		.LiveTime = 0.8f,
 		});
 
-	HitEffect(_Type);
+	HitEffect(_Type, _IsCritical);
 }
 
 void BaseMonster::Stun(float _Time)

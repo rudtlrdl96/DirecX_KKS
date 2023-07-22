@@ -54,6 +54,8 @@ public:
 	float GetMeleeAttackDamage() const;
 	float GetMagicAttackDamage() const;
 
+	float GetCiriticalDamage() const;
+	bool IsCritical() const;
 
 	void SetPlayer(std::shared_ptr<class Player> _ParentPlayer);
 
@@ -176,6 +178,7 @@ protected:
 
 	AttackType AttackTypeValue = AttackType::MeleeAttack;
 
+	bool IsGround = false;
 	bool IsFallEnd = false;
 	bool IsDownPlatformCheckOff = false;
 
@@ -203,6 +206,7 @@ protected:
 	UINT SkillBCombo = 0;
 	UINT SwitchCombo = 0;
 
+	bool IsSkillUpdate = false;
 	float CurDamageRatio = 1.0f;
 	float Attack_DamageRatio = 1.0f;
 	float SkillA_DamageRatio = 1.0f;

@@ -13,6 +13,9 @@ public:
 
 	static void CoreLoading();
 	static void CoreEnd();	
+	static void SwitchShowCursor();
+
+
 protected:
 
 private:

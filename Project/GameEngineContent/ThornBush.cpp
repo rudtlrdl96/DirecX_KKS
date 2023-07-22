@@ -65,7 +65,7 @@ void ThornBush::Update(float _DeltaTime)
 		}
 
 		CastingPtr->SetThornHitCoolTime(1.5f);
-		CastingPtr->HitMonster(30.0f, ActorViewDir::Right, false, false, false, HitEffectType::Normal);
+		CastingPtr->HitMonster(30.0f, 0.0f, ActorViewDir::Right, false, false, false, false, HitEffectType::Normal);
 		GameEngineSound::Play("Hit_Sword_Small.wav");
 	}
 

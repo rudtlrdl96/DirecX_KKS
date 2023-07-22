@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "MinotaurusSkull_Rare.h"
 #include "BaseMonster.h"
+#include "Inventory.h"
 
 MinotaurusSkull_Rare::MinotaurusSkull_Rare()
 {
@@ -90,7 +91,7 @@ void MinotaurusSkull_Rare::Update(float _DeltaTime)
 				}
 
 				SoundDoubleCheck::Play("Hit_Skull.wav");
-				CastingCol->HitMonster(GetMeleeAttackDamage() * 0.5f, GetViewDir(), true, false, false, HitEffectType::Normal);
+				CastingCol->HitMonster(GetMeleeAttackDamage() * 0.5f, GetCiriticalDamage(), GetViewDir(), true, false, false, IsCritical(), HitEffectType::Normal);
 				PassiveDoubleCheck[CastingCol->GetActorCode()] = -0.5f;
 			}
 		}
@@ -191,7 +192,7 @@ void MinotaurusSkull_Rare::JumpAttack_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+				CastingCol->HitMonster(GetMeleeAttackDamage(), GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 				AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
 			}
 		}
@@ -318,7 +319,14 @@ void MinotaurusSkull_Rare::Dash_Update(float _DeltaTime)
 
 			SoundDoubleCheck::Play("MinoTaurus_ATK_Hit.wav");
 
-			CastingCol->HitMonster(GetMeleeAttackDamage(), GetViewDir(), true, true, false, HitEffectType::Normal);
+			float SynergyDamage = 1.0f;
+
+			if (4 <= Inventory::GetSynergyCount(Synergy::Chase))
+			{
+				SynergyDamage += 0.5f;
+			}
+
+			CastingCol->HitMonster(GetMeleeAttackDamage() * SynergyDamage, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::Normal);
 			AttackDoubleCheck[CastingCol->GetActorCode()] = CastingCol;
 		}
 	}
@@ -419,7 +427,7 @@ void MinotaurusSkull_Rare::Skill_SlotA_Update(float _DeltaTime)
 					return;
 				}
 
-				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillA_DamageRatio, GetViewDir(), true, true, false, HitEffectType::MinoTaurus);
+				CastingCol->HitMonster(GetMeleeAttackDamage() * SkillA_DamageRatio, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::MinoTaurus);
 			}
 		}
 

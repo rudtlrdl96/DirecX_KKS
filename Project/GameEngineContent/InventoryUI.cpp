@@ -13,6 +13,7 @@
 #include "InventoryQuintessencePopup.h"
 #include "InventorySkullPopup.h"
 #include "InventoryStatPopup.h"
+#include "InventorySynergyFrame.h"
 
 InventoryUI::InventoryUI()
 {
@@ -78,13 +79,13 @@ void InventoryUI::Start()
 	InventoryBackRender = CreateComponent<GameEngineUIRenderer>();
 	InventoryBackRender->SetTexture("Inventory_Background.png");
 	InventoryBackRender->GetTransform()->SetLocalScale(GameEngineWindow::GetScreenSize());
-	InventoryBackRender->GetTransform()->SetLocalPosition(float4::Zero);
+	InventoryBackRender->GetTransform()->SetLocalPosition(float4(0, 0, 1));
 	//InventoryBackRender->ColorOptionValue.MulColor = float4(0.5f, 0.5f, 0.5f, 1.0f);
 
 	MainFrameRender = CreateComponent<GameEngineUIRenderer>();
 	MainFrameRender->SetTexture("Inventory_Main_Frame.png");
 	MainFrameRender->GetTransform()->SetLocalScale(GameEngineWindow::GetScreenSize());
-	MainFrameRender->GetTransform()->SetLocalPosition({0, 0, -1.0f});
+	MainFrameRender->GetTransform()->SetLocalPosition({0, 0, 0.0f});
 	//MainFrameRender->ColorOptionValue.MulColor = float4(1.21f, 1.21f, 1.21f, 1.0f);
 
 	GameEngineTransform* Trans = GetTransform();
@@ -183,12 +184,35 @@ void InventoryUI::Start()
 
 	StatPopup = GetLevel()->CreateActor<InventoryStatPopup>();
 	StatPopup->GetTransform()->SetParent(Trans);
-	StatPopup->GetTransform()->SetLocalPosition(float4{ 224, -3, -13 });
+	StatPopup->GetTransform()->SetLocalPosition(float4{ 224, -3, -20 });
 	StatPopup->Off();
+
+	FW1_TEXT_FLAG CenterSort = static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_CENTER);
+
+	SkullTitleFont = CreateNewFont(float4(-235, 264, -20), 22, float4(0.34117f, 0.2588f, 0.153f, 1.0f), CenterSort);
+	SkullTitleFont->SetText("Ω∫ƒ√");
+	QuintessenceTitleFont = CreateNewFont(float4(-235, 161, -20), 22, float4(0.34117f, 0.2588f, 0.153f, 1.0f), CenterSort);
+	QuintessenceTitleFont->SetText("¡§ºˆ");
+	ItemTitleFont = CreateNewFont(float4(-235, 57, -20), 22, float4(0.34117f, 0.2588f, 0.153f, 1.0f), CenterSort);
+	ItemTitleFont->SetText("æ∆¿Ã≈€");
+
+	SynergyFrames.reserve((int)Synergy::Count);
+
+	for (size_t i = 0; i < (int)Synergy::Count; i++)
+	{
+		SynergyFrames.push_back(CreateSynergyFrame());
+	}
 }
+
+//#include "GameEngineActorGUI.h"
 
 void InventoryUI::Update(float _DeltaTime)
 {
+	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	//Ptr->SetTarget(StatPopup->GetTransform());
+	//Ptr->On();
+
+	SortSynergyFrame();
 
 	if (true == GameEngineInput::IsPress("ShowInventoryStat"))
 	{
@@ -196,7 +220,19 @@ void InventoryUI::Update(float _DeltaTime)
 		ItemPopup->Off();
 		QuintessencePopup->Off();
 		SkullPopup->Off();
+
+		SkullTitleFont->Off();
+		ItemTitleFont->Off();
+		QuintessenceTitleFont->Off();
+
 		return;
+	}
+	else
+	{
+		StatPopup->Off();
+		SkullTitleFont->On();
+		ItemTitleFont->On();
+		QuintessenceTitleFont->On();
 	}
 
 	if (true == GameEngineInput::IsDown("InventoryOff_TAB") || true == GameEngineInput::IsDown("InventoryOff_ESC"))
@@ -223,6 +259,28 @@ void InventoryUI::Update(float _DeltaTime)
 	}
 
 	UpdateInventoryFrame();
+}
+
+std::shared_ptr<ContentUIFontRenderer> InventoryUI::CreateNewFont(const float4& _Pos, float FontSize, const float4& _Color, FW1_TEXT_FLAG _Sort)
+{
+	std::shared_ptr<ContentUIFontRenderer> NewFont = CreateComponent<ContentUIFontRenderer>();
+	NewFont->GetTransform()->SetLocalPosition(_Pos);
+
+	NewFont->SetFont("≥ÿΩºLv2∞ÌµÒ");
+	NewFont->SetScale(FontSize);
+	NewFont->SetColor(_Color);
+	NewFont->SetFontFlag(_Sort);
+
+	return NewFont;
+}
+
+std::shared_ptr<InventorySynergyFrame> InventoryUI::CreateSynergyFrame()
+{
+	std::shared_ptr<InventorySynergyFrame> NewFrame = GetLevel()->CreateActor<InventorySynergyFrame>();
+	NewFrame->GetTransform()->SetParent(GetTransform());
+	NewFrame->GetTransform()->SetLocalPosition(float4(0, 0, -21));
+
+	return NewFrame;
 }
 
 void InventoryUI::UpdateInventoryFrame()
@@ -255,6 +313,37 @@ void InventoryUI::UpdateInventoryFrame()
 		break;
 	}
 
+}
+
+bool SynergyCountCompare(std::shared_ptr<InventorySynergyFrame> _Left, std::shared_ptr<InventorySynergyFrame> _Right)
+{
+	int LeftCount = Inventory::GetSynergyCount(_Left->GetSynergy());
+	int RightCount = Inventory::GetSynergyCount(_Right->GetSynergy());
+
+	return LeftCount > RightCount;
+}
+
+void InventoryUI::SortSynergyFrame()
+{
+	for (size_t i = 0; i < (int)Synergy::Count; i++)
+	{
+		SynergyFrames[i]->UpdateSynergy((Synergy)i);
+	}
+
+	std::sort(SynergyFrames.begin(), SynergyFrames.end(), SynergyCountCompare);
+
+	for (size_t i = 0; i < SynergyFrames.size(); i++)
+	{
+		size_t OffsetX = i / 9;
+		size_t OffsetY = i % 9;
+
+		SynergyFrames[i]->GetTransform()->SetLocalPosition(float4(-492 + (OffsetX * 247.0f), 254.0f + (-58.0f * OffsetY), -22));
+
+		if (false == StatPopup->IsUpdate() && 0 != OffsetX)
+		{
+			SynergyFrames[i]->Off();
+		}
+	}
 }
 
 void InventoryUI::MoveSlot_Up()

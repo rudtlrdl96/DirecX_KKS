@@ -21,7 +21,7 @@ public:
 	BaseMonster& operator=(const BaseMonster& _Other) = delete;
 	BaseMonster& operator=(BaseMonster&& _Other) noexcept = delete;
 
-	virtual void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, HitEffectType _Type, std::function<void()> _KillEvent = nullptr);
+	virtual void HitMonster(float _Damage, float _CriDamagePer, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, bool _IsCritical, HitEffectType _Type, std::function<void()> _KillEvent = nullptr);
 	
 	virtual void Stun(float _Time);
 

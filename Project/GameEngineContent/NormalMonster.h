@@ -14,7 +14,7 @@ public:
 	NormalMonster& operator=(const NormalMonster& _Other) = delete;
 	NormalMonster& operator=(NormalMonster&& _Other) noexcept = delete;
 
-	void HitMonster(float _Damage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, HitEffectType _Type, std::function<void()> _KillEvent = nullptr) override;
+	void HitMonster(float _Damage, float _CriDamage, ActorViewDir _HitDir, bool _IsStiffen, bool _IsPush, bool _IsMagicAttack, bool _IsCritical, HitEffectType _Type, std::function<void()> _KillEvent = nullptr) override;
 
 	void ChangeFSM(const std::string_view& _FsmName)
 	{

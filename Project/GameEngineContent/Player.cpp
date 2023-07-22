@@ -183,8 +183,12 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 	}
 	else
 	{
-
 		_Damage *= Inventory::GetDamageReduction();
+	}
+
+	if (4 <= Inventory::GetSynergyCount(Synergy::Antique) && PlayerState::GetHP() >= (PlayerState::GetMaxHP() + Inventory::GetMaxHP()) * 0.7f)
+	{
+		_Damage *= 0.45f;
 	}
 
 	PlayerState::AddHP(-_Damage);
@@ -218,7 +222,7 @@ void Player::HitPlayer(float _Damage, const float4& _HitForce)
 	MainSkull->BattleActorRigidbody.AddVelocity(HitDir);
 	MainSkull->IsHit = true;
 	MainSkull->IsHitEffectOn = true;
-	MainSkull->HitEffect(HitEffectType::Normal);
+	MainSkull->HitEffect(HitEffectType::Normal, false);
 	MainSkull->HitPush();
 }
 

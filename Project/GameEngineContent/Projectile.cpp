@@ -43,6 +43,8 @@ void Projectile::ShotProjectile(const ProjectileParameter& _Parameter)
 	ProjectileCol->SetColType(ProjectileColType);
 
 	Damage = _Parameter.Damage;
+	CriDamage = _Parameter.CriDamage;
+	IsCritical = _Parameter.IsCritical;
 
 	Dir = _Parameter.Dir.NormalizeReturn();
 
@@ -119,6 +121,8 @@ void Projectile::Update(float _DeltaTime)
 
 	HitParameter.ProjectilePos = GetTransform()->GetWorldPosition();
 	HitParameter.Attack = Damage;
+	HitParameter.CriDamager = CriDamage;
+	HitParameter.IsCritical = IsCritical;
 	HitParameter.AttackDir = Dir;
 
 

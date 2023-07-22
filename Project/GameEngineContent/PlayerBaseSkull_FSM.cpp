@@ -924,6 +924,7 @@ void PlayerBaseSkull::Skill_SlotA_Enter()
 	FsmState = PlayerFSM_State::SkillA;
 
 	CurDamageRatio = SkillA_DamageRatio;
+	IsSkillUpdate = true;
 }
 
 void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
@@ -982,6 +983,7 @@ void PlayerBaseSkull::Skill_SlotA_Update(float _DeltaTime)
 void PlayerBaseSkull::Skill_SlotA_End()
 {
 	AttackEnterCheck.Reset();
+	IsSkillUpdate = false;
 }
 
 void PlayerBaseSkull::Skill_SlotB_Enter()
@@ -998,6 +1000,7 @@ void PlayerBaseSkull::Skill_SlotB_Enter()
 	CurSkillBTime = 0.0f;
 	FsmState = PlayerFSM_State::SkillB;
 	CurDamageRatio = SkillB_DamageRatio;
+	IsSkillUpdate = true;
 }
 
 void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
@@ -1052,6 +1055,7 @@ void PlayerBaseSkull::Skill_SlotB_Update(float _DeltaTime)
 void PlayerBaseSkull::Skill_SlotB_End()
 {
 	AttackEnterCheck.Reset();
+	IsSkillUpdate = false;
 }
 
 void PlayerBaseSkull::Switch_Enter()

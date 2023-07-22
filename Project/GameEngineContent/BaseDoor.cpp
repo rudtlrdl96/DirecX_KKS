@@ -230,7 +230,6 @@ void BaseDoor::Start()
 	}
 
 }
-//#include "GameEngineActorGUI.h"
 
 void BaseDoor::Update(float _DeltaTime)
 {

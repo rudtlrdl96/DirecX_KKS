@@ -2,6 +2,8 @@
 #include "InventoryItemPopup.h"
 #include "ContentUIRender.h"
 #include "ItemData.h"
+#include "InventorySynergyGrade.h"
+#include "Inventory.h"
 
 InventoryItemPopup::InventoryItemPopup()
 {
@@ -84,6 +86,9 @@ void InventoryItemPopup::UpdateItemData(size_t _DataIndex)
 
 	SynergyAFont->SetText(FindData.GetSynergyName(FindData.Synergy1));
 	SynergyBFont->SetText(FindData.GetSynergyName(FindData.Synergy2));
+
+	SynergyAGrade->UpdateSynergyData(FindData.Synergy1, Inventory::GetSynergyCount(FindData.Synergy1));
+	SynergyBGrade->UpdateSynergyData(FindData.Synergy2, Inventory::GetSynergyCount(FindData.Synergy2));
 }
 
 void InventoryItemPopup::Start()
@@ -124,15 +129,23 @@ void InventoryItemPopup::Start()
 
 	SynergyIconB = CreateComponent<GameEngineUIRenderer>();
 	SynergyIconB->GetTransform()->SetLocalScale(float4(50, 50, 1));
+
+	SynergyAGrade = GetLevel()->CreateActor<InventorySynergyGrade>();
+	SynergyAGrade->GetTransform()->SetParent(GetTransform());
+	SynergyAGrade->GetTransform()->SetLocalPosition(float4(-158, -211, -2));
+
+	SynergyBGrade = GetLevel()->CreateActor<InventorySynergyGrade>();
+	SynergyBGrade->GetTransform()->SetParent(GetTransform());
+	SynergyBGrade->GetTransform()->SetLocalPosition(float4(160, -211, -2));
 }
 
-#include "GameEngineActorGUI.h"
+//#include "GameEngineActorGUI.h"
 
 void InventoryItemPopup::Update(float _DeltaTime)
 {
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(ItemNoteFont->GetTransform());
-	Ptr->On();
+	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	//Ptr->SetTarget(SynergyAGrade->GetTransform());
+	//Ptr->On();
 }
 
 std::shared_ptr<ContentUIFontRenderer> InventoryItemPopup::CreateNewFont(const float4& _Pos, float FontSize, const float4& _Color, FW1_TEXT_FLAG _Sort)

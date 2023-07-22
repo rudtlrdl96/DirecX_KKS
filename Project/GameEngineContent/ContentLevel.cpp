@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
+#include "ContentCore.h"
 #include "ContentLevelLightGUI.h"
 #include "MouseCursor.h"
 
@@ -75,6 +76,11 @@ void ContentLevel::CallEvent(const std::string_view& _Event)
 
 void ContentLevel::Start()
 {
+	if (false == GameEngineInput::IsKey("SwitchMouseCursor"))
+	{
+		GameEngineInput::CreateKey("SwitchMouseCursor", VK_HOME);
+	}
+
 	GameEngineLevel::Start();
 
 	MainCam = GetMainCamera().get();
@@ -115,6 +121,11 @@ void ContentLevel::Start()
 
 void ContentLevel::Update(float _DeltaTime)
 {
+	if (true == GameEngineInput::IsDown("SwitchMouseCursor"))
+	{
+		ContentCore::SwitchShowCursor();
+	}
+
 	SoundDoubleCheck::SoundListReset();
 
 	if (1.0f > WorldLightProgress)
