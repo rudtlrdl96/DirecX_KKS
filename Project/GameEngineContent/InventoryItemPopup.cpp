@@ -139,15 +139,6 @@ void InventoryItemPopup::Start()
 	SynergyBGrade->GetTransform()->SetLocalPosition(float4(160, -211, -2));
 }
 
-//#include "GameEngineActorGUI.h"
-
-void InventoryItemPopup::Update(float _DeltaTime)
-{
-	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	//Ptr->SetTarget(SynergyAGrade->GetTransform());
-	//Ptr->On();
-}
-
 std::shared_ptr<ContentUIFontRenderer> InventoryItemPopup::CreateNewFont(const float4& _Pos, float FontSize, const float4& _Color, FW1_TEXT_FLAG _Sort)
 {
 	std::shared_ptr<ContentUIFontRenderer> NewFont = CreateComponent<ContentUIFontRenderer>();

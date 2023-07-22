@@ -24,6 +24,7 @@
 #include "ResultUI.h"
 #include "BossNameFont.h"
 #include "InventoryUI.h"
+#include "ItemSwapPopup.h"
 
 BattleLevel::BattleLevel()
 {
@@ -97,6 +98,9 @@ void BattleLevel::Start()
 
 	InventoryUIPtr = CreateActor<InventoryUI>();
 	InventoryUIPtr->Off();
+
+	ItemSwapPopupPtr = CreateActor<ItemSwapPopup>();
+	ItemSwapPopupPtr->Off();
 
 	AddEvent("NextLevelMove", -1, [this]()
 		{
@@ -261,7 +265,7 @@ void BattleLevel::Start()
 
 	AddEvent("InventoryOn", -1, [this]()
 		{
-			if (false == IsInventoryDoubleCheck && false == InventoryUIPtr->IsUpdate())
+			if (false == ItemSwapPopupPtr->IsUpdate() && false == IsInventoryDoubleCheck && false == InventoryUIPtr->IsUpdate())
 			{
 				InventoryUIPtr->InventoryOn();
 				IsInventoryDoubleCheck = true; 
@@ -275,6 +279,22 @@ void BattleLevel::Start()
 				InventoryUIPtr->InventoryOff();
 				IsInventoryDoubleCheck = true;
 			}
+		});	
+	
+	AddEvent("ItemSwapPopupOn", -1, [this]()
+		{
+			if (false == ItemSwapPopupPtr->IsUpdate())
+			{
+				ItemSwapPopupPtr->PopupOn();
+			}
+		});
+
+	AddEvent("ItemSwapPopupOff", -1, [this]()
+		{
+			if (true == ItemSwapPopupPtr->IsUpdate())
+			{
+				ItemSwapPopupPtr->PopupOff();
+			}
 		});
 
 }
@@ -286,7 +306,6 @@ void BattleLevel::Update(float _DeltaTime)
 	ContentLevel::Update(_DeltaTime);
 
 	MinimapPtr->MonsterCountUpdate(BattleAreaPtr->GetMonsterCount());
-
 
 	if (true == IsPlayerDeath)
 	{

@@ -104,7 +104,7 @@ void ContentCore::ItemDataLoad()
 		.Grade = ItemGrade::Normal, .Synergy1 = Synergy::Strike, .Synergy2 = Synergy::Chase,
 		.ItemTexName = "BasicCarleonBow.png",
 		.InventoryTexName = "Inventory_BasicCarleonBow.png",
-		.CriticalPercent = 0.1f});
+		.CriticalPercent = 10.0f});
 	// 완료
 	LoadItem({.Name = "빛 바랜 마석 파편", .Note = "최대 체력이 25 증가합니다.", 
 		.Story = "복수로 모든 분노가 빠져나가 텅텅 비어버린 광인을 만난 기분이다.", .Index = 3,
@@ -142,7 +142,7 @@ void ContentCore::ItemDataLoad()
 		.Grade = ItemGrade::Rare, .Synergy1 = Synergy::Misfortune, .Synergy2 = Synergy::Soar,
 		.ItemTexName = "FightersKnuckle.png",
 		.InventoryTexName = "Inventory_FightersKnuckle.png",
-		.MeleeAttack = 0.2f, .CriticalPercent = 0.15f});
+		.MeleeAttack = 0.2f, .CriticalPercent = 15.0f});
 	// 완료
 	LoadItem({ .Name = "수행자의 견갑", .Note = "정신집중 속도가 40% 증가하고 물리공격력이 25% 증가합니다", 
 		.Story = "명상을 방해하지 마시게나.", .Index = 102,
@@ -187,7 +187,7 @@ void ContentCore::ItemDataLoad()
 		.Grade = ItemGrade::Unique, .Synergy1 = Synergy::Rapidity, .Synergy2 = Synergy::Chase,
 		.ItemTexName = "ThiefsBlackIronDaggers.png",
 		.InventoryTexName = "Inventory_ThiefsBlackIronDaggers.png",
-		.CriticalPercent = 0.2f});
+		.CriticalPercent = 20.0f});
 	// 완료
 	LoadItem({ .Name = "사냥꾼의 나무장궁", .Note = "치명타 데미지가 40% 증가합니다.", 
 		.Story = "작은 석궁들은 이 거대한 나무장궁의 파괴력을 따라올 수 없다.", .Index = 202,
@@ -211,7 +211,7 @@ void ContentCore::ItemDataLoad()
 		.Grade = ItemGrade::Legendary, .Synergy1 = Synergy::Strike, .Synergy2 = Synergy::Chase,
 		.ItemTexName = "VeiledMask.png",
 		.InventoryTexName = "Inventory_VeiledMask.png",
-		.CriticalPercent = -0.3f, .CriticalDamage = 0.7f});
+		.CriticalPercent = -30.0f, .CriticalDamage = 0.7f});
 	// 완료
 	LoadItem({ .Name = "무한의 뼈", .Note = "스킬 쿨다운 속도가 50% 증가합니다.", 
 		.Story = "여기라면 마녀님의 두루마리를 정말 안전하게 보호할 수 있다.", .Index = 301,

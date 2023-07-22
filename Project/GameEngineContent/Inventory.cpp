@@ -309,11 +309,11 @@ void Inventory::CalItemState()
 	// 불운 시너지 효과
 	if (2 <= Synergy_Misfortune)
 	{
-		CriticalPercent += 0.15f;
+		CriticalPercent += 15.0f;
 	}
 	if (4 <= Synergy_Misfortune)
 	{
-		CriticalPercent += 0.15f;
+		CriticalPercent += 15.0f;
 	}
 
 	// 용기 시너지 효과

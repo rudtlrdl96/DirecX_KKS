@@ -52,6 +52,7 @@ protected:
 	std::shared_ptr<class GoodsUI> GoodsUIPtr = nullptr;
 	std::shared_ptr<class ResultUI> ResultUIPtr = nullptr;
 	std::shared_ptr<class InventoryUI> InventoryUIPtr = nullptr;
+	std::shared_ptr<class ItemSwapPopup> ItemSwapPopupPtr = nullptr;
 
 	bool IsInventoryDoubleCheck = false;
 	bool IsLevelMove = false;

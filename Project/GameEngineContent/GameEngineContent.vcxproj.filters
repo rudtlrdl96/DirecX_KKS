@@ -1095,6 +1095,9 @@
     <ClInclude Include="InventorySynergyFrame.h">
       <Filter>2_Actor\UI\Inventory\Popup</Filter>
     </ClInclude>
+    <ClInclude Include="ItemSwapPopup.h">
+      <Filter>2_Actor\UI\Gear</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1843,6 +1846,9 @@
     </ClCompile>
     <ClCompile Include="InventorySynergyFrame.cpp">
       <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemSwapPopup.cpp">
+      <Filter>2_Actor\UI\Gear</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

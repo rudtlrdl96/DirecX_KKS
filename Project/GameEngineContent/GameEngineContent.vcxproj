@@ -309,6 +309,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ItemSwapPopup.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="LifeOrb.h">
       <SubType>
       </SubType>
@@ -1053,6 +1057,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ItemGearPopup.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemSwapPopup.cpp">
       <SubType>
       </SubType>
     </ClCompile>

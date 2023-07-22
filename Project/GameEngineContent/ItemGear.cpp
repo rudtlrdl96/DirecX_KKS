@@ -5,6 +5,7 @@
 #include "Inventory.h"
 #include "AnimationPartParticle.h"
 #include "ItemGearPopup.h"
+#include "ItemSwapPopup.h"
 
 ItemGear::ItemGear()
 {
@@ -70,15 +71,31 @@ void ItemGear::UseGear()
 		return;
 	}
 
-	++ResultInfo::GetItemCount;
-	GetContentLevel()->CallEvent("ItemGearPopupOff");
 
 	if (9 <= Inventory::GetItemCount())
 	{
+		ItemSwapPopup::SetData(Data);
+		ItemSwapPopup::SetSpawnPos(GetTransform()->GetWorldPosition());
+		ItemSwapPopup::SetSwapCallback([this]()
+		{
+			++ResultInfo::GetItemCount;
+			GetContentLevel()->CallEvent("ItemGearPopupOff");
+			Inventory::InsertItem(Data);
+			Death();
+		});		
+		
+		ItemSwapPopup::SetSwapCancel([this]()
+		{
+			IsUse = false;
+		});
 
+		GetContentLevel()->CallEvent("ItemSwapPopupOn");
 	}
 	else
 	{
+		++ResultInfo::GetItemCount;
+		GetContentLevel()->CallEvent("ItemGearPopupOff");
+
 		Inventory::InsertItem(Data);
 		Death();
 	}
@@ -154,6 +171,6 @@ void ItemGear::PlayDestroyEffect()
 	if (false == IsUse)
 	{
 		EffectManager::PlayEffect({ .EffectName = "DestroyItem",
-			.Position = GetTransform()->GetWorldPosition() });
+			.Position = GetTransform()->GetWorldPosition() + float4(0, 30)});
 	}
 }
