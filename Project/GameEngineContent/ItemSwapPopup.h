@@ -51,10 +51,14 @@ private:
 	static std::function<void()> CancelCallback;
 	static float4 SpawnPos;
 
+	std::vector<std::shared_ptr<class SwapSynergySlot>> SynergyFrames;
+
 	std::shared_ptr<GameEngineUIRenderer> SwapBackRender = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> MainFrameRender = nullptr;
 
 	std::vector<std::shared_ptr<class InventorySlot>> ItemSlots;
+	std::shared_ptr<class ItemSwapFrame> NewItemPopup = nullptr;
+	std::shared_ptr<class ItemSwapFrame> SelectItemPopup = nullptr;
 
 	size_t SlotIndex = 0;
 
@@ -62,6 +66,8 @@ private:
 	void MoveSlot_Down();
 	void MoveSlot_Left();
 	void MoveSlot_Right();
+
+	void SortSynergySlot();
 
 };
 

@@ -15,7 +15,6 @@ public:
 	ItemGearPopup& operator=(const ItemGearPopup& _Other) = delete;
 	ItemGearPopup& operator=(ItemGearPopup&& _Other) noexcept = delete;
 
-
 	static void SetItemData(size_t _Index)
 	{
 		SetItemData(ContentDatabase<ItemData, ItemGrade>::GetData(_Index));
@@ -23,17 +22,19 @@ public:
 
 	static void SetItemData(const ItemData& _Data)
 	{
-		Data = _Data;
+		GlobalData = _Data;
 	}
 
 	void PopupOn();
+	void PopupOn(ItemData& _Data);
 	void PopupOff();
 
 protected:
 	void Start() override;
 
 private:
-	static ItemData Data;
+	static ItemData GlobalData;
+	ItemData LocalData;
 
 	std::shared_ptr<ContentSlice9UIRenderer> ItemFrameRender = nullptr;
 	std::shared_ptr<ContentSlice9UIRenderer> NoteRender = nullptr;

@@ -2,7 +2,7 @@
 #include "ItemGearPopup.h"
 #include "UINoteActor.h"
 
-ItemData ItemGearPopup::Data;
+ItemData ItemGearPopup::GlobalData;
 
 ItemGearPopup::ItemGearPopup()
 {
@@ -14,7 +14,14 @@ ItemGearPopup::~ItemGearPopup()
 
 void ItemGearPopup::PopupOn()
 {
-	if (false == ContentDatabase<ItemData, ItemGrade>::IsVaild(Data.Index))
+	PopupOn(GlobalData);
+}
+
+void ItemGearPopup::PopupOn(ItemData& _Data)
+{
+	LocalData = _Data;
+
+	if (false == ContentDatabase<ItemData, ItemGrade>::IsVaild(LocalData.Index))
 	{
 		MsgAssert_Rtti<ItemGearPopup>(" - 존재하지 않는 스컬의 데이터를 참조하려 했습니다.");
 		return;
@@ -23,9 +30,9 @@ void ItemGearPopup::PopupOn()
 	float4 BackgroundScale = float4(434, 220, 1);
 	float4 NoteScale = float4::Zero;
 
-	ItemNameFont->SetText(Data.Name);
+	ItemNameFont->SetText(LocalData.Name);
 
-	switch (Data.Grade)
+	switch (LocalData.Grade)
 	{
 	case ItemGrade::Normal:
 		ItemGradeFont->SetText("일반");
@@ -58,10 +65,10 @@ void ItemGearPopup::PopupOn()
 		break;
 	}
 
-	SynergyIconA->SetTexture(Data.GetSynergyIconTextureName(Data.Synergy1));
-	SynergyAFont->SetText(Data.GetSynergyName(Data.Synergy1));
+	SynergyIconA->SetTexture(LocalData.GetSynergyIconTextureName(LocalData.Synergy1));
+	SynergyAFont->SetText(LocalData.GetSynergyName(LocalData.Synergy1));
 
-	if (Synergy::Count == Data.Synergy2) 
+	if (Synergy::Count == LocalData.Synergy2)
 	{
 		SynergyFrame->SetScaleToTexture("Frame_1SKill.png");
 		SynergyIconA->GetTransform()->SetLocalPosition(float4(-1, 18, -1.0f));
@@ -71,8 +78,8 @@ void ItemGearPopup::PopupOn()
 	else
 	{
 		SynergyFrame->SetScaleToTexture("Frame_2SKill.png");
-		SynergyIconB->SetTexture(Data.GetSynergyIconTextureName(Data.Synergy2));
-		SynergyBFont->SetText(Data.GetSynergyName(Data.Synergy2));
+		SynergyIconB->SetTexture(LocalData.GetSynergyIconTextureName(LocalData.Synergy2));
+		SynergyBFont->SetText(LocalData.GetSynergyName(LocalData.Synergy2));
 
 		SynergyIconA->GetTransform()->SetLocalPosition(float4(-101, 18, -1.0f));
 		SynergyIconB->GetTransform()->SetLocalPosition(float4(101, 18, -1.0f));
@@ -81,7 +88,7 @@ void ItemGearPopup::PopupOn()
 		SynergyIconB->On();
 	}
 
-	if ("" == Data.Note)
+	if ("" == LocalData.Note)
 	{
 		NoteRender->Off();
 		ItemNoteFont->Off();
@@ -91,7 +98,7 @@ void ItemGearPopup::PopupOn()
 		NoteRender->On();
 		ItemNoteFont->On();
 
-		std::wstring NoteText = GameEngineString::AnsiToUniCode(Data.Note);
+		std::wstring NoteText = GameEngineString::AnsiToUniCode(LocalData.Note);
 
 		float TextureBoardX = 380.0f;
 		float TextureBoardY = 0.0f;

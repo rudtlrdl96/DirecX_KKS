@@ -3,6 +3,8 @@
 #include "InventorySlot.h"
 #include "Inventory.h"
 #include "ItemGear.h"
+#include "ItemSwapFrame.h"
+#include "SwapSynergySlot.h"
 
 ItemData ItemSwapPopup::Data;
 std::function<void()> ItemSwapPopup::SwapCallback = nullptr;
@@ -37,6 +39,10 @@ void ItemSwapPopup::PopupOn()
 	SlotIndex = 0;
 	ItemSlots[SlotIndex]->SelectOn();
 
+	ItemData SelectData = ContentDatabase<ItemData, ItemGrade>::GetData(ItemSlots[SlotIndex]->GetDataIndex());
+	SelectItemPopup->PopupOn(SelectData);
+	NewItemPopup->PopupOn(Data);
+
 	On();
 }
 
@@ -64,13 +70,14 @@ void ItemSwapPopup::Start()
 	SwapBackRender->SetTexture("Inventory_Background.png");
 	SwapBackRender->GetTransform()->SetLocalScale(GameEngineWindow::GetScreenSize());
 	SwapBackRender->GetTransform()->SetLocalPosition(float4(0, 0, 1));
-	SwapBackRender->ColorOptionValue.MulColor = float4(0.0f, 0.0f, 0.0f, 0.5f);
+	SwapBackRender->ColorOptionValue.MulColor = float4(0.0f, 0.0f, 0.0f, 0.7f);
 
 	MainFrameRender = CreateComponent<GameEngineUIRenderer>();
 	MainFrameRender->SetScaleToTexture("ItemSelectPopup.png", 3.0f);
 	MainFrameRender->GetTransform()->SetLocalPosition({ 0, 0, 0.0f });
 
 	GameEngineTransform* Trans = GetTransform();
+	Trans->SetLocalPosition(float4(0, 0, -4950));
 
 	ItemSlots.resize(9);
 	{
@@ -138,16 +145,35 @@ void ItemSwapPopup::Start()
 		ItemSlots[8]->SetMoveIndex(5, -1, 7, -1);
 	}
 
+	SelectItemPopup = GetLevel()->CreateActor<ItemSwapFrame>();
+	SelectItemPopup->GetTransform()->SetParent(GetTransform());
+	SelectItemPopup->GetTransform()->SetLocalPosition(float4(-393, -82, -10));
+
+	NewItemPopup = GetLevel()->CreateActor<ItemSwapFrame>();
+	NewItemPopup->GetTransform()->SetParent(GetTransform());
+	NewItemPopup->GetTransform()->SetLocalPosition(float4(6, -82, -10));
+
+	size_t SynergyCount = (size_t)Synergy::Count;
+
+	SynergyFrames.reserve(SynergyCount);
+
+	for (size_t i = 0; i < SynergyCount; i++)
+	{
+		std::shared_ptr<SwapSynergySlot> NewSynergySlot = GetLevel()->CreateActor<SwapSynergySlot>();
+		NewSynergySlot->GetTransform()->SetParent(Trans);
+
+		SynergyFrames.push_back(NewSynergySlot);
+	}
 }
 
-#include "GameEngineActorGUI.h"
-
+//#include "GameEngineActorGUI.h"
 
 void ItemSwapPopup::Update(float _DeltaTime)
 {
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(ItemSlots[0]->GetTransform());
-	Ptr->On();
+	SortSynergySlot();
+	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
+	//Ptr->SetTarget(Temp->GetTransform());
+	//Ptr->On();
 
 	if (true == GameEngineInput::IsUp("Swap"))
 	{
@@ -211,6 +237,8 @@ void ItemSwapPopup::MoveSlot_Up()
 		ItemSlots[SlotIndex]->SelectOff();
 		SlotIndex = ItemSlots[SlotIndex]->GetUpIndex();
 		ItemSlots[SlotIndex]->SelectOn();
+		ItemData SelectData = ContentDatabase<ItemData, ItemGrade>::GetData(ItemSlots[SlotIndex]->GetDataIndex());
+		SelectItemPopup->PopupOn(SelectData);
 		GameEngineSound::Play("UI_Move.wav");
 	}
 }
@@ -222,6 +250,8 @@ void ItemSwapPopup::MoveSlot_Down()
 		ItemSlots[SlotIndex]->SelectOff();
 		SlotIndex = ItemSlots[SlotIndex]->GetDownIndex();
 		ItemSlots[SlotIndex]->SelectOn();
+		ItemData SelectData = ContentDatabase<ItemData, ItemGrade>::GetData(ItemSlots[SlotIndex]->GetDataIndex());
+		SelectItemPopup->PopupOn(SelectData);
 		GameEngineSound::Play("UI_Move.wav");
 	}
 }
@@ -233,6 +263,8 @@ void ItemSwapPopup::MoveSlot_Left()
 		ItemSlots[SlotIndex]->SelectOff();
 		SlotIndex = ItemSlots[SlotIndex]->GetLeftIndex();
 		ItemSlots[SlotIndex]->SelectOn();
+		ItemData SelectData = ContentDatabase<ItemData, ItemGrade>::GetData(ItemSlots[SlotIndex]->GetDataIndex());
+		SelectItemPopup->PopupOn(SelectData);
 		GameEngineSound::Play("UI_Move.wav");
 	}
 }
@@ -244,6 +276,66 @@ void ItemSwapPopup::MoveSlot_Right()
 		ItemSlots[SlotIndex]->SelectOff();
 		SlotIndex = ItemSlots[SlotIndex]->GetRightIndex();
 		ItemSlots[SlotIndex]->SelectOn();
+		ItemData SelectData = ContentDatabase<ItemData, ItemGrade>::GetData(ItemSlots[SlotIndex]->GetDataIndex());
+		SelectItemPopup->PopupOn(SelectData);
 		GameEngineSound::Play("UI_Move.wav");
+	}
+}
+
+void ItemSwapPopup::SortSynergySlot()
+{
+	size_t SynergyCount = (size_t)Synergy::Count;
+	ItemData SlotData = ContentDatabase<ItemData, ItemGrade>::GetData(ItemSlots[SlotIndex]->GetDataIndex());
+
+	for (size_t i = 0; i < SynergyFrames.size(); i++)
+	{
+		Synergy SynergyType = (Synergy)i;
+
+		size_t CurSynergyCount = Inventory::GetSynergyCount(SynergyType);
+		size_t ChangeSynergyCount = Inventory::GetSynergyCount(SynergyType);
+
+		if (Data.Synergy1 == SynergyType)
+		{
+			++ChangeSynergyCount;
+		}
+
+		if (Data.Synergy2 == SynergyType)
+		{
+			++ChangeSynergyCount;
+		}
+
+		if (SlotData.Synergy1 == SynergyType)
+		{
+			--ChangeSynergyCount;
+		}
+
+		if (SlotData.Synergy2 == SynergyType)
+		{
+			--ChangeSynergyCount;
+		}
+
+		SynergyFrames[i]->SetSynergy(SynergyType, (int)ChangeSynergyCount);
+
+		if (0 != CurSynergyCount && 0 != ChangeSynergyCount)
+		{
+			SynergyFrames[i]->On();
+		}
+		else
+		{
+			SynergyFrames[i]->Off();
+		}
+	}
+
+	std::sort(SynergyFrames.begin(), SynergyFrames.end(), [](std::shared_ptr<SwapSynergySlot> _Left, std::shared_ptr<SwapSynergySlot> _Right)
+		{
+			int LeftCount = _Left->GetNewSynergyCount();
+			int RightCount = _Right->GetNewSynergyCount();
+
+			return LeftCount > RightCount;
+		});
+
+	for (size_t i = 0; i < SynergyFrames.size(); i++)
+	{
+		SynergyFrames[i]->GetTransform()->SetLocalPosition(float4(-512.0f + (i * 94.0f), 184, -12));
 	}
 }

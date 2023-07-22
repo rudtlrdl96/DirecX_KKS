@@ -80,7 +80,7 @@ void InventoryUI::Start()
 	InventoryBackRender->SetTexture("Inventory_Background.png");
 	InventoryBackRender->GetTransform()->SetLocalScale(GameEngineWindow::GetScreenSize());
 	InventoryBackRender->GetTransform()->SetLocalPosition(float4(0, 0, 1));
-	InventoryBackRender->ColorOptionValue.MulColor = float4(0.0f, 0.0f, 0.0f, 0.5f);
+	InventoryBackRender->ColorOptionValue.MulColor = float4(0.0f, 0.0f, 0.0f, 0.7f);
 
 	MainFrameRender = CreateComponent<GameEngineUIRenderer>();
 	MainFrameRender->SetTexture("Inventory_Main_Frame.png");
