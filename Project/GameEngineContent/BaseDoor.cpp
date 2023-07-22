@@ -160,9 +160,6 @@ void BaseDoor::CallUseEvent()
 	{
 	case DoorType::Broken:
 		return;
-	case DoorType::Shop:
-		LevelPtr->MoveLevel("Shop");
-		break;
 	default:
 		LevelPtr->MoveNextStage();
 		break;
