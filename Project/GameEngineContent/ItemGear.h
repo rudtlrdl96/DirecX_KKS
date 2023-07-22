@@ -16,6 +16,8 @@ public:
 	void Init(size_t _ItemIndex);
 	void Init(const ItemData& _Data);
 
+	int GetPrice() override;
+
 protected:
 	void Start() override;
 	void UseGear() override;

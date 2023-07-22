@@ -16,6 +16,7 @@ public:
 	void Init(size_t _SkullIndex);
 	void Init(const SkullData& _Data);
 
+	int GetPrice() override;
 protected:
 	void Start() override;
 	void UseGear() override;

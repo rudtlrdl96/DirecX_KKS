@@ -37,6 +37,26 @@ void ItemGear::Init(const ItemData& _Data)
 	GearBodyCol->GetTransform()->SetLocalScale(Render->GetTransform()->GetLocalScale());
 }
 
+
+int ItemGear::GetPrice()
+{
+	switch (Data.Grade)
+	{
+	case ItemGrade::Normal:
+		return 1;
+	case ItemGrade::Rare:
+		return 2;
+	case ItemGrade::Unique:
+		return 3;
+	case ItemGrade::Legendary:
+		return 4;
+	default:
+		break;
+	}
+	return 0;
+}
+
+
 void ItemGear::Start()
 {
 	BaseGear::Start();

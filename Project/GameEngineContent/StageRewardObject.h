@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseContentActor.h"
 #include "SkullData.h"
+#include "ItemData.h"
 #include "PointLightEffect.h"
 #include "ContentMinimapRender.h"
 
@@ -36,6 +37,7 @@ public:
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
+	void Destroy() override;
 
 private:
 	std::shared_ptr<GameEngineSpriteRenderer> Render = nullptr;
@@ -54,6 +56,9 @@ private:
 	RewardType Type = RewardType::None;
 
 	SkullGrade SkullRewardGrade = SkullGrade::Normal;
+	ItemGrade ItemRewardGrade = ItemGrade::Normal;
+
+	int ItemRewardIndex = 0;
 
 	bool IsRewardEndValue = false;
 	bool IsPlayerFirstEnter = false;
@@ -63,9 +68,12 @@ private:
 
 	void GoldRewardInit();
 	void SkullRewardInit();
+	void ItemRewardInit();
 	void MiddleBossRewardInit();
 
-	std::shared_ptr<class SkullGear> DropSkullReward(float4 _Pivot = float4::Zero, bool _GradeReset = false);
+	std::shared_ptr<class SkullGear> DropSkullReward(const float4& _Pivot = float4::Zero, bool _GradeReset = false);
+	std::shared_ptr<class ItemGear> DropItemReward(const float4& _Pivot = float4::Zero,  bool _GradeReset = false);
+	std::shared_ptr<class ItemGear> BezierItemReward(const float4& _Start, const float4& _End,  bool _GradeReset = false);
 	void DropGoldReward();
 
 	void CreateLight();

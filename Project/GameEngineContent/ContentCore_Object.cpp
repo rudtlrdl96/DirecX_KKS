@@ -30,6 +30,15 @@ void ContentCore::ObjectLoad()
 		}
 
 		{
+			Path.Move("Box");
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("NormalBox.png").GetFullPath(), 4, 2);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("RareBox.png").GetFullPath(), 4, 2);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("UniqueBox.png").GetFullPath(), 4, 2);
+			GameEngineSprite::LoadSheet(Path.GetPlusFileName("LegendaryBox.png").GetFullPath(), 4, 2);
+			Path.MoveParent();
+		}
+
+		{
 			Path.Move("Gold");
 			GameEngineSprite::LoadSheet(Path.GetPlusFileName("GoldReward.png").GetFullPath(), 7, 3);
 			Path.MoveParent();

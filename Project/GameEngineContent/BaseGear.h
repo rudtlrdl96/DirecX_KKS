@@ -59,6 +59,8 @@ public:
 		return GearBodyCol;
 	}
 
+	virtual int GetPrice();
+
 protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
 	BlackAndWihteBuffer Buffer;

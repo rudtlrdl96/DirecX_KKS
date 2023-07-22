@@ -86,10 +86,10 @@ void ForestOfHarmonyLevel::Start()
 	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Starting_Map", DoorType::Skull);
 
 	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage0_0_Map", DoorType::Normal);
-	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage0_0_Map", DoorType::Skull);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage0_0_Map", DoorType::Equip);
 	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage0_0_Map");
 
-	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage0_1_Map", DoorType::Broken);
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage0_1_Map", DoorType::Equip);
 	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage0_1_Map", DoorType::Skull);
 	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage0_1_Map");
 
@@ -105,11 +105,11 @@ void ForestOfHarmonyLevel::Start()
 	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_SkullUpgrade_Map", DoorType::Broken);
 
 	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage1_0_Map", DoorType::Normal);
-	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage1_0_Map", DoorType::Normal);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage1_0_Map", DoorType::Equip);
 	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage1_0_Map");
 
 	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage1_1_Map", DoorType::Skull);
-	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage1_1_Map", DoorType::Skull);
+	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage1_1_Map", DoorType::Equip);
 	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage1_1_Map");
 
 	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage1_2_Map", DoorType::BossInter);

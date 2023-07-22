@@ -48,11 +48,11 @@ std::string ItemData::GetSynergyIconTextureName(Synergy _Type, size_t SynergyCou
 		{
 			ResultTextureName = "ExcessiveBleeding.png";
 		}
-		else if (1 > SynergyCount)
+		else if (2 > SynergyCount)
 		{
 			ResultTextureName = "ExcessiveBleeding_Deactivation.png";
 		}
-		else if (3 > SynergyCount)
+		else if (4 > SynergyCount)
 		{
 			ResultTextureName = "ExcessiveBleeding.png";
 		}

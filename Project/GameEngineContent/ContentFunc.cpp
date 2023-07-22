@@ -168,6 +168,39 @@ AnimationAttackMetaData ContentFunc::LoadAnimAttackMetaData(const std::string_vi
     return LoadData;
 }
 
+std::vector<int> ContentFunc::RandomReward(std::vector<int>& _Datas, std::vector<int>& _Duplication, int _Count)
+{
+    std::vector<int> Result;
+    Result.reserve(_Count);
+
+    for (size_t i = 0; i < _Duplication.size(); i++)
+    {
+        std::vector<int>::iterator FindIter = std::find(_Datas.begin(), _Datas.end(), _Duplication[i]);
+
+        if (FindIter != _Datas.end())
+        {
+            _Duplication.erase(FindIter);
+        }
+    }
+
+    std::vector<int> RandomIndex;
+    RandomIndex.resize(_Datas.size());
+
+    for (int i = 0; i < RandomIndex.size(); i++)
+    {
+        RandomIndex[i] = i;
+    }
+
+    for (int i = 0; i < _Count; i++)
+    {
+        int Index = GameEngineRandom::MainRandom.RandomInt(0, (int)RandomIndex.size() - 1);
+        Result.push_back(RandomIndex[Index]);
+        RandomIndex.erase(RandomIndex.begin() + Index);
+    }
+
+    return Result;
+}
+
 ContentFunc::ContentFunc()
 {
 }

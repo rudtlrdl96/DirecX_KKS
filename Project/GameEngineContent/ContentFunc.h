@@ -71,6 +71,8 @@ public:
 		return Result;
 	}
 
+	static std::vector<int> RandomReward(std::vector<int>& _Datas, std::vector<int>& _Duplication, int _Count);
+
 protected:
 	
 private:

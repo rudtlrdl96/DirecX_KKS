@@ -60,6 +60,11 @@ void BaseGear::CallUseEvent()
 	}
 }
 
+int BaseGear::GetPrice()
+{
+	return 0;
+}
+
 void BaseGear::Start()
 {
 	Render = CreateComponent<ContentSpriteRenderer>();

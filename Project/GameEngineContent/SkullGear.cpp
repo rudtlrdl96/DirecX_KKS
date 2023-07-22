@@ -37,6 +37,26 @@ void SkullGear::Init(const SkullData& _Data)
 	GearBodyCol->GetTransform()->SetLocalScale(Render->GetTransform()->GetLocalScale());
 }
 
+int SkullGear::GetPrice()
+{
+	switch (Data.Grade)
+	{
+	case SkullGrade::Normal:
+		return 1;
+
+	case SkullGrade::Rare:
+		return 2;
+	case SkullGrade::Unique:
+		return 3;
+	case SkullGrade::Legendary:
+		return 4;
+	default:
+		break;
+	}
+
+	return 0;
+}
+
 void SkullGear::Start()
 {
 	BaseGear::Start();

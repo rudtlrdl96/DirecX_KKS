@@ -2,6 +2,7 @@
 #include "StageRewardObject.h"
 #include "BaseGear.h"
 #include "SkullGear.h"
+#include "ItemGear.h"
 #include "FieldNoteActor.h"
 #include "Inventory.h"
 #include "AnimationPartParticle.h"
@@ -77,7 +78,7 @@ void StageRewardObject::SetReward(RewardType _Type)
 		break;
 	case RewardType::Item:
 	{
-	
+		ItemRewardInit();
 	}
 		break;
 	case RewardType::Skull:
@@ -111,11 +112,40 @@ void StageRewardObject::CallUseEvent()
 		{
 		case RewardType::None:
 			break;
+		case RewardType::Item:
+		{
+			std::vector<ItemData> RewardList;
+			 ContentDatabase<ItemData, ItemGrade>::CopyGradeDatas(ItemRewardGrade, RewardList);
+			 
+			 GameEngineRandom& Rand = GameEngineRandom::MainRandom;
+			 
+			 std::vector<int> GradeIndexs;
+			 GradeIndexs.resize(RewardList.size());
+			 
+			 for (size_t i = 0; i < GradeIndexs.size(); i++)
+			 {
+			 	GradeIndexs[i] = (int)RewardList[i].Index;
+			 }
+			 
+			 std::vector<int> Duplication;
+			 std::vector<int> Result = ContentFunc::RandomReward(GradeIndexs, Duplication, 3);
+
+			 float4 Start = GetTransform()->GetWorldPosition();
+			 Start.z = 0;
+
+			 ItemRewardIndex = GradeIndexs[Result[0]];
+			 BezierItemReward(Start, Start + float4(-70, -90, -30));
+			 ItemRewardIndex = GradeIndexs[Result[1]];
+			 BezierItemReward(Start, Start + float4(0, -90, -30));
+			 ItemRewardIndex = GradeIndexs[Result[2]];
+			 BezierItemReward(Start, Start + float4(70, -90, -30));
+		}
+			break;
 		case RewardType::Normal:
 			DropGoldReward();
 			break;
 		case RewardType::Skull:
-			DropSkullReward();
+			DropSkullReward(float4(0, 0, -30));
 			break;
 		case RewardType::MiddleBoss:
 
@@ -230,18 +260,17 @@ void StageRewardObject::Update(float _DeltaTime)
 		}
 		else
 		{
-			std::shared_ptr<SkullGear> FirstGear = DropSkullReward(float4(-88, 0), true);
+			std::shared_ptr<SkullGear> FirstGear = DropSkullReward(float4(-88, 0, -30), true);
 			std::shared_ptr<GameEngineCollision> FirstCol = FirstGear->GetBodyCol();
 			FirstCol->GetTransform()->AddLocalPosition(float4(0, -25));
 			FirstCol->GetTransform()->AddLocalScale(float4(0, 50));
 
-			std::shared_ptr<SkullGear> SecondGear = DropSkullReward(float4(0, 0), true);
+			std::shared_ptr<ItemGear> SecondGear = DropItemReward(float4(0, 0, -30), true);
 			std::shared_ptr<GameEngineCollision> SecondCol = SecondGear->GetBodyCol();
 			SecondCol->GetTransform()->AddLocalPosition(float4(0, -25));
 			SecondCol->GetTransform()->AddLocalScale(float4(0, 50));
 
-
-			std::shared_ptr<SkullGear> ThirdGear = DropSkullReward(float4(88, 0), true);
+			std::shared_ptr<ItemGear> ThirdGear = DropItemReward(float4(88, 0, -30), true);
 			std::shared_ptr<GameEngineCollision> ThirdCol = ThirdGear->GetBodyCol();
 			ThirdCol->GetTransform()->AddLocalPosition(float4(0, -25));
 			ThirdCol->GetTransform()->AddLocalScale(float4(0, 50));
@@ -256,6 +285,30 @@ void StageRewardObject::Update(float _DeltaTime)
 
 	}
 
+	if (RewardType::Item == Type)
+	{
+		bool IsSelectGear = false;
+
+		for (size_t i = 0; i < CreateGears.size(); i++)
+		{
+			if (true == CreateGears[i]->IsDeath())
+			{
+				IsSelectGear = true;
+			}
+		}
+
+		if (true == IsSelectGear)
+		{
+			for (size_t i = 0; i < CreateGears.size(); i++)
+			{
+				CreateGears[i]->IsUseOn();
+				CreateGears[i]->Death();
+				CreateGears[i] = nullptr;
+			}
+
+			CreateGears.clear();
+		}
+	}
 
 	if (RewardType::MiddleBoss == Type)
 	{
@@ -306,6 +359,32 @@ void StageRewardObject::Update(float _DeltaTime)
 	}	
 }
 
+void StageRewardObject::Destroy()
+{
+	if (0 == CreateGears.size())
+	{
+		return;
+	}
+
+	std::sort(CreateGears.begin(), CreateGears.end(), [](std::shared_ptr<BaseGear> _Left, std::shared_ptr<BaseGear> _Right)
+		{
+			int LeftPrice = _Left->GetPrice();
+			int RightPrice = _Right->GetPrice();
+
+			return LeftPrice > RightPrice;
+		});
+
+
+	CreateGears[0]->Death();
+
+	for (size_t i = 1; i < CreateGears.size(); i++)
+	{
+		CreateGears[i]->IsUseOn();
+		CreateGears[i]->Death();
+	}
+
+}
+
 void StageRewardObject::GoldRewardInit()
 {	
 	Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "GoldReward.png",
@@ -320,7 +399,7 @@ void StageRewardObject::SkullRewardInit()
 
 	int RandValue = Rand.RandomInt(0, 100);
 
-	std::vector<float> Per = {40.0f, 30.0f, 20.0f, 10.0f };
+	std::vector<float> Per = {35.0f, 30.0f, 20.0f, 15.0f };
 		 
 	SkullRewardGrade = ContentFunc::RandEnum<SkullGrade>(Per);
 
@@ -351,15 +430,56 @@ void StageRewardObject::SkullRewardInit()
 	}
 }
 
+void StageRewardObject::ItemRewardInit()
+{
+	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
+
+	int RandValue = Rand.RandomInt(0, 100);
+
+	std::vector<float> Per = { 35.0f, 30.0f, 20.0f, 15.0f };
+
+	ItemRewardGrade = ContentFunc::RandEnum<ItemGrade>(Per);
+
+	switch (ItemRewardGrade)
+	{
+	case ItemGrade::Normal:
+		Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "NormalBox.png",
+			.Start = 0, .End = 0, .ScaleToTexture = true });
+		Render->CreateAnimation({ .AnimationName = "Open", .SpriteName = "NormalBox.png",
+			.Start = 0, .End = 7, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+		break;
+	case ItemGrade::Rare:
+		Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "RareBox.png",
+			.Start = 0, .End = 0, .ScaleToTexture = true });
+		Render->CreateAnimation({ .AnimationName = "Open", .SpriteName = "RareBox.png",
+			.Start = 0, .End = 7, .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+		break;
+	case ItemGrade::Unique:
+		Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "UniqueBox.png",
+			.Start = 0, .End = 0, .ScaleToTexture = true });
+		Render->CreateAnimation({ .AnimationName = "Open", .SpriteName = "UniqueBox.png",
+			.Start = 0, .End = 7, .FrameInter = 0.08f, .Loop = false, .ScaleToTexture = true });
+		break;
+	case ItemGrade::Legendary:
+		Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "LegendaryBox.png", 
+			 .Start = 0, .End = 0, .ScaleToTexture = true });
+		Render->CreateAnimation({ .AnimationName = "Open", .SpriteName = "LegendaryBox.png",
+			.Start = 0, .End = 7, .FrameInter = 0.08f, .Loop = false, .ScaleToTexture = true });
+		break;
+	default:
+		break;
+	}
+}
+
 void StageRewardObject::MiddleBossRewardInit()
 {
 }
 
-std::shared_ptr<SkullGear> StageRewardObject::DropSkullReward(float4 _Pivot /*= float4::Zero*/, bool _GradeReset /*= false*/)
+std::shared_ptr<SkullGear> StageRewardObject::DropSkullReward(const float4& _Pivot /*= float4::Zero*/, bool _GradeReset /*= false*/)
 {
 	if (true == _GradeReset)
 	{
-		std::vector<float> Per = { 40.0f, 30.0f, 20.0f, 10.0f };
+		std::vector<float> Per = { 35.0f, 30.0f, 20.0f, 15.0f };
 		SkullRewardGrade = ContentFunc::RandEnum<SkullGrade>(Per);
 	}
 
@@ -372,6 +492,69 @@ std::shared_ptr<SkullGear> StageRewardObject::DropSkullReward(float4 _Pivot /*= 
 	std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
 	Gear->Init(RewardList[RandIndex]);
 	Gear->DropGear(Render->GetTransform()->GetWorldPosition() + _Pivot);
+
+	if (SkullRewardGrade == SkullGrade::Legendary)
+	{
+		Gear->LegendaryGearEffectOn();
+	}
+
+	CreateGears.push_back(Gear);
+
+	return Gear;
+}
+
+std::shared_ptr<class ItemGear> StageRewardObject::DropItemReward(const float4& _Pivot /*= float4::Zero*/, bool _GradeReset /*= false*/)
+{
+	if (true == _GradeReset)
+	{
+		std::vector<float> Per = { 35.0f, 30.0f, 20.0f, 15.0f };
+		ItemRewardGrade = ContentFunc::RandEnum<ItemGrade>(Per);
+
+		std::vector<ItemData> RewardList;
+		ContentDatabase<ItemData, ItemGrade>::CopyGradeDatas(ItemRewardGrade, RewardList);
+
+		GameEngineRandom& Rand = GameEngineRandom::MainRandom;
+		ItemRewardIndex = Rand.RandomInt(0, static_cast<int>(RewardList.size() - 1));
+	}
+
+	std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
+	Gear->Init(ItemRewardIndex);
+	Gear->DropGear(Render->GetTransform()->GetWorldPosition() + _Pivot);
+
+	if (SkullRewardGrade == SkullGrade::Legendary)
+	{
+		Gear->LegendaryGearEffectOn();
+	}
+
+	CreateGears.push_back(Gear);
+
+	return Gear;
+}
+
+std::shared_ptr<class ItemGear> StageRewardObject::BezierItemReward(const float4& _Start, const float4& _End, bool _GradeReset)
+{
+	if (true == _GradeReset)
+	{
+		std::vector<float> Per = { 35.0f, 30.0f, 20.0f, 15.0f };
+		ItemRewardGrade = ContentFunc::RandEnum<ItemGrade>(Per);
+
+		std::vector<ItemData> RewardList;
+		ContentDatabase<ItemData, ItemGrade>::CopyGradeDatas(ItemRewardGrade, RewardList);
+
+		GameEngineRandom& Rand = GameEngineRandom::MainRandom;
+		ItemRewardIndex = Rand.RandomInt(0, static_cast<int>(RewardList.size() - 1));
+	}
+
+	std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
+	Gear->Init(ItemRewardIndex);
+	Gear->DropGear_Bezier(_Start, _End);
+	Gear->BlackAndWhiteEffectOn();
+	Gear->BlackAndWhiteColorOn();
+
+	Gear->SetEndCallback([Gear]()
+		{
+			Gear->ColWaveOn();
+		});
 
 	if (SkullRewardGrade == SkullGrade::Legendary)
 	{

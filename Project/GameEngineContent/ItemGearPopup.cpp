@@ -108,6 +108,13 @@ void ItemGearPopup::PopupOn(ItemData& _Data)
 
 		for (size_t i = 0; i < NoteText.size(); i++)
 		{
+			if (L'\n' == NoteText[i])
+			{
+				CurX = 0;
+				CurY += 16.0f;
+				continue;
+			}
+
 			CurX += 16.0f * 0.7f;
 
 			if (TextureBoardX < CurX + 16.0f)
