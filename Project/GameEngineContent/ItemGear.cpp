@@ -166,19 +166,19 @@ void ItemGear::Destroy()
 		{
 		case ItemGrade::Normal:
 			Inventory::AddGoods_Gold(ContentConst::Goods_Item_Normal);
-			ResultInfo::GetBone += ContentConst::Goods_Item_Normal;
+			ResultInfo::GetGold += ContentConst::Goods_Item_Normal;
 			break;
 		case ItemGrade::Rare:
 			Inventory::AddGoods_Gold(ContentConst::Goods_Item_Rare);
-			ResultInfo::GetBone += ContentConst::Goods_Item_Rare;
+			ResultInfo::GetGold += ContentConst::Goods_Item_Rare;
 			break;
 		case ItemGrade::Unique:
 			Inventory::AddGoods_Gold(ContentConst::Goods_Item_Unique);
-			ResultInfo::GetBone += ContentConst::Goods_Item_Unique;
+			ResultInfo::GetGold += ContentConst::Goods_Item_Unique;
 			break;
 		case ItemGrade::Legendary:
 			Inventory::AddGoods_Gold(ContentConst::Goods_Item_Legendary);
-			ResultInfo::GetBone += ContentConst::Goods_Item_Legendary;
+			ResultInfo::GetGold += ContentConst::Goods_Item_Legendary;
 			break;
 		default:
 			break;

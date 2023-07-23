@@ -50,14 +50,8 @@ void ShopThief::Start()
 	CreateTalkScript();
 }
 
-#include "GameEngineActorGUI.h"
-
 void ShopThief::Update(float _DeltaTime)
 {
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(NoteActor->GetTransform());
-	Ptr->On();
-
 	if (true == NpcTalkBox->IsUpdate())
 	{
 		NoteActor->Off();

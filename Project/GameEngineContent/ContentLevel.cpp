@@ -140,8 +140,7 @@ void ContentLevel::Update(float _DeltaTime)
 
 void ContentLevel::LevelChangeStart()
 {
-	PlayBaseBGM();
-
+	PlayBaseBGM(true, LevelChangeBGMTime);
 	GameEngineGUI::FindGUIWindowConvert<ContentLevelLightGUI>("ContentLevelLightGUI")->SetLevel(DynamicThis<ContentLevel>());
 }
 
@@ -150,7 +149,7 @@ void ContentLevel::LevelChangeEnd()
 	StopBaseBGM();
 }
 
-void ContentLevel::PlayBaseBGM(bool _IsFade /*= true*/)
+void ContentLevel::PlayBaseBGM(bool _IsFade /*= true*/, float _Time /*= 1.0f*/)
 {
 	if ("" != BgmName)
 	{
@@ -162,13 +161,13 @@ void ContentLevel::PlayBaseBGM(bool _IsFade /*= true*/)
 			if (true == _IsFade)
 			{
 				BaseBgmPlayer.setPosition(0);
-				BaseBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, 1.0f);
+				BaseBgmPlayer.SoundFadeIn(_Time, 1.0f);
 			}
 		}
 	}
 }
 
-void ContentLevel::StopBaseBGM(bool _IsFade /*= true*/)
+void ContentLevel::StopBaseBGM(bool _IsFade /*= true*/, float _Time /*= 1.0f*/)
 {
 	if (true == BaseBgmPlayer.IsValid())
 	{
@@ -179,7 +178,7 @@ void ContentLevel::StopBaseBGM(bool _IsFade /*= true*/)
 		{
 			if (true == _IsFade)
 			{
-				BaseBgmPlayer.SoundFadeOut(BGM_FadeOut_Time, 0.0f, true);
+				BaseBgmPlayer.SoundFadeOut(_Time, 0.0f, true);
 			}
 			else
 			{
@@ -207,7 +206,7 @@ void ContentLevel::PlayCustomBgm(const std::string_view& _BgmName, bool _IsFade 
 
 	if (true == _IsFade)
 	{
-		CustomBgmPlayer.SoundFadeIn(BGM_FadeIn_Time, _FadeTime);
+		CustomBgmPlayer.SoundFadeIn(_FadeTime);
 	}
 }
 

@@ -25,6 +25,7 @@
 #include "BossNameFont.h"
 #include "InventoryUI.h"
 #include "ItemSwapPopup.h"
+#include "ShopItemPopup.h"
 
 BattleLevel::BattleLevel()
 {
@@ -101,6 +102,9 @@ void BattleLevel::Start()
 
 	ItemSwapPopupPtr = CreateActor<ItemSwapPopup>();
 	ItemSwapPopupPtr->Off();
+
+	ShopItemPopupPtr = CreateActor<ShopItemPopup>();
+	ShopItemPopupPtr->Off();
 
 	AddEvent("NextLevelMove", -1, [this]()
 		{
@@ -211,6 +215,36 @@ void BattleLevel::Start()
 	AddEvent("ItemGearPopupOff", -1, [this]()
 		{
 			ItemGearPopupPtr->PopupOff();
+		});
+
+	AddEvent("ShopItemPopupOn", -1, [this]()
+		{
+			ShopItemPopupPtr->PopupOn();
+
+			if (nullptr != MainPlayer)
+			{
+				if (ActorViewDir::Left == MainPlayer->GetViewDir())
+				{
+					ShopItemPopupPtr->GetTransform()->SetLocalPosition(float4(-300, 30));
+				}
+				else
+				{
+					ShopItemPopupPtr->GetTransform()->SetLocalPosition(float4(300, 30));
+				}
+			}
+		});
+
+	AddEvent("ShopItemPopupCheck", -1, [this]()
+		{
+			if (false == ShopItemPopupPtr->IsUpdate())
+			{
+				ShopItemPopupPtr->PopupOn();
+			}
+		});
+
+	AddEvent("ShopItemPopupOff", -1, [this]()
+		{
+			ShopItemPopupPtr->PopupOff();
 		});
 
 	AddEvent("SkullGearPopupOn", -1, [this]()

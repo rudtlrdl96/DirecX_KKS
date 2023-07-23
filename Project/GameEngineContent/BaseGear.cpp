@@ -33,6 +33,15 @@ void BaseGear::DropGear_Bezier(const float4& _Start, const float4& _End)
 	BezierProgress = 0.0f;
 }
 
+void BaseGear::WaveOn()
+{
+	DropRigid.SetVelocity(float4::Zero);
+	State = GearState::Wave;
+
+	WaveCenter = GetTransform()->GetWorldPosition();
+	ResetLiveTime();
+}
+
 void BaseGear::BlackAndWhiteEffectOn()
 {
 	IsBlackAndWhite = true;
@@ -151,38 +160,41 @@ void BaseGear::Update(float _DeltaTime)
 				ColUpdateCallback();
 			}
 
-			if (GameEngineInput::IsPress("UseKey"))
+			if (true == IsBrokenOn)
 			{
-				if (0.2f <= PressTime && false == DestroySound.IsValid())
+				if (GameEngineInput::IsPress("UseKey"))
 				{
-					DestroySound = GameEngineSound::Play("Object_DestroyItem_loop.wav");
-					DestroySound.SetLoop();
-				}
-
-				PressTime += _DeltaTime;
-
-				if (1.0f <= PressTime)
-				{
-					Death(); 
-					DestroySound.Stop();
-				}
-			}
-			else
-			{
-				PressTime = 0.0f;
-
-				if (true == DestroySound.IsValid())
-				{
-					bool IsPlay = false;
-					DestroySound.isPlaying(&IsPlay);
-
-					if (true == IsPlay)
+					if (0.2f <= PressTime && false == DestroySound.IsValid())
 					{
+						DestroySound = GameEngineSound::Play("Object_DestroyItem_loop.wav");
+						DestroySound.SetLoop();
+					}
+
+					PressTime += _DeltaTime;
+
+					if (1.0f <= PressTime)
+					{
+						Death();
 						DestroySound.Stop();
-						DestroySound.Clear();
 					}
 				}
-			}
+				else
+				{
+					PressTime = 0.0f;
+
+					if (true == DestroySound.IsValid())
+					{
+						bool IsPlay = false;
+						DestroySound.isPlaying(&IsPlay);
+
+						if (true == IsPlay)
+						{
+							DestroySound.Stop();
+							DestroySound.Clear();
+						}
+					}
+				}
+			}		
 		}		
 	}
 
@@ -457,6 +469,7 @@ void BaseGear::Destroy()
 
 void BaseGear::UseGear()
 {
+
 }
 
 void BaseGear::SetWaveState(std::shared_ptr<GameEngineCollision> _PlatformCol)

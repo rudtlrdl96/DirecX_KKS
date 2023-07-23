@@ -176,7 +176,7 @@ void GoodsUI::Update(float _DeltaTime)
 	if (true == GameEngineInput::IsDown("GetGoods"))
 	{
 		Inventory::AddGoods_Bone(10);
-		Inventory::AddGoods_Gold(10);
+		Inventory::AddGoods_Gold(100);
 		Inventory::AddGoods_ManaStone(10);
 	}
 

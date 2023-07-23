@@ -190,8 +190,6 @@ void SkeleTong::Update(float _DeltaTime)
 
 void SkeleTong::PlayBehavior()
 {
-	return;
-
 	if (nullptr != Bubble)
 	{
 		Bubble->Death();

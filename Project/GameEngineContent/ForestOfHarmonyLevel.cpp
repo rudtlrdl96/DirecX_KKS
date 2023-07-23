@@ -227,16 +227,16 @@ void ForestOfHarmonyLevel::ChangeStage()
 
 	if (4 == CurStageIndex)
 	{
-		StopBaseBGM();
-		TimeEvent.AddEvent(1.1f, [this](GameEngineTimeEvent::TimeEvent& _Ref, GameEngineTimeEvent* _Ptr) {PlayCustomBgm("BlackMarket.wav"); });
+		StopBaseBGM(true, 0.5f);
+		TimeEvent.AddEvent(1.1f, [this](GameEngineTimeEvent::TimeEvent& _Ref, GameEngineTimeEvent* _Ptr) {PlayCustomBgm("BlackMarket.wav", true, 0.5f); });
 
 		CallEvent("MinimapOn");
 		CallEvent("GoodsUIOn");
 	}
 	else if (5 == CurStageIndex)
 	{
-		StopCustomBgm();
-		TimeEvent.AddEvent(1.1f, [this](GameEngineTimeEvent::TimeEvent& _Ref, GameEngineTimeEvent* _Ptr) {PlayBaseBGM(); });
+		StopCustomBgm(0.5f);
+		TimeEvent.AddEvent(1.1f, [this](GameEngineTimeEvent::TimeEvent& _Ref, GameEngineTimeEvent* _Ptr) {PlayBaseBGM(true, 0.5f);});
 
 		if (nullptr != MinimapPtr && true == MinimapPtr->IsUpdate())
 		{

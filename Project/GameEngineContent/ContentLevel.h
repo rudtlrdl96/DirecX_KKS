@@ -28,8 +28,8 @@ public:
 	void RemoveEvent(const std::string_view& _Event, UINT _ActorCode);
 	void CallEvent(const std::string_view& _Event);
 
-	void PlayBaseBGM(bool _IsFade = true);
-	void StopBaseBGM(bool _IsFade = true);
+	void PlayBaseBGM(bool _IsFade = true, float _Time = 1.0f);
+	void StopBaseBGM(bool _IsFade = true, float _Time = 1.0f);
 
 	void PlayCustomBgm(const std::string_view& _BgmName, bool _IsFade = true, float _FadeTime = 1.0f);
 	void StopCustomBgm(float _FadeTime = 1.0f, bool _IsFade = true);
@@ -49,8 +49,7 @@ protected:
 	CameraController MainCamCtrl;
 	std::string BgmName = "";
 
-	float BGM_FadeIn_Time = 1.0f;
-	float BGM_FadeOut_Time = 1.0f;
+	float LevelChangeBGMTime = 1.0f;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;

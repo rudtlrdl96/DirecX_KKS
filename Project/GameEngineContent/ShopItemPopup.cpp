@@ -1,29 +1,29 @@
 #include "PrecompileHeader.h"
-#include "ItemGearPopup.h"
+#include "ShopItemPopup.h"
 #include "UINoteActor.h"
 
-ItemData ItemGearPopup::GlobalData;
+ItemData ShopItemPopup::GlobalData;
 
-ItemGearPopup::ItemGearPopup()
+ShopItemPopup::ShopItemPopup()
 {
 }
 
-ItemGearPopup::~ItemGearPopup()
+ShopItemPopup::~ShopItemPopup()
 {
 }
 
-void ItemGearPopup::PopupOn()
+void ShopItemPopup::PopupOn()
 {
 	PopupOn(GlobalData);
 }
 
-void ItemGearPopup::PopupOn(ItemData& _Data)
+void ShopItemPopup::PopupOn(ItemData& _Data)
 {
 	LocalData = _Data;
 
 	if (false == ContentDatabase<ItemData, ItemGrade>::IsVaild(LocalData.Index))
 	{
-		MsgAssert_Rtti<ItemGearPopup>(" - 존재하지 않는 아이템의 데이터를 참조하려 했습니다.");
+		MsgAssert_Rtti<ShopItemPopup>(" - 존재하지 않는 아이템의 데이터를 참조하려 했습니다.");
 		return;
 	}
 
@@ -36,30 +36,30 @@ void ItemGearPopup::PopupOn(ItemData& _Data)
 	{
 	case ItemGrade::Normal:
 		ItemGradeFont->SetText("일반");
-		BrokenFontActor->SetText("　파괴하기 (　 " + std::to_string(ContentConst::Goods_Item_Normal) + ")");
-		BrokenKeyRender->GetTransform()->SetLocalPosition(float4(-72, 0, -1));
-		BrokenGoldRender->GetTransform()->SetLocalPosition(float4(23, 0, -1));
+		GetItemFontActor->SetText("　구매하기 (　 50)");
+		BuyKeyRender->GetTransform()->SetLocalPosition(float4(-72, 0, -1));
+		BuyGoldRender->GetTransform()->SetLocalPosition(float4(28, 0, -1));
 		break;
 
 	case ItemGrade::Rare:
 		ItemGradeFont->SetText("레어");
-		BrokenFontActor->SetText("　파괴하기 (　 " + std::to_string(ContentConst::Goods_Item_Rare) + ")");
-		BrokenKeyRender->GetTransform()->SetLocalPosition(float4(-72, 0, -1));
-		BrokenGoldRender->GetTransform()->SetLocalPosition(float4(23, 0, -1));
+		GetItemFontActor->SetText("　구매하기 (　 100)");
+		BuyKeyRender->GetTransform()->SetLocalPosition(float4(-72, 0, -1));
+		BuyGoldRender->GetTransform()->SetLocalPosition(float4(23, 0, -1));
 		break;
 
 	case ItemGrade::Unique:
 		ItemGradeFont->SetText("유니크");
-		BrokenFontActor->SetText("　파괴하기 (　 " + std::to_string(ContentConst::Goods_Item_Unique) + ")");
-		BrokenKeyRender->GetTransform()->SetLocalPosition(float4(-72, 0, -1));
-		BrokenGoldRender->GetTransform()->SetLocalPosition(float4(23, 0, -1));
+		GetItemFontActor->SetText("　구매하기 (　 150)");
+		BuyKeyRender->GetTransform()->SetLocalPosition(float4(-72, 0, -1));
+		BuyGoldRender->GetTransform()->SetLocalPosition(float4(23, 0, -1));
 		break;
 
 	case ItemGrade::Legendary:
 		ItemGradeFont->SetText("레전더리");
-		BrokenFontActor->SetText("　파괴하기 (　 " + std::to_string(ContentConst::Goods_Item_Legendary) + ")");
-		BrokenKeyRender->GetTransform()->SetLocalPosition(float4(-72, 0, -1));
-		BrokenGoldRender->GetTransform()->SetLocalPosition(float4(23, 0, -1));
+		GetItemFontActor->SetText("　구매하기 (　 200)");
+		BuyKeyRender->GetTransform()->SetLocalPosition(float4(-72, 0, -1));
+		BuyGoldRender->GetTransform()->SetLocalPosition(float4(23, 0, -1));
 		break;
 	default:
 		break;
@@ -139,7 +139,6 @@ void ItemGearPopup::PopupOn(ItemData& _Data)
 
 	SynergyFrame->GetTransform()->SetLocalPosition(float4(0, -44 - NoteScale.y, -0.2f));
 	GetItemFontActor->GetTransform()->SetLocalPosition(float4(10, -125 - NoteScale.y, -5.0f));
-	BrokenFontActor->GetTransform()->SetLocalPosition(float4(10, -155 - NoteScale.y, -5.0f));
 
 	ItemFrameRender->GetTransform()->SetLocalPosition(float4(0, -NoteScale.hy(), 0));
 	ItemFrameRender->GetTransform()->SetLocalScale(BackgroundScale + float4(0, NoteScale.y, 0));
@@ -147,12 +146,12 @@ void ItemGearPopup::PopupOn(ItemData& _Data)
 	On();
 }
 
-void ItemGearPopup::PopupOff()
+void ShopItemPopup::PopupOff()
 {
 	Off();
 }
 
-void ItemGearPopup::Start()
+void ShopItemPopup::Start()
 {
 	if (nullptr == GameEngineTexture::Find("ItemPopup_Back.png"))
 	{
@@ -242,14 +241,8 @@ void ItemGearPopup::Start()
 	GetItemFontActor = GetLevel()->CreateActor<UINoteActor>();
 	GetItemFontActor->GetTransform()->SetParent(GetTransform());
 	GetItemFontActor->GetTransform()->SetLocalPosition(float4(10, -125, -5.0f));
-	GetItemFontActor->SetText("ㅁ 교체하기");
-	GetItemFontActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
-
-	BrokenFontActor = GetLevel()->CreateActor<UINoteActor>();
-	BrokenFontActor->GetTransform()->SetParent(GetTransform());
-	BrokenFontActor->GetTransform()->SetLocalPosition(float4(10, -155, -5.0f));
-	BrokenKeyRender = BrokenFontActor->AddKeyImage("KeyUI_F_Press.png", float4(0, 0, -1)).get();
-	BrokenGoldRender = BrokenFontActor->AddKeyImage("Gold_Icon.png", float4(0, 0, -1)).get();
+	BuyKeyRender = GetItemFontActor->AddKeyImage("KeyUI_F_Press.png", float4(0, 0, -1)).get();
+	BuyGoldRender = GetItemFontActor->AddKeyImage("Gold_Icon.png", float4(0, 0, -1)).get();
 
 	Off();
 }

@@ -3,6 +3,9 @@
 #include "NPC_TalkBox.h"
 #include "FieldNoteActor.h"
 #include "MapPlatform.h"
+#include "ShopItemGear.h"
+#include "ShopCollector_Reroll.h"
+#include "Inventory.h"
 
 ShopCollector::ShopCollector()
 {
@@ -30,8 +33,12 @@ void ShopCollector::Start()
 	NpcTalkBox->SetButtonInterval(float4(0, 35));
 	NpcTalkBox->AddButton("´ëÈ­", [this]() {PlayNextScript(); });
 
-	NpcTalkBox->SetTalkBoxName("¼öÁý°¡", float4(2, 0), float4(130, 34));
+	RerollBox = GetLevel()->CreateActor<ShopCollector_Reroll>();
+	RerollBox->GetTransform()->SetParent(GetTransform());
+	RerollBox->GetTransform()->SetLocalPosition(float4(246, 60));
+	RerollBox->SetCallback([this]() {RerollItem(false); });
 
+	NpcTalkBox->SetTalkBoxName("¼öÁý°¡", float4(2, 0), float4(130, 34));
 	NpcTalkBox->AddMainText(L"¹Ý°©½À´Ï´Ù. ½ºÄÌ·¹Åæ ¼Ò³â.");
 	NpcTalkBox->Off();
 
@@ -47,38 +54,78 @@ void ShopCollector::Start()
 	NoteActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
 	NoteActor->Off();
 
+	ItemPlatforms.resize(4);
+
 	{
-		ItemPlatform0 = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
-		ItemPlatform0->GetTransform()->SetLocalPosition(float4(-402, 78, 0));
-		ItemPlatform0->GetTransform()->SetLocalScale(float4(70, 15, 1));
-		ItemPlatform0->SetColType(ColType::AABBBOX2D);
+		ItemPlatforms[0] = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
+		ItemPlatforms[0]->GetTransform()->SetLocalPosition(float4(-402, 78, 0));
+		ItemPlatforms[0]->GetTransform()->SetLocalScale(float4(70, 15, 1));
+		ItemPlatforms[0]->SetColType(ColType::AABBBOX2D);
 	
-		ItemPlatform1 = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
-		ItemPlatform1->GetTransform()->SetLocalPosition(float4(-233, 78, 0));
-		ItemPlatform1->GetTransform()->SetLocalScale(float4(70, 15, 1));
-		ItemPlatform1->SetColType(ColType::AABBBOX2D);
+		ItemPlatforms[1] = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
+		ItemPlatforms[1]->GetTransform()->SetLocalPosition(float4(-233, 78, 0));
+		ItemPlatforms[1]->GetTransform()->SetLocalScale(float4(70, 15, 1));
+		ItemPlatforms[1]->SetColType(ColType::AABBBOX2D);
 
-		ItemPlatform2 = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
-		ItemPlatform2->GetTransform()->SetLocalPosition(float4(-65, 78, 0));
-		ItemPlatform2->GetTransform()->SetLocalScale(float4(70, 15, 1));
-		ItemPlatform2->SetColType(ColType::AABBBOX2D);
+		ItemPlatforms[2] = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
+		ItemPlatforms[2]->GetTransform()->SetLocalPosition(float4(-65, 78, 0));
+		ItemPlatforms[2]->GetTransform()->SetLocalScale(float4(70, 15, 1));
+		ItemPlatforms[2]->SetColType(ColType::AABBBOX2D);
 
-		ItemPlatform3 = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
-		ItemPlatform3->GetTransform()->SetLocalPosition(float4(105, 78, 0));
-		ItemPlatform3->GetTransform()->SetLocalScale(float4(70, 15, 1));
-		ItemPlatform3->SetColType(ColType::AABBBOX2D);
+		ItemPlatforms[3] = CreateComponent<GameEngineCollision>((int)CollisionOrder::Platform_Half);
+		ItemPlatforms[3]->GetTransform()->SetLocalPosition(float4(105, 78, 0));
+		ItemPlatforms[3]->GetTransform()->SetLocalScale(float4(70, 15, 1));
+		ItemPlatforms[3]->SetColType(ColType::AABBBOX2D);
 	}
 
+	ItemPrice.resize(4);
+
+	for (size_t i = 0; i < ItemPrice.size(); i++)
+	{
+		ItemPrice[i] = CreateComponent<GameEngineFontRenderer>();
+		ItemPrice[i]->SetFont("³Ø½¼Lv2°íµñ");
+		ItemPrice[i]->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_CENTER | FW1_TEXT_FLAG::FW1_VCENTER));
+		ItemPrice[i]->SetScale(19);
+		ItemPrice[i]->SetColor(float4(1, 1, 1, 1));
+		ItemPrice[i]->SetText("");
+
+		float4 PlatformPos = ItemPlatforms[i]->GetTransform()->GetLocalPosition();
+		ItemPrice[i]->GetTransform()->SetLocalPosition(PlatformPos + float4(2, -61, -10));
+	}
+
+	ItemGears.resize(4);
 	CreateTalkScript();
 }
 
-//#include "GameEngineActorGUI.h"
-
 void ShopCollector::Update(float _DeltaTime)
 {
-	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	//Ptr->SetTarget(ItemPlatform0->GetTransform());
-	//Ptr->On();
+	RerollBox->SetPrice(RerollPrice);
+
+	for (size_t i = 0; i < ItemPrice.size(); i++)
+	{
+		if (ItemGears[i] != nullptr && ItemGears[i]->IsDeath())
+		{
+			ItemGears[i] = nullptr;
+		}
+
+		if (nullptr != ItemGears[i])
+		{
+			ItemPrice[i]->SetText(std::to_string(ItemGears[i]->GetPrice()));
+
+			if (ItemGears[i]->GetPrice() <= Inventory::GetGoodsCount_Gold())
+			{
+				ItemPrice[i]->SetColor(float4(1, 1, 1, 1));
+			}
+			else
+			{
+				ItemPrice[i]->SetColor(float4(1, 0, 0, 1));
+			}
+		}
+		else
+		{
+			ItemPrice[i]->SetText("");
+		}
+	}
 
 	if (true == NpcTalkBox->IsUpdate())
 	{
@@ -115,7 +162,21 @@ void ShopCollector::SpriteLoad()
 		Path.Move("Collector");
 
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Collector_Idle.png").GetFullPath(), 5, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Reroll_Idle.png").GetFullPath(), 1, 1);
+		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Reroll_Interact.png").GetFullPath(), 3, 2);
 	}
+}
+
+void ShopCollector::PlayBehavior()
+{
+	ReleaseItem();
+	RerollItem(true);
+	RerollPrice = 40;
+}
+
+void ShopCollector::ResetBehavior()
+{
+	ReleaseItem();
 }
 
 void ShopCollector::CreateTalkScript()
@@ -221,4 +282,62 @@ void ShopCollector::TalkEndCallback()
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
 	GetContentLevel()->CallEvent("UseKeyOn");
+}
+
+void ShopCollector::RerollItem(bool _IsInitReroll)
+{
+	ReleaseItem();
+	ItemGears.resize(4);
+
+	std::vector<float> Per = { 35.0f, 30.0f, 20.0f, 15.0f };
+	GameEngineRandom& Rand = GameEngineRandom::MainRandom;
+
+	for (size_t i = 0; i < ItemGears.size(); i++)
+	{
+		ItemGrade RandItem = ContentFunc::RandEnum<ItemGrade>(Per);
+
+		std::vector<ItemData> CopyData;
+		ContentDatabase<ItemData, ItemGrade>::CopyGradeDatas(RandItem, CopyData);
+
+		int RandomIndex = Rand.RandomInt(0, (int)CopyData.size() - 1);
+
+		std::shared_ptr<ShopItemGear> NewGear = GetLevel()->CreateActor<ShopItemGear>();
+		NewGear->GetTransform()->SetParent(GetTransform());
+		NewGear->Init(CopyData[RandomIndex]);
+
+		if (ItemGrade::Legendary == RandItem)
+		{
+			NewGear->LegendaryGearEffectOn();
+		}
+
+		float4 PlatformPos = ItemPlatforms[i]->GetTransform()->GetLocalPosition();
+		NewGear->GetTransform()->SetLocalPosition(PlatformPos + float4(15, 50));
+		NewGear->WaveOn();
+
+		ItemGears[i] = NewGear;
+	}
+
+	if (false == _IsInitReroll)
+	{
+		RerollPrice += 60;
+
+		if (MaxRerollPrice < RerollPrice)
+		{
+			RerollPrice = MaxRerollPrice;
+		}
+	}
+}
+
+void ShopCollector::ReleaseItem()
+{
+	for (size_t i = 0; i < ItemGears.size(); i++)
+	{
+		if (nullptr != ItemGears[i])
+		{
+			ItemGears[i]->Death();
+			ItemGears[i] = nullptr;
+		}
+	}
+
+	ItemGears.clear();
 }

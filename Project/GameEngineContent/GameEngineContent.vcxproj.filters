@@ -1125,6 +1125,15 @@
     <ClInclude Include="ShopThief.h">
       <Filter>2_Actor\NPC\NPC\Shop</Filter>
     </ClInclude>
+    <ClInclude Include="ShopItemGear.h">
+      <Filter>2_Actor\Gear\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopItemPopup.h">
+      <Filter>2_Actor\UI\Gear</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopCollector_Reroll.h">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1899,6 +1908,15 @@
       <Filter>2_Actor\NPC\NPC\Shop</Filter>
     </ClCompile>
     <ClCompile Include="ShopThief.cpp">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopItemGear.cpp">
+      <Filter>2_Actor\Gear\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopItemPopup.cpp">
+      <Filter>2_Actor\UI\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopCollector_Reroll.cpp">
       <Filter>2_Actor\NPC\NPC\Shop</Filter>
     </ClCompile>
   </ItemGroup>

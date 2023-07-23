@@ -357,7 +357,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ShopCollector_Reroll.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ShopHeadless.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopItemGear.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopItemPopup.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -1336,7 +1348,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ShopCollector_Reroll.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ShopHeadless.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopItemGear.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopItemPopup.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -23,7 +23,8 @@ public:
 
 	void DropGear(const float4& _WorldPos);
 	void DropGear_Bezier(const float4& _Start, const float4& _End);
-	
+	void WaveOn();
+
 	void BlackAndWhiteEffectOn();
 	void ColWaveOn();
 
@@ -89,6 +90,7 @@ protected:
 	bool IsLegendaryGear = false;
 	bool IsUse = false;
 	bool IsEnterCheck = false;
+	bool IsBrokenOn = true;
 
 	float4 WaveCenter = float4::Zero;
 	std::vector<float4> BezierPoint;
