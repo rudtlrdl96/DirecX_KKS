@@ -26,6 +26,11 @@ void ShopObjectA::Start()
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("ShopObjectA.png").GetFullPath(), 4, 2);
 	}
 
+	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		Render->PushCameraRender((int)CameraOrder::MiniMap);
+	}
+
 	Render->SetScaleRatio(2.0f);
 	Render->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "ShopObjectA.png", .Loop = true, .ScaleToTexture = true });
 	Render->ChangeAnimation("Idle");

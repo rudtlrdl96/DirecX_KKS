@@ -285,6 +285,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentVertex.h" />
+    <ClInclude Include="EffectActor_Linear.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EffectUI_Linear.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="FlagA.h">
       <SubType>
       </SubType>
@@ -302,6 +310,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ItemGear.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemGearMorePopup.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemGearMorePopupFont.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -498,19 +514,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GrandHallLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="HealthBar.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="HitParticle.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="HolyCourtyardLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -1071,6 +1079,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EffectActor_Linear.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EffectUI_Linear.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="FadeActor_UI.cpp">
       <SubType>
       </SubType>
@@ -1097,6 +1113,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ItemGear.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemGearMorePopup.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemGearMorePopupFont.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -1482,19 +1506,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GrandHallLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="HealthBar.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="HitParticle.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="HolyCourtyardLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>

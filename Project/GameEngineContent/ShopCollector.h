@@ -24,6 +24,7 @@ protected:
 	void ResetBehavior() override;
 
 private:
+	std::shared_ptr<ContentMinimapRender> MinimapImageRender = nullptr;
 	std::shared_ptr<class ShopCollector_Reroll> RerollBox = nullptr;
 
 	std::shared_ptr<class FieldNoteActor> NoteActor = nullptr;

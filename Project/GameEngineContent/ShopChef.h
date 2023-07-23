@@ -21,6 +21,8 @@ protected:
 	void SpriteLoad() override;
 
 private:
+	std::shared_ptr<ContentMinimapRender> MinimapImageRender = nullptr;
+
 	std::shared_ptr<class FieldNoteActor> NoteActor = nullptr;
 	std::shared_ptr<class NPC_TalkBox> NpcTalkBox = nullptr;
 	std::shared_ptr<GameEngineCollision> TalkEventCol = nullptr;

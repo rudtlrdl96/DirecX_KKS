@@ -61,12 +61,6 @@
     <Filter Include="4_Level\GameLevel\BattleLevel\ForestOfMarmony">
       <UniqueIdentifier>{5aee5d21-eb1e-4af5-ad5f-7b1dfcf31ab7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="4_Level\GameLevel\BattleLevel\GrandHall">
-      <UniqueIdentifier>{2893c532-2da7-499c-af6a-37e9d69eb1c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Level\GameLevel\BattleLevel\HolyCourtyard">
-      <UniqueIdentifier>{a1994a46-8fad-4f03-b281-d87f071b6cac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="4_Level\GameLevel\BattleLevel\Opening">
       <UniqueIdentifier>{1d74fe82-96cb-49fc-808c-fc872588906b}</UniqueIdentifier>
     </Filter>
@@ -485,12 +479,6 @@
     </ClInclude>
     <ClInclude Include="ForestOfHarmonyLevel.h">
       <Filter>4_Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
-    </ClInclude>
-    <ClInclude Include="GrandHallLevel.h">
-      <Filter>4_Level\GameLevel\BattleLevel\GrandHall</Filter>
-    </ClInclude>
-    <ClInclude Include="HolyCourtyardLevel.h">
-      <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
     </ClInclude>
     <ClInclude Include="OpeningLevel.h">
       <Filter>4_Level\GameLevel\BattleLevel\Opening</Filter>
@@ -1134,6 +1122,18 @@
     <ClInclude Include="ShopCollector_Reroll.h">
       <Filter>2_Actor\NPC\NPC\Shop</Filter>
     </ClInclude>
+    <ClInclude Include="EffectActor_Linear.h">
+      <Filter>2_Actor\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectUI_Linear.h">
+      <Filter>2_Actor\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemGearMorePopup.h">
+      <Filter>2_Actor\UI\Gear</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemGearMorePopupFont.h">
+      <Filter>2_Actor\UI\Gear</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1213,12 +1213,6 @@
     </ClCompile>
     <ClCompile Include="ForestOfHarmonyLevel.cpp">
       <Filter>4_Level\GameLevel\BattleLevel\ForestOfMarmony</Filter>
-    </ClCompile>
-    <ClCompile Include="GrandHallLevel.cpp">
-      <Filter>4_Level\GameLevel\BattleLevel\GrandHall</Filter>
-    </ClCompile>
-    <ClCompile Include="HolyCourtyardLevel.cpp">
-      <Filter>4_Level\GameLevel\BattleLevel\HolyCourtyard</Filter>
     </ClCompile>
     <ClCompile Include="OpeningLevel.cpp">
       <Filter>4_Level\GameLevel\BattleLevel\Opening</Filter>
@@ -1918,6 +1912,18 @@
     </ClCompile>
     <ClCompile Include="ShopCollector_Reroll.cpp">
       <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectActor_Linear.cpp">
+      <Filter>2_Actor\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectUI_Linear.cpp">
+      <Filter>2_Actor\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemGearMorePopup.cpp">
+      <Filter>2_Actor\UI\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemGearMorePopupFont.cpp">
+      <Filter>2_Actor\UI\Gear</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

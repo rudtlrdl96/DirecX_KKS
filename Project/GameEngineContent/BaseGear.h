@@ -64,6 +64,7 @@ public:
 
 protected:
 	std::shared_ptr<ContentSpriteRenderer> Render = nullptr;
+	std::shared_ptr<ContentMinimapRender> MinimapImageRender = nullptr;
 	BlackAndWihteBuffer Buffer;
 
 	std::shared_ptr<EffectActor> DeactiveEffect = nullptr;

@@ -233,6 +233,117 @@ std::string ItemData::GetSynergyName(Synergy _Type)
 	return ResultTextureName;
 }
 
+std::string ItemData::GetSynergyNote(Synergy _Type, size_t SynergyCount)
+{
+	std::string ResultText = "";
+
+	switch (_Type)
+	{
+	case Synergy::Courage:
+		if (2 >= SynergyCount)
+		{
+			ResultText = "물리 공격력이 20% 증폭됩니다.";
+		}
+		else if (4 >= SynergyCount)
+		{
+			ResultText = "물리 공격력이 30% 증폭됩니다.";
+		}
+		break;
+	case Synergy::Antique:
+		if (2 >= SynergyCount)
+		{
+			ResultText = "최대체력이 35 증가합니다.";
+		}
+		else if (4 >= SynergyCount)
+		{
+			ResultText = "현재 체력이 70% 이상일 시 받는 데미지가 45% 감소합니다.";
+		}
+		break;
+	case Synergy::Heritage:
+		if (2 >= SynergyCount)
+		{
+			ResultText = "정수 쿨다운 속도가 45% 증가합니다.";
+		}
+		else if (4 >= SynergyCount)
+		{
+			ResultText = "정수 사용시 3초간 적에게 입히는 데미지가 25% 증폭됩니다.\n(쿨타임 : 20초)";
+		}
+		break;
+	case Synergy::Misfortune:
+		if (2 >= SynergyCount)
+		{
+			ResultText = "치명타 확률이 15% 증가합니다.";
+		}
+		else if (4 >= SynergyCount)
+		{
+			ResultText = "치명타 확률이 15% 증가합니다.";
+		}
+		break;
+	case Synergy::Rapidity:
+		if (2 >= SynergyCount)
+		{
+			ResultText = "공격속도가 15% 증가합니다";
+		}
+		else if (4 >= SynergyCount)
+		{
+			ResultText = "공격속도가 15% 증가합니다";
+		}
+		break;
+	case Synergy::Soar:
+		if (2 >= SynergyCount)
+		{
+			ResultText = "공중에 있을 시 치명타 확률이 20% 증가합니다.";
+		}
+		else if (4 >= SynergyCount)
+		{
+			ResultText = "공중에 있을 시 적에게 입히는 데미지가 40% 증폭됩니다.";
+		}
+		break;
+	case Synergy::Strike:
+		if (2 >= SynergyCount)
+		{
+			ResultText = "치명타 데미지가 20% 증가합니다.";
+		}
+		else if (4 >= SynergyCount)
+		{
+			ResultText = "치명타 데미지가 30% 증가합니다.";
+		}
+		break;
+	case Synergy::Wisdom:
+		if (2 >= SynergyCount)
+		{
+			ResultText = "마법 공격력이 20% 증폭됩니다.";
+		}
+		else if (4 >= SynergyCount)
+		{
+			ResultText = "마법 공격력이 30% 증폭됩니다.";
+		}
+		break;
+	case Synergy::Chase:
+		if (2 >= SynergyCount)
+		{
+			ResultText = "대쉬 쿨다운 속도가 40% 증가합니다.";
+		}
+		else if (4 >= SynergyCount)
+		{
+			ResultText = "대쉬 공격력이 50% 증가합니다";
+		}
+		break;
+	case Synergy::ManaCycle:
+		if (2 >= SynergyCount)
+		{
+			ResultText = "스킬 쿨다운 속도가 50% 증가합니다.";
+		}
+		else if (4 >= SynergyCount)
+		{
+			ResultText = "스킬로 적에게 입히는 데미지가 30% 증폭됩니다.";
+		}
+		break;
+	}
+
+	return ResultText;
+}
+
 std::vector<int> ItemData::GetSynergyGrade(Synergy _Type)
 {
 	std::vector<int> SynergyGrades;

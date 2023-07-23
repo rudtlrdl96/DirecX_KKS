@@ -9,6 +9,8 @@ public:
 	size_t Index = 0;
 	LevelArea Grade = LevelArea::None;
 
+	bool IsMinimapRender = false;
+
 	float4 Pos = float4::Zero;
 	float4 Rot = float4::Zero;
 	float4 Scale = float4::One;

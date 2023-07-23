@@ -83,6 +83,14 @@ void BaseGear::Start()
 
 	Render->GetTransform()->SetLocalScale(float4(40, 40, 1));
 
+	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		MinimapImageRender = CreateComponent<ContentMinimapRender>();
+		MinimapImageRender->SetTexture("MinimapImage.png");
+		MinimapImageRender->ColorOptionValue.PlusColor = float4(0.0f, 1.0f, 0.0f, 0.0f);
+		MinimapImageRender->GetTransform()->SetLocalScale(float4(60, 60, 1));
+	}
+
 	GearGroundCol = CreateComponent<GameEngineCollision>((int)CollisionOrder::Unknown);
 	GearGroundCol->GetTransform()->SetLocalPosition(float4(0, -20, 0));
 	GearGroundCol->GetTransform()->SetLocalScale(float4(40, 40, 1));
@@ -381,6 +389,7 @@ void BaseGear::Update(float _DeltaTime)
 	case GearState::Wave:
 	{
 		GetTransform()->SetWorldPosition(WaveCenter + float4(0, -sinf(GetLiveTime() * 3.0f) * 7.0f, 0));
+		MinimapImageRender->GetTransform()->SetWorldPosition(WaveCenter);
 	}
 		break;
 	case GearState::Drop:

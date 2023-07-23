@@ -15,11 +15,11 @@ public:
 protected:
 	
 private:
-	const char* LevelComboText[12] = { 
-		"Opening" ,"Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Title", "Story", "EndingLogo", 
+	const char* LevelComboText[10] = { 
+		"Opening" ,"Castle", "ForestOfHarmony", "Title", "Story", "EndingLogo", 
 		"MapTool", "BackgroundTool", "AnimationColTool", "BrokenObjectTool",};
 
-	int CurrentLevelIndex = 6;
+	int CurrentLevelIndex = 3;
 
 	bool LightGuiOn = false;
 

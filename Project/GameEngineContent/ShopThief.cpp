@@ -21,6 +21,15 @@ void ShopThief::Start()
 {
 	BaseNPC::Start();
 
+	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		MinimapImageRender = CreateComponent<ContentMinimapRender>();
+		MinimapImageRender->SetTexture("MinimapImage.png");
+		MinimapImageRender->ColorOptionValue.PlusColor = float4(0.0f, 0.784f, 0.0f, 0.0f);
+		MinimapImageRender->GetTransform()->SetLocalPosition(float4(0, -125, 0));
+		MinimapImageRender->GetTransform()->SetLocalScale(float4(65, 90, 1));
+	}
+
 	MainRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "ShopThiefIdle.png", .ScaleToTexture = true });
 
 	PlayAnimation("Idle", false);
@@ -50,8 +59,9 @@ void ShopThief::Start()
 	CreateTalkScript();
 }
 
+
 void ShopThief::Update(float _DeltaTime)
-{
+{		
 	if (true == NpcTalkBox->IsUpdate())
 	{
 		NoteActor->Off();

@@ -61,6 +61,6 @@ public:
 
 	static std::string GetSynergyIconTextureName(Synergy _Type, size_t SynergyCount = -1);
 	static std::string GetSynergyName(Synergy _Type);
+	static std::string GetSynergyNote(Synergy _Type, size_t SynergyCount);
 	static std::vector<int> GetSynergyGrade(Synergy _Type);
-
 };

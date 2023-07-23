@@ -25,6 +25,15 @@ void ShopCollector::Start()
 {
 	BaseNPC::Start();
 
+	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		MinimapImageRender = CreateComponent<ContentMinimapRender>();
+		MinimapImageRender->SetTexture("MinimapImage.png");
+		MinimapImageRender->ColorOptionValue.PlusColor = float4(0.0f, 0.784f, 0.0f, 0.0f);
+		MinimapImageRender->GetTransform()->SetLocalPosition(float4(367, 45, 0));
+		MinimapImageRender->GetTransform()->SetLocalScale(float4(65, 90, 1));
+	}
+
 	MainRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Collector_Idle.png", .ScaleToTexture = true });
 	PlayAnimation("Idle", false);
 	NpcTalkBox = GetLevel()->CreateActor<NPC_TalkBox>();

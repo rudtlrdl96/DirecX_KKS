@@ -49,31 +49,25 @@ void LevelMoveGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTim
 		case 2: // ForestOfHarmony
 			GameEngineCore::ChangeLevel("ForestOfHarmony");
 			break;
-		case 3: // GrandHall
-			GameEngineCore::ChangeLevel("GrandHall");
-			break;
-		case 4: // HolyCourtyard
-			GameEngineCore::ChangeLevel("HolyCourtyard");
-			break;
-		case 5: // Title
+		case 3: // Title
 			GameEngineCore::ChangeLevel("Title");
 			break;
-		case 6: // Story
+		case 4: // Story
 			GameEngineCore::ChangeLevel("Story");
 			break;
-		case 7: // EndingLogo
+		case 5: // EndingLogo
 			GameEngineCore::ChangeLevel("EndingLogo");
 			break;
-		case 8: // MapTool
+		case 6: // MapTool
 			GameEngineCore::ChangeLevel("MapTool");
 			break;
-		case 9: // BackgroundTool
+		case 7: // BackgroundTool
 			GameEngineCore::ChangeLevel("BackgroundTool");
 			break;
-		case 10: // AnimationColTool
+		case 8: // AnimationColTool
 			GameEngineCore::ChangeLevel("AnimationColTool");
 			break;
-		case 11: // BrokenObjectTool
+		case 9: // BrokenObjectTool
 			GameEngineCore::ChangeLevel("BrokenObjectTool");
 			break;
 		default:

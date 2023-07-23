@@ -31,6 +31,7 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _DeltaTime) override;
 
 private:
 	static ItemData GlobalData;
@@ -38,7 +39,6 @@ private:
 
 	std::shared_ptr<ContentSlice9UIRenderer> ItemFrameRender = nullptr;
 	std::shared_ptr<ContentSlice9UIRenderer> NoteRender = nullptr;
-
 
 	std::shared_ptr<ContentUIFontRenderer> ItemNoteFont = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> ItemNameFont = nullptr;
@@ -50,8 +50,12 @@ private:
 	std::shared_ptr<ContentUIFontRenderer> SynergyAFont = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> SynergyBFont = nullptr;
 
+	std::shared_ptr<class UINoteActor> MoreFontActor = nullptr;
 	std::shared_ptr<class UINoteActor> GetItemFontActor = nullptr;
 	std::shared_ptr<class UINoteActor> BrokenFontActor = nullptr;
+
+	std::shared_ptr<class ItemGearMorePopup> SynergyMoreLeft = nullptr;
+	std::shared_ptr<class ItemGearMorePopup> SynergyMoreRight = nullptr;
 
 	GameEngineUIRenderer* BrokenKeyRender = nullptr;
 	GameEngineUIRenderer* BrokenGoldRender = nullptr;

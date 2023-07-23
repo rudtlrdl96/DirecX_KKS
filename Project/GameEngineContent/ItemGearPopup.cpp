@@ -1,6 +1,8 @@
 #include "PrecompileHeader.h"
 #include "ItemGearPopup.h"
 #include "UINoteActor.h"
+#include "ItemGearMorePopup.h"
+
 
 ItemData ItemGearPopup::GlobalData;
 
@@ -138,11 +140,16 @@ void ItemGearPopup::PopupOn(ItemData& _Data)
 
 
 	SynergyFrame->GetTransform()->SetLocalPosition(float4(0, -44 - NoteScale.y, -0.2f));
+
 	GetItemFontActor->GetTransform()->SetLocalPosition(float4(10, -125 - NoteScale.y, -5.0f));
 	BrokenFontActor->GetTransform()->SetLocalPosition(float4(10, -155 - NoteScale.y, -5.0f));
+	MoreFontActor->GetTransform()->SetLocalPosition(float4(10, -185 - NoteScale.y, -5.0f));
 
 	ItemFrameRender->GetTransform()->SetLocalPosition(float4(0, -NoteScale.hy(), 0));
 	ItemFrameRender->GetTransform()->SetLocalScale(BackgroundScale + float4(0, NoteScale.y, 0));
+
+	SynergyMoreLeft->SynergyUpdate(LocalData.Synergy1);
+	SynergyMoreRight->SynergyUpdate(LocalData.Synergy2);
 
 	On();
 }
@@ -154,6 +161,12 @@ void ItemGearPopup::PopupOff()
 
 void ItemGearPopup::Start()
 {
+	if (false == GameEngineInput::IsKey("PopupMore"))
+	{
+		GameEngineInput::CreateKey("PopupMore", VK_DOWN);
+	}
+
+
 	if (nullptr == GameEngineTexture::Find("ItemPopup_Back.png"))
 	{
 		GameEngineDirectory Path;
@@ -244,12 +257,42 @@ void ItemGearPopup::Start()
 	GetItemFontActor->GetTransform()->SetLocalPosition(float4(10, -125, -5.0f));
 	GetItemFontActor->SetText("ㅁ 교체하기");
 	GetItemFontActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
-
+	
 	BrokenFontActor = GetLevel()->CreateActor<UINoteActor>();
 	BrokenFontActor->GetTransform()->SetParent(GetTransform());
 	BrokenFontActor->GetTransform()->SetLocalPosition(float4(10, -155, -5.0f));
 	BrokenKeyRender = BrokenFontActor->AddKeyImage("KeyUI_F_Press.png", float4(0, 0, -1)).get();
 	BrokenGoldRender = BrokenFontActor->AddKeyImage("Gold_Icon.png", float4(0, 0, -1)).get();
 
+	MoreFontActor = GetLevel()->CreateActor<UINoteActor>();
+	MoreFontActor->GetTransform()->SetParent(GetTransform());
+	MoreFontActor->GetTransform()->SetLocalPosition(float4(10, -185, -5.0f));
+	MoreFontActor->SetText("ㅁ 자세히");
+	MoreFontActor->AddKeyImage("KeyUI_Down.png", float4(-30, 0, -1));
+
+	SynergyMoreLeft = GetLevel()->CreateActor<ItemGearMorePopup>();
+	SynergyMoreLeft->GetTransform()->SetParent(GetTransform());
+	SynergyMoreLeft->GetTransform()->SetLocalPosition(float4(-158, -62, -50));
+	SynergyMoreLeft->Off();
+
+	SynergyMoreRight = GetLevel()->CreateActor<ItemGearMorePopup>();
+	SynergyMoreRight->GetTransform()->SetParent(GetTransform());
+	SynergyMoreRight->GetTransform()->SetLocalPosition(float4(158, -62, -50));
+	SynergyMoreRight->Off();
+
 	Off();
+}
+
+void ItemGearPopup::Update(float _DeltaTime)
+{
+	if (true == GameEngineInput::IsPress("PopupMore"))
+	{
+		SynergyMoreLeft->On();
+		SynergyMoreRight->On();
+	}
+	else
+	{
+		SynergyMoreLeft->Off();
+		SynergyMoreRight->Off();
+	}
 }

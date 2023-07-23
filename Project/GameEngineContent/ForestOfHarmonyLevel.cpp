@@ -236,7 +236,7 @@ void ForestOfHarmonyLevel::ChangeStage()
 	else if (5 == CurStageIndex)
 	{
 		StopCustomBgm(0.5f);
-		TimeEvent.AddEvent(1.1f, [this](GameEngineTimeEvent::TimeEvent& _Ref, GameEngineTimeEvent* _Ptr) {PlayBaseBGM(true, 0.5f);});
+		StopBaseBGM(true, 0.5f);
 
 		if (nullptr != MinimapPtr && true == MinimapPtr->IsUpdate())
 		{

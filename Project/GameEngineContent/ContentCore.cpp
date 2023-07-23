@@ -27,8 +27,6 @@
 #include "OpeningLevel.h"
 #include "CastleLevel.h"
 #include "ForestOfHarmonyLevel.h"
-#include "GrandHallLevel.h"
-#include "HolyCourtyardLevel.h"
 #include "StoryLevel.h"
 #include "EndingLogoLevel.h"
 
@@ -81,8 +79,6 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<OpeningLevel>("Opening");
 	GameEngineCore::CreateLevel<CastleLevel>("Castle");
 	GameEngineCore::CreateLevel<ForestOfHarmonyLevel>("ForestOfHarmony");
-	GameEngineCore::CreateLevel<GrandHallLevel>("GrandHall");
-	GameEngineCore::CreateLevel<HolyCourtyardLevel>("HolyCourtyard");
 	GameEngineCore::CreateLevel<StoryLevel>("Story");
 	GameEngineCore::CreateLevel<EndingLogoLevel>("EndingLogo");
 	
@@ -275,6 +271,15 @@ void ContentCore::ContentPipeLineCreate()
 		Pipe->SetVertexShader("ColorShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
 		Pipe->SetPixelShader("ColorShader.hlsl");
+		Pipe->SetBlendState("ContentAlphaBlend");
+		Pipe->SetDepthState("EngineDepth");
+	}	
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture_ColorLinear");
+
+		Pipe->SetVertexShader("ColorShader_Linear.hlsl");
+		Pipe->SetRasterizer("Engine2DBase");
+		Pipe->SetPixelShader("ColorShader_Linear.hlsl");
 		Pipe->SetBlendState("ContentAlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}

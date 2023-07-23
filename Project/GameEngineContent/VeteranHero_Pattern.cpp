@@ -695,7 +695,9 @@ void VeteranHero::Stinger_Update(float _DeltaTime)
 		StingerEffect = EffectManager::PlayEffect({
 			.EffectName = "VeteranHero_StingerSlash",
 			.Position = GetTransform()->GetWorldPosition() + Pivot,
-			.FlipX = Dir == ActorViewDir::Left,});
+			.FlipX = Dir == ActorViewDir::Left,
+			.IsLinear = true,
+			});
 	}
 
 	if (true == IsStingerEnd && true == Render->IsAnimationEnd())

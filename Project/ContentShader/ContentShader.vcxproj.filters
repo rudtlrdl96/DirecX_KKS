@@ -15,5 +15,6 @@
     <FxCompile Include="..\Resources\Shader\PointLightShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\AnglePointLightShader.hlsl" />
     <FxCompile Include="..\Resources\Shader\MinimapShader.hlsl" />
+    <FxCompile Include="..\Resources\Shader\ColorShader_Linear.hlsl" />
   </ItemGroup>
 </Project>

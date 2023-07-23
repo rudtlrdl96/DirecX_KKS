@@ -23,6 +23,15 @@ void ShopHeadless::Start()
 {
 	BaseNPC::Start();
 
+	if (nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		MinimapImageRender = CreateComponent<ContentMinimapRender>();
+		MinimapImageRender->SetTexture("MinimapImage.png");
+		MinimapImageRender->ColorOptionValue.PlusColor = float4(0.0f, 0.784f, 0.0f, 0.0f);
+		MinimapImageRender->GetTransform()->SetLocalPosition(float4(34, 52, 0));
+		MinimapImageRender->GetTransform()->SetLocalScale(float4(65, 90, 1));
+	}
+
 	MainRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Headless_Idle.png", .ScaleToTexture = true });
 	MainRender->CreateAnimation({ .AnimationName = "WithHead", .SpriteName = "Headless_WithHead.png", .ScaleToTexture = true });
 	PlayAnimation("Idle", false);

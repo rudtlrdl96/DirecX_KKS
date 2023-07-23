@@ -5,6 +5,8 @@
 
 #include "EffectActor.h"
 #include "EffectUI.h"
+#include "EffectActor_Linear.h"
+#include "EffectUI_Linear.h"
 
 std::map<std::string, EffectMetaData> EffectManager::EffectMetaDatas;
 std::shared_ptr<GameEngineLevel> EffectManager::CurLevel = nullptr;
@@ -59,11 +61,25 @@ std::shared_ptr<EffectActor> EffectManager::PlayEffect(const EffectParameter& _P
 
 	if (false == _Parameter.IsUI)
 	{
-		NewEffectActor = CurLevel->CreateActor<EffectActor>();
+		if (false == _Parameter.IsLinear)
+		{
+			NewEffectActor = CurLevel->CreateActor<EffectActor>();
+		}
+		else
+		{
+			NewEffectActor = CurLevel->CreateActor<EffectActor_Linear>();
+		}
 	}
 	else
 	{
-		NewEffectActor = CurLevel->CreateActor<EffectUI>();
+		if (false == _Parameter.IsLinear)
+		{
+			NewEffectActor = CurLevel->CreateActor<EffectUI>();
+		}
+		else
+		{
+			NewEffectActor = CurLevel->CreateActor<EffectUI_Linear>();
+		}
 	}
 
 	EffectMetaData Data = FindIter->second;

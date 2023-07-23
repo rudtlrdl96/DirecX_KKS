@@ -24,6 +24,10 @@ void MapObject::Init(const ObjectMetaData& _MetaData)
 		MsgAssert_Rtti<MapObject>(" - 랜더 사이즈를 지정하지 않았습니다");
 	}
 
+	if (true == MetaData.IsMinimapRender && nullptr != GetLevel()->GetCamera((int)CameraOrder::MiniMap))
+	{
+		ImageRender->PushCameraRender((int)CameraOrder::MiniMap);
+	}
 
 	ImageRender->SetTexture(MetaData.Name);
 	MetaData.Size.z = 1;
@@ -59,6 +63,7 @@ void MapObject::SaveBin(GameEngineSerializer& _SaveSerializer)
 	_SaveSerializer.Write(MetaData.Name);
 	_SaveSerializer.Write(&MetaData.Index, sizeof(size_t));
 	_SaveSerializer.Write(&MetaData.Grade, sizeof(LevelArea));
+	_SaveSerializer.Write(&MetaData.IsMinimapRender, sizeof(bool));
 	_SaveSerializer.Write(&MetaData.Pos, sizeof(float4));
 	_SaveSerializer.Write(&MetaData.Rot, sizeof(float4));
 	_SaveSerializer.Write(&MetaData.Scale, sizeof(float4));
@@ -75,6 +80,7 @@ ObjectMetaData MapObject::LoadBin(GameEngineSerializer& _LoadSerializer)
 	_LoadSerializer.Read(LoadMetaData.Name);
 	_LoadSerializer.Read(&LoadMetaData.Index, sizeof(size_t));
 	_LoadSerializer.Read(&LoadMetaData.Grade, sizeof(LevelArea));
+	_LoadSerializer.Read(&LoadMetaData.IsMinimapRender, sizeof(bool));
 	_LoadSerializer.Read(&LoadMetaData.Pos, sizeof(float4));
 	_LoadSerializer.Read(&LoadMetaData.Rot, sizeof(float4));
 	_LoadSerializer.Read(&LoadMetaData.Scale, sizeof(float4));
@@ -88,6 +94,8 @@ ObjectMetaData MapObject::LoadBin(GameEngineSerializer& _LoadSerializer)
 void MapObject::ShowGUI()
 {
 	ImGui::Spacing();
+
+	ImGui::Checkbox("IsMinimapRender", &MetaData.IsMinimapRender);
 
 	float Color[4] = { Buffer.Color.x, Buffer.Color.y, Buffer.Color.z, Buffer.Color.w };
 	ImGui::ColorEdit4("MyColor##1", Color, ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_AlphaBar);

@@ -18,6 +18,7 @@ public:
 
 	bool FlipX = false;
 	bool IsUI = false;
+	bool IsLinear = false;
 	bool IsForceLoopOff = false;
 	bool IsFadeDeath = false;
 	bool IsFadeIntro = false;
