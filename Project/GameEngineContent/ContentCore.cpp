@@ -30,7 +30,6 @@
 #include "GrandHallLevel.h"
 #include "HolyCourtyardLevel.h"
 #include "StoryLevel.h"
-#include "ShopLevel.h"
 #include "EndingLogoLevel.h"
 
 // Game Class
@@ -85,7 +84,6 @@ void ContentCore::CoreLoading()
 	GameEngineCore::CreateLevel<GrandHallLevel>("GrandHall");
 	GameEngineCore::CreateLevel<HolyCourtyardLevel>("HolyCourtyard");
 	GameEngineCore::CreateLevel<StoryLevel>("Story");
-	GameEngineCore::CreateLevel<ShopLevel>("Shop");
 	GameEngineCore::CreateLevel<EndingLogoLevel>("EndingLogo");
 	
 	// DebugLevel Create

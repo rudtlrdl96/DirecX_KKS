@@ -204,14 +204,8 @@ void InventoryUI::Start()
 	}
 }
 
-//#include "GameEngineActorGUI.h"
-
 void InventoryUI::Update(float _DeltaTime)
 {
-	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	//Ptr->SetTarget(StatPopup->GetTransform());
-	//Ptr->On();
-
 	SortSynergyFrame();
 
 	if (true == GameEngineInput::IsPress("ShowInventoryStat"))

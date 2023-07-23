@@ -182,6 +182,16 @@ void ContentCore::ObjectLoad()
 			.Grade = LevelArea::ForestOfHarmory,
 			.Name = "Observatory_Preview.png" });
 
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 700,
+			.Grade = LevelArea::Shop,
+			.Name = "ShopObjectA_Preview.png" });
+
+		ContentDatabase<BehaviorObjectMetaData, LevelArea>::InsertData({
+			.Index = 701,
+			.Grade = LevelArea::Shop,
+			.Name = "ShopObjectB_Preview.png" });
+
 
 
 		{

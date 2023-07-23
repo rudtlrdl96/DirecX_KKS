@@ -9,6 +9,7 @@ private:
 	{
 		SingleDoor,
 		DoubleDoor,
+		Shop
 	};
 public:
 	GameEventManager();
@@ -78,7 +79,7 @@ private:
 	std::vector<std::shared_ptr<class EventActor>> EventActors;
 
 	// ImGui
-	const char* DoorComboText[2] = { "Single" ,"Double" };
+	const char* DoorComboText[3] = { "Single" ,"Double", "Shop"};
 	const char* AreaComboText[7] = { "None" ,"Opening", "Castle", "ForestOfHarmony", "GrandHall", "HolyCourtyard", "Shop" };
 
 	std::shared_ptr<class ScaleDebugRender> GUI_EventColRender = nullptr;

@@ -21,6 +21,9 @@
 #include "FlagB.h"
 #include "Observatory.h"
 
+#include "ShopObjectA.h"
+#include "ShopObjectB.h"
+
 ObjectManager::ObjectManager()
 {
 	ObjectActors.reserve(32);
@@ -89,6 +92,12 @@ std::shared_ptr<BehaviorObject> ObjectManager::CreateBehaviorObject(const Behavi
 		break;
 	case 254: // Observatory
 		NewBehaviorObject = GetLevel()->CreateActor<Observatory>();
+		break;
+	case 700: // Shop Object A
+		NewBehaviorObject = GetLevel()->CreateActor<ShopObjectA>();
+		break;
+	case 701: // Shop Object B
+		NewBehaviorObject = GetLevel()->CreateActor<ShopObjectB>();
 		break;
 	default:
 	{

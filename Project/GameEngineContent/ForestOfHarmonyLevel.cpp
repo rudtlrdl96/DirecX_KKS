@@ -49,9 +49,9 @@ void ForestOfHarmonyLevel::Start()
 		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_ForestOfHarmony_Background_03");
 		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_ForestOfHarmony_Background_04");
 		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_ForestOfHarmony_Background_05");
+		BattleAreaPtr->LoadBackground(DirectoryPath, "DB_Shop_Background");
 		DirectoryPath.MoveParent();
 	}
-
 	{
 		DirectoryPath.Move("Map");
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_ForestOfHarmony_BossEntrance_Map");
@@ -63,6 +63,7 @@ void ForestOfHarmonyLevel::Start()
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_ForestOfHarmony_Stage0_0_Map");
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_ForestOfHarmony_Stage0_1_Map");
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_ForestOfHarmony_Stage0_2_Map");
+		BattleAreaPtr->LoadMap(DirectoryPath, "DB_Shop_Map");
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_ForestOfHarmony_Stage1_0_Map");
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_ForestOfHarmony_Stage1_1_Map");
 		BattleAreaPtr->LoadMap(DirectoryPath, "DB_ForestOfHarmony_Stage1_2_Map");
@@ -93,9 +94,13 @@ void ForestOfHarmonyLevel::Start()
 	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage0_1_Map", DoorType::Skull);
 	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage0_1_Map");
 
-	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage0_2_Map", DoorType::MiddleBoss);
+	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_Stage0_2_Map", DoorType::Shop);
 	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_Stage0_2_Map", DoorType::Broken);
 	BattleAreaPtr->StageRewardOn("DB_ForestOfHarmony_Stage0_2_Map");	
+
+	BattleAreaPtr->SetFiretDoorType("DB_Shop_Map", DoorType::MiddleBoss);
+	BattleAreaPtr->SetSecondDoorType("DB_Shop_Map", DoorType::Broken);
+	BattleAreaPtr->StageRewardOn("DB_Shop_Map");
 	
 	BattleAreaPtr->SetFiretDoorType("DB_ForestOfHarmony_MiddleBoss_Map", DoorType::Normal);
 	BattleAreaPtr->SetSecondDoorType("DB_ForestOfHarmony_MiddleBoss_Map", DoorType::Broken);
@@ -125,7 +130,7 @@ void ForestOfHarmonyLevel::Start()
 	
 	IntroTilemap->GetTransform()->SetLocalPosition(float4(0, 448, -1));
 
-	StageNameInfos.reserve(12);
+	StageNameInfos.reserve(13);
 
 	// ½ºÅ¸ÆÃ
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_Starting_Map", "DB_ForestOfHarmony_Background_00" });
@@ -134,6 +139,9 @@ void ForestOfHarmonyLevel::Start()
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_Stage0_0_Map", "DB_ForestOfHarmony_Background_01"});
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_Stage0_1_Map", "DB_ForestOfHarmony_Background_01", float4(0, 400, 0)});
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_Stage0_2_Map", "DB_ForestOfHarmony_Background_01" });
+
+	// »óÁ¡
+	StageNameInfos.push_back({ "DB_Shop_Map", "DB_Shop_Background" });
 
 	// Áß°£ º¸½º
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_MiddleBoss_Map", "DB_ForestOfHarmony_Background_01" });
@@ -155,7 +163,7 @@ void ForestOfHarmonyLevel::Start()
 	StageNameInfos.push_back({ "DB_ForestOfHarmony_BossRoomEnd_Map", "DB_ForestOfHarmony_Background_05" });
 	
 	CurStageIndex = 0;
-	//CurStageIndex = 10;
+	//CurStageIndex = 11;
 	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
 	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 
@@ -211,7 +219,7 @@ void ForestOfHarmonyLevel::ChangeStage()
 		StageInfoFramePtr->FrameOn("Á¶È­ÀÇ ½£", "1-1", "±íÀº ½£");
 		ResultInfo::StageName = "±íÀº ½£";
 	}
-	else if (5 == CurStageIndex)
+	else if (6 == CurStageIndex)
 	{
 		StageInfoFramePtr->FrameOn("Á¶È­ÀÇ ½£", "1-2", "Ä®·¹¿Â ±¹°æÁö´ë");
 		ResultInfo::StageName = "Ä®·¹¿Â ±¹°æÁö´ë";
@@ -219,13 +227,24 @@ void ForestOfHarmonyLevel::ChangeStage()
 
 	if (4 == CurStageIndex)
 	{
+		StopBaseBGM();
+		TimeEvent.AddEvent(1.1f, [this](GameEngineTimeEvent::TimeEvent& _Ref, GameEngineTimeEvent* _Ptr) {PlayCustomBgm("BlackMarket.wav"); });
+
+		CallEvent("MinimapOn");
+		CallEvent("GoodsUIOn");
+	}
+	else if (5 == CurStageIndex)
+	{
+		StopCustomBgm();
+		TimeEvent.AddEvent(1.1f, [this](GameEngineTimeEvent::TimeEvent& _Ref, GameEngineTimeEvent* _Ptr) {PlayBaseBGM(); });
+
 		if (nullptr != MinimapPtr && true == MinimapPtr->IsUpdate())
 		{
 			CallEvent("MinimapOff");
 			CallEvent("GoodsUIOff");
 		}
 	}
-	else if (9 == CurStageIndex)
+	else if (10 == CurStageIndex)
 	{
 		if (nullptr != MinimapPtr && true == MinimapPtr->IsUpdate())
 		{
@@ -235,7 +254,7 @@ void ForestOfHarmonyLevel::ChangeStage()
 
 		StopBaseBGM();
 	}
-	else if(10 == CurStageIndex)
+	else if(11 == CurStageIndex)
 	{
 		if (nullptr != MinimapPtr && true == MinimapPtr->IsUpdate())
 		{

@@ -349,6 +349,34 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ShopChef.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopCollector.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopHeadless.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopObjectA.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopObjectB.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopQuintessenceArtisan.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopThief.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SoundDoubleCheck.h">
       <SubType>
       </SubType>
@@ -799,10 +827,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Rigidbody2D.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="ShopLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -1304,6 +1328,34 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ShopChef.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopCollector.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopHeadless.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopObjectA.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopObjectB.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopQuintessenceArtisan.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopThief.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SoundDoubleCheck.cpp">
       <SubType>
       </SubType>
@@ -1736,10 +1788,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Rigidbody2D.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="ShopLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>

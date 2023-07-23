@@ -143,4 +143,31 @@ void ContentCore::NPCDataLoad()
 	.Index = 200, .Grade = LevelArea::ForestOfHarmory,
 	.Name = "아라크네", .TalkboxNameTag = "아라크네",
 	.PreviewName = "Arachne_Preview.png" });
+
+	// Shop
+	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
+		.Index = 600, .Grade = LevelArea::Shop,
+		.Name = "쉐프", .TalkboxNameTag = "쉐프",
+		.PreviewName = "Chef_Preview.png" });
+
+	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
+		.Index = 601, .Grade = LevelArea::Shop,
+		.Name = "수집가", .TalkboxNameTag = "수집가",
+		.PreviewName = "Collector_Preview.png" });	
+
+	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
+		.Index = 602, .Grade = LevelArea::Shop,
+		.Name = "헤드리스", .TalkboxNameTag = "헤드리스",
+		.PreviewName = "Headless_Preview.png" });	
+	
+	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
+		.Index = 603, .Grade = LevelArea::Shop,
+		.Name = "정수장인", .TalkboxNameTag = "정수장인",
+		.PreviewName = "QuintessenceArtisan_Preview.png" });
+
+	ContentDatabase<NPCMetaData, LevelArea>::InsertData({
+		.Index = 604, .Grade = LevelArea::Shop,
+		.Name = "도굴꾼", .TalkboxNameTag = "도굴꾼",
+		.PreviewName = "ShopThief_Preview.png" });
+
 }

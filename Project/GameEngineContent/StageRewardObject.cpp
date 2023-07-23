@@ -436,7 +436,7 @@ void StageRewardObject::ItemRewardInit()
 
 	int RandValue = Rand.RandomInt(0, 100);
 
-	std::vector<float> Per = { 35.0f, 30.0f, 20.0f, 15.0f };
+	std::vector<float> Per = { 1.0f, 1.0f, 1.0f, 97.0f };
 
 	ItemRewardGrade = ContentFunc::RandEnum<ItemGrade>(Per);
 
@@ -545,8 +545,10 @@ std::shared_ptr<class ItemGear> StageRewardObject::BezierItemReward(const float4
 		ItemRewardIndex = Rand.RandomInt(0, static_cast<int>(RewardList.size() - 1));
 	}
 
+	const ItemData& FindData = ContentDatabase<ItemData, ItemGrade>::GetData(ItemRewardIndex);
+
 	std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
-	Gear->Init(ItemRewardIndex);
+	Gear->Init(FindData);
 	Gear->DropGear_Bezier(_Start, _End);
 	Gear->BlackAndWhiteEffectOn();
 	Gear->BlackAndWhiteColorOn();
@@ -554,9 +556,11 @@ std::shared_ptr<class ItemGear> StageRewardObject::BezierItemReward(const float4
 	Gear->SetEndCallback([Gear]()
 		{
 			Gear->ColWaveOn();
+			SoundDoubleCheck::Play("DropGear.wav");
 		});
 
-	if (SkullRewardGrade == SkullGrade::Legendary)
+
+	if (FindData.Grade == ItemGrade::Legendary)
 	{
 		Gear->LegendaryGearEffectOn();
 	}

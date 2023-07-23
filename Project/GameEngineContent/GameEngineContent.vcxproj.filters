@@ -70,9 +70,6 @@
     <Filter Include="4_Level\GameLevel\BattleLevel\Opening">
       <UniqueIdentifier>{1d74fe82-96cb-49fc-808c-fc872588906b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="4_Level\GameLevel\BattleLevel\Shop">
-      <UniqueIdentifier>{7a0e924a-99cb-4f0a-8046-606e8fabd751}</UniqueIdentifier>
-    </Filter>
     <Filter Include="4_Level\GameLevel\UILevel">
       <UniqueIdentifier>{dd61cd96-dabc-4d42-92cf-6c912d466fed}</UniqueIdentifier>
     </Filter>
@@ -403,6 +400,12 @@
     <Filter Include="2_Actor\Gear\Item">
       <UniqueIdentifier>{0bb48900-5c57-4cb4-aa99-e4a06b1900b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Actor\Map\Stage\Object\BehaviorObject\Shop">
+      <UniqueIdentifier>{f487b2b4-2dd5-45c1-8277-bfeea564bd67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Actor\NPC\NPC\Shop">
+      <UniqueIdentifier>{d94a7672-785a-42cd-8a5e-df8265518ebf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentCore.h">
@@ -491,9 +494,6 @@
     </ClInclude>
     <ClInclude Include="OpeningLevel.h">
       <Filter>4_Level\GameLevel\BattleLevel\Opening</Filter>
-    </ClInclude>
-    <ClInclude Include="ShopLevel.h">
-      <Filter>4_Level\GameLevel\BattleLevel\Shop</Filter>
     </ClInclude>
     <ClInclude Include="BattleLevel.h">
       <Filter>4_Level\GameLevel\BattleLevel</Filter>
@@ -1104,6 +1104,27 @@
     <ClInclude Include="SwapSynergySlot.h">
       <Filter>2_Actor\UI\Gear</Filter>
     </ClInclude>
+    <ClInclude Include="ShopObjectA.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopObjectB.h">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopChef.h">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopCollector.h">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopHeadless.h">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopQuintessenceArtisan.h">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopThief.h">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1192,9 +1213,6 @@
     </ClCompile>
     <ClCompile Include="OpeningLevel.cpp">
       <Filter>4_Level\GameLevel\BattleLevel\Opening</Filter>
-    </ClCompile>
-    <ClCompile Include="ShopLevel.cpp">
-      <Filter>4_Level\GameLevel\BattleLevel\Shop</Filter>
     </ClCompile>
     <ClCompile Include="BattleLevel.cpp">
       <Filter>4_Level\GameLevel\BattleLevel</Filter>
@@ -1861,6 +1879,27 @@
     </ClCompile>
     <ClCompile Include="SwapSynergySlot.cpp">
       <Filter>2_Actor\UI\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopObjectA.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopObjectB.cpp">
+      <Filter>2_Actor\Map\Stage\Object\BehaviorObject\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopChef.cpp">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopCollector.cpp">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopHeadless.cpp">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopQuintessenceArtisan.cpp">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopThief.cpp">
+      <Filter>2_Actor\NPC\NPC\Shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

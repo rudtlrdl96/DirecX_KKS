@@ -111,7 +111,21 @@ void GameEventManager::ShowGUI()
 					
 			ClearBackRender->GetTransform()->SetLocalPosition(DoorPoint + float4(0, -30, 0));
 
-			if (DType == ClearDoorType::DoubleDoor)
+			if (DType == ClearDoorType::Shop)
+			{
+				if (nullptr != FirstDoorActor)
+				{
+					float4 FirstDoorPos = DoorPoint + float4(-200, 0, -0.1f);
+					FirstDoorActor->GetTransform()->SetLocalPosition(FirstDoorPos);
+				}
+
+				if (nullptr != SecondDoorActor)
+				{
+					float4 SecondDoorPos = DoorPoint + float4(200, 0, -0.1f);
+					SecondDoorActor->GetTransform()->SetLocalPosition(SecondDoorPos);
+				}
+			}
+			else if (DType == ClearDoorType::DoubleDoor)
 			{
 				if (nullptr != FirstDoorActor)
 				{
@@ -162,7 +176,7 @@ void GameEventManager::ShowGUI()
 
 		ClearDoorType InputType = (ClearDoorType)CurrentDoorType;
 
-		if (InputType < ClearDoorType::SingleDoor || InputType > ClearDoorType::DoubleDoor)
+		if (InputType < ClearDoorType::SingleDoor || InputType > ClearDoorType::Shop)
 		{
 			MsgAssert_Rtti<GameEventManager>(" - 잘못된 Door 타입이 입력되었습니다");
 		}
@@ -319,7 +333,21 @@ void GameEventManager::SetClearDoorType(ClearDoorType _Type)
 
 	DType = _Type;
 
-	if (ClearDoorType::DoubleDoor == DType)
+	if (ClearDoorType::Shop == DType)
+	{
+		ClearBackRender->GetTransform()->SetLocalPosition(DoorPoint + float4(0, -30, 0));
+
+		FirstDoorActor = GetLevel()->CreateActor<BaseDoor>();
+		FirstDoorActor->GetTransform()->SetParent(GetTransform());
+		FirstDoorActor->GetTransform()->SetLocalPosition(DoorPoint + float4(-200, 0, -0.1f));
+
+		SecondDoorActor = GetLevel()->CreateActor<BaseDoor>();
+		SecondDoorActor->GetTransform()->SetParent(GetTransform());
+		SecondDoorActor->GetTransform()->SetLocalPosition(DoorPoint + float4(200, 0, -0.1f));
+
+		ClearBackRender->Off();
+	}
+	else if (ClearDoorType::DoubleDoor == DType)
 	{
 		ClearBackRender->GetTransform()->SetLocalPosition(DoorPoint + float4(0, -30, 0));
 

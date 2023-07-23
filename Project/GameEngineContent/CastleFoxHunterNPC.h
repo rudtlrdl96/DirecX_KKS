@@ -1,6 +1,5 @@
 #pragma once
 #include "BaseNPC.h"
-#include <GameEngineCore/GameEngineUIRenderer.h>
 
 class CastleFoxHunterNPC : public BaseNPC
 {
