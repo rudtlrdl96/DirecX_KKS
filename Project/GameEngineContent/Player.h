@@ -18,7 +18,7 @@ public:
 	void Destroy() override;
 
 	void SetInventoryData();
-	void InsertNewSkull(size_t _SkullIndex);
+	void InsertNewSkull(size_t _SkullIndex, bool _IsGearReturn = true);
 	void ForceSwapSkull();
 
 	void HitPlayer(float _Damage, const float4& _HitForce);

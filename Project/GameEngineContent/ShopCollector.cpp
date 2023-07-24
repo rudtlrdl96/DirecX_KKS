@@ -320,7 +320,7 @@ void ShopCollector::RerollItem(bool _IsInitReroll)
 		}
 
 		float4 PlatformPos = ItemPlatforms[i]->GetTransform()->GetLocalPosition();
-		NewGear->GetTransform()->SetLocalPosition(PlatformPos + float4(15, 50));
+		NewGear->GetTransform()->SetLocalPosition(PlatformPos + float4(15, 50, -10));
 		NewGear->WaveOn();
 
 		ItemGears[i] = NewGear;

@@ -301,6 +301,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="HeadlessGear.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="InventoryItemMorePopup.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="InventoryItemMorePopupFont.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="InventorySynergyFrame.h">
       <SubType>
       </SubType>
@@ -1101,6 +1113,18 @@
     </ClCompile>
     <ClCompile Include="ForestOfHarmonyLevel_Event.cpp" />
     <ClCompile Include="GoodsUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HeadlessGear.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventoryItemMorePopup.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventoryItemMorePopupFont.cpp">
       <SubType>
       </SubType>
     </ClCompile>

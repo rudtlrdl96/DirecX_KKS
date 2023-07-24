@@ -39,6 +39,9 @@ private:
 	std::shared_ptr<ContentUIFontRenderer> ItemTitleFont = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> QuintessenceTitleFont = nullptr;
 
+	std::shared_ptr<GameEngineUIRenderer> StatKeyImage = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> StatNameFont = nullptr;
+
 	std::shared_ptr<ContentUIFontRenderer> CreateNewFont(const float4& _Pos, float FontSize, const float4& _Color, FW1_TEXT_FLAG _Sort);
 	std::shared_ptr<class InventorySynergyFrame> CreateSynergyFrame();
 

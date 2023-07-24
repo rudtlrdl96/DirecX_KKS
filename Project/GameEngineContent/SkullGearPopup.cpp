@@ -12,7 +12,7 @@ SkullGearPopup::~SkullGearPopup()
 {
 }
 
-void SkullGearPopup::PopupOn()
+void SkullGearPopup::PopupOn(bool _BrokenUIOn)
 {
 	if (false == ContentDatabase<SkullData, SkullGrade>::IsVaild(Data.Index))
 	{
@@ -142,6 +142,15 @@ void SkullGearPopup::PopupOn()
 	SkillFrame->GetTransform()->SetLocalPosition(float4(0, -44 - NoteScale.y, -0.2f));
 	SwapFontActor->GetTransform()->SetLocalPosition(float4(10, -125 - NoteScale.y, -5.0f));
 	BrokenFontActor->GetTransform()->SetLocalPosition(float4(10, -155 - NoteScale.y, -5.0f));
+
+	if (true == _BrokenUIOn)
+	{
+		BrokenFontActor->On();
+	}
+	else
+	{
+		BrokenFontActor->Off();
+	}
 
 	ItemFrameRender->GetTransform()->SetLocalPosition(float4(0, -NoteScale.hy(), 0));
 	ItemFrameRender->GetTransform()->SetLocalScale(BackgroundScale + float4(0, NoteScale.y, 0));

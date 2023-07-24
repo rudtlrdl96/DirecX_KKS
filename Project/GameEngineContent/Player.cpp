@@ -106,25 +106,45 @@ void Player::SetInventoryData()
 	MainSkull->On();
 }
 
-void Player::InsertNewSkull(size_t _SkullIndex)
+void Player::InsertNewSkull(size_t _SkullIndex, bool _IsGearReturn /*= true*/)
 {
 	const SkullData& CreateData = ContentDatabase<SkullData, SkullGrade>::GetData(_SkullIndex);
 
 	if (nullptr == SubSkull)
 	{
-		Inventory::SetSubSkull(CreateData);
-		SubSkull = CreateNewSkull(_SkullIndex);
+		if (true == _IsGearReturn)
+		{
+			Inventory::SetSubSkull(CreateData);
+			SubSkull = CreateNewSkull(_SkullIndex);
+		}
+		else
+		{
+			MainSkull->Death();
+			MainSkull = nullptr;
+			Inventory::SetMainSkull(CreateData);
+			MainSkull = CreateNewSkull(_SkullIndex);
+			MainSkull->On();
+			MainSkull->EffectCaptureAnimation({
+				.SpriteRender = MainSkull->Render,
+				.StartColor = float4(1.0f, 1.0f, 1.0f, 1.0f),
+				.EndColor = float4(1.0, 1.0f, 1.0f, 0.0f),
+				.Speed = 6.0f,
+				.WaitTime = 0.0f });
+		}
 	}
 	else
 	{
-		std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
-
-		Gear->DropGear(GetTransform()->GetWorldPosition() + float4(0, 20, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f)));
-		Gear->Init(MainSkull->Data.Index);
-		
-		if (MainSkull->Data.Grade == SkullGrade::Legendary)
+		if (true == _IsGearReturn)
 		{
-			Gear->LegendaryGearEffectOn();
+			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
+
+			Gear->DropGear(GetTransform()->GetWorldPosition() + float4(0, 20, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f)));
+			Gear->Init(MainSkull->Data.Index);
+
+			if (MainSkull->Data.Grade == SkullGrade::Legendary)
+			{
+				Gear->LegendaryGearEffectOn();
+			}
 		}
 
 		MainSkull->Death();

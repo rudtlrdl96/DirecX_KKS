@@ -1,15 +1,16 @@
 #include "PrecompileHeader.h"
-#include "ItemGearMorePopupFont.h"
+#include "InventoryItemMorePopupFont.h"
+#include "Inventory.h"
 
-ItemGearMorePopupFont::ItemGearMorePopupFont()
+InventoryItemMorePopupFont::InventoryItemMorePopupFont()
 {
 }
 
-ItemGearMorePopupFont::~ItemGearMorePopupFont()
+InventoryItemMorePopupFont::~InventoryItemMorePopupFont()
 {
 }
 
-void ItemGearMorePopupFont::SetSynergyText(Synergy _Synergy, int _Grade)
+void InventoryItemMorePopupFont::SetSynergyText(Synergy _Synergy, int _Grade)
 {
 	std::wstring Text = GameEngineString::AnsiToUniCode(ItemData::GetSynergyNote(_Synergy, _Grade));
 
@@ -38,15 +39,28 @@ void ItemGearMorePopupFont::SetSynergyText(Synergy _Synergy, int _Grade)
 		}
 	}
 
+	int CurGrade = Inventory::GetSynergyCount(_Synergy);
+	
+	if (CurGrade < _Grade)
+	{
+		NoteText->SetColor(float4(0.694f, 0.588f, 0.48235f, 1.0f));
+		GradeText->SetColor(float4(0.694f, 0.588f, 0.48235f, 1.0f));
+	}
+	else
+	{
+		NoteText->SetColor(float4(0.447f, 0.337f, 0.3137f, 1.0f));
+		GradeText->SetColor(float4(0.447f, 0.337f, 0.3137f, 1.0f));
+	}
+
 	NoteText->SetText(GameEngineString::UniCodeToAnsi(Text));
 	GradeText->SetText(std::to_string(_Grade));
 }
 
-void ItemGearMorePopupFont::Start()
+void InventoryItemMorePopupFont::Start()
 {
 	LineImage = CreateComponent<GameEngineUIRenderer>();
-	LineImage->SetScaleToTexture("ItemPopup_TextFrame2.png", 2.0f);	
-	
+	LineImage->SetScaleToTexture("ItemPopup_TextFrame2.png", 2.0f);
+
 	ArrowImage = CreateComponent<GameEngineUIRenderer>();
 	ArrowImage->GetTransform()->SetLocalPosition(float4(-105, -23));
 	ArrowImage->SetScaleToTexture("Inscription_Arrow.png", 1.0f);
@@ -65,5 +79,4 @@ void ItemGearMorePopupFont::Start()
 	GradeText->SetScale(20);
 	GradeText->SetColor(float4(0.45882f, 0.33725f, 0.33333f, 1));
 	GradeText->SetFontFlag(static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_CENTER));
-
 }

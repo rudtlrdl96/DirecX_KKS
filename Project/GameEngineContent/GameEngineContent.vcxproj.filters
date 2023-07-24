@@ -1134,6 +1134,15 @@
     <ClInclude Include="ItemGearMorePopupFont.h">
       <Filter>2_Actor\UI\Gear</Filter>
     </ClInclude>
+    <ClInclude Include="InventoryItemMorePopup.h">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryItemMorePopupFont.h">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadlessGear.h">
+      <Filter>2_Actor\Gear\Skull</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1924,6 +1933,15 @@
     </ClCompile>
     <ClCompile Include="ItemGearMorePopupFont.cpp">
       <Filter>2_Actor\UI\Gear</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryItemMorePopup.cpp">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryItemMorePopupFont.cpp">
+      <Filter>2_Actor\UI\Inventory\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadlessGear.cpp">
+      <Filter>2_Actor\Gear\Skull</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

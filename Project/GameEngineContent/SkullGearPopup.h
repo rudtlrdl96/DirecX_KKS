@@ -25,7 +25,7 @@ public:
 		Data = _Data;
 	}
 	
-	void PopupOn();
+	void PopupOn(bool _BrokenUIOn);
 	void PopupOff();
 
 protected:

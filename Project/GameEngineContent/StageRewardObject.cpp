@@ -436,7 +436,7 @@ void StageRewardObject::ItemRewardInit()
 
 	int RandValue = Rand.RandomInt(0, 100);
 
-	std::vector<float> Per = { 1.0f, 1.0f, 1.0f, 97.0f };
+	std::vector<float> Per = { 35.0f, 30.0f, 25.0f, 15.0f };
 
 	ItemRewardGrade = ContentFunc::RandEnum<ItemGrade>(Per);
 
@@ -521,7 +521,7 @@ std::shared_ptr<class ItemGear> StageRewardObject::DropItemReward(const float4& 
 	Gear->Init(ItemRewardIndex);
 	Gear->DropGear(Render->GetTransform()->GetWorldPosition() + _Pivot);
 
-	if (SkullRewardGrade == SkullGrade::Legendary)
+	if (ItemRewardGrade == ItemGrade::Legendary)
 	{
 		Gear->LegendaryGearEffectOn();
 	}

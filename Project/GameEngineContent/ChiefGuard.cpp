@@ -38,6 +38,8 @@ void ChiefGuard::Skill_SlotA_Enter()
 {
 	PlayerBaseSkull::Skill_SlotA_Enter();
 	IsFlash = false;
+
+	AttackTypeValue = AttackType::MeleeAttack;
 }
 
 void ChiefGuard::Skill_SlotA_Update(float _DeltaTime)
@@ -92,7 +94,7 @@ void ChiefGuard::Skill_SlotA_Update(float _DeltaTime)
 				return;
 			}
 
-			HitEnemy->HitMonster(GetMagicAttackDamage() * 1.5f, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::Normal);
+			HitEnemy->HitMonster(GetMeleeAttackDamage() * 1.5f, GetCiriticalDamage(), GetViewDir(), true, true, false, IsCritical(), HitEffectType::Normal);
 		}
 
 		switch (GetViewDir())
@@ -167,32 +169,11 @@ void ChiefGuard::Skill_SlotB_Update(float _DeltaTime)
 
 			if (Dir.x > 0)
 			{
-				switch (AttackTypeValue)
-				{
-				case PlayerBaseSkull::AttackType::MeleeAttack:
-					ColMonster->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio, GetCiriticalDamage(), ActorViewDir::Right, true, true, true, IsCritical(), HitEffectType::Normal);
-					break;
-				case PlayerBaseSkull::AttackType::MagicAttack:
-					ColMonster->HitMonster(GetMagicAttackDamage() * SkillB_DamageRatio, GetCiriticalDamage(), ActorViewDir::Right, true, true, true, IsCritical(), HitEffectType::Normal);
-					break;
-				default:
-					break;
-				}
-
+				ColMonster->HitMonster(GetMagicAttackDamage() * SkillB_DamageRatio, GetCiriticalDamage(), ActorViewDir::Right, true, true, true, IsCritical(), HitEffectType::Normal);
 			}
 			else
 			{
-				switch (AttackTypeValue)
-				{
-				case PlayerBaseSkull::AttackType::MeleeAttack:
-					ColMonster->HitMonster(GetMeleeAttackDamage() * SkillB_DamageRatio, GetCiriticalDamage(), ActorViewDir::Left, true, true, true, IsCritical(), HitEffectType::Normal);
-					break;
-				case PlayerBaseSkull::AttackType::MagicAttack:
-					ColMonster->HitMonster(GetMagicAttackDamage() * SkillB_DamageRatio, GetCiriticalDamage(), ActorViewDir::Left, true, true, true, IsCritical(), HitEffectType::Normal);
-					break;
-				default:
-					break;
-				}
+				ColMonster->HitMonster(GetMagicAttackDamage() * SkillB_DamageRatio, GetCiriticalDamage(), ActorViewDir::Left, true, true, true, IsCritical(), HitEffectType::Normal);
 			}
 
 		};

@@ -202,6 +202,14 @@ void InventoryUI::Start()
 	{
 		SynergyFrames.push_back(CreateSynergyFrame());
 	}
+
+	StatKeyImage = CreateComponent<GameEngineUIRenderer>();
+	StatKeyImage->GetTransform()->SetLocalPosition(float4(-540, -271, -1));
+	StatKeyImage->SetScaleToTexture("KeyUI_A.png", 2.0f);
+
+	StatNameFont = CreateNewFont(float4(-474, -272, -5), 18, float4(0.8667f, 0.792f, 0.7255f, 1.0f), CenterSort);
+	StatNameFont->SetText("캐릭터 정보");
+
 }
 
 void InventoryUI::Update(float _DeltaTime)

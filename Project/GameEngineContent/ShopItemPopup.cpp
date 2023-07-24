@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "ShopItemPopup.h"
 #include "UINoteActor.h"
+#include "ItemGearMorePopup.h"
 
 ItemData ShopItemPopup::GlobalData;
 
@@ -139,9 +140,13 @@ void ShopItemPopup::PopupOn(ItemData& _Data)
 
 	SynergyFrame->GetTransform()->SetLocalPosition(float4(0, -44 - NoteScale.y, -0.2f));
 	GetItemFontActor->GetTransform()->SetLocalPosition(float4(10, -125 - NoteScale.y, -5.0f));
+	MoreFontActor->GetTransform()->SetLocalPosition(float4(10, -155 - NoteScale.y, -5.0f));
 
 	ItemFrameRender->GetTransform()->SetLocalPosition(float4(0, -NoteScale.hy(), 0));
 	ItemFrameRender->GetTransform()->SetLocalScale(BackgroundScale + float4(0, NoteScale.y, 0));
+
+	SynergyMoreLeft->SynergyUpdate(LocalData.Synergy1);
+	SynergyMoreRight->SynergyUpdate(LocalData.Synergy2);
 
 	On();
 }
@@ -153,6 +158,11 @@ void ShopItemPopup::PopupOff()
 
 void ShopItemPopup::Start()
 {
+	if (false == GameEngineInput::IsKey("PopupMore"))
+	{
+		GameEngineInput::CreateKey("PopupMore", VK_DOWN);
+	}
+
 	if (nullptr == GameEngineTexture::Find("ItemPopup_Back.png"))
 	{
 		GameEngineDirectory Path;
@@ -244,5 +254,35 @@ void ShopItemPopup::Start()
 	BuyKeyRender = GetItemFontActor->AddKeyImage("KeyUI_F_Press.png", float4(0, 0, -1)).get();
 	BuyGoldRender = GetItemFontActor->AddKeyImage("Gold_Icon.png", float4(0, 0, -1)).get();
 
+	MoreFontActor = GetLevel()->CreateActor<UINoteActor>();
+	MoreFontActor->GetTransform()->SetParent(GetTransform());
+	MoreFontActor->GetTransform()->SetLocalPosition(float4(10, -155, -5.0f));
+	MoreFontActor->SetText("¤± ÀÚ¼¼È÷");
+	MoreFontActor->AddKeyImage("KeyUI_Down.png", float4(-30, 0, -1));
+
+	SynergyMoreLeft = GetLevel()->CreateActor<ItemGearMorePopup>();
+	SynergyMoreLeft->GetTransform()->SetParent(GetTransform());
+	SynergyMoreLeft->GetTransform()->SetLocalPosition(float4(-158, -62, -50));
+	SynergyMoreLeft->Off();
+
+	SynergyMoreRight = GetLevel()->CreateActor<ItemGearMorePopup>();
+	SynergyMoreRight->GetTransform()->SetParent(GetTransform());
+	SynergyMoreRight->GetTransform()->SetLocalPosition(float4(158, -62, -50));
+	SynergyMoreRight->Off();
+
 	Off();
+}
+
+void ShopItemPopup::Update(float _DeltaTime)
+{
+	if (true == GameEngineInput::IsPress("PopupMore"))
+	{
+		SynergyMoreLeft->On();
+		SynergyMoreRight->On();
+	}
+	else
+	{
+		SynergyMoreLeft->Off();
+		SynergyMoreRight->Off();
+	}
 }

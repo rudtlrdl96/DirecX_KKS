@@ -2,7 +2,8 @@
 #include "ShopHeadless.h"
 #include "NPC_TalkBox.h"
 #include "FieldNoteActor.h"
-
+#include "HeadlessGear.h"
+#include "Inventory.h"
 
 ShopHeadless::ShopHeadless()
 {
@@ -58,16 +59,40 @@ void ShopHeadless::Start()
 	NoteActor->AddKeyImage("KeyUI_F.png", float4(-35, 0, -1));
 	NoteActor->Off();
 
+	HeadRender = CreateComponent<GameEngineSpriteRenderer>();
+	HeadRender->Off();
+
 	CreateTalkScript();
 }
 
-//#include "GameEngineActorGUI.h"
-
 void ShopHeadless::Update(float _DeltaTime)
-{
-	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	//Ptr->SetTarget(NoteActor->GetTransform());
-	//Ptr->On();
+{	
+	if (true == HeadRender->IsUpdate())
+	{
+		size_t FrameIndex = MainRender->GetCurrentFrame();
+
+		if (0 == FrameIndex || 1 == FrameIndex || 7 == FrameIndex)
+		{
+			HeadRender->GetTransform()->SetLocalPosition(float4(50, 126, -5));
+		}
+
+		if (2 == FrameIndex || 6 == FrameIndex)
+		{
+			HeadRender->GetTransform()->SetLocalPosition(float4(50, 128, -5));
+		}
+
+		if (3 == FrameIndex || 4 == FrameIndex || 5 == FrameIndex)
+		{
+			HeadRender->GetTransform()->SetLocalPosition(float4(50, 130, -5));
+		}
+	}
+
+	//Headless_WithHead
+
+	if (nullptr != SwitchGear && SwitchGear->IsDeath())
+	{
+		SwitchGear = nullptr;
+	}
 
 	if (true == NpcTalkBox->IsUpdate())
 	{
@@ -105,6 +130,56 @@ void ShopHeadless::SpriteLoad()
 
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Headless_Idle.png").GetFullPath(), 8, 1);
 		GameEngineSprite::LoadSheet(Path.GetPlusFileName("Headless_WithHead.png").GetFullPath(), 8, 1);
+	}
+}
+
+void ShopHeadless::PlayBehavior()
+{
+	if (nullptr != SwitchGear)
+	{
+		SwitchGear->Death();
+		SwitchGear = nullptr;
+	}	
+
+	std::vector<float> Per = { 25.0f, 25.0f, 25.0f, 25.0f };
+	SkullGrade RandomSkullGrade = ContentFunc::RandEnum<SkullGrade>(Per);
+
+	std::vector<SkullData> CopyData;
+	ContentDatabase<SkullData, SkullGrade>::CopyGradeDatas(RandomSkullGrade, CopyData);
+
+	SkullData& GetData = CopyData[GameEngineRandom::MainRandom.RandomInt(0, (int)CopyData.size() - 1)];
+
+	SwitchGear = GetLevel()->CreateActor<HeadlessGear>();
+	SwitchGear->GetTransform()->SetParent(GetTransform());
+	SwitchGear->GetTransform()->SetLocalPosition(float4(-65, 70, -2));
+	SwitchGear->Init(GetData);
+	SwitchGear->WaveOn();
+
+	SwitchGear->SetUseCallback([this, GetData]()
+		{
+			PlayAnimation("WithHead", false);
+
+			const SkullData& MainSkullData = Inventory::GetMainSkull();
+
+			HeadRender->SetScaleToTexture(MainSkullData.HeadTexName, 2.0f);
+			HeadRender->On();
+		});
+
+	if (SkullGrade::Legendary == GetData.Grade)
+	{
+		SwitchGear->LegendaryGearEffectOn();
+	}
+
+	HeadRender->Off();
+	PlayAnimation("Idle", false);
+}
+
+void ShopHeadless::ResetBehavior()
+{
+	if (nullptr != SwitchGear)
+	{
+		SwitchGear->Death();
+		SwitchGear = nullptr;
 	}
 }
 

@@ -16,6 +16,7 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _DeltaTime) override;
 
 private:
 	std::shared_ptr<GameEngineUIRenderer> PopupFrameRender = nullptr;
@@ -36,6 +37,10 @@ private:
 
 	std::shared_ptr<class InventorySynergyGrade> SynergyAGrade = nullptr;
 	std::shared_ptr<class InventorySynergyGrade> SynergyBGrade = nullptr;
+
+	std::shared_ptr<class InventoryItemMorePopup> MorePopup = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> MoreKeyImage = nullptr;
+	std::shared_ptr<ContentUIFontRenderer> MoreNameFont = nullptr;
 
 	std::shared_ptr<ContentUIFontRenderer> CreateNewFont(const float4& _Pos, float FontSize, const float4& _Color, FW1_TEXT_FLAG _Sort);
 };

@@ -19,8 +19,11 @@ protected:
 	void Update(float _DeltaTime) override;
 
 	void SpriteLoad() override;
+	void PlayBehavior() override;
+	void ResetBehavior() override;
 
 private:
+	std::shared_ptr<GameEngineSpriteRenderer> HeadRender = nullptr;
 	std::shared_ptr<ContentMinimapRender> MinimapImageRender = nullptr;
 	std::shared_ptr<class FieldNoteActor> NoteActor = nullptr;
 	std::shared_ptr<class NPC_TalkBox> NpcTalkBox = nullptr;
@@ -33,6 +36,8 @@ private:
 	std::shared_ptr<GameEngineCollision> ItemPlatform2 = nullptr;
 	std::shared_ptr<GameEngineCollision> ItemPlatform3 = nullptr;
 
+	std::shared_ptr<class HeadlessGear> SwitchGear = nullptr;
+	 
 	int TalkScriptNumber = -1;
 	int BubbleScriptNumber = -1;
 

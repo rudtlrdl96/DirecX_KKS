@@ -4,6 +4,7 @@
 #include "ItemData.h"
 #include "InventorySynergyGrade.h"
 #include "Inventory.h"
+#include "InventoryItemMorePopup.h"
 
 InventoryItemPopup::InventoryItemPopup()
 {
@@ -89,10 +90,17 @@ void InventoryItemPopup::UpdateItemData(size_t _DataIndex)
 
 	SynergyAGrade->UpdateSynergyData(FindData.Synergy1, Inventory::GetSynergyCount(FindData.Synergy1));
 	SynergyBGrade->UpdateSynergyData(FindData.Synergy2, Inventory::GetSynergyCount(FindData.Synergy2));
+
+	MorePopup->SynergyUpdate(FindData.Synergy1, FindData.Synergy2);
 }
 
 void InventoryItemPopup::Start()
 {
+	if (false == GameEngineInput::IsKey("InventoryPopupMore"))
+	{
+		GameEngineInput::CreateKey("InventoryPopupMore", 'D');
+	}
+
 	std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find("Inventory_Item_Frame.png");
 
 	if (nullptr == FindTex)
@@ -117,8 +125,8 @@ void InventoryItemPopup::Start()
 	FW1_TEXT_FLAG CenterSort = static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_CENTER);
 	FW1_TEXT_FLAG RightSort = static_cast<FW1_TEXT_FLAG>(FW1_TEXT_FLAG::FW1_VCENTER | FW1_TEXT_FLAG::FW1_RIGHT);
 
-	ItemNameFont = CreateNewFont(float4(0, 249, -2), 21, float4(0.302f, 0.2274f, 0.2078f, 1.0f), CenterSort);
-	ItemGradeFont = CreateNewFont(float4(-238, 242, -2), 18, float4(0.5137f, 0.38f, 0.349f, 1.0f), CenterSort);
+	ItemNameFont = CreateNewFont(float4(0, 249, -5), 21, float4(0.302f, 0.2274f, 0.2078f, 1.0f), CenterSort);
+	ItemGradeFont = CreateNewFont(float4(-238, 242, -5), 18, float4(0.5137f, 0.38f, 0.349f, 1.0f), CenterSort);
 	ItemStoryFont = CreateNewFont(float4(0, 200, -2), 16, float4(0.5137f, 0.38f, 0.349f, 1.0f), CenterSort);
 	ItemNoteFont = CreateNewFont(float4(0, 75, -2), 18, float4(0.447f, 0.34117f, 0.302f, 1.0f), CenterSort);
 	SynergyAFont = CreateNewFont(float4(-50, -107, -2), 18, float4(0.302f, 0.2274f, 0.2078f, 1.0f), CenterSort);
@@ -137,6 +145,30 @@ void InventoryItemPopup::Start()
 	SynergyBGrade = GetLevel()->CreateActor<InventorySynergyGrade>();
 	SynergyBGrade->GetTransform()->SetParent(GetTransform());
 	SynergyBGrade->GetTransform()->SetLocalPosition(float4(160, -211, -2));
+
+	MorePopup = GetLevel()->CreateActor<InventoryItemMorePopup>();
+	MorePopup->GetTransform()->SetParent(GetTransform());
+	MorePopup->GetTransform()->SetLocalPosition(float4(0, -7, -3));
+	MorePopup->Off();
+
+	MoreKeyImage = CreateComponent<GameEngineUIRenderer>();
+	MoreKeyImage->GetTransform()->SetLocalPosition(float4(-40, -247, -1));
+	MoreKeyImage->SetScaleToTexture("KeyUI_D.png", 2.0f);
+
+	MoreNameFont = CreateNewFont(float4(7, -248, -1), 18, float4(0.294f, 0.2039f, 0.188f, 1.0f), CenterSort);
+	MoreNameFont->SetText("ÀÚ¼¼È÷");
+}
+
+void InventoryItemPopup::Update(float _DeltaTime)
+{
+	if (true == GameEngineInput::IsPress("InventoryPopupMore"))
+	{
+		MorePopup->On();
+	}
+	else
+	{
+		MorePopup->Off();
+	}
 }
 
 std::shared_ptr<ContentUIFontRenderer> InventoryItemPopup::CreateNewFont(const float4& _Pos, float FontSize, const float4& _Color, FW1_TEXT_FLAG _Sort)

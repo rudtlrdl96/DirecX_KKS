@@ -54,9 +54,28 @@ public:
 		return 1.0f + AttackSpeed;
 	}
 
+	static float GetMoveSpeed()
+	{
+		return 1.0f + MoveSpeed;
+	}	
+	static float GetCastingSpeed()
+	{
+		return 1.0f + CastingSpeed;
+	}
+
 	static float GetSkillCoolDown()
 	{
 		return 1.0f + SkillCoolDown;
+	}
+
+	static float GetSwitchCoolDown()
+	{
+		return 1.0f + SwitchCoolDown;
+	}
+
+	static float GetQuintessenceCoolDown()
+	{
+		return 1.0f + QuintessenceCoolDown;
 	}
 
 	static float GetDamageReduction()

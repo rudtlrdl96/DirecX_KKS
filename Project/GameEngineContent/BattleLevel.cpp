@@ -249,7 +249,7 @@ void BattleLevel::Start()
 
 	AddEvent("SkullGearPopupOn", -1, [this]()
 		{
-			SkullGearPopupPtr->PopupOn();
+			SkullGearPopupPtr->PopupOn(true);
 
 			if (nullptr != MainPlayer)
 			{
@@ -268,7 +268,32 @@ void BattleLevel::Start()
 		{
 			if (false == SkullGearPopupPtr->IsUpdate())
 			{
-				SkullGearPopupPtr->PopupOn();
+				SkullGearPopupPtr->PopupOn(true);
+			}
+		});
+
+	AddEvent("SkullGearPopupOn_BrokenOff", -1, [this]()
+		{
+			SkullGearPopupPtr->PopupOn(false);
+
+			if (nullptr != MainPlayer)
+			{
+				if (ActorViewDir::Left == MainPlayer->GetViewDir())
+				{
+					SkullGearPopupPtr->GetTransform()->SetLocalPosition(float4(-300, 30));
+				}
+				else
+				{
+					SkullGearPopupPtr->GetTransform()->SetLocalPosition(float4(300, 30));
+				}
+			}
+		});
+
+	AddEvent("SkullGearPopupCheck_BrokenOff", -1, [this]()
+		{
+			if (false == SkullGearPopupPtr->IsUpdate())
+			{
+				SkullGearPopupPtr->PopupOn(false);
 			}
 		});
 
