@@ -15,7 +15,7 @@ void BaseGear::DropGear(const float4& _WorldPos)
 {
 	State = GearState::Drop;
 
-	DropRigid.SetVelocity(float4(0, 850));
+	DropRigid.SetVelocity(float4(0, 750));
 	GetTransform()->SetWorldPosition(_WorldPos);
 }
 

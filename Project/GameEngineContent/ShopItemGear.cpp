@@ -133,7 +133,7 @@ void ShopItemGear::UseGear()
 	if (9 <= Inventory::GetItemCount())
 	{
 		ItemSwapPopup::SetData(Data);
-		ItemSwapPopup::SetSpawnPos(GetTransform()->GetWorldPosition());
+		ItemSwapPopup::SetSpawnPos(GetTransform()->GetWorldPosition() - float4(0, 30));
 		ItemSwapPopup::SetSwapCallback([this]()
 		{
 			ResultInfo::AddItemCount(Data.Index);
@@ -164,10 +164,7 @@ void ShopItemGear::UseGear()
 
 void ShopItemGear::Destroy()
 {
-	if (true == IsFocus())
-	{
-		GetContentLevel()->CallEvent("ShopItemPopupOff");
-	}
+	GetContentLevel()->CallEvent("ShopItemPopupOff");
 }
 
 void ShopItemGear::PlayDestroyEffect()

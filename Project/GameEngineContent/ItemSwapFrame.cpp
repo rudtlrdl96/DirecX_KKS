@@ -76,7 +76,12 @@ void ItemSwapFrame::PopupOn(ItemData& _Data)
 		{
 			CurX += 16.0f * 0.7f;
 
-			if (TextureBoardX < CurX + 16.0f)
+			if ('\n' == NoteText[i])
+			{
+				CurX = 0;
+				CurY += 16.0f;
+			}
+			else if (TextureBoardX < CurX + 16.0f)
 			{
 				CurX = 0;
 				NoteText.insert(NoteText.begin() + i, L'\n');

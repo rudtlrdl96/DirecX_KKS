@@ -124,11 +124,7 @@ void ItemGear::UseGear()
 void ItemGear::Destroy()
 {
 	BaseGear::Destroy();
-
-	if (true == IsFocus())
-	{
-		GetContentLevel()->CallEvent("ItemGearPopupOff");
-	}
+	GetContentLevel()->CallEvent("ItemGearPopupOff");
 
 	if (false == IsUse)
 	{

@@ -101,10 +101,7 @@ void SkullGear::Destroy()
 {
 	BaseGear::Destroy();
 
-	if (true == IsFocus())
-	{
-		GetContentLevel()->CallEvent("SkullGearPopupOff");
-	}
+	GetContentLevel()->CallEvent("SkullGearPopupOff");
 
 	if (false == IsUse)
 	{

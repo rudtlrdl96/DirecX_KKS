@@ -92,12 +92,12 @@ void ContentCore::ItemDataLoad()
 		.InventoryTexName = "Inventory_BasicCarleonSword.png",
 		.MeleeAttack = 0.1f});
 	// 완료
-	LoadItem({.Name = "보급형 칼레온 스태프", .Note = "받는 데미지가 15% 감소합니다.",
+	LoadItem({.Name = "보급형 칼레온 스태프", .Note = "마법공격력이 10% 증가합니다.",
 		.Story = "칼레온의 마법 아카데미 수강생들에게 지급된 보급품", .Index = 1,
 		.Grade = ItemGrade::Normal, .Synergy1 = Synergy::Wisdom, .Synergy2 = Synergy::ManaCycle,
 		.ItemTexName = "BasicCarleonStaff.png",
 		.InventoryTexName = "Inventory_BasicCarleonStaff.png",
-		.DamageReduction = 0.15f});
+		.MagicAttack = 0.1f});
 	// 완료
 	LoadItem({.Name = "보급형 칼레온 활", .Note = "치명타 확률이 10% 증가합니다.", 
 		.Story = "석궁이 보급된 요즘에는 잘 사용되지 않는다.", .Index = 2,

@@ -106,10 +106,7 @@ void HeadlessGear::UseGear()
 
 void HeadlessGear::Destroy()
 {
-	if (true == IsFocus())
-	{
-		GetContentLevel()->CallEvent("SkullPopupOff");
-	}
+	GetContentLevel()->CallEvent("SkullPopupOff");
 }
 
 void HeadlessGear::PlayDestroyEffect()

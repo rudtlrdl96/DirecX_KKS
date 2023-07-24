@@ -166,14 +166,9 @@ void ItemSwapPopup::Start()
 	}
 }
 
-//#include "GameEngineActorGUI.h"
-
 void ItemSwapPopup::Update(float _DeltaTime)
 {
 	SortSynergySlot();
-	//std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	//Ptr->SetTarget(Temp->GetTransform());
-	//Ptr->On();
 
 	if (true == GameEngineInput::IsUp("Swap"))
 	{
@@ -316,7 +311,7 @@ void ItemSwapPopup::SortSynergySlot()
 
 		SynergyFrames[i]->SetSynergy(SynergyType, (int)ChangeSynergyCount);
 
-		if (0 != CurSynergyCount && 0 != ChangeSynergyCount)
+		if (0 != CurSynergyCount || 0 != ChangeSynergyCount)
 		{
 			SynergyFrames[i]->On();
 		}
@@ -325,6 +320,14 @@ void ItemSwapPopup::SortSynergySlot()
 			SynergyFrames[i]->Off();
 		}
 	}
+
+	std::sort(SynergyFrames.begin(), SynergyFrames.end(), [](std::shared_ptr<SwapSynergySlot> _Left, std::shared_ptr<SwapSynergySlot> _Right)
+		{
+			int LeftCount = (int)_Left->IsUpdate();
+			int RightCount = (int)_Right->IsUpdate();
+
+			return LeftCount > RightCount;
+		});
 
 	std::sort(SynergyFrames.begin(), SynergyFrames.end(), [](std::shared_ptr<SwapSynergySlot> _Left, std::shared_ptr<SwapSynergySlot> _Right)
 		{
