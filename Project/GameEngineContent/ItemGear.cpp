@@ -98,7 +98,7 @@ void ItemGear::UseGear()
 		ItemSwapPopup::SetSpawnPos(GetTransform()->GetWorldPosition());
 		ItemSwapPopup::SetSwapCallback([this]()
 		{
-			++ResultInfo::GetItemCount;
+			ResultInfo::AddItemCount(Data.Index);
 			GetContentLevel()->CallEvent("ItemGearPopupOff");
 			Inventory::InsertItem(Data);
 			Death();
@@ -113,7 +113,7 @@ void ItemGear::UseGear()
 	}
 	else
 	{
-		++ResultInfo::GetItemCount;
+		ResultInfo::AddItemCount(Data.Index);
 		GetContentLevel()->CallEvent("ItemGearPopupOff");
 
 		Inventory::InsertItem(Data);

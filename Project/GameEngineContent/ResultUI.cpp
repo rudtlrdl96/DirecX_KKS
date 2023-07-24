@@ -78,11 +78,51 @@ void ResultUI::ResultUIOn()
 	GetItemCountValueFont->SetText(std::to_string(ResultInfo::GetItemCount));
 	GetQuintessenceValueFont->SetText(std::to_string(ResultInfo::GetQuintessenceCount));
 
+	std::vector<GearKey> GetGears = ResultInfo::GetGetGearDatas();
+	GearRenders.resize(GetGears.size());
+
+	float MaxDistance = 500.0f;
+	float Inter = 50.0f;
+
+	if (GearRenders.size() * Inter > MaxDistance)
+	{
+		Inter = MaxDistance / GearRenders.size();
+	}
+
+	for (size_t i = 0; i < GearRenders.size(); i++)
+	{
+		GearRenders[i] = CreateComponent<GameEngineUIRenderer>();
+		GearRenders[i]->GetTransform()->SetLocalPosition(float4(-490, -285, -1) + float4(i * Inter, 0, -0.01f * i));
+
+		if (0 == GetGears[i].Left) //Skull
+		{
+			const SkullData& FindData = ContentDatabase<SkullData, SkullGrade>::GetData((size_t)GetGears[i].Right);
+			GearRenders[i]->SetScaleToTexture(FindData.HeadTexName, 2.0f);
+		}
+		else if(1 == GetGears[i].Left) // Item
+		{
+			const ItemData& FindData = ContentDatabase<ItemData, ItemGrade>::GetData((size_t)GetGears[i].Right);
+			GearRenders[i]->SetScaleToTexture(FindData.ItemTexName, 2.0f);
+		}
+	}
 }
 
 void ResultUI::ResultUIOff()
 {
 	Level->MoveCastle();
+}
+
+void ResultUI::Reset()
+{
+	MoveProgress = 0.0f;
+
+	for (size_t i = 0; i < GearRenders.size(); i++)
+	{
+		GearRenders[i]->Death();
+		GearRenders[i] = nullptr;
+	}
+
+	GearRenders.clear();
 }
 
 void ResultUI::Start()
@@ -162,6 +202,8 @@ void ResultUI::Start()
 	StartPos = float4(0, 175, -4500);
 	EndPos = float4(0, 0, -4500);
 }
+
+#include "GameEngineActorGUI.h"
 
 void ResultUI::Update(float _DeltaTime)
 {

@@ -416,6 +416,10 @@ void BattleLevel::SetPlayerPos(const float4& _Pos)
 void BattleLevel::LevelChangeStart()
 {
 	IsPlayerDeath = false;
+	DeathTime = 0.0f;
+
+	ResultUIPtr->Reset();
+	ResultUIPtr->Off();
 
 	ContentLevel::LevelChangeStart();
 	BaseMonster::SetMonstersMove(false);

@@ -6,6 +6,8 @@
 #include "PlayerState.h"
 #include "ResultInfo.h"
 
+std::vector<std::function<void()>> CastleLevel::ResetCallback;
+
 CastleLevel::CastleLevel()
 {
 }
@@ -77,11 +79,14 @@ void CastleLevel::LevelChangeStart()
 	CallEvent("GoodsUIOff");
 	CallEvent("MinimapOff");
 
+	for (size_t i = 0; i < ResetCallback.size(); i++)
+	{
+		ResetCallback[i]();
+	}
+
 	MainCamCtrl.SetMinHeight(64);
 	MainCamCtrl.SetMaxHeight(64 + GameEngineWindow::GetScreenSize().y);
-
 	MainCamCtrl.SetMaxWidth(D3D11_FLOAT32_MAX);
-
 }
 
 void CastleLevel::AreaClear()

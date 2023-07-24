@@ -136,7 +136,7 @@ void ShopItemGear::UseGear()
 		ItemSwapPopup::SetSpawnPos(GetTransform()->GetWorldPosition());
 		ItemSwapPopup::SetSwapCallback([this]()
 		{
-			++ResultInfo::GetItemCount;
+			ResultInfo::AddItemCount(Data.Index);
 			GetContentLevel()->CallEvent("ShopItemPopupOff");
 			Inventory::AddGoods_Gold(-Price);
 
@@ -153,7 +153,7 @@ void ShopItemGear::UseGear()
 	}
 	else
 	{
-		++ResultInfo::GetItemCount;
+		ResultInfo::AddItemCount(Data.Index);
 		GetContentLevel()->CallEvent("ShopItemPopupOff");
 		Inventory::AddGoods_Gold(-Price);
 

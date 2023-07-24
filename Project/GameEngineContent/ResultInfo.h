@@ -1,6 +1,32 @@
 #pragma once
 #include "QuintessenceData.h"
+#include "ItemData.h"
+#include "SkullData.h"
 
+class GearKey
+{
+public: 
+	union
+	{
+		size_t GearIndex;
+
+		struct
+		{
+			int Left;
+			int Right;
+		};
+	};
+
+	bool operator==(GearKey _Ohter)
+	{
+		return GearIndex == _Ohter.GearIndex;
+	}
+
+	bool operator!=(GearKey _Ohter)
+	{
+		return GearIndex != _Ohter.GearIndex;
+	}
+};
 
 class ResultInfo
 {
@@ -26,6 +52,14 @@ public:
 
 	static void ResultReset();
 
+	static void AddSkullCount(size_t _SkullIndex);
+	static void AddItemCount(size_t _ItemIndex);
+
+	static std::vector<GearKey> GetGetGearDatas()
+	{
+		return GetGearDatas;
+	}
+
 protected:
 	
 private:
@@ -37,5 +71,6 @@ private:
 	ResultInfo& operator=(const ResultInfo& _Other) = delete;
 	ResultInfo& operator=(ResultInfo&& _Other) noexcept = delete;
 
+	static std::vector<GearKey> GetGearDatas;
 };
 

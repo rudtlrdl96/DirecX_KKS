@@ -20,6 +20,8 @@ int ResultInfo::GetQuintessenceCount = 0;
 
 std::string ResultInfo::StageName = "알 수 없음";
 
+std::vector<GearKey> ResultInfo::GetGearDatas;
+
 void ResultInfo::ResultReset()
 {
 	PlayTime = 0.0f;
@@ -40,6 +42,46 @@ void ResultInfo::ResultReset()
 	GetQuintessenceCount = 0;
 
 	StageName = "알 수 없음";
+
+	GetGearDatas.clear();
+}
+
+void ResultInfo::AddSkullCount(size_t _SkullIndex)
+{
+	GearKey GearData;
+
+	GearData.Left = 0;
+	GearData.Right = (int)_SkullIndex;
+
+	std::vector<GearKey>::iterator FindIter = std::find(GetGearDatas.begin(), GetGearDatas.end(), GearData);
+
+	if (FindIter != GetGearDatas.end())
+	{
+		return;
+	}
+
+	GetGearDatas.push_back(GearData);
+	++GetSkullCount;
+}
+
+void ResultInfo::AddItemCount(size_t _ItemIndex)
+{
+	GearKey GearData;
+
+	GearData.Left = 1;
+	GearData.Right = (int)_ItemIndex;
+
+	size_t GearIndex = GearData.GearIndex;
+
+	std::vector<GearKey>::iterator FindIter = std::find(GetGearDatas.begin(), GetGearDatas.end(), GearData);
+
+	if (FindIter != GetGearDatas.end())
+	{
+		return;
+	}
+
+	GetGearDatas.push_back(GearData);
+	++GetItemCount;
 }
 
 ResultInfo::ResultInfo()

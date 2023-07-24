@@ -26,6 +26,8 @@ public:
 		return MoveProgress;
 	}
 
+	void Reset();
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -33,6 +35,8 @@ protected:
 private:
 	class BattleLevel* Level = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> UIRender = nullptr;
+
+	std::vector<std::shared_ptr<GameEngineUIRenderer>> GearRenders;
 
 	std::shared_ptr<ContentUIFontRenderer> PlayTimeNameFont = nullptr;
 	std::shared_ptr<ContentUIFontRenderer> PlayTimeValueFont = nullptr;
@@ -77,6 +81,5 @@ private:
 	float4 EndPos = float4::Zero;
 
 	void CreateLeftFont(std::shared_ptr<ContentUIFontRenderer>& _Font, const float4& _WorldPos, const std::string_view& _Name = "999999999");
-
 };
 

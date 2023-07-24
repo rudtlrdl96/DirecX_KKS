@@ -4,6 +4,7 @@
 #include "FieldNoteActor.h"
 #include "Inventory.h"
 #include "Player.h"
+#include "ResultInfo.h"
 
 ArachneNPC::ArachneNPC()
 {
@@ -113,6 +114,7 @@ void ArachneNPC::Update(float _DeltaTime)
 			PlayerPos.z = GetTransform()->GetWorldPosition().z + 1;
 			CocoonRender->GetTransform()->SetWorldPosition(PlayerPos);
 
+			ResultInfo::AddSkullCount(UpgradeData.Index);
 			Inventory::SetMainSkull(UpgradeData);
 			CocoonTime = 0.0f;
 			IsLegendaryEffect = false;

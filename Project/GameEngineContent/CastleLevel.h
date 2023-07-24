@@ -12,6 +12,11 @@ public:
 	CastleLevel& operator=(const CastleLevel& _Other) = delete;
 	CastleLevel& operator=(CastleLevel&& _Other) noexcept = delete;
 
+	static void AddResetCallback(std::function<void()> _Callback)
+	{
+		ResetCallback.push_back(_Callback);
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -20,7 +25,7 @@ protected:
 	void AreaClear() override;
 
 private:
-
+	static std::vector<std::function<void()>> ResetCallback;
 
 };
 

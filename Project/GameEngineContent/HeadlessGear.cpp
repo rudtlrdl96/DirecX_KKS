@@ -98,7 +98,7 @@ void HeadlessGear::UseGear()
 		UseCallback();
 	}
 
-	++ResultInfo::GetSkullCount;
+	ResultInfo::AddSkullCount(Data.Index);
 	GetContentLevel()->CallEvent("SkullGearPopupOff");
 	ColPlayer->InsertNewSkull(Data.Index, false);
 	Death();

@@ -91,7 +91,7 @@ void SkullGear::UseGear()
 		return;
 	}
 
-	++ResultInfo::GetSkullCount;
+	ResultInfo::AddSkullCount(Data.Index);
 	GetContentLevel()->CallEvent("SkullGearPopupOff");
 	ColPlayer->InsertNewSkull(Data.Index);
 	Death();
