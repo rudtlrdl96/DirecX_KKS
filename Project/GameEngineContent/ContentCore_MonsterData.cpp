@@ -38,7 +38,7 @@ void ContentCore::MonsterDataLoad()
 	LoadMonster({ .Name = "견습 용사", .ImageName = "Preview_RookieHero.png", .Index = 180, .Grade = LevelArea::ForestOfHarmory
 		,.HP = 1350, .Attack = 6});
 	LoadMonster({ .Name = "각성 용사", .ImageName = "Preview_VeteranHero.png", .Index = 190, .Grade = LevelArea::ForestOfHarmory,
-		.HP = 2050, .Attack = 12});
+		.HP = 3250, .Attack = 12});
 
 	//LoadMonster({ .Name = "빛나는 신병", .ImageName = "GoldCarleonRecruit", .Index = 200, .Grade = LevelArea::GrandHall,
 	//	.HP = 75, .Attack = 7});
