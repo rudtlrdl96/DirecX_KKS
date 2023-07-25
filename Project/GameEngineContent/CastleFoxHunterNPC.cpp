@@ -53,6 +53,8 @@ void CastleFoxHunterNPC::Start()
 	NpcTalkBox->GetTransform()->SetParent(GetTransform());
 	NpcTalkBox->GetTransform()->SetWorldPosition(float4(0, -300, -110.0f));
 	NpcTalkBox->SetButtonInterval(float4(0, 35));
+	NpcTalkBox->SetOffMinimapOff();
+
 	NpcTalkBox->AddButton("대화", [this]() {PlayNextScript(); });
 	NpcTalkBox->AddButton("머리 받기", [this]() {PlayNextGiveHeadScript(); });
 

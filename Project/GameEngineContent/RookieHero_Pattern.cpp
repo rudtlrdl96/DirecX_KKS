@@ -495,6 +495,7 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 			.Position = GetTransform()->GetWorldPosition() + float4(0, 80, 0),
 			.AddSetZ = -20.0f });
 
+		GameEngineSound::Play("Sword_Break.wav");
 		BossFsm.ChangeState("Groggy");
 		UltimateLightOff();
 		return;

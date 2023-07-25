@@ -53,6 +53,7 @@ void CastleOgrePaddlerNPC::Start()
 	NpcTalkBox->GetTransform()->SetParent(GetTransform());
 	NpcTalkBox->GetTransform()->SetWorldPosition(float4(0, -300, -110.0f));
 	NpcTalkBox->SetButtonInterval(float4(0, 35));
+	NpcTalkBox->SetOffMinimapOff();
 	NpcTalkBox->AddButton("대화", [this]() {PlayNextTalkScript(); });
 	NpcTalkBox->AddButton("아이템 받기", [this]() {PlayNextGiveItemScript(); });
 

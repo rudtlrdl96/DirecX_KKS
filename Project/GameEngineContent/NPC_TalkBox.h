@@ -45,6 +45,16 @@ public:
 	void YesOrNoActive(const std::wstring_view& _Text, std::function<void()> _YesCallback, std::function<void()> _NoCallback);
 	void YesOrNoDisable();
 
+	inline void SetOffMinimapOn()
+	{
+		IsOffMinimapOn = true;
+	}
+
+	inline void SetOffMinimapOff()
+	{
+		IsOffMinimapOn = false;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -73,6 +83,7 @@ private:
 	bool IsTalk = false;
 	bool IsBoost = false;
 	bool IsYesOrNo = false;
+	bool IsOffMinimapOn = true;
 
 	float ReadSpeed = 25.0f;
 	float Progress = 0.0f;

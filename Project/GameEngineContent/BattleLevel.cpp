@@ -145,7 +145,10 @@ void BattleLevel::Start()
 
 	AddEvent("MinimapOff", -1, [this]()
 		{
-			MinimapPtr->MinimapOff();
+			if (true == MinimapPtr->IsUpdate())
+			{
+				MinimapPtr->MinimapOff();
+			}
 		});
 	
 	AddEvent("MinimapOff_Force", -1, [this]()

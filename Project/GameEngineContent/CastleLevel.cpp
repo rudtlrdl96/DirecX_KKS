@@ -5,6 +5,7 @@
 #include "Inventory.h"
 #include "PlayerState.h"
 #include "ResultInfo.h"
+#include "Minimap.h"
 
 std::vector<std::function<void()>> CastleLevel::ResetCallback;
 
@@ -57,6 +58,8 @@ void CastleLevel::Start()
 		{
 			MainCamCtrl.SetMinHeight(-3800);
 		});
+
+	MinimapPtr->Off();
 }
 
 void CastleLevel::Update(float _DeltaTime)
@@ -76,7 +79,7 @@ void CastleLevel::LevelChangeStart()
 	BattleLevel::LevelChangeStart();
 
 	CallEvent("CastleReborn");
-	CallEvent("GoodsUIOff");
+	CallEvent("GoodsUIOn");
 	CallEvent("MinimapOff");
 
 	for (size_t i = 0; i < ResetCallback.size(); i++)

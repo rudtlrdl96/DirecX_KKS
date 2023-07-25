@@ -328,6 +328,7 @@ void Player::Start()
 		GameEngineInput::CreateKey("Cheat_HP", '8');
 		GameEngineInput::CreateKey("Cheat_SkullGearTest", '0');
 		GameEngineInput::CreateKey("Cheat_ItemGearTest", VK_PRIOR);
+		GameEngineInput::CreateKey("Cheat_Death", VK_DELETE);
 	}
 
 	if (false == GameEngineInput::IsKey("UseKey"))
@@ -547,6 +548,11 @@ void Player::Update(float _DeltaTime)
 
 			CheatRender_Attack->Off();
 		}
+	}	
+	
+	if (true == GameEngineInput::IsDown("Cheat_Death"))
+	{
+		PlayerState::SetHP(0);
 	}
 
 	if (true == GameEngineInput::IsDown("Cheat_HP"))
