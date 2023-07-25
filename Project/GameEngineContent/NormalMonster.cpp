@@ -407,7 +407,7 @@ void NormalMonster::MonsterDeath()
 		static std::vector<std::string> ManaStoneParts = {"DarkQuartz_1.png", "DarkQuartz_2.png", "DarkQuartz_3.png", "DarkQuartz_4.png"};
 
 		Inventory::AddGoods_ManaStone(RewardManaStone);
-		ResultInfo::GetManaStone = RewardManaStone;
+		ResultInfo::GetManaStone += RewardManaStone;
 
 		for (size_t i = 0; i < 4; i++)
 		{
