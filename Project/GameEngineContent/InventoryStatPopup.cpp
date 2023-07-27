@@ -118,14 +118,8 @@ void InventoryStatPopup::Start()
 	CriticalDamageValueFont->SetText("100 %");
 }
 
-#include "GameEngineActorGUI.h"
-
 void InventoryStatPopup::Update(float _DeltaTime)
 {
-	std::shared_ptr<GameEngineActorGUI> Ptr = GameEngineGUI::FindGUIWindowConvert<GameEngineActorGUI>("GameEngineActorGUI");
-	Ptr->SetTarget(CriticalPerValueFont->GetTransform());
-	Ptr->On();
-
 	HPValueFont->SetText(std::to_string((int)(PlayerState::GetMaxHP() + Inventory::GetMaxHP())) + " คิ");
 	DamageReductionValueFont->SetText(std::to_string((int)((1.0f - Inventory::GetDamageReduction()) * 100.0f)) + " %");
 	MeleeAttackValueFont->SetText(std::to_string((int)(Inventory::GetMeleeAttack() * 100.0f)) + " %");

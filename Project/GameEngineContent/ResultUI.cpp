@@ -203,8 +203,6 @@ void ResultUI::Start()
 	EndPos = float4(0, 0, -4500);
 }
 
-#include "GameEngineActorGUI.h"
-
 void ResultUI::Update(float _DeltaTime)
 {
 	if (1.0f > MoveProgress)
