@@ -583,7 +583,7 @@ void RookieHero::Ultimate_Update(float _DeltaTime)
 				return;
 			}
 
-			CastingPtr->HitPlayer(_Parameter.Attack, _Parameter.AttackDir * 400.0f);
+			CastingPtr->HitPlayer(_Parameter.Attack * 2.0f, _Parameter.AttackDir * 400.0f);
 
 			EffectManager::PlayEffect({
 				.EffectName = "RookieHero_EnergyBallExplosion",

@@ -92,7 +92,7 @@ void BattleLevel::Start()
 	ResultUIPtr->Off();
 
 	PivotStart = float4(-225, -305, 0);
-	PivotEnd = float4(-225, -130, 0);
+	PivotEnd = float4(-225, -100, 0);
 
 	BossNamePtr = CreateActor<BossNameFont>();
 	BossNamePtr->GetTransform()->SetLocalPosition(float4(620, -300, -200));
@@ -469,6 +469,9 @@ void BattleLevel::LevelChangeEnd()
 	EffectManager::SetLevel(nullptr);
 	GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(1.0f);
 	GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(1.0f);
+
+	MainCamCtrl.ResetScale();
+	MainCamCtrl.SetWorldPivot(float4::Zero);
 
 	BattleAreaPtr->ClearStage();
 }

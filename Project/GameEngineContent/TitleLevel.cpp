@@ -20,6 +20,11 @@ TitleLevel::~TitleLevel()
 
 void TitleLevel::Start()
 {
+	if (false == GameEngineInput::IsKey("GoCastleLevel"))
+	{
+		GameEngineInput::CreateKey("GoCastleLevel", VK_INSERT);
+	}
+
 	UILevel::Start();
 
 	BgmName = "MainTitle_Hardmode.wav";
@@ -88,6 +93,7 @@ void TitleLevel::Update(float _DeltaTime)
 		if(true == Title->IsLogoFadeEnd())
 		{
 			State = TitleLevel::TitleState::InputWait;
+			FontRender->SetColor(FontStartColor);
 			FontRender->On();
 		}
 		break;
@@ -111,9 +117,14 @@ void TitleLevel::Update(float _DeltaTime)
 				});
 
 		}
-		break;
+		return;
 	default:
 		break;
+	}
+
+	if (true == GameEngineInput::IsDown("GoCastleLevel"))
+	{
+		GameEngineCore::ChangeLevel("Castle");
 	}
 }
 
