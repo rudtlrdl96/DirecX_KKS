@@ -89,6 +89,36 @@ void GameConsoleGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaT
 		}
 	}
 
+	if (ImGui::Button("Cheat Attack"))
+	{
+		if (nullptr == Level)
+		{
+			return;
+		}
+
+		Level->Cheat_Switch_Attack();
+	}
+
+	if (ImGui::Button("Cheat HP"))
+	{
+		if (nullptr == Level)
+		{
+			return;
+		}
+
+		Level->Cheat_Switch_HP();
+	}
+
+	if (ImGui::Button("Cheat Death"))
+	{
+		if (nullptr == Level)
+		{
+			return;
+		}
+
+		Level->Cheat_ForceDeath();
+	}
+
 	ImGui::InputInt("Cheat Skull", &CheatSkullIndex);
 
 	if (ImGui::Button("Get Skull"))
