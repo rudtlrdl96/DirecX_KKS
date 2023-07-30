@@ -202,7 +202,7 @@ void ContentLevel::PlayCustomBgm(const std::string_view& _BgmName, bool _IsFade 
 		return;
 	}
 
-	CustomBgmPlayer.SetLoop(true);
+	CustomBgmPlayer.SetLoop();
 
 	if (true == _IsFade)
 	{
