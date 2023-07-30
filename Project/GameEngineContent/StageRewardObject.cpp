@@ -493,7 +493,7 @@ std::shared_ptr<SkullGear> StageRewardObject::DropSkullReward(const float4& _Piv
 	Gear->Init(RewardList[RandIndex]);
 	Gear->DropGear(Render->GetTransform()->GetWorldPosition() + _Pivot);
 
-	if (SkullRewardGrade == SkullGrade::Legendary)
+	if (RewardList[RandIndex].Grade == SkullGrade::Legendary)
 	{
 		Gear->LegendaryGearEffectOn();
 	}
@@ -513,15 +513,17 @@ std::shared_ptr<class ItemGear> StageRewardObject::DropItemReward(const float4& 
 		std::vector<ItemData> RewardList;
 		ContentDatabase<ItemData, ItemGrade>::CopyGradeDatas(ItemRewardGrade, RewardList);
 
-		GameEngineRandom& Rand = GameEngineRandom::MainRandom;
-		ItemRewardIndex = Rand.RandomInt(0, static_cast<int>(RewardList.size() - 1));
+		GameEngineRandom& Rand = GameEngineRandom::MainRandom; 
+		ItemRewardIndex = (int)RewardList[Rand.RandomInt(0, static_cast<int>(RewardList.size() - 1))].Index;
 	}
 
+	const ItemData& GetData = ContentDatabase<ItemData, ItemGrade>::GetData(ItemRewardIndex);
+
 	std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
-	Gear->Init(ItemRewardIndex);
+	Gear->Init(GetData);
 	Gear->DropGear(Render->GetTransform()->GetWorldPosition() + _Pivot);
 
-	if (ItemRewardGrade == ItemGrade::Legendary)
+	if (GetData.Grade == ItemGrade::Legendary)
 	{
 		Gear->LegendaryGearEffectOn();
 	}
