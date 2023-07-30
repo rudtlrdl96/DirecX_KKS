@@ -96,7 +96,7 @@ void ContentCore::CoreLoading()
 
 void ContentCore::CoreEnd()
 {
-
+	FontRemove();
 }
 
 void ContentCore::SwitchShowCursor()
@@ -445,11 +445,15 @@ void ContentCore::FontFind()
 			return;
 		}
 
+		SendMessage(GameEngineWindow::GetHWnd(), WM_FONTCHANGE, NULL, NULL);
+
 		if (0 == AddFontResourceA(NewDir.GetPlusFileName("Perfect DOS VGA 437.ttf").GetFullPath().data()))
 		{
 			MsgAssert_Rtti<ContentCore>(" - 폰트 로드에 실패했습니다.");
 			return;
 		}
+
+		SendMessage(GameEngineWindow::GetHWnd(), WM_FONTCHANGE, NULL, NULL);
 	}
 }
 
@@ -460,6 +464,32 @@ void ContentCore::FontLoad()
 	GameEngineFont::Load("HY견고딕");
 	GameEngineFont::Load("넥슨Lv2고딕");
 	GameEngineFont::Load("Perfect DOS VGA 437");
+}
+
+void ContentCore::FontRemove()
+{
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("Resources");
+		NewDir.Move("Resources");
+		NewDir.Move("Font");
+
+		if (0 == RemoveFontResourceA(NewDir.GetPlusFileName("NEXON Lv2 Gothic Bold.ttf").GetFullPath().data()))
+		{
+			MsgAssert_Rtti<ContentCore>(" - 폰트 로드에 실패했습니다.");
+			return;
+		}
+
+		SendMessage(GameEngineWindow::GetHWnd(), WM_FONTCHANGE, NULL, NULL);
+
+		if (0 == RemoveFontResourceA(NewDir.GetPlusFileName("Perfect DOS VGA 437.ttf").GetFullPath().data()))
+		{
+			MsgAssert_Rtti<ContentCore>(" - 폰트 로드에 실패했습니다.");
+			return;
+		}
+
+		SendMessage(GameEngineWindow::GetHWnd(), WM_FONTCHANGE, NULL, NULL);
+	}
 }
 
 void ContentCore::SoundLoad()

@@ -39,6 +39,7 @@ private:
 	static void ImGuiCreate();
 	static void FontFind();
 	static void FontLoad();
+	static void FontRemove();
 	static void SoundLoad();
 };
 
