@@ -43,7 +43,7 @@ void CastleWitchNPC::Start()
 	NpcTalkBox->SetButtonInterval(float4(0, 35));
 	NpcTalkBox->SetOffMinimapOff();
 	NpcTalkBox->AddButton("대화", [this]() {PlayNextScript(); });
-	NpcTalkBox->AddButton("특성부여", [this]() {});
+	//NpcTalkBox->AddButton("특성부여", [this]() {});
 
 	NpcTalkBox->SetTalkBoxName("마녀", float4(3, 0));
 
