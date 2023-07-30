@@ -149,6 +149,7 @@ void NPC_TalkBox::On()
 	GetContentLevel()->CallEvent("PlayerInputLock");
 	GetContentLevel()->CallEvent("PlayerFrameDisable");
 	GetContentLevel()->CallEvent("MinimapOff");
+	GetContentLevel()->CallEvent("GoodsUIOff");
 	GetContentLevel()->CallEvent("UseKeyOff");
 	ResetButton();
 	YesOrNoDisable();

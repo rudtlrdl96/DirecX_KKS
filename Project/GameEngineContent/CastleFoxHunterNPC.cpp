@@ -279,6 +279,7 @@ void CastleFoxHunterNPC::TalkEndCallback()
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
 	GetContentLevel()->CallEvent("UseKeyOn");
+	GetContentLevel()->CallEvent("GoodsUIOn");
 }
 
 void CastleFoxHunterNPC::CreateGiveHeadScript()
@@ -364,9 +365,5 @@ void CastleFoxHunterNPC::GiveHeadEndCallback()
 		Gear->LegendaryGearEffectOn();
 	}
 
-	NpcTalkBox->Off();
-	GetContentLevel()->CallEvent("PlayerInputUnlock");
-	GetContentLevel()->CallEvent("StoryFadeOut");
-	GetContentLevel()->CallEvent("PlayerFrameActive");
-	GetContentLevel()->CallEvent("UseKeyOn");
+	TalkEndCallback();
 }

@@ -226,5 +226,7 @@ void ShopChef::TalkEndCallback()
 	GetContentLevel()->CallEvent("PlayerInputUnlock");
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
+	GetContentLevel()->CallEvent("MinimapOn");
+	GetContentLevel()->CallEvent("GoodsUIOn");
 	GetContentLevel()->CallEvent("UseKeyOn");
 }

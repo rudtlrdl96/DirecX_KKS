@@ -440,4 +440,6 @@ void ShopHeadless::TalkEndCallback()
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
 	GetContentLevel()->CallEvent("UseKeyOn");
+	GetContentLevel()->CallEvent("MinimapOn");
+	GetContentLevel()->CallEvent("GoodsUIOn");
 }

@@ -324,4 +324,5 @@ void CastleWitchNPC::TalkEndCallback()
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
 	GetContentLevel()->CallEvent("UseKeyOn");
+	GetContentLevel()->CallEvent("GoodsUIOn");
 }

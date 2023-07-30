@@ -228,6 +228,7 @@ void CastleOgrePaddlerNPC::TalkEndCallback()
 	GetContentLevel()->CallEvent("StoryFadeOut");
 	GetContentLevel()->CallEvent("PlayerFrameActive");
 	GetContentLevel()->CallEvent("UseKeyOn");
+	GetContentLevel()->CallEvent("GoodsUIOn");
 }
 
 void CastleOgrePaddlerNPC::CreateGiveItemScript()
@@ -313,9 +314,5 @@ void CastleOgrePaddlerNPC::GiveItemEndCallback()
 		Gear->LegendaryGearEffectOn();
 	}
 
-	NpcTalkBox->Off();
-	GetContentLevel()->CallEvent("PlayerInputUnlock");
-	GetContentLevel()->CallEvent("StoryFadeOut");
-	GetContentLevel()->CallEvent("PlayerFrameActive");
-	GetContentLevel()->CallEvent("UseKeyOn");
+	TalkEndCallback();
 }
