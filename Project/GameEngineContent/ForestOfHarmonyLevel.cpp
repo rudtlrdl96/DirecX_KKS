@@ -14,9 +14,6 @@
 #include "ResultInfo.h"
 #include "CastleLevel.h"
 
-// Debug¿ë
-#include "FPSCheckGUI.h"
-
 ForestOfHarmonyLevel::ForestOfHarmonyLevel()
 {
 }
@@ -168,10 +165,6 @@ void ForestOfHarmonyLevel::Start()
 	MainStageName = StageNameInfos[CurStageIndex].LoadMapName;
 	MainBackgroundName = StageNameInfos[CurStageIndex].LoadBackgroundName;
 
-	GameEngineGUI::GUIWindowCreate<FPSCheckGUI>("FPS_GUI");
-	FPS_GUI = GameEngineGUI::FindGUIWindowConvert<FPSCheckGUI>("FPS_GUI");
-	FPS_GUI->Off();
-	
 	CastleLevel::AddResetCallback([this]()
 		{
 			CurStageIndex = 0;
@@ -284,15 +277,11 @@ void ForestOfHarmonyLevel::LevelChangeStart()
 {
 	ResultInfo::PlayTime = 0.0f;
 	BattleLevel::LevelChangeStart();
-	FPS_GUI->Reset();
-	FPS_GUI->On();
 }
 
 void ForestOfHarmonyLevel::LevelChangeEnd()
 {
 	BattleLevel::LevelChangeEnd();
-	FPS_GUI->Reset();
-	FPS_GUI->Off();
 }
 
 void ForestOfHarmonyLevel::AreaClear()

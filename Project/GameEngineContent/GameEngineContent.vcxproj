@@ -570,7 +570,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="LevelMoveGUI.h">
+    <ClInclude Include="GameConsoleGUI.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -1574,7 +1574,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="LevelMoveGUI.cpp">
+    <ClCompile Include="GameConsoleGUI.cpp">
       <SubType>
       </SubType>
     </ClCompile>

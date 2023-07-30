@@ -5,6 +5,7 @@
 class BattleLevel : public ContentLevel
 {
 	friend class BaseDoor;
+	friend class GameConsoleGUI;
 private:
 	class LoadStageInfo
 	{
@@ -81,5 +82,11 @@ private:
 
 	float4 PivotStart = float4::Zero;
 	float4 PivotEnd = float4::Zero;
+
+	void Cheat_Switch_HP();
+	void Cheat_Switch_Attack();
+	void Cheat_GetSkull(size_t _Index);
+	void Cheat_GetItem(size_t _Index);
+	void Cheat_ForceDeath();
 };
 

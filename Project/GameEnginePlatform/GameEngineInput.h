@@ -24,6 +24,8 @@ private:
 
 		void Reset() 
 		{
+			GetAsyncKeyState(Key);
+
 			Down = false; // 누른 한순간
 			Press = false; // 계속 누르고 있다.
 			Up = false; // 땐 한순간

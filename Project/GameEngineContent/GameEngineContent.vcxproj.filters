@@ -600,9 +600,6 @@
     <ClInclude Include="GameEngineActorGUI.h">
       <Filter>5_GUI\Common</Filter>
     </ClInclude>
-    <ClInclude Include="LevelMoveGUI.h">
-      <Filter>5_GUI\Common</Filter>
-    </ClInclude>
     <ClInclude Include="BattleArea.h">
       <Filter>2_Actor\Map</Filter>
     </ClInclude>
@@ -1143,6 +1140,7 @@
     <ClInclude Include="HeadlessGear.h">
       <Filter>2_Actor\Gear\Skull</Filter>
     </ClInclude>
+    <ClInclude Include="GameConsoleGUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentCore.cpp">
@@ -1368,9 +1366,6 @@
       <Filter>5_GUI\Tool</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineActorGUI.cpp">
-      <Filter>5_GUI\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelMoveGUI.cpp">
       <Filter>5_GUI\Common</Filter>
     </ClCompile>
     <ClCompile Include="BattleArea.cpp">
@@ -1943,6 +1938,7 @@
     <ClCompile Include="HeadlessGear.cpp">
       <Filter>2_Actor\Gear\Skull</Filter>
     </ClCompile>
+    <ClCompile Include="GameConsoleGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Doc\스컬 간트차트.xlsx">

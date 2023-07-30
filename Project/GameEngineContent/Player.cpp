@@ -322,15 +322,6 @@ void Player::PlayStoryMove(const float4& _StoryMovePos, std::function<void()> _E
 
 void Player::Start()
 {
-	if (false == GameEngineInput::IsKey("Cheat_Attack"))
-	{
-		GameEngineInput::CreateKey("Cheat_Attack", '7');
-		GameEngineInput::CreateKey("Cheat_HP", '8');
-		GameEngineInput::CreateKey("Cheat_SkullGearTest", '0');
-		GameEngineInput::CreateKey("Cheat_ItemGearTest", VK_PRIOR);
-		GameEngineInput::CreateKey("Cheat_Death", VK_DELETE);
-	}
-
 	if (false == GameEngineInput::IsKey("UseKey"))
 	{
 		GameEngineInput::CreateKey("UseKey", 'F');
@@ -529,128 +520,7 @@ void Player::Update(float _DeltaTime)
 
 	HitWaitTime -= _DeltaTime;	
 	SwitchCoolTime += _DeltaTime;
-
-	if (true == GameEngineInput::IsDown("Cheat_Attack"))
-	{
-		Cheat_Attack = !Cheat_Attack;
-
-		if (true == Cheat_Attack)
-		{
-			PlayerState::SetMeleeAttack(100);
-			PlayerState::SetMagicAttack(100);
-
-			CheatRender_Attack->On();
-		}
-		else
-		{
-			PlayerState::SetMeleeAttack(10);
-			PlayerState::SetMagicAttack(10);
-
-			CheatRender_Attack->Off();
-		}
-	}	
-	
-	if (true == GameEngineInput::IsDown("Cheat_Death"))
-	{
-		PlayerState::SetHP(0);
-	}
-
-	if (true == GameEngineInput::IsDown("Cheat_HP"))
-	{
-		Cheat_HP = !Cheat_HP;
-
-		if (true == Cheat_HP)
-		{
-			CheatRender_HP->On();
-		}
-		else
-		{
-			CheatRender_HP->Off();
-		}
-	}
-
-	if (true == GameEngineInput::IsDown("Cheat_SkullGearTest"))
-	{
-		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f));
 		
-		{
-			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
-			Gear->Init(100);
-			Gear->DropGear_Bezier(PlayerPos, PlayerPos);
-			Gear->BlackAndWhiteColorOn();
-			Gear->SetEndCallback([Gear]()
-				{
-					Gear->BlackAndWhiteEffectOn();
-					Gear->ColWaveOn();
-				});
-		}
-		
-		{
-			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
-			Gear->Init(203);
-			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(-70, 0));
-			Gear->BlackAndWhiteColorOn();
-			Gear->SetEndCallback([Gear]()
-				{
-					Gear->BlackAndWhiteEffectOn();
-					Gear->ColWaveOn();
-				});
-		}
-		
-		{
-			std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
-			Gear->Init(101);
-			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(70, 0));
-			Gear->BlackAndWhiteColorOn();
-			Gear->SetEndCallback([Gear]()
-				{
-					Gear->BlackAndWhiteEffectOn();
-					Gear->ColWaveOn();
-				});
-		}
-	}
-
-	if (true == GameEngineInput::IsDown("Cheat_ItemGearTest"))
-	{
-		float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f));
-
-		{
-			std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
-			Gear->Init(200);
-			Gear->DropGear_Bezier(PlayerPos, PlayerPos);
-			Gear->BlackAndWhiteColorOn();
-			Gear->SetEndCallback([Gear]()
-				{
-					Gear->BlackAndWhiteEffectOn();
-					Gear->ColWaveOn();
-				});
-		}
-
-		{
-			std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
-			Gear->Init(201);
-			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(-70, 0));
-			Gear->BlackAndWhiteColorOn();
-			Gear->SetEndCallback([Gear]()
-				{
-					Gear->BlackAndWhiteEffectOn();
-					Gear->ColWaveOn();
-				});
-		}
-
-		{
-			std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
-			Gear->Init(202);
-			Gear->DropGear_Bezier(PlayerPos, PlayerPos + float4(70, 0));
-			Gear->BlackAndWhiteColorOn();
-			Gear->SetEndCallback([Gear]()
-				{
-					Gear->BlackAndWhiteEffectOn();
-					Gear->ColWaveOn();
-				});
-		}
-	}
-
 	if (PlayerState::GetHP() <= 0.0f)
 	{
 		GameEngineSound::Play("Default_Dead.wav");
@@ -821,4 +691,87 @@ void Player::CreateColDebugRender()
 	BodyDebugRender->SetTargetCollision(PlayerBodyCol);
 	BodyDebugRender->GetTransform()->SetParent(PlayerBodyCol->GetTransform(), false);
 	BodyDebugRender->GetTransform()->AddLocalPosition(float4(0, 0, -10));
+}
+
+void Player::Cheat_Switch_HP()
+{
+	Cheat_HP = !Cheat_HP;
+
+	if (true == Cheat_HP)
+	{
+		CheatRender_HP->On();
+	}
+	else
+	{
+		CheatRender_HP->Off();
+	}
+}
+
+void Player::Cheat_Switch_Attack()
+{
+	Cheat_Attack = !Cheat_Attack;
+
+	if (true == Cheat_Attack)
+	{
+		PlayerState::SetMeleeAttack(100);
+		PlayerState::SetMagicAttack(100);
+
+		CheatRender_Attack->On();
+	}
+	else
+	{
+		PlayerState::SetMeleeAttack(10);
+		PlayerState::SetMagicAttack(10);
+
+		CheatRender_Attack->Off();
+	}
+}
+
+void Player::Cheat_GetSkull(size_t _Index)
+{
+	if (false == ContentDatabase<SkullData, SkullGrade>::IsVaild(_Index))
+	{
+		return;
+	}
+
+	float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f));
+
+	{
+		std::shared_ptr<SkullGear> Gear = GetLevel()->CreateActor<SkullGear>();
+		Gear->Init(_Index);
+		Gear->DropGear_Bezier(PlayerPos, PlayerPos);
+		Gear->BlackAndWhiteColorOn();
+		Gear->SetEndCallback([Gear]()
+			{
+				Gear->BlackAndWhiteEffectOn();
+				Gear->ColWaveOn();
+			});
+	}
+}
+
+void Player::Cheat_GetItem(size_t _Index)
+{
+	if (false == ContentDatabase<ItemData, ItemGrade>::IsVaild(_Index))
+	{
+		return;
+	}
+
+	float4 PlayerPos = GetTransform()->GetWorldPosition() + float4(0, 40, GameEngineRandom::MainRandom.RandomFloat(-2.0f, -1.0f));
+
+	{
+		std::shared_ptr<ItemGear> Gear = GetLevel()->CreateActor<ItemGear>();
+		Gear->Init(_Index);
+		Gear->DropGear_Bezier(PlayerPos, PlayerPos);
+		Gear->BlackAndWhiteColorOn();
+		Gear->SetEndCallback([Gear]()
+			{
+				Gear->BlackAndWhiteEffectOn();
+				Gear->ColWaveOn();
+			});
+	}
+}
+
+void Player::Cheat_ForceDeath()
+{
+	PlayerState::SetHP(0);
 }

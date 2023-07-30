@@ -17,10 +17,11 @@
 #include "GameEngineActorGUI.h"
 #include "MapToolGUI.h"
 #include "BackgroundToolGUI.h"
-#include "LevelMoveGUI.h"
+#include "GameConsoleGUI.h"
 #include "AnimationCollisionToolGUI.h"
 #include "TalkboxDebugGUI.h"
 #include "ContentLevelLightGUI.h"
+#include "FPSCheckGUI.h"
 
 // Player Level
 #include "TitleLevel.h"
@@ -418,9 +419,6 @@ void ContentCore::ImGuiCreate()
 	std::shared_ptr<GameEngineGUIWindow> BackgroundGUIPtr = GameEngineGUI::GUIWindowCreate<BackgroundToolGUI>("BackgroundToolGUI");
 	BackgroundGUIPtr->Off();
 
-	std::shared_ptr<GameEngineGUIWindow> LevelMoveGUIPtr = GameEngineGUI::GUIWindowCreate<LevelMoveGUI>("LevelMoveGUI");
-	LevelMoveGUIPtr->On();
-
 	std::shared_ptr<GameEngineGUIWindow> AnimationColToolGUIPtr = GameEngineGUI::GUIWindowCreate<AnimationCollisionToolGUI>("AnimationCollisionToolGUI");
 	AnimationColToolGUIPtr->Off();
 
@@ -429,6 +427,12 @@ void ContentCore::ImGuiCreate()
 
 	std::shared_ptr<GameEngineGUIWindow> LightGUIPtr = GameEngineGUI::GUIWindowCreate<ContentLevelLightGUI>("ContentLevelLightGUI");
 	LightGUIPtr->Off();
+
+	std::shared_ptr<GameEngineGUIWindow> FPSGUIPtr = GameEngineGUI::GUIWindowCreate<FPSCheckGUI>("FPSCheckGUI");
+	FPSGUIPtr->Off();
+
+	std::shared_ptr<GameEngineGUIWindow> GameConsoleGUIPtr = GameEngineGUI::GUIWindowCreate<GameConsoleGUI>("GameConsoleGUI");
+	GameConsoleGUIPtr->On();
 }
 
 void ContentCore::FontFind()

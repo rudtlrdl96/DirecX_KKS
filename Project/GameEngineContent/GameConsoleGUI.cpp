@@ -1,22 +1,23 @@
 #include "PrecompileHeader.h"
-#include "LevelMoveGUI.h"
+#include "GameConsoleGUI.h"
 #include <GameEngineCore/GameEngineCore.h>
 
 #include "ContentLevelLightGUI.h"
+#include "FPSCheckGUI.h"
 
-LevelMoveGUI::LevelMoveGUI()
+GameConsoleGUI::GameConsoleGUI()
 {
 }
 
-LevelMoveGUI::~LevelMoveGUI()
+GameConsoleGUI::~GameConsoleGUI()
 {
 }
 
-void LevelMoveGUI::Start()
+void GameConsoleGUI::Start()
 {
 }
 
-void LevelMoveGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
+void GameConsoleGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTime)
 {
 	int InputLevelIndex = CurrentLevelIndex;
 	ImGui::Combo("Level", &InputLevelIndex, LevelComboText, IM_ARRAYSIZE(LevelComboText));
@@ -31,6 +32,19 @@ void LevelMoveGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTim
 	else
 	{
 		std::shared_ptr<ContentLevelLightGUI> FindGUI = GameEngineGUI::FindGUIWindowConvert<ContentLevelLightGUI>("ContentLevelLightGUI");
+		FindGUI->Off();
+	}	
+	
+	ImGui::Checkbox("FPS GUI", &FPSGuiOn);
+
+	if (true == FPSGuiOn)
+	{
+		std::shared_ptr<FPSCheckGUI> FindGUI = GameEngineGUI::FindGUIWindowConvert<FPSCheckGUI>("FPSCheckGUI");
+		FindGUI->On();
+	}
+	else
+	{
+		std::shared_ptr<FPSCheckGUI> FindGUI = GameEngineGUI::FindGUIWindowConvert<FPSCheckGUI>("FPSCheckGUI");
 		FindGUI->Off();
 	}
 
@@ -73,5 +87,29 @@ void LevelMoveGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaTim
 		default:
 			break;
 		}
+	}
+
+	ImGui::InputInt("Cheat Skull", &CheatSkullIndex);
+
+	if (ImGui::Button("Get Skull"))
+	{
+		if (nullptr == Level)
+		{
+			return;
+		}
+
+		Level->Cheat_GetSkull(static_cast<size_t>(CheatSkullIndex));
+	}
+
+	ImGui::InputInt("Cheat Item", &CheatItemIndex);
+
+	if (ImGui::Button("Get Item"))
+	{
+		if (nullptr == Level)
+		{
+			return;
+		}
+
+		Level->Cheat_GetSkull(static_cast<size_t>(CheatItemIndex));
 	}
 }

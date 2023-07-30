@@ -6,6 +6,7 @@
 class Player : public BaseContentActor
 {
 	friend class PlayerStateFrame;
+	friend class BattleLevel;
 public:
 	Player();
 	~Player();
@@ -124,5 +125,12 @@ private:
 	std::shared_ptr<PlayerBaseSkull> CreateNewSkull(size_t _Index);
 
 	void CreateColDebugRender();
+
+	void Cheat_Switch_HP();
+	void Cheat_Switch_Attack();
+	void Cheat_GetSkull(size_t _Index);
+	void Cheat_GetItem(size_t _Index);
+	void Cheat_ForceDeath();
+
 };
 

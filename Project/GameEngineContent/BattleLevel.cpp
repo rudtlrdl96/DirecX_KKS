@@ -3,6 +3,9 @@
 
 #include <GameEnginePlatform/GameEngineInput.h>
 
+// GUI
+#include "GameConsoleGUI.h"
+
 // Game
 #include "GameEventManager.h"
 #include "EffectManager.h"
@@ -453,6 +456,10 @@ void BattleLevel::LevelChangeStart()
 
 	GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(1.0f);
 	GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(1.0f);
+
+	
+	std::shared_ptr<GameConsoleGUI> FindConsoleGUI = GameEngineGUI::FindGUIWindowConvert<GameConsoleGUI>("GameConsoleGUI");
+	FindConsoleGUI->SetLevel(this);
 }
 
 void BattleLevel::LevelChangeEnd()
@@ -474,6 +481,9 @@ void BattleLevel::LevelChangeEnd()
 	MainCamCtrl.SetWorldPivot(float4::Zero);
 
 	BattleAreaPtr->ClearStage();
+
+	std::shared_ptr<GameConsoleGUI> FindConsoleGUI = GameEngineGUI::FindGUIWindowConvert<GameConsoleGUI>("GameConsoleGUI");
+	FindConsoleGUI->SetLevel(nullptr);
 }
 
 void BattleLevel::ChangeStage()
@@ -621,4 +631,55 @@ void BattleLevel::MoveCastle()
 void BattleLevel::ShowBossName(const std::string_view& _Name, const std::string_view& _Note, std::function<void()> _EndCallback /*= nullptr*/)
 {
 	BossNamePtr->ShowBossName(_Name, _Note, _EndCallback);
+}
+
+
+void BattleLevel::Cheat_Switch_HP()
+{
+	if (nullptr == MainPlayer)
+	{
+		return;
+	}
+
+	MainPlayer->Cheat_Switch_HP();
+}
+
+void BattleLevel::Cheat_Switch_Attack()
+{
+	if (nullptr == MainPlayer)
+	{
+		return;
+	}
+
+	MainPlayer->Cheat_Switch_Attack();
+}
+
+void BattleLevel::Cheat_GetSkull(size_t _Index)
+{
+	if (nullptr == MainPlayer)
+	{
+		return;
+	}
+
+	MainPlayer->Cheat_GetSkull(_Index);
+}
+
+void BattleLevel::Cheat_GetItem(size_t _Index)
+{
+	if (nullptr == MainPlayer)
+	{
+		return;
+	}
+
+	MainPlayer->Cheat_GetItem(_Index);
+}
+
+void BattleLevel::Cheat_ForceDeath()
+{
+	if (nullptr == MainPlayer)
+	{
+		return;
+	}
+
+	MainPlayer->Cheat_ForceDeath();
 }
