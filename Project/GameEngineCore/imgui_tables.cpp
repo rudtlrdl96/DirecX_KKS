@@ -1,3 +1,5 @@
+#include "PrecompileHeader.h"
+
 // dear imgui, v1.89.8 WIP
 // (tables and columns code)
 
