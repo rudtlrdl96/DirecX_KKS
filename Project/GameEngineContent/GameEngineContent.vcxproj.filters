@@ -1951,9 +1951,4 @@
       <Filter>7_Doc</Filter>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\Doc\아라크네.txt">
-      <Filter>7_Doc</Filter>
-    </Text>
-  </ItemGroup>
 </Project>
