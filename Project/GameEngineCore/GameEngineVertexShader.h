@@ -2,17 +2,14 @@
 #include "GameEngineResource.h"
 #include "GameEngineShader.h"
 
-// Ό³Έν :
 class GameEngineVertexShader : public GameEngineResource<GameEngineVertexShader>, public GameEngineShader
 {
 	friend class GameEngineInputLayOut;
 
 public:
-	// constrcuter destructer
 	GameEngineVertexShader();
 	~GameEngineVertexShader();
 
-	// delete Function
 	GameEngineVertexShader(const GameEngineVertexShader& _Other) = delete;
 	GameEngineVertexShader(GameEngineVertexShader&& _Other) noexcept = delete;
 	GameEngineVertexShader& operator=(const GameEngineVertexShader& _Other) = delete;

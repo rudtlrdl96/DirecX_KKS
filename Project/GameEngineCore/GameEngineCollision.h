@@ -2,7 +2,6 @@
 #include "GameEngineRenderer.h"
 #include "GameEngineComponent.h"
 
-// 설명 :
 class GameEngineCollision : public GameEngineComponent
 {
 	friend class GameEngineLevel;
@@ -10,11 +9,9 @@ class GameEngineCollision : public GameEngineComponent
 	static GameEngineRenderUnit DebugUnit;
 
 public:
-	// constrcuter destructer
 	GameEngineCollision();
 	~GameEngineCollision();
 
-	// delete Function
 	GameEngineCollision(const GameEngineCollision& _Other) = delete;
 	GameEngineCollision(GameEngineCollision&& _Other) noexcept = delete;
 	GameEngineCollision& operator=(const GameEngineCollision& _Other) = delete;
@@ -43,7 +40,6 @@ public:
 		Type = _Type;
 	}
 
-	// 나를 디버깅해줄 카메라를 변경하는 기능.
 	void SetDebugCamera(GameEngineCamera* _DebugCamera) 
 	{
 		DebugCamera = _DebugCamera;
@@ -55,11 +51,9 @@ protected:
 private:
 	ColType Type = ColType::SPHERE3D;
 
-//#ifdef _DEBUG
 	GameEngineCamera* DebugCamera = nullptr;
 
 	void DebugRender(float _DeltaTime);
-//#endif
 };
 
 

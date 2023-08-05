@@ -2,7 +2,6 @@
 #include "GameEngineActor.h"
 #include "GameEngineCollision.h"
 
-// Ό³Έν :
 class GameEngineUIRenderer;
 class GameEngineCollision;
 class GameEngineButton : public GameEngineActor
@@ -10,11 +9,9 @@ class GameEngineButton : public GameEngineActor
 public:
 	static GameEngineButton* SelectButton;
 
-	// constrcuter destructer
 	GameEngineButton();
 	~GameEngineButton();
 
-	// delete Function
 	GameEngineButton(const GameEngineButton& _Other) = delete;
 	GameEngineButton(GameEngineButton&& _Other) noexcept = delete;
 	GameEngineButton& operator=(const GameEngineButton& _Other) = delete;
@@ -56,7 +53,5 @@ private:
 	std::string_view ReleaseImage = "";
 	std::string_view HoverImage = "";
 	std::string_view PressImage = "";
-
-	// std::shared_ptr<GameEngineCollision> Collision;
 };
 

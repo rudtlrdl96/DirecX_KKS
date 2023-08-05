@@ -16,8 +16,6 @@ public:
 	{
 		if (nullptr != GameEngineFont::Factory)
 		{
-			// 다시 사용할때 비어있다는것을 알려주기 위해서
-			// 프로그램이 종료될때 되는것.
 			GameEngineFont::Factory->Release();
 			GameEngineFont::Factory = nullptr;
 		}
@@ -46,16 +44,8 @@ void GameEngineFont::LoadFont(const std::string_view& _Path)
 
 	D3D11_BLEND_DESC blendDesc = { 0, };
 	ZeroMemory(&blendDesc, sizeof(blendDesc));
-	for(int i=0; i < 4; ++i) {
-		//blendDesc.RenderTarget[i].BlendEnable = TRUE;
-		//blendDesc.RenderTarget[i].SrcBlend = D3D11_BLEND_ONE;
-		//blendDesc.RenderTarget[i].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-		//blendDesc.RenderTarget[i].BlendOp = D3D11_BLEND_OP_ADD;
-		//blendDesc.RenderTarget[i].SrcBlendAlpha = D3D11_BLEND_ONE;
-		//blendDesc.RenderTarget[i].DestBlendAlpha = D3D11_BLEND_ZERO;
-		//blendDesc.RenderTarget[i].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-		//blendDesc.RenderTarget[i].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
+	for(int i=0; i < 4; ++i) 
+	{
 		blendDesc.RenderTarget[i].BlendEnable = true;
 		blendDesc.RenderTarget[i].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		blendDesc.RenderTarget[i].BlendOp = D3D11_BLEND_OP_ADD;
@@ -64,7 +54,6 @@ void GameEngineFont::LoadFont(const std::string_view& _Path)
 		blendDesc.RenderTarget[i].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 		blendDesc.RenderTarget[i].SrcBlendAlpha = D3D11_BLEND_ONE;
 		blendDesc.RenderTarget[i].DestBlendAlpha = D3D11_BLEND_ONE;
-
 	}
 
 

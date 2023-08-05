@@ -11,7 +11,6 @@ enum class SortType
 	YSort,
 };
 
-// Ό³Έν :
 class GameEngineRenderer;
 class GameEngineRenderTarget;
 class GameEngineCamera : public GameEngineActor
@@ -20,11 +19,9 @@ class GameEngineCamera : public GameEngineActor
 	friend GameEngineRenderer;
 
 public:
-	// constrcuter destructer
 	GameEngineCamera();
 	~GameEngineCamera();
 
-	// delete Function
 	GameEngineCamera(const GameEngineCamera& _Other) = delete;
 	GameEngineCamera(GameEngineCamera&& _Other) noexcept = delete;
 	GameEngineCamera& operator=(const GameEngineCamera& _Other) = delete;

@@ -57,7 +57,6 @@ public:
 	}
 	void SetPitch(float _Pitch)
 	{
-		//재생속도 배율
 		Channel->setPitch(_Pitch);
 	}
 	void SetVolume(float _Volume)
@@ -66,7 +65,6 @@ public:
 	}
 	void SetLoop(int _Count = -1)
 	{
-		// -1 -> 무한루프 / 0 -> 루프X
 		Channel->setLoopCount(_Count);
 	}
 	void SetMute(bool _Value)
@@ -79,17 +77,15 @@ public:
 	}
 	void SetPosition(float _StartSecond, FMOD_TIMEUNIT _TimeUnit = FMOD_TIMEUNIT_MS)
 	{
-		//float으로 _StartSecond를 넣어주면 ms로 보정해서 해당 지점부터 시작
 		Channel->setPosition(static_cast<UINT>(_StartSecond * 1000.f), _TimeUnit);
 	}
 	void SetLoopPoint(float _StartSecond, float _EndSecond, FMOD_TIMEUNIT _TimeUnit = FMOD_TIMEUNIT_MS)
 	{
-		//_StartSecond ~_EndSecond 까지 반복
 		Channel->setLoopPoints(static_cast<UINT>(_StartSecond * 1000.f), _TimeUnit, static_cast<UINT>(_EndSecond * 1000.f), _TimeUnit);
 	}
 
 	/// <param name="_Position">사운드 위치 값</param>
-/// <param name="_TimeType">입력 값의 타입을 정합니다</param>
+    /// <param name="_TimeType">입력 값의 타입을 정합니다</param>
 	inline void setPosition(UINT _Position, FMOD_TIMEUNIT _TimeType = FMOD_TIMEUNIT_MS)
 	{
 		if (false == IsValid())
@@ -131,13 +127,10 @@ public:
 
 };
 
-// 설명 :
-// 이녀석 자체가 사운드 파일 역할도 합니다.
 class GameEngineSound
 {
-private: // manager
+private:
 	static std::unordered_map<std::string, std::shared_ptr<GameEngineSound>> AllSound;
-
 
 public:
 	static void ResourcesClear();
@@ -147,14 +140,12 @@ public:
 	GameEngineSound();
 	~GameEngineSound();
 
-	// delete Function
 	GameEngineSound(const GameEngineSound& _Other) = delete;
 	GameEngineSound(GameEngineSound&& _Other) noexcept = delete;
 	GameEngineSound& operator=(const GameEngineSound& _Other) = delete;
 	GameEngineSound& operator=(GameEngineSound&& _Other) noexcept = delete;
 
 	static void Load(const std::string_view& _Path);
-
 	static void Load(const std::string_view& _Name, const std::string_view& _Path);
 
 	static GameEngineSoundPlayer Play(const std::string_view& _Name);
@@ -164,14 +155,7 @@ protected:
 private:
 	void SoundLoad(const std::string_view& _Path);
 	FMOD::Channel* SoundPlay();
-	// 시퀸스
-	// 연관
-	// 어뎁터
-
-	// map 노드형 연관 컨테이너
-	// Hash기반 맵입니다. 
 
 	FMOD::Sound* FMODSound = nullptr;
-
 };
 

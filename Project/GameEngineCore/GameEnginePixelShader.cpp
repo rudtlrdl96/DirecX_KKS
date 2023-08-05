@@ -29,7 +29,6 @@ void GameEnginePixelShader::ShaderLoad(const std::string_view& _Path
 	Flag = D3D10_SHADER_DEBUG;
 #endif
 
-	// 상수버퍼 할때 이옵션이 관련이 있습니다.
 	Flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
 
 	ID3DBlob* Error;
@@ -50,8 +49,6 @@ void GameEnginePixelShader::ShaderLoad(const std::string_view& _Path
 	)
 		)
 	{
-
-		// 에러를 텍스트로 알려줍니다.
 		std::string ErrorString = reinterpret_cast<char*>(Error->GetBufferPointer());
 		MsgAssert(ErrorString);
 		return;

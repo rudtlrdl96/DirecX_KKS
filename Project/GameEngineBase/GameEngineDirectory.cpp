@@ -50,14 +50,9 @@ bool GameEngineDirectory::MoveParent()
 	return true;
 }
 
-// .png
-// png
-
 std::vector<GameEngineFile> GameEngineDirectory::GetAllFile(std::vector<std::string_view> _Ext)
 {
 	std::filesystem::directory_iterator DirIter(Path.Path);
-
-	// std::string Ext = _Ext.data();
 
 	std::vector<std::string> UpperExts;
 	UpperExts.reserve(_Ext.size());

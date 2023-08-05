@@ -6,17 +6,10 @@
 #include <Windows.h>
 #include <vector>
 
-// dx함수들
-// 다이렉트용 벡터
 #include <d3d11_4.h>
 #include <d3dcompiler.h>
 #include <DirectXPackedVector.h>
 #include <DirectXCollision.h>
-
-
-
-// final 더이상 상속내릴지 못한다.
-// 상속도 못하고 만들지도 못하게 만든 상태로
 
 class GameEngineMath final
 {
@@ -92,7 +85,6 @@ public:
 
 	static float4 AngleToDirection2DToRad(float _Rad)
 	{
-		// 빗변의 길이가 1일수밖에 없다.
 		return float4(cosf(_Rad), sinf(_Rad), 0.0f, 1.0f);
 	}
 
@@ -106,7 +98,6 @@ public:
 		return GetAngleVectorToVectorRad360(_Pivot, _Other) * GameEngineMath::RadToDeg;
 	}
 
-	// 외적의 결과는 두개의 백터가 겹칠때 주의해서 처리해줘야 한다.
 	static float GetAngleVectorToVectorRad(const float4& _Left, const float4& _Right)
 	{
 		float4 Left = _Left;
@@ -187,9 +178,6 @@ public:
 
 		float Arr1D[4];
 		
-
-		// 윈도우 지원 수학연산 가속(SIMD연산)을 사용하기 위한 다이렉트가 제공해주는 벡터
-		// 32비트에서는 simd연산을 사용할수 없다.
 		DirectX::XMFLOAT3 DirectFloat3;
 		DirectX::XMFLOAT4 DirectFloat4;
 		DirectX::XMVECTOR DirectVector;
@@ -415,10 +403,6 @@ public:
 	{
 		float4 AngleCheck = (*this);
 		AngleCheck.Normalize();
-		// functon(1) == 50; 1을 50으로 바꾸는 함수
-		// afuncton(50) == 1; 50이 1로 바꿔주는 함수라고도 할수 있지만 functon에 들어갔던 인자값을 알아내는 함수라고도 할수 있죠? <= 역함수
-		
-		// cosf(각도);
 
 		float Result = acosf(AngleCheck.x);
 
@@ -825,64 +809,12 @@ public:
 	void LookToLH(const float4& _EyePos, const float4& _EyeDir, const float4& _EyeUp)
 	{
 		Identity();
-
 		DirectMatrix = DirectX::XMMatrixLookToLH(_EyePos, _EyeDir, _EyeUp);
-
-
-		//float4 EyePos = _EyePos;
-
-		//// 합쳐져서 회전행렬이 된다.
-		//float4 EyeDir = _EyeDir.NormalizeReturn();
-		//float4 EyeUp = _EyeUp;
-		//float4 Right = float4::Cross3DReturn(EyeUp, EyeDir);
-		//Right.Normalize();
-
-		//float4 UpVector = float4::Cross3DReturn(_EyeDir, Right);
-		//Right.Normalize();
-
-		//float4 NegEyePos = -_EyePos;
-
-		//float D0Value = float4::DotProduct3D(Right, NegEyePos);
-		//float D1Value = float4::DotProduct3D(UpVector, NegEyePos);
-		//float D2Value = float4::DotProduct3D(EyeDir, NegEyePos);
-
-		//// 여기서 내적을 사용합니다.
-		//// x + 1;
-		//// 역함수 혹은 역행렬이라고 부릅니다.
-		//// x - 1;
-
-		//ArrVector[0] = Right;
-		//ArrVector[1] = UpVector;
-		//ArrVector[2] = EyeDir;
-
-		//Transpose();
-
-		//ArrVector[3] = { D0Value, D1Value, D2Value, 0 };
 	}
 
-	// 전치 행렬이라고 부르는행려
 	void Transpose() 
 	{
-		// 0   , 0, -1
-		// 100 , 1,  0
-		// 1   , 0,  0
-
-		// 0 , 100,  1
-		// 0,    1,  0
-		// -1 ,  0,  0
-
 		DirectMatrix = DirectX::XMMatrixTranspose(*this);
-
-		//float4x4 This = *this;
-		//Identity();
-		//for (size_t y = 0; y < YCount; y++)
-		//{
-		//	for (size_t x = 0; x < XCount; x++)
-		//	{
-		//		Arr2D[x][y] = This.Arr2D[y][x];
-		//	}
-		//}
-
 	}
 
 	void Inverse()
@@ -899,37 +831,15 @@ public:
 
 	void Scale(const float4& _Value)
 	{
-		//100, 0 , 0 , 0
-		// 0 ,100, 0 , 0
-		// 0 , 0 ,100, 0
-		// 0 , 0 , 0 , 1
-
 		Identity();
-
 		DirectMatrix = DirectX::XMMatrixScalingFromVector(_Value);
-
-
-		//Arr2D[0][0] = _Value.x;
-		//Arr2D[1][1] = _Value.y;
-		//Arr2D[2][2] = _Value.z;
 	}
 
 
 	void Pos(const float4& _Value)
 	{
-		//  0   1   2   3
-		//0 0,  0 , 0 , 0
-		//1 0 , 0,  0 , 0
-		//2 0 , 0 , 0 , 0
-		//3 200, 200 , 200 , 1
-
-		Identity();
-
+		Identity();		
 		DirectMatrix = DirectX::XMMatrixTranslationFromVector(_Value);
-
-		//Arr2D[3][0] = _Value.x;
-		//Arr2D[3][1] = _Value.y;
-		//Arr2D[3][2] = _Value.z;
 	}
 
 	void RotationDegToXYZ(const float4& _Deg) 
@@ -941,32 +851,11 @@ public:
 		float4x4 RotZ = DirectX::XMMatrixRotationZ(Rot.z);
 
 		*this = RotX * RotY * RotZ;
-
-		// DirectMatrix = DirectX::XMMatrixRotationRollPitchYaw(Rot.x, Rot.y, Rot.z);
 	}
 
 	void RotationDeg(const float4& _Deg)
 	{
-		// 짐벌락 현상이라는 것이 있습니다.
-		// 축이 겹치는 이상한 현상이 있는데 그 현상을 해결하려면
-		// 곱하는 순서를 바꿔야 해결이 된다.
-		// Rot = RotX * RotY * RotZ;
-
-		// 기본적으로 쿼터니온 회전이라는걸 사용하는데 
-		// 짐벌락 해결함.
-		//float4x4 RotX = float4x4::Zero;
-		//float4x4 RotY = float4x4::Zero;
-		//float4x4 RotZ = float4x4::Zero;
-		//RotX.RotationXDeg(_Deg.x);
-		//RotY.RotationYDeg(_Deg.y);
-		//RotZ.RotationZDeg(_Deg.z);
-
-		// *this = RotX * RotY * RotZ;
-
 		float4 Rot = _Deg* GameEngineMath::DegToRad;
-
-		// DirectX::XMQuaternionRotationMatrix()
-
 		DirectMatrix = DirectX::XMMatrixRotationRollPitchYaw(Rot.x, Rot.y, Rot.z);
 	}
 
@@ -978,14 +867,7 @@ public:
 	void RotationXRad(const float _Rad)
 	{
 		Identity();
-
 		DirectMatrix = DirectX::XMMatrixRotationX(_Rad);
-
-
-		//Arr2D[1][1] = cosf(_Rad);
-		//Arr2D[1][2] = sinf(_Rad);
-		//Arr2D[2][1] = -sinf(_Rad);
-		//Arr2D[2][2] = cosf(_Rad);
 	}
 
 
@@ -997,13 +879,7 @@ public:
 	void RotationYRad(const float _Rad)
 	{
 		Identity();
-
 		DirectMatrix = DirectX::XMMatrixRotationY(_Rad);
-
-		//Arr2D[0][0] = cosf(_Rad);
-		//Arr2D[0][2] = -sinf(_Rad);
-		//Arr2D[2][0] = sinf(_Rad);
-		//Arr2D[2][2] = cosf(_Rad);
 	}
 
 	void RotationZDeg(const float _Deg)
@@ -1014,59 +890,27 @@ public:
 	void RotationZRad(const float _Rad)
 	{
 		Identity();
-
 		DirectMatrix = DirectX::XMMatrixRotationZ(_Rad);
-
-		//Arr2D[0][0] = cosf(_Rad);
-		//Arr2D[0][1] = sinf(_Rad);
-		//Arr2D[1][0] = -sinf(_Rad);
-		//Arr2D[1][1] = cosf(_Rad);
 	}
 
 	
 	float4x4 operator*(const float4x4& _Other)
 	{
-		//  0   0   0   0			   		  0   0   0   0	    0   0   0   0
-		//  0,  0 , 0 , 0			   		  0,  0 , 0 , 0	    0,  0 , 0 , 0
-		//  0 , 0,  0 , 0          *   		  0 , 0,  0 , 0  =  0 , 0,  0 , 0
-		//  0 , 0 , 0 , 0			   		  0 , 0 , 0 , 0	    0 , 0 , 0 , 0
-
-		//this->Arr2D;
-		//_Other.Arr2D;
-
-		//float4x4 Return = Zero;
-		//for (size_t y = 0; y < YCount; y++)
-		//{
-		//	for (size_t x = 0; x < XCount; x++)
-		//	{
-		//		for (size_t j = 0; j < 4; j++)
-		//		{
-		//			Return.Arr2D[y][x] += Arr2D[y][j] * _Other.Arr2D[j][x];
-		//		}
-		//	}
-		//}
-
 		float4x4 Return = DirectX::XMMatrixMultiply(*this, _Other);
-
 		return Return;
 	}
 
 	float4x4& operator*=(const float4x4& _Other) 
 	{
-		// *this = *this * _Other;
-
 		DirectMatrix = DirectX::XMMatrixMultiply(*this, _Other);
-
 		return *this;
 	}
 
-	// w 가 0인 곱하기
 	float4 TransformNormal(const float4& _Value) 
 	{
 		return DirectX::XMVector3TransformNormal(_Value, *this);
 	}
 
-	// w 가 1인 곱하기
 	float4 TransformCoord(const float4& _Value)
 	{
 		return DirectX::XMVector3TransformCoord(_Value, *this);

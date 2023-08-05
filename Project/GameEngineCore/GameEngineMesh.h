@@ -5,7 +5,6 @@
 #include "GameEngineVertexBuffer.h"
 #include "GameEngineIndexBuffer.h"
 
-// Ό³Έν :
 class GameEngineMesh : public GameEngineResource<GameEngineMesh>
 {
 	friend class GameEngineRenderUnit;
@@ -40,11 +39,9 @@ public:
 		TOPOLOGY= _TOPOLOGY;
 	}
 
-	// constrcuter destructer
 	GameEngineMesh();
 	~GameEngineMesh();
 
-	// delete Function
 	GameEngineMesh(const GameEngineMesh& _Other) = delete;
 	GameEngineMesh(GameEngineMesh&& _Other) noexcept = delete;
 	GameEngineMesh& operator=(const GameEngineMesh& _Other) = delete;

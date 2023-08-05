@@ -3,11 +3,6 @@
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineString.h>
 
-// 다른 lib나 dll을 사용하기 위한 전처리문을 여기 넣을것입니다.
-// #pragma comment(lib, "GameEngineBase.lib");
-
-// lib를 통해서 dll을 사용한다고 하는건.
-// fmod.dll을 쓰겠다.
 #ifdef _DEBUG
 #pragma comment(lib, "..\\GameEnginePlatform\\ThirdParty\\FMOD\\lib\\x64\\fmodL_vc.lib")
 #else
@@ -70,7 +65,6 @@ void GameEngineSoundPlayer::SoundFadeOut(double _Time, float _Volume, bool _IsSt
 
 //////////////////////////// GameEngineSound ////////////////////////////
 
-// FMOD는 자신들의 기능을 이용할수 있게 해주는 클래스의 포인터를 주고
 FMOD::System* SoundSystem = nullptr;
 
 std::unordered_map<std::string, std::shared_ptr<GameEngineSound>> GameEngineSound::AllSound;

@@ -5,7 +5,6 @@
 #include <map>
 #include <GameEngineCore/GameEngineRenderTarget.h>
 
-// 설명 :
 class GameEngineActor;
 class GameEngineCamera;
 class GameEngineRenderer;
@@ -27,11 +26,9 @@ public:
 
 	GameEngineTimeEvent TimeEvent;
 
-	// constrcuter destructer
 	GameEngineLevel();
 	virtual ~GameEngineLevel();
 
-	// delete Function
 	GameEngineLevel(const GameEngineLevel& _Other) = delete;
 	GameEngineLevel(GameEngineLevel&& _Other) noexcept = delete;
 	GameEngineLevel& operator=(const GameEngineLevel& _Other) = delete;
@@ -88,7 +85,6 @@ public:
 		return LastTarget;
 	}
 
-	// 일부러 무겁게 만든 함수.
 	template<typename EnumType>
 	std::list<std::shared_ptr<GameEngineActor>> GetActorGroup(EnumType _Index)
 	{
@@ -102,7 +98,6 @@ public:
 
 
 protected:
-	// 레벨이 바뀌어서 시작할때
 	virtual void LevelChangeStart();
 	virtual void LevelChangeEnd();
 
@@ -114,16 +109,11 @@ protected:
 private:
 	static bool IsDebugRender;
 
-	// 모든 카메라의 내용이 다 종합된.
 	std::shared_ptr<GameEngineRenderTarget> LastTarget;
 
-	//      이름           경로
 	std::map<std::string, std::string> TexturePath;
 	std::map<std::string, std::string> LoadEndPath;
 
-	// 이미 뭔가가 다그려진 커다란 텍스처에 뭔가 변화를 주는것.
-
-	// 카메라
 	std::map<int, std::shared_ptr<GameEngineCamera>> Cameras;
 	std::shared_ptr<GameEngineCamera> MainCamera;
 

@@ -3,13 +3,12 @@
 #include "GameEngineTexture.h"
 #include "GameEngineSampler.h"
 
-// 모든 텍스처건 상수버퍼건 
 class GameEngineShaderResources
 {
 public:
 	std::string Name;
 	class GameEngineShader* ParentShader;
-	int BindPoint = -1; // b0 t0 같은 몇번째 슬롯에 세팅되어야 하는지에 대한 정보.
+	int BindPoint = -1;
 
 public:
 	virtual void Setting() = 0;

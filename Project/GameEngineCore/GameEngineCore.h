@@ -16,18 +16,15 @@
 
 #include "GameEngineLevel.h"
 
-// Ό³Έν :
 class GameEngineCore
 {
 	friend class GameEngineTexture;
 	friend class GameEngineSprite;
 
 public:
-	// constrcuter destructer
 	GameEngineCore();
 	~GameEngineCore();
 
-	// delete Function
 	GameEngineCore(const GameEngineCore& _Other) = delete;
 	GameEngineCore(GameEngineCore&& _Other) noexcept = delete;
 	GameEngineCore& operator=(const GameEngineCore& _Other) = delete;

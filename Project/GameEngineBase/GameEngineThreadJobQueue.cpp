@@ -14,7 +14,6 @@ GameEngineThreadJobQueue::~GameEngineThreadJobQueue()
 
 	while (RunningThreadCount)
 	{
-		// 쓰레드 깨우는 함수
 		if (
 			FALSE == 
 			PostQueuedCompletionStatus(IOCPHandle, static_cast<DWORD>(ThreadWorkType::Destroy), 0, nullptr)
@@ -59,8 +58,6 @@ void GameEngineThreadJobQueue::ThreadPoolFunction(GameEngineThreadJobQueue* _Thr
 	}
 }
 
-// 코어개수 * 2 - 1 
-// 
 void GameEngineThreadJobQueue::Initialize(const std::string& _ThreadName, int _ThreadCount)
 {
 	ThreadCount = _ThreadCount;
@@ -69,7 +66,6 @@ void GameEngineThreadJobQueue::Initialize(const std::string& _ThreadName, int _T
 	{
 		SYSTEM_INFO Info;
 		GetSystemInfo(&Info);
-		// Cpu 개수
 		ThreadCount = Info.dwNumberOfProcessors;
 	}
 

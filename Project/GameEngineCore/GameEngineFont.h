@@ -5,18 +5,15 @@
 
 #pragma comment(lib, "FW1FontWrapper.lib")
 
-// Ό³Έν :
 class GameEngineFont : public GameEngineResource<GameEngineFont>
 {
 	friend class FontFactoryCreator;
 	static IFW1Factory* Factory;
 
 public:
-	// constrcuter destructer
 	GameEngineFont();
 	~GameEngineFont();
 
-	// delete Function
 	GameEngineFont(const GameEngineFont& _Other) = delete;
 	GameEngineFont(GameEngineFont&& _Other) noexcept = delete;
 	GameEngineFont& operator=(const GameEngineFont& _Other) = delete;

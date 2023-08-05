@@ -22,9 +22,6 @@ void GameEngineFontRenderer::SetText(const std::string_view& _Text)
 
 void GameEngineFontRenderer::Render(float _Delta)
 {
-	// 온리 스크린 모드
-	// 
-
 	if (nullptr == Font)
 	{
 		return;

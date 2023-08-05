@@ -3,15 +3,12 @@
 #include <memory>
 #include <string_view>
 
-// 설명 :
 class GameEngineObjectBase
 {
 public:
-	// constrcuter destructer
 	GameEngineObjectBase();
 	~GameEngineObjectBase();
 
-	// delete Function
 	GameEngineObjectBase(const GameEngineObjectBase& _Other) = delete;
 	GameEngineObjectBase(GameEngineObjectBase&& _Other) noexcept = delete;
 	GameEngineObjectBase& operator=(const GameEngineObjectBase& _Other) = delete;
@@ -71,10 +68,10 @@ public:
 protected:
 
 private:
-	bool UpdateValue = true; // 켜졌다 꺼졌다
-	bool DeathValue = false; // 죽었다 살았다
+	bool UpdateValue = true;
+	bool DeathValue = false;
 	bool DebugValue = false;
 	int Order = 0;
-	////////////////////////////////////////////////////////////// Transform 기하구조
+
 };
 

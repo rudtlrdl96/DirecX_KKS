@@ -18,18 +18,15 @@ protected:
 	virtual void Effect(GameEngineRenderTarget* _Target, float _DeltaTime) = 0;
 };
 
-// 설명 :
 class GameEngineTexture;
 class GameEngineRenderTarget : public GameEngineResource<GameEngineRenderTarget>,
 	std::enable_shared_from_this<GameEngineRenderTarget>
 {
 	friend class GameEngineCore;
 public:
-	// constrcuter destructer
 	GameEngineRenderTarget();
 	~GameEngineRenderTarget();
 
-	// delete Function
 	GameEngineRenderTarget(const GameEngineRenderTarget& _Other) = delete;
 	GameEngineRenderTarget(GameEngineRenderTarget&& _Other) noexcept = delete;
 	GameEngineRenderTarget& operator=(const GameEngineRenderTarget& _Other) = delete;
@@ -63,9 +60,6 @@ public:
 
 	void Merge(std::shared_ptr<GameEngineRenderTarget> _Other, size_t _Index = 0);
 
-	// 랜더타겟에다가 effect를 준다는 개념이 됩니다.
-
-
 	template<typename EffectType>
 	std::shared_ptr<EffectType> CreateEffect()
 	{
@@ -73,7 +67,6 @@ public:
 
 		EffectInit(Effect);
 
-		// std::shared_ptr<GameEnginePostProcess> UpCast = std::dynamic_pointer_cast<GameEnginePostProcess>(Effect);
 		Effects.push_back(Effect);
 		return Effect;
 	}

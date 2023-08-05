@@ -43,18 +43,15 @@ public:
 	}
 };
 
-// Ό³Έν :
 class GameEngineTexture : public GameEngineResource<GameEngineTexture>
 {
 	friend GameEngineDevice;
 	friend class GameEngineTextureSetter;
 
 public:
-	// constrcuter destructer
 	GameEngineTexture();
 	~GameEngineTexture();
 
-	// delete Function
 	GameEngineTexture(const GameEngineTexture& _Other) = delete;
 	GameEngineTexture(GameEngineTexture&& _Other) noexcept = delete;
 	GameEngineTexture& operator=(const GameEngineTexture& _Other) = delete;

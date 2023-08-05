@@ -2,7 +2,6 @@
 #include <functional>
 #include <vector>
 
-// Ό³Έν :
 class GameEngineTimeEvent
 {
 public:
@@ -20,11 +19,9 @@ public:
 	};
 
 public:
-	// constrcuter destructer
 	GameEngineTimeEvent();
 	~GameEngineTimeEvent();
 
-	// delete Function
 	GameEngineTimeEvent(const GameEngineTimeEvent& _Other) = delete;
 	GameEngineTimeEvent(GameEngineTimeEvent&& _Other) noexcept = delete;
 	GameEngineTimeEvent& operator=(const GameEngineTimeEvent& _Other) = delete;
@@ -35,9 +32,6 @@ public:
 	void Update(float _DeltaTime);
 
 private:
-
-	// [event1][      ][event3]
-
 	std::list<TimeEvent> Events;
 };
 

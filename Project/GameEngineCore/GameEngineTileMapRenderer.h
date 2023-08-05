@@ -13,19 +13,16 @@ enum class TileMapMode
 class Tile
 {
 public:
-	GameEngineSprite* Sprite;
+	GameEngineSprite* Sprite = nullptr;
 	size_t Index = 0;
 };
 
-// Ό³Έν :
 class GameEngineTileMapRenderer : public GameEngineRenderer
 {
 public:
-	// constrcuter destructer
 	GameEngineTileMapRenderer();
 	~GameEngineTileMapRenderer();
 
-	// delete Function
 	GameEngineTileMapRenderer(const GameEngineTileMapRenderer& _Other) = delete;
 	GameEngineTileMapRenderer(GameEngineTileMapRenderer&& _Other) noexcept = delete;
 	GameEngineTileMapRenderer& operator=(const GameEngineTileMapRenderer& _Other) = delete;
@@ -69,11 +66,11 @@ private:
 	bool IsTilemapCulling = false;
 
 	std::vector<std::vector<Tile>> Tiles;
-	float4 MapCount;
-	float4 AtlasData;
-	float4 TileSize;
-	float4 RenderSize;
-	float4 TileSizeH;
+	float4 MapCount = float4::Zero;
+	float4 AtlasData = float4::Zero;
+	float4 TileSize = float4::Zero;
+	float4 RenderSize = float4::Zero;
+	float4 TileSizeH = float4::Zero;
 	float ZPos = 0.0f;
 
 	TileMapMode Mode = TileMapMode::Rect;

@@ -6,8 +6,6 @@
 
 enum class ColType
 {
-	// 캡슐
-	// 2D에서의 충돌은 모두가 한축이 같아야 한다.
 	SPHERE2D, // z를 0으로 만들고 충돌
 	AABBBOX2D, // z를 0으로 만들고 충돌
 	OBBBOX2D, // z를 0으로 만들고 충돌
@@ -95,7 +93,6 @@ public:
 	}
 };
 
-// 설명 : 특정한 문체의 크기 회전 이동에 관련된 기하속성을 관리해준다.
 class GameEngineObject;
 class GameEngineTransform : public GameEngineObjectBase
 {
@@ -103,11 +100,9 @@ class GameEngineTransform : public GameEngineObjectBase
 	friend class GameEngineLevel;
 
 public:
-	// constrcuter destructer
 	GameEngineTransform();
 	~GameEngineTransform();
 
-	// delete Function
 	GameEngineTransform(const GameEngineTransform& _Other) = delete;
 	GameEngineTransform(GameEngineTransform&& _Other) noexcept = delete;
 	GameEngineTransform& operator=(const GameEngineTransform& _Other) = delete;

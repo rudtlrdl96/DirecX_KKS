@@ -1,7 +1,3 @@
-// 쉐이더를 짜게되면 다음의 규칙을 지켜야 한다.
-
-// 0~ 16번 슬롯 
-// 선언해 놨다고 쓰는게 아니에요.
 cbuffer TransformData : register(b0)
 {
     float4 Scale;
@@ -30,9 +26,6 @@ cbuffer TransformData : register(b0)
     float4x4 WorldViewProjectionMatrix;
 }
 
-// 어떤 정보가 들어올지 구조체로 만들어야 합니다.
-// 어디가 포지션이고 어디가 컬이고
-// 이름 마음대로
 struct Input
 {
     float4 Pos : POSITION;

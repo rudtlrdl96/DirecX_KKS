@@ -3,15 +3,12 @@
 #include "GameEngineRenderer.h"
 #include "GameEngineFont.h"
 
-// Ό³Έν :
 class GameEngineFontRenderer : public GameEngineRenderer
 {
 public:
-	// constrcuter destructer
 	GameEngineFontRenderer();
 	~GameEngineFontRenderer();
 
-	// delete Function
 	GameEngineFontRenderer(const GameEngineFontRenderer& _Other) = delete;
 	GameEngineFontRenderer(GameEngineFontRenderer&& _Other) noexcept = delete;
 	GameEngineFontRenderer& operator=(const GameEngineFontRenderer& _Other) = delete;

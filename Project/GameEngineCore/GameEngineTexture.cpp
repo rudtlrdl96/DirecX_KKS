@@ -8,8 +8,6 @@
 #pragma comment(lib, "..\\GameEngineCore\\ThirdParty\\DirectXTex\\lib\\x64\\Release\\DirectXTex.lib")
 #endif
 
-// #pragma comment(lib, "DirectXTex.lib")
-
 GameEnginePixelColor GameEnginePixelColor::Black = {0, 0, 0, 0};
 
 GameEngineTexture::GameEngineTexture() 
@@ -39,7 +37,6 @@ void GameEngineTexture::CreateRenderTargetView()
 		return;
 	}
 
-	// 랜더타겟은 여러개를 만들수 있다.
 	HRESULT Result = GameEngineDevice::GetDevice()->CreateRenderTargetView(Texture2D, nullptr, &RTV);
 
 	if (S_OK != Result)
@@ -56,8 +53,7 @@ void GameEngineTexture::CreateShaderResourcesView()
 		MsgAssert("텍스처가 존재하지 않는 쉐이더 리소스 뷰를 만들 수는 없습니다.");
 		return;
 	}
-
-	// 랜더타겟은 여러개를 만들수 있다.
+	
 	HRESULT Result = GameEngineDevice::GetDevice()->CreateShaderResourceView(Texture2D, nullptr, &SRV);
 
 	if (S_OK != Result)
@@ -75,7 +71,6 @@ void GameEngineTexture::CreateDepthStencilView()
 		return;
 	}
 
-	// 랜더타겟은 여러개를 만들수 있다.
 	HRESULT Result = GameEngineDevice::GetDevice()->CreateDepthStencilView(Texture2D, nullptr, &DSV);
 
 	if (S_OK != Result)
@@ -88,8 +83,6 @@ void GameEngineTexture::CreateDepthStencilView()
 
 void GameEngineTexture::ResLoad(const std::string_view& _Path) 
 {
-	// GameEnginePath NewPath = 
-
 	GameEnginePath NewPath(_Path);
 
 	std::string Ext = GameEngineString::ToUpper(NewPath.GetExtension());
@@ -129,8 +122,6 @@ void GameEngineTexture::ResLoad(const std::string_view& _Path)
 
 	Desc.Width = static_cast<UINT>(Data.width);
 	Desc.Height = static_cast<UINT>(Data.height);
-
-	// Texture2D->GetDesc(&Desc);
 }
 
 void GameEngineTexture::VSSetting(UINT _Slot) 
@@ -219,8 +210,6 @@ GameEnginePixelColor GameEngineTexture::GetPixel(int _X, int _Y, GameEnginePixel
 	}
 
 	DXGI_FORMAT Fmt = Image.GetMetadata().format;
-
-	// Image.GetImages()->pixels;
 
 	unsigned char* ColorPtr = Image.GetPixels();
 
@@ -413,8 +402,6 @@ GameEnginePixelColor GameEngineTexture::GetPixel(int _X, int _Y, GameEnginePixel
 	}
 	case DXGI_FORMAT_B8G8R8X8_UNORM:
 	{
-		// 컬러1개에 4바이트인 100 * 100
-		// 10, 10
 		int Index = _Y * static_cast<int>(GetWidth()) + _X;
 		ColorPtr = ColorPtr + (Index * 4);
 		GameEnginePixelColor Return;
@@ -430,8 +417,6 @@ GameEnginePixelColor GameEngineTexture::GetPixel(int _X, int _Y, GameEnginePixel
 		break;
 	case DXGI_FORMAT_B8G8R8A8_UNORM_SRGB:
 	{
-		// 컬러1개에 4바이트인 100 * 100
-		// 10, 10
 		int Index = _Y * static_cast<int>(GetWidth()) + _X;
 		ColorPtr = ColorPtr + (Index * 4);
 		GameEnginePixelColor Return;
@@ -565,13 +550,3 @@ void GameEngineTexture::ReLoad()
 
 	ResLoad(GetPath());
 }
-
-//void GameEngineTexture::SetPixel(int _X, int _Y, GameEnginePixelColor DefaultColor)
-//{
-//	const DirectX::Image* Ptr = Image.GetImages();
-//
-//	//Ptr->pixels[0] = 0;
-//	//Ptr->pixels[1] = 0;
-//	//Ptr->pixels[2] = 0;
-//	//Ptr->pixels[3] = 0;
-//}

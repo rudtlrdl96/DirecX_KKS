@@ -14,22 +14,22 @@ private:
 	{
 		friend GameEngineInput;
 
-		bool Down = false; // 누른 한순간
-		bool Press = false; // 계속 누르고 있다.
-		bool Up = false; // 땐 한순간
-		bool Free = true; // 안눌리고 있다.
+		bool Down = false;
+		bool Press = false; 
+		bool Up = false;
+		bool Free = true; 
 
-		float PressTime; // 몇초간 눌렀다.
+		float PressTime = 0.0f;
 		int Key = -1;
 
 		void Reset() 
 		{
 			GetAsyncKeyState(Key);
 
-			Down = false; // 누른 한순간
-			Press = false; // 계속 누르고 있다.
-			Up = false; // 땐 한순간
-			Free = true; // 안눌리고 있다.
+			Down = false; 
+			Press = false; 
+			Up = false; 
+			Free = true; 
 		}
 
 		bool KeyCheck() 
@@ -41,8 +41,6 @@ private:
 	};
 
 public:
-
-	// delete Function
 	GameEngineInput(const GameEngineInput& _Other) = delete;
 	GameEngineInput(GameEngineInput&& _Other) noexcept = delete;
 	GameEngineInput& operator=(const GameEngineInput& _Other) = delete;
@@ -85,11 +83,9 @@ public:
 protected:
 
 private:
-	// constrcuter destructer
 	GameEngineInput();
 	~GameEngineInput();
 
-	//      PlayerJump       A
 	static std::map<std::string, GameEngineKey> Keys;
 	static bool IsAnyKeyValue;
 	static bool IsFocus;

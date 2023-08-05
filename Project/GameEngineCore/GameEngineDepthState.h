@@ -1,15 +1,12 @@
 #pragma once
 #include "GameEngineResource.h"
 
-// Ό³Έν :
 class GameEngineDepthState : public GameEngineResource<GameEngineDepthState>
 {
 public:
-	// constrcuter destructer
 	GameEngineDepthState();
 	~GameEngineDepthState();
 
-	// delete Function
 	GameEngineDepthState(const GameEngineDepthState& _Other) = delete;
 	GameEngineDepthState(GameEngineDepthState&& _Other) noexcept = delete;
 	GameEngineDepthState& operator=(const GameEngineDepthState& _Other) = delete;

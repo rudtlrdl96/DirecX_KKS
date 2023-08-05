@@ -11,7 +11,6 @@ public:
 	std::function<void()> End;
 };
 
-// Ό³Έν :
 class GameEngineFSM
 {
 public:
@@ -26,11 +25,9 @@ public:
 	};
 
 public:
-	// constrcuter destructer
 	GameEngineFSM();
 	~GameEngineFSM();
 
-	// delete Function
 	GameEngineFSM(const GameEngineFSM& _Other) = delete;
 	GameEngineFSM(GameEngineFSM&& _Other) noexcept = delete;
 	GameEngineFSM& operator=(const GameEngineFSM& _Other) = delete;

@@ -29,9 +29,9 @@ void GameEngineFile::SaveBin(const GameEngineSerializer& _Data)
 	if (nullptr == FilePtr)
 	{
 		MsgAssert("파일 오픈에 실패했습니다." + PathString);
+		return;
 	}
 
-	//                         500               1
 	fwrite(_Data.GetConstData(), _Data.GetOffset(), 1, FilePtr);
 
 	if (nullptr != FilePtr)
@@ -51,9 +51,9 @@ void GameEngineFile::SaveText(const std::string_view& _View)
 	if (nullptr == FilePtr)
 	{
 		MsgAssert("파일 오픈에 실패했습니다." + PathString);
+		return;
 	}
 
-	//                         500               1
 	fwrite(_View.data(), _View.size(), 1, FilePtr);
 
 	if (nullptr != FilePtr)
@@ -74,6 +74,7 @@ void GameEngineFile::LoadBin(GameEngineSerializer& _Data)
 	if (nullptr == FilePtr)
 	{
 		MsgAssert("파일 오픈에 실패했습니다." + PathString);
+		return;
 	}
 
 	size_t FileSize = std::filesystem::file_size(Path.Path);
@@ -100,6 +101,7 @@ void GameEngineFile::LoadText(GameEngineSerializer& _Data)
 	if (nullptr == FilePtr)
 	{
 		MsgAssert("파일 오픈에 실패했습니다." + PathString);
+		return;
 	}
 
 	size_t FileSize = std::filesystem::file_size(Path.Path);
@@ -114,7 +116,6 @@ void GameEngineFile::LoadText(GameEngineSerializer& _Data)
 
 std::string GameEngineFile::GetString()
 {
-
 	uintmax_t size = GetFileSize();
 	GameEngineSerializer Ser;
 	Ser.BufferResize(size + 1);

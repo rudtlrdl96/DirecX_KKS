@@ -9,18 +9,15 @@
 #include <GameEngineBase/GameEngineDebug.h>
 #include "GameEngineDevice.h"
 
-// 설명 :
 template<typename ResourcesType>
 class GameEngineResource : public GameEngineNameObject
 {
 public:
 	friend class GameEngineCore;
 
-	// constrcuter destructer
 	GameEngineResource() {}
 	virtual ~GameEngineResource() = 0 {}
 
-	// delete Function
 	GameEngineResource(const GameEngineResource& _Other) = delete;
 	GameEngineResource(GameEngineResource&& _Other) noexcept = delete;
 	GameEngineResource& operator=(const GameEngineResource& _Other) = delete;
@@ -80,10 +77,6 @@ protected:
 
 		std::shared_ptr<ResourcesType> NewRes = std::make_shared<ResourcesType>();
 		NewRes->SetName(UpperName);
-
-		// std::pair<key, value>
-		// NamedResources.insert(std::make_pair(UpperName, NewRes));
-		// 여기 사이에 좀 느려져도 이
 
 		std::lock_guard<std::mutex> Lock(NameLock);
 		NamedResources.insert(std::map<std::string, std::shared_ptr<ResourcesType>>::value_type(UpperName, NewRes));

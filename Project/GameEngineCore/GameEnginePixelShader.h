@@ -2,15 +2,12 @@
 #include "GameEngineResource.h"
 #include "GameEngineShader.h"
 
-// Ό³Έν :
 class GameEnginePixelShader : public GameEngineResource<GameEnginePixelShader>, public GameEngineShader
 {
 public:
-	// constrcuter destructer
 	GameEnginePixelShader();
 	~GameEnginePixelShader();
 
-	// delete Function
 	GameEnginePixelShader(const GameEnginePixelShader& _Other) = delete;
 	GameEnginePixelShader(GameEnginePixelShader&& _Other) noexcept = delete;
 	GameEnginePixelShader& operator=(const GameEnginePixelShader& _Other) = delete;

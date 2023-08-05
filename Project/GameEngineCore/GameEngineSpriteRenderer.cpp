@@ -32,9 +32,6 @@ void AnimationInfo::Update(float _DeltaTime)
 		IsEndValue = false;
 	}
 
-	// 1;
-	// 
-
 	if (true == IsPauseValue)
 	{
 		return;
@@ -90,8 +87,6 @@ void AnimationInfo::Update(float _DeltaTime)
 	}
 }
 
-// SpriteRenderer
-
 GameEngineSpriteRenderer::GameEngineSpriteRenderer()
 {
 }
@@ -104,16 +99,13 @@ GameEngineSpriteRenderer::~GameEngineSpriteRenderer()
 void GameEngineSpriteRenderer::Start()
 {
 	GameEngineRenderer::Start();
-
 	SpriteRenderInit();
-	// AtlasData
 }
 
 void GameEngineSpriteRenderer::SetTexture(const std::string_view& _Name)
 {
 	GetShaderResHelper().SetTexture("DiffuseTex", _Name);
 
-	//Animation이 동작하는 SpriteRenderer에 다시 텍스처를 세팅할 때 사용됩니다.
 	CurAnimation = nullptr;
 	AtlasData = float4{ 0.0f, 0.0f, 1.0f, 1.0f };
 
@@ -123,6 +115,7 @@ void GameEngineSpriteRenderer::SetTexture(const std::string_view& _Name)
 		MsgAssert("존재하지 않는 이미지 입니다.");
 		return;
 	}
+
 	CurTexture = FindTex;
 
 }
@@ -130,18 +123,11 @@ void GameEngineSpriteRenderer::SetTexture(const std::string_view& _Name)
 void GameEngineSpriteRenderer::SetFlipX()
 {
 	Flip.x = Flip.x != 0.0f ? 0.0f : 1.0f;
-	//float4 LocalScale = GetTransform()->GetLocalScale();
-	//LocalScale.x = -LocalScale.x;
-	//GetTransform()->SetLocalScale(LocalScale);
 }
 
 void GameEngineSpriteRenderer::SetFlipY()
 {
 	Flip.y = Flip.y != 0.0f ? 0.0f : 1.0f;
-
-	//float4 LocalScale = GetTransform()->GetLocalScale();
-	//LocalScale.y = -LocalScale.y;
-	//GetTransform()->SetLocalScale(LocalScale);
 }
 
 void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name, float _ScaleRatio /*= 1.0f*/)
@@ -216,15 +202,10 @@ std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::CreateAnimation(const A
 
 	if (0 != _Paramter.FrameIndex.size())
 	{
-		// 프레임 인덱스 입력시
 		NewAnimation->FrameIndex = _Paramter.FrameIndex;
-
 	}
 	else
 	{
-		// 프레임 인덱스 미 입력시
-
-		// 시작 프레임 지정
 		if (-1 != _Paramter.Start)
 		{
 			if (_Paramter.Start < 0)
@@ -237,10 +218,9 @@ std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::CreateAnimation(const A
 		}
 		else
 		{
-			// -1 입력시 시작프레임 0
 			NewAnimation->StartFrame = 0;
 		}
-		// 끝 프레임 지정
+
 		if (-1 != _Paramter.End)
 		{
 			if (_Paramter.End >= Sprite->GetSpriteCount())
@@ -253,7 +233,6 @@ std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::CreateAnimation(const A
 		}
 		else
 		{
-			// -1 입력시 끝프레임은 마지막
 			NewAnimation->EndFrame = Sprite->GetSpriteCount() - 1;
 		}
 
@@ -262,20 +241,18 @@ std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::CreateAnimation(const A
 			MsgAssert("애니메이션을 생성할때 End가 Start보다 클 수 없습니다");
 			return nullptr;
 		}
+
 		NewAnimation->FrameIndex.reserve(NewAnimation->EndFrame - NewAnimation->StartFrame + 1);
 
-		// StartFrame 부터 EndFrame까지 순서대로 FrameIndex에 푸시
 		for (size_t i = NewAnimation->StartFrame; i <= NewAnimation->EndFrame; ++i)
 		{
 			NewAnimation->FrameIndex.push_back(i);
 		}
 	}
 
-	// 타임 데이터가 있다면
 	if (0 != _Paramter.FrameTime.size())
 	{
 		NewAnimation->FrameTime = _Paramter.FrameTime;
-
 	}
 	else
 	{
@@ -353,7 +330,6 @@ void GameEngineSpriteRenderer::Render(float _Delta)
 {
 
 	GameEngineRenderer::Render(_Delta);
-	//AtlasData = float4(0, 0, 1, 1);
 
 	if (nullptr != RenderEndCallBack)
 	{
@@ -415,8 +391,6 @@ void GameEngineSpriteRenderer::SpriteRenderInit()
 	GetShaderResHelper().SetConstantBufferLink("FlipData", Flip);
 }
 
-
-// 내 눈에 보이는 이미지에서 0.1;
 void GameEngineSpriteRenderer::ImageClippingX(float _Ratio, ClipXDir _Dir)
 {
 	Clip.x = _Ratio;

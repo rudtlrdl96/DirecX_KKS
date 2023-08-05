@@ -62,8 +62,6 @@ void GameEngineSprite::ResLoadSheet(const std::string_view& _Path, size_t _X, si
 
 	float4 Start = float4::Zero;
 
-	// 2 2
-
 	for (size_t y = 0; y < _Y; y++)
 	{
 		for (size_t x = 0; x < _X; x++)

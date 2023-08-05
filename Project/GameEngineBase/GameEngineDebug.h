@@ -3,7 +3,6 @@
 #include <assert.h>
 #include <string>
 
-// Ό³Έν :
 namespace GameEngineDebug
 {
 	void LeakCheck();

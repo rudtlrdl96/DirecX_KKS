@@ -19,8 +19,6 @@ void GameEngineTileMapRenderer::Start()
 	SetMesh("Rect");
 	SetPipeLine("TileMap");
 
-	// SetPipeLine("2DTexture");
-
 	AtlasData.x = 0.0f;
 	AtlasData.y = 0.0f;
 	AtlasData.z = 1.0f;
@@ -175,17 +173,12 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 
 				IsDrawY = true;
 				IsDrawX = true;
-				//if (true == GetLevel()->IsCameraOver(WorldPos))
-				//{
-				//	continue;
-				//}
 
 				TileTransData.WorldViewProjectionMatrix = TileTransData.WorldViewProjectionMatrix * TransData.View * TransData.Projection;
 
 				GetShaderResHelper().SetConstantBufferLink("TransformData", TileTransData);
 			}
 
-			// 텍스처 세팅
 			{
 				GetShaderResHelper().SetTexture("DiffuseTex", SpriteInfo.Texture);
 				AtlasData = SpriteInfo.CutData;
@@ -198,11 +191,9 @@ void GameEngineTileMapRenderer::Render(float _Delta)
 		{
 			break;
 		}
-
 	}
 
 	GetShaderResHelper().SetConstantBufferLink("TransformData", GetTransform()->GetTransDataRef());
-
 }
 
 
@@ -254,7 +245,6 @@ size_t GameEngineTileMapRenderer::GetTIleIndex(const float4& _Pos)
 		return -1;
 	}
 
-	// 인덱스 오버
 	if (true == IsOver(X, Y))
 	{
 		MsgAssert("타일맵 크기를 초과해 접근하려 했습니다");
@@ -273,7 +263,6 @@ float4 GameEngineTileMapRenderer::PosToTilePos(float4 _Pos)
 {
 	int X = -1;
 	int Y = -1;
-
 
 	switch (Mode)
 	{

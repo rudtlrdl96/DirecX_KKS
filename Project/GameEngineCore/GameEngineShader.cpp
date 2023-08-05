@@ -36,8 +36,6 @@ void GameEngineShader::ShaderResCheck()
 		return;
 	}
 
-	// Reflection 
-	// RTTI의 비슷한 개념으로 
 	ID3D11ShaderReflection* CompileInfo = nullptr;
 
 	if (S_OK != D3DReflect(BinaryCode->GetBufferPointer(), BinaryCode->GetBufferSize(), IID_ID3D11ShaderReflection, reinterpret_cast<void**>(&CompileInfo)))
@@ -52,10 +50,8 @@ void GameEngineShader::ShaderResCheck()
 
 	D3D11_SHADER_INPUT_BIND_DESC ResDesc;
 
-	// 내가 사용한 상수버퍼 텍스처 샘플러등의 총합입니다.
 	for (UINT i = 0; i < Info.BoundResources; i++)
 	{
-		// 리소스 정보를 얻어오게 되고
 		CompileInfo->GetResourceBindingDesc(i, &ResDesc);
 
 		std::string Name = ResDesc.Name;
@@ -110,7 +106,6 @@ void GameEngineShader::ShaderResCheck()
 			if (nullptr == Res)
 			{
 				Res = GameEngineSampler::Find("ENGINEBASE");
-				// MsgAssert("다음의 샘플러가 존재하지 않아서 쉐이더에 세팅해줄수가 없습니다. : " + UpperName);
 			}
 
 			GameEngineSamplerSetter Setter;
@@ -127,8 +122,6 @@ void GameEngineShader::ShaderResCheck()
 		}
 
 	}
-
-	// CompileInfo
 }
 
 void GameEngineShader::AutoCompile(GameEngineFile& _File)
@@ -137,7 +130,7 @@ void GameEngineShader::AutoCompile(GameEngineFile& _File)
 
 	{
 		size_t EntryIndex = ShaderCode.find("_VS(");
-		// unsigned __int64 == max값이 std::string::npos
+
 		if (EntryIndex != std::string::npos)
 		{
 			{
@@ -152,7 +145,7 @@ void GameEngineShader::AutoCompile(GameEngineFile& _File)
 
 	{
 		size_t EntryIndex = ShaderCode.find("_PS(");
-		// unsigned __int64 == max값이 std::string::npos
+
 		if (EntryIndex != std::string::npos)
 		{
 			{

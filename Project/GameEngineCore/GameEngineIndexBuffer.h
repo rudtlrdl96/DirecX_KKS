@@ -2,15 +2,12 @@
 #include "GameEngineResource.h"
 #include "GameEngineDirectBuffer.h"
 
-// Ό³Έν :
 class GameEngineIndexBuffer : public GameEngineResource<GameEngineIndexBuffer>, public GameEngineDirectBuffer
 {
 public:
-	// constrcuter destructer
 	GameEngineIndexBuffer();
 	~GameEngineIndexBuffer();
 
-	// delete Function
 	GameEngineIndexBuffer(const GameEngineIndexBuffer& _Other) = delete;
 	GameEngineIndexBuffer(GameEngineIndexBuffer&& _Other) noexcept = delete;
 	GameEngineIndexBuffer& operator=(const GameEngineIndexBuffer& _Other) = delete;

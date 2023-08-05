@@ -83,16 +83,12 @@ enum class ClipYDir
 	Bot,
 };
 
-
-// 설명 :
 class GameEngineSpriteRenderer : public GameEngineRenderer
 {
 public:
-	// constrcuter destructer
 	GameEngineSpriteRenderer();
 	~GameEngineSpriteRenderer();
 
-	// delete Function
 	GameEngineSpriteRenderer(const GameEngineSpriteRenderer& _Other) = delete;
 	GameEngineSpriteRenderer(GameEngineSpriteRenderer&& _Other) noexcept = delete;
 	GameEngineSpriteRenderer& operator=(const GameEngineSpriteRenderer& _Other) = delete;
@@ -146,7 +142,6 @@ public:
 		return AtlasData;
 	}
 
-	// 내 눈에 보이는 이미지에서 0.1;
 	void ImageClippingX(float _Ratio, ClipXDir _Dir);
 	void ImageClippingY(float _Ratio, ClipYDir _Dir);
 

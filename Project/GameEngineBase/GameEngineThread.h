@@ -4,20 +4,12 @@
 #include <atomic>
 #include <thread>
 
-// Ό³Έν :
 class GameEngineThread
 {
 public:
-	// constrcuter destructer
 	GameEngineThread();
 	GameEngineThread(std::string _ThreadName, std::function<void(GameEngineThread*)> _CallBack);
 	~GameEngineThread();
-
-	//// delete Function
-	//GameEngineThread(const GameEngineThread& _Other) = delete;
-	//GameEngineThread(GameEngineThread&& _Other) noexcept = delete;
-	//GameEngineThread& operator=(const GameEngineThread& _Other) = delete;
-	//GameEngineThread& operator=(GameEngineThread&& _Other) noexcept = delete;
 
 	void Start(std::string _ThreadName, std::function<void(GameEngineThread*)> _CallBack);
 

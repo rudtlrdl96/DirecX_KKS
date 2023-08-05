@@ -28,17 +28,14 @@ public:
 	virtual void OnGUI(std::shared_ptr<class GameEngineLevel> Level, float _DeltaTime) = 0;
 };
 
-// Ό³Έν :
 class GameEngineGUI
 {
 public:
 	static bool IsInit;
 
-	// constrcuter destructer
 	GameEngineGUI();
 	~GameEngineGUI();
 
-	// delete Function
 	GameEngineGUI(const GameEngineGUI& _Other) = delete;
 	GameEngineGUI(GameEngineGUI&& _Other) noexcept = delete;
 	GameEngineGUI& operator=(const GameEngineGUI& _Other) = delete;

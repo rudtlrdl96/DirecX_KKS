@@ -97,9 +97,6 @@
     <ClInclude Include="GameEngineBlend.h">
       <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineVideo.h">
-      <Filter>Resources\Movie</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineDepthState.h">
       <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
@@ -260,9 +257,6 @@
     <ClCompile Include="GameEngineBlend.cpp">
       <Filter>Resources\RenderingSetting</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineVideo.cpp">
-      <Filter>Resources\Movie</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngineDepthState.cpp">
       <Filter>Resources\RenderingSetting</Filter>
     </ClCompile>
@@ -376,9 +370,6 @@
     <Filter Include="Object\Rendering\Component\2D">
       <UniqueIdentifier>{90a6147b-b313-40db-99b0-8f952e7a45a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\Movie">
-      <UniqueIdentifier>{1170661b-aa82-40fd-bd8b-768071db3115}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{8a671e32-3cf5-4234-a5d7-b44b136d22c2}</UniqueIdentifier>
     </Filter>
@@ -443,6 +434,8 @@
     <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.dll">
       <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.dll" />
+    <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.dll">
+      <Filter>ThirdParty\Fw1Font\bin\Release</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

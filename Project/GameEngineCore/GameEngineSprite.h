@@ -7,17 +7,13 @@ public:
 	std::shared_ptr<GameEngineTexture> Texture;
 	float4 CutData;
 };
-// 이걸 만들때 그 텍스처가 로딩이 안되어있으면 텍스처의 로딩도 겸합니다.
 
-// 설명 : 스프라이트는 무조건 1개 이상의 이미지 정복사 들어있는
 class GameEngineSprite : public GameEngineResource<GameEngineSprite>
 {
 public:
-	// constrcuter destructer
 	GameEngineSprite();
 	~GameEngineSprite();
 
-	// delete Function
 	GameEngineSprite(const GameEngineSprite& _Other) = delete;
 	GameEngineSprite(GameEngineSprite&& _Other) noexcept = delete;
 	GameEngineSprite& operator=(const GameEngineSprite& _Other) = delete;

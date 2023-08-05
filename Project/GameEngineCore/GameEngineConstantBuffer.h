@@ -2,18 +2,14 @@
 #include "GameEngineResource.h"
 #include "GameEngineDirectBuffer.h"
 
-// 설명 :
 class GameEngineConstantBuffer : public GameEngineResource<GameEngineConstantBuffer>, public GameEngineDirectBuffer
 {
 	friend class GameEngineConstantBufferSetter;
 
 public:
-
-	// constrcuter destructer
 	GameEngineConstantBuffer();
 	~GameEngineConstantBuffer();
 
-	// delete Function
 	GameEngineConstantBuffer(const GameEngineConstantBuffer& _Other) = delete;
 	GameEngineConstantBuffer(GameEngineConstantBuffer&& _Other) noexcept = delete;
 	GameEngineConstantBuffer& operator=(const GameEngineConstantBuffer& _Other) = delete;
@@ -24,7 +20,6 @@ public:
 		if (ConstantBufferRes.end() == ConstantBufferRes.find(_Byte))
 		{
 			ConstantBufferRes[_Byte];
-			// 그 크기의 상수버퍼가 존재하지 않는다.
 		}
 
 		std::string UpperName = GameEngineString::ToUpper(_Name.data());

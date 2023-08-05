@@ -2,15 +2,12 @@
 #include "GameEngineGUI.h"
 #include "GameEngineLevel.h"
 
-// Ό³Έν :
 class GameEngineCoreWindow : public GameEngineGUIWindow
 {
 public:
-	// constrcuter destructer
 	GameEngineCoreWindow();
 	~GameEngineCoreWindow();
 
-	// delete Function
 	GameEngineCoreWindow(const GameEngineCoreWindow& _Other) = delete;
 	GameEngineCoreWindow(GameEngineCoreWindow&& _Other) noexcept = delete;
 	GameEngineCoreWindow& operator=(const GameEngineCoreWindow& _Other) = delete;

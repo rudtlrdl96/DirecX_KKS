@@ -1,15 +1,12 @@
 #pragma once
 #include "GameEngineResource.h"
 
-// 설명 :
 class GameEngineBlend : public GameEngineResource<GameEngineBlend>
 {
 public:
-	// constrcuter destructer
 	GameEngineBlend();
 	~GameEngineBlend();
 
-	// delete Function
 	GameEngineBlend(const GameEngineBlend& _Other) = delete;
 	GameEngineBlend(GameEngineBlend&& _Other) noexcept = delete;
 	GameEngineBlend& operator=(const GameEngineBlend& _Other) = delete;
@@ -32,8 +29,6 @@ private:
 
 	ID3D11BlendState* State = nullptr;
 
-	// 최종블랜드 적용 옵션
-	//             R G B A
 	UINT Mask = 0xFFFFFFFF;
 
 };

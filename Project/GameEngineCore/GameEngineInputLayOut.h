@@ -1,16 +1,12 @@
 #pragma once
 #include "GameEngineResource.h"
 
-
-// Ό³Έν :
 class GameEngineInputLayOut : public GameEngineResource<GameEngineInputLayOut>
 {
 public:
-	// constrcuter destructer
 	GameEngineInputLayOut();
 	~GameEngineInputLayOut();
 
-	// delete Function
 	GameEngineInputLayOut(const GameEngineInputLayOut& _Other) = delete;
 	GameEngineInputLayOut(GameEngineInputLayOut&& _Other) noexcept = delete;
 	GameEngineInputLayOut& operator=(const GameEngineInputLayOut& _Other) = delete;

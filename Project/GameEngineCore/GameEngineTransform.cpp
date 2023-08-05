@@ -42,16 +42,9 @@ InitColFunction InitFunction;
 
 void TransformData::LocalCalculation()
 {
-	// ScaleMatrix.Scale(Scale);
-
-	// Rotation.w = 0.0f;
 	Quaternion = Rotation.EulerDegToQuaternion();
-	//RotationMatrix = Quaternion.QuaternionToRotationMatrix();
-	//PositionMatrix.Pos(Position);
 
 	LocalWorldMatrix.Compose(Scale, Quaternion, Position);
-
-	// LocalWorldMatrix = ScaleMatrix * RotationMatrix * PositionMatrix;
 }
 
 void TransformData::WorldCalculation(const TransformData& _Parent, bool AbsoluteScale, bool AbsoluteRotation, bool AbsolutePosition)
@@ -92,10 +85,9 @@ void TransformData::WorldCalculation(const TransformData& _Parent, bool Absolute
 			LPosition *= InverseMat;
 		}
 
-		// 부모 재계산
 		float4x4 MatScale, MatRot, MatPos;
 		WorldMatrix.Compose(WScale, WRotation, WPosition);
-		// 자식 재계산				
+
 		ScaleMatrix.Scale(LScale);
 		RotationMatrix = Quaternion.QuaternionToRotationMatrix();
 		PositionMatrix.Pos(LPosition);
@@ -302,7 +294,6 @@ void GameEngineTransform::SetParent(GameEngineTransform* _Parent, bool _IsParent
 		return;
 	}
 
-	// 내가 원래 기존의 부모를 가지고 있다면
 	if (nullptr != Parent)
 	{
 		Parent->Child.remove(this);
@@ -348,10 +339,6 @@ void GameEngineTransform::SetParent(GameEngineTransform* _Parent, bool _IsParent
 			Level->Actors[MasterPtr->GetOrder()].remove(std::dynamic_pointer_cast<GameEngineActor>(MasterPtr));
 		}
 
-		// 나의 로컬포지션 나의 로컬 이런것들이 있었는데.
-		// 나는 새로운 부모가 생겼고
-		// 내가 이미 다른 부모가 있다면
-
 		Parent->Child.push_back(this);
 		Parent->Master->Childs.push_back(Master->shared_from_this());
 	}
@@ -364,8 +351,6 @@ void GameEngineTransform::SetParent(GameEngineTransform* _Parent, bool _IsParent
 		TransData.Scale = TransData.WorldScale;
 		TransformUpdate();
 		AbsoluteReset();
-
-		// 레벨에 집어넣어야 한다.
 
 		GameEngineLevel* Level = Master->GetLevel();
 
@@ -542,7 +527,8 @@ void GameEngineTransform::ChildRelease()
 
 		if (nullptr == Trans->Master)
 		{
-			MsgAssert("몬가 잘못됨 도라에몽을 부르자.");
+			MsgAssert("트랜스폼의 마스터를 찾을 수 없습니다.");
+			continue;
 		}
 
 		if (false == Trans->Master->IsDeath())
@@ -579,6 +565,5 @@ void GameEngineTransform::TransformUpdate()
 
 	WorldDecompose();
 	LocalDecompose();
-	// ParentWorldMatrix.Decompose(PScale, PRoatation, PPosition);
 
 }

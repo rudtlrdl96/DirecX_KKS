@@ -65,7 +65,6 @@ void GameEngineRenderUnit::Render(float _DeltaTime)
 	Mesh->Setting();
 	Pipe->RenderingPipeLineSetting();
 	ShaderResHelper.Setting();
-	// Pipe->Render();
 
 	UINT IndexCount = Mesh->IndexBufferPtr->GetIndexCount();
 	GameEngineDevice::GetContext()->DrawIndexed(IndexCount, 0, 0);
@@ -93,7 +92,7 @@ void GameEngineRenderer::RenderTransformUpdate(GameEngineCamera* _Camera)
 		return;
 	}
 
-	RenderCamera = _Camera; // 카메라 포인터 저장 주석해제
+	RenderCamera = _Camera;
 	GetTransform()->SetCameraMatrix(_Camera->GetView(), _Camera->GetProjection());
 }
 
@@ -101,11 +100,6 @@ void GameEngineRenderer::Render(float _Delta)
 {
 	BaseValue.Time.x += _Delta;
 	BaseValue.Time.y = _Delta;
-
-	// GameEngineDevice::GetContext()->VSSetConstantBuffers();
-	// GameEngineDevice::GetContext()->PSSetConstantBuffers();
-
-	// 텍스처 세팅 상수버퍼 세팅 이런것들이 전부다 처리 된다.
 
 	for (size_t i = 0; i < Units.size(); i++)
 	{
@@ -124,7 +118,6 @@ std::shared_ptr<GameEngineRenderingPipeLine> GameEngineRenderer::GetPipeLine(int
 	return Units[_index]->Pipe;
 }
 
-// 이걸 사용하게되면 이 랜더러의 유니트는 자신만의 클론 파이프라인을 가지게 된다.
 std::shared_ptr<GameEngineRenderingPipeLine> GameEngineRenderer::GetPipeLineClone(int _index/* = 0*/)
 {
 	if (Units.size() <= _index)
@@ -167,11 +160,6 @@ void GameEngineRenderer::SetMesh(const std::string_view& _Name, int _index /*= 0
 
 void GameEngineRenderer::SetPipeLine(const std::string_view& _Name, int _index)
 {
-	//if (0 >= Units.size())
-	//{
-	//	MsgAssert("랜더 유니트가 존재하지 않습니다.");
-	//}
-
 	if (Units.size() + 1 <= _index)
 	{
 		MsgAssert("너무큰 랜더유니트 확장을 하려고 했습니다");
@@ -215,8 +203,6 @@ void GameEngineRenderer::PushCameraRender(int _CameraOrder)
 void GameEngineRenderer::CalSortZ(GameEngineCamera* _Camera)
 {
 	CalZ = GetTransform()->GetWorldPosition().z;
-
-	// View행렬로 해야 카메라가 원점에 오고 그 원점을 기준으로 카메라가 위치한곳의 z로 처리한다.
 
 	//switch (_Camera->ProjectionType)
 	//{

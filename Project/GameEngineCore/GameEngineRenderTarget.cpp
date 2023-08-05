@@ -39,8 +39,6 @@ void GameEngineRenderTarget::ResCreate(DXGI_FORMAT _Format, float4 _Scale, float
 	Desc.MipLevels = 1;
 	Desc.Usage = D3D11_USAGE_DEFAULT;
 	Desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_RENDER_TARGET | D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE;
-	// Desc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_READ;
-	// Desc.MiscFlags = 0;
 
 	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Create(Desc);
 	Textures.push_back(Tex);
@@ -88,7 +86,6 @@ void GameEngineRenderTarget::Setting()
 		DSV = nullptr;
 	}
 
-	// 지금 당장은 z값을 쓰지 않겠습니다.
 	GameEngineDevice::GetContext()->OMSetRenderTargets(1, RTV, DSV);
 }
 
@@ -107,8 +104,6 @@ void GameEngineRenderTarget::CreateDepthTexture(int _Index)
 	Desc.Width = Textures[_Index]->GetWidth();
 	Desc.Height = Textures[_Index]->GetHeight();
 
-	//            4바이트중 3바이트는 0~1.0f 표현하는데 사용하고
-	//            나머지 뒤에있는 1바이트를 스텐실 값이라고 하는 걸로 사용할수 있게 하는 포맷.
 	Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
 	Desc.SampleDesc.Count = 1;
@@ -121,11 +116,6 @@ void GameEngineRenderTarget::CreateDepthTexture(int _Index)
 	Desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
 	DepthTexture = GameEngineTexture::Create(Desc);
 }
-
-
-// 랜더링 파이프라인을 따라야 한다.
-// 파이프라인
-
 
 void GameEngineRenderTarget::Merge(std::shared_ptr<GameEngineRenderTarget> _Other, size_t _Index)
 {
