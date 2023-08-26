@@ -140,6 +140,6 @@ void GameConsoleGUI::OnGUI(std::shared_ptr<class GameEngineLevel>, float _DeltaT
 			return;
 		}
 
-		Level->Cheat_GetSkull(static_cast<size_t>(CheatItemIndex));
+		Level->Cheat_GetItem(static_cast<size_t>(CheatItemIndex));
 	}
 }
